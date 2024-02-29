@@ -1,211 +1,350 @@
 @extends('web.layouts.default')
 @section('title', 'Blogs')
 @section('content')
-<!-- ========================
-       page title 
-    =========================== -->
-<section class="page-title page-title-layout5 bg-overlay">
-    <div class="bg-img"><img src="{{ asset('/assets/web/images/page-titles/8.jpg') }}" alt="background"></div>
+<!-- BREADCRUMB AREA START -->
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/bg/14.jpg">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <h1 class="pagetitle__heading">Health Essentials</h1>
-                <nav>
-                    <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Blog</li>
-                    </ol>
-                </nav>
-            </div><!-- /.col-12 -->
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-</section><!-- /.page-title -->
+            <div class="col-lg-12">
+                <div class="ltn__breadcrumb-inner">
+                    <h1 class="page-title">Blog Grid</h1>
+                    <div class="ltn__breadcrumb-list">
+                        <ul>
+                            <li><a href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                            <li>Blog Grid</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BREADCRUMB AREA END -->
 
-<!-- ======================
-      Blog Grid
-    ========================= -->
-<section class="blog-grid">
+<!-- BLOG AREA START -->
+<div class="ltn__blog-area ltn__blog-item-3-normal mb-100">
     <div class="container">
         <div class="row">
-            <!-- Post Item #1 -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="post-item">
-                    <div class="post__img">
-                        <a href="blog-single-post.html">
-                            <img src="{{ asset('/assets/web/images/blog/grid/1.jpg') }}" alt="post image" loading="lazy">
-                        </a>
-                    </div><!-- /.post__img -->
-                    <div class="post__body">
-                        <div class="post__meta-cat">
-                            <a href="#">Mental Health</a>
-                        </div><!-- /.blog-meta-cat -->
-                        <div class="post__meta d-flex">
-                            <span class="post__meta-date">Jan 30, 2022</span>
-                            <a class="post__meta-author" href="#">Martin King</a>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/1.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
                         </div>
-                        <h4 class="post__title"><a href="#">6 Tips to Protect Your Mental Health When You’re Sick</a></h4>
-
-                        <p class="post__desc">It’s normal to feel anxiety, worry and grief any time you’re diagnosed with a
-                            condition that’s certainly true if you test positive for COVID-19, or are presumed to be positive...
-                        </p>
-                        <a href="blog-single-post.html" class="btn btn__secondary btn__link btn__rounded">
-                            <span>Read More</span>
-                            <i class="icon-arrow-right"></i>
-                        </a>
-                    </div><!-- /.post__body -->
-                </div><!-- /.post-item -->
-            </div><!-- /.col-lg-4 -->
-            <!-- Post Item #2 -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="post-item">
-                    <div class="post__img">
-                        <a href="blog-single-post.html">
-                            <img src="{{ asset('/assets/web/images/blog/grid/2.jpg') }}" alt="post image" loading="lazy">
-                        </a>
-                    </div><!-- /.post__img -->
-                    <div class="post__body">
-                        <div class="post__meta-cat">
-                            <a href="#">Infectious</a><a href="#">Tips</a>
-                        </div><!-- /.blog-meta-cat -->
-                        <div class="post__meta d-flex">
-                            <span class="post__meta-date">Jan 30, 2022</span>
-                            <a class="post__meta-author" href="#">John Ezak</a>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">Common Engine Oil Problems and Solutions</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>June 24, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
                         </div>
-                        <h4 class="post__title"><a href="#">Unsure About Wearing a Face Mask? Here’s How and Why</a></h4>
-                        <p class="post__desc">That means that you should still be following any shelter-in-place orders in your
-                            community. But when you’re venturing out to the grocery store, pharmacy or hospital..
-                        </p>
-                        <a href="blog-single-post.html" class="btn btn__secondary btn__link btn__rounded">
-                            <span>Read More</span>
-                            <i class="icon-arrow-right"></i>
-                        </a>
-                    </div><!-- /.post__body -->
-                </div><!-- /.post-item -->
-            </div><!-- /.col-lg-4 -->
-            <!-- Post Item #3 -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="post-item">
-                    <div class="post__img">
-                        <a href="blog-single-post.html">
-                            <img src="{{ asset('/assets/web/images/blog/grid/3.jpg') }}" alt="post image" loading="lazy">
-                        </a>
-                    </div><!-- /.post__img -->
-                    <div class="post__body">
-                        <div class="post__meta-cat">
-                            <a href="#">Life Style</a><a href="#">Nutrition</a>
-                        </div><!-- /.blog-meta-cat -->
-                        <div class="post__meta d-flex">
-                            <span class="post__meta-date">Jan 28, 2022</span>
-                            <a class="post__meta-author" href="#">Saul Wade</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/2.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
                         </div>
-                        <h4 class="post__title"><a href="#">Tips for Eating Healthy When You’re Working From Home </a></h4>
-
-                        <p class="post__desc">It’s normal to feel anxiety, worry and grief any time you’re diagnosed with a
-                            condition that’s certainly true if you test positive for COVID-19, or are presumed to be positive...
-                        </p>
-                        <a href="blog-single-post.html" class="btn btn__secondary btn__link btn__rounded">
-                            <span>Read More</span>
-                            <i class="icon-arrow-right"></i>
-                        </a>
-                    </div><!-- /.post__body -->
-                </div><!-- /.post-item -->
-            </div><!-- /.col-lg-4 -->
-            <!-- Post Item #4 -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="post-item">
-                    <div class="post__img">
-                        <a href="blog-single-post.html">
-                            <img src="{{ asset('/assets/web/images/blog/grid/4.jpg') }}" alt="post image" loading="lazy">
-                        </a>
-                    </div><!-- /.post__img -->
-                    <div class="post__body">
-                        <div class="post__meta-cat">
-                            <a href="#">Disease</a><a href="#">Flu</a>
-                        </div><!-- /.blog-meta-cat -->
-                        <div class="post__meta d-flex">
-                            <span class="post__meta-date">Jan 30, 2022</span>
-                            <a class="post__meta-author" href="#">Mark Ezak</a>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">How and when to replace brake rotors</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>July 23, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
                         </div>
-                        <h4 class="post__title"><a href="#">Why Coronavirus Cases Among Adults Is Bad News</a></h4>
-                        <p class="post__desc">A new surge of coronavirus cases has spread across the country and while there’s
-                            still so much to learn about virus, how it’s transmitted and its long-term effects
-                        </p>
-                        <a href="blog-single-post.html" class="btn btn__secondary btn__link btn__rounded">
-                            <span>Read More</span>
-                            <i class="icon-arrow-right"></i>
-                        </a>
-                    </div><!-- /.post__body -->
-                </div><!-- /.post-item -->
-            </div><!-- /.col-lg-4 -->
-            <!-- Post Item #5 -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="post-item">
-                    <div class="post__img">
-                        <a href="blog-single-post.html">
-                            <img src="{{ asset('/assets/web/images/blog/grid/5.jpg') }}" alt="post image" loading="lazy">
-                        </a>
-                    </div><!-- /.post__img -->
-                    <div class="post__body">
-                        <div class="post__meta-cat">
-                            <a href="#">Mental Health</a><a href="#">Sales</a>
-                        </div><!-- /.blog-meta-cat -->
-                        <div class="post__meta d-flex">
-                            <span class="post__meta-date">Jan 30, 2022</span>
-                            <a class="post__meta-author" href="#">Martin King</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/3.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
                         </div>
-                        <h4 class="post__title"><a href="#">Why Do People Get Kidney Stones in the Summer? </a></h4>
-                        <p class="post__desc">Summer may have just officially started, but kidney stone season began a couple of
-                            weeks ago. Doctors see an increase in kidney stone cases when the weather warms up...
-                        </p>
-                        <a href="blog-single-post.html" class="btn btn__secondary btn__link btn__rounded">
-                            <span>Read More</span>
-                            <i class="icon-arrow-right"></i>
-                        </a>
-                    </div><!-- /.post__body -->
-                </div><!-- /.post-item -->
-            </div><!-- /.col-lg-4 -->
-            <!-- Post Item #6 -->
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <div class="post-item">
-                    <div class="post__img">
-                        <a href="blog-single-post.html">
-                            <img src="{{ asset('/assets/web/images/blog/grid/6.jpg') }}" alt="post image" loading="lazy">
-                        </a>
-                    </div><!-- /.post__img -->
-                    <div class="post__body">
-                        <div class="post__meta-cat">
-                            <a href="#">Infectious</a><a href="#">Disease</a>
-                        </div><!-- /.blog-meta-cat -->
-                        <div class="post__meta d-flex">
-                            <span class="post__meta-date">Feb 07, 2022</span>
-                            <a class="post__meta-author" href="#">Marie Black</a>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">Electric Car Maintenance, Servicing & Repairs</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>August 22, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
                         </div>
-                        <h4 class="post__title"><a href="#">Do Any Drugs Really Work to Treat Coronavirus? </a></h4>
-                        <p class="post__desc">While most people who get COVID-19 are able to recover at home, the rush is on to
-                            find a treatment that’s safe and effective against life-threatening cases of the disease...
-                        </p>
-                        <a href="blog-single-post.html" class="btn btn__secondary btn__link btn__rounded">
-                            <span>Read More</span>
-                            <i class="icon-arrow-right"></i>
-                        </a>
-                    </div><!-- /.post__body -->
-                </div><!-- /.post-item -->
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/4.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">How to Prepare for your First Track Day!</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>June 24, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/5.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">How to: Make Your Tires Last Longer</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>June 24, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/6.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">Common Engine Oil Problems and Solutions</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>June 24, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/7.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">How and when to replace brake rotors</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>July 23, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/8.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">Electric Car Maintenance, Servicing & Repairs</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>August 22, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Item -->
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-img">
+                        <a href="blog-details.html"><img src="img/blog/2.jpg" alt="#"></a>
+                    </div>
+                    <div class="ltn__blog-brief">
+                        <div class="ltn__blog-meta">
+                            <ul>
+                                <li class="ltn__blog-author">
+                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                </li>
+                                <li class="ltn__blog-tags">
+                                    <a href="#"><i class="fas fa-tags"></i>Services</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="ltn__blog-title"><a href="blog-details.html">How to: Make Your Tires Last Longer</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <ul>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>June 24, 2020</li>
+                                </ul>
+                            </div>
+                            <div class="ltn__blog-btn">
+                                <a href="blog-details.html">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+        </div>
         <div class="row">
-            <div class="col-12 text-center">
-                <nav class="pagination-area">
-                    <ul class="pagination justify-content-center">
-                        <li><a class="current" href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#"><i class="icon-arrow-right"></i></a></li>
-                    </ul>
-                </nav><!-- .pagination-area -->
-            </div><!-- /.col-12 -->
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-</section><!-- /.blog Grid -->
+            <div class="col-lg-12">
+                <div class="ltn__pagination-area text-center">
+                    <div class="ltn__pagination">
+                        <ul>
+                            <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">...</a></li>
+                            <li><a href="#">10</a></li>
+                            <li><a href="#"><i class="fas fa-angle-double-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BLOG AREA END -->
 
+<!-- CALL TO ACTION START (call-to-action-6) -->
+<div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
+                    <div class="coll-to-info text-color-white">
+                        <h1>Buy medical disposable face mask <br> to protect your loved ones</h1>
+                    </div>
+                    <div class="btn-wrapper">
+                        <a class="btn btn-effect-3 btn-white" href="shop.html">Explore Products <i class="icon-next"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CALL TO ACTION END -->
 
 @stop
 

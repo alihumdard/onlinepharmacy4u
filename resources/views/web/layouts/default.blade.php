@@ -3,7 +3,7 @@
 
 <head>
     @include('web.includes.head')
-    <title>@yield('title' , 'My WeightLoss')</title>
+    <title>@yield('title' , 'Online Pharmacy 4U')</title>
 </head>
 
 <body>

@@ -78,8 +78,8 @@
                                 <nav>
                                     <div class="ltn__main-menu">
                                         <ul>
-                                            <li class="menu-icon"><a href="#">Home</a>
-                                                <ul class="sub-menu menu-pages-img-show ltn__sub-menu-col-2---">
+                                            <li class="menu-icon"><a href="/">Home</a>
+                                                <!-- <ul class="sub-menu menu-pages-img-show ltn__sub-menu-col-2---">
                                                     <li>
                                                         <a href="index.html">Home Style 01</a>
                                                         <img src="img/home-demos/home-1.jpg" alt="#">
@@ -92,10 +92,11 @@
                                                         <a href="index-3.html">Home Style 03</a>
                                                         <img src="img/home-demos/home-3.jpg" alt="#">
                                                     </li>
-                                                </ul>
+                                                </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="#">About</a>
-                                                <ul>
+                                            <li class="menu-icon"><a href="/about">About</a>
+                                            <li class="menu-icon"><a href="service.html">Services</a>
+                                                <!-- <ul>
                                                     <li><a href="about.html">About</a></li>
                                                     <li><a href="service.html">Services</a></li>
                                                     <li><a href="service-details.html">Service Details</a></li>
@@ -106,10 +107,10 @@
                                                     <li><a href="team-details.html">Team Details</a></li>
                                                     <li><a href="faq.html">FAQ</a></li>
                                                     <li><a href="locations.html">Google Map Locations</a></li>
-                                                </ul>
+                                                </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="#">Shop</a>
-                                                <ul>
+                                            <li class="menu-icon"><a href="shop-grid.html">Shop</a>
+                                                <!-- <ul>
                                                     <li><a href="shop.html">Shop</a></li>
                                                     <li><a href="shop-grid.html">Shop Grid</a></li>
                                                     <li><a href="shop-left-sidebar.html">Shop Left sidebar</a></li>
@@ -126,19 +127,19 @@
                                                             <li><a href="register.html">Register</a></li>
                                                         </ul>
                                                     </li>
-                                                </ul>
+                                                </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="#">News</a>
-                                                <ul>
+                                            <li class="menu-icon"><a href="blog-grid.html">News</a>
+                                                <!-- <ul>
                                                     <li><a href="blog.html">News</a></li>
                                                     <li><a href="blog-grid.html">News Grid</a></li>
                                                     <li><a href="blog-left-sidebar.html">News Left sidebar</a></li>
                                                     <li><a href="blog-right-sidebar.html">News Right sidebar</a></li>
                                                     <li><a href="blog-details.html">News details</a></li>
-                                                </ul>
+                                                </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="#">Pages</a>
-                                                <ul class="mega-menu">
+                                            <li class="menu-icon"><a href="faq.html">FAQs</a>
+                                                <!-- <ul class="mega-menu">
                                                     <li><a href="#">Inner Pages</a>
                                                         <ul>
                                                             <li><a href="portfolio.html">Gallery</a></li>
@@ -171,10 +172,10 @@
                                                     </li>
                                                     <li><a href="shop.html"><img src="img/banner/menu-banner-1.png" alt="#"></a>
                                                     </li>
-                                                </ul>
+                                                </ul> --->
                                             </li>
                                             <li><a href="contact.html">Contact</a></li>
-                                        </ul>
+                                        </ul> 
                                     </div>
                                 </nav>
                             </div>

@@ -1,5 +1,5 @@
 @extends('web.layouts.default')
-@section('title', 'About Us')
+@section('title', 'Order Tracking')
 @section('content')
 
     

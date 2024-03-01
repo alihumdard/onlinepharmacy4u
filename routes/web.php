@@ -22,13 +22,11 @@ Route::get('/blog', function () {
     return view('web.pages.blogs');
 });
 
-Route::get('/about_us', function () {
-    return view('web.pages.about_us');
+Route::get('/about', function () {
+    return view('web.pages.about');
 });
 
-Route::get('/about_us', function () {
-    return view('web.pages.about_us');
-});
+
 
 Route::get('/contact', function(){
     return view('web.pages.contact');

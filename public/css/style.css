@@ -14680,3 +14680,17 @@ input.cart-plus-minus-box {
 ---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */
+
+
+
+/* sanader design */
+
+.ltn__copyright-design p{
+  font-size:13px !important;
+}
+.ltn__copyright-menu ul li a{
+  font-size:13px !important;
+}
+.footer-widget{
+  margin-bottom:0px;
+}

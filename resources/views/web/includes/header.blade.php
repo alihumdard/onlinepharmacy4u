@@ -16,8 +16,7 @@
                             <div class="top-bar-right text-end">
                                 <div class="ltn__top-bar-menu">
                                     <ul>
-                                        <li>
-                                            <!-- ltn__language-menu -->
+                                        <!-- <li>
                                             <div class="ltn__drop-menu ltn__currency-menu ltn__language-menu">
                                                 <ul>
                                                     <li><a href="#" class="dropdown-toggle"><span class="active-currency">English</span></a>
@@ -32,7 +31,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <!-- ltn__social-media -->
                                             <div class="ltn__social-media">
@@ -94,8 +93,8 @@
                                                     </li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="/about">About</a>
-                                            <li class="menu-icon"><a href="service.html">Services</a>
+                                            <li class="menu-icon"><a href="/about_us">About</a>
+                                            <li class="menu-icon"><a href="/services">Services</a>
                                                 <!-- <ul>
                                                     <li><a href="about.html">About</a></li>
                                                     <li><a href="service.html">Services</a></li>
@@ -109,7 +108,7 @@
                                                     <li><a href="locations.html">Google Map Locations</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="shop-grid.html">Shop</a>
+                                            <li class="menu-icon"><a href="/shop">Shop</a>
                                                 <!-- <ul>
                                                     <li><a href="shop.html">Shop</a></li>
                                                     <li><a href="shop-grid.html">Shop Grid</a></li>
@@ -129,7 +128,7 @@
                                                     </li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="blog-grid.html">News</a>
+                                            <li class="menu-icon"><a href="/news">News</a>
                                                 <!-- <ul>
                                                     <li><a href="blog.html">News</a></li>
                                                     <li><a href="blog-grid.html">News Grid</a></li>
@@ -138,7 +137,7 @@
                                                     <li><a href="blog-details.html">News details</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="faq.html">FAQs</a>
+                                            <li class="menu-icon"><a href="/faqs">FAQs</a>
                                                 <!-- <ul class="mega-menu">
                                                     <li><a href="#">Inner Pages</a>
                                                         <ul>
@@ -174,7 +173,7 @@
                                                     </li>
                                                 </ul> --->
                                             </li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href="/contact">Contact</a></li>
                                         </ul> 
                                     </div>
                                 </nav>
@@ -204,10 +203,10 @@
                                     <li>
                                         <a href="#"><i class="icon-user"></i></a>
                                         <ul>
-                                            <li><a href="login.html">Sign in</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="account.html">My Account</a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                            <li><a href="/login">Sign in</a></li>
+                                            <li><a href="/register">Register</a></li>
+                                            <li><a href="/account">My Account</a></li>
+                                            <li><a href="/wishlist">Wishlist</a></li>
                                         </ul>
                                     </li>
                                 </ul>

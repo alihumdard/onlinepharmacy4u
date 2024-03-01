@@ -7,7 +7,7 @@
                         <div class="footer-widget footer-about-widget">
                             <div class="footer-logo">
                                 <div class="site-logo">
-                                    <img src="img/logo.png" width="50px" height="50px" alt="Logo">
+                                    <img src="img/logo.webp" width="200px" height="auto" alt="Logo">
                                 </div>
                             </div>
                             <p>Lorem Ipsum is simply dummy text of the and typesetting industry. Lorem Ipsum is dummy text of the printing.</p>
@@ -118,7 +118,7 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="ltn__copyright-design clearfix">
-                            <p>All Rights Reserved @ Company <span class="current-year"></span></p>
+                            <p>All Rights Reserved @ Online Pharmacy 4U <span class="current-year"></span> | Design and develop by <a href="https://techsolutionspro.co.uk">Tech Solutions Pro</a></p>
                         </div>
                     </div>
                     <div class="col-md-6 col-12 align-self-center">

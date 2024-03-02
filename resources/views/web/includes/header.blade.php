@@ -93,7 +93,7 @@
                                                     </li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="/about_us">About</a>
+                                            <li class="menu-icon"><a href="/about">About</a>
                                             <li class="menu-icon"><a href="/services">Services</a>
                                                 <!-- <ul>
                                                     <li><a href="about.html">About</a></li>

@@ -28,7 +28,7 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60---" data-bs-bg="img/slider/11.jpg">
+        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60---" data-bs-bg="img/slider/Home-page-main banner.chrome html document">
             <div class="ltn__slide-item-inner text-center">
                 <div class="container">
                     <div class="row">
@@ -332,7 +332,8 @@
                     <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
-                                <a href="product-details.html"><img src="img/product/1.png" alt="#"></a>
+                                <a href="product-details.html">
+                                    <img src="img/product/1.png" alt="#"></a>
                                 <div class="product-badge">
                                     <ul>
                                         <li class="sale-badge">New</li>
@@ -341,7 +342,7 @@
                                 <div class="product-hover-action">
                                     <ul>
                                         <li>
-                                            <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
+                                            <a href="" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
                                                 <i class="far fa-eye"></i>
                                             </a>
                                         </li>

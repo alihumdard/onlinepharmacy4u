@@ -6183,6 +6183,9 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   padding-bottom: 100px;
   height: 750px; }
 
+  /* .ltn__slide-item {
+    background: url('../img/slider/Home-page-main-banner.jpg') !important;
+  } */
 .ltn__slide-item-inner {
   height: 100%;
   display: -webkit-box;
@@ -14694,3 +14697,4 @@ input.cart-plus-minus-box {
 .footer-widget{
   margin-bottom:0px;
 }
+

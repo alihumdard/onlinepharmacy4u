@@ -7,8 +7,8 @@
                         <div class="col-md-7">
                             <div class="ltn__top-bar-menu">
                                 <ul>
-                                    <li><a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you"><i class="icon-mail"></i> info@webmail.com</a></li>
-                                    <li><a href="locations.html"><i class="icon-placeholder"></i> 15/A, Nest Tower, NYC</a></li>
+                                    <li class="text-white"><a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you"><i class="icon-mail text-white"></i> info@webmail.com</a></li>
+                                    <li class="text-white"><a href="locations.html"><i class="icon-placeholder text-white"></i> 15/A, Nest Tower, NYC</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                         </li> -->
                                         <li>
                                             <!-- ltn__social-media -->
-                                            <div class="ltn__social-media">
+                                            <div class="ltn__social-media text-white">
                                                 <ul>
                                                     <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                                                     <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>

@@ -13,9 +13,9 @@
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
                                     <h6 class="slide-sub-title white-color--- animated text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated text-white">Get 20% Discount <br>Of N95 Mask</h1>
+                                    <h1 class="slide-title animated text-white">Your Wellness, Just a Click Away<br>Online Pharmacy4U!</h1>
                                     <div class="slide-brief animated">
-                                        <p class=" text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                        <p class=" text-white">As the fast-expanding Online Pharmacy in the UK, our commitment to prioritising customer needs underscores our service. With a paramount focus on health and well-being, we guarantee complimentary delivery of all your medications.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="shop.html" class="theme-btn-1 btn btn-effect-1">Shop Now</a>

@@ -41,9 +41,9 @@
                                         </a>
                                     </div>
                                     <h6 class="slide-sub-title white-color--- animated text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated text-white">Get 20% Discount <br>Of N95 Mask</h1>
+                                    <h1 class="slide-title animated text-white">Your Trusted Path to Wellness, <br>Where Convenience Meets Care!</h1>
                                     <div class="slide-brief animated">
-                                        <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                        <p class="text-white">Experience convenient healthcare with Online Pharmacy4U. Browse a vast selection of medications, health products, and expert advice. Your well-being matters, and we swiftly and reliably deliver quality healthcare to your doorstep.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="shop.html" class="theme-btn-1 btn btn-effect-1">Shop Now</a>
@@ -64,7 +64,7 @@
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
                                     <h6 class="slide-sub-title white-color--- animated  text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated  text-white">Get 20% Discount <br>Of N95 Mask</h1>
+                                    <h1 class="slide-title animated  text-white">Prescriptions made simple, <br>proud to serve you!</h1>
                                     <div class="slide-brief animated">
                                         <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
                                     </div>

@@ -234,6 +234,8 @@
                         <li><i class="fas fa-check-square"></i> Fast and Free Delivery</li>
                         <li><i class="fas fa-check-square"></i> Customer-Centric Approach</li>
                     </ul>
+
+                    
                     <div class="about-author-info-2 border-top mt-30 pt-20">
                         <ul>
                             <li>

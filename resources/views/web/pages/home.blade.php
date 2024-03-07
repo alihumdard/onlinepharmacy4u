@@ -218,21 +218,21 @@
         <div class="row">
             <div class="col-lg-6 align-self-center">
                 <div class="about-us-img-wrap about-img-left">
-                    <img src="img/others/9.png" alt="About Us Image">
+                    <img src="img/others/9.webp" alt="About Us Image">
                 </div>
             </div>
             <div class="col-lg-6 align-self-center">
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-30">
                         <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                        <h1 class="section-title">Your faithful partners Medical Goods</h1>
-                        <p>Houzez allow you to design unlimited panels and real estate custom
-                            forms to capture leads and keep record of all information</p>
+                        <h1 class="section-title">Let Online Pharmacy4U be your helping hand!</h1>
+                        <p>Online Pharmacy4U has become a source of efficiency and care in the digital health field. It connects users with a wide range of healthcare solutions and leads in simplifying prescriptions. Dedicated to providing excellent customer service, Online Pharmacy4U brings wellness to people's doorsteps, helping to create a more accessible and healthy future.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
-                        <li><i class="fas fa-check-square"></i> Better security for patient privacy and information.</li>
-                        <li><i class="fas fa-check-square"></i> More products at lower prices.</li>
-                        <li><i class="fas fa-check-square"></i> connect customers with the power of eCommerce at all.</li>
+                        <li><i class="fas fa-check-square"></i> Convenient</li>
+                        <li><i class="fas fa-check-square"></i> Extensive Selection</li>
+                        <li><i class="fas fa-check-square"></i> Fast and Free Delivery</li>
+                        <li><i class="fas fa-check-square"></i> Customer-Centric Approach</li>
                     </ul>
                     <div class="about-author-info-2 border-top mt-30 pt-20">
                         <ul>
@@ -274,21 +274,21 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/1.jpg" alt="Banner Image"></a>
+                        <a href="shop.html"><img src="img/banner/1.webp" alt="Banner Image"></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/2.jpg" alt="Banner Image"></a>
+                        <a href="shop.html"><img src="img/banner/2.webp" alt="Banner Image"></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/3.jpg" alt="Banner Image"></a>
+                        <a href="shop.html"><img src="img/banner/3.webp" alt="Banner Image"></a>
                     </div>
                 </div>
             </div>
@@ -313,14 +313,14 @@
                     <div class="col-lg-12 col-sm-6">
                         <div class="ltn__banner-item">
                             <div class="ltn__banner-img">
-                                <a href="shop.html"><img src="img/banner/11.jpg" alt="Banner Image"></a>
+                                <a href="shop.html"><img src="img/banner/11.webp" alt="Banner Image"></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-sm-6">
                         <div class="ltn__banner-item">
                             <div class="ltn__banner-img">
-                                <a href="shop.html"><img src="img/banner/12.jpg" alt="Banner Image"></a>
+                                <a href="shop.html"><img src="img/banner/12.webp" alt="Banner Image"></a>
                             </div>
                         </div>
                     </div>
@@ -333,7 +333,7 @@
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
                                 <a href="product-details.html">
-                                    <img src="img/product/1.png" alt="#"></a>
+                                    <img src="img/product/1.avif" alt="#"></a>
                                 <div class="product-badge">
                                     <ul>
                                         <li class="sale-badge">New</li>
@@ -380,7 +380,7 @@
                     <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
-                                <a href="product-details.html"><img src="img/product/2.png" alt="#"></a>
+                                <a href="product-details.html"><img src="img/product/2.avif" alt="#"></a>
                                 <div class="product-hover-action">
                                     <ul>
                                         <li>
@@ -422,7 +422,7 @@
                     <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
-                                <a href="product-details.html"><img src="img/product/3.png" alt="#"></a>
+                                <a href="product-details.html"><img src="img/product/3.avif" alt="#"></a>
                                 <div class="product-badge">
                                     <ul>
                                         <li class="sale-badge">New</li>
@@ -469,7 +469,7 @@
                     <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
-                                <a href="product-details.html"><img src="img/product/4.png" alt="#"></a>
+                                <a href="product-details.html"><img src="img/product/4.avif" alt="#"></a>
                                 <div class="product-badge">
                                     <ul>
                                         <li class="sale-badge">New</li>
@@ -516,7 +516,7 @@
                     <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
-                                <a href="product-details.html"><img src="img/product/5.png" alt="#"></a>
+                                <a href="product-details.html"><img src="img/product/5.avif" alt="#"></a>
                                 <div class="product-badge">
                                     <ul>
                                         <li class="sale-badge">New</li>
@@ -563,7 +563,7 @@
                     <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
-                                <a href="product-details.html"><img src="img/product/6.png" alt="#"></a>
+                                <a href="product-details.html"><img src="img/product/6.avif" alt="#"></a>
                                 <div class="product-badge">
                                     <ul>
                                         <li class="sale-badge">New</li>
@@ -656,7 +656,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-left">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product-2/1.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product-2/7.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -703,7 +703,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-left">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product-2/2.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product-2/8.avif" alt="#"></a>
                         <div class="product-hover-action">
                             <ul>
                                 <li>
@@ -745,7 +745,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-left">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product-2/3.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product-2/9.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -792,7 +792,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-left">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product-2/4.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product-2/10.webp" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -839,7 +839,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-left">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product-2/5.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product-2/11.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -886,7 +886,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-left">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product-2/6.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product-2/12.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -933,7 +933,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-left">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product-2/7.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product-2/7.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -980,7 +980,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-left">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product-2/8.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product-2/8.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -1136,7 +1136,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-center">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product/1.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product/1.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -1183,7 +1183,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-center">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product/2.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product/2.avif" alt="#"></a>
                         <div class="product-hover-action">
                             <ul>
                                 <li>
@@ -1225,7 +1225,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-center">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product/3.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product/3.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -1272,7 +1272,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                 <div class="ltn__product-item ltn__product-item-3 text-center">
                     <div class="product-img">
-                        <a href="product-details.html"><img src="img/product/4.png" alt="#"></a>
+                        <a href="product-details.html"><img src="img/product/4.avif" alt="#"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -1328,21 +1328,21 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/23.jpg" alt="Banner Image"></a>
+                        <a href="shop.html"><img src="img/banner/23.webp" alt="Banner Image"></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/22.jpg" alt="Banner Image"></a>
+                        <a href="shop.html"><img src="img/banner/22.webp" alt="Banner Image"></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/21.jpg" alt="Banner Image"></a>
+                        <a href="shop.html"><img src="img/banner/21.webp" alt="Banner Image"></a>
                     </div>
                 </div>
             </div>
@@ -1416,7 +1416,7 @@
             <div class="col-lg-12">
                 <div class="ltn__blog-item ltn__blog-item-3">
                     <div class="ltn__blog-img">
-                        <a href="blog-details.html"><img src="img/blog/1.jpg" alt="#"></a>
+                        <a href="blog-details.html"><img src="img/blog/1.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
@@ -1447,7 +1447,7 @@
             <div class="col-lg-12">
                 <div class="ltn__blog-item ltn__blog-item-3">
                     <div class="ltn__blog-img">
-                        <a href="blog-details.html"><img src="img/blog/2.jpg" alt="#"></a>
+                        <a href="blog-details.html"><img src="img/blog/2.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
@@ -1478,7 +1478,7 @@
             <div class="col-lg-12">
                 <div class="ltn__blog-item ltn__blog-item-3">
                     <div class="ltn__blog-img">
-                        <a href="blog-details.html"><img src="img/blog/3.jpg" alt="#"></a>
+                        <a href="blog-details.html"><img src="img/blog/3.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">

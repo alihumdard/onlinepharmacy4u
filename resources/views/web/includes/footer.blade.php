@@ -10,7 +10,7 @@
                                     <img src="img/logo.webp" width="200px" height="auto" alt="Logo">
                                 </div>
                             </div>
-                            <p>Lorem Ipsum is simply dummy text of the and typesetting industry. Lorem Ipsum is dummy text of the printing.</p>
+                            <p>At Online Pharmacy4U, we blend technology with care, delivering health at your doorstep. Navigate a world of wellness with our user-friendly platform – your trusted partner for a healthier life.</p>
                             <div class="footer-address">
                                 <ul>
                                     <li>

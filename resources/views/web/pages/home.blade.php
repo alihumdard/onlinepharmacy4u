@@ -13,7 +13,7 @@
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
                                     <h6 class="slide-sub-title white-color--- animated text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated text-white">Your Wellness, Just a Click Away<br>Online Pharmacy4U!</h1>
+                                    <h1 class="slide-title animated text-white">Your Wellness, Just a Click Away Online Pharmacy4U!</h1>
                                     <div class="slide-brief animated">
                                         <p class=" text-white">As the fast-expanding Online Pharmacy in the UK, our commitment to prioritising customer needs underscores our service. With a paramount focus on health and well-being, we guarantee complimentary delivery of all your medications.</p>
                                     </div>
@@ -41,7 +41,7 @@
                                         </a>
                                     </div>
                                     <h6 class="slide-sub-title white-color--- animated text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated text-white">Your Trusted Path to Wellness, <br>Where Convenience Meets Care!</h1>
+                                    <h1 class="slide-title animated text-white">Your Trusted Path to Wellness, Where Convenience Meets Care!</h1>
                                     <div class="slide-brief animated">
                                         <p class="text-white">Experience convenient healthcare with Online Pharmacy4U. Browse a vast selection of medications, health products, and expert advice. Your well-being matters, and we swiftly and reliably deliver quality healthcare to your doorstep.</p>
                                     </div>

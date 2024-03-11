@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- BREADCRUMB AREA START -->
-    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/bg/14.jpg">
+    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="allbanners/About.webp">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -35,9 +35,9 @@
                     <div class="about-us-info-wrap">
                         <div class="section-title-area ltn__section-title-2--- mb-30">
                             <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                            <h1 class="section-title">Your faithful partners Medical Goods</h1>
-                            <p>Houzez allow you to design unlimited panels and real estate custom
-                                forms to capture leads and keep record of all information</p>
+                            <h1 class="section-title">Who Are We?</h1>
+                            <p>Online Pharmacy4U – your dedicated healthcare companion in the digital era. Our platform is designed for simplicity, offering an extensive range of medications and health solutions at your fingertips. </p> <br>
+                            <p>At Online Pharmacy4U, we prioritise your well-being, ensuring quick and secure delivery of prescriptions right to your doorstep. Our commitment to excellence extends beyond transactions; we're here to provide expert guidance, personalised support, and a user-centric experience. Trust us for a healthier, more accessible future in healthcare.</p>
                         </div>
                         <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
                             <li><i class="fas fa-check-square"></i> Better security for patient privacy and information.</li>
@@ -45,7 +45,8 @@
                             <li><i class="fas fa-check-square"></i> connect customers with the power of eCommerce at all.</li>
                         </ul>
                         <div class="about-author-info-2 border-top mt-30 pt-20">
-                            <ul>
+                            <p>We understand the importance of accessible and reliable healthcare. Our platform is dedicated to providing a comprehensive range of services, including both basic consultation and product consultation, to ensure that you receive the personalised care you deserve from the comfort of your own home.</p>
+                            <!-- <ul>
                                 <li>
                                     <div class="about-author-info-2-brief  d-flex">
                                         <div class="author-img">
@@ -68,7 +69,7 @@
                                         </div>
                                     </div>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                 </div>
@@ -85,9 +86,8 @@
                     <div class="call-to-action-inner text-color-white--- text-center---">
                         <div class="section-title-area ltn__section-title-2--- text-center---">
                             <h6 class="ltn__secondary-color">Todays Hot Offer</h6>
-                            <h1 class="section-title">Free Covid-19 Vaccine<br>Campaign Ticket</h1>
-                            <p>Cur tantas regiones barbarorum obiit, tot maria transmist <br>
-                                summo bono fruitur id est voluptate barbarorum </p>
+                            <h1 class="section-title">Basic Consultation:</h1>
+                            <p>Our basic consultation services are designed to address your general health concerns and provide guidance on a wide range of common health issues. Whether you have questions about minor ailments, need advice on over-the-counter medications, or want information on maintaining a healthy lifestyle, our team of qualified healthcare professionals is here to assist you. The basic consultation service is user-friendly, allowing you to submit your queries online and receive prompt, confidential responses tailored to your specific needs.</p>
                         </div>
                         <div class="ltn__countdown ltn__countdown-3 bg-white--" data-countdown="2021/12/28"></div>
                         <div class="btn-wrapper animated">

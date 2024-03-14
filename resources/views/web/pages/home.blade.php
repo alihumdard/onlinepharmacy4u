@@ -66,7 +66,7 @@
                                     <h6 class="slide-sub-title white-color--- animated  text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
                                     <h1 class="slide-title animated  text-white">Prescriptions made simple, <br>proud to serve you!</h1>
                                     <div class="slide-brief animated">
-                                        <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                        <p class="text-white">At Online Pharmacy4U, we take pride in serving you, ensuring simplicity and efficiency in every prescription, and fostering your well-being with care.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="shop.html" class="theme-btn-1 btn btn-effect-1">Shop Now</a>
@@ -1032,12 +1032,12 @@
 <!-- PRODUCT AREA END -->
 
 <!-- ABOUT US AREA START -->
-<div class="ltn__about-us-area section-bg-1 bg-image-left-before pt-115 pb-115">
+<div class="ltn__about-us-area section-bg-1 bg-image-left-before pt-115 pb-115 d-none" >
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center">
-                <div class="about-us-img-wrap about-img-left---">
-
+                <div class="about-us-img-wrap about-img-left--- " data-bs-bg="img/allbanners/homepage2.webp">
+                    <!-- <img src="img/allbanners/homepage2.webp" alt="About Us Image"> -->
                 </div>
             </div>
             <div class="col-lg-6 align-self-center">
@@ -1078,12 +1078,12 @@
 <!-- ABOUT US AREA END -->
 
 <!-- ABOUT US AREA START -->
-<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-115 pb-110 d-none" data-bs-bg="img/bg/26.jpg">
+<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-115 pb-110" >
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center">
                 <div class="about-us-img-wrap about-img-left">
-                    <!-- <img src="img/others/7.png" alt="About Us Image"> -->
+                    <img src="img/allbanners/home3.png" alt="About Us Image">
                 </div>
             </div>
             <div class="col-lg-6 align-self-center">

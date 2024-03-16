@@ -5,7 +5,7 @@
 
 <!-- Favicons -->
 <link href="{{asset('assets/admin/img/favicon.png')}}" rel="icon">
-<link href="{{asset('assets/admin/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+<link href="{{asset('assets/admin/img/weightloss_logo.png') }}" rel="apple-touch-icon">
 <!-- jQuery -->
 <script src="{{asset('/assets/admin/plugins/jquery/jquery.min.js') }}"></script>
 
@@ -39,3 +39,16 @@
 
 {{-- select2 libarary --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+  /* Set default zoom level to 100% */
+  body {
+    zoom: 100%;
+  }
+
+  /* Apply zoom level of 80% for laptop screens */
+  @media only screen and (min-width: 1024px) {
+    body {
+      zoom: 80%;
+    }
+  }
+</style>

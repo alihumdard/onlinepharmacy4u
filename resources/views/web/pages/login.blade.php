@@ -37,7 +37,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="account-login-inner">
-                        <form action="#" class="ltn__form-box contact-form-box">
+                        <form action="{{ route('login')}}" method="post" class="ltn__form-box contact-form-box">
+                            @csrf
                             <input type="text" name="email" placeholder="Email*">
                             <input type="password" name="password" placeholder="Password*">
                             <div class="btn-wrapper mt-0">

@@ -1,7 +1,7 @@
   <!-- ======= Footer ======= -->
 <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright 2024 <strong><span>My Weight Loss</span></strong>. All Rights Reserved
+      &copy; Copyright 2024 <strong><span>Online Pharmacy 4U</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

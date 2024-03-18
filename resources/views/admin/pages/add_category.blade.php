@@ -57,9 +57,11 @@
                                 <label for="publish" class="form-label">Select Parent</label>
                                 <select id="parent_id" name="parent_id" class="form-select">
                                     <option value="">Select</option>
-                                    @foreach ($parents as $key => $value)
-                                        <option value="{{ $value['id'] }}" @if ($value['id'] == $category['category_id']) selected @endif>{{ $value['name'] }}</option>
-                                    @endforeach
+                                    @if(@isset($parents))
+                                        @foreach ($parents as $key => $value)
+                                            <option value="{{ $value['id'] }}" @if ($value['id'] == $category['category_id']) selected @endif>{{ $value['name'] }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                             <div class="col-12">

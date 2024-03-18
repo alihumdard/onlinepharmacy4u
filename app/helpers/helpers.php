@@ -69,6 +69,8 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'categories':
+                case 'sub_categories':
+                case 'child_categories':
                 case 'add_category':
                 case 'collections':
                 case 'add_collection':

@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\UserBmi;
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\ChildCategory;
 use App\Models\Question;
 use App\Models\Collection;
 use App\Models\Transaction;
@@ -281,7 +283,20 @@ class SystemController extends Controller
 
         $data['user'] = auth()->user();
         if ($request->has('id')) {
-            $data['category'] = Category::findOrFail($request->id)->toArray();
+            if($request->selection == 1){
+                $data['category'] = Category::findOrFail($request->id)->toArray();
+                $data['selection'] = 1;  
+            }
+            elseif($request->selection == 2){
+                $data['category'] = SubCategory::findOrFail($request->id)->toArray(); 
+                $data['selection'] = 2;
+                $data['parents'] = Category::all()->toArray();
+            }
+            elseif($request->selection == 3){
+                $data['category'] = ChildCategory::findOrFail($request->id)->toArray();
+                $data['selection'] = 3;
+                $data['parents'] = SubCategory::all()->toArray();
+            }
         }
 
         return view('admin.pages.add_category', $data);
@@ -289,19 +304,43 @@ class SystemController extends Controller
 
     public function store_category(Request $request)
     {
+        // use for main,sub and child categories
         $user = auth()->user();
         $page_name = 'add_category';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
 
-        $validator = Validator::make($request->all(), [
-            'publish'   => 'required',
-            'name'     => [
-                'required',
-                Rule::unique('categories')->ignore($request->id),
-            ],
-        ]);
+        $selection = $request->selection;
+        if($selection == 1){
+            $validator = Validator::make($request->all(), [
+                'publish'   => 'required',
+                'name'     => [
+                    'required',
+                    Rule::unique('categories')->ignore($request->id),
+                ],
+            ]);
+        }
+        elseif ($selection == 2){
+            $validator = Validator::make($request->all(), [
+                'publish'   => 'required',
+                'parent_id'   => 'required',
+                'name'     => [
+                    'required',
+                    Rule::unique('sub_categories')->ignore($request->id),
+                ],
+            ]);
+        }
+        elseif ($selection == 3){
+            $validator = Validator::make($request->all(), [
+                'publish'   => 'required',
+                'parent_id'   => 'required',
+                'name'     => [
+                    'required',
+                    Rule::unique('child_categories')->ignore($request->id),
+                ],
+            ]);
+        }
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -309,19 +348,103 @@ class SystemController extends Controller
 
         $data['user'] = auth()->user();
 
-        $saved = Category::updateOrCreate(
-            ['id' => $request->id ?? NULL],
-            [
-                'name'       => ucwords($request->name),
-                'desc'       => $request->desc,
-                'publish'    => $request->publish,
-                'created_by' => $user->id,
-            ]
-        );
-        $message = "category " . ($request->id ? "Updated" : "Saved") . " Successfully";
-        if ($saved) {
-            return redirect()->route('admin.categories')->with(['msg' => $message]);
+        if($selection == 1){
+            $saved = Category::updateOrCreate(
+                ['id' => $request->id ?? NULL],
+                [
+                    'name'       => ucwords($request->name),
+                    'desc'       => $request->desc,
+                    'publish'    => $request->publish,
+                    'created_by' => $user->id,
+                ]
+            );
+            $message = "category " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            if ($saved) {
+                return redirect()->route('admin.categories')->with(['msg' => $message]);
+            }
         }
+        elseif($selection == 2){
+            $saved = SubCategory::updateOrCreate(
+                ['id' => $request->id ?? NULL],
+                [
+                    'name'       => ucwords($request->name),
+                    'category_id' => $request->parent_id,
+                    'desc'       => $request->desc,
+                    'publish'    => $request->publish,
+                    'created_by' => $user->id,
+                ]
+            );
+            $message = "sub category " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            if ($saved) {
+                return redirect()->route('admin.subCategories')->with(['msg' => $message]);
+            }
+        }
+        elseif($selection == 3){
+            $saved = ChildCategory::updateOrCreate(
+                ['id' => $request->id ?? NULL],
+                [
+                    'name'       => ucwords($request->name),
+                    'subcategory_id' => $request->parent_id,
+                    'desc'       => $request->desc,
+                    'publish'    => $request->publish,
+                    'created_by' => $user->id,
+                ]
+            );
+            $message = "child category " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            if ($saved) {
+                return redirect()->route('admin.childCategories')->with(['msg' => $message]);
+            }
+        }
+    }
+
+    public function sub_categories()
+    {
+        $user = auth()->user();
+        $page_name = 'sub_categories';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['categories'] = SubCategory::with('category')->latest('id')->get()->toArray();
+        }
+
+        return view('admin.pages.sub_categories', $data);
+    }
+
+    public function child_categories()
+    {
+        $user = auth()->user();
+        $page_name = 'child_categories';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['categories'] = ChildCategory::with('subcategory')->latest('id')->get()->toArray();
+        }
+
+        return view('admin.pages.child_categories', $data);
+    }
+
+    public function get_parent_category(Request $request)
+    {
+        $selection = $request->selection; 
+        if($selection == 2){
+            $parents = Category::select('id', 'name')
+                ->pluck('name', 'id')
+                ->toArray();
+        }
+        elseif($selection == 3){
+            $parents = SubCategory::select('id', 'name')
+                ->pluck('name', 'id')
+                ->toArray();
+        }
+        return response()->json(['status' => 'success', 'parents' => $parents]);
     }
 
     // collections managment ...

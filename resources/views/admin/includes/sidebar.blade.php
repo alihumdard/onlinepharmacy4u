@@ -62,6 +62,16 @@
                         <i class="bi bi-circle"></i><span>New Add</span>
                     </a>
                 </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.subCategories'])) ? 'nav-link ' : ''}}" href="{{route('admin.subCategories')}}">
+                        <i class="bi bi-circle"></i><span>Sub Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.childCategories'])) ? 'nav-link ' : ''}}" href="{{route('admin.childCategories')}}">
+                        <i class="bi bi-circle"></i><span>Child Categories</span>
+                    </a>
+                </li>
 
             </ul>
         </li>

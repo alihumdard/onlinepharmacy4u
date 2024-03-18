@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Categories')
+@section('title', 'Sub Categories')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -68,7 +68,8 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">#</th>
-                                    <th style="vertical-align: middle; text-align: center;">Category Name</th>
+                                    <th style="vertical-align: middle; text-align: center;">Parent Name</th>
+                                    <th style="vertical-align: middle; text-align: center;">Name</th>
                                     <th style="vertical-align: middle; text-align: center;">Status</th>
                                     <th style="vertical-align: middle; text-align: center;">Active/Inactive</th>
                                     <th style="vertical-align: middle; text-align: center;">Actions</th>
@@ -78,6 +79,7 @@
                                 @foreach($categories as $key => $value)
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">{{ ++$key }}</th>
+                                    <td style="vertical-align: middle; text-align: center;">{{$value['category']['name'] ?? '' }}</td>
                                     <td style="vertical-align: middle; text-align: center;">{{$value['name'] ?? '' }}</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold;">{{$value['publish'] ?? '' }} </td>
                                     <td style="vertical-align: middle; text-align: center;">
@@ -111,7 +113,7 @@
 <form  id="edit_form" action="{{route('admin.addCategory')}}" method="post">
     @csrf
     <input id="edit_form_id_input" type="hidden" value="" name="id">
-    <input id="selection" type="hidden" value="1" name="selection">
+    <input id="selection" type="hidden" value="2" name="selection">
 </form>
 <!-- End #main -->
 

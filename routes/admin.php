@@ -19,6 +19,9 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::get('/categories', [SystemController::class, 'categories'])->name('admin.categories');
     Route::match(['get','post'],'/addCategory', [SystemController::class, 'add_category'])->name('admin.addCategory');
     Route::match(['get','post'],'/storeCategory', [SystemController::class, 'store_category'])->name('admin.storeCategory');
+    Route::get('/subCategories', [SystemController::class, 'sub_categories'])->name('admin.subCategories');
+    Route::get('/childCategories', [SystemController::class, 'child_categories'])->name('admin.childCategories');
+    Route::get('/getParentCategory', [SystemController::class, 'get_parent_category'])->name('admin.getParentCategory');
 
     Route::get('/collections', [SystemController::class, 'collections'])->name('admin.collections');
     Route::match(['get','post'],'/addCollection', [SystemController::class, 'add_collection'])->name('admin.addCollection');

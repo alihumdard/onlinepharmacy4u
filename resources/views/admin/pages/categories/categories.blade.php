@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Categories')
+@section('title', 'Main Categories')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -46,12 +46,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Categories</h1>
+        <h1>Main Categories</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Categories</li>
+                <li class="breadcrumb-item active">Main Categories</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -68,7 +68,6 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">#</th>
-                                    <th style="vertical-align: middle; text-align: center;">Parent Name</th>
                                     <th style="vertical-align: middle; text-align: center;">Category Name</th>
                                     <th style="vertical-align: middle; text-align: center;">Status</th>
                                     <th style="vertical-align: middle; text-align: center;">Active/Inactive</th>
@@ -80,7 +79,6 @@
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">{{ ++$key }}</th>
                                     <td style="vertical-align: middle; text-align: center;">{{$value['name'] ?? '' }}</td>
-                                    <td style="vertical-align: middle; text-align: center;">{{$value['subcategory']['name'] ?? '' }}</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold;">{{$value['publish'] ?? '' }} </td>
                                     <td style="vertical-align: middle; text-align: center;">
                                         <div class="form-check form-switch d-flex justify-content-center ">
@@ -113,7 +111,7 @@
 <form  id="edit_form" action="{{route('admin.addCategory')}}" method="post">
     @csrf
     <input id="edit_form_id_input" type="hidden" value="" name="id">
-    <input id="selection" type="hidden" value="3" name="selection">
+    <input id="selection" type="hidden" value="1" name="selection">
 </form>
 <!-- End #main -->
 

@@ -29,6 +29,7 @@
                             <div class="col-md-4">
                                 <label for="selection" class="form-label">Selection</label>
                                 <select id="selection" name="selection" class="form-select">
+                                    <option {{ (isset($selection) && $selection == '') ? 'selected' : '' }} value="1" >Select</option>
                                     <option {{ (isset($selection) && $selection == 1) ? 'selected' : '' }} value="1" >Main Category</option>
                                     <option {{ (isset($selection) && $selection == 2) ? 'selected' : '' }} value="2" >Sub Category</option>
                                     <option {{ (isset($selection) && $selection == 3) ? 'selected' : '' }} value="3" >Child Category</option>
@@ -48,8 +49,8 @@
                             <div class="col-md-4">
                                 <label for="publish" class="form-label">Status</label>
                                 <select id="publish" name="publish" class="form-select">
-                                    <option {{ ($category['publish'] ?? NULL  == 'Publish') ? 'Selected' : ''}} value="Publish" >Publish</option>
-                                    <option  {{ ($category['publish'] ?? NULL == 'Draft') ? 'Selected' : ''}} value="Draft" >Draft</option>
+                                    <option {{ (isset($category['publish']) && $category['publish'] == 'Publish') ? 'selected' : '' }} value="Publish" >Publish</option>
+                                    <option {{ (isset($category['publish']) && $category['publish'] == 'Draft') ? 'selected' : '' }} value="Draft" >Draft</option>
                                 </select>
                             </div>
 
@@ -57,11 +58,11 @@
                                 <label for="publish" class="form-label">Select Parent</label>
                                 <select id="parent_id" name="parent_id" class="form-select">
                                     <option value="">Select</option>
-                                    @if(@isset($parents))
-                                        @foreach ($parents as $key => $value)
-                                            <option value="{{ $value['id'] }}" @if ($value['id'] == $category['category_id']) selected @endif>{{ $value['name'] }}</option>
-                                        @endforeach
-                                    @endif
+                                        @if(@isset($parents))
+                                            @foreach ($parents as $key => $value)
+                                                <option value="{{ $value['id'] }}" @if ($value['id'] == $category[$catName]) selected @endif>{{ $value['name'] }}</option>
+                                            @endforeach
+                                        @endif
                                 </select>
                             </div>
                             <div class="col-12">
@@ -135,9 +136,6 @@
                         console.error('Error:', error);
                     }
                 });
-            }
-            else{
-
             }
         }
     });

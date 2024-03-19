@@ -46,12 +46,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Categories</h1>
+        <h1>Sub Categories</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Categories</li>
+                <li class="breadcrumb-item active">Sub Categories</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -68,7 +68,7 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">#</th>
-                                    <th style="vertical-align: middle; text-align: center;">Parent Name</th>
+                                    <th style="vertical-align: middle; text-align: center;">Parent Category</th>
                                     <th style="vertical-align: middle; text-align: center;">Name</th>
                                     <th style="vertical-align: middle; text-align: center;">Status</th>
                                     <th style="vertical-align: middle; text-align: center;">Active/Inactive</th>

@@ -22,6 +22,8 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::get('/subCategories', [SystemController::class, 'sub_categories'])->name('admin.subCategories');
     Route::get('/childCategories', [SystemController::class, 'child_categories'])->name('admin.childCategories');
     Route::get('/getParentCategory', [SystemController::class, 'get_parent_category'])->name('admin.getParentCategory');
+    Route::get('/getSubCategory', [SystemController::class, 'get_sub_category'])->name('admin.getSubCategory');
+    Route::get('/getChildCategory', [SystemController::class, 'get_child_category'])->name('admin.getChildCategory');
 
     Route::get('/collections', [SystemController::class, 'collections'])->name('admin.collections');
     Route::match(['get','post'],'/addCollection', [SystemController::class, 'add_collection'])->name('admin.addCollection');
@@ -36,6 +38,9 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get','post'],'/storeAdmin', [SystemController::class, 'store_admin'])->name('admin.storeAdmin');
     Route::get('/users', [SystemController::class, 'users'])->name('admin.users');
     
+    Route::get('/questionCategories', [SystemController::class, 'question_categories'])->name('admin.questionCategories');
+    Route::match(['get','post'], '/addQuestionCategory', [SystemController::class, 'add_question_category'])->name('admin.addQuestionCategory');
+    Route::post('/storeQuestionCategory', [SystemController::class, 'store_question_category'])->name('admin.storeQuestionCategory');
     Route::get('/questions', [SystemController::class, 'questions'])->name('admin.questions');
     Route::match(['get','post'],'/addQuestion', [SystemController::class, 'add_question'])->name('admin.addQuestion');
     Route::match(['get','post'],'/storeQuestion', [SystemController::class, 'store_question'])->name('admin.storeQuestion');

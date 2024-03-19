@@ -29,6 +29,7 @@
                             <div class="col-md-4">
                                 <label for="selection" class="form-label">Selection</label>
                                 <select id="selection" name="selection" class="form-select">
+                                    <option {{ (isset($selection) && $selection == '') ? 'selected' : '' }} value="1" >Select</option>
                                     <option {{ (isset($selection) && $selection == 1) ? 'selected' : '' }} value="1" >Main Category</option>
                                     <option {{ (isset($selection) && $selection == 2) ? 'selected' : '' }} value="2" >Sub Category</option>
                                     <option {{ (isset($selection) && $selection == 3) ? 'selected' : '' }} value="3" >Child Category</option>

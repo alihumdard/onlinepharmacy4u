@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Collections')
+@section('title', 'Question Categories')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -46,12 +46,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Collections</h1>
+        <h1>Question Categories</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Collections</li>
+                <li class="breadcrumb-item active">Question Categories</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -64,18 +64,18 @@
                     <div class="card-header mt-3" id="tbl_button" style="border: 0 !important; border-color: transparent !important;">
                     </div>
                     <div class="card-body">
-                        <table id="tbl_collections" class="table table-bordered table-striped">
+                        <table id="tbl_question_categories" class="table table-bordered table-striped">
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">#</th>
-                                    <th style="vertical-align: middle; text-align: center;">Collection Name</th>
+                                    <th style="vertical-align: middle; text-align: center;">Name</th>
                                     <th style="vertical-align: middle; text-align: center;">Status</th>
                                     <th style="vertical-align: middle; text-align: center;">Active/Inactive</th>
                                     <th style="vertical-align: middle; text-align: center;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($collections as $key => $value)
+                                @foreach($categories as $key => $value)
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">{{ ++$key }}</th>
                                     <td style="vertical-align: middle; text-align: center;">{{$value['name'] ?? '' }}</td>
@@ -108,7 +108,7 @@
 </main>
 <!-- End #main -->
 
-<form  id="edit_form" action="{{route('admin.addCollection')}}" method="post">
+<form  id="edit_form" action="{{route('admin.addQuestionCategory')}}" method="post">
     @csrf
     <input id="edit_form_id_input" type="hidden" value="" name="id">
 </form>
@@ -119,7 +119,7 @@
 @pushOnce('scripts')
 <script>
     $(function() {
-        $("#tbl_collections").DataTable({
+        $("#tbl_question_category").DataTable({
             "paging": true,
             "responsive": true,
             "lengthChange": false,

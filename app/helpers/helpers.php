@@ -72,7 +72,7 @@ function view_permission($page_name)
                 case 'sub_categories':
                 case 'child_categories':
                 case 'add_category':
-                case 'collections':
+                case 'questions':
                 case 'add_collection':
                 case 'consultations':
                 case 'questions':
@@ -92,6 +92,8 @@ function view_permission($page_name)
                 case 'contact':
                 case 'setting':
                 case 'faq':
+                case 'question_categories':
+                case 'add_question_category':
                     return true;
                 default:
                     return false;

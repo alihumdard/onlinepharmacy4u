@@ -8,15 +8,15 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\UserBmi;
 use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\ChildCategory;
 use App\Models\Question;
 use App\Models\Collection;
+use App\Models\SubCategory;
 use App\Models\Transaction;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Mail\otpVerifcation;
 use Illuminate\Http\Request;
+use App\Models\ChildCategory;
 use App\Models\AssignQuestion;
 use App\Models\ProductVariant;
 use App\Models\QuestionMapping;
@@ -24,6 +24,7 @@ use Illuminate\Validation\Rule;
 
 // models ...
 use App\Models\ProductAttribute;
+use App\Models\QuestionCategory;
 use App\Models\UserConsultation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -270,7 +271,7 @@ class SystemController extends Controller
             $data['categories'] = Category::latest('id')->get()->toArray();
         }
 
-        return view('admin.pages.categories', $data);
+        return view('admin.pages.categories.categories', $data);
     }
 
     public function add_category(Request $request)
@@ -300,8 +301,8 @@ class SystemController extends Controller
                 $data['catName'] = 'subcategory_id';
             }
         }
-// return $data;
-        return view('admin.pages.add_category', $data);
+
+        return view('admin.pages.categories.add_category', $data);
     }
 
     public function store_category(Request $request)
@@ -413,7 +414,7 @@ class SystemController extends Controller
             $data['categories'] = SubCategory::with('category')->latest('id')->get()->toArray();
         }
 
-        return view('admin.pages.sub_categories', $data);
+        return view('admin.pages.categories.sub_categories', $data);
     }
 
     public function child_categories()
@@ -430,7 +431,7 @@ class SystemController extends Controller
             $data['categories'] = ChildCategory::with('subcategory')->latest('id')->get()->toArray();
         }
 
-        return view('admin.pages.child_categories', $data);
+        return view('admin.pages.categories.child_categories', $data);
     }
 
     public function get_parent_category(Request $request)
@@ -449,11 +450,11 @@ class SystemController extends Controller
         return response()->json(['status' => 'success', 'parents' => $parents]);
     }
 
-    // collections managment ...
-    public function collections()
+    // question management ...
+    public function question_categories()
     {
         $user = auth()->user();
-        $page_name = 'collections';
+        $page_name = 'question_categories';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
@@ -461,32 +462,33 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['collections'] = Collection::latest('id')->get()->toArray();
+            $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
         }
 
-        return view('admin.pages.collections', $data);
+        return view('admin.pages.questions.question_categories', $data);
     }
 
-    public function add_collection(Request $request)
+    public function add_question_category(Request $request)
     {
         $user = auth()->user();
-        $page_name = 'add_collection';
+        $page_name = 'add_question_category';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
 
         $data['user'] = auth()->user();
         if ($request->has('id')) {
-            $data['collection'] = Collection::findOrFail($request->id)->toArray();
+            $data['category'] = QuestionCategory::findOrFail($request->id)->toArray();
         }
 
-        return view('admin.pages.add_collection', $data);
+        return view('admin.pages.questions.add_question_category', $data);
     }
 
-    public function store_collection(Request $request)
+    public function store_question_category(Request $request)
     {
         $user = auth()->user();
-        $page_name = 'add_collection';
+        $page_name = 'add_question_category';
+        
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
@@ -495,7 +497,7 @@ class SystemController extends Controller
             'publish'   => 'required',
             'name'     => [
                 'required',
-                Rule::unique('collections')->ignore($request->id),
+                Rule::unique('question_categories')->ignore($request->id),
             ],
         ]);
 
@@ -505,7 +507,7 @@ class SystemController extends Controller
 
         $data['user'] = auth()->user();
 
-        $saved = Collection::updateOrCreate(
+        $saved = QuestionCategory::updateOrCreate(
             ['id' => $request->id ?? NULL],
             [
                 'name'       => ucwords($request->name),
@@ -514,13 +516,12 @@ class SystemController extends Controller
                 'created_by' => $user->id,
             ]
         );
-        $message = "collection " . ($request->id ? "Updated" : "Saved") . " Successfully";
+        $message = "category " . ($request->id ? "Updated" : "Saved") . " Successfully";
         if ($saved) {
-            return redirect()->route('admin.collections')->with(['msg' => $message]);
+            return redirect()->route('admin.questionCategories')->with(['msg' => $message]);
         }
     }
 
-    // question management ...
     public function questions(Request $request)
     {
         $user = auth()->user();
@@ -537,11 +538,30 @@ class SystemController extends Controller
             }])->latest('id')->get()->toArray();
         }
 
-        return view('admin.pages.questions', $data);
+        return view('admin.pages.questions.questions', $data);
     }
 
     public function add_question(Request $request)
     {
+        // $user = auth()->user();
+        // $page_name = 'add_question';
+        // if (!view_permission($page_name)) {
+        //     return redirect()->back();
+        // }
+        // $data['question']['assignments'] = [];
+        // $data['user'] = auth()->user();
+        // $data['categories'] = Category::latest('id')->get()->toArray();
+        // if ($request->has('id')) {
+        //     $data['question'] = Question::with(['assignments' => function ($query) {
+        //         $query->select('category_id', 'category_title', 'question_id');
+        //     }])->findOrFail($request->id)->toArray();
+        //     $categoryIds = [];
+        //     foreach ($data['question']['assignments'] as $assignment) {
+        //         $categoryIds[] = $assignment['category_id'];
+        //     }
+        //     $data['question']['assignments'] = $categoryIds;
+        // }
+
         $user = auth()->user();
         $page_name = 'add_question';
         if (!view_permission($page_name)) {
@@ -549,7 +569,7 @@ class SystemController extends Controller
         }
         $data['question']['assignments'] = [];
         $data['user'] = auth()->user();
-        $data['categories'] = Category::latest('id')->get()->toArray();
+        $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
         if ($request->has('id')) {
             $data['question'] = Question::with(['assignments' => function ($query) {
                 $query->select('category_id', 'category_title', 'question_id');
@@ -561,7 +581,7 @@ class SystemController extends Controller
             $data['question']['assignments'] = $categoryIds;
         }
 
-        return view('admin.pages.add_question', $data);
+        return view('admin.pages.questions.add_question', $data);
     }
 
     public function store_question(Request $request)
@@ -610,7 +630,7 @@ class SystemController extends Controller
                 foreach ($request->category_id as $categoryId) {
                     AssignQuestion::create([
                         'category_id' => $categoryId,
-                        'category_title' => Category::findOrFail($categoryId)->name,
+                        'category_title' => QuestionCategory::findOrFail($categoryId)->name,
                         'question_title' => $saved->title,
                         'question_id' => $saved->id,
                         'status'      => $this->status['Active'],
@@ -626,6 +646,7 @@ class SystemController extends Controller
     // question assignment manament...
     public function assign_question(Request $request)
     {
+        // question mapping screen
         $user = auth()->user();
         $page_name = 'assign_question';
         if (!view_permission($page_name)) {
@@ -634,10 +655,10 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['questions'] = Question::latest('id')->get()->toArray();
-            $data['categories'] = Category::latest('id')->get()->toArray();
+            $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
         }
 
-        return view('admin.pages.assign_question', $data);
+        return view('admin.pages.questions.assign_question', $data);
     }
 
     public function get_assign_quest(Request $request)

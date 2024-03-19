@@ -196,25 +196,17 @@
                             </select>
                             <div class="invalid-feedback">* Please select product category</div>
                         </div>
-                        <div class="col-12 select-product-collection">
-                            <label for="product_collection" class="form-label">Select Product Collection</label>
-                            <select id="product_collection" name="product_collection" class="form-select" required>
-                                <option value="" selected>Choose...</option>
-                                @foreach ($collections  as $key => $value)
-                                <option value="{{ $value['id'] ?? '' }}" {{ (isset($product['collection_id']) && $product['collection_id'] == $value['id']) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
-                                @endforeach
+                        <div class="col-12 select-sub_category">
+                            <label for="sub_category" class="form-label">Select Sub Category</label>
+                            <select id="sub_category" name="sub_category" class="form-select">
                             </select>
-                            <div class="invalid-feedback">* Please select product collection</div>
+                            <div class="invalid-feedback">* Please select sub category</div>
                         </div>
-                        <div class="col-12 select-product-template">
-                            <label for="product_template" class="form-label">Select Product Template</label>
-                            <select id="product_template" name="product_template" class="form-select" required>
-                                <option value="" selected>Choose...</option>
-                                @foreach ($templates  as $value => $label)
-                                <option value="{{ $value ?? '' }}" {{ (isset($product['template_id']) && $product['template_id'] == $value) ? 'selected' : '' }}>{{ $label ?? '' }}</option>
-                                @endforeach
+                        <div class="col-12 select-child_category">
+                            <label for="child_category" class="form-label">Select Child Category</label>
+                            <select id="child_category" name="child_category" class="form-select">
                             </select>
-                            <div class="invalid-feedback">* Please select product template</div>
+                            <div class="invalid-feedback">* Please select child category</div>
                         </div>
                     </div>
                 </div>
@@ -388,6 +380,74 @@
 <script>
     jQuery(document).ready(function() {
         ImgUpload();
+
+        $('#category_id').change(function() {
+            var category_id = $(this).val();
+            $.ajax({
+                    url: '{{ route("admin.getSubCategory") }}',
+                    type: 'GET',
+                    data: {
+                        category_id: category_id
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#sub_category').empty();
+                            $.each(response.sub_category, function(key, value) {
+                                $('#sub_category').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+                            });
+                            $('#sub_category').prepend($('<option>', {
+                                value: '',
+                                text: 'Select Sub Category',
+                                selected: true, 
+                                disabled: true
+                            }));
+                        }
+                        else{
+                            console.error('Error:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+        });
+
+        $('#sub_category').change(function() {
+            var category_id = $(this).val();
+            $.ajax({
+                    url: '{{ route("admin.getChildCategory") }}',
+                    type: 'GET',
+                    data: {
+                        category_id: category_id
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#child_category').empty();
+                            $.each(response.child_category, function(key, value) {
+                                $('#child_category').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+                            });
+                            $('#child_category').prepend($('<option>', {
+                                value: '',
+                                text: 'Select Child Category',
+                                selected: true, 
+                                disabled: true
+                            }));
+                        }
+                        else{
+                            console.error('Error:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+        });
     });
 
     var imgArray = [];

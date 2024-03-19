@@ -26,7 +26,8 @@ return new class extends Migration
             $table->string('ext_tax');
             $table->string('status')->default('1');
             $table->unsignedBigInteger('category_id');
-            $table->integer('product_template');
+            $table->integer('sub_category')->nullable();
+            $table->integer('child_category')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable()->default(null);
             $table->timestamps();

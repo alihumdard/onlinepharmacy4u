@@ -450,6 +450,28 @@ class SystemController extends Controller
         return response()->json(['status' => 'success', 'parents' => $parents]);
     }
 
+    public function get_sub_category(Request $request)
+    {
+        $category_id = $request->category_id; 
+        $categories = SubCategory::select('id', 'name')
+                ->where('category_id', $category_id)
+                ->pluck('name', 'id')
+                ->toArray();
+
+        return response()->json(['status' => 'success', 'sub_category' => $categories]);
+    }
+
+    public function get_child_category(Request $request)
+    {
+        $category_id = $request->category_id; 
+        $categories = ChildCategory::select('id', 'name')
+                ->where('subcategory_id', $category_id)
+                ->pluck('name', 'id')
+                ->toArray();
+
+        return response()->json(['status' => 'success', 'child_category' => $categories]);
+    }
+
     // question management ...
     public function question_categories()
     {
@@ -828,7 +850,7 @@ class SystemController extends Controller
             $data['products'] = Product::with('category:id,name')->latest('id')->get()->toArray();
         }
         // dd($data['products']);
-        return view('admin.pages.prodcuts', $data);
+        return view('admin.pages.products.prodcuts', $data);
     }
 
     public function add_product(Request $request)
@@ -839,14 +861,14 @@ class SystemController extends Controller
             return redirect()->back();
         }
         $data['categories'] = Category::latest('id')->get()->toArray();
-        $data['collections'] = Collection::latest('id')->get()->toArray();
-        $data['templates'] = config('constants.PRODUCT_TEMPLATES');
+        // $data['collections'] = Collection::latest('id')->get()->toArray();
+        // $data['templates'] = config('constants.PRODUCT_TEMPLATES');
         $data['product'] = [];
         if ($request->has('id')) {
             $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
         }
 
-        return view('admin.pages.add_product', $data);
+        return view('admin.pages.products.add_product', $data);
     }
 
     public function store_product(Request $request)
@@ -860,8 +882,8 @@ class SystemController extends Controller
         $rules = [
             'price'      => 'required',
             'category_id' => 'required',
-            'product_collection' => 'required',
-            'product_template' => 'required',
+            // 'product_collection' => 'required',
+            // 'product_template' => 'required',
             'stock'        => 'required',
             'ext_tax'    => 'required',
             'desc'       => 'required',
@@ -917,8 +939,8 @@ class SystemController extends Controller
                 'short_desc' => $request->short_desc,
                 'main_image' => $mainImagePath ?? Product::findOrFail($request->id)->main_image,
                 'category_id' => $request->category_id,
-                'collection_id' => $request->product_collection,
-                'template_id' => $request->product_template,
+                'sub_category' => $request->sub_category ?? NULL,
+                'child_category' => $request->child_category ?? NULL,
                 'ext_tax'    => $request->ext_tax,
                 'barcode'    => $request->barcode,
                 'SKU'        => $request->SKU,

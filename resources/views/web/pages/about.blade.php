@@ -1,14 +1,19 @@
 @extends('web.layouts.default')
 @section('title', 'About Us')
 @section('content')
+<style>
+    .displaynone{
+        display: none;
+    }
+</style>
 
     <!-- BREADCRUMB AREA START -->
-    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/bg/14.jpg">
+    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/allbanners/About.webp">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ltn__breadcrumb-inner">
-                        <h1 class="page-title">About Us</h1>
+                        <h1 class="page-title mt-5">About Us</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
                                 <li><a href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
@@ -28,16 +33,16 @@
             <div class="row">
                 <div class="col-lg-6 align-self-center">
                     <div class="about-us-img-wrap about-img-left">
-                        <img src="img/others/9.png" alt="About Us Image">
+                        <img src="img/allbanners/About Us page video section.png" alt="About Us Image">
                     </div>
                 </div>
                 <div class="col-lg-6 align-self-center">
                     <div class="about-us-info-wrap">
                         <div class="section-title-area ltn__section-title-2--- mb-30">
                             <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                            <h1 class="section-title">Your faithful partners Medical Goods</h1>
-                            <p>Houzez allow you to design unlimited panels and real estate custom
-                                forms to capture leads and keep record of all information</p>
+                            <h1 class="section-title">Who Are We?</h1>
+                            <p>Online Pharmacy4U – your dedicated healthcare companion in the digital era. Our platform is designed for simplicity, offering an extensive range of medications and health solutions at your fingertips. </p> <br>
+                            <p>At Online Pharmacy4U, we prioritise your well-being, ensuring quick and secure delivery of prescriptions right to your doorstep. Our commitment to excellence extends beyond transactions; we're here to provide expert guidance, personalised support, and a user-centric experience. Trust us for a healthier, more accessible future in healthcare.</p>
                         </div>
                         <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
                             <li><i class="fas fa-check-square"></i> Better security for patient privacy and information.</li>
@@ -45,7 +50,8 @@
                             <li><i class="fas fa-check-square"></i> connect customers with the power of eCommerce at all.</li>
                         </ul>
                         <div class="about-author-info-2 border-top mt-30 pt-20">
-                            <ul>
+                            <p>We understand the importance of accessible and reliable healthcare. Our platform is dedicated to providing a comprehensive range of services, including both <b> basic consultation </b> and <b>product consultation</b> to ensure that you receive the personalised care you deserve from the comfort of your own home.</p>
+                            <!-- <ul>
                                 <li>
                                     <div class="about-author-info-2-brief  d-flex">
                                         <div class="author-img">
@@ -68,7 +74,7 @@
                                         </div>
                                     </div>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                 </div>
@@ -77,17 +83,109 @@
     </div>
     <!-- ABOUT US AREA END -->
 
+    <!-- ABOUT US AREA for basic consultation START -->
+<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-115 pb-110" >
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-6 align-self-center">
+                <div class="about-us-info-wrap">
+                    <div class="section-title-area ltn__section-title-2--- mb-20">
+                        <h6 class="section-subtitle section-subtitle-2--- ltn__secondary-color">N95 Facial Covering Mask</h6>
+                        <h1 class="section-title">Basic Consultation:</h1>
+                        <p>Our basic consultation services are designed to address your general health concerns and provide guidance on a wide range of common health issues. Whether you have questions about minor ailments, need advice on over-the-counter medications, or want information on maintaining a healthy lifestyle, our team of qualified healthcare professionals is here to assist you. The basic consultation service is user-friendly, allowing you to submit your queries online and receive prompt, confidential responses tailored to your specific needs.</p>
+                    </div>
+                    <ul class="ltn__list-item-half clearfix">
+                        <li>
+                            <i class="flaticon-home-2"></i>
+                            Confidential and secure platform.
+                        </li>
+                        <li>
+                            <i class="flaticon-mountain"></i>
+                            Expert advice from qualified healthcare professionals.
+                        </li>
+                        <li>
+                            <i class="flaticon-heart"></i>
+                            Quick response times to address your health concerns.
+                        </li>
+                        <li>
+                            <i class="flaticon-secure"></i>
+                            Accessible from anywhere, anytime, providing convenience to our users.
+                        </li>
+                        <li>
+                            <i class="flaticon-heart"></i>
+                            User-friendly interface for a seamless experience.
+                        </li>
+                    </ul>
+                    <div class="btn-wrapper animated">
+                        <a href="service.html" class="ltn__secondary-color text-uppercase text-decoration-underline">View Products</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 align-self-center">
+                <div class="about-us-img-wrap about-img-left">
+                    <img src="img/allbanners/home3.png" alt="About Us Image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ABOUT US AREA END for basic consultation -->
+
+<!-- ABOUT US AREA product consultation START -->
+<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-90 pb-110" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 align-self-center">
+                <div class="about-us-img-wrap about-img-left">
+                    <img src="img/allbanners/home3.png" alt="About Us Image">
+                </div>
+            </div>
+            <div class="col-lg-6 align-self-center">
+                <div class="about-us-info-wrap">
+                    <div class="section-title-area ltn__section-title-2--- mb-20">
+                        <h6 class="section-subtitle section-subtitle-2--- ltn__secondary-color">N95 Facial Covering Mask</h6>
+                        <h1 class="section-title">Product Consultation:</h1>
+                        <p>In addition to basic consultations, Online Pharmacy4U offers detailed product consultations to help you make informed decisions about your healthcare needs. Our platform features a diverse range of pharmaceutical and wellness products and our team is dedicated to guiding you through the selection process.</p>
+                    </div>
+                    <ul class="ltn__list-item-half clearfix">
+                        <li>
+                            <i class="flaticon-home-2"></i>
+                            Product Information
+                        </li>
+                        <li>
+                            <i class="flaticon-mountain"></i>
+                            Personalised Recommendations
+                        </li>
+                        <li>
+                            <i class="flaticon-heart"></i>
+                            Dosage and Usage Guidance
+                        </li>
+                        <li>
+                            <i class="flaticon-secure"></i>
+                            Interaction and Compatibility Checks
+                        </li>
+                    </ul>
+                    <div class="btn-wrapper animated">
+                        <a href="service.html" class="ltn__secondary-color text-uppercase text-decoration-underline">View Products</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ABOUT US AREA END for product consultation-->
+
     <!-- COUNTDOWN AREA START -->
-    <div class="ltn__call-to-action-area section-bg-1 bg-image pt-120 pb-120" data-bs-bg="img/bg/25.jpg">
+    <div class="ltn__call-to-action-area section-bg-1 bg-image pt-120 pb-120 displaynone" data-bs-bg="img/bg/25.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7">
                     <div class="call-to-action-inner text-color-white--- text-center---">
                         <div class="section-title-area ltn__section-title-2--- text-center---">
                             <h6 class="ltn__secondary-color">Todays Hot Offer</h6>
-                            <h1 class="section-title">Free Covid-19 Vaccine<br>Campaign Ticket</h1>
-                            <p>Cur tantas regiones barbarorum obiit, tot maria transmist <br>
-                                summo bono fruitur id est voluptate barbarorum </p>
+                            <h1 class="section-title">Basic Consultation:</h1>
+                            <p>Our basic consultation services are designed to address your general health concerns and provide guidance on a wide range of common health issues. Whether you have questions about minor ailments, need advice on over-the-counter medications, or want information on maintaining a healthy lifestyle, our team of qualified healthcare professionals is here to assist you. The basic consultation service is user-friendly, allowing you to submit your queries online and receive prompt, confidential responses tailored to your specific needs.</p>
                         </div>
                         <div class="ltn__countdown ltn__countdown-3 bg-white--" data-countdown="2021/12/28"></div>
                         <div class="btn-wrapper animated">
@@ -123,7 +221,7 @@
                         </div>
                         <div class="ltn__feature-info">
                             <h4><a href="service-details.html">Free Delivery</a></h4>
-                            <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or incididunt ut labore.</p>
+                            <p> Enjoy the convenience of free and smooth delivery of all your health essentials with Online Pharmacy4U.</p>
                         </div>
                     </div>
                 </div>
@@ -135,7 +233,7 @@
                         </div>
                         <div class="ltn__feature-info">
                             <h4><a href="service-details.html">100% Cash Back</a></h4>
-                            <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or incididunt ut labore.</p>
+                            <p> Shop worry-free – you'll receive 100% cashback on your purchases, ensuring a risk-free shopping experience.</p>
                         </div>
                     </div>
                 </div>
@@ -147,7 +245,7 @@
                         </div>
                         <div class="ltn__feature-info">
                             <h4><a href="service-details.html">Quality Product</a></h4>
-                            <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or incididunt ut labore.</p>
+                            <p> Trust in our commitment to provide reliable pharmaceutical products to meet your health needs.</p>
                         </div>
                     </div>
                 </div>
@@ -159,7 +257,7 @@
                         </div>
                         <div class="ltn__feature-info">
                             <h4><a href="service-details.html">24/7 Support</a></h4>
-                            <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or incididunt ut labore.</p>
+                            <p> Experience peace of mind with our round-the-clock customer support, ready to assist you anytime you have queries or concerns.</p>
                         </div>
                     </div>
                 </div>
@@ -311,7 +409,7 @@
     <!-- COUNTER UP AREA END -->
 
     <!-- TEAM AREA START (Team - 3) -->
-    <div class="ltn__team-area pt-115 pb-90">
+    <div class="ltn__team-area pt-115 pb-90 displaynone">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -380,12 +478,12 @@
     </div>
     <!-- TEAM AREA END -->
     <!-- TESTIMONIAL AREA START (testimonial-4) -->
-    <div class="ltn__testimonial-area section-bg-1 pt-290 pb-70">
+    <div class="ltn__testimonial-area section-bg-1  pb-70">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-area ltn__section-title-2 text-center">
-                        <h1 class="section-title">Clients Feedbacks<span>.</span></h1>
+                        <h1 class="section-title">What Our Clients Say<span>.</span></h1>
                     </div>
                 </div>
             </div>
@@ -393,10 +491,10 @@
                 <div class="col-lg-12">
                     <div class="ltn__testimonial-item ltn__testimonial-item-4">
                         <div class="ltn__testimoni-img">
-                            <img src="img/testimonial/6.jpg" alt="#">
+                            <img src="img/allbanners/clientsfeedback200x200.png" alt="client">
                         </div>
                         <div class="ltn__testimoni-info">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                            <p>Online Pharmacy4U has been a lifesaver! From free delivery to exceptional 24/7 support, they've exceeded my expectations. Plus, the quality of their products is unmatched. I'm a customer for life! </p>
                             <h4>Rosalina D. William</h4>
                             <h6>Founder</h6>
                         </div>
@@ -408,10 +506,10 @@
                 <div class="col-lg-12">
                     <div class="ltn__testimonial-item ltn__testimonial-item-4">
                         <div class="ltn__testimoni-img">
-                            <img src="img/testimonial/7.jpg" alt="#">
+                            <img src="img/allbanners/clientsfeedback200x200.png" alt="client">
                         </div>
                         <div class="ltn__testimoni-info">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                            <p>The convenience of ordering from Online Pharmacy4U is unbeatable. With free delivery, I can rely on them to deliver my medications promptly, saving me time and effort. Highly recommended! </p>
                             <h4>Rosalina D. William</h4>
                             <h6>Founder</h6>
                         </div>
@@ -423,10 +521,10 @@
                 <div class="col-lg-12">
                     <div class="ltn__testimonial-item ltn__testimonial-item-4">
                         <div class="ltn__testimoni-img">
-                            <img src="img/testimonial/1.jpg" alt="#">
+                            <img src="img/allbanners/clientsfeedback200x200.png" alt="client">
                         </div>
                         <div class="ltn__testimoni-info">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                            <p>I've never experienced such dedicated customer support. No matter when I reach out, the team at Online Pharmacy4U is always there to address my concerns promptly. It's the personalised touch that sets them apart. </p>
                             <h4>Rosalina D. William</h4>
                             <h6>Founder</h6>
                         </div>
@@ -438,10 +536,10 @@
                 <div class="col-lg-12">
                     <div class="ltn__testimonial-item ltn__testimonial-item-4">
                         <div class="ltn__testimoni-img">
-                            <img src="img/testimonial/2.jpg" alt="#">
+                            <img src="img/allbanners/clientsfeedback200x200.png" alt="client">
                         </div>
                         <div class="ltn__testimoni-info">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipi sicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                            <p>Quality matters to me, especially when it comes to my health. Online Pharmacy4U consistently delivers products, and their 100% cashback guarantee provides peace of mind. I trust them completely for all my pharmaceutical needs.</p>
                             <h4>Rosalina D. William</h4>
                             <h6>Founder</h6>
                         </div>
@@ -450,7 +548,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <!-- <div class="col-lg-12">
                     <div class="ltn__testimonial-item ltn__testimonial-item-4">
                         <div class="ltn__testimoni-img">
                             <img src="img/testimonial/5.jpg" alt="#">
@@ -464,7 +562,7 @@
                             <i class="far fa-comments"></i>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!--  -->
             </div>
         </div>
@@ -551,7 +649,7 @@
                 </div>
                 <div class="col-lg-6">
                     <aside class="about-us-img-wrap about-img-right">
-                        <img src="img/others/100.jpg" alt="Banner Image">
+                        <img src="img/allbanners/faq600x600.png" alt="Banner Image">
                     </aside>
                 </div>
             </div>
@@ -566,7 +664,7 @@
                 <div class="col-lg-12">
                     <div class="section-title-area ltn__section-title-2 text-center">
                         <h6 class="section-subtitle ltn__secondary-color">//  features  //</h6>
-                        <h1 class="section-title">Why Choose Us<span>.</span></h1>
+                        <h1 class="section-title">Why Choose Us<span>?</span></h1>
                     </div>
                 </div>
             </div>
@@ -578,10 +676,10 @@
                                 <!-- <span><img src="img/icons/icon-img/21.png" alt="#"></span> -->
                                 <span><i class="fas fa-hand-holding-medical"></i> </span>
                             </div>
-                            <h3><a href="service-details.html">All Kind Brand</a></h3>
+                            <h3><a href="service-details.html">Convenience at Your Doorstep</a></h3>
                         </div>
                         <div class="ltn__feature-info">
-                            <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or incididunt ut labore.</p>
+                            <p>Opt for the ease of free and timely delivery, bringing your health essentials right to your doorstep.</p>
                         </div>
                     </div>
                 </div>
@@ -592,10 +690,10 @@
                                 <!-- <span><img src="img/icons/icon-img/22.png" alt="#"></span> -->
                                 <span><i class="fas fa-microscope"></i> </span>
                             </div>
-                            <h3><a href="service-details.html">Curated Products</a></h3>
+                            <h3><a href="service-details.html">Reliable Quality</a></h3>
                         </div>
                         <div class="ltn__feature-info">
-                            <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or incididunt ut labore.</p>
+                            <p> Choose us for a commitment to delivering pharmaceutical products of the highest quality, ensuring your health and well-being.</p>
                         </div>
                     </div>
                 </div>
@@ -606,10 +704,10 @@
                                 <!-- <span><img src="img/icons/icon-img/23.png" alt="#"></span> -->
                                 <span><i class="fas fa-stethoscope"></i> </span>
                             </div>
-                            <h3><a href="service-details.html">Pesticide Free Goods</a></h3>
+                            <h3><a href="service-details.html">Customer-Centric Support</a></h3>
                         </div>
                         <div class="ltn__feature-info">
-                            <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or incididunt ut labore.</p>
+                            <p> Trust in our 24/7 customer support, dedicated to addressing your queries and providing a seamless and reassuring online pharmacy experience.</p>
                         </div>
                     </div>
                 </div>

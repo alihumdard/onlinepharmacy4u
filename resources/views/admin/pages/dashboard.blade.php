@@ -1,6 +1,11 @@
 @extends('admin.layouts.default')
 @section('title', 'Dashboard')
 @section('content')
+<style>
+    .displaynone{
+        display: none;
+    }
+</style>
 
 <!-- main stated -->
 <main id="main" class="main">
@@ -15,7 +20,7 @@
         </nav>
     </div>
 
-    <section class="section dashboard">
+    <section class="section dashboard" {{$role != 4 ? 'style=height:350px' : ''}}>
         <div class="row">
 
             <!-- Left side columns -->
@@ -23,39 +28,41 @@
                 <div class="row">
 
                     <!-- Sales Card -->
-                    <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card sales-card">
+                    @if($role == 4)
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card sales-card">
 
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
 
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
 
-                            <div class="card-body">
-                                <h5 class="card-title">Order <span>| Today</span></h5>
+                                <div class="card-body">
+                                    <h5 class="card-title">Order <span>| Today</span></h5>
 
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-cart"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>145</h6>
-                                        <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-cart"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>145</h6>
+                                            <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        </div>
-                    </div><!-- End Sales Card -->
+                            </div>
+                        </div><!-- End Sales Card -->
+                    
 
                     <!-- Revenue Card -->
                     <div class="col-xxl-4 col-md-6">
@@ -128,32 +135,33 @@
                         </div>
 
                     </div><!-- End Customers Card -->
+                    @endif
                     <!-- Reports -->
                     <div class="col-12">
                         <div class="card">
 
-                            <div class="filter">
+                            <!-- <div class="filter">
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
                                     <li><a class="dropdown-item" href="#">This Month</a></li>
                                     <li><a class="dropdown-item" href="#">This Year</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
 
-                            <div class="card-body">
-                                <h5 class="card-title">BMI<span>/History</span></h5>
+                            @if($role == 4)
+                                <div class="card-body">
+                                    <h5 class="card-title">BMI<span>/History</span></h5>
 
-                                <!-- Line Chart -->
-                                <div id="reportsChart"></div>
+                                    <!-- Line Chart -->
+                                    <div id="reportsChart"></div>
 
-                                <!-- End Line Chart -->
+                                    <!-- End Line Chart -->
 
-                            </div>
+                                </div>
+                            @endif
 
                         </div>
                     </div><!-- End Reports -->
@@ -165,260 +173,247 @@
             <!-- Right side columns -->
             <div class="col-lg-5">
                 <!-- order status -->
-                <div class="card" style="max-height: 350px; overflow-y: auto;">
-                    <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <li class="dropdown-header text-start">
-                                <h6>Filter</h6>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Today</a></li>
-                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                            <li><a class="dropdown-item" href="#">This Year</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title">Order Status <span>| Today</span></h5>
-                        <div class="activity">
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">32 min</div>
-                                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                <div class="activity-content">
-                                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-                                </div>
-                            </div><!-- End activity item-->
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">56 min</div>
-                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                <div class="activity-content">
-                                    Voluptatem blanditiis blanditiis eveniet
-                                </div>
-                            </div><!-- End activity item-->
-
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">2 hrs</div>
-                                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                                <div class="activity-content">
-                                    Voluptates corrupti molestias voluptatem
-                                </div>
-                            </div><!-- End activity item-->
-
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">1 day</div>
-                                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                                <div class="activity-content">
-                                    Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                                </div>
-                            </div><!-- End activity item-->
-
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">2 days</div>
-                                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                                <div class="activity-content">
-                                    Est sit eum reiciendis exercitationem
-                                </div>
-                            </div><!-- End activity item-->
-
-                            <div class="activity-item d-flex">
-                                <div class="activite-label">4 weeks</div>
-                                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                                <div class="activity-content">
-                                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                                </div>
-                            </div><!-- End activity item-->
-
-
+                @if($role == 4)
+                    <div class="card" style="max-height: 350px; overflow-y: auto;">
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
                         </div>
-                    </div>
-                </div><!-- End order status -->
+
+                        <div class="card-body">
+                            <h5 class="card-title">Order Status <span>| Today</span></h5>
+                            <div class="activity">
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">32 min</div>
+                                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                    <div class="activity-content">
+                                        Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                                    </div>
+                                </div><!-- End activity item-->
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">56 min</div>
+                                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                    <div class="activity-content">
+                                        Voluptatem blanditiis blanditiis eveniet
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">2 hrs</div>
+                                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                    <div class="activity-content">
+                                        Voluptates corrupti molestias voluptatem
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">1 day</div>
+                                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                    <div class="activity-content">
+                                        Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">2 days</div>
+                                    <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                                    <div class="activity-content">
+                                        Est sit eum reiciendis exercitationem
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">4 weeks</div>
+                                    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                                    <div class="activity-content">
+                                        Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
+                                    </div>
+                                </div><!-- End activity item-->
+
+
+                            </div>
+                        </div>
+                    </div><!-- End order status -->
+                @endif
 
                 <!-- start  my stats  -->
-                <div class="card">
+                @if($role == 4)
+                    <div class="card">
 
-                    <div class="card-body">
-                        <div style="position: relative;">
-                            <img src="https://i.ibb.co/CmRQbgh/pen-1250615-1.png" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="w-70 h-auto" alt="edit" style="width: 15px; height: 15px; position: absolute; top: 100%; right: 0; margin-top:10px; cursor:pointer;">
-                        </div>
-                        <div class="link d-flex justify-content-between align-items-center mt-3">
-                            <h5 class="card-title mb-0 ">My Stats</h5>
-                            <span id="switchToUnit" onclick="toggleUnit()" style="cursor: pointer;" class="text-info">Switch to Imperial</span>
-                        </div>
+                        <div class="card-body">
+                            <div style="position: relative;">
+                                <img src="https://i.ibb.co/CmRQbgh/pen-1250615-1.png" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="w-70 h-auto" alt="edit" style="width: 15px; height: 15px; position: absolute; top: 100%; right: 0; margin-top:10px; cursor:pointer;">
+                            </div>
+                            <div class="link d-flex justify-content-between align-items-center mt-3">
+                                <h5 class="card-title mb-0 ">My Stats</h5>
+                                <span id="switchToUnit" onclick="toggleUnit()" style="cursor: pointer;" class="text-info">Switch to Imperial</span>
+                            </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <div class="activity-item d-flex  align-items-center flex-column h-100" style="background-color: #1aa9dd;">
-                                    <div class="activity-content">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="activity-item d-flex  align-items-center flex-column h-100" style="background-color: #1aa9dd;">
+                                        <div class="activity-content">
 
-                                        <!-- Height image centered -->
+                                            <!-- Height image centered -->
+                                            <div class="activite-label mr-auto text-center mt-3">
+                                                <img src="https://i.ibb.co/1nGzhKh/height-icon.png" class="w-50 h-auto" alt="height">
+                                            </div>
+                                            <!-- Content -->
+                                            <div class="text-center text-light pt-2">
+                                                <h5 class="mb-0">Height</h5>
+                                                <span id="heightValue">0cm</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Add another col-md-6 for the second box -->
+                                <div class="col-md-6 mb-4">
+                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100 " style="background-color: #769ccd;">
                                         <div class="activite-label mr-auto text-center mt-3">
-                                            <img src="https://i.ibb.co/1nGzhKh/height-icon.png" class="w-50 h-auto" alt="height">
+                                            <div class="activity-content d-flex align-items-center justify-content-center">
+                                                <img src="https://i.ibb.co/HGkLc5M/weight-icon.png" class="w-50 h-auto" alt="calculate">
+                                            </div>
+                                            <div class="text-center text-light pt-2">
+                                                <h5 class="mb-0">Weight</h5>
+                                                <span id="weightValue">0kg</span>
+                                            </div>
                                         </div>
-                                        <!-- Content -->
-                                        <div class="text-center text-light pt-2">
-                                            <h5 class="mb-0">Height</h5>
-                                            <span id="heightValue">0cm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Edit Height and Weight</h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: red; color: white; border: none;">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body mt-3">
+                                            <input type="text" id="heightInput" oninput="updateMeasurement('height')" class="form-control" placeholder="Enter height..."> <br />
+                                            <input type="text" id="weightInput" oninput="updateMeasurement('weight')" class="form-control" placeholder="Enter weight...">
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <button type="button" id="saveChangesBtn" class="btn btn-primary text-center" onclick="updateMeasurement()">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Add another col-md-6 for the second box -->
-                            <div class="col-md-6 mb-4">
-                                <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100 " style="background-color: #769ccd;">
-                                    <div class="activite-label mr-auto text-center mt-3">
-                                        <div class="activity-content d-flex align-items-center justify-content-center">
-                                            <img src="https://i.ibb.co/HGkLc5M/weight-icon.png" class="w-50 h-auto" alt="calculate">
-                                        </div>
-                                        <div class="text-center text-light pt-2">
-                                            <h5 class="mb-0">Weight</h5>
-                                            <span id="weightValue">0kg</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <script>
+                                function toggleUnit() {
+                                    var switchToUnit = document.getElementById("switchToUnit");
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Edit Height and Weight</h5>
-                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: red; color: white; border: none;">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body mt-3">
-                                        <input type="text" id="heightInput" oninput="updateMeasurement('height')" class="form-control" placeholder="Enter height..."> <br />
-                                        <input type="text" id="weightInput" oninput="updateMeasurement('weight')" class="form-control" placeholder="Enter weight...">
-                                    </div>
-                                    <div class="modal-footer border-0">
-                                        <button type="button" id="saveChangesBtn" class="btn btn-primary text-center" onclick="updateMeasurement()">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    var currentUnit = switchToUnit.innerText.trim();
 
-                        <script>
-                            function toggleUnit() {
-                                var switchToUnit = document.getElementById("switchToUnit");
+                                    var heightInput = document.getElementById("heightInput").value;
+                                    var weightInput = document.getElementById("weightInput").value;
 
-                                var currentUnit = switchToUnit.innerText.trim();
+                                    if (currentUnit === "Switch to Imperial") {
+                                        var heightInFeet = (parseFloat(heightInput) / 30.48).toFixed(2);
+                                        var weightInLbs = (parseFloat(weightInput) / 0.45359237).toFixed(2);
 
-                                var heightInput = document.getElementById("heightInput").value;
-                                var weightInput = document.getElementById("weightInput").value;
+                                        document.getElementById("heightValue").innerText = heightInFeet + " ft";
+                                        document.getElementById("weightValue").innerText = weightInLbs + " lbs";
 
-                                if (currentUnit === "Switch to Imperial") {
-                                    var heightInFeet = (parseFloat(heightInput) / 30.48).toFixed(2);
-                                    var weightInLbs = (parseFloat(weightInput) / 0.45359237).toFixed(2);
+                                        switchToUnit.innerText = "Switch to Metric";
+                                    } else {
 
-                                    document.getElementById("heightValue").innerText = heightInFeet + " ft";
-                                    document.getElementById("weightValue").innerText = weightInLbs + " lbs";
+                                        var heightInCm = (parseFloat(heightInput) * 30.48).toFixed(2);
+                                        var weightInKg = (parseFloat(weightInput) * 0.45359237).toFixed(2);
 
-                                    switchToUnit.innerText = "Switch to Metric";
-                                } else {
+                                        document.getElementById("heightValue").innerText = heightInCm + " cm";
+                                        document.getElementById("weightValue").innerText = weightInKg + " kg";
 
-                                    var heightInCm = (parseFloat(heightInput) * 30.48).toFixed(2);
-                                    var weightInKg = (parseFloat(weightInput) * 0.45359237).toFixed(2);
-
-                                    document.getElementById("heightValue").innerText = heightInCm + " cm";
-                                    document.getElementById("weightValue").innerText = weightInKg + " kg";
-
-                                    switchToUnit.innerText = "Switch to Imperial";
+                                        switchToUnit.innerText = "Switch to Imperial";
+                                    }
                                 }
-                            }
 
 
-                            // Function to update measurement units
-                            function updateMeasurement(type) {
-                                var heightInput = document.getElementById("heightInput").value;
-                                var weightInput = document.getElementById("weightInput").value;
+                                // Function to update measurement units
+                                function updateMeasurement(type) {
+                                    var heightInput = document.getElementById("heightInput").value;
+                                    var weightInput = document.getElementById("weightInput").value;
 
-                                // Update the displayed value
-                                var heightValue = (type === "height") ? heightInput : document.getElementById("heightValue").innerText;
-                                var weightValue = (type === "weight") ? weightInput : document.getElementById("weightValue").innerText;
+                                    // Update the displayed value
+                                    var heightValue = (type === "height") ? heightInput : document.getElementById("heightValue").innerText;
+                                    var weightValue = (type === "weight") ? weightInput : document.getElementById("weightValue").innerText;
 
-                                // Update the displayed values
-                                document.getElementById("heightValue").innerText = heightValue;
-                                document.getElementById("weightValue").innerText = weightValue;
+                                    // Update the displayed values
+                                    document.getElementById("heightValue").innerText = heightValue;
+                                    document.getElementById("weightValue").innerText = weightValue;
 
-                                // Check if both input fields have values
-                                var saveChangesBtn = document.getElementById("saveChangesBtn");
-                                if (heightInput.trim() !== "" && weightInput.trim() !== "") {
-                                    saveChangesBtn.disabled = false; // Enable the button
-                                } else {
-                                    saveChangesBtn.disabled = true; // Disable the button
+                                    // Check if both input fields have values
+                                    var saveChangesBtn = document.getElementById("saveChangesBtn");
+                                    if (heightInput.trim() !== "" && weightInput.trim() !== "") {
+                                        saveChangesBtn.disabled = false; // Enable the button
+                                    } else {
+                                        saveChangesBtn.disabled = true; // Disable the button
+                                    }
                                 }
-                            }
-                        </script>
-
-
-
-
-                        <div class="row">
-                            <!-- Add another col-md-6 for the third box -->
-                            <div class="col-md-6  py-3 pb-2  mr-md-2">
-                                <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100" style="background-color: #769ccd;">
-                                    <div class="activite-label mr-auto text-center">
-                                        <div class="activity-content d-flex align-items-center justify-content-center">
-                                            <img src="https://i.ibb.co/LSDDDfp/noinfo.png" class="w-50 h-auto mt-3" alt="calculate">
-                                        </div>
-                                        <div class="text-center text-light mb-0 pt-3">
-                                            <h5 class="mb-0">BMI</h5>
-                                            <span>0kg</span>
+                            </script>
+                            <div class="row">
+                                <!-- Add another col-md-6 for the third box -->
+                                <div class="col-md-6  py-3 pb-2  mr-md-2">
+                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100" style="background-color: #769ccd;">
+                                        <div class="activite-label mr-auto text-center">
+                                            <div class="activity-content d-flex align-items-center justify-content-center">
+                                                <img src="https://i.ibb.co/LSDDDfp/noinfo.png" class="w-50 h-auto mt-3" alt="calculate">
+                                            </div>
+                                            <div class="text-center text-light mb-0 pt-3">
+                                                <h5 class="mb-0">BMI</h5>
+                                                <span>0kg</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Add another col-md-6 for the fourth box -->
-                            <div class="col-md-6   py-3 pb-2 ml-md-2">
-                                <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100" style="background-color: #1aa9dd;">
-                                    <div class="activite-label mr-auto text-center">
-                                        <div class="activity-content d-flex align-items-center justify-content-center">
-                                            <img src="https://i.ibb.co/3zrC2BV/waist.png" class="w-50 h-auto mt-3" alt="calculate">
-                                        </div>
-                                        <div class="text-center text-light mb-0 pt-3">
-                                            <h5 class="mb-0">Waist</h5>
-                                            <span>0 cm</span>
+                                <!-- Add another col-md-6 for the fourth box -->
+                                <div class="col-md-6   py-3 pb-2 ml-md-2 displaynone">
+                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100" style="background-color: #1aa9dd;">
+                                        <div class="activite-label mr-auto text-center">
+                                            <div class="activity-content d-flex align-items-center justify-content-center">
+                                                <img src="https://i.ibb.co/3zrC2BV/waist.png" class="w-50 h-auto mt-3" alt="calculate">
+                                            </div>
+                                            <div class="text-center text-light mb-0 pt-3">
+                                                <h5 class="mb-0">Waist</h5>
+                                                <span>0 cm</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-
-                </div><!-- End my stats -->
+                    </div><!-- End my stats -->
+                    @endif
             </div><!-- End Right side columns -->
 
             <!-- left side colum  -->
             <!-- start bmi calculator  -->
-            <div class="col-12">
-                <div class="card">
-                    <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <li class="dropdown-header text-start">
-                                <h6>Filter</h6>
-                            </li>
+            @if($role == 4)
+                <div class="col-12">
+                    <div class="card">
 
-                            <li><a class="dropdown-item" href="#">Today</a></li>
-                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                            <li><a class="dropdown-item" href="#">This Year</a></li>
-                        </ul>
-                    </div>
+                        <div class="card-body pb-0">
+                            <h5 class="card-title fw-bold text-center">Body Mass Index</h5>
 
-                    <div class="card-body pb-0">
-                        <h5 class="card-title">Bmi Calculator <span>| Today</span></h5>
+                            <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 
-                        <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
             <!-- End bmi_calculator -->
 
         </div>
@@ -434,14 +429,8 @@
     document.addEventListener("DOMContentLoaded", () => {
         new ApexCharts(document.querySelector("#reportsChart"), {
             series: [{
-                name: 'Sales',
-                data: [31, 40, 28, 51, 42, 82, 56],
-            }, {
-                name: 'Revenue',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }, {
-                name: 'Customers',
-                data: [15, 11, 32, 18, 9, 24, 11]
+                name: 'BMI',
+                data: [ 42, 52, 56],
             }],
             chart: {
                 height: 350,
@@ -453,7 +442,7 @@
             markers: {
                 size: 4
             },
-            colors: ['#4154f1', '#2eca6a', '#ff771d'],
+            colors: [ '#2eca6a'],
             fill: {
                 type: "gradient",
                 gradient: {
@@ -472,7 +461,7 @@
             },
             xaxis: {
                 type: 'datetime',
-                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                categories: [ "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
             },
             tooltip: {
                 x: {
@@ -510,25 +499,21 @@
                     show: false
                 },
                 data: [{
-                        value: 1048,
-                        name: 'Search Engine'
+                        value: 18,
+                        name: 'Under Weight'
                     },
                     {
-                        value: 735,
-                        name: 'Direct'
+                        value: 25,
+                        name: 'Normal'
                     },
                     {
-                        value: 580,
-                        name: 'Email'
+                        value: 30,
+                        name: 'Pre-Obesity'
                     },
                     {
-                        value: 484,
-                        name: 'Union Ads'
+                        value: 100,
+                        name: 'Obese'
                     },
-                    {
-                        value: 300,
-                        name: 'Video Ads'
-                    }
                 ]
             }]
         });

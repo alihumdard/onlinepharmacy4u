@@ -1,3 +1,9 @@
+<style>
+    .displaynone{
+        display: none;
+    }
+</style>
+
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -8,6 +14,28 @@
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
+        </li>
+        @endif
+
+        @if(view_permission('collections'))
+        <li class="nav-item">
+            <a class="nav-link {{ (request()->routeIs(['admin.collections','admin.addCollection'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-col" data-bs-toggle="collapse">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Collections</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="siderbar-col" class="nav-content {{ (request()->routeIs(['admin.collections', 'admin.addCollection'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a class="{{(request()->routeIs(['admin.collections'])) ? 'nav-link ' : ''}}" href="{{route('admin.collections')}}">
+                        <i class="bi bi-circle"></i><span>All Collections</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.addCollection'])) ? 'nav-link ' : ''}}" href="{{route('admin.addCollection')}}">
+                        <i class="bi bi-circle"></i><span>Add Collection</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         @endif
 
@@ -32,6 +60,16 @@
                 <li>
                     <a class="{{(request()->routeIs(['admin.addCategory'])) ? 'nav-link ' : ''}}" href="{{route('admin.addCategory')}}">
                         <i class="bi bi-circle"></i><span>New Add</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.subCategories'])) ? 'nav-link ' : ''}}" href="{{route('admin.subCategories')}}">
+                        <i class="bi bi-circle"></i><span>Sub Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.childCategories'])) ? 'nav-link ' : ''}}" href="{{route('admin.childCategories')}}">
+                        <i class="bi bi-circle"></i><span>Child Categories</span>
                     </a>
                 </li>
 
@@ -95,12 +133,7 @@
                 </li>
                 <li>
                     <a class="{{(request()->routeIs(['admin.doctorsApproval'])) ? 'nav-link ' : ''}}" href="{{route('admin.doctorsApproval')}}">
-                        <i class="bi bi-circle"></i><span>Medical Professionals Approval</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="{{(request()->routeIs(['admin.ordersConfrimed'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersConfrimed')}}">
-                        <i class="bi bi-circle"></i><span>Confirmed Orders</span>
+                        <i class="bi bi-circle"></i><span>Medical Professionals Status</span>
                     </a>
                 </li>
                 <li>
@@ -178,8 +211,8 @@
         @endif
 
         @if(view_permission('faq'))
-        <li class="nav-item">
-            <a class="nav-link {{(request()->routeIs('admin.faq')) ? '' : 'collapsed'}} " href="{{route('admin.faq')}}">
+        <li class="nav-item displaynone">
+            <a class="nav-link  {{(request()->routeIs('admin.faq')) ? '' : 'collapsed'}} " href="{{route('admin.faq')}}">
                 <i class="bi bi-question-circle"></i>
                 <span>F.A.Q</span>
             </a>

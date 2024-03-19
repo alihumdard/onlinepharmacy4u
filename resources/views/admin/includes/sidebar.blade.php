@@ -46,20 +46,10 @@
                 <span>Categories</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="siderbar-cat" class="nav-content {{ (request()->routeIs(['admin.categories','admin.assignQuestion', 'admin.addCategory'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+            <ul id="siderbar-cat" class="nav-content {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories','admin.assignQuestion', 'admin.addCategory'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{(request()->routeIs(['admin.categories'])) ? 'nav-link ' : ''}}" href="{{route('admin.categories')}}">
-                        <i class="bi bi-circle"></i><span>All Categories</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="{{(request()->routeIs(['admin.assignQuestion'])) ? 'nav-link ' : ''}}" href="{{route('admin.assignQuestion')}}">
-                        <i class="bi bi-circle"></i><span>Assign Questions</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="{{(request()->routeIs(['admin.addCategory'])) ? 'nav-link ' : ''}}" href="{{route('admin.addCategory')}}">
-                        <i class="bi bi-circle"></i><span>New Add</span>
+                        <i class="bi bi-circle"></i><span>Main Categories</span>
                     </a>
                 </li>
                 <li>
@@ -72,7 +62,16 @@
                         <i class="bi bi-circle"></i><span>Child Categories</span>
                     </a>
                 </li>
-
+                <li>
+                    <a class="{{(request()->routeIs(['admin.addCategory'])) ? 'nav-link ' : ''}}" href="{{route('admin.addCategory')}}">
+                        <i class="bi bi-circle"></i><span>Add New</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.assignQuestion'])) ? 'nav-link ' : ''}}" href="{{route('admin.assignQuestion')}}">
+                        <i class="bi bi-circle"></i><span>Assign Questions</span>
+                    </a>
+                </li>
             </ul>
         </li>
         @endif

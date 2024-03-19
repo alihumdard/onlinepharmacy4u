@@ -48,8 +48,8 @@
                             <div class="col-md-4">
                                 <label for="publish" class="form-label">Status</label>
                                 <select id="publish" name="publish" class="form-select">
-                                    <option {{ ($category['publish'] ?? NULL  == 'Publish') ? 'Selected' : ''}} value="Publish" >Publish</option>
-                                    <option  {{ ($category['publish'] ?? NULL == 'Draft') ? 'Selected' : ''}} value="Draft" >Draft</option>
+                                    <option {{ (isset($category['publish']) && $category['publish'] == 'Publish') ? 'selected' : '' }} value="Publish" >Publish</option>
+                                    <option {{ (isset($category['publish']) && $category['publish'] == 'Draft') ? 'selected' : '' }} value="Draft" >Draft</option>
                                 </select>
                             </div>
 
@@ -57,11 +57,11 @@
                                 <label for="publish" class="form-label">Select Parent</label>
                                 <select id="parent_id" name="parent_id" class="form-select">
                                     <option value="">Select</option>
-                                    @if(@isset($parents))
-                                        @foreach ($parents as $key => $value)
-                                            <option value="{{ $value['id'] }}" @if ($value['id'] == $category['category_id']) selected @endif>{{ $value['name'] }}</option>
-                                        @endforeach
-                                    @endif
+                                        @if(@isset($parents))
+                                            @foreach ($parents as $key => $value)
+                                                <option value="{{ $value['id'] }}" @if ($value['id'] == $category[$catName]) selected @endif>{{ $value['name'] }}</option>
+                                            @endforeach
+                                        @endif
                                 </select>
                             </div>
                             <div class="col-12">

@@ -291,14 +291,16 @@ class SystemController extends Controller
                 $data['category'] = SubCategory::findOrFail($request->id)->toArray(); 
                 $data['selection'] = 2;
                 $data['parents'] = Category::all()->toArray();
+                $data['catName'] = 'category_id';
             }
             elseif($request->selection == 3){
                 $data['category'] = ChildCategory::findOrFail($request->id)->toArray();
                 $data['selection'] = 3;
                 $data['parents'] = SubCategory::all()->toArray();
+                $data['catName'] = 'subcategory_id';
             }
         }
-
+// return $data;
         return view('admin.pages.add_category', $data);
     }
 

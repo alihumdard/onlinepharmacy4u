@@ -5,17 +5,17 @@
 <div class="ltn__slider-area ltn__slider-3  section-bg-1">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-50" br data-bs-bg="img/slider/Home-page-main-banner-1.jpg">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/slider/home-slider-2.png">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 align-self-center">
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
-                                    <h6 class="slide-sub-title white-color--- animated text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated text-white">Your Wellness, Just a Click Away Online Pharmacy4U!</h1>
+                                    <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
+                                    <h1 class="slide-title animated text-black">Your Wellness, Just a Click Away Online Pharmacy4U!</h1>
                                     <div class="slide-brief animated">
-                                        <p class=" text-white">As the fast-expanding Online Pharmacy in the UK, our commitment to prioritising customer needs underscores our service. With a paramount focus on health and well-being, we guarantee complimentary delivery of all your medications.</p>
+                                        <p class=" text-black">As the fast-expanding Online Pharmacy in the UK, our commitment to prioritising customer needs underscores our service. With a paramount focus on health and well-being, we guarantee complimentary delivery of all your medications.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="shop.html" class="theme-btn-1 btn btn-effect-1">Shop Now</a>
@@ -28,8 +28,8 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-50" data-bs-bg="img/slider/Home-page-main-banner-2.webp">
-            <div class="ltn__slide-item-inner text-center">
+        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/slider/home-slider-one.png">
+            <div class="ltn__slide-item-inner text-left">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 align-self-center">
@@ -40,10 +40,10 @@
                                             <i class="fa fa-play"></i>
                                         </a>
                                     </div>
-                                    <h6 class="slide-sub-title white-color--- animated text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated text-white">Your Trusted Path to Wellness, Where Convenience Meets Care!</h1>
+                                    <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
+                                    <h1 class="slide-title animated text-black">Your Trusted Path to Wellness, Where Convenience Meets Care!</h1>
                                     <div class="slide-brief animated">
-                                        <p class="text-white">Experience convenient healthcare with Online Pharmacy4U. Browse a vast selection of medications, health products, and expert advice. Your well-being matters, and we swiftly and reliably deliver quality healthcare to your doorstep.</p>
+                                        <p class="text-black">Experience convenient healthcare with Online Pharmacy4U. Browse a vast selection of medications, health products, and expert advice. Your well-being matters, and we swiftly and reliably deliver quality healthcare to your doorstep.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="shop.html" class="theme-btn-1 btn btn-effect-1">Shop Now</a>
@@ -56,17 +56,17 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-50" data-bs-bg="img/slider/Home-page-main-banner-3.webp">
-            <div class="ltn__slide-item-inner  text-right text-end">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/slider/home-slider-3.png">
+            <div class="ltn__slide-item-inner  text-left">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 align-self-center">
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
-                                    <h6 class="slide-sub-title white-color--- animated  text-white"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated  text-white">Prescriptions made simple, <br>proud to serve you!</h1>
+                                    <h6 class="slide-sub-title white-color--- animated  text-black"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
+                                    <h1 class="slide-title animated  text-black">Prescriptions made simple, <br>proud to serve you!</h1>
                                     <div class="slide-brief animated">
-                                        <p class="text-white">At Online Pharmacy4U, we take pride in serving you, ensuring simplicity and efficiency in every prescription, and fostering your well-being with care.</p>
+                                        <p class="text-black">At Online Pharmacy4U, we take pride in serving you, ensuring simplicity and efficiency in every prescription, and fostering your well-being with care.</p>
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="shop.html" class="theme-btn-1 btn btn-effect-1">Shop Now</a>
@@ -617,7 +617,7 @@
 <!-- PRODUCT AREA END -->
 
 <!-- COUNTDOWN AREA START -->
-<div class="ltn__call-to-action-area section-bg-1 bg-image pt-120 pb-120" data-bs-bg="img/bg/25.jpg">
+<div class="ltn__call-to-action-area section-bg-1 bg-image pt-120 pb-120" data-bs-bg="img/bg/25.png">
     <div class="container">
         <div class="row">
             <div class="col-lg-7">

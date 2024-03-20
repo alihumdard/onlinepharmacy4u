@@ -1,6 +1,6 @@
 /*
-    Template Name: Vicodin
-    Description: Medical eCommerce HTML Template
+    Template Name: Online Pharmacy 4U 
+    Description: Online Pharmacy 4U 
     Version: 1.0.0
 */
 /* Single side border-radius  */
@@ -68,13 +68,13 @@ Last uses font
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap');
 */
 /*
-font-family: 'Nunito Sans', sans-serif;
+
 font-family: 'Poppins', sans-serif;
 */
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap");
 /*
 font-family: 'Josefin Sans', sans-serif;
-font-family: 'Nunito', sans-serif;
+
 */
 /* ====================================================
     Gutter Code 
@@ -220,15 +220,15 @@ font-family: 'Nunito', sans-serif;
   /* Darken */
   --ltn__primary-color-3: #133236;
   /* Lighten */
-  --ltn__secondary-color: #0A9A73;
+  --ltn__secondary-color: #3e7ee8;
   --ltn__secondary-color-2: #cb3421;
   /* Darken */
   --ltn__secondary-color-3: #fb412a;
   /* Lighten */
   --ltn__heading-color: #071c1f;
   --ltn__paragraph-color: #5C727D;
-  --ltn__heading-font: 'Josefin Sans', sans-serif;
-  --ltn__body-font: 'Nunito Sans', sans-serif;
+  --ltn__heading-font: 'poppins', sans-serif;
+  --ltn__body-font: 'poppins', sans-serif;
   /* Footer ACD2D8 8CB2B2  */
   --ltn__color-1: #8cb2b2;
   --ltn__color-2: #ACD2D8;

@@ -7,8 +7,8 @@
                         <div class="col-md-7">
                             <div class="ltn__top-bar-menu">
                                 <ul>
-                                    <li class="text-white"><a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you"><i class="icon-mail text-white"></i> info@webmail.com</a></li>
-                                    <li class="text-white"><a href="locations.html"><i class="icon-placeholder text-white"></i> 15/A, Nest Tower, NYC</a></li>
+                                    <li class="text-dark"><a href="mailto:info@onlinepharmacy-4u.co.uk"><i class="icon-mail text-dark"></i> info@onlinepharmacy-4u.co.uk</a></li>
+                                    <li class="text-dark"><a href="locations.html"><i class="icon-placeholder text-dark"></i>Nottingham, NG19 9QH, United Kingdom</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                         </li> -->
                                         <li>
                                             <!-- ltn__social-media -->
-                                            <div class="ltn__social-media text-white">
+                                            <div class="ltn__social-media text-dark">
                                                 <ul>
                                                     <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                                                     <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
@@ -53,9 +53,9 @@
             </div>
             <!-- ltn__header-top-area end -->
             <!-- ltn__header-middle-area start -->
-            <div class="ltn__header-middle-area ltn__logo-right-menu-option ltn__header-row-bg-white ltn__header-padding ltn__header-sticky ltn__sticky-bg-white">
-                <div class="container">
-                    <div class="row">
+            <div class="ltn__header-middle-area ltn__logo-right-menu-option ltn__header-row-bg-white ltn__header-padding ltn__header-sticky ltn__sticky-bg-white pt-0">
+                <div class="container-fluid m-0 p-0">
+                    <div class="row m-0 p-0">
                         <div class="col">
                             <div class="site-logo-wrap">
                                 <div class="site-logo">
@@ -77,7 +77,7 @@
                                 <nav>
                                     <div class="ltn__main-menu">
                                         <ul>
-                                            <li class="menu-icon"><a href="/">Home</a>
+                                            <li><a href="/">Home</a>
                                                 <!-- <ul class="sub-menu menu-pages-img-show ltn__sub-menu-col-2---">
                                                     <li>
                                                         <a href="index.html">Home Style 01</a>
@@ -93,8 +93,8 @@
                                                     </li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="/about">About</a>
-                                            <li class="menu-icon"><a href="/services">Services</a>
+                                            <li><a href="/about">About</a>
+                                            <li><a href="/services">Services</a>
                                                 <!-- <ul>
                                                     <li><a href="about.html">About</a></li>
                                                     <li><a href="service.html">Services</a></li>
@@ -108,8 +108,8 @@
                                                     <li><a href="locations.html">Google Map Locations</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="/shop">Shop</a>
-                                                <!-- <ul>
+                                            <!-- <li class="menu-icon"><a href="/shop">Shop</a>
+                                                <ul>
                                                     <li><a href="shop.html">Shop</a></li>
                                                     <li><a href="shop-grid.html">Shop Grid</a></li>
                                                     <li><a href="shop-left-sidebar.html">Shop Left sidebar</a></li>
@@ -126,9 +126,9 @@
                                                             <li><a href="register.html">Register</a></li>
                                                         </ul>
                                                     </li>
-                                                </ul> -->
-                                            </li>
-                                            <li class="menu-icon"><a href="/news">News</a>
+                                                </ul>
+                                            </li> -->
+                                            <li><a href="/news">News</a>
                                                 <!-- <ul>
                                                     <li><a href="blog.html">News</a></li>
                                                     <li><a href="blog-grid.html">News Grid</a></li>
@@ -137,9 +137,9 @@
                                                     <li><a href="blog-details.html">News details</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="/faqs">FAQs</a>
-                                                <!-- <ul class="mega-menu">
-                                                    <li><a href="#">Inner Pages</a>
+                                            <li class="menu-icon"><a href="/shop">Medicines</a>
+                                                <ul class="mega-menu">
+                                                    <li><a href="#">Categories</a>
                                                         <ul>
                                                             <li><a href="portfolio.html">Gallery</a></li>
                                                             <li><a href="portfolio-2.html">Gallery - 02</a></li>
@@ -149,7 +149,7 @@
                                                             <li><a href="faq.html">FAQ</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li><a href="#">Inner Pages</a>
+                                                    <li><a href="#">Categories</a>
                                                         <ul>
                                                             <li><a href="history.html">History</a></li>
                                                             <li><a href="contact.html">Appointment</a></li>
@@ -159,7 +159,7 @@
                                                             <li><a href="coming-soon.html">Coming Soon</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li><a href="#">Shop Pages</a>
+                                                    <li><a href="#">Categories</a>
                                                         <ul>
                                                             <li><a href="shop.html">Shop</a></li>
                                                             <li><a href="shop-left-sidebar.html">Shop Left sidebar</a></li>
@@ -171,7 +171,7 @@
                                                     </li>
                                                     <li><a href="shop.html"><img src="img/banner/menu-banner-1.png" alt="#"></a>
                                                     </li>
-                                                </ul> --->
+                                                </ul> 
                                             </li>
                                             <li><a href="/contact">Contact</a></li>
                                         </ul> 

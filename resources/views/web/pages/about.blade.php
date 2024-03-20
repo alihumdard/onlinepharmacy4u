@@ -8,7 +8,7 @@
 </style>
 
     <!-- BREADCRUMB AREA START -->
-    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/allbanners/About.webp">
+    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/allbanners/about.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

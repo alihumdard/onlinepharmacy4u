@@ -94,7 +94,7 @@
                                                 </ul> -->
                                             </li>
                                             <li><a href="/about">About</a>
-                                            <li><a href="/services">Services</a>
+                                            <!-- <li><a href="/services">Services</a> -->
                                                 <!-- <ul>
                                                     <li><a href="about.html">About</a></li>
                                                     <li><a href="service.html">Services</a></li>

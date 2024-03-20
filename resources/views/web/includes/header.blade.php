@@ -7,8 +7,8 @@
                         <div class="col-md-7">
                             <div class="ltn__top-bar-menu">
                                 <ul>
-                                    <li class="text-white"><a href="mailto:info@onlinepharmacy-4u.co.uk"><i class="icon-mail text-white"></i> info@onlinepharmacy-4u.co.uk</a></li>
-                                    <li class="text-white"><a href="locations.html"><i class="icon-placeholder text-white"></i>Nottingham, NG19 9QH, United Kingdom</a></li>
+                                    <li class="text-dark"><a href="mailto:info@onlinepharmacy-4u.co.uk"><i class="icon-mail text-dark"></i> info@onlinepharmacy-4u.co.uk</a></li>
+                                    <li class="text-dark"><a href="locations.html"><i class="icon-placeholder text-dark"></i>Nottingham, NG19 9QH, United Kingdom</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                         </li> -->
                                         <li>
                                             <!-- ltn__social-media -->
-                                            <div class="ltn__social-media text-white">
+                                            <div class="ltn__social-media text-dark">
                                                 <ul>
                                                     <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                                                     <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
@@ -137,7 +137,7 @@
                                                     <li><a href="blog-details.html">News details</a></li>
                                                 </ul> -->
                                             </li>
-                                            <li class="menu-icon"><a href="/shop">Shop</a>
+                                            <li class="menu-icon"><a href="/shop">Medicines</a>
                                                 <ul class="mega-menu">
                                                     <li><a href="#">Categories</a>
                                                         <ul>

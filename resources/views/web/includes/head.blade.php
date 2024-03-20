@@ -14,3 +14,5 @@
 <link rel="stylesheet" href="css/style.css">
 <!-- Responsive css -->
 <link rel="stylesheet" href="css/responsive.css">
+<!-- Custom stylesheet for developer -->
+<link rel="stylesheet" href="css/custom.css">

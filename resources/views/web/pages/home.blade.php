@@ -13,7 +13,7 @@
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
                                     <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated text-black">Your Wellness, Just a Click Away Online Pharmacy4U!</h1>
+                                    <h1 class="slide-title animated text-black">Just a Click Away <br> Online Pharmacy4U!</h1>
                                     <div class="slide-brief animated">
                                         <p class=" text-black">As the fast-expanding Online Pharmacy in the UK, our commitment to prioritising customer needs underscores our service. With a paramount focus on health and well-being, we guarantee complimentary delivery of all your medications.</p>
                                     </div>

@@ -67,7 +67,7 @@
             <div class="ltn__utilize-menu-inner ltn__scrollbar">
                 <div class="ltn__utilize-menu-head">
                     <div class="site-logo">
-                        <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
+                        <a href="index.html"><img src="img/logo.webp" alt="Logo"></a>
                     </div>
                     <button class="ltn__utilize-close">×</button>
                 </div>
@@ -79,15 +79,10 @@
                 </div>
                 <div class="ltn__utilize-menu">
                     <ul>
-                        <li><a href="#">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Home Style 01</a></li>
-                                <li><a href="index-2.html">Home Style 02</a></li>
-                                <li><a href="index-3.html">Home Style 03</a></li>
-                            </ul>
+                        <li><a href="/">Home</a>
                         </li>
-                        <li><a href="#">About</a>
-                            <ul class="sub-menu">
+                        <li><a href="/about">About</a>
+                            <!-- <ul class="sub-menu">
                                 <li><a href="about.html">About</a></li>
                                 <li><a href="service.html">Services</a></li>
                                 <li><a href="service-details.html">Service Details</a></li>
@@ -98,9 +93,9 @@
                                 <li><a href="team-details.html">Team Details</a></li>
                                 <li><a href="faq.html">FAQ</a></li>
                                 <li><a href="locations.html">Google Map Locations</a></li>
-                            </ul>
+                            </ul> -->
                         </li>
-                        <li><a href="#">Shop</a>
+                        <li><a href="/news">News</a>
                             <ul class="sub-menu">
                                 <li><a href="shop.html">Shop</a></li>
                                 <li><a href="shop-grid.html">Shop Grid</a></li>

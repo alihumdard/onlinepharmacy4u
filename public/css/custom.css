@@ -1,0 +1,39 @@
+/* sanader modifications  */
+
+.ltn__header-options-2 .header-search-1, .ltn__header-options-2 .ltn__drop-menu > ul > li > a, .ltn__header-options-2 .mini-cart-icon a, .ltn__header-options-2 .header-wishlist{
+    border-radius: 30px !important;
+}
+
+.ltn__header-options-2 .mobile-menu-toggle > a{
+    border-radius: 30px !important;
+}
+
+.header-search-1-form{
+    top:98%;
+}
+.header-search-1-form form{
+    margin:0px;
+    border-radius:30px;
+}
+.search-open.header-search-1-form{
+    height:58px !important;
+    border-radius:30px;
+}
+.ltn__utilize-menu-search-form input[type="text"]{
+    border-radius:30px;
+}
+.ltn__utilize-buttons .utilize-btn-icon{
+    border-radius: 30px;
+}
+.ltn__social-media-2 ul li a{
+    border-radius: 30px;
+}
+.footer-top-area{
+    background-color:#c8fff6 !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .ltn__header-top-area{
+        display:none;
+    }
+  }

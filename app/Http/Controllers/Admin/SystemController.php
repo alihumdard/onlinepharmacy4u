@@ -298,7 +298,7 @@ class SystemController extends Controller
                 $data['category'] = ChildCategory::findOrFail($request->id)->toArray();
                 $data['selection'] = 3;
                 $data['parents'] = SubCategory::all()->toArray();
-                $data['catName'] = 'subcategory_id';
+                $data['catName'] = 'sub_category_id';
             }
         }
 
@@ -356,6 +356,7 @@ class SystemController extends Controller
                 ['id' => $request->id ?? NULL],
                 [
                     'name'       => ucwords($request->name),
+                    'slug'       => Str::slug($request->name),
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
                     'created_by' => $user->id,
@@ -371,6 +372,7 @@ class SystemController extends Controller
                 ['id' => $request->id ?? NULL],
                 [
                     'name'       => ucwords($request->name),
+                    'slug'       => Str::slug($request->name),
                     'category_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
@@ -387,6 +389,7 @@ class SystemController extends Controller
                 ['id' => $request->id ?? NULL],
                 [
                     'name'       => ucwords($request->name),
+                    'slug'       => Str::slug($request->name),
                     'subcategory_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,

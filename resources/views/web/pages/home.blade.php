@@ -1,4 +1,4 @@
-@extends('web.layouts.default')
+@extends('web.layouts.default', ['categories' => $categories])
 @section('title', 'Home')
 @section('content')
 <!-- SLIDER AREA START (slider-3) -->

@@ -20,6 +20,7 @@ Route::match(['get', 'post'], '/login', [DefualtController::class, 'login'])->na
 Route::match(['get', 'post'], '/register', [DefualtController::class, 'regisration_from'])->name('register');
 Route::match(['get', 'post'], '/regisrationFrom', [DefualtController::class, 'user_register'])->name('web.user_register');
 Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->name('web.logout');
+
 Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs');
 Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('web.blogs');
@@ -66,11 +67,8 @@ Route::match(['get','post'],'/deliveryReturns', function(){
 
 
 
-
-
-Route::get('/', function () {
-    return view('web.pages.home');
-});
+Route::get('/', [HomeController::class, 'index'])->name('web.index');
+Route::get('/category/{type}/{category}', [HomeController::class, 'showProducts'])->name('category.products');
 
 
 Route::get('/blog', function () {

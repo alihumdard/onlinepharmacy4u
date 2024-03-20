@@ -93,8 +93,8 @@
                                                     </li>
                                                 </ul> -->
                                             </li>
-                                            <li><a href="/about">About</a>
-                                            <li><a href="/services">Services</a>
+                                            {{-- <li><a href="/about">About</a> --}}
+                                            {{-- <li><a href="/services">Services</a> --}}
                                                 <!-- <ul>
                                                     <li><a href="about.html">About</a></li>
                                                     <li><a href="service.html">Services</a></li>
@@ -107,7 +107,7 @@
                                                     <li><a href="faq.html">FAQ</a></li>
                                                     <li><a href="locations.html">Google Map Locations</a></li>
                                                 </ul> -->
-                                            </li>
+                                            {{-- </li> --}}
                                             <!-- <li class="menu-icon"><a href="/shop">Shop</a>
                                                 <ul>
                                                     <li><a href="shop.html">Shop</a></li>
@@ -128,7 +128,7 @@
                                                     </li>
                                                 </ul>
                                             </li> -->
-                                            <li><a href="/news">News</a>
+                                            {{-- <li><a href="/news">News</a> --}}
                                                 <!-- <ul>
                                                     <li><a href="blog.html">News</a></li>
                                                     <li><a href="blog-grid.html">News Grid</a></li>
@@ -136,7 +136,26 @@
                                                     <li><a href="blog-right-sidebar.html">News Right sidebar</a></li>
                                                     <li><a href="blog-details.html">News details</a></li>
                                                 </ul> -->
-                                            </li>
+                                            {{-- </li> --}}
+                                            @foreach ($categories as $key => $val)
+                                                {{-- <li><a href="/about">{{ $val['name'] }}</a> --}}
+                                                    <li class="menu-icon"><a href="{{ route('category.products', ['type' => 1,'category' => $val['id']]) }}">{{ $val['name'] }}</a>
+                                                        <ul class="mega-menu">
+                                                            @foreach($val['subcategory'] as $key1 => $val1)
+                                                                <li><a href="{{ route('category.products', ['type' => 2,'category' => $val1['id']]) }}">{{ $val1['name'] }}</a>
+                                                                    <ul>
+                                                                        @foreach($val1['child_categories'] as $key2 => $val2)
+                                                                            <li><a href="{{ route('category.products', ['type' => 3,'category' => $val2['id']]) }}"> {{ $val2['name'] }} </a></li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+                                                            @endforeach
+                                                            <li><a href="shop.html"><img src="img/banner/menu-banner-1.png" alt="#"></a>
+                                                            </li>
+                                                        </ul> 
+                                                    </li>
+                                                
+                                            @endforeach
                                             <li class="menu-icon"><a href="/shop">Medicines</a>
                                                 <ul class="mega-menu">
                                                     <li><a href="#">Categories</a>

@@ -468,7 +468,7 @@ class SystemController extends Controller
     {
         $category_id = $request->category_id; 
         $categories = ChildCategory::select('id', 'name')
-                ->where('subcategory_id', $category_id)
+                ->where('sub_category_id', $category_id)
                 ->pluck('name', 'id')
                 ->toArray();
 
@@ -877,7 +877,7 @@ class SystemController extends Controller
             ->toArray(); 
             
             $data['child_category'] = ChildCategory::select('id', 'name')
-            ->where('subcategory_id', $data['product']['sub_category'])
+            ->where('sub_category_id', $data['product']['sub_category'])
             ->pluck('name', 'id')
             ->toArray();
 

@@ -32,23 +32,9 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
-        // $data['categories'] = array_column(Category::all()->toArray(), 'name');
-        $data['categories'] = Category::with('subcategory.childCategories')
-        ->where('publish', 'Publish')
-        ->latest('id')
-        ->get()
-        ->toArray();
-        // return $data['categories'];
+        $data['products'] = Product::with('category:id,name')->take(8)->latest('id')->get()->toArray();
+
         return view('web.pages.home',$data);
-    }
-
-    public function showProducts($type, $categoryId)
-    {
-        return 'hello';
-        // $category = Category::findOrFail($categoryId);
-        // $products = $category->products()->paginate(10); // Assuming you want to paginate the products
-
-        // return view('category.products', compact('category', 'products'));
     }
 
     public function blogs(Request $request)

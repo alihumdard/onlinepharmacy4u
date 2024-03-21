@@ -10,9 +10,8 @@ class ChildCategory extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sub_category_id',
+        'subcategory_id',
         'name',
-        'slug',
         'desc',
         'publish',
         'status',
@@ -21,6 +20,6 @@ class ChildCategory extends Model
 
     public function subcategory()
     {
-        return $this->belongsTo(Subcategory::class, 'sub_category_id');
+        return $this->belongsTo(Subcategory::class);
     }
 }

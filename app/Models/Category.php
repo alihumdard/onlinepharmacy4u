@@ -11,19 +11,11 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'slug',
         'desc',
         'publish',
         'status',
         'created_by',
     ];
-
-    public function subCategory()
-    {
-        return $this->hasMany(subCategory::class);
-    }
-
-    // old one
 
     public function products()
     {

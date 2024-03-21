@@ -28,8 +28,6 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->integer('sub_category')->nullable();
             $table->integer('child_category')->nullable();
-            $table->integer('product_template');
-            $table->text('question_category')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable()->default(null);
             $table->timestamps();

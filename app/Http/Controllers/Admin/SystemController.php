@@ -390,7 +390,7 @@ class SystemController extends Controller
                 [
                     'name'       => ucwords($request->name),
                     'slug'       => Str::slug($request->name),
-                    'subcategory_id' => $request->parent_id,
+                    'sub_category_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
                     'created_by' => $user->id,

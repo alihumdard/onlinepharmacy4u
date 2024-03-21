@@ -29,15 +29,27 @@ use App\Models\ProductAttribute;
 
 class HomeController extends Controller
 {
+    private $categories;
+
+    public function __construct()
+    {
+        $this->categories = Category::with('subcategory.childCategories')
+            ->where('publish', 'Publish')
+            ->latest('id')
+            ->get()
+            ->toArray();
+    }
+
     public function index(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
         // $data['categories'] = array_column(Category::all()->toArray(), 'name');
-        $data['categories'] = Category::with('subcategory.childCategories')
-        ->where('publish', 'Publish')
-        ->latest('id')
-        ->get()
-        ->toArray();
+        // $data['categories'] = Category::with('subcategory.childCategories')
+        // ->where('publish', 'Publish')
+        // ->latest('id')
+        // ->get()
+        // ->toArray();
+        $data['categories'] = $this->categories;
         // return $data['categories'];
         return view('web.pages.home',$data);
     }

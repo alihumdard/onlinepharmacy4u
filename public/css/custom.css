@@ -29,8 +29,40 @@
     border-radius: 30px;
 }
 .footer-top-area{
-    background-color:#c8fff6 !important;
+    background-color:#3d7de8 !important;
 }
+.footer-menu ul li a, .footer-widget .footer-title,.footer-address ul li .footer-address-icon{
+    color:white !important;
+}
+.footer-menu ul li a:hover{
+    color:#03c4a5;
+}
+.footer-widget p{
+    color:white;
+}
+
+/* Footer Social Media links start form here */
+.ltn__social-media ul li a i{
+    color:white;
+    font-size:20px;
+} 
+.ltn__social-media ul li a i:hover{
+    color:#03c4a5;
+}
+/* Footer Social Media Links Ends here */
+.section-bg-7{
+    background-color:#03c4a5;
+}
+.payment-heading{
+    color:white;
+}
+.footer-newsletter form input{
+    height:35px;
+    border-radius:30px;
+    border:5px solid white;
+}
+
+
 
 @media only screen and (max-width: 600px) {
     .ltn__header-top-area{

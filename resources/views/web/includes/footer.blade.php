@@ -18,7 +18,7 @@
                                             <i class="icon-placeholder"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p>Brooklyn, New York, United States</p>
+                                            <p>Unit 2, Mansfield Station Gateway, Signal Way, Nottingham, NG19 9QH</p>
                                         </div>
                                     </li>
                                     <li>
@@ -26,7 +26,7 @@
                                             <i class="icon-call"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p><a href="tel:+0123-456789">+0123-456789</a></p>
+                                            <p><a href="tel:01623 572757">01623 572757</a></p>
                                         </div>
                                     </li>
                                     <li>
@@ -34,7 +34,7 @@
                                             <i class="icon-mail"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p><a href="mailto:example@example.com">example@example.com</a></p>
+                                            <p><a href="mailto:info@online-pharmacy4u.co.uk">info@online-pharmacy4u.co.uk</a></p>
                                         </div>
                                     </li>
                                 </ul>
@@ -57,7 +57,7 @@
                                     <li><a href="/about">About</a></li>
                                     <li><a href="/news">Blog</a></li>
                                     <li><a href="/shop">All Products</a></li>
-                                    <li><a href="locations.html">Locations Map</a></li>
+                                    <li><a href="#">Locations Map</a></li>
                                     <li><a href="/faqs">FAQ</a></li>
                                     <li><a href="/contact">Contact us</a></li>
                                 </ul>
@@ -73,8 +73,8 @@
                                     <li><a href="/wishlist">Wish List</a></li>
                                     <li><a href="/login">Login</a></li>
                                     <li><a href="/account">My account</a></li>
-                                    <li><a href="about.html">Terms & Conditions</a></li>
-                                    <li><a href="about.html">Promotional Offers</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Promotional Offers</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <h5 class="mt-30">We Accept</h5>
+                            <h5 class="mt-30 payment-heading">We Accept</h5>
                             <img src="img/icons/payment-4.png" alt="Payment Image">
                         </div>
                     </div>

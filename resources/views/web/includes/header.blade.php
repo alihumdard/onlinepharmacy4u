@@ -151,7 +151,7 @@
                                                                     </ul>
                                                                 </li>
                                                             @endforeach
-                                                            <li><a href="shop.html"><img src="img/banner/menu-banner-1.png" alt="#"></a>
+                                                            <!-- <li><a href="shop.html"><img src="img/banner/menu-banner-1.png" alt="#"></a> -->
                                                             </li>
                                                         </ul> 
                                                     </li>

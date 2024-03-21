@@ -190,21 +190,32 @@
                             <label for="category_id" class="form-label">Select Product Category</label>
                             <select id="category_id" name="category_id" class="form-select" required>
                                 <option value="" selected>Choose...</option>
-                                @foreach ($categories as $key => $value)
-                                <option value="{{ $value['id'] ?? '' }}" {{ (isset($product['category_id']) && $product['category_id'] == $value['id']) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
-                                @endforeach
+                                    @foreach ($categories as $key => $value)
+                                    <option value="{{ $value['id'] ?? '' }}" {{ (isset($product['category_id']) && $product['category_id'] == $value['id']) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
+                                    @endforeach
                             </select>
                             <div class="invalid-feedback">* Please select product category</div>
                         </div>
                         <div class="col-12 select-sub_category">
                             <label for="sub_category" class="form-label">Select Sub Category</label>
                             <select id="sub_category" name="sub_category" class="form-select">
+                                @if(@isset($sub_category))
+                                    <option value="" selected>Choose...</option>
+                                    @foreach ($sub_category as $key => $value)
+                                    <option value="{{ $key ?? '' }}" {{ (isset($product['sub_category']) && $product['sub_category'] == $key) ? 'selected' : '' }}>{{ $value ?? '' }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                             <div class="invalid-feedback">* Please select sub category</div>
                         </div>
                         <div class="col-12 select-child_category">
                             <label for="child_category" class="form-label">Select Child Category</label>
                             <select id="child_category" name="child_category" class="form-select">
+                                @if(@isset($child_category))
+                                    @foreach ($child_category as $key => $value)
+                                    <option value="{{ $key ?? '' }}" {{ (isset($product['child_category']) && $product['child_category'] == $key) ? 'selected' : '' }}>{{ $value ?? '' }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                             <div class="invalid-feedback">* Please select child category</div>
                         </div>
@@ -213,6 +224,34 @@
 
             </div>
             <div class="row">
+                <div class="col-md-6">
+                    <label for="product_template" class="col-form-label"> Select Template <span class="product-template"></span></label>
+                    <select id="product_template" name="product_template" class="form-select" required>
+                        <option value="" selected>Choose...</option>
+                        @foreach ($templates as $key => $value)
+                        <option value="{{ $key ?? '' }}" {{ (isset($product['product_template']) && $product['product_template'] == $key) ? 'selected' : '' }}>{{ $value ?? '' }}</option>
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback">Select Template!</div>
+                    @error('product_template')
+                    <div class="alert-danger text-danger ">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label for="question_category" class="col-form-label"> Select Question Category <span class="question-category"></span></label>
+                    <select id="question_category" name="question_category[]" class="form-select select2" data-placeholder="choose categories ..." multiple="multiple">
+                        <option value="all">all</option>
+                        @foreach ($question_category as $key => $value)
+                        <option  value="{{ $value['id'] ?? '' }}" {{ (isset($prod_question) && in_array($value['id'], $prod_question)) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback">Select Question Category!</div>
+                    @error('product_template')
+                    <div class="alert-danger text-danger ">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <div class="col-md-6">
                     <label for="ext_tax" class="col-form-label"> Extra Tax <span class="extra-text"></span></label>
                     <input type="number" name="ext_tax" id="ext_tax" value="{{  $product['ext_tax'] ?? old('ext_tax') }}" class="form-control" required>
@@ -383,6 +422,8 @@
 
         $('#category_id').change(function() {
             var category_id = $(this).val();
+            $('#sub_category').empty();
+            $('#child_category').empty();
             $.ajax({
                     url: '{{ route("admin.getSubCategory") }}',
                     type: 'GET',

@@ -9,7 +9,7 @@
 <body>
     <!-- Body main wrapper end -->
     <div class="body-wrapper">
-        @include('web.includes.header')
+        @include('web.includes.header', ['categories' => $categories])
         @include('web.includes.menu')
         <div class="ltn__utilize-overlay"></div>
         @yield('content')

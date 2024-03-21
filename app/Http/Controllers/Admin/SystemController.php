@@ -298,7 +298,7 @@ class SystemController extends Controller
                 $data['category'] = ChildCategory::findOrFail($request->id)->toArray();
                 $data['selection'] = 3;
                 $data['parents'] = SubCategory::all()->toArray();
-                $data['catName'] = 'subcategory_id';
+                $data['catName'] = 'sub_category_id';
             }
         }
 
@@ -356,6 +356,7 @@ class SystemController extends Controller
                 ['id' => $request->id ?? NULL],
                 [
                     'name'       => ucwords($request->name),
+                    'slug'       => Str::slug($request->name),
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
                     'created_by' => $user->id,
@@ -371,6 +372,7 @@ class SystemController extends Controller
                 ['id' => $request->id ?? NULL],
                 [
                     'name'       => ucwords($request->name),
+                    'slug'       => Str::slug($request->name),
                     'category_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
@@ -387,6 +389,7 @@ class SystemController extends Controller
                 ['id' => $request->id ?? NULL],
                 [
                     'name'       => ucwords($request->name),
+                    'slug'       => Str::slug($request->name),
                     'subcategory_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
@@ -861,11 +864,24 @@ class SystemController extends Controller
             return redirect()->back();
         }
         $data['categories'] = Category::latest('id')->get()->toArray();
-        // $data['collections'] = Collection::latest('id')->get()->toArray();
-        // $data['templates'] = config('constants.PRODUCT_TEMPLATES');
+        $data['templates'] = config('constants.PRODUCT_TEMPLATES');
+        $data['question_category'] = QuestionCategory::latest('id')->get()->toArray();
+        // return $data;
         $data['product'] = [];
         if ($request->has('id')) {
             $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
+            
+            $data['sub_category'] = SubCategory::select('id', 'name')
+            ->where('category_id', $data['product']['category_id'])
+            ->pluck('name', 'id')
+            ->toArray(); 
+            
+            $data['child_category'] = ChildCategory::select('id', 'name')
+            ->where('subcategory_id', $data['product']['sub_category'])
+            ->pluck('name', 'id')
+            ->toArray();
+
+            $data['prod_question'] = explode(',', $data['product']['question_category']);
         }
 
         return view('admin.pages.products.add_product', $data);
@@ -882,8 +898,7 @@ class SystemController extends Controller
         $rules = [
             'price'      => 'required',
             'category_id' => 'required',
-            // 'product_collection' => 'required',
-            // 'product_template' => 'required',
+            'product_template' => 'required',
             'stock'        => 'required',
             'ext_tax'    => 'required',
             'desc'       => 'required',
@@ -929,6 +944,7 @@ class SystemController extends Controller
             $mainImage->storeAs('product_images/main_images', $mainImageName, 'public');
             $mainImagePath = 'product_images/main_images/' . $mainImageName;
         }
+        $question_category = implode(",", $request->question_category);
 
         // Create or update product
         $product = Product::updateOrCreate(
@@ -941,6 +957,8 @@ class SystemController extends Controller
                 'category_id' => $request->category_id,
                 'sub_category' => $request->sub_category ?? NULL,
                 'child_category' => $request->child_category ?? NULL,
+                'product_template' => $request->product_template ?? NULL,
+                'question_category' => $question_category,
                 'ext_tax'    => $request->ext_tax,
                 'barcode'    => $request->barcode,
                 'SKU'        => $request->SKU,

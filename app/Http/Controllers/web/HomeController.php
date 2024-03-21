@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Config;
 // models ...
 use App\Models\User;
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\ChildCategory;
 use App\Models\Question;
 use App\Models\AssignQuestion;
 use App\Models\Product;
@@ -38,29 +40,45 @@ class HomeController extends Controller
             ->latest('id')
             ->get()
             ->toArray();
+
+        view()->share('categories', $this->categories);
     }
 
     public function index(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
-        // $data['categories'] = array_column(Category::all()->toArray(), 'name');
-        // $data['categories'] = Category::with('subcategory.childCategories')
-        // ->where('publish', 'Publish')
-        // ->latest('id')
-        // ->get()
-        // ->toArray();
-        $data['categories'] = $this->categories;
-        // return $data['categories'];
-        return view('web.pages.home',$data);
+        return view('web.pages.home');
     }
 
-    public function showProducts($type, $categoryId)
+    public function showProducts($category = null, $sub_category = null, $child_category = null)
     {
-        return 'hello';
-        // $category = Category::findOrFail($categoryId);
-        // $products = $category->products()->paginate(10); // Assuming you want to paginate the products
+        $category_id = Category::where('slug', $category)->first()->id;
 
-        // return view('category.products', compact('category', 'products'));
+        if($category && $sub_category && $child_category){
+            $level = 'child';
+            $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
+        } else if($category && $sub_category && ! $child_category){
+            $level = 'sub';
+            $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
+        } else if($category && ! $sub_category && ! $child_category){
+            $level = 'main';
+        }
+
+        switch ($level) {
+            case 'main':
+                $products = Product::where(['category_id' => $category_id])->get();
+                break;
+            case 'sub':
+                $products = Product::where(['sub_category' => $sub_category_id])->get();
+                break;
+            case 'child':
+                $products = Product::where(['child_category' => $child_category_id])->get();
+                break;
+        }
+        return $products;
+    
+
+        return view('web.pages.shop');
     }
 
     public function blogs(Request $request)

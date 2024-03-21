@@ -68,7 +68,7 @@ Route::match(['get','post'],'/deliveryReturns', function(){
 
 
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
-Route::get('/category/{type}/{category}', [HomeController::class, 'showProducts'])->name('category.products');
+Route::get('/category/{main_category}/{sub_category?}/{child_category?}', [HomeController::class, 'showProducts'])->name('category.products');
 
 
 Route::get('/blog', function () {

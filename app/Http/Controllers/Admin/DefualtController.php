@@ -32,11 +32,20 @@ class DefualtController extends Controller
 {
     protected $status;
     protected $user;
+    private $categories;
 
     public function __construct()
     {
         $this->user = auth()->user();
         $this->status = config('constants.USER_STATUS');
+
+        $this->categories = Category::with('subcategory.childCategories')
+            ->where('publish', 'Publish')
+            ->latest('id')
+            ->get()
+            ->toArray();
+
+        view()->share('categories', $this->categories);
     }
 
     public function index()
@@ -85,11 +94,6 @@ class DefualtController extends Controller
     public function login(Request $request)
     {
         $user = auth()->user();
-        $data['categories'] = Category::with('subcategory.childCategories')
-        ->where('publish', 'Publish')
-        ->latest('id')
-        ->get()
-        ->toArray();
         // return $user;
         if (!$user) {
             if ($request->all()) {
@@ -146,7 +150,7 @@ class DefualtController extends Controller
                     return redirect()->back()->with(['status' => 'noexitance', 'message' => 'User does not exist', 'email' => $credentials['email']], 401);
                 }
             } else {
-                return view('web.pages.login', $data);
+                return view('web.pages.login');
             }
         } else {
             if (isset($user->role) && $user->role == user_roles('1')) {

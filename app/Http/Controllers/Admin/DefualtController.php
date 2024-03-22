@@ -32,20 +32,20 @@ class DefualtController extends Controller
 {
     protected $status;
     protected $user;
-    private $categories;
+    private $menu_categories;
 
     public function __construct()
     {
         $this->user = auth()->user();
         $this->status = config('constants.USER_STATUS');
 
-        $this->categories = Category::with('subcategory.childCategories')
+        $this->menu_categories = Category::with('subcategory.childCategories')
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()
             ->toArray();
 
-        view()->share('categories', $this->categories);
+        view()->share('menu_categories', $this->menu_categories);
     }
 
     public function index()

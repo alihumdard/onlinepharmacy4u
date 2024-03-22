@@ -138,7 +138,7 @@
                                                     <li><a href="blog-details.html">News details</a></li>
                                                 </ul> -->
                                             {{-- </li> --}}
-                                            @foreach ($categories as $key => $val)
+                                            @foreach ($menu_categories as $key => $val)
                                                 {{-- <li><a href="/about">{{ $val['name'] }}</a> --}}
                                                     <li class="menu-icon"><a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
                                                         <ul class="mega-menu">
@@ -157,7 +157,7 @@
                                                     </li>
                                                 
                                             @endforeach
-                                            <li class="menu-icon"><a href="/shop">Medicines</a>
+                                            <!-- <li class="menu-icon"><a href="/shop">Medicines</a>
                                                 <ul class="mega-menu">
                                                     <li><a href="#">Categories</a>
                                                         <ul>
@@ -192,7 +192,7 @@
                                                     <li><a href="shop.html"><img src="img/banner/menu-banner-1.png" alt="#"></a>
                                                     </li>
                                                 </ul> 
-                                            </li>
+                                            </li> -->
                                             <li><a href="/contact">Contact</a></li>
                                         </ul> 
                                     </div>

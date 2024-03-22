@@ -31,17 +31,17 @@ use App\Models\ProductAttribute;
 
 class HomeController extends Controller
 {
-    private $categories;
+    private $menu_categories;
 
     public function __construct()
     {
-        $this->categories = Category::with('subcategory.childCategories')
+        $this->menu_categories = Category::with('subcategory.childCategories')
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()
             ->toArray();
 
-        view()->share('categories', $this->categories);
+        view()->share('menu_categories', $this->menu_categories);
     }
 
     public function index(Request $request)
@@ -52,8 +52,7 @@ class HomeController extends Controller
 
     public function showProducts($category = null, $sub_category = null, $child_category = null)
     {
-        $category_id = Category::where('slug', $category)->first()->id;
-
+        $level = '';
         if($category && $sub_category && $child_category){
             $level = 'child';
             $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
@@ -62,6 +61,7 @@ class HomeController extends Controller
             $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
         } else if($category && ! $sub_category && ! $child_category){
             $level = 'main';
+            $category_id = Category::where('slug', $category)->first()->id;
         }
 
         switch ($level) {
@@ -74,11 +74,16 @@ class HomeController extends Controller
             case 'child':
                 $products = Product::where(['child_category' => $child_category_id])->get();
                 break;
+            default:
+                $products = Product::get();
         }
-        return $products;
-    
+        // return $products;
+        $data['products'] = $products;
+        $data['categories_list'] = Category::where('publish', 'Publish')
+        ->latest('id')
+        ->get();
 
-        return view('web.pages.shop');
+        return view('web.pages.shop', $data);
     }
 
     public function blogs(Request $request)

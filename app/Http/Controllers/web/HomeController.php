@@ -50,42 +50,6 @@ class HomeController extends Controller
         return view('web.pages.home');
     }
 
-    public function showProducts($category = null, $sub_category = null, $child_category = null)
-    {
-        $level = '';
-        if($category && $sub_category && $child_category){
-            $level = 'child';
-            $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
-        } else if($category && $sub_category && ! $child_category){
-            $level = 'sub';
-            $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
-        } else if($category && ! $sub_category && ! $child_category){
-            $level = 'main';
-            $category_id = Category::where('slug', $category)->first()->id;
-        }
-
-        switch ($level) {
-            case 'main':
-                $products = Product::where(['category_id' => $category_id])->get();
-                break;
-            case 'sub':
-                $products = Product::where(['sub_category' => $sub_category_id])->get();
-                break;
-            case 'child':
-                $products = Product::where(['child_category' => $child_category_id])->get();
-                break;
-            default:
-                $products = Product::get();
-        }
-        // return $products;
-        $data['products'] = $products;
-        $data['categories_list'] = Category::where('publish', 'Publish')
-        ->latest('id')
-        ->get();
-
-        return view('web.pages.shop', $data);
-    }
-
     public function blogs(Request $request)
     {
         return view('web.pages.blogs');

@@ -102,7 +102,7 @@
                                                         <li><a href="#"><i class="far fa-star"></i></a></li>
                                                     </ul>
                                                 </div>
-                                                <h2 class="product-title"><a href="product-details.html">{{ $val->title }}</a></h2>
+                                                <h2 class="product-title"><a href="{{ route('web.product', ['id' => $val->id]) }}">{{ $val->title }}</a></h2>
                                                 <div class="product-price">
                                                     <span>£{{ $val->price }}</span>
                                                     {{-- <del>$162.00</del> --}}

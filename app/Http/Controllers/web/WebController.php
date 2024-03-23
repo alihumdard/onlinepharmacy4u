@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Http;
 // models ...
 use App\Models\User;
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\ChildCategory;
 use App\Models\Question;
 use App\Models\AssignQuestion;
 use App\Models\Product;
@@ -49,6 +51,81 @@ use GuzzleHttp\Client;
 
 class WebController extends Controller
 {
+    private $menu_categories;
+
+    public function __construct()
+    {
+        $this->menu_categories = Category::with('subcategory.childCategories')
+            ->where('publish', 'Publish')
+            ->latest('id')
+            ->get()
+            ->toArray();
+
+        view()->share('menu_categories', $this->menu_categories);
+    }
+
+    public function show_products($category = null, $sub_category = null, $child_category = null)
+    {
+        // product listing
+        $level = '';
+        if($category && $sub_category && $child_category){
+            $level = 'child';
+            $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
+        } else if($category && $sub_category && ! $child_category){
+            $level = 'sub';
+            $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
+        } else if($category && ! $sub_category && ! $child_category){
+            $level = 'main';
+            $category_id = Category::where('slug', $category)->first()->id;
+        }
+
+        switch ($level) {
+            case 'main':
+                $products = Product::where(['category_id' => $category_id])->get();
+                break;
+            case 'sub':
+                $products = Product::where(['sub_category' => $sub_category_id])->get();
+                break;
+            case 'child':
+                $products = Product::where(['child_category' => $child_category_id])->get();
+                break;
+            default:
+                $products = Product::get();
+        }
+        // return $products;
+        $data['products'] = $products;
+        $data['categories_list'] = Category::where('publish', 'Publish')
+        ->latest('id')
+        ->get();
+
+        return view('web.pages.shop', $data);
+    }
+
+    public function product_detail(Request $request)
+    {
+        // $request->id;
+        $data['user'] = auth()->user() ?? [];
+        $data['product'] = Product::with('category:id,name,slug','sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
+        // $data['rel_products'] = Product::where('category_id', $data['product']['category_id'])->where('id', '!=', $request->id)->take(4)->latest('id')->get()->toArray();
+// return $data['product' ];
+        return view('web.pages.product', $data);
+    }
+
+    public function consultation_form(Request $request)
+    {
+        $data['user'] = auth()->user() ?? [];
+
+        if (auth()->user()){
+
+        }
+        else{
+            return redirect()->route('login');
+        }
+        return view('web.pages.consultation_form', $data);
+    }
+
+
+    // cloned methods of myweightloss
     public function products(Request $request)
     {
         session()->forget('pro_id');
@@ -91,12 +168,6 @@ class WebController extends Controller
         } else {
             return redirect()->route('web.regisrationFrom');
         }
-    }
-
-    public function consultation_form(Request $request)
-    {
-        $data['user'] = auth()->user() ?? [];
-        return view('web.pages.consultation_form', $data);
     }
 
     public function consultation_store(Request $request)

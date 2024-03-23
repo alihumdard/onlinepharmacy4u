@@ -7,8 +7,8 @@
                         <div class="col-md-7">
                             <div class="ltn__top-bar-menu">
                                 <ul>
-                                    <li class="text-dark"><a href="mailto:info@onlinepharmacy-4u.co.uk"><i class="icon-mail text-dark"></i> info@onlinepharmacy-4u.co.uk</a></li>
-                                    <li class="text-dark"><a href="locations.html"><i class="icon-placeholder text-dark"></i>Nottingham, NG19 9QH, United Kingdom</a></li>
+                                    <li class="text-light"><a href="mailto:info@onlinepharmacy-4u.co.uk"><i class="icon-mail text-light"></i> info@onlinepharmacy-4u.co.uk</a></li>
+                                    <li class="text-light"><a href="locations.html"><i class="icon-placeholder text-light"></i>Nottingham, NG19 9QH, United Kingdom</a></li>
                                 </ul>
                             </div>
                         </div>

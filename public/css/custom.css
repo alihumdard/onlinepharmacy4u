@@ -44,7 +44,6 @@
 /* Footer Social Media links start form here */
 .ltn__social-media ul li a i{
     color:white;
-    font-size:20px;
 } 
 .ltn__social-media ul li a i:hover{
     color:#03c4a5;
@@ -60,6 +59,26 @@
     height:35px;
     border-radius:30px;
     border:5px solid white;
+}
+.ltn__category-area .section-bg-1--{
+    background-color:#03c4a5 !important;
+}
+
+.ltn__header-top-area{
+    background-color:#3d7de8;
+}
+.display-none{
+    display:none;
+}
+
+.featured-offers-area{
+    background-color:#02c3a4 !important;
+}
+.card-radius{
+    border-radius: 30px;
+}
+.button-radius{
+    border-radius: 30px;
 }
 
 

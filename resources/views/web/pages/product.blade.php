@@ -87,15 +87,25 @@
                                         </li>
                                         <li>
                                             @if($product->product_template == 1)
-                                                <a href="{{route('web.consultationForm')}}" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
-                                                    <i class="fas fa-shopping-cart"></i>
-                                                    <span>Start Consultation</span>
-                                                </a>
+                                                <form action="{{ route('web.consultationForm') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="template" value="{{ config('constants.PHARMACY_MEDECINE') }}">
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                    <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                                        <i class="fas fa-shopping-cart"></i>
+                                                        <span>Start Consultation</span>
+                                                    </button>
+                                                </form>
                                             @elseif ($product->product_template == 2)
-                                                <a href="#" class="theme-btn-1 btn btn-effect-1" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
-                                                    <i class="fas fa-shopping-cart"></i>
-                                                    <span>Start Consultation</span>
-                                                </a>
+                                                <form action="{{ route('web.consultationForm') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="template" value="{{ config('constants.PRESCRIPTION_MEDICINE') }}">
+                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                    <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                                        <i class="fas fa-shopping-cart"></i>
+                                                        <span>Start Consultation</span>
+                                                    </button>
+                                                </form>
                                             @elseif ($product->product_template == 3)
                                                 <a href="#" class="theme-btn-1 btn btn-effect-1" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
                                                     <i class="fas fa-shopping-cart"></i>

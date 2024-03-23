@@ -92,7 +92,7 @@
             <form id="multi-step-form">
                 <div class="card mt-150">
                     <div class="card-body">
-
+<p>{{$product_id}}</p>
                         <!-- Step 1: Yes or No -->
                         <div class="step active" id="step1">
                             <div class="text">

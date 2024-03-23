@@ -97,7 +97,7 @@ class WebController extends Controller
         $data['categories_list'] = Category::where('publish', 'Publish')
         ->latest('id')
         ->get();
-
+// return $products;
         return view('web.pages.shop', $data);
     }
 
@@ -114,12 +114,24 @@ class WebController extends Controller
     public function consultation_form(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
-
-        if (auth()->user()){
+        $data['template'] = $request->template ?? session('template');
+        $data['product_id'] = $request->product_id ?? session('product_id');
+        if($data['template'] == config('constants.PHARMACY_MEDECINE')){
             return view('web.pages.product_question', $data);
         }
-        else{
-            return redirect()->route('login');
+        else if($data['template'] == config('constants.PRESCRIPTION_MEDICINE')){
+            if (auth()->user()){
+                return view('web.pages.product_question', $data);
+            }
+            else{
+                session()->put('intended_url', 'fromConsultation');
+                session()->put('template', $data['template']);
+                session()->put('product_id', $data['product_id']);
+                return redirect()->route('login');
+            }
+        }
+        else{return $data;
+            return redirect()->route('/');
         }
     }
 

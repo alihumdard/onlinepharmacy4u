@@ -27,6 +27,8 @@ use App\Models\AssignQuestion;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 
+use Illuminate\Support\Facades\URL;
+
 
 class DefualtController extends Controller
 {
@@ -119,22 +121,14 @@ class DefualtController extends Controller
                                 return  redirect('/admin');
                             } else if (isset($user->role) && $user->role == user_roles('3')) {
                                 return  redirect('/admin');
-                            } else if (isset($user->role) && $user->role == user_roles('4')) {     
-                                $product_id =  session('pro_id') ?? NULL;
-                                if($product_id){
-                                    if($user->consult_status != 'done'){
-                                        return redirect()->route('web.bmiForm');
-                                    }
-                                    else{
-                                        return redirect()->route('web.products');
-                                    }        
-                                }else{
-                                    if($user->consult_status != 'done'){
-                                        return redirect()->route('web.bmiForm');
-                                    }
-                                    else{
-                                        return redirect()->route('admin.index');
-                                    }
+                            } else if (isset($user->role) && $user->role == user_roles('4')) {  
+                                $intendedUrl = session('intended_url');
+                                session()->forget('intended_url');
+                                if ($intendedUrl) {
+                                    return redirect()->route('web.consultationForm');
+                                }
+                                else{
+                                    return  redirect('/admin');
                                 }
                             }
                             // return redirect()->back()->with(['status' => 'success', 'message' => 'User successfully logged in', 'token' => $token]);
@@ -160,8 +154,7 @@ class DefualtController extends Controller
             } else if (isset($user->role) && $user->role == user_roles('3')) {
                 return  redirect('/admin');
             } else if (isset($user->role) && $user->role == user_roles('4')) {
-                // return redirect()->route('web.bmiForm');
-                return  redirect('/');
+                return  redirect('/admin');
             }
         }
         return view('web.pages.login');

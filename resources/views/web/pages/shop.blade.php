@@ -75,20 +75,28 @@
                                                 </div> --}}
                                                 <div class="product-hover-action">
                                                     <ul>
-                                                        <li>
-                                                            <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                                                <i class="far fa-eye"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
-                                                                <i class="fas fa-shopping-cart"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
+                                                        @if($val->product_template == config('constants.COUNTER_MEDICINE'))
+                                                            <li>
+                                                                <a href="{{ route('web.product', ['id' => $val->id]) }}">
+                                                                    <i class="far fa-eye"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
+                                                                    <i class="fas fa-shopping-cart"></i>
+                                                                </a>
+                                                            </li>
+                                                        @else
+                                                            <li>
+                                                                <a href="#" title="You have to answer some question" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                        {{-- <li>
                                                             <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
                                                                 <i class="far fa-heart"></i></a>
-                                                        </li>
+                                                        </li> --}}
                                                     </ul>
                                                 </div>
                                             </div>

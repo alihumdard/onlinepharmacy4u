@@ -138,8 +138,6 @@ Route::get('/', [HomeController::class, 'index'])->name('web.index');
 Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
 Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
 
-// Route::match(['get', 'post'], '/product_question', [DefualtController::class, 'product_question'])->name('web.product_question');
-
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
 
 include __DIR__ . '/admin.php';

@@ -107,7 +107,7 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug','sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
         // $data['rel_products'] = Product::where('category_id', $data['product']['category_id'])->where('id', '!=', $request->id)->take(4)->latest('id')->get()->toArray();
-// return $data['product' ];
+        // return $data['product' ];
         return view('web.pages.product', $data);
     }
 
@@ -116,12 +116,11 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
 
         if (auth()->user()){
-
+            return view('web.pages.product_question', $data);
         }
         else{
             return redirect()->route('login');
         }
-        return view('web.pages.consultation_form', $data);
     }
 
 

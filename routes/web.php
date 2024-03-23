@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\DefualtController;
 
 Route::match(['get', 'post'], '/login', [DefualtController::class, 'login'])->name('login');
 Route::match(['get', 'post'], '/register', [DefualtController::class, 'regisration_from'])->name('register');
-Route::match(['get', 'post'], '/product_question', [DefualtController::class, 'product_question'])->name('web.product_question');
+// Route::match(['get', 'post'], '/product_question', [DefualtController::class, 'product_question'])->name('web.product_question');
 Route::match(['get', 'post'], '/regisrationFrom', [DefualtController::class, 'user_register'])->name('web.user_register');
 Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->name('web.logout');
 
@@ -50,83 +50,83 @@ Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->
 //     return view('web.pages.checkout');
 // })->name('web.checkout');
 
-Route::match(['get','post'],'/terms', function(){
-    return view('web.pages.term');
-})->name('web.term_conditions');
+// Route::match(['get','post'],'/terms', function(){
+//     return view('web.pages.term');
+// })->name('web.term_conditions');
 
-Route::match(['get','post'],'/privacypolicy', function(){
-    return view('web.pages.privacy');
-})->name('web.privacypolicy');
+// Route::match(['get','post'],'/privacypolicy', function(){
+//     return view('web.pages.privacy');
+// })->name('web.privacypolicy');
 
-Route::match(['get','post'],'/howitworks', function(){
-    return view('web.pages.howitworks');
-})->name('web.howitworks');
+// Route::match(['get','post'],'/howitworks', function(){
+//     return view('web.pages.howitworks');
+// })->name('web.howitworks');
 
-Route::match(['get','post'],'/deliveryReturns', function(){
-    return view('web.pages.deliveryReturns');
-})->name('web.deliveryReturns');
+// Route::match(['get','post'],'/deliveryReturns', function(){
+//     return view('web.pages.deliveryReturns');
+// })->name('web.deliveryReturns');
 
-Route::get('/blog', function () {
-    return view('web.pages.blogs');
-});
+// Route::get('/blog', function () {
+//     return view('web.pages.blogs');
+// });
 
-Route::get('/about', function () {
-    return view('web.pages.about');
-});
+// Route::get('/about', function () {
+//     return view('web.pages.about');
+// });
 
 
 
-Route::get('/contact', function(){
-    return view('web.pages.contact');
-});
+// Route::get('/contact', function(){
+//     return view('web.pages.contact');
+// });
 
-Route::get('/faqs', function(){
-    return view('web.pages.faqs');
-});
+// Route::get('/faqs', function(){
+//     return view('web.pages.faqs');
+// });
 
-Route::get('/news', function(){
-    return view('web.pages.news');
-});
+// Route::get('/news', function(){
+//     return view('web.pages.news');
+// });
 
-Route::get('/services', function(){
-    return view('web.pages.services');
-});
+// Route::get('/services', function(){
+//     return view('web.pages.services');
+// });
 
-Route::get('/shop', function(){
-    return view('web.pages.shop');
-});
+// Route::get('/shop', function(){
+//     return view('web.pages.shop');
+// });
 
 // Route::get('/login', function(){
 //     return view('web.pages.login');
 // });
 
-Route::get('/wishlist', function(){
-    return view('web.pages.wishlist');
-});
+// Route::get('/wishlist', function(){
+//     return view('web.pages.wishlist');
+// });
 
-Route::get('/register', function(){
-    return view('web.pages.register');
-});
+// Route::get('/register', function(){
+//     return view('web.pages.register');
+// });
 
-Route::get('/account', function(){
-    return view('web.pages.account');
-});
+// Route::get('/account', function(){
+//     return view('web.pages.account');
+// });
 
-Route::get('/cart', function(){
-    return view('web.pages.cart');
-});
+// Route::get('/cart', function(){
+//     return view('web.pages.cart');
+// });
 
-Route::get('/checkout', function(){
-    return view('web.pages.checkout');
-});
+// Route::get('/checkout', function(){
+//     return view('web.pages.checkout');
+// });
 
-Route::get('/register', function(){
-    return view('web.pages.register');
-});
+// Route::get('/register', function(){
+//     return view('web.pages.register');
+// });
 
-Route::get('/product_question', function(){
-    return view('web.pages.product_question');
-});
+// Route::get('/product_question', function(){
+//     return view('web.pages.product_question');
+// });
 
 // Route::get('/', function(){
 //     return view('web.pages.');
@@ -137,6 +137,8 @@ Route::get('/product_question', function(){
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
 Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
 Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
+
+// Route::match(['get', 'post'], '/product_question', [DefualtController::class, 'product_question'])->name('web.product_question');
 
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
 

@@ -160,7 +160,8 @@ class DefualtController extends Controller
             } else if (isset($user->role) && $user->role == user_roles('3')) {
                 return  redirect('/admin');
             } else if (isset($user->role) && $user->role == user_roles('4')) {
-                return redirect()->route('web.bmiForm');
+                // return redirect()->route('web.bmiForm');
+                return  redirect('/');
             }
         }
         return view('web.pages.login');

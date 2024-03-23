@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\DefualtController;
 
 Route::match(['get', 'post'], '/login', [DefualtController::class, 'login'])->name('login');
 Route::match(['get', 'post'], '/register', [DefualtController::class, 'regisration_from'])->name('register');
+Route::match(['get', 'post'], '/product_question', [DefualtController::class, 'product_question'])->name('web.product_question');
 Route::match(['get', 'post'], '/regisrationFrom', [DefualtController::class, 'user_register'])->name('web.user_register');
 Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->name('web.logout');
 
@@ -121,6 +122,10 @@ Route::get('/checkout', function(){
 
 Route::get('/register', function(){
     return view('web.pages.register');
+});
+
+Route::get('/product_question', function(){
+    return view('web.pages.product_question');
 });
 
 // Route::get('/', function(){

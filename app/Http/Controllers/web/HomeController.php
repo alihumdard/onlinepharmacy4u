@@ -78,5 +78,10 @@ class HomeController extends Controller
     {
         return view('web.pages.howitworks');
     }
+
+    public function product_question(Request $request)
+    {
+        return view('web.pages.product_question');
+    }
     
 }

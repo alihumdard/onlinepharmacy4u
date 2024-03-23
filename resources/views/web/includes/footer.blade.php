@@ -7,7 +7,7 @@
                         <div class="footer-widget footer-about-widget">
                             <div class="footer-logo">
                                 <div class="site-logo">
-                                    <img src="img/logo.webp" width="200px" height="auto" alt="Logo">
+                                    <img src="img/brand-logo/pharmay-footer-logo.webp" width="200px" height="auto" alt="Logo">
                                 </div>
                             </div>
                             <p>At Online Pharmacy4U, we blend technology with care, delivering health at your doorstep. Navigate a world of wellness with our user-friendly platform – your trusted partner for a healthier life.</p>

@@ -5,7 +5,7 @@
 <div class="ltn__slider-area ltn__slider-3  section-bg-1">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/slider/home-slider-2.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/slider/home-slider-one.png">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container">
                     <div class="row">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/slider/home-slider-one.png">
+        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/slider/home-slider-2.png">
             <div class="ltn__slide-item-inner text-left">
                 <div class="container">
                     <div class="row">
@@ -82,6 +82,56 @@
     </div>
 </div>
 <!-- SLIDER AREA END -->
+
+
+<!-- Featured Offers area start  -->
+<div class="featured-offers-area pt-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="feature-offer-heading">
+                    <h1 class="text-white">Featured Offers</h1>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-radius">
+                    <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Aid restful sleep, naturally</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary button-radius">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+            <div class="card card-radius">
+                    <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Quit for good with Nicorette</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary button-radius">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+            <div class="card card-radius">
+                    <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Discover the new Bio-Oil body lotion</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary button-radius">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured Offers area end  -->
+
 
 <!-- CATEGORY AREA START -->
 <div class="ltn__category-area section-bg-1-- pt-50 pb-90">
@@ -235,7 +285,7 @@
                         <li><i class="fas fa-check-square"></i> Customer-Centric Approach</li>
                     </ul>
 
-                    
+
                     <div class="about-author-info-2 border-top mt-30 pt-20">
                         <ul>
                             <li>
@@ -1032,7 +1082,7 @@
 <!-- PRODUCT AREA END -->
 
 <!-- ABOUT US AREA START -->
-<div class="ltn__about-us-area section-bg-1 bg-image-left-before pt-115 pb-115 d-none" >
+<div class="ltn__about-us-area section-bg-1 bg-image-left-before pt-115 pb-115 d-none">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center">
@@ -1078,7 +1128,7 @@
 <!-- ABOUT US AREA END -->
 
 <!-- ABOUT US AREA START -->
-<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-115 pb-110" >
+<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-115 pb-110 display-none">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center">

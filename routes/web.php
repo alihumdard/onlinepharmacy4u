@@ -17,8 +17,7 @@ use App\Http\Controllers\Admin\DefualtController;
 */
 
 Route::match(['get', 'post'], '/login', [DefualtController::class, 'login'])->name('login');
-Route::match(['get', 'post'], '/register', [DefualtController::class, 'regisration_from'])->name('register');
-// Route::match(['get', 'post'], '/product_question', [DefualtController::class, 'product_question'])->name('web.product_question');
+Route::match(['get', 'post'], '/register', [DefualtController::class, 'registration_form'])->name('register');
 Route::match(['get', 'post'], '/regisrationFrom', [DefualtController::class, 'user_register'])->name('web.user_register');
 Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->name('web.logout');
 
@@ -96,10 +95,6 @@ Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->
 //     return view('web.pages.shop');
 // });
 
-// Route::get('/login', function(){
-//     return view('web.pages.login');
-// });
-
 // Route::get('/wishlist', function(){
 //     return view('web.pages.wishlist');
 // });
@@ -120,17 +115,7 @@ Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->
 //     return view('web.pages.checkout');
 // });
 
-// Route::get('/register', function(){
-//     return view('web.pages.register');
-// });
 
-// Route::get('/product_question', function(){
-//     return view('web.pages.product_question');
-// });
-
-// Route::get('/', function(){
-//     return view('web.pages.');
-// });
 
 
 // working routes

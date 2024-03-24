@@ -177,13 +177,13 @@ class DefualtController extends Controller
             return redirect('/');
         }
     }
-    public function regisration_from(Request $request)
+    public function registration_form(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
         if (auth()->user()) {
-            return redirect()->route('web.bmiForm');
+            return redirect('/admin');
         } else {
-            return view('web.pages.regisration_from', $data);
+            return view('web.pages.registration_form', $data);
         }
     }
 
@@ -195,7 +195,7 @@ class DefualtController extends Controller
                 'name'     => 'required',
                 'phone'    => 'required|digits:11',
                 'address'  => 'required',
-                'role'     => 'required',
+                // 'role'     => 'required',
                 'dob'     => 'required',
                 'zip_code'     => 'required',
                 'email'    => [
@@ -220,7 +220,7 @@ class DefualtController extends Controller
                     'name'       => ucwords($request->name),
                     'email'      => $request->email,
                     'dob'        => $request->dob,
-                    'role'       => $request->role,
+                    'role'       => $request->role ?? 'User',
                     'phone'      => $request->phone,
                     'address'    => $request->address,
                     'zip_code'   => $request->zip_code,
@@ -231,6 +231,7 @@ class DefualtController extends Controller
                     'created_by' => 1,
                 ]
             );
+            
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 $user = auth()->user();
@@ -238,7 +239,7 @@ class DefualtController extends Controller
             }
             $message = "User" . ($request->id ? "Registraion" : "Registraion") . " Successfully";
             if ($saved) {
-                return redirect()->route('web.bmiForm')->with(['msg' => $message]);
+                return redirect()->route('login')->with(['msg' => $message]);
             }
         }else{
             return redirect()->back();

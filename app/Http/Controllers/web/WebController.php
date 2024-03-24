@@ -92,12 +92,12 @@ class WebController extends Controller
             default:
                 $products = Product::get();
         }
-        // return $products;
+        
         $data['products'] = $products;
         $data['categories_list'] = Category::where('publish', 'Publish')
         ->latest('id')
         ->get();
-// return $products;
+
         return view('web.pages.shop', $data);
     }
 

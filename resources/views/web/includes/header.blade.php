@@ -59,7 +59,7 @@
                         <div class="col">
                             <div class="site-logo-wrap">
                                 <div class="site-logo">
-                                    <a href="index.html"><img  src="img/logo.webp" alt="Logo"></a>
+                                    <a href="{{route('web.index')}}"><img  src="img/logo.webp" alt="Logo"></a>
                                 </div>
                                 <div class="get-support clearfix d-none">
                                     <div class="get-support-icon">

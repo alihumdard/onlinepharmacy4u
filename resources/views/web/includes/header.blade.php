@@ -161,44 +161,22 @@
                                 <nav>
                                     <div class="ltn__main-menu text-center">
                                         <ul>
-                                            <li class="menu-icon"><a href="#">Home</a>
-                                            </li>
-                                            <li class="menu-icon"><a href="#">Pages</a>
-                                            <ul class="mega-menu">
-                                                <li><a href="#">Inner Pages</a>
-                                                    <ul>
-                                                        <li><a href="portfolio.html">Gallery</a></li>
-                                                        <li><a href="portfolio-2.html">Gallery - 02</a></li>
-                                                        <li><a href="portfolio-details.html">Gallery Details</a></li>
-                                                        <li><a href="team.html">Team</a></li>
-                                                        <li><a href="team-details.html">Team Details</a></li>
-                                                        <li><a href="faq.html">FAQ</a></li>
+                                            <li class="menu-icon"><a href="#">Home</a></li>
+                                            @foreach ($menu_categories as $key => $val)
+                                                <li class="menu-icon"><a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
+                                                    <ul class="mega-menu">
+                                                        @foreach($val['subcategory'] as $key1 => $val1)
+                                                            <li><a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
+                                                                <ul>
+                                                                    @foreach($val1['child_categories'] as $key2 => $val2)
+                                                                    <li><a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </li>
+                                                        @endforeach
                                                     </ul>
                                                 </li>
-                                                <li><a href="#">Inner Pages</a>
-                                                    <ul>
-                                                        <li><a href="history.html">History</a></li>
-                                                        <li><a href="contact.html">Appointment</a></li>
-                                                        <li><a href="locations.html">Google Map Locations</a></li>
-                                                        <li><a href="404.html">404</a></li>
-                                                        <li><a href="contact.html">Contact</a></li>
-                                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Shop Pages</a>
-                                                    <ul>
-                                                        <li><a href="shop.html">Shop</a></li>
-                                                        <li><a href="shop-left-sidebar.html">Shop Left sidebar</a></li>
-                                                        <li><a href="shop-right-sidebar.html">Shop right sidebar</a></li>
-                                                        <li><a href="shop-grid.html">Shop Grid</a></li>
-                                                        <li><a href="product-details.html">Shop details </a></li>
-                                                        <li><a href="cart.html">Cart</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="shop.html"><img src="img/banner/menu-banner-1.png" alt="#"></a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                            @endforeach
                                             <li class="menu-icon"><a href="#">About</a></li>
                                             <li><a href="contact.html">Contact</a></li>
                                         </ul>
@@ -299,6 +277,23 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
+                    
+                    @foreach ($menu_categories as $key => $val)
+                        <li><a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">{{$val['name']}}</a>
+                            <ul class="sub-menu">
+                                @foreach($val['subcategory'] as $key1 => $val1)
+                                    <li><a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{$val1['name']}}</a>
+                                        <ul class="sub-menu">
+                                            @foreach($val1['child_categories'] as $key2 => $val2)
+                                                <li><a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{$val2['name']}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
+                    
                 </ul>
             </div>
             <div class="ltn__utilize-buttons ltn__utilize-buttons-2">

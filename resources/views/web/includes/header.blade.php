@@ -7,32 +7,14 @@
         <div class="ltn__header-top-area border-bottom top-area-color-white---">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-7">
-                        <div class="ltn__top-bar-menu">
+                    <div class="col-md-12">
+                        <div class="ltn__top-bar-menu text-center">
                             <ul>
-                                <li><a href="mailto:info@onlinepharmacy-4u.co.uk" class="text-white"><i class="icon-mail"  class="text-white"></i> info@onlinepharmacy-4u.co.uk</a></li>
-                                <li><a href="#"  class="text-white"><i class="icon-placeholder"  class="text-white"></i> Nottingham, NG19 9QH, United Kingdom</a></li>
+                                <li><a href="#" class="text-white font-weight-400"><i class="fas fa-comment-medical"  class="text-white"></i>Dispensed by Regulated UK Pharmacists</a></li>
+                                <li><a href="#"  class="text-white"><i class="far fa-boxes"  class="text-white font-weight-400"></i>100% Discreet Packaging</a></li>
+                                <li><a href="#"  class="text-white"><i class="far fa-truck"  class="text-white font-weight-400"></i>Free Delivery on orders over £40*</a></li>
+                                <li><a href="#"  class="text-white"><i class="far fa-certificate"  class="text-white font-weight-400"></i> Registered Pharmacy: 9011972</a></li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="top-bar-right text-end">
-                            <div class="ltn__top-bar-menu">
-                                <ul>
-                                    <li>
-                                        <!-- ltn__social-media -->
-                                        <div class="ltn__social-media">
-                                            <ul>
-                                                <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                                
-                                                <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                                                <li><a href="#" title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,6 +111,8 @@
         </div>
         <!-- ltn__header-middle-area end -->
         
+        
+
         <!-- MOBILE MENU START -->
         <div class="mobile-header-menu-fullwidth mb-20 d-block d-lg-none">
             <div class="container">
@@ -161,9 +145,9 @@
                                 <nav>
                                     <div class="ltn__main-menu text-center">
                                         <ul>
-                                            <li class="menu-icon"><a href="#">Home</a></li>
+                                            <li><a href="/">Home</a></li>
                                             @foreach ($menu_categories as $key => $val)
-                                                <li class="menu-icon"><a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
+                                                <li class=""><a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
                                                     <ul class="mega-menu">
                                                         @foreach($val['subcategory'] as $key1 => $val1)
                                                             <li><a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
@@ -177,8 +161,8 @@
                                                     </ul>
                                                 </li>
                                             @endforeach
-                                            <li class="menu-icon"><a href="#">About</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href="#">About</a></li>
+                                            <li><a href="/contact">Contact</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -190,6 +174,25 @@
             </div>
         </div>
         <!-- header-bottom-area end -->
+
+        <div class="ltn__header-bottom-area border-bottom top-area-color-white---">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ltn__top-bar-menu">
+                            <ul>
+                                <li><a href="#" class="text-white font-weight-400"><i class="fas fa-ad"></i>Promoting healthy lifestyle for a better future!</a></li>
+                                <li><a href="#"  class="text-white">Myrkl Pills</a></li>
+                                <li><a href="#"  class="text-white">COVID-19 Lateral Flow Test Kits</a></li>
+                                <li><a href="#"  class="text-white">NHS Prescriptions</a></li>
+                                <li><a href="#"  class="text-white">Weight Loss Medicines</a></li>
+                                <li><a href="#"  class="text-white">Top Sellers Products</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
     <!-- HEADER AREA END -->
 
@@ -337,3 +340,8 @@
         </div>
     </div>
     <!-- Utilize Mobile Menu End -->
+
+    
+
+
+

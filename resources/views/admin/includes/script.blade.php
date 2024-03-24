@@ -37,6 +37,5 @@
 <!-- Ekko Lightbox -->
 <!-- {{--  <script src="assets/admin/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>  --}} -->
 <!-- Filterizr-->
-<!-- {{--  <script src="assets/admin/plugins/filterizr/jquery.filterizr.min.js"></script>  --}} -->
-
+<script src="{{asset('assets/js/custom.js')}}"></script>
 <script src="{{asset('/assets/admin/dist/js/main.js')}}"></script>

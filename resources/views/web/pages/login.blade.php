@@ -31,6 +31,11 @@
                     <div class="section-title-area text-center">
                         <h1 class="section-title">Sign In<br>To Your Account</h1>
                         <p>Sign in to your account for seamless access to your health essentials and exclusive benefits.</p>
+                        @if(session('msg'))
+                            <div class="alert alert-success">
+                                {{ session('msg') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

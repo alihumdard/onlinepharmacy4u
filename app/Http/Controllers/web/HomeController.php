@@ -31,54 +31,23 @@ use App\Models\ProductAttribute;
 
 class HomeController extends Controller
 {
-    private $categories;
+    private $menu_categories;
 
     public function __construct()
     {
-        $this->categories = Category::with('subcategory.childCategories')
+        $this->menu_categories = Category::with('subcategory.childCategories')
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()
             ->toArray();
 
-        view()->share('categories', $this->categories);
+        view()->share('menu_categories', $this->menu_categories);
     }
 
     public function index(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
         return view('web.pages.home');
-    }
-
-    public function showProducts($category = null, $sub_category = null, $child_category = null)
-    {
-        $category_id = Category::where('slug', $category)->first()->id;
-
-        if($category && $sub_category && $child_category){
-            $level = 'child';
-            $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
-        } else if($category && $sub_category && ! $child_category){
-            $level = 'sub';
-            $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
-        } else if($category && ! $sub_category && ! $child_category){
-            $level = 'main';
-        }
-
-        switch ($level) {
-            case 'main':
-                $products = Product::where(['category_id' => $category_id])->get();
-                break;
-            case 'sub':
-                $products = Product::where(['sub_category' => $sub_category_id])->get();
-                break;
-            case 'child':
-                $products = Product::where(['child_category' => $child_category_id])->get();
-                break;
-        }
-        return $products;
-    
-
-        return view('web.pages.shop');
     }
 
     public function blogs(Request $request)
@@ -109,10 +78,4 @@ class HomeController extends Controller
     {
         return view('web.pages.howitworks');
     }
-
-    public function product_question(Request $request)
-    {
-        return view('web.pages.product_question');
-    }
-    
 }

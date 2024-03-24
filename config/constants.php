@@ -268,4 +268,8 @@ return [
         2 => 'Prescription Medicines',
         3 => 'Over the Counter Medicines'
     ],
+
+    'PHARMACY_MEDECINE' => 1,
+    'PRESCRIPTION_MEDICINE' => 2,
+    'COUNTER_MEDICINE' => 3,
 ];

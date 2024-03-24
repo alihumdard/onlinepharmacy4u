@@ -104,9 +104,13 @@ color:white;
 .sticky-active.ltn__sticky-bg-white .ltn__main-menu > ul > li > a:hover{
     color:#3d7de8;
 }
+.mobile-header-menu-fullwidth{
+    margin:0px !important;
+}
 
-
-
+.ltn__header-3 .ltn__header-middle-area{
+    
+}
 
 
 
@@ -114,4 +118,10 @@ color:white;
     .ltn__header-top-area{
         display:none;
     }
+    .mobile-header-menu-fullwidth .mobile-menu-toggle{
+        border-radius:30px;
+    }
+    .ltn__header-area{
+        background: linear-gradient(90deg, rgba(2,195,164,0.3561799719887955) 0%, rgba(61,125,232,1) 100%);
+    } 
   }

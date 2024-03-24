@@ -88,9 +88,9 @@ color:white;
 .button-radius:hover{
  background-color:#02c3a4;   
 }
-.header-bottom-area{
+/* .header-bottom-area{
     background-color:#02c3a4 !important;   
-}
+} */
 .ltn__main-menu > ul > li > a{
     color:#fff;
     font-weight:400;
@@ -111,7 +111,9 @@ color:white;
 .ltn__header-3 .ltn__header-middle-area{
     
 }
-
+.ltn__header-area, .header-bottom-area{
+    background: linear-gradient(90deg, rgba(2,195,164,0.3561799719887955) 0%, rgba(61,125,232,1) 100%);
+} 
 
 
 @media only screen and (max-width: 600px) {

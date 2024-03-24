@@ -49,6 +49,11 @@ class HomeController extends Controller
         $data['user'] = auth()->user() ?? [];
         return view('web.pages.home');
     }
+    public function questions_preview(Request $request)
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.questions_preview');
+    }
 
     public function blogs(Request $request)
     {

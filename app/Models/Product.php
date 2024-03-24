@@ -15,6 +15,16 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function sub_cat()
+    {
+        return $this->belongsTo(SubCategory::class, 'sub_category');
+    }
+
+    public function child_cat()
+    {
+        return $this->belongsTo(ChildCategory::class, 'child_category');
+    }
+
     public function assignedQuestions()
     {
         return $this->hasMany(AssignQuestion::class, 'category_id', 'category_id');

@@ -27,25 +27,27 @@ use App\Models\AssignQuestion;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 
+use Illuminate\Support\Facades\URL;
+
 
 class DefualtController extends Controller
 {
     protected $status;
     protected $user;
-    private $categories;
+    private $menu_categories;
 
     public function __construct()
     {
         $this->user = auth()->user();
         $this->status = config('constants.USER_STATUS');
 
-        $this->categories = Category::with('subcategory.childCategories')
+        $this->menu_categories = Category::with('subcategory.childCategories')
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()
             ->toArray();
 
-        view()->share('categories', $this->categories);
+        view()->share('menu_categories', $this->menu_categories);
     }
 
     public function index()
@@ -119,22 +121,14 @@ class DefualtController extends Controller
                                 return  redirect('/admin');
                             } else if (isset($user->role) && $user->role == user_roles('3')) {
                                 return  redirect('/admin');
-                            } else if (isset($user->role) && $user->role == user_roles('4')) {     
-                                $product_id =  session('pro_id') ?? NULL;
-                                if($product_id){
-                                    if($user->consult_status != 'done'){
-                                        return redirect()->route('web.bmiForm');
-                                    }
-                                    else{
-                                        return redirect()->route('web.products');
-                                    }        
-                                }else{
-                                    if($user->consult_status != 'done'){
-                                        return redirect()->route('web.bmiForm');
-                                    }
-                                    else{
-                                        return redirect()->route('admin.index');
-                                    }
+                            } else if (isset($user->role) && $user->role == user_roles('4')) {  
+                                $intendedUrl = session('intended_url');
+                                session()->forget('intended_url');
+                                if ($intendedUrl) {
+                                    return redirect()->route('web.consultationForm');
+                                }
+                                else{
+                                    return  redirect('/admin');
                                 }
                             }
                             // return redirect()->back()->with(['status' => 'success', 'message' => 'User successfully logged in', 'token' => $token]);
@@ -160,7 +154,7 @@ class DefualtController extends Controller
             } else if (isset($user->role) && $user->role == user_roles('3')) {
                 return  redirect('/admin');
             } else if (isset($user->role) && $user->role == user_roles('4')) {
-                return redirect()->route('web.bmiForm');
+                return  redirect('/admin');
             }
         }
         return view('web.pages.login');
@@ -183,13 +177,13 @@ class DefualtController extends Controller
             return redirect('/');
         }
     }
-    public function regisration_from(Request $request)
+    public function registration_form(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
         if (auth()->user()) {
-            return redirect()->route('web.bmiForm');
+            return redirect('/admin');
         } else {
-            return view('web.pages.regisration_from', $data);
+            return view('web.pages.registration_form', $data);
         }
     }
 
@@ -201,7 +195,7 @@ class DefualtController extends Controller
                 'name'     => 'required',
                 'phone'    => 'required|digits:11',
                 'address'  => 'required',
-                'role'     => 'required',
+                // 'role'     => 'required',
                 'dob'     => 'required',
                 'zip_code'     => 'required',
                 'email'    => [
@@ -226,7 +220,7 @@ class DefualtController extends Controller
                     'name'       => ucwords($request->name),
                     'email'      => $request->email,
                     'dob'        => $request->dob,
-                    'role'       => $request->role,
+                    'role'       => $request->role ?? 'User',
                     'phone'      => $request->phone,
                     'address'    => $request->address,
                     'zip_code'   => $request->zip_code,
@@ -237,6 +231,7 @@ class DefualtController extends Controller
                     'created_by' => 1,
                 ]
             );
+            
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 $user = auth()->user();
@@ -244,7 +239,7 @@ class DefualtController extends Controller
             }
             $message = "User" . ($request->id ? "Registraion" : "Registraion") . " Successfully";
             if ($saved) {
-                return redirect()->route('web.bmiForm')->with(['msg' => $message]);
+                return redirect()->route('login')->with(['msg' => $message]);
             }
         }else{
             return redirect()->back();

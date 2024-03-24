@@ -137,6 +137,12 @@ class WebController extends Controller
 
 
     // cloned methods of myweightloss
+    public function product_question_new()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.product_question', $data);
+    }
+
     public function products(Request $request)
     {
         session()->forget('pro_id');

@@ -8,6 +8,11 @@
     border-radius: 30px !important;
 }
 
+.ltn__top-bar-menu ul li a i{
+color:white;
+}
+
+
 .header-search-1-form{
     top:98%;
 }
@@ -80,6 +85,28 @@
 .button-radius{
     border-radius: 30px;
 }
+.button-radius:hover{
+ background-color:#02c3a4;   
+}
+.header-bottom-area{
+    background-color:#02c3a4 !important;   
+}
+.ltn__main-menu > ul > li > a{
+    color:#fff;
+    font-weight:400;
+}
+.mega-menu{
+    margin-top:-20px !important;
+}
+.sticky-active.ltn__sticky-bg-white .ltn__main-menu > ul > li > a{
+    color:white;
+}
+.sticky-active.ltn__sticky-bg-white .ltn__main-menu > ul > li > a:hover{
+    color:#3d7de8;
+}
+
+
+
 
 
 

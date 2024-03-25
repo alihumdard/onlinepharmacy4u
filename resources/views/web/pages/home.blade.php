@@ -470,7 +470,7 @@
                                                     </li>
                                                 @else
                                                     <li>
-                                                        <a href="#" title="You have to answer some question" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
+                                                        <a href="#" title="You have to answer some question">
                                                             <i class="fas fa-plus"></i>
                                                         </a>
                                                     </li>
@@ -492,6 +492,13 @@
                 </div>
             </div>
         </div>
+        <div class="text-center">
+            <a href="{{route('shop')}}" class="theme-btn-1 btn btn-effect-3" title="Add to Cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span>SHOP</span>
+            </a>
+        </div>
+        
     </div>
 </div>
 <!-- PRODUCT AREA END -->

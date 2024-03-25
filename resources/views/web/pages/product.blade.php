@@ -518,9 +518,7 @@
                 url: url,
                 data: formData,
                 success: function(response) {
-                    // alert('Item added to cart');
                     $('#add_to_cart_modal').modal('show');
-                    // You can update the cart count or any other UI element here
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);

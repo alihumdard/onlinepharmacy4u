@@ -727,13 +727,13 @@
 <!-- PRODUCT AREA END -->
 
 <!-- COUNTDOWN AREA START -->
-<div class="ltn__call-to-action-area section-bg-1 bg-image pt-120 pb-120" data-bs-bg="img/bg/25.png">
+<div class="ltn__call-to-action-area section-bg-1 bg-image pt-20 pb-20" data-bs-bg="img/bg/p4u_banner.webp">
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
                 <div class="call-to-action-inner text-color-white--- text-center---">
                     <div class="section-title-area ltn__section-title-2--- text-center---">
-                        <h6 class="ltn__secondary-color">Todays Hot Offer</h6>
+                        <!-- <h6 class="ltn__secondary-color">Todays Hot Offer</h6> -->
                         <h1 class="section-title text-white">Free Covid-19 Vaccine<br>Campaign Ticket</h1>
                         <p class="text-white">Cur tantas regiones barbarorum obiit, tot maria transmist <br>
                             summo bono fruitur id est voluptate barbarorum </p>

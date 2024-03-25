@@ -336,9 +336,6 @@ color:white;
     font-weight:400;
     padding:8px 10px;
 }
-.mega-menu{
-    margin-top:-20px !important;
-}
 .sticky-active.ltn__sticky-bg-white .ltn__main-menu > ul > li > a, .ltn__feature-info h1 ,.ltn__feature-info p {
     color:white !important;
 }
@@ -394,5 +391,8 @@ color:white;
     .ltn__header-area{
         background: rgb(2,195,164);
         background: linear-gradient(90deg, rgba(2,195,164,0.3393732492997199) 0%, rgba(61,125,232,0.3449754901960784) 100%);
+    }
+    .ltn__header-bottom{
+        display:none !important;
     } 
   }

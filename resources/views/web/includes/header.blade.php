@@ -278,9 +278,6 @@
             <div class="ltn__utilize-menu">
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    
                     @foreach ($menu_categories as $key => $val)
                         <li><a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">{{$val['name']}}</a>
                             <ul class="sub-menu">
@@ -296,7 +293,8 @@
                             </ul>
                         </li>
                     @endforeach
-                    
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
             </div>
             <div class="ltn__utilize-buttons ltn__utilize-buttons-2">

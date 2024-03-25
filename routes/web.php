@@ -125,4 +125,10 @@ Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web
 
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
 
+//cart
+Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');
+Route::get('/cart', [WebController::class, 'view_cart'])->name('web.view.cart');
+Route::get('/checkout', [WebController::class, 'product_detail'])->name('checkout');
+
+
 include __DIR__ . '/admin.php';

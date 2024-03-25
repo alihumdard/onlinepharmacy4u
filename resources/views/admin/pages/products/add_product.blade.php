@@ -122,6 +122,9 @@
         position: relative;
         padding-bottom: 100%;
     }
+    .hide{
+        display:none !important;
+    }
 </style>
 
 <!-- main stated -->
@@ -238,7 +241,10 @@
                     @enderror
                 </div>
 
-                <div class="col-md-6">
+                @php
+                    $display = isset($product['product_template']) ? ($product['product_template'] != config('constants.COUNTER_MEDICINE') ? '' : 'hide') : '';
+                @endphp
+                <div class="col-md-6 question_category-div {{$display}}">
                     <label for="question_category" class="col-form-label"> Select Question Category <span class="question-category"></span></label>
                     <select id="question_category" name="question_category[]" class="form-select select2" data-placeholder="choose categories ..." multiple="multiple">
                         <option value="all">all</option>
@@ -488,6 +494,16 @@
                         console.error('Error:', error);
                     }
                 });
+        });
+
+        $('#product_template').change(function() {
+            var template = $(this).val();
+            if(template == 3){
+                $('.question_category-div').hide();
+            }
+            else{
+                $('.question_category-div').show();
+            }
         });
     });
 

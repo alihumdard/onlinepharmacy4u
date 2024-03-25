@@ -944,7 +944,8 @@ class SystemController extends Controller
             $mainImage->storeAs('product_images/main_images', $mainImageName, 'public');
             $mainImagePath = 'product_images/main_images/' . $mainImageName;
         }
-        $question_category = implode(",", $request->question_category);
+
+        $question_category = $request->question_category ? implode(",", $request->question_category) : NULL;
 
         // Create or update product
         $product = Product::updateOrCreate(

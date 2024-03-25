@@ -1,8 +1,62 @@
 @extends('web.layouts.default', ['menu_categories' => $menu_categories])
 @section('title', 'Home')
 @section('content')
+
+<!-- CUSTOM SLIDER START HERE--  -->
+
+<div class="slider">
+  <!-- Slides -->
+  <div class="slide" id="slide1">
+    <img src="img/slider/NHS_perscriptions_Desktop_1920x.webp" alt="Image 1">
+  </div>
+  <div class="slide" id="slide2">
+    <img src="img/slider/Pharmacy4u_Banner_4_Desktop_Size-01_1920x.webp" alt="Image 2">
+  </div>
+  <div class="slide" id="slide3">
+    <img src="img/slider/Pharmacy4u_Banner_1_Desktop_Size-01_1_1920x.webp" alt="Image 3">
+  </div>
+
+  <!-- Navigation dots -->
+  <div class="dots">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+</div>
+<script>
+  let slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    setTimeout(showSlides, 5000); // Change image every 2 seconds
+  }
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+</script>
+
+
+
+
+<!-- CUSTOM SLIDER END HERE--  -->
+
+
+
 <!-- SLIDER AREA START (slider-3) -->
-<div class="ltn__slider-area ltn__slider-3  section-bg-1">
+<div class="ltn__slider-area ltn__slider-3  section-bg-1 display-none">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
         <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/slider/home-slider-one.png">
@@ -103,27 +157,27 @@
                     <div class="card-body">
                         <h5 class="card-title">Aid restful sleep, naturally</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary button-radius">Buy Now</a>
+                        <!-- <a href="#" class="btn btn-primary button-radius">Buy Now</a> -->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-            <div class="card card-radius">
+                <div class="card card-radius">
                     <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Quit for good with Nicorette</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary button-radius">Buy Now</a>
+                        <!-- <a href="#" class="btn btn-primary button-radius">Buy Now</a> -->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-            <div class="card card-radius">
+                <div class="card card-radius">
                     <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Discover the new Bio-Oil body lotion</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary button-radius">Buy Now</a>
+                        <!-- <a href="#" class="btn btn-primary button-radius">Buy Now</a> -->
                     </div>
                 </div>
             </div>
@@ -326,23 +380,29 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/1.webp" alt="Banner Image"></a>
+                        <a href="#"><img src="img/banner/new_banner2_1.webp" alt="Banner Image"></a>
                     </div>
                 </div>
+                <h4 class="text-center">Select your medication.</h4>
+                <p class="text-center">Simply select the medication you wish to purchase by searching for it directly or by browsing the categories using the top navigation bar. It's easy!</p>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/2.webp" alt="Banner Image"></a>
+                        <a href="#"><img src="img/banner/new_banner3_1.webp" alt="Banner Image"></a>
                     </div>
                 </div>
+                <h4 class="text-center">Quick 60 secs FREE consultation.</h4>
+                <p class="text-center">Once you have selected your medication, you will need to complete a FREE 1-minute consultation. Our panel of GPhC approved prescribers will check your consultation and once approved, your prescription will be dispensed by Online Pharmacy4U.</p>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/3.webp" alt="Banner Image"></a>
+                        <a href="#"><img src="img/banner/new_banner4_1.webp" alt="Banner Image"></a>
                     </div>
                 </div>
+                <h4 class="text-center">Receive your Express delivery</h4>
+                <p class="text-center">With our next-day delivery option, you can have your medications delivered to your door within hours in discreet packaging.</p>
             </div>
         </div>
     </div>
@@ -365,7 +425,7 @@
                     <div class="col-lg-12 col-sm-6">
                         <div class="ltn__banner-item">
                             <div class="ltn__banner-img">
-                                <a href="shop.html"><img src="img/banner/11.webp" alt="Banner Image"></a>
+                                <a href="shop.html"><img src="img/banner/banner11.png" alt="Banner Image"></a>
                             </div>
                         </div>
                     </div>
@@ -667,15 +727,15 @@
 <!-- PRODUCT AREA END -->
 
 <!-- COUNTDOWN AREA START -->
-<div class="ltn__call-to-action-area section-bg-1 bg-image pt-120 pb-120" data-bs-bg="img/bg/25.png">
+<div class="ltn__call-to-action-area section-bg-1 bg-image pt-20 pb-20" data-bs-bg="img/bg/p4u_banner.webp">
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
                 <div class="call-to-action-inner text-color-white--- text-center---">
                     <div class="section-title-area ltn__section-title-2--- text-center---">
-                        <h6 class="ltn__secondary-color">Todays Hot Offer</h6>
-                        <h1 class="section-title">Free Covid-19 Vaccine<br>Campaign Ticket</h1>
-                        <p>Cur tantas regiones barbarorum obiit, tot maria transmist <br>
+                        <!-- <h6 class="ltn__secondary-color">Todays Hot Offer</h6> -->
+                        <h1 class="section-title text-white">Free Covid-19 Vaccine<br>Campaign Ticket</h1>
+                        <p class="text-white">Cur tantas regiones barbarorum obiit, tot maria transmist <br>
                             summo bono fruitur id est voluptate barbarorum </p>
                     </div>
                     <div class="ltn__countdown ltn__countdown-3 bg-white--" data-countdown="2021/12/28"></div>
@@ -1380,7 +1440,8 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/23.webp" alt="Banner Image"></a>
+                        <a href="#"><img src="img/banner/23.webp" alt="Banner Image"></a>
+                        <h4 class="text-center mt-3">Men Health</h4>
                     </div>
                 </div>
             </div>
@@ -1388,6 +1449,7 @@
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
                         <a href="shop.html"><img src="img/banner/22.webp" alt="Banner Image"></a>
+                        <h4 class="text-center  mt-3">Women Health</h4>
                     </div>
                 </div>
             </div>
@@ -1395,6 +1457,7 @@
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
                         <a href="shop.html"><img src="img/banner/21.webp" alt="Banner Image"></a>
+                        <h4 class="text-center mt-3">General Health</h4>
                     </div>
                 </div>
             </div>
@@ -1403,54 +1466,7 @@
 </div>
 <!-- BANNER AREA END -->
 
-<!-- FEATURE AREA START ( Feature - 3) -->
-<div class="ltn__feature-area section-bg-1 mt-90 pt-30 pb-30 mt--65---">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ltn__feature-item-box-wrap ltn__feature-item-box-wrap-2 ltn__border--- section-bg-1">
-                    <div class="ltn__feature-item ltn__feature-item-8">
-                        <div class="ltn__feature-icon">
-                            <img src="img/icons/svg/8-trolley.svg" alt="#">
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h4>Free shipping</h4>
-                            <p>On all orders over $49.00</p>
-                        </div>
-                    </div>
-                    <div class="ltn__feature-item ltn__feature-item-8">
-                        <div class="ltn__feature-icon">
-                            <img src="img/icons/svg/9-money.svg" alt="#">
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h4>15 days returns</h4>
-                            <p>Moneyback guarantee</p>
-                        </div>
-                    </div>
-                    <div class="ltn__feature-item ltn__feature-item-8">
-                        <div class="ltn__feature-icon">
-                            <img src="img/icons/svg/10-credit-card.svg" alt="#">
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h4>Secure checkout</h4>
-                            <p>Protected by Paypal</p>
-                        </div>
-                    </div>
-                    <div class="ltn__feature-item ltn__feature-item-8">
-                        <div class="ltn__feature-icon">
-                            <img src="img/icons/svg/11-gift-card.svg" alt="#">
-                        </div>
-                        <div class="ltn__feature-info">
-                            <h4>Offer & gift here</h4>
-                            <p>On all orders over</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- FEATURE AREA END -->
+
 
 <!-- BLOG AREA START (blog-3) -->
 <div class="ltn__blog-area pt-115 pb-45">

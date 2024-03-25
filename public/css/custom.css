@@ -153,6 +153,11 @@
     .dots{
         margin-top:-30px;
     }
+
+    .ltn__countdown .single p{
+        color:white;  
+    }
+    
 /* questions-preview style start here  */
 /* button {
     background: #db8181;

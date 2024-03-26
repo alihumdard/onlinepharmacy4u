@@ -54,7 +54,7 @@
                                                     <a href="product-details.html"><img src="{{ asset('storage/'.$val['product_data']['main_image'])}}" alt="#"></a>
                                                 </td>
                                                 <td class="cart-product-info">
-                                                    <h4><a href="product-details.html">{{ $val['product_data']['title'] }}</a></h4>
+                                                    <h4><a href="{{ route('web.product', ['id' => $val['product_data']['id']]) }}">{{ $val['product_data']['title'] }}</a></h4>
                                                 </td>
                                                 <td class="cart-product-price">£{{ $val['product_data']['price'] }}</td>
                                                 <td class="cart-product-quantity">

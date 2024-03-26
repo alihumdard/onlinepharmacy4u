@@ -259,17 +259,17 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="ext_tax" class="col-form-label"> Extra Tax <span class="extra-text"></span></label>
-                    <input type="number" name="ext_tax" id="ext_tax" value="{{  $product['ext_tax'] ?? old('ext_tax') }}" class="form-control" required>
-                    <div class="invalid-feedback">Enter extra tax!</div>
-                    @error('ext_tax')
+                    <label for="cut_price" class="col-form-label"> Cut Price <span class="cut-price"></span></label>
+                    <input type="text" name="cut_price" id="cut_price" value="{{  $product['cut_price'] ?? old('cut_price') }}" class="form-control">
+                    <div class="invalid-feedback">Enter Cut Price!</div>
+                    @error('cut_price')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="col-md-6">
                     <label for="price" class="col-form-label"> Price <span class="extra-text">(Price in UK Pound)</span></label>
-                    <input type="number" name="price" id="price" value="{{  $product['price'] ?? old('price') }}" class="form-control" required>
+                    <input type="text" name="price" id="price" value="{{  $product['price'] ?? old('price') }}" class="form-control" required>
                     <div class="invalid-feedback">Enter product price!</div>
                     @error('price')
                     <div class="alert-danger text-danger ">{{ $message }}</div>

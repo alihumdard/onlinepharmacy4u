@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\DefualtController;
 use App\Http\Controllers\Admin\SystemController;
+use App\Http\Controllers\Admin\DefualtController;
+use App\Http\Controllers\Admin\ProductController;
 
 
 Route::get('/admin', [DefualtController::class, 'index'])->name('admin.index');
@@ -29,9 +30,9 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get','post'],'/addCollection', [SystemController::class, 'add_collection'])->name('admin.addCollection');
     Route::match(['get','post'],'/storeCollection', [SystemController::class, 'store_collection'])->name('admin.storeCollection');
 
-    Route::match(['get','post'],'/prodcuts', [SystemController::class, 'prodcuts'])->name('admin.prodcuts');
-    Route::match(['get','post'],'/addProduct', [SystemController::class, 'add_product'])->name('admin.addProduct');
-    Route::match(['get','post'],'/storeProduct', [SystemController::class, 'store_product'])->name('admin.storeProduct');
+    Route::match(['get','post'],'/prodcuts', [ProductController::class, 'prodcuts'])->name('admin.prodcuts');
+    Route::match(['get','post'],'/addProduct', [ProductController::class, 'add_product'])->name('admin.addProduct');
+    Route::match(['get','post'],'/storeProduct', [ProductController::class, 'store_product'])->name('admin.storeProduct');
     
     Route::get('/admins', [SystemController::class, 'admins'])->name('admin.admins');
     Route::match(['get','post'],'/addAdmin',   [SystemController::class, 'add_admin'])->name('admin.addAdmin');

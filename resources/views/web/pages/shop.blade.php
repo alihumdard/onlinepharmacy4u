@@ -6,16 +6,16 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/bg/14.jpg">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/bg/14.png">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="ltn__breadcrumb-inner">
-                    <h1 class="page-title">Shop Left Sidebar</h1>
+                    <h1 class="page-title">Online Pharmacy 4U Shop</h1>
                     <div class="ltn__breadcrumb-list">
                         <ul>
                             <li><a href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
-                            <li>Shop Left Sidebar</li>
+                            <li>Online Pharmacy 4U Shop</li>
                         </ul>
                     </div>
                 </div>
@@ -260,45 +260,8 @@
                             <li><a href="#">Virus</a></li>
                         </ul>
                     </div>
-                    <!-- Size Widget -->
-                    <div class="widget ltn__tagcloud-widget ltn__size-widget">
-                        <h4 class="ltn__widget-title ltn__widget-title-border">Product Size</h4>
-                        <ul>
-                            <li><a href="#">S</a></li>
-                            <li><a href="#">M</a></li>
-                            <li><a href="#">L</a></li>
-                            <li><a href="#">XL</a></li>
-                            <li><a href="#">XXL</a></li>
-                        </ul>
-                    </div>
-                    <!-- Color Widget -->
-                    <div class="widget ltn__color-widget">
-                        <h4 class="ltn__widget-title ltn__widget-title-border">Product Color</h4>
-                        <ul>
-                            <li class="black"><a href="#"></a></li>
-                            <li class="white"><a href="#"></a></li>
-                            <li class="red"><a href="#"></a></li>
-                            <li class="silver"><a href="#"></a></li>
-                            <li class="gray"><a href="#"></a></li>
-                            <li class="maroon"><a href="#"></a></li>
-                            <li class="yellow"><a href="#"></a></li>
-                            <li class="olive"><a href="#"></a></li>
-                            <li class="lime"><a href="#"></a></li>
-                            <li class="green"><a href="#"></a></li>
-                            <li class="aqua"><a href="#"></a></li>
-                            <li class="teal"><a href="#"></a></li>
-                            <li class="blue"><a href="#"></a></li>
-                            <li class="navy"><a href="#"></a></li>
-                            <li class="fuchsia"><a href="#"></a></li>
-                            <li class="purple"><a href="#"></a></li>
-                            <li class="pink"><a href="#"></a></li>
-                            <li class="nude"><a href="#"></a></li>
-                            <li class="orange"><a href="#"></a></li>
-
-                            <li><a href="#" class="orange"></a></li>
-                            <li><a href="#" class="orange"></a></li>
-                        </ul>
-                    </div>
+                    
+                    
                     <!-- Banner Widget -->
                     <div class="widget ltn__banner-widget">
                         <a href="shop.html"><img src="img/banner/banner-2.jpg" alt="#"></a>
@@ -312,7 +275,7 @@
 <!-- PRODUCT DETAILS AREA END -->
 
 <!-- CALL TO ACTION START (call-to-action-6) -->
-<div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
+<!-- <div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -327,7 +290,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- CALL TO ACTION END -->
 
 

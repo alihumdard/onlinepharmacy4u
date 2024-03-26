@@ -443,8 +443,12 @@ color:white;
 .button-radius:hover{
  background-color:#02c3a4;   
 }
-
-
+.footer-newsletter-widget img{
+    border-radius:30px;
+}
+.ltn__category-area{
+    display: none !important;
+}
 .ltn__main-menu > ul > li > a{
     color:#fff;
     font-weight:400;

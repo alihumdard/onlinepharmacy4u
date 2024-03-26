@@ -181,7 +181,7 @@
                     <div class="col-md-12">
                         <div class="ltn__top-bar-menu">
                             <ul>
-                                <li><a href="#" class="text-white font-weight-400"><i class="fas fa-ad"></i>Promoting healthy lifestyle for a better future!</a></li>
+                                <li><a href="#" class="text-white font-weight-400">Promoting healthy lifestyle for a better future!</a></li>
                                 <li><a href="#"  class="text-white">Myrkl Pills</a></li>
                                 <li><a href="#"  class="text-white">COVID-19 Lateral Flow Test Kits</a></li>
                                 <li><a href="#"  class="text-white">NHS Prescriptions</a></li>

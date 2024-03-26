@@ -329,43 +329,18 @@
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-30">
                         <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                        <h1 class="section-title">Let Online Pharmacy4U be your helping hand!</h1>
-                        <p>Online Pharmacy4U has become a source of efficiency and care in the digital health field. It connects users with a wide range of healthcare solutions and leads in simplifying prescriptions. Dedicated to providing excellent customer service, Online Pharmacy4U brings wellness to people's doorsteps, helping to create a more accessible and healthy future.</p>
+                        <h1 class="section-title">Our Online Pharmacy 4U Doctor</h1>
+                        <p>Our doctors here at Online Pharmacy 4U get asked hundreds of questions regards symptoms and treatments daily, visit out A to Z Conditions & Treatments finder to find what your looking for.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
-                        <li><i class="fas fa-check-square"></i> Convenient</li>
-                        <li><i class="fas fa-check-square"></i> Extensive Selection</li>
-                        <li><i class="fas fa-check-square"></i> Fast and Free Delivery</li>
-                        <li><i class="fas fa-check-square"></i> Customer-Centric Approach</li>
+                        <li><i class="fas fa-check-square"></i> Watch our explainer video</li>
+                        <li><i class="fas fa-check-square"></i> Helps explain some of the</li>
+                        <li><i class="fas fa-check-square"></i> common conditions</li>
+                        <li><i class="fas fa-check-square"></i> Watch ''how we work'' Video!</li>
                     </ul>
 
 
-                    <div class="about-author-info-2 border-top mt-30 pt-20">
-                        <ul>
-                            <li>
-                                <div class="about-author-info-2-brief  d-flex">
-                                    <div class="author-img">
-                                        <img src="img/blog/author.jpg" alt="#">
-                                    </div>
-                                    <div class="author-name-designation">
-                                        <h4 class="mb-0">Jerry Henson</h4>
-                                        <small>Medical Specialist</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="about-author-info-2-contact  d-flex">
-                                    <div class="about-contact-icon d-flex align-self-center mr-10">
-                                        <i class="icon-call"></i>
-                                    </div>
-                                    <div class="about-author-info-2-contact-info">
-                                        <small>Get Support</small>
-                                        <h6 class="mb-0">123-456-789-10</h6>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -493,9 +468,9 @@
             </div>
         </div>
         <div class="text-center">
-            <a href="{{route('shop')}}" class="theme-btn-1 btn btn-effect-3" title="Add to Cart">
-                <i class="fas fa-shopping-cart"></i>
-                <span>SHOP</span>
+            <a href="{{route('shop')}}" class="theme-btn-1 btn btn-effect-3 card-radius">
+                <!-- <i class="fas fa-shopping-cart"></i> -->
+                <span> View All Products</span>
             </a>
         </div>
         

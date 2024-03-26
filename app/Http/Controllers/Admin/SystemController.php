@@ -619,6 +619,7 @@ class SystemController extends Controller
 
         $validator = Validator::make($request->all(), [
             'anwser_set' => 'required',
+            'order' => 'required',
             'title'   => [
                 'required',
                 Rule::unique('questions')->ignore($request->id),
@@ -643,6 +644,7 @@ class SystemController extends Controller
                 'optB'       => ucwords($request->optB) ?? NULL,
                 'optC'       => ucwords($request->optC) ?? NULL,
                 'optD'       => ucwords($request->optD) ?? NULL,
+                'order'       => $request->order,
                 'created_by' => $user->id,
             ]
         );

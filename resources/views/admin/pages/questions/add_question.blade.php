@@ -52,6 +52,14 @@
                                 <div class="alert-danger text-danger ">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="col-md-6">
+                                <label for="order" class="form-label">Question Order</label>
+                                <input type="text" name="order" value="{{  $question['order'] ?? old('order') }}" class="form-control" id="order" required>
+                                <div class="invalid-feedback">Please enter question order!</div>
+                                @error('order')
+                                <div class="alert-danger text-danger ">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="col-md-6 ">
                                 <label for="anwser_set" class="form-label">Anwser Set</label>
                                 <select class="form-select" name="anwser_set" id="anwser_set" required>

@@ -60,7 +60,7 @@
                                 <h3>{{ $product->title }}</h3>
                                 <div class="product-price">
                                     <span>{{ '£'.$product->price }}</span>
-                                    {{-- <del>$65.00</del> --}}
+                                    <del>{{ $product->cut_price ? '£'.$product->cut_price : NULL}}</del>
                                 </div>
                                 <div class="modal-product-meta ltn__product-details-menu-1">
                                     <ul>

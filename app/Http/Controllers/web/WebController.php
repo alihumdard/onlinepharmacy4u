@@ -35,6 +35,7 @@ use App\Models\UserConsultation;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\QuestionMapping;
+use App\Models\QuestionCategory;
 use Illuminate\Support\Facades\DB;
 
 use Deyjandi\VivaWallet\Enums\RequestLang;
@@ -117,10 +118,25 @@ class WebController extends Controller
         $data['template'] = $request->template ?? session('template');
         $data['product_id'] = $request->product_id ?? session('product_id');
         if($data['template'] == config('constants.PHARMACY_MEDECINE')){
+            $data['product_detail'] = Product::find($data['product_id']);
+            $question_category = explode(',', $data['product_detail']->question_category);
+            $data['question_category'] = QuestionCategory::whereIn('id', $question_category)->orderBy('id')->get();
+            $data['questions'] = AssignQuestion::whereIn('category_id', $question_category)
+            ->orderBy('category_id')
+            ->get()
+            ->groupBy('category_id');            
+            // return $data;
             return view('web.pages.product_question', $data);
         }
         else if($data['template'] == config('constants.PRESCRIPTION_MEDICINE')){
             if (auth()->user()){
+                $data['product_detail'] = Product::find($data['product_id']);
+                $question_category = explode(',', $data['product_detail']->question_category);
+                $data['question_category'] = QuestionCategory::whereIn('id', $question_category)->orderBy('id')->get();
+                $data['questions'] = AssignQuestion::whereIn('category_id', $question_category)
+                ->orderBy('category_id')
+                ->get()
+                ->groupBy('category_id');
                 return view('web.pages.product_question', $data);
             }
             else{
@@ -130,8 +146,8 @@ class WebController extends Controller
                 return redirect()->route('login');
             }
         }
-        else{return $data;
-            return redirect()->route('/');
+        else{
+            return redirect()->route('shop');
         }
     }
 
@@ -166,6 +182,12 @@ class WebController extends Controller
 
 
     // cloned methods of myweightloss
+    public function product_question_new()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.product_question', $data);
+    }
+
     public function products(Request $request)
     {
         session()->forget('pro_id');

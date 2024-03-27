@@ -83,7 +83,7 @@
                                             <li>
                                                 <a href="#"><i class="icon-user"></i></a>
                                                 <ul>
-                                                    <li><a href="login.html">Sign in</a></li>
+                                                    <li><a href="/admin">Sign in</a></li>
                                                     <li><a href="register.html">Register</a></li>
                                                     <li><a href="account.html">My Account</a></li>
                                                     <li><a href="wishlist.html">Wishlist</a></li>
@@ -250,8 +250,8 @@
                     <h5>Subtotal: <span>$310.00</span></h5>
                 </div>
                 <div class="btn-wrapper">
-                    <a href="cart.html" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                    <a href="cart.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                    <a href="/cart" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+                    <a href="/checkout" class="theme-btn-2 btn btn-effect-2">Checkout</a>
                 </div>
                 <p>Free Shipping on All Orders Over $100!</p>
             </div>

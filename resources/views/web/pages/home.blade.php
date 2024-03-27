@@ -338,9 +338,6 @@
                         <li><i class="fas fa-check-square"></i> common conditions</li>
                         <li><i class="fas fa-check-square"></i> Watch ''how we work'' Video!</li>
                     </ul>
-
-
-                    
                 </div>
             </div>
         </div>

@@ -466,7 +466,22 @@ color:white;
 .card{
     margin-top:10px;
 } 
-
+.footer-cards p{
+    font-size:14px !important;
+    /* line-height: 15px; */
+    height:50px;
+}
+.footer-cards{
+    background-color:#f8fdfe;
+    padding:20px;
+    margin:10px;
+    border-radius:20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.home-page-last-section{
+    padding:100px 0px !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
 
 /* .ltn__header-area, .ltn__utilize .ltn__utilize-mobile-menu .ltn__utilize-open{
     background: rgb(2,195,164);
@@ -479,6 +494,7 @@ color:white;
 
 .theme-btn-1{
     border:1px solid white;
+    border-radius:30px; 
 }
 
 

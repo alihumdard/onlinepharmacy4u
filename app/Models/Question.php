@@ -18,6 +18,7 @@ class Question extends Model
         'optB',
         'optC',
         'optD',
+        'order',
         'created_by',
     ];
 

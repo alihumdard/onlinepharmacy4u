@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('optB')->nullable();
             $table->text('optC')->nullable();
             $table->text('optD')->nullable();
+            $table->text('order');
             $table->string('status')->default('Active');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();

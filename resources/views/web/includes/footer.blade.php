@@ -7,10 +7,15 @@
                         <div class="footer-widget footer-about-widget">
                             <div class="footer-logo">
                                 <div class="site-logo">
-                                    <img src="img/brand-logo/pharmay-footer-logo.webp" width="200px" height="auto" alt="Logo">
+                                    <div class="row">
+                                        <div class="col-md-6"><img src="img/brand-logo/pharmay-footer-logo.webp" width="200px" height="auto" alt="Logo"></div>
+                                        <div class="col-md-6"><img src="img/brand-logo/R.avif" width="200px" height="auto" alt="Logo"></div>
+                                    </div>
+                                    
+                                    
                                 </div>
                             </div>
-                            <p>At Online Pharmacy4U, we blend technology with care, delivering health at your doorstep. Navigate a world of wellness with our user-friendly platform – your trusted partner for a healthier life.</p>
+                            <p>You NO longer have to wait for GP appointments. NO more visiting your local pharmacy or waiting in long lines. All our services are FREE*, receive genuine medication delivered conveniently and discreetly packaged to your door. You NO longer need assistance from your GP or your local pharmacy – we do all this online 4U for FREE* here at Online Pharmacy 4U</p>
                             <div class="footer-address">
                                 <ul>
                                     <li>

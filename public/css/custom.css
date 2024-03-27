@@ -495,6 +495,10 @@ color:white;
 .border-radius{
     border-radius:30px ;
 }
+.ltn__main-menu li ul li{
+    padding:12px !important;
+    font-size:14px !important;
+}
 /* .ltn__header-area, .ltn__utilize .ltn__utilize-mobile-menu .ltn__utilize-open{
     background: rgb(2,195,164);
     background: linear-gradient(90deg, rgba(2,195,164,0.3393732492997199) 0%, rgba(61,125,232,0.3449754901960784) 100%);

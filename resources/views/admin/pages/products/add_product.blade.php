@@ -122,6 +122,9 @@
         position: relative;
         padding-bottom: 100%;
     }
+    .hide{
+        display:none !important;
+    }
 </style>
 
 <!-- main stated -->
@@ -238,7 +241,10 @@
                     @enderror
                 </div>
 
-                <div class="col-md-6">
+                @php
+                    $display = isset($product['product_template']) ? ($product['product_template'] != config('constants.COUNTER_MEDICINE') ? '' : 'hide') : '';
+                @endphp
+                <div class="col-md-6 question_category-div {{$display}}">
                     <label for="question_category" class="col-form-label"> Select Question Category <span class="question-category"></span></label>
                     <select id="question_category" name="question_category[]" class="form-select select2" data-placeholder="choose categories ..." multiple="multiple">
                         <option value="all">all</option>
@@ -253,17 +259,17 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="ext_tax" class="col-form-label"> Extra Tax <span class="extra-text"></span></label>
-                    <input type="number" name="ext_tax" id="ext_tax" value="{{  $product['ext_tax'] ?? old('ext_tax') }}" class="form-control" required>
-                    <div class="invalid-feedback">Enter extra tax!</div>
-                    @error('ext_tax')
+                    <label for="cut_price" class="col-form-label"> Cut Price <span class="cut-price"></span></label>
+                    <input type="text" name="cut_price" id="cut_price" value="{{  $product['cut_price'] ?? old('cut_price') }}" class="form-control">
+                    <div class="invalid-feedback">Enter Cut Price!</div>
+                    @error('cut_price')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="col-md-6">
                     <label for="price" class="col-form-label"> Price <span class="extra-text">(Price in UK Pound)</span></label>
-                    <input type="number" name="price" id="price" value="{{  $product['price'] ?? old('price') }}" class="form-control" required>
+                    <input type="text" name="price" id="price" value="{{  $product['price'] ?? old('price') }}" class="form-control" required>
                     <div class="invalid-feedback">Enter product price!</div>
                     @error('price')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -488,6 +494,16 @@
                         console.error('Error:', error);
                     }
                 });
+        });
+
+        $('#product_template').change(function() {
+            var template = $(this).val();
+            if(template == 3){
+                $('.question_category-div').hide();
+            }
+            else{
+                $('.question_category-div').show();
+            }
         });
     });
 

@@ -1,5 +1,5 @@
 /*
-    Template Name: Online Pharmacy 4U 
+    Template Name: Tech Solutions Pro
     Description: Online Pharmacy 4U 
     Version: 1.0.0
 */
@@ -69,8 +69,13 @@ Last uses font
 */
 /*
 
-font-family: 'Poppins', sans-serif;
+font-family: 'Poppins',  sans-serif test;
 */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap");
 /*
 font-family: 'Josefin Sans', sans-serif;
@@ -220,7 +225,7 @@ font-family: 'Josefin Sans', sans-serif;
   /* Darken */
   --ltn__primary-color-3: #133236;
   /* Lighten */
-  --ltn__secondary-color: #3e7ee8;
+  --ltn__secondary-color: #3c7ce7;
   --ltn__secondary-color-2: #cb3421;
   /* Darken */
   --ltn__secondary-color-3: #fb412a;
@@ -4613,9 +4618,9 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   padding: 10px;
   background-color: var(--section-bg-1); }
 
-.mega-menu.column-1,
+/* .mega-menu.column-1,
 .mega-menu.column-2 {
-  left: auto; }
+  left: auto; } */
 
 .mega-menu.column-2 > li {
   min-width: 50%;

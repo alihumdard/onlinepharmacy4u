@@ -47,7 +47,13 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
-        return view('web.pages.home');
+        $data['products'] = Product::latest()->take(6)->get();
+        return view('web.pages.home', $data);
+    }
+    public function questions_preview(Request $request)
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.questions_preview');
     }
 
     public function blogs(Request $request)

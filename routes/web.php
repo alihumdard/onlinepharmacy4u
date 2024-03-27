@@ -119,10 +119,20 @@ Route::get('/product_question', [WebController::class, 'product_question_new']);
 
 
 // working routes
+
+Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->name('web.questions_preview');
+
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
 Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
+Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
 Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
 
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
+
+//cart
+Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');
+Route::get('/cart', [WebController::class, 'view_cart'])->name('web.view.cart');
+Route::get('/checkout', [WebController::class, 'product_detail'])->name('checkout');
+
 
 include __DIR__ . '/admin.php';

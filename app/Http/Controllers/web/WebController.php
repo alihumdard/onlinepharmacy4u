@@ -35,6 +35,7 @@ use App\Models\UserConsultation;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\QuestionMapping;
+use App\Models\QuestionCategory;
 use Illuminate\Support\Facades\DB;
 
 use Deyjandi\VivaWallet\Enums\RequestLang;
@@ -117,10 +118,25 @@ class WebController extends Controller
         $data['template'] = $request->template ?? session('template');
         $data['product_id'] = $request->product_id ?? session('product_id');
         if($data['template'] == config('constants.PHARMACY_MEDECINE')){
+            $data['product_detail'] = Product::find($data['product_id']);
+            $question_category = explode(',', $data['product_detail']->question_category);
+            $data['question_category'] = QuestionCategory::whereIn('id', $question_category)->orderBy('id')->get();
+            $data['questions'] = AssignQuestion::whereIn('category_id', $question_category)
+            ->orderBy('category_id')
+            ->get()
+            ->groupBy('category_id');            
+            // return $data;
             return view('web.pages.product_question', $data);
         }
         else if($data['template'] == config('constants.PRESCRIPTION_MEDICINE')){
             if (auth()->user()){
+                $data['product_detail'] = Product::find($data['product_id']);
+                $question_category = explode(',', $data['product_detail']->question_category);
+                $data['question_category'] = QuestionCategory::whereIn('id', $question_category)->orderBy('id')->get();
+                $data['questions'] = AssignQuestion::whereIn('category_id', $question_category)
+                ->orderBy('category_id')
+                ->get()
+                ->groupBy('category_id');
                 return view('web.pages.product_question', $data);
             }
             else{
@@ -130,9 +146,38 @@ class WebController extends Controller
                 return redirect()->route('login');
             }
         }
-        else{return $data;
-            return redirect()->route('/');
+        else{
+            return redirect()->route('shop');
         }
+    }
+
+    public function view_cart(Request $request)
+    {
+        $data['cart'] = session('cart');
+        // return $data['cart']->product_data;
+        return view('web.pages.cart', $data);
+    }
+
+    public function add_to_cart(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+        $productData = json_decode($request->input('product_data'), true);
+
+        $cart = Session::get('cart', []);
+
+        if(isset($cart[$productId])) {
+            $cart[$productId]['quantity'] += $quantity;
+        } else {
+            $cart[$productId] = [
+                'quantity' => $quantity,
+                'product_data' => $productData
+            ];
+        }
+
+        Session::put('cart', $cart);
+
+        return response()->json(['message' => 'Item added to cart']);
     }
 
 
@@ -397,43 +442,6 @@ class WebController extends Controller
             }
         } else {
             return view('web.pages.regisration_from', $data);
-        }
-    }
-
-    public function cart(Request $request)
-    {
-        $data['user'] = auth()->user() ?? [];
-
-        if (auth()->user()) {
-            if ($request->id) {
-                $save = Cart::updateOrCreate(
-                    [
-                        'user_id' => auth()->user()->id,
-                        'product_id' => $request->id,
-                        'status' => '1',
-                        'created_by' => auth()->user()->id,
-                    ],
-                    [
-                        'user_id' => auth()->user()->id,
-                        'product_id' => $request->id,
-                        'quantity' => 1,
-                        'status' => '1',
-                        'created_by' => auth()->user()->id,
-                    ]
-                );
-                // $save =  Cart::create([
-                //     'user_id' => auth()->user()->id,
-                //     'product_id' => $request->id,
-                //     'quantity' => 1,
-                //     'status' => '1',
-                //     'created_by' => auth()->user()->id,
-                // ]);
-            }
-            $data['cart'] = Cart::with('product')->where(['user_id' => auth()->user()->id, 'status' => 1])->first()->toArray();
-            $data['total'] = 0;
-            return view('web.pages.cart', $data);
-        } else {
-            return redirect()->route('login');
         }
     }
 

@@ -115,7 +115,7 @@ Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->
 //     return view('web.pages.checkout');
 // });
 
-
+Route::get('/product_question', [WebController::class, 'product_question_new']);
 
 
 // working routes

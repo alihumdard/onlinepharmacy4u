@@ -6,16 +6,18 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/bg/14.jpg">
+<div class="ltn__breadcrumb-area text-left bg-overlay-black-40 bg-image"  data-bs-bg="img/bg/14.webp">
     <div class="container">
-        <div class="row">
+        <div class="row mt-5 ">
             <div class="col-lg-12">
                 <div class="ltn__breadcrumb-inner">
-                    <h1 class="page-title">Contact Us</h1>
+                    <h1 class="page-title text-white">Contact Us</h1>
                     <div class="ltn__breadcrumb-list">
                         <ul>
-                            <li><a href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
-                            <li>Contact</li>
+
+                        
+                            <li class="mt-0"><a class="text-white" href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home text-white"></i></span > Home</a></li>
+                            <li style="color: #322525;">Contact</li>
                         </ul>
                     </div>
                 </div>
@@ -28,34 +30,34 @@
 <!-- CONTACT ADDRESS AREA START -->
 <div class="ltn__contact-address-area mb-90">
     <div class="container">
-        <div class="row">
+        <div class="row g-3">
             <div class="col-lg-4">
-                <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow" style="height: 100%;">
                     <div class="ltn__contact-address-icon">
                         <img src="img/icons/10.png" alt="Icon Image">
                     </div>
                     <h3>Email Address</h3>
-                    <p>info@webmail.com <br>
-                        jobs@webexample.com</p>
+                    <p>info@online-pharmacy4u.co.uk</p>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow" style="height: 100%;">
                     <div class="ltn__contact-address-icon">
                         <img src="img/icons/11.png" alt="Icon Image">
                     </div>
                     <h3>Phone Number</h3>
-                    <p>+0123-456789 <br> +987-6543210</p>
+                    <p>01623 572757</p>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow" style="height: 100%;">
                     <div class="ltn__contact-address-icon">
                         <img src="img/icons/12.png" alt="Icon Image">
                     </div>
                     <h3>Office Address</h3>
-                    <p>18/A, New Born Town Hall <br>
-                        New York, US</p>
+                    <p>Unit 2, Mansfield Station Gateway, <br>
+Signal Way, Nottingham, NG19 9QH, <br>
+United Kingdom</p>
                 </div>
             </div>
         </div>
@@ -64,7 +66,12 @@
 <!-- CONTACT ADDRESS AREA END -->
 
 <!-- CONTACT MESSAGE AREA START -->
-<div class="ltn__contact-message-area mb-120 mb--100">
+<div>
+    <div class="container text-center">
+        <p>For any inquiries, assistance, or feedback, please feel free to reach out to us. <br> Your well-being is our priority, and we are here to support you in any way we can.</p>
+    </div>
+</div>
+<div class="ltn__contact-message-area mb-120 mb-5" >
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -110,9 +117,9 @@
 <!-- CONTACT MESSAGE AREA END -->
 
 <!-- GOOGLE MAP AREA START -->
-<div class="google-map mb-120">
+<div class="google-map " styl="height: 500px;">
    
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9334.271551495209!2d-73.97198251485975!3d40.668170674982946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b0456b5a2e7%3A0x68bdf865dda0b669!2sBrooklyn%20Botanic%20Garden%20Shop!5e0!3m2!1sen!2sbd!4v1590597267201!5m2!1sen!2sbd" width="100%" height="100%" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2392.0618872254536!2d-1.205329718142586!3d53.16292887708169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4879bd846e3b26e7%3A0x46c0b16171a8eb36!2sMansfield%20Woodhouse%2C%20Mansfield%20NG19%209QH!5e0!3m2!1sen!2suk!4v1709763415423!5m2!1sen!2suk" width="100%" height= "80%" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
 </div>
 <!-- GOOGLE MAP AREA END -->
@@ -124,10 +131,10 @@
             <div class="col-lg-12">
                 <div class="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
                     <div class="coll-to-info text-color-white">
-                        <h1>Buy medical disposable face mask <br> to protect your loved ones</h1>
+                        <h1 class="mt-4">WE ARE READY TO SERVE YOU 24 HOURS!</h1>
                     </div>
                     <div class="btn-wrapper">
-                        <a class="btn btn-effect-3 btn-white" href="shop.html">Explore Products <i class="icon-next"></i></a>
+                        <a class="btn btn-effect-3 btn-white" href="shop.html" style="display: flex; align-items: center; justify-content: center;">Contact Us<i class="icon-next ms-2"></i></a>
                     </div>
                 </div>
             </div>

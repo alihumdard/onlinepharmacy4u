@@ -7,10 +7,10 @@
                         <div class="footer-widget footer-about-widget">
                             <div class="footer-logo">
                                 <div class="site-logo">
-                                    <img src="img/logo.webp" width="200px" height="auto" alt="Logo">
+                                    <img src="img/brand-logo/pharmay-footer-logo.webp" width="200px" height="auto" alt="Logo">
                                 </div>
                             </div>
-                            <p>Lorem Ipsum is simply dummy text of the and typesetting industry. Lorem Ipsum is dummy text of the printing.</p>
+                            <p>At Online Pharmacy4U, we blend technology with care, delivering health at your doorstep. Navigate a world of wellness with our user-friendly platform – your trusted partner for a healthier life.</p>
                             <div class="footer-address">
                                 <ul>
                                     <li>
@@ -18,7 +18,7 @@
                                             <i class="icon-placeholder"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p>Brooklyn, New York, United States</p>
+                                            <p>Unit 2, Mansfield Station Gateway, Signal Way, Nottingham, NG19 9QH</p>
                                         </div>
                                     </li>
                                     <li>
@@ -26,7 +26,7 @@
                                             <i class="icon-call"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p><a href="tel:+0123-456789">+0123-456789</a></p>
+                                            <p><a href="tel:01623 572757">01623 572757</a></p>
                                         </div>
                                     </li>
                                     <li>
@@ -34,7 +34,7 @@
                                             <i class="icon-mail"></i>
                                         </div>
                                         <div class="footer-address-info">
-                                            <p><a href="mailto:example@example.com">example@example.com</a></p>
+                                            <p><a href="mailto:info@online-pharmacy4u.co.uk">info@online-pharmacy4u.co.uk</a></p>
                                         </div>
                                     </li>
                                 </ul>
@@ -54,12 +54,12 @@
                             <h4 class="footer-title">Company</h4>
                             <div class="footer-menu">
                                 <ul>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="shop.html">All Products</a></li>
-                                    <li><a href="locations.html">Locations Map</a></li>
-                                    <li><a href="faq.html">FAQ</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="/about">About</a></li>
+                                    <li><a href="/news">Blog</a></li>
+                                    <li><a href="/shop">All Products</a></li>
+                                    <li><a href="#">Locations Map</a></li>
+                                    <li><a href="/faqs">FAQ</a></li>
+                                    <li><a href="/contact">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -70,11 +70,11 @@
                             <div class="footer-menu">
                                 <ul>
                                     <li><a href="order-tracking.html">Order tracking</a></li>
-                                    <li><a href="wishlist.html">Wish List</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="account.html">My account</a></li>
-                                    <li><a href="about.html">Terms & Conditions</a></li>
-                                    <li><a href="about.html">Promotional Offers</a></li>
+                                    <li><a href="/wishlist">Wish List</a></li>
+                                    <li><a href="/login">Login</a></li>
+                                    <li><a href="/account">My account</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Promotional Offers</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -84,12 +84,12 @@
                             <h4 class="footer-title">Customer Care</h4>
                             <div class="footer-menu">
                                 <ul>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="account.html">My account</a></li>
-                                    <li><a href="wishlist.html">Wish List</a></li>
+                                    <li><a href="/login">Login</a></li>
+                                    <li><a href="/account">My account</a></li>
+                                    <li><a href="/wishlist">Wish List</a></li>
                                     <li><a href="order-tracking.html">Order tracking</a></li>
-                                    <li><a href="faq.html">FAQ</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="/faqs">FAQ</a></li>
+                                    <li><a href="/contact">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <h5 class="mt-30">We Accept</h5>
+                            <h5 class="mt-30 payment-heading">We Accept</h5>
                             <img src="img/icons/payment-4.png" alt="Payment Image">
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 @extends('web.layouts.default')
-@section('title', 'About Us')
+@section('title', 'Register')
 @section('content')
 
     
@@ -132,12 +132,12 @@
     <div class="ltn__utilize-overlay"></div>
 
     <!-- BREADCRUMB AREA START -->
-    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/bg/14.jpg">
+    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/allbanners/register.webp">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ltn__breadcrumb-inner">
-                        <h1 class="page-title">Account</h1>
+                        <h1 class="page-title mt-5">Account</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
                                 <li><a href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
@@ -157,9 +157,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-area text-center">
-                        <h1 class="section-title">Register <br>Your Account</h1>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br>
-                             Sit aliquid,  Non distinctio vel iste.</p>
+                        <h1 class="section-title">Register<br>Your Account</h1>
+                        <p>Register your account today for exclusive access to a world of wellness at your fingertips. </p>
                     </div>
                 </div>
             </div>
@@ -188,7 +187,7 @@
                             <p>By creating an account, you agree to our:</p>
                             <p><a href="#">TERMS OF CONDITIONS  &nbsp; &nbsp; | &nbsp; &nbsp;  PRIVACY POLICY</a></p>
                             <div class="go-to-btn mt-50">
-                                <a href="login.html">ALREADY HAVE AN ACCOUNT ?</a>
+                                <a href="/login">ALREADY HAVE AN ACCOUNT ?</a>
                             </div>
                         </div>
                     </div>

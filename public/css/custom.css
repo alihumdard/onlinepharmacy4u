@@ -460,7 +460,7 @@ color:white;
 .ltn__main-menu > ul > li > a:hover{
     color:white;
 }
-.header-bottom-area{
+.header-bottom-area, .bg-blue{
     background: #3c7ce7 !important;
 }
 .card{
@@ -488,6 +488,12 @@ color:white;
     padding: 5px;
     background-color: #e2f8ff !important;
     border-radius:20px;
+}
+.countdown-section{
+    background-color:#e7f6f9;
+}
+.border-radius{
+    border-radius:30px ;
 }
 /* .ltn__header-area, .ltn__utilize .ltn__utilize-mobile-menu .ltn__utilize-open{
     background: rgb(2,195,164);

@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(Users::class);
         $this->call(ConsultationQuestions::class);
+        $this->call(GeneralQuestionCategorySeeder::class);
     }
 }

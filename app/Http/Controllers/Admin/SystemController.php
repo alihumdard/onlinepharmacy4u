@@ -682,7 +682,7 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['questions'] = Question::latest('id')->get()->toArray();
-            $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
+            $data['categories'] = QuestionCategory::where('is_hide', 2)->latest('id')->get()->toArray();
         }
 
         return view('admin.pages.questions.assign_question', $data);
@@ -819,6 +819,12 @@ class SystemController extends Controller
             ->pluck('tbl2.question_title', 'tbl2.question_id')
             ->toArray();
         // dd(DB::getQueryLog());
+
+        $result['dependant_question'] = QuestionMapping::where('category_id', $category_id)
+        ->where('question_id', $question_id)
+        ->get();
+
+        
         return response()->json(['status' => 'success', 'result' => $result]);
     }
 

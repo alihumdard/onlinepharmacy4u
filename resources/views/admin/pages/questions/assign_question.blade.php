@@ -70,7 +70,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <select id="optionA" class="form-select" name="optA">
+                                            <select id="optionA" class="form-select optA" name="optA">
                                             </select>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <select id="optionB" class="form-select" name="optB">
+                                            <select id="optionB" class="form-select optB" name="optB">
                                             </select>
                                         </div>
                                     </div>
@@ -92,7 +92,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <select id="optionC" class="form-select" name="optC">
+                                            <select id="optionC" class="form-select optC" name="optC">
                                             </select>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <select id="optionD" class="form-select" name="optD">
+                                            <select id="optionD" class="form-select optD" name="optD">
                                             </select>
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <select id="optionYes" class="form-select" name="optY">
+                                            <select id="optionYes" class="form-select optY" name="optY">
                                             </select>
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@
                                             </label>
                                         </div>
                                         <div class="col-md-6">
-                                            <select id="optionNo" class="form-select" name="optN">
+                                            <select id="optionNo" class="form-select optN" name="optN">
                                             </select>
                                         </div>
                                     </div>
@@ -344,10 +344,17 @@
                         });
                     }
                     $('#optionA, #optionB, #optionC, #optionD, #optionYes, #optionNo, #openBox, #file').prepend($('<option>', {
-                            value: '',
-                            text: 'Select Question',
-                            selected: true, 
-                        }));
+                        value: '',
+                        text: 'Select Question',
+                        selected: true, 
+                    }));
+
+                    $.each(response.result.dependant_question, function(key, value) {
+                        // for checking next assign question
+                        var className = value.answer;
+                        var selectedItem = value.next_question;
+                        $('.'+className).val(selectedItem);
+                    });
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);

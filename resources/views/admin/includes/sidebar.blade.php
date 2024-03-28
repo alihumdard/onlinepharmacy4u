@@ -51,12 +51,12 @@
 
         @if(view_permission('questions'))
             <li class="nav-item">
-                <a class="nav-link {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.assignQuestion'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-col" data-bs-toggle="collapse">
+                <a class="nav-link {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-col" data-bs-toggle="collapse">
                     <i class="bi bi-menu-button-wide"></i>
                     <span>Questions</span>
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="siderbar-col" class="nav-content {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.assignQuestion'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+                <ul id="siderbar-col" class="nav-content {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
                     <li>
                         <a class="{{(request()->routeIs(['admin.questionCategories'])) ? 'nav-link ' : ''}}" href="{{route('admin.questionCategories')}}">
                             <i class="bi bi-circle"></i><span>Question Categories</span>
@@ -82,6 +82,16 @@
                     <li>
                         <a class="{{(request()->routeIs(['admin.assignQuestion'])) ? 'nav-link ' : ''}}" href="{{route('admin.assignQuestion')}}">
                             <i class="bi bi-circle"></i><span>Assign Questions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{(request()->routeIs(['admin.pMedGQ'])) ? 'nav-link ' : ''}}" href="{{route('admin.pMedGQ')}}">
+                            <i class="bi bi-circle"></i><span>P.Med General Questions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{(request()->routeIs(['admin.prescriptionMedGQ'])) ? 'nav-link ' : ''}}" href="{{route('admin.prescriptionMedGQ')}}">
+                            <i class="bi bi-circle"></i><span>Prescription Med General Questions</span>
                         </a>
                     </li>
                 </ul>

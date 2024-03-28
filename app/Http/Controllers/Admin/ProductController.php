@@ -49,7 +49,7 @@ class ProductController extends Controller
         }
         $data['categories'] = Category::latest('id')->get()->toArray();
         $data['templates'] = config('constants.PRODUCT_TEMPLATES');
-        $data['question_category'] = QuestionCategory::where('is_hide', 2)->latest('id')->get()->toArray();
+        $data['question_category'] = QuestionCategory::latest('id')->get()->toArray();
         
         $data['product'] = [];
         if ($request->has('id')) {

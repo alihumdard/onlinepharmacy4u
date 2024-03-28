@@ -50,6 +50,8 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get','post'], '/storeAssignQuestion', [SystemController::class, 'store_assign_quest'])->name('admin.storeAssignQuestion');
     Route::post('/questionMapping', [SystemController::class, 'question_mapping'])->name('admin.qustionMapping');
     Route::get('/questionDetail', [SystemController::class, 'question_detail'])->name('admin.qustionDetail');
+    Route::get('/pMedGQ', [SystemController::class, 'p_med_general_questions'])->name('admin.pMedGQ');
+    Route::get('/prescriptionMedGQ', [SystemController::class, 'prescription_med_general_questions'])->name('admin.prescriptionMedGQ');
 
     Route::get('/ordersRecieved', [SystemController::class, 'orders_recieved'])->name('admin.ordersRecieved');
     Route::get('/doctorsApproval', [SystemController::class, 'doctors_approval'])->name('admin.doctorsApproval');

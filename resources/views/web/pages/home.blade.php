@@ -4,6 +4,13 @@
 
 <!-- CUSTOM SLIDER START HERE--  -->
 
+
+
+
+
+
+
+
 <div class="slider">
     <!-- Slides -->
     <div class="slide" id="slide1">
@@ -256,7 +263,7 @@
             <div class="col-12">
                 <div class="ltn__category-item ltn__category-item-6 text-center">
                     <div class="ltn__category-item-img">
-                        <a href="shop.html">
+                        <a href="#">
                             <i class="fas fa-microscope"></i>
                         </a>
                     </div>
@@ -324,7 +331,7 @@
         <div class="row">
             <div class="col-lg-6 align-self-center">
                 <div class="about-us-img-wrap about-img-left">
-                    <img src="img/others/9.webp" alt="About Us Image">
+                    <img src="img/others/9.webp" alt="About Us Image" class="image-radius">
                 </div>
             </div>
             <div class="col-lg-6 align-self-center">
@@ -355,7 +362,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="#"><img src="img/banner/new_banner2_1.webp" alt="Banner Image"></a>
+                        <a href="#"><img src="img/banner/new_banner2_1.webp" alt="Banner Image" class="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Select your medication.</h4>
@@ -364,7 +371,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="#"><img src="img/banner/new_banner3_1.webp" alt="Banner Image"></a>
+                        <a href="#"><img src="img/banner/new_banner3_1.webp" alt="Banner Image" class="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Quick 60 secs FREE consultation.</h4>
@@ -373,7 +380,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="#"><img src="img/banner/new_banner4_1.webp" alt="Banner Image"></a>
+                        <a href="#"><img src="img/banner/new_banner4_1.webp" alt="Banner Image" calss="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Receive your Express delivery</h4>
@@ -803,7 +810,7 @@
 
 <!-- BRAND LOGO AREA START -->
 <div class="container-fluid p-0 m-0 home-page-last-section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
@@ -819,13 +826,13 @@
                 <div class="footer-cards ">
                     <div class="row">
                         <div class="col-md-2">
-                            <h3><i class="fas fa-heart"></i></h3>
+                            <h3 class="text-white"><i class="fas fa-heart"></i></h3>
                         </div>
                         <div class="col-md-10">
-                            <h3>Value</h3>
+                            <h3 class="text-white">Value</h3>
                         </div>
                         <div class="col-md-12">
-                            <p>The nation's favourite brands at a price you'll love. </p>
+                            <p class="text-white">The nation's favourite brands at a price you'll love. </p>
                         </div>
                     </div>
                 </div>
@@ -834,13 +841,13 @@
                 <div class="footer-cards ">
                     <div class="row">
                         <div class="col-md-2">
-                            <h3><i class="fas fa-truck"></i></h3>
+                            <h3 class="text-white"><i class="fas fa-truck"></i></h3>
                         </div>
                         <div class="col-md-10">
-                            <h3>Convenience</h3>
+                            <h3 class="text-white">Convenience</h3>
                         </div>
                         <div class="col-md-12">
-                            <p>Prescriptions delivered free together with your health.</p>
+                            <p class="text-white">Prescriptions delivered free together with your health.</p>
                         </div>
                     </div>
                 </div>
@@ -849,13 +856,13 @@
                 <div class="footer-cards ">
                     <div class="row">
                         <div class="col-md-2">
-                            <h3><i class="fas fa-box-open"></i></h3>
+                            <h3 class="text-white"><i class="fas fa-box-open"></i></h3>
                         </div>
                         <div class="col-md-10">
-                            <h3>Choice</h3>
+                            <h3 class="text-white">Choice</h3>
                         </div>
                         <div class="col-md-12">
-                            <p>Wide range of health & wellness products & services.</p>
+                            <p class="text-white">Wide range of health & wellness products & services.</p>
                         </div>
                     </div>
                 </div>
@@ -864,13 +871,13 @@
                 <div class="footer-cards ">
                     <div class="row">
                         <div class="col-md-2">
-                            <h3><i class="fas fa-shield-alt"></i></h3>
+                            <h3 class="text-white"><i class="fas fa-shield-alt"></i></h3>
                         </div>
                         <div class="col-md-10">
-                            <h3>Empathy</h3>
+                            <h3 class="text-white">Empathy</h3>
                         </div>
                         <div class="col-md-12">
-                            <p>We're here to help you feel better for less.</p>
+                            <p class="text-white">We're here to help you feel better for less.</p>
                         </div>
                     </div>
                 </div>

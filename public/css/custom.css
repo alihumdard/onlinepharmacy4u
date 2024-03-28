@@ -385,7 +385,6 @@ color:white;
     border-radius: 30px;
 }
 .footer-top-area{
-    background: rgb(2,195,164);
     background: linear-gradient(90deg, rgba(2,195,164,1) 0%, rgba(61,125,232,1) 100%);
 }
 .footer-menu ul li a, .footer-widget .footer-title,.footer-address ul li .footer-address-icon{
@@ -422,7 +421,7 @@ color:white;
     background-color:#03c4a5 !important;
 }
 .ltn__header-top-area{
-    background-color:#02c3a4;   
+    background-color:#000;   
 }
 .ltn__top-bar-menu ul li a {
     font-weight:400;
@@ -461,7 +460,7 @@ color:white;
     color:white;
 }
 .header-bottom-area, .bg-blue{
-    background: #3c7ce7 !important;
+    background: linear-gradient(90deg, rgba(2,195,164,1) 0%, rgba(61,125,232,1) 100%) !important;
 }
 .card{
     margin-top:10px;
@@ -472,7 +471,7 @@ color:white;
     height:50px;
 }
 .footer-cards{
-    background-color:#f8fdfe;
+    background: linear-gradient(90deg, rgba(2,195,164,1) 0%, rgba(61,125,232,1) 100%);
     padding:20px;
     margin:10px;
     border-radius:20px;
@@ -499,6 +498,13 @@ color:white;
     padding:12px !important;
     font-size:14px !important;
 }
+
+
+.mega-menu > li > a{
+    border-bottom:none;
+}
+
+
 /* .ltn__header-area, .ltn__utilize .ltn__utilize-mobile-menu .ltn__utilize-open{
     background: rgb(2,195,164);
     background: linear-gradient(90deg, rgba(2,195,164,0.3393732492997199) 0%, rgba(61,125,232,0.3449754901960784) 100%);
@@ -528,6 +534,9 @@ color:white;
     padding:10px 0px;
 }
 
+.image-radius, .ltn__banner-img img, .ltn__blog-item-3 .ltn__blog-img img, .ltn__blog-item-3:hover .ltn__blog-img img{
+    border-radius:30px;
+}
 
 
 

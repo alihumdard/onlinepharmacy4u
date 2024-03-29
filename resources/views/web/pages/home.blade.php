@@ -2,59 +2,6 @@
 @section('title', 'Home')
 @section('content')
 
-<!-- CUSTOM SLIDER START HERE--  -->
-<div class="slider d-none">
-  <!-- Slides -->
-  <div class="slide" id="slide1">
-    <img src="img/slider/NHS_perscriptions_Desktop_1920x.webp" alt="Image 1">
-  </div>
-  <div class="slide" id="slide2">
-    <img src="img/slider/Pharmacy4u_Banner_4_Desktop_Size-01_1920x.webp" alt="Image 2">
-  </div>
-  <div class="slide" id="slide3">
-    <img src="img/slider/Pharmacy4u_Banner_1_Desktop_Size-01_1_1920x.webp" alt="Image 3">
-  </div>
-    <!-- Navigation dots -->
-    <div class="dots">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
-</div>
-<script>
-    let slideIndex = 0;
-    showSlides();
-
-    function showSlides() {
-        let slides = document.getElementsByClassName("slide");
-        let dots = document.getElementsByClassName("dot");
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1
-        }
-        for (let i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        setTimeout(showSlides, 5000); // Change image every 2 seconds
-    }
-
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-</script>
-
-
-
-
-<!-- CUSTOM SLIDER END HERE--  -->
-
-
-
 <!-- SLIDER AREA START (slider-3) -->
 <div class="ltn__slider-area ltn__slider-3  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
@@ -66,7 +13,7 @@
                         <div class="col-lg-12 align-self-center">
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
-                                    <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
+                                    <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> Regulated UK Pharmacist</h6>
                                     <h1 class="slide-title animated text-black">Just a Click Away <br> Online Pharmacy4U!</h1>
                                     <div class="slide-brief animated">
                                         <p class=" text-black">As the fast-expanding Online Pharmacy in the UK, our commitment to prioritising customer needs underscores our service. With a paramount focus on health and well-being, we guarantee complimentary delivery of all your medications.</p>
@@ -94,8 +41,8 @@
                                             <i class="fa fa-play"></i>
                                         </a>
                                     </div>
-                                    <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated text-black">Your Trusted Path to Wellness, Where Convenience Meets Care!</h1>
+                                    <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> Regulated UK Pharmacist</h6>
+                                    <h1 class="slide-title animated text-black">Where Convenience Meets Care!</h1>
                                     <div class="slide-brief animated">
                                         <p class="text-black">Experience convenient healthcare with Online Pharmacy4U. Browse a vast selection of medications, health products, and expert advice. Your well-being matters, and we swiftly and reliably deliver quality healthcare to your doorstep.</p>
                                     </div>
@@ -118,7 +65,7 @@
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
                                     <h6 class="slide-sub-title white-color--- animated  text-black"><span><i class="fas fa-syringe"></i></span> 100% genuine Products</h6>
-                                    <h1 class="slide-title animated  text-black">Prescriptions made simple, <br>proud to serve you!</h1>
+                                    <h1 class="slide-title animated  text-black">Prescriptions made simple</h1>
                                     <div class="slide-brief animated">
                                         <p class="text-black">At Online Pharmacy4U, we take pride in serving you, ensuring simplicity and efficiency in every prescription, and fostering your well-being with care.</p>
                                     </div>
@@ -156,7 +103,7 @@
                     <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Skincare</h5>
-                        <p class="card-text">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine, we’ve got you covered from head to toe.</p>
+                        <p class="card-text">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine.</p>
                         <a href="/skincare" class="btn btn-primary button-radius">Buy Now</a>
                     </div>
                 </div>

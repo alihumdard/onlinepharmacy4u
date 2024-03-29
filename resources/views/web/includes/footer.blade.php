@@ -57,11 +57,6 @@
                             <div class="footer-menu">
                                 <ul>
                                     <li><a href="/categories">shop by collection</a></li>
-                                    <li><a href="/skincare">skincare</a></li>
-                                    <li><a href="#">lorem</a></li>
-                                    <li><a href="#">lorem</a></li>
-                                    <li><a href="#">lorem</a></li>
-                                    <li><a href="#">lorem</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -73,7 +68,6 @@
                                 <ul>
                                     <li><a href="/login">Login</a></li>
                                     <li><a href="/account">My account</a></li>
-                                    <li><a href="/wishlist">Wish List</a></li>
                                     <li><a href="#">Order tracking</a></li>
                                     <li><a href="/faq">FAQ</a></li>
                                     <li><a href="/contact">Contact us</a></li>
@@ -83,7 +77,7 @@
                     </div>
                     <div class="col-xl-3 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget footer-menu-widget clearfix">
-                            <h4 class="footer-title">legel</h4>
+                            <h4 class="footer-title">Legel Links</h4>
                             <div class="footer-menu">
                                 <ul>
                                     <li><a href="#">Terms & Conditions</a></li>

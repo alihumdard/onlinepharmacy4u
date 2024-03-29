@@ -12,7 +12,7 @@
                             <ul>
                                 <li><a href="#" class="text-white font-weight-400"><i class="fas fa-comment-medical"  class="text-white"></i>Dispensed by Regulated UK Pharmacists</a></li>
                                 <li><a href="#"  class="text-white"><i class="far fa-certificate"  class="text-white font-weight-400"></i> Registered Pharmacy: 9011972</a></li>
-                                <li class="text-white"><a href="#"  class="text-white">  Social Media Link:</a> <a href="https://www.facebook.com/Online-Pharmacy4U-114908691196467"><i class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/4uPharmacy"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/company/74292944"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.tiktok.com/@online.pharmacy4u"><i class="fab fa-tiktok"></i></a></li>
+                                <li class="text-white"><a href="#"  class="text-white  pl-2">  Social Media Link:</a> <a href="https://www.facebook.com/Online-Pharmacy4U-114908691196467" class="top-social-links"><i class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/4uPharmacy" class="top-social-links"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/company/74292944" class="top-social-links"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.tiktok.com/@online.pharmacy4u" class="top-social-links"><i class="fab fa-tiktok"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -85,7 +85,6 @@
                                                     <li><a href="/login">Sign in</a></li>
                                                     <li><a href="/register">Register</a></li>
                                                     <li><a href="/account">My Account</a></li>
-                                                    <li><a href="/wishlist">Wishlist</a></li>
                                                 </ul> 
                                             </li>
                                         </ul>

@@ -256,6 +256,18 @@ class WebController extends Controller
         return view('web.pages.product_question', $data);
     }
 
+    public function account()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.account', $data);
+    }
+
+    public function wishlist()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.wishlist', $data);
+    }
+
     public function products(Request $request)
     {
         session()->forget('pro_id');

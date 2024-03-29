@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="site-logo">
-                            <a href="/"><img src="/img/logo.webp" alt="Logo"></a>
+                            <a href="/"><img src="{{ asset('img/logo.webp') }}" alt="Logo"></a>
                         </div>
                     </div>
                     <div class="col header-contact-serarch-column d-none d-xl-block">

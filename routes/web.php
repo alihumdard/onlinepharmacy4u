@@ -143,5 +143,7 @@ Route::get('/checkout', [WebController::class, 'product_detail'])->name('checkou
 
 
 Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
+Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
+
 
 include __DIR__ . '/admin.php';

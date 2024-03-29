@@ -62,7 +62,7 @@ class HomeController extends Controller
     }
     public function contact_us(Request $request)
     {
-        return view('web.pages.contact_us');
+        return view('web.pages.contact');
     }
     public function about_us(Request $request)
     {

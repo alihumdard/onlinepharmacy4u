@@ -9,11 +9,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ltn__breadcrumb-inner">
-                        <h1 class="page-title mt-5">how it works</h1>
+                        <h1 class="page-title mt-5">How It Works</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
-                                <li><a href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
-                                <li>how it works</li>
+                                <li><a href="/"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                                <li>How It Works</li>
                             </ul>
                         </div>
                     </div>
@@ -29,46 +29,30 @@
             <div class="row">
                 <div class="col-lg-6 align-self-center">
                     <div class="about-us-img-wrap about-img-left">
-                        <img src="img/allbanners/About Us page video section.png" alt="About Us Image">
+                        <img src="images/banners/new_banner2_1.webp" alt="About Us Image">
                     </div>
                 </div>
                 <div class="col-lg-6 align-self-center">
                     <div class="about-us-info-wrap">
                         <div class="section-title-area ltn__section-title-2--- mb-30">
-                            <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                            <h1 class="section-title">Start a FREE* 60 Seconds online consultation</h1>
-                            <p>We have a comprehensive guide to a wide range of conditions & infections that we can provide treatments for. You can read all about these as well as view the medicines to treat them before you complete an online FREE* consultation and it only takes a few quick seconds!</p> <br>
+                            <!-- <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6> -->
+                            <h1 class="section-title">GP Appointments</h1>
+                            <p>You NO longer have to wait for GP appointments. NO more visiting your local pharmacy or waiting in long lines. All our services are FREE*, receive genuine medication delivered conveniently and discreetly packaged to your door. You NO longer need assistance from your GP or your local pharmacy – we do all this online 4U for FREE* here at Online Pharmacy 4U.</p> <br>
                             <!-- <p>At Online Pharmacy4U, we prioritise your well-being, ensuring quick and secure delivery of prescriptions right to your doorstep. Our commitment to excellence extends beyond transactions; we're here to provide expert guidance, personalised support, and a user-centric experience. Trust us for a healthier, more accessible future in healthcare.</p> -->
+                        </div>
+                        <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
+                            <li><i class="fas fa-check-circle"></i>Start a FREE* 60 Seconds online consultation.</li>
+                        </ul>
+                        <div class="about-author-info-2 border-top mt-10 ">
+                            <p>We have a comprehensive guide to a wide range of conditions & infections that we can provide treatments for. You can read all about these as well as view the medicines to treat them before you complete an online FREE* consultation and it only takes a few quick seconds!</p>
+                           
                         </div>
                         <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
                             <li><i class="fas fa-check-circle"></i>Fast and Simple.</li>
                         </ul>
                         <div class="about-author-info-2 border-top mt-10 ">
                             <p>Our online FREE* consultation only takes a few quick seconds, fast, simple & easy to complete. Our short few questions are similar as those that would be asked at your GP appointment.</p>
-                            <!-- <ul>
-                                <li>
-                                    <div class="about-author-info-2-brief  d-flex">
-                                        <div class="author-img">
-                                        <img src="img/blog/author.jpg" alt="#">
-                                        </div>
-                                        <div class="author-name-designation">
-                                            <h4 class="mb-0">Jerry Henson</h4>
-                                            <small>Medical Specialist</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="about-author-info-2-contact  d-flex">
-                                        <div class="about-contact-icon d-flex align-self-center mr-10">
-                                            <i class="icon-call"></i>
-                                        </div>
-                                        <div class="about-author-info-2-contact-info">
-                                            <small>Get Support</small>
-                                            <h6 class="mb-0">123-456-789-10</h6>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul> -->
+                           
                         </div>
                     </div>
                 </div>

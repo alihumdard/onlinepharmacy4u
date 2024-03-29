@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="site-logo">
-                            <a href="/"><img src="img/logo.webp" alt="Logo"></a>
+                            <a href="/"><img src="/img/logo.webp" alt="Logo"></a>
                         </div>
                     </div>
                     <div class="col header-contact-serarch-column d-none d-xl-block">
@@ -160,7 +160,7 @@
                                                     </ul>
                                                 </li>
                                             @endforeach
-                                            <li><a href="#">About</a></li>
+                                            <li><a href="#">How its work</a></li>
                                             <li><a href="/contact">Contact</a></li>
                                         </ul>
                                     </div>
@@ -182,7 +182,7 @@
                             <ul>
                                 <li><a href="#" class="text-white font-weight-400"><i class="fas fa-plus"></i><strong class="font-bold">Regulated</strong> Pharmacy </a></li>
                                 <li><a href="#"  class="text-white"><i class="fas fa-box"></i><span class="text-black"><strong class="font-bold">Discreet</strong> Packaging </span></a></li>
-                                <li><a href="#"  class="text-white"><i class="fas fa-truck"></i><span class="text-black"> <strong class="font-bold">Free Delivery</strong> on orders over £30* </span></a></li>
+                                <li><a href="#"  class="text-white"><i class="fas fa-truck"></i><span class="text-black"> <strong class="font-bold">Free Delivery</strong> on orders over £40* </span></a></li>
                                 <li><a href="#"  class="text-white">Excellent<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i><strong>4.4</strong> based on <strong>1,421</strong> reviews</a></li>
                         </div>
                     </div>

@@ -875,6 +875,7 @@
             </div>
         </div>
     </div>
+</div>
     <!-- BRAND LOGO AREA END -->
 
     <!-- Custom call to action section start-->

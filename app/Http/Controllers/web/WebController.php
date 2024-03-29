@@ -102,6 +102,13 @@ class WebController extends Controller
         return view('web.pages.shop', $data);
     }
 
+    // sanader code
+    public function faqs()
+{
+    return view('pages.faqs');
+}
+
+
     public function product_detail(Request $request)
     {
         // $request->id;

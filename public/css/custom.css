@@ -518,7 +518,9 @@ color:white;
     border:1px solid white;
     border-radius:30px; 
 }
-
+.ltn__main-menu li:hover > a{
+    color:black;
+}
 
 
 /* footer styling */

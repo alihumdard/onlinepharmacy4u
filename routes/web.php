@@ -135,4 +135,6 @@ Route::get('/cart', [WebController::class, 'view_cart'])->name('web.view.cart');
 Route::get('/checkout', [WebController::class, 'product_detail'])->name('checkout');
 
 
+Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
+
 include __DIR__ . '/admin.php';

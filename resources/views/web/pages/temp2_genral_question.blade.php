@@ -4,194 +4,123 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <style>
-    button {
-        background: #db8181;
-        /* border: none; */
-        margin-left: 5px;
-        border: 1px solid #9e9a9a !important;
+    .styled-radio {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border: 2px solid #0dcaf0;
+        border-radius: 50%;
+        outline: none;
     }
 
-    .green-active-button {
-        background-color: #00c4a3;
-        color: white;
-        border-radius: 15px;
+    .styled-radio:hover {
+        outline: auto;
     }
 
-    .green-active-button:hover {
-        background-color: #00c4a3;
-        color: white;
-        border-radius: 15px;
-    }
-
-    .blue-active-button {
-        background-color: #3c7ce7;
-        color: white;
-        border-radius: 15px;
-    }
-
-    .blue-active-button:hover {
-        background-color: #3c7ce7;
-        color: white;
-        border-radius: 15px;
+    .styled-radio:checked {
+        background-color: #0dcaf0;
+        border: 2px solid #0dcaf0;
+        box-shadow: none;
+        outline: none;
     }
 
 
-    input[type="text"] {
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        padding: 5px;
-        width: 60px;
+    .btn-radio {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border: 1px solid #ced4da !important;
+        border-radius: 0.25rem;
+        padding: 6px 20px !important;
+        cursor: pointer;
+        outline: none;
+        background-color: transparent;
+        font-weight: 400;
     }
 
-    .text h2 {
-        font-weight: bold;
-        /* font-size: 15px; */
-    }
-
-    .text p {
-        /* font-weight: bold; */
-        font-size: 20px;
-        font-weight: 300;
-    }
-
-    .form-group {
-        background-color: #e9f1ff;
-        margin-bottom: 20px;
-        padding-right: 10px;
-        padding-left: 15px;
-        border-radius: 10px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-
-    /* col-md-5 */
-    .trackcompleted h1 {
-        color: #fff;
-        margin: 10px;
-    }
-
-    .trackcompleted li {
-        /* color: #fff; */
-        margin-top: 52px;
-    }
-
-    .trackcompleted p {
-        margin: 10px;
-        margin-top: 10px;
+    .btn-radio:checked {
+        background-color: #0dcaf0 !important;
+        border: 2px solid #0dcaf0;
         color: #fff;
     }
 
-    .trackcompleted span {
-        font-weight: 600;
-        text-align: center;
+    .btn-radio:focus {
+        box-shadow: none;
     }
 
-    .firstconsultationcontinue button:hover {
-        background-color: #00c4a3;
-        color: #fff;
+    .btn-radio:hover {
+        background-color: #d8e5e8;
     }
 
-    .secondconsultationcontinue button:hover {
-        background-color: #00c4a3;
-        color: #fff;
+    .btn-radio::before {
+        content: attr(data-label);
     }
 
-    .createaccount button:hover {
-        background-color: #00c4a3;
-        color: #fff;
+    /* Hide the actual radio input */
+    .btn-radio input[type="radio"] {
+        display: none;
     }
 
-    .productcategory button:hover {
-        background-color: #00c4a3;
-        color: #fff;
+    /* Custom checkbox styles */
+    .custom-checkbox {
+        position: relative;
+        display: inline-block;
+        width: 26px;
+        height: 29px;
+        background-color: #fff;
+        border: 2px solid #6c757d;
+        border-radius: 5px;
+        cursor: pointer;
     }
 
-    /* thank function style  */
-    .wrapper-1 {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
+    .custom-checkbox::after {
+        background-color: #03c4a5 !important;
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 12px;
+        height: 12px;
+        border-bottom: 2px solid #000;
+        /* Changed border color to black */
+        border-right: 2px solid #000;
+        /* Changed border color to black */
+        transform-origin: bottom right;
+        opacity: 0;
+        transition: opacity 0.2s ease;
     }
 
-    .wrapper-2 {
-        padding: 30px;
-        text-align: center;
+    /* Checkbox checked state */
+    .custom-checkbox input:checked+.custom-checkbox::after {
+        opacity: 1;
     }
 
-    .wrapper-2 .text-thank {
-        font-family: 'Kaushan Script', cursive;
-        font-size: 4em;
-        letter-spacing: 3px;
-        color: #5892FF;
-        margin: 0;
-        margin-bottom: 20px;
+    /* Change background color to green when checked */
+    .custom-checkbox input:checked+.custom-checkbox {
+        background-color: #03c4a5 !important;
+        /* Green background color */
     }
 
-    .wrapper-2 p {
-        margin: 0;
-        font-size: 1.3em;
-        color: #aaa;
-        font-family: 'Source Sans Pro', sans-serif;
-        letter-spacing: 1px;
+    /* Hide the default checkbox */
+    .custom-checkbox input[type="checkbox"] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        background-color: #03c4a5 !important;
     }
 
-    .go-home {
-        color: #fff;
-        background: #5892FF;
-        border: none;
-        padding: 10px 50px;
-        margin: 30px 0;
-        border-radius: 30px;
-        text-transform: capitalize;
-        box-shadow: 0 10px 16px 1px rgba(174, 199, 251, 1);
+    .bnt-checkout:hover {
+        background-color: #03c4a5;
+        border-radius: 10px !important;
     }
 
-    .footer-like {
-        margin-top: auto;
-        background: #D7E6FE;
-        padding: 6px;
-        text-align: center;
+    .bnt-checkout {
+        border-radius: 10px !important;
     }
-
-    .footer-like p {
-        margin: 0;
-        padding: 4px;
-        color: #5892FF;
-        font-family: 'Source Sans Pro', sans-serif;
-        letter-spacing: 1px;
-    }
-
-    .footer-like p a {
-        text-decoration: none;
-        color: #5892FF;
-        font-weight: 600;
-    }
-
-    @media (min-width:360px) {
-        .text-thank {
-            font-size: 4.5em;
-        }
-
-        .go-home {
-            margin-bottom: 20px;
-        }
-    }
-
-    @media (min-width:600px) {
-        .content {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .wrapper-1 {
-            height: initial;
-            max-width: 620px;
-            margin: 0 auto;
-            margin-top: 50px;
-            box-shadow: 4px 8px 40px 8px rgba(88, 146, 255, 0.2);
-        }
-
+    .form-group{
+        background-color: #15d3ea2e;
     }
 </style>
 
@@ -200,7 +129,7 @@
         <div class="col-md-8">
             <div class="firstconsultationstart">
                 <div class="text">
-                    <h2>Temp2 General Health Questions</h2>
+                    <h2>General Health Questions</h2>
                     <p>The information you provide us is treated with the utmost confidentiality and will be
                         reviewed by a GPhC
                         registered independent prescriber. The questions listed are to provide the prescriber
@@ -210,155 +139,149 @@
                         or
                         not.</p>
                 </div>
-                <form action="#">
-                    <div class="form-group q1">
-                        <div class="d-flex align-items-center ">
-                            <p class="me-auto">Are you registered with a GP practice in the UK?</p>
-                            <button type="button" class="btn btn-lg yesButton">Yes</button>
-                            <button type="button" class="btn btn-lg noButton">No</button>
+                <form action="{{route('web.consultationStore')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="template" required value="{{$template}}">
+                    <input type="hidden" name="product_id" required value="{{$product_id}}">
 
+                    <div class="form-group px-4 pt-3 pb-2">
+                        <div class="d-flex question align-items-start">
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[0]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_1" class="btn-radio option" value="Yes" data-next_quest="skip" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_1" class="btn-radio option" value="No" data-next_quest="show" data-label="No" required>
+                            </label>
                         </div>
-                        <div class="d-flex flex-column align-items-center d-none shahroz">
-                            <p class="m-2">Why are you not registered with a GP practice?</p>
-                            <textarea class="form-control" name="textarea" rows="5"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group q2">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Do you give us consent to write to your GP to share information
-                                of
-                                the supply &
-                                information we hold about you? (Please note that certain medication will require
-                                us
-                                to share this
-                                information if you choose NO your medication could get rejected)</p>
-                            <button type="button" class="btn btn-lg yesButton">Yes</button>
-                            <button type="button" class="btn btn-lg noButton">No</button>
-                        </div>
-                        <div class="d-flex flex-column align-items-center d-none shahroz">
-                            <p class="m-2">Please enter the name of your GP practice.</p>
-                            <textarea class="form-control" name="textarea" rows="5"></textarea>
-                            <p class="mt-2 mb-2">Can't find your GP practice? <button class="text-white p-2" style=" border-radius: 5px;">Enter address manually</button></p>
-                        </div>
-                    </div>
-                    <!-- Other form groups here -->
 
-                    <div class="form-group" id="q3">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Do you believe you have the capacity to make decisions about your
-                                own
-                                healthcare?</p>
-                            <button type="button" class="btn btn-lg yesButton">Yes</button>
-                            <button type="button" class="btn btn-lg noButton">No</button>
+                        <div class="question px-1" style="display:none;">
+                            <hr class="my-3">
+                            <div class="mb-0">
+                                <label for="quest_2" class="form-label pr-2">{{$questions[1]['title'] ?? '' }}</label>
+                                <textarea class="form-control" disabled id="quest_2" name="quest_2" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group q4">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Have you been diagnosed with any medical conditions?</p>
-                            <button type="button" class="btn btn-lg yesButton">Yes</button>
-                            <button type="button" class="btn btn-lg noButton">No</button>
+
+                    <div class="form-group px-4 pt-3 pb-2">
+                        <div class="d-flex question align-items-start">
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[2]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_3" class="btn-radio option" value="Yes" data-next_quest="skip" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_3" class="btn-radio option" value="No" data-next_quest="show" data-label="No" required>
+                            </label>
                         </div>
-                        <div class="d-flex flex-column align-items-center d-none shahroz">
-                            <p class="m-2">Please provide more information, including diagnosis, symptoms and
-                                treatment.</p>
-                            <textarea class="form-control" name="textarea" rows="5"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group q5" id="q5">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Have you ever been diagnosed with a mental health condition?</p>
-                            <button type="button" class="btn btn-lg yesButton">Yes</button>
-                            <button type="button" class="btn btn-lg noButton">No</button>
-                        </div>
-                        <div class="d-flex flex-column align-items-center d-none shahroz">
-                            <p class="m-2">Please provide more information, including diagnosis, symptoms and
-                                treatment.</p>
-                            <textarea class="form-control" name="textarea" rows="5"></textarea>
+
+                        <div class="question px-1" style="display:none;">
+                            <hr class="my-2">
+                            <div class="mb-0 alert alert-danger bg-danger">
+                                it is alert working fine how are you
+                                it is alert working fine how are you
+                                it is alert working fine how are you
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group q6" id="q6">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Are you currently taking any medication? This includes
-                                prescription-only, over-the-counter and homeopathic medicines.</p>
-                            <button type="button" class="btn btn-lg yesButton">Yes</button>
-                            <button type="button" class="btn btn-lg noButton">No</button>
+
+                    <div class="form-group px-4 pt-3 pb-2">
+                        <div class="d-flex question align-items-start">
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[3]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_4" class="btn-radio option" value="Yes" data-next_quest="show" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_4" class="btn-radio option" value="No" data-next_quest="skip" data-label="No" required>
+                            </label>
                         </div>
-                        <div class="d-flex flex-column align-items-center d-none shahroz">
-                            <p class="m-2">Which medication, what strength and how often are you taking it?</p>
-                            <textarea class="form-control" name="textarea" rows="5"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group q7" id="q7">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Do you suffer from any allergies?</p>
-                            <button type="button" class="btn btn-lg yesButton">Yes</button>
-                            <button type="button" class="btn btn-lg noButton">No</button>
-                        </div>
-                        <div class="d-flex flex-column align-items-center d-none shahroz">
-                            <p class="m-2">What allergies do you have and what are the symptoms you experience
-                                from
-                                an allergic reaction?</p>
-                            <textarea class="form-control" name="textarea" rows="5"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group q8" id="q8">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Is there anything else you would like to include for the
-                                prescriber?
-                            </p>
-                            <button type="button" class="btn btn-lg yesButton">Yes</button>
-                            <button type="button" class="btn btn-lg noButton">No</button>
-                        </div>
-                        <div class="d-flex flex-column align-items-center d-none shahroz">
-                            <p class="m-2">Please provide further information:</p>
-                            <textarea class="form-control" name="textarea" rows="5"></textarea>
+
+                        <div class="question px-1" style="display:none;">
+                            <hr class="my-3">
+                            <div class="mb-0 alert alert-warning ">
+                                it is alert working fine how are you
+                                it is alert working fine how are you
+                                it is alert working fine how are you
+                            </div>
+                            <hr class="my-3">
+                            <div class="mb-0">
+                                <label for="quest_5" class="form-label pr-2">{{$questions[4]['title'] ?? '' }}</label>
+                                <textarea class="form-control" disabled id="quest_5" name="quest_5" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group" id="q9">
-                        <div class="d-flex flex-column align-items-end">
+
+                    <div class="form-group px-4 pt-3 pb-2">
+                        <div class="d-flex question align-items-start">
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[5]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_6" class="btn-radio option" value="Yes" data-next_quest="show" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_6" class="btn-radio option" value="No" data-next_quest="skip" data-label="No" required>
+                            </label>
+                        </div>
+
+                        <div class="question px-1" style="display:none;">
+                            <hr class="my-3">
+                            <div class="mb-0">
+                                <label for="quest_7" class="form-label pr-2">{{$questions[6]['title'] ?? '' }}</label>
+                                <textarea class="form-control" disabled id="quest_7" name="quest_7" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group px-4 pt-3 pb-2">
+                        <div class="d-flex question align-items-start">
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[7]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_8" class="btn-radio option" value="Yes" data-next_quest="show" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_8" class="btn-radio option" value="No" data-next_quest="skip" data-label="No" required>
+                            </label>
+                        </div>
+
+                        <div class="question px-1" style="display:none;">
+                            <hr class="my-3">
+                            <div class="mb-0">
+                                <label for="quest_9" class="form-label pr-2">{{$questions[8]['title'] ?? '' }}</label>
+                                <textarea class="form-control" disabled id="quest_9" name="quest_9" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group px-4 pt-3 pb-2" >
+                        <div class="d-flex question flex-column align-items-end">
                             <p class="me-auto">What is your height?</p>
                             <div class="d-flex justify-content-end" style="line-height: 0;">
                                 <p class="me-2 align-self-end">Feet</p> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                                 <p class="me-2 align-self-end">Inches</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-end mb-2">
-                                <input type="text" class="me-2" placeholder="6">
-                                <input type="text" placeholder="6">
+                                <input type="text"   name="quest_10['feet']" class="me-2" placeholder="6">
+                                <input type="text" name="quest_10['inches']" placeholder="6">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" id="q10">
-                        <div class="d-flex flex-column align-items-end" style="line-height: 0;">
+                    <div class="form-group px-4 pt-4 pb-2" >
+                        <div class="d-flex question flex-column align-items-end" style="line-height: 0;">
                             <p class="me-auto">What is your weight?</p>
                             <div class="d-flex justify-content-end">
                                 <p class="me-2 align-self-end">stone</p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <p class="me-2 align-self-end">pounds</p>
                             </div>
                             <div class="d-flex align-items-center justify-content-end mb-2">
-                                <input type="text" class="me-2" placeholder="6">
-                                <input type="text" placeholder="6">
+                                <input type="text" name="quest_11['stone']" class="me-2" placeholder="6">
+                                <input type="text" name="quest_11['pounds']" placeholder="6">
                             </div>
                         </div>
                     </div>
-                    <div class="form-group q11" id="q11">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Full Name (Legal Name):</p>
+                    <div class="form-group question" style=" background: none; padding:none; margin:none;">
+                        <div class="d-flex align-items-center m-3 mb-5  ">
+                            <button type="submit" class="btn btn-outline-success bnt-checkout fw-bold rounded-1" style="border:#ced4da 2xp solid; ">Proceed to Checkout</button>
                         </div>
-                        <div class="d-flex flex-column align-items-center">
-                            <input class="form-control" name="name" rows="5"></input>
-                        </div>
-                    </div>
-                    <div class="form-group q12" id="q12">
-                        <div class="d-flex align-items-center">
-                            <p class="me-auto">Date of Birth (DD/MM/YYYY):
-                            </p>
-                        </div>
-                        <div class="d-flex flex-column align-items-center">
-                            <input class="form-control" name="text" rows="5"></input>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center m-3 mb-5 firstconsultationcontinue">
-                        <button type="button" class="btn btn-lg ">Continue consultation</button>
                     </div>
                 </form>
             </div>
@@ -407,132 +330,17 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
-        const $yesButtons = $('.yesButton');
-        const $noButtons = $('.noButton');
-        const $firstConsultationContinueButton = $('.firstconsultationcontinue button');
-        const $secondConsultationContinueButton = $('.secondconsultationcontinue button');
-        const $createAccountButton = $('.createaccount .next');
-        const $productcategorybutton = $('.productcategory .next');
-
-        const $backButtons = $('.back');
-        const $firstConsultationStart = $('.firstconsultationstart');
-        const $secondConsultationStart = $('.secondConsultationStart'); // Corrected typo
-        const $thirdAccountCreate = $('.thirdaccountcreate');
-        const $fourthcategory = $('.fourthproductcategory');
-        const $fifththanks = $('.fifththanks'); // Added fifth step
-
-        function handleClick(event) {
-            const $button = $(event.target);
-            const $formGroup = $button.closest('.form-group');
-            const $shahroz = $formGroup.find('.shahroz');
-
-            if ($formGroup.hasClass('q1') || $formGroup.hasClass('q2') || $formGroup.hasClass('q3') || $formGroup.hasClass('q4') || $formGroup.hasClass('q5') || $formGroup.hasClass('q6') || $formGroup.hasClass('q7') || $formGroup.hasClass('q8') || $formGroup.hasClass('q12')) {
-                // Show or hide textarea based on button clicked
-                $shahroz.toggleClass('d-none', !$button.hasClass('yesButton'));
+        $('.btn-radio').change(function() {
+            var questionDiv = $(this).closest('.form-group').find('.question');
+            var nextQuest = $(this).data('next_quest');
+            if (nextQuest === 'skip') {
+                questionDiv.hide().find('textarea').val('').attr('disabled', true);
+            } else if (nextQuest === 'show') {
+                questionDiv.find('textarea').attr('disabled', false);
+                questionDiv.slideDown('medium', function() {
+                    $(this).find('textarea').val('');
+                });
             }
-
-            // Add or remove button color classes
-            $formGroup.find('button').removeClass('green-active-button blue-active-button');
-            $button.addClass($button.hasClass('yesButton') ? 'green-active-button' : 'blue-active-button');
-        }
-
-        $yesButtons.on('click', handleClick);
-        $noButtons.on('click', handleClick);
-
-        // initial hide 
-        $secondConsultationStart.addClass('d-none');
-        $thirdAccountCreate.addClass('d-none');
-        $fourthcategory.addClass('d-none');
-        $fifththanks.addClass('d-none');
-
-        // Event listener for the "First Consultation Continue" button
-        $firstConsultationContinueButton.on('click', function() {
-            $firstConsultationStart.addClass('d-none');
-            $secondConsultationStart.removeClass('d-none');
-            $thirdAccountCreate.addClass('d-none');
-        });
-
-        // Event listener for the "Second Consultation Continue" button
-        $secondConsultationContinueButton.on('click', function() {
-            $secondConsultationStart.addClass('d-none');
-            $thirdAccountCreate.removeClass('d-none');
-            $firstConsultationStart.addClass('d-none');
-        });
-
-        // Event listener for the "third Create Account" button in the third step
-        $createAccountButton.on('click', function() {
-            $thirdAccountCreate.addClass('d-none');
-            $fourthcategory.removeClass('d-none');
-            $secondConsultationStart.addClass('d-none');
-            $firstConsultationStart.addClass('d-none');
-        });
-
-        // Event listener for the "fourth Create Account" button in the third step
-        $productcategorybutton.on('click', function() {
-            $fourthcategory.addClass('d-none');
-            $fifththanks.removeClass('d-none');
-            $thirdAccountCreate.addClass('d-none');
-            $secondConsultationStart.addClass('d-none');
-            $firstConsultationStart.addClass('d-none');
-        });
-
-        // Event listeners for the back buttons
-        $backButtons.each(function(index) {
-            $(this).on('click', function() {
-                if (index === 0) {
-                    // If the first back button is clicked, go back to the first step
-                    $secondConsultationStart.addClass('d-none');
-                    $firstConsultationStart.removeClass('d-none');
-                    $thirdAccountCreate.addClass('d-none');
-                    $fourthcategory.addClass('d-none');
-                    $fifththanks.addClass('d-none');
-                } else if (index === 1) {
-                    // If the second back button is clicked, go back to the second step
-                    $thirdAccountCreate.addClass('d-none');
-                    $secondConsultationStart.removeClass('d-none');
-                    $firstConsultationStart.addClass('d-none');
-                    $fourthcategory.addClass('d-none');
-                    $fifththanks.addClass('d-none');
-                } else if (index === 2) {
-                    // If the third back button is clicked, go back to the third step
-                    $fourthcategory.addClass('d-none');
-                    $thirdAccountCreate.removeClass('d-none');
-                    $secondConsultationStart.addClass('d-none');
-                    $firstConsultationStart.addClass('d-none');
-                    $fifththanks.addClass('d-none');
-                } else if (index === 3) {
-                    // If the fourth back button is clicked, go back to the third step
-                    $fourthcategory.removeClass('d-none');
-                    $thirdAccountCreate.addClass('d-none');
-                    $secondConsultationStart.addClass('d-none');
-                    $firstConsultationStart.addClass('d-none');
-                    $fifththanks.addClass('d-none');
-                }
-            });
-        });
-
-        // Event listener for the "Continue consultation" button in the second step
-        $('.secondconsultationcontinue .next').on('click', function() {
-            $secondConsultationStart.addClass('d-none');
-            $thirdAccountCreate.removeClass('d-none');
-            $firstConsultationStart.addClass('d-none');
-        });
-
-        // Event listener for the "Create Account" button in the third step
-        $('.thirdcreateaccountbutton').on('click', function() {
-            $fourthcategory.removeClass('d-none');
-            $secondConsultationStart.addClass('d-none');
-            $thirdAccountCreate.addClass('d-none');
-            $firstConsultationStart.addClass('d-none');
-        });
-
-        // Event listener for the "Back" button in the fourth step
-        $('.fourthproductcategory .next').on('click', function() {
-            $thirdAccountCreate.addClass('d-none');
-            $fourthcategory.addClass('d-none');
-            $secondConsultationStart.addClass('d-none');
-            $firstConsultationStart.addClass('d-none');
-            $fifththanks.removeClass('d-none');
         });
     });
 </script>

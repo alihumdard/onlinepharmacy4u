@@ -49,32 +49,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
-                        <div class="footer-widget footer-menu-widget clearfix">
-                            <h4 class="footer-title">Company</h4>
-                            <div class="footer-menu">
-                                <ul>
-                                    <li><a href="/about">About</a></li>
-                                    <li><a href="/news">Blog</a></li>
-                                    <li><a href="/shop">All Products</a></li>
-                                    <li><a href="#">Locations Map</a></li>
-                                    <li><a href="/faqs">FAQ</a></li>
-                                    <li><a href="/contact">Contact us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- display none in bootstrap -->
+                    
                     <div class="col-xl-2 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget footer-menu-widget clearfix">
                             <h4 class="footer-title">Services</h4>
                             <div class="footer-menu">
                                 <ul>
-                                    <li><a href="order-tracking.html">Order tracking</a></li>
-                                    <li><a href="/wishlist">Wish List</a></li>
-                                    <li><a href="/login">Login</a></li>
-                                    <li><a href="/account">My account</a></li>
-                                    <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="#">Promotional Offers</a></li>
+                                    <li><a href="/categories">shop by collection</a></li>
+                                    <li><a href="/skincare">skincare</a></li>
+                                    <li><a href="#">lorem</a></li>
+                                    <li><a href="#">lorem</a></li>
+                                    <li><a href="#">lorem</a></li>
+                                    <li><a href="#">lorem</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -87,9 +74,22 @@
                                     <li><a href="/login">Login</a></li>
                                     <li><a href="/account">My account</a></li>
                                     <li><a href="/wishlist">Wish List</a></li>
-                                    <li><a href="order-tracking.html">Order tracking</a></li>
-                                    <li><a href="/faqs">FAQ</a></li>
+                                    <li><a href="#">Order tracking</a></li>
+                                    <li><a href="/faq">FAQ</a></li>
                                     <li><a href="/contact">Contact us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget footer-menu-widget clearfix">
+                            <h4 class="footer-title">legel</h4>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">lorem</a></li>
+                                    <li><a href="#">lorem</a></li>
+                                    <li><a href="#">lorem</a></li>  
                                 </ul>
                             </div>
                         </div>

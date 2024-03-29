@@ -2,11 +2,9 @@
 @section('title', 'My Account')
 @section('content')
 
-    
-
 
  <!-- BREADCRUMB AREA START -->
- <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/allbanners/myaccount.webp">
+ <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image"  data-bs-bg="img/allbanners/myaccountflip.webp">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

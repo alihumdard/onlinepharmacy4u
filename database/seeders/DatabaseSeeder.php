@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(Users::class);
         $this->call(PMedGeneralQuestionSeeder::class);
         $this->call(PrescriptionMedGeneralQuestionSeeder::class);
+        $this->call(Users::class);
     }
 }

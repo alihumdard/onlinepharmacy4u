@@ -734,8 +734,8 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['questions'] = Question::latest('id')->get()->toArray();
+            $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
         }
-
         return view('admin.pages.questions.assign_question', $data);
     }
 

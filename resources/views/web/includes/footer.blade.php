@@ -57,11 +57,6 @@
                             <div class="footer-menu">
                                 <ul>
                                     <li><a href="/categories">shop by collection</a></li>
-                                    <li><a href="/skincare">skincare</a></li>
-                                    <li><a href="#">lorem</a></li>
-                                    <li><a href="#">lorem</a></li>
-                                    <li><a href="#">lorem</a></li>
-                                    <li><a href="#">lorem</a></li>
                                 </ul>
                             </div>
                         </div>

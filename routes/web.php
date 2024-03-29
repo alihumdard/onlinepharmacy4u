@@ -121,6 +121,7 @@ Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->
 
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
 Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
+Route::get('/collections/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_categories'])->name('web.collections');
 Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
 Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
 

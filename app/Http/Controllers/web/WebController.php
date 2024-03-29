@@ -36,6 +36,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\QuestionMapping;
 use App\Models\QuestionCategory;
+use App\Models\PMedGeneralQuestion;
 use Illuminate\Support\Facades\DB;
 
 use Deyjandi\VivaWallet\Enums\RequestLang;
@@ -67,6 +68,16 @@ class WebController extends Controller
 
     public function show_products($category = null, $sub_category = null, $child_category = null)
     {
+        $slug = [
+            "main_category" => $category,
+            "sub_category" => $sub_category,
+            "child_category" => $child_category
+        ];
+        if ($slug == session('slug') ?? []) {
+            $data['is_add_to_cart'] = 'yes';
+        } else {
+            $data['is_add_to_cart'] = Null;
+        }
         // product listing
         $level = '';
         if ($category && $sub_category && $child_category) {
@@ -126,14 +137,8 @@ class WebController extends Controller
         $data['product_id'] = $request->product_id ?? session('product_id');
         if ($data['template'] == config('constants.PHARMACY_MEDECINE')) {
             $data['product_detail'] = Product::find($data['product_id']);
-            $question_category = explode(',', $data['product_detail']->question_category);
-            $data['question_category'] = QuestionCategory::whereIn('id', $question_category)->orderBy('id')->get();
-            $data['questions'] = AssignQuestion::whereIn('category_id', $question_category)
-                ->orderBy('category_id')
-                ->get()
-                ->groupBy('category_id');
-            // return $data;
-            return view('web.pages.product_question', $data);
+            $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+            return view('web.pages.temp1_genral_question', $data);
         } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
             if (auth()->user()) {
                 $data['product_detail'] = Product::find($data['product_id']);
@@ -196,18 +201,18 @@ class WebController extends Controller
                     if (isset($next_quest_ids[$questi['id']])) {
                         $dependent_quest =  Question::whereIn('id', $next_quest_ids[$questi['id']])->orderBy('id')->get()->toArray();
                         foreach ($dependent_quest as $key => $dp_quest) {
-                            $question_num++; 
+                            $question_num++;
                             $data['questions_all'][$question_num] = $dp_quest;
                             $data['questions_all'][$question_num]['class'] = 'd-none';
                         }
                     }
                     $question_num++;
                 }
-                $filteredQuestions = array_filter($data['questions_all'], function($question) {
+                $filteredQuestions = array_filter($data['questions_all'], function ($question) {
                     return !($question['id'] == 28 && $question['class'] != 'd-none');
                 });
                 $data['questions'] = array_values($filteredQuestions);
-                return view('web.pages.product_question', $data);
+                return view('web.pages.temp2_genral_question', $data);
             } else {
                 session()->put('intended_url', 'fromConsultation');
                 session()->put('template', $data['template']);
@@ -217,6 +222,28 @@ class WebController extends Controller
         } else {
             return redirect()->route('shop');
         }
+    }
+
+    public function consultation_store(Request $request)
+    {
+        $questionAnswers = [];
+        foreach ($request->all() as $key => $value) {
+            $iteration = 1;
+            if ($key === '_token' || $key === 'template') {
+                continue; // Skip unwanted keys
+            }
+            if (strpos($key, 'quest_') === 0) {
+                $question_id = substr($key, 6); // Extract question_id from the key
+                $questionAnswers[$question_id] = $value;
+            }
+        }
+        $category = Product::with('category', 'sub_cat', 'child_cat')->find($request->product_id);
+        $slug = ['main_category' => $category->category->slug, 'sub_category' => $category->sub_cat->slug ?? NULL, 'child_category' => $category->child_cat->slug ?? NULL];
+        // dd($category);
+        Session::put('slug', $slug);
+        Session::put('questionAnswers', $questionAnswers);
+        Session::put('template', $request->template);
+        return redirect()->route('category.products', $slug);
     }
 
     public function view_cart(Request $request)
@@ -312,52 +339,6 @@ class WebController extends Controller
         }
     }
 
-    public function consultation_store(Request $request)
-    {
-        $data['user'] = auth()->user() ?? [];
-
-        if (auth()->user()) {
-            $product_id = $request->input('product_id') ?? NULL;
-            $category_id = $request->input('category_id') ?? NULL;
-
-            $questionAnswers = [];
-            foreach ($request->all() as $key => $value) {
-                $iteration = 1;
-                if ($key === '_token' || $key === 'website' || $key === 'process') {
-                    continue; // Skip unwanted keys
-                }
-
-                if ($key === 'question_3' && $value instanceof \Illuminate\Http\UploadedFile) {
-                    // Handle image upload here
-                    $imagePath = $value->store('images'); // You may need to customize the storage path
-                    $questionAnswers[3] = $imagePath;
-                } elseif (strpos($key, 'question_') === 0) {
-                    $question_id = substr($key, 9); // Extract question_id from the key
-                    $questionAnswers[$question_id] = $value;
-                }
-            }
-
-            $save =  UserConsultation::create([
-                'user_id' => auth()->user()->id,
-                'question_answers' => json_encode($questionAnswers, JSON_FORCE_OBJECT),
-                'status' => '1',
-                'created_by' => auth()->user()->id,
-            ]);
-
-            if ($save) {
-                DB::table('users')
-                    ->where('id', auth()->id())
-                    ->update(['consult_status' => 'done']);
-
-                $product_id =  session('pro_id') ?? NULL;
-                if ($product_id) {
-                    return redirect()->route('web.products');
-                } else {
-                    return redirect()->route('admin.index');
-                }
-            }
-        }
-    }
 
 
     public function product_question(Request $request)

@@ -2,11 +2,11 @@
 @section('title', 'Shop')
 @section('content')
 
-    
+
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/bg/14.png">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/bg/14.png">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -41,12 +41,12 @@
                             </div>
                         </li>
                         <li>
-                           <div class="showing-product-number text-right">
+                            <div class="showing-product-number text-right">
                                 {{-- <span>Showing 1–12 of 18 results</span> --}}
-                            </div> 
+                            </div>
                         </li>
                         <li>
-                           <div class="short-by text-center">
+                            <div class="short-by text-center">
                                 <select class="nice-select">
                                     <option>Default Sorting</option>
                                     <option>Sort by popularity</option>
@@ -54,7 +54,7 @@
                                     <option>Sort by price: low to high</option>
                                     <option>Sort by price: high to low</option>
                                 </select>
-                            </div> 
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -64,60 +64,65 @@
                             <div class="row">
                                 <!-- ltn__product-item -->
                                 @foreach($products as $key => $val)
-                                    <div class="col-xl-4 col-sm-6 col-6">
-                                        <div class="ltn__product-item ltn__product-item-3 text-center">
-                                            <div class="product-img">
-                                                <a href="product-details.html"><img src="{{ asset('storage/'.$val->main_image)}}" alt="#"></a>
-                                                {{-- <div class="product-badge">
+                                <div class="col-xl-4 col-sm-6 col-6">
+                                    <div class="ltn__product-item ltn__product-item-3 text-center">
+                                        <div class="product-img">
+                                            <a href="product-details.html"><img src="{{ asset('storage/'.$val->main_image)}}" alt="#"></a>
+                                            {{-- <div class="product-badge">
                                                     <ul>
                                                         <li class="sale-badge">New</li>
                                                     </ul>
                                                 </div> --}}
-                                                <div class="product-hover-action">
-                                                    <ul>
-                                                        @if($val->product_template == config('constants.COUNTER_MEDICINE'))
-                                                            <li>
-                                                                <a href="{{ route('web.product', ['id' => $val->id]) }}">
-                                                                    <i class="far fa-eye"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
-                                                                    <i class="fas fa-shopping-cart"></i>
-                                                                </a>
-                                                            </li>
-                                                        @else
-                                                            <li>
-                                                                <a href="#" title="You have to answer some question" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
-                                                                    <i class="fas fa-plus"></i>
-                                                                </a>
-                                                            </li>
-                                                        @endif
-                                                        {{-- <li>
+                                            <div class="product-hover-action">
+                                                <ul>
+                                                    @if($val->product_template == config('constants.COUNTER_MEDICINE'))
+                                                    <li>
+                                                        <a href="{{ route('web.product', ['id' => $val->id]) }}">
+                                                            <i class="far fa-eye"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
+                                                            <i class="fas fa-shopping-cart"></i>
+                                                        </a>
+                                                    </li>
+                                                    @else
+                                                    <li>
+                                                        <a href="#" title="You have to answer some question" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
+                                                            <i class="fas fa-plus"></i>
+                                                        </a>
+                                                    </li>
+                                                    @endif
+                                                    {{-- <li>
                                                             <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
                                                                 <i class="far fa-heart"></i></a>
                                                         </li> --}}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="product-info">
-                                                <div class="product-ratting">
-                                                    <ul>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                        <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <h2 class="product-title"><a href="{{ route('web.product', ['id' => $val->id]) }}">{{ $val->title }}</a></h2>
-                                                <div class="product-price">
-                                                    <span>£{{ $val->price }}</span>
-                                                    <del>{{ $val->cut_price ? '£'.$val->cut_price : NULL }}</del>
-                                                </div>
+                                                </ul>
                                             </div>
                                         </div>
+                                        <div class="product-info">
+                                            <div class="product-ratting">
+                                                <ul>
+                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
+                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
+                                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
+                                                    <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
+                                                    <li><a href="#"><i class="far fa-star"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <h2 class="product-title"><a href="{{ route('web.product', ['id' => $val->id]) }}">{{ $val->title }}</a></h2>
+                                            <div class="product-price">
+                                                <span>£{{ $val->price }}</span>
+                                                <del>{{ $val->cut_price ? '£'.$val->cut_price : NULL }}</del>
+                                            </div>
+                                            @if($is_add_to_cart == 'yes')
+                                            <div class="add_cart">
+                                                <a href="{{route('web.view.cart')}}" class="btn btn-outline-primary">Add to Cart </a>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
+                                </div>
                                 @endforeach
                                 <!-- ltn__product-item -->
                             </div>
@@ -145,7 +150,7 @@
                         <h4 class="ltn__widget-title ltn__widget-title-border">Product categories</h4>
                         <ul>
                             @foreach($categories_list as $key => $val)
-                                <li><a href="{{ route('category.products', ['main_category' => $val->slug]) }}">{{$val->name}} <span><i class="fas fa-long-arrow-alt-right"></i></span></a></li>
+                            <li><a href="{{ route('category.products', ['main_category' => $val->slug]) }}">{{$val->name}} <span><i class="fas fa-long-arrow-alt-right"></i></span></a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -154,8 +159,8 @@
                         <h4 class="ltn__widget-title ltn__widget-title-border">Filter by price</h4>
                         <div class="price_filter">
                             <div class="price_slider_amount">
-                                <input type="submit"  value="Your range:"/> 
-                                <input type="text" class="amount" name="price"  placeholder="Add Your Price" /> 
+                                <input type="submit" value="Your range:" />
+                                <input type="text" class="amount" name="price" placeholder="Add Your Price" />
                             </div>
                             <div class="slider-range"></div>
                         </div>
@@ -260,8 +265,8 @@
                             <li><a href="#">Virus</a></li>
                         </ul>
                     </div>
-                    
-                    
+
+
                     <!-- Banner Widget -->
                     <div class="widget ltn__banner-widget">
                         <a href="shop.html"><img src="img/banner/banner-2.jpg" alt="#"></a>

@@ -83,10 +83,10 @@
                                             <li>
                                                 <a href="#"><i class="icon-user"></i></a>
                                                 <ul>
-                                                    <li><a href="login.html">Sign in</a></li>
+                                                    <li><a href="/login">Sign in</a></li>
                                                     <li><a href="register.html">Register</a></li>
-                                                    <li><a href="account.html">My Account</a></li>
-                                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                                    <li><a href="/account">My Account</a></li>
+                                                    <li><a href="/account">Wishlist</a></li>
                                                 </ul> 
                                             </li>
                                         </ul>
@@ -175,7 +175,7 @@
         </div>
         <!-- header-bottom-area end -->
 
-        <div class="ltn__header-bottom-area border-bottom top-area-color-white---">
+        <div class="ltn__header-bottom-area border-bottom top-area-color-white---  d-none">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">

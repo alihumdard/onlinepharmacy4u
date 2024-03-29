@@ -4,7 +4,7 @@
 
 <!-- CUSTOM SLIDER START HERE--  -->
 
-<div class="slider">
+<div class="slider d-none">
   <!-- Slides -->
   <div class="slide" id="slide1">
     <img src="img/slider/NHS_perscriptions_Desktop_1920x.webp" alt="Image 1">
@@ -56,7 +56,7 @@
 
 
 <!-- SLIDER AREA START (slider-3) -->
-<div class="ltn__slider-area ltn__slider-3  section-bg-1 display-none">
+<div class="ltn__slider-area ltn__slider-3  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
         <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/slider/home-slider-one.png">

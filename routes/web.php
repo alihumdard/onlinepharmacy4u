@@ -128,7 +128,13 @@ Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
 Route::match(['get','post'],'/account', [WebController::class, 'account'])->name('web.account');
 Route::match(['get','post'],'/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
-
+Route::match(['get','post'],'/howitworks', [WebController::class, 'howitworks'])->name('web.howitworks');
+Route::match(['get','post'],'/faq', [WebController::class, 'faq'])->name('web.faq');
+Route::match(['get','post'],'/categories', [WebController::class, 'categories'])->name('web.categories');
+Route::match(['get','post'],'/categorydetail', [WebController::class, 'categorydetail'])->name('web.categorydetail');
+Route::match(['get','post'],'/skincare', [WebController::class, 'skincare'])->name('web.skincare');
+Route::match(['get','post'],'/diabetes', [WebController::class, 'diabetes'])->name('web.diabetes');
+Route::match(['get','post'],'/sleep', [WebController::class, 'sleep'])->name('web.sleep');
 
 //cart
 Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');

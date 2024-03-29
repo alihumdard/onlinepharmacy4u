@@ -1,4 +1,3 @@
-@extends('web.layouts.default')
 @section('title', 'FAQs')
 @section('content')
 

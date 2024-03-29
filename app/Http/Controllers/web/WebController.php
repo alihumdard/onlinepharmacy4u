@@ -268,6 +268,47 @@ class WebController extends Controller
         return view('web.pages.wishlist', $data);
     }
 
+    public function howitworks()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.howitworks', $data);
+    }
+    public function faq()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.faq', $data);
+    }
+
+    public function categories()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.categories', $data);
+    }
+
+    public function categorydetail()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.categorydetail', $data);
+    }
+
+    public function skincare()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.skincare', $data);
+    }
+
+    public function diabetes()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.diabetes', $data);
+    }
+
+    public function sleep()
+    {
+        $data['user'] = auth()->user() ?? [];
+        return view('web.pages.sleep', $data);
+    }
+
     public function products(Request $request)
     {
         session()->forget('pro_id');

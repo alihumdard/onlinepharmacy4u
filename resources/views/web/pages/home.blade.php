@@ -156,8 +156,8 @@
                     <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Skincare</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <!-- <a href="#" class="btn btn-primary button-radius">Buy Now</a> -->
+                        <p class="card-text">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine, we’ve got you covered from head to toe.</p>
+                        <a href="/skincare" class="btn btn-primary button-radius">Buy Now</a>
                     </div>
                 </div>
             </div>
@@ -166,8 +166,8 @@
                     <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Sleep</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <!-- <a href="#" class="btn btn-primary button-radius">Buy Now</a> -->
+                        <p class="card-text">Treat insomnia with our range of medications to help you fall asleep faster and to reduce the chances of you waking up in the middle of the night.</p>
+                        <a href="/sleep" class="btn btn-primary button-radius">Buy Now</a>
                     </div>
                 </div>
             </div>
@@ -176,8 +176,8 @@
                     <img src="img/product/sample-image.webp" class="card-img-top card-radius" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Diabetes</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <!-- <a href="#" class="btn btn-primary button-radius">Buy Now</a> -->
+                        <p class="card-text">Living with diabetes can be difficult - that’s why we’re here to provide you with the very best equipment to help you easily manage your condition. </p>
+                        <a href="/diabetes" class="btn btn-primary button-radius">Buy Now</a>
                     </div>
                 </div>
             </div>

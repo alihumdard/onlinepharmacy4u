@@ -35,7 +35,7 @@ class Users extends Seeder
         // Create an Super Admin
         User::factory()->create([
             'name'       => 'Web Admin',
-            'email'      => 'Phillip@myweightlosscentre.co.uk',
+            'email'      => 'Phillip@onlinepharmacy-4u.co.uk',
             'password'   => Hash::make('Admin1234$#@!'),
             'role'       => 'Super Admin',
             'status'     => '1',

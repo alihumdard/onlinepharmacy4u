@@ -194,8 +194,8 @@ return [
     ],
 
     'PRODUCT_TEMPLATES' => [
-        1 => 'Pharmacy Medicine',
-        2 => 'Prescription Medicines',
+        1 => 'Pharmacy Medicine(P.Med)',
+        2 => 'Prescription Medicine(POM)',
         3 => 'Over the Counter Medicines'
     ],
 

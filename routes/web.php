@@ -20,6 +20,7 @@ Route::match(['get', 'post'], '/login', [DefualtController::class, 'login'])->na
 Route::match(['get', 'post'], '/register', [DefualtController::class, 'registration_form'])->name('register');
 Route::match(['get', 'post'], '/regisrationFrom', [DefualtController::class, 'user_register'])->name('web.user_register');
 Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->name('web.logout');
+Route::match(['get','post'],'/productQuestion/{id}', [WebController::class, 'product_question'])->name('web.productQuestion');
 
 Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs');
 // Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
@@ -34,7 +35,6 @@ Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs')
 // Route::match(['get','post'],'/bmiFormStore', [WebController::class, 'bmi_formStore'])->name('web.bmiFormStore');
 // Route::match(['get','post'],'/bmiUpdate', [WebController::class, 'bmi_update'])->name('web.bmiUpdate');
 // Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
-// Route::match(['get','post'],'/productQuestion/{id}', [WebController::class, 'product_question'])->name('web.productQuestion');
 // Route::match(['get','post'],'/cart/{id?}', [WebController::class, 'cart'])->name('web.cart');
 // Route::match(['get','post'],'/payment', [WebController::class, 'payment'])->name('payment');
 // Route::match(['get','post'],'/Completed-order', [WebController::class, 'completed_order']);

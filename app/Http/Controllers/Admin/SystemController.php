@@ -353,6 +353,25 @@ class SystemController extends Controller
 
         $data['user'] = auth()->user();
 
+        if ($request->hasFile('image')) {
+            $rules['image'] = [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg,gif,webm,svg,webp',
+                'max:1024',
+                // 'dimensions:max_width=1000,max_height=1000',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json(['status' => 'error', 'message' => $validator->errors()]);
+            }
+
+            $image = $request->file('image');
+            $imageName = time() . '_' . uniqid('', true) . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('category_images/', $imageName, 'public');
+            $imagePath = 'category_images/' . $imageName;
+        }
+
         if($selection == 1){
             $saved = Category::updateOrCreate(
                 ['id' => $request->id ?? NULL],
@@ -361,6 +380,7 @@ class SystemController extends Controller
                     'slug'       => Str::slug($request->name),
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
+                    'image'      => $imagePath ?? Category::findOrFail($request->id)->image,
                     'created_by' => $user->id,
                 ]
             );
@@ -378,6 +398,7 @@ class SystemController extends Controller
                     'category_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
+                    'image'      => $imagePath ?? SubCategory::findOrFail($request->id)->image,
                     'created_by' => $user->id,
                 ]
             );
@@ -395,6 +416,7 @@ class SystemController extends Controller
                     'sub_category_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
+                    'image'      => $imagePath ?? ChildCategory::findOrFail($request->id)->image,
                     'created_by' => $user->id,
                 ]
             );

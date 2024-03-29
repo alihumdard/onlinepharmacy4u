@@ -120,7 +120,6 @@ class WebController extends Controller
         return view('pages.faqs');
     }
 
-
     public function product_detail(Request $request)
     {
         // $request->id;
@@ -292,6 +291,47 @@ class WebController extends Controller
         Session::put('cart', $cart);
 
         return response()->json(['message' => 'Item added to cart']);
+    }
+
+    public function show_categories($category = null, $sub_category = null, $child_category = null)
+    {
+        $level = '';
+        if ($category && $sub_category && $child_category) {
+            $level = 'child';
+            $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
+        } else if ($category && $sub_category && !$child_category) {
+            $level = 'sub';
+            $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
+        } else if ($category && !$sub_category && !$child_category) {
+            $level = 'main';
+            $category_id = Category::where('slug', $category)->first()->id;
+        }
+
+        switch ($level) {
+            case 'main':
+                $data['main_category'] = Category::where('slug', $category)->first();
+                $data['categories'] = SubCategory::where('category_id', $data['main_category']->id)->get()->toArray();
+                $data['image'] = $data['main_category']['image'];
+                $data['category_name'] = $data['main_category']['name'];
+                $data['main_slug'] = $data['main_category']['slug'];
+                $data['products'] = Product::where(['category_id' => $data['main_category']->id])->get();
+                break;
+            case 'sub':
+                $data['main_category'] = Category::where('slug', $category)->first();
+                $data['sub_category'] = SubCategory::where('slug', $sub_category)->first();
+                $data['categories'] = ChildCategory::where('sub_category_id', $data['sub_category']->id)->get()->toArray();
+                $data['image'] = $data['sub_category']['image'];
+                $data['category_name'] = $data['sub_category']['name'];
+                $data['main_slug'] = $data['main_category']['slug'];
+                $data['sub_slug'] = $data['sub_category']['slug'];
+                break;
+            case 'child':
+                $data['category'] = ChildCategory::where('slug', $child_category)->first();
+                break;
+            default:
+                $products = Product::get();
+        }
+        return view('web.pages.collections', $data);
     }
 
 

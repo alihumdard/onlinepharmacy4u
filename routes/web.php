@@ -21,7 +21,7 @@ Route::match(['get', 'post'], '/register', [DefualtController::class, 'registrat
 Route::match(['get', 'post'], '/regisrationFrom', [DefualtController::class, 'user_register'])->name('web.user_register');
 Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->name('web.logout');
 
-// Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs');
+Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs');
 // Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
 // Route::get('/blogs', [HomeController::class, 'blogs'])->name('web.blogs');
 // Route::get('/term&conditions', [HomeController::class, 'term'])->name('web.term&conditions');
@@ -102,9 +102,7 @@ Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->
 //     return view('web.pages.register');
 // });
 
-// Route::get('/account', function(){
-//     return view('web.pages.account');
-// });
+
 
 // Route::get('/cart', function(){
 //     return view('web.pages.cart');
@@ -128,11 +126,16 @@ Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web
 
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
 Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
+Route::match(['get','post'],'/account', [WebController::class, 'account'])->name('web.account');
+Route::match(['get','post'],'/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
+
 
 //cart
 Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');
 Route::get('/cart', [WebController::class, 'view_cart'])->name('web.view.cart');
 Route::get('/checkout', [WebController::class, 'product_detail'])->name('checkout');
 
+
+Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
 
 include __DIR__ . '/admin.php';

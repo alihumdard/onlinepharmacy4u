@@ -3,26 +3,17 @@
 @section('content')
 
 <!-- CUSTOM SLIDER START HERE--  -->
-
-
-
-
-
-
-
-
-<div class="slider">
-    <!-- Slides -->
-    <div class="slide" id="slide1">
-        <img src="img/slider/NHS_perscriptions_Desktop_1920x.webp" alt="Image 1">
-    </div>
-    <div class="slide" id="slide2">
-        <img src="img/slider/Pharmacy4u_Banner_4_Desktop_Size-01_1920x.webp" alt="Image 2">
-    </div>
-    <div class="slide" id="slide3">
-        <img src="img/slider/Pharmacy4u_Banner_1_Desktop_Size-01_1_1920x.webp" alt="Image 3">
-    </div>
-
+<div class="slider d-none">
+  <!-- Slides -->
+  <div class="slide" id="slide1">
+    <img src="img/slider/NHS_perscriptions_Desktop_1920x.webp" alt="Image 1">
+  </div>
+  <div class="slide" id="slide2">
+    <img src="img/slider/Pharmacy4u_Banner_4_Desktop_Size-01_1920x.webp" alt="Image 2">
+  </div>
+  <div class="slide" id="slide3">
+    <img src="img/slider/Pharmacy4u_Banner_1_Desktop_Size-01_1_1920x.webp" alt="Image 3">
+  </div>
     <!-- Navigation dots -->
     <div class="dots">
         <span class="dot" onclick="currentSlide(1)"></span>
@@ -65,7 +56,7 @@
 
 
 <!-- SLIDER AREA START (slider-3) -->
-<div class="ltn__slider-area ltn__slider-3  section-bg-1 display-none">
+<div class="ltn__slider-area ltn__slider-3  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
         <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/slider/home-slider-one.png">
@@ -884,6 +875,7 @@
             </div>
         </div>
     </div>
+</div>
     <!-- BRAND LOGO AREA END -->
 
     <!-- Custom call to action section start-->

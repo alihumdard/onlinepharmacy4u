@@ -20,6 +20,8 @@ use App\Models\ChildCategory;
 use App\Models\AssignQuestion;
 use App\Models\ProductVariant;
 use App\Models\QuestionMapping;
+use App\Models\PMedGeneralQuestion;
+use App\Models\PrescriptionMedGeneralQuestion;
 use Illuminate\Validation\Rule;
 
 // models ...
@@ -566,6 +568,34 @@ class SystemController extends Controller
         return view('admin.pages.questions.questions', $data);
     }
 
+    public function p_med_general_questions(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'p_med_gq';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+        $data['questions'] = PMedGeneralQuestion::get()->toArray();
+
+        return view('admin.pages.questions.p_med_gq', $data);
+    }
+    
+    public function prescription_med_general_questions(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'prescription_med_gq';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+        $data['questions'] = PrescriptionMedGeneralQuestion::get()->toArray();
+
+        return view('admin.pages.questions.prescription_med_gq', $data);
+    }
+
     public function add_question(Request $request)
     {
         // $user = auth()->user();
@@ -682,7 +712,6 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['questions'] = Question::latest('id')->get()->toArray();
-            $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
         }
 
         return view('admin.pages.questions.assign_question', $data);
@@ -819,6 +848,12 @@ class SystemController extends Controller
             ->pluck('tbl2.question_title', 'tbl2.question_id')
             ->toArray();
         // dd(DB::getQueryLog());
+
+        $result['dependant_question'] = QuestionMapping::where('category_id', $category_id)
+        ->where('question_id', $question_id)
+        ->get();
+
+        
         return response()->json(['status' => 'success', 'result' => $result]);
     }
 

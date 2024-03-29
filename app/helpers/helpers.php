@@ -94,6 +94,8 @@ function view_permission($page_name)
                 case 'faq':
                 case 'question_categories':
                 case 'add_question_category':
+                case 'p_med_gq':
+                case 'prescription_med_gq':
                     return true;
                 default:
                     return false;

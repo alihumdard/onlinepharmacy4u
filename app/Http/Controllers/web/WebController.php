@@ -69,13 +69,13 @@ class WebController extends Controller
     {
         // product listing
         $level = '';
-        if($category && $sub_category && $child_category){
+        if ($category && $sub_category && $child_category) {
             $level = 'child';
             $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
-        } else if($category && $sub_category && ! $child_category){
+        } else if ($category && $sub_category && !$child_category) {
             $level = 'sub';
             $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
-        } else if($category && ! $sub_category && ! $child_category){
+        } else if ($category && !$sub_category && !$child_category) {
             $level = 'main';
             $category_id = Category::where('slug', $category)->first()->id;
         }
@@ -93,11 +93,11 @@ class WebController extends Controller
             default:
                 $products = Product::get();
         }
-        
+
         $data['products'] = $products;
         $data['categories_list'] = Category::where('publish', 'Publish')
-        ->latest('id')
-        ->get();
+            ->latest('id')
+            ->get();
 
         return view('web.pages.shop', $data);
     }
@@ -106,7 +106,7 @@ class WebController extends Controller
     {
         // $request->id;
         $data['user'] = auth()->user() ?? [];
-        $data['product'] = Product::with('category:id,name,slug','sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
+        $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
         // $data['rel_products'] = Product::where('category_id', $data['product']['category_id'])->where('id', '!=', $request->id)->take(4)->latest('id')->get()->toArray();
         // return $data['product' ];
         return view('web.pages.product', $data);
@@ -117,36 +117,97 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $data['template'] = $request->template ?? session('template');
         $data['product_id'] = $request->product_id ?? session('product_id');
-        if($data['template'] == config('constants.PHARMACY_MEDECINE')){
+        if ($data['template'] == config('constants.PHARMACY_MEDECINE')) {
             $data['product_detail'] = Product::find($data['product_id']);
             $question_category = explode(',', $data['product_detail']->question_category);
             $data['question_category'] = QuestionCategory::whereIn('id', $question_category)->orderBy('id')->get();
             $data['questions'] = AssignQuestion::whereIn('category_id', $question_category)
-            ->orderBy('category_id')
-            ->get()
-            ->groupBy('category_id');            
-            // return $data;
-            return view('web.pages.product_question', $data);
-        }
-        else if($data['template'] == config('constants.PRESCRIPTION_MEDICINE')){
-            if (auth()->user()){
-                $data['product_detail'] = Product::find($data['product_id']);
-                $question_category = explode(',', $data['product_detail']->question_category);
-                $data['question_category'] = QuestionCategory::whereIn('id', $question_category)->orderBy('id')->get();
-                $data['questions'] = AssignQuestion::whereIn('category_id', $question_category)
                 ->orderBy('category_id')
                 ->get()
                 ->groupBy('category_id');
+            // return $data;
+            return view('web.pages.product_question', $data);
+        } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
+            if (auth()->user()) {
+                $data['product_detail'] = Product::find($data['product_id']);
+                $question_category = explode(',', $data['product_detail']->question_category);
+                $data['question_category'] = QuestionCategory::where('id', $question_category[0])->orderBy('id')->get()->toArray();
+                $assign_questions = AssignQuestion::where(['category_id' => $question_category[0]])->orderBy('category_id')->get()->toArray();
+                // $data['questions_dependent'] = AssignQuestion::where(['category_id' => $question_category[0], 'is_dependent' => '1'])->orderBy('category_id')->get()->toArray();
+                $question_map_cat  = QuestionMapping::where('category_id', $question_category[0])->get()->toArray();
+                $questionIds = array_column($assign_questions, 'question_id');
+                $quesions_details = Question::whereIn('id', $questionIds)->orderBy('id')->get()->toArray();
+                foreach ($quesions_details as $key => $quest) {
+                    $q_id = $quest['id'];
+                    if ($quest['anwser_set'] == "mt_choice") {
+                        foreach ($question_map_cat as $key => $val1) {
+                            if ($val1['question_id'] == $q_id && $val1['answer'] == 'optA') {
+                                $data['next_quest_opt'][$q_id]['optA'] = $val1['next_question'];
+                                $next_quest_ids[$q_id][] = $val1['next_question'];
+                            } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optB') {
+                                $data['next_quest_opt'][$q_id]['optB'] = $val1['next_question'];
+                                $next_quest_ids[$q_id][] = $val1['next_question'];
+                            } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optC') {
+                                $data['next_quest_opt'][$q_id]['optC'] = $val1['next_question'];
+                                $next_quest_ids[$q_id][] = $val1['next_question'];
+                            } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optD') {
+                                $data['next_quest_opt'][$q_id]['optD'] = $val1['next_question'];
+                                $next_quest_ids[$q_id][] = $val1['next_question'];
+                            }
+                        }
+                    } else if ($quest['anwser_set'] == "yes_no") {
+                        foreach ($question_map_cat as $key => $val2) {
+                            if ($val2['question_id'] == $q_id && $val2['answer'] == 'optY') {
+                                $data['next_quest_opt'][$q_id]['yes_lable'] = $val2['next_question'];
+                                $next_quest_ids[$q_id][] = $val2['next_question'];
+                            } elseif ($val2['question_id'] == $q_id && $val2['answer'] == 'optN') {
+                                $data['next_quest_opt'][$q_id]['no_lable']  = $val2['next_question'];
+                                $next_quest_ids[$q_id][] = $val2['next_question'];
+                            }
+                        }
+                    } else if ($quest['anwser_set'] == "file") {
+                        foreach ($question_map_cat as $key => $val3) {
+                            if ($val3['question_id'] == $q_id && $val3['answer'] == 'file') {
+                                $data['next_quest_opt'][$q_id]['file'] = $val3['next_question'];
+                                $next_quest_ids[$q_id][] = $val3['next_question'];
+                            }
+                        }
+                    } else if ($quest['anwser_set'] == "openbox") {
+                        foreach ($question_map_cat as $key => $val4) {
+                            if ($val4['question_id'] == $q_id && $val4['answer'] == 'openBox') {
+                                $data['next_quest_opt'][$q_id]['openbox'] = $val4['next_question'];
+                                $next_quest_ids[$q_id][] = $val4['next_question'];
+                            }
+                        }
+                    }
+                }
+
+                $question_num = 1;
+                foreach ($quesions_details as $key => $questi) {
+                    $data['questions_all'][$question_num] = $questi;
+                    $data['questions_all'][$question_num]['class'] = '';
+                    if (isset($next_quest_ids[$questi['id']])) {
+                        $dependent_quest =  Question::whereIn('id', $next_quest_ids[$questi['id']])->orderBy('id')->get()->toArray();
+                        foreach ($dependent_quest as $key => $dp_quest) {
+                            $question_num++; 
+                            $data['questions_all'][$question_num] = $dp_quest;
+                            $data['questions_all'][$question_num]['class'] = 'd-none';
+                        }
+                    }
+                    $question_num++;
+                }
+                $filteredQuestions = array_filter($data['questions_all'], function($question) {
+                    return !($question['id'] == 28 && $question['class'] != 'd-none');
+                });
+                $data['questions'] = array_values($filteredQuestions);
                 return view('web.pages.product_question', $data);
-            }
-            else{
+            } else {
                 session()->put('intended_url', 'fromConsultation');
                 session()->put('template', $data['template']);
                 session()->put('product_id', $data['product_id']);
                 return redirect()->route('login');
             }
-        }
-        else{
+        } else {
             return redirect()->route('shop');
         }
     }
@@ -166,7 +227,7 @@ class WebController extends Controller
 
         $cart = Session::get('cart', []);
 
-        if(isset($cart[$productId])) {
+        if (isset($cart[$productId])) {
             $cart[$productId]['quantity'] += $quantity;
         } else {
             $cart[$productId] = [

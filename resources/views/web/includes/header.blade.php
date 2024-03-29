@@ -11,9 +11,8 @@
                         <div class="ltn__top-bar-menu text-center">
                             <ul>
                                 <li><a href="#" class="text-white font-weight-400"><i class="fas fa-comment-medical"  class="text-white"></i>Dispensed by Regulated UK Pharmacists</a></li>
-                                <li><a href="#"  class="text-white"><i class="far fa-boxes"  class="text-white font-weight-400"></i>100% Discreet Packaging</a></li>
-                                <li><a href="#"  class="text-white"><i class="far fa-truck"  class="text-white font-weight-400"></i>Free Delivery on orders over £40*</a></li>
                                 <li><a href="#"  class="text-white"><i class="far fa-certificate"  class="text-white font-weight-400"></i> Registered Pharmacy: 9011972</a></li>
+                                <li class="text-white"><a href="#"  class="text-white">  Social Media Link:</a> <a href="https://www.facebook.com/Online-Pharmacy4U-114908691196467"><i class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/4uPharmacy"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/company/74292944"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.tiktok.com/@online.pharmacy4u"><i class="fab fa-tiktok"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -181,13 +180,10 @@
                     <div class="col-md-12">
                         <div class="ltn__top-bar-menu">
                             <ul>
-                                <li><a href="#" class="text-white font-weight-400">Promoting healthy lifestyle for a better future!</a></li>
-                                <li><a href="#"  class="text-white">Myrkl Pills</a></li>
-                                <li><a href="#"  class="text-white">COVID-19 Lateral Flow Test Kits</a></li>
-                                <li><a href="#"  class="text-white">NHS Prescriptions</a></li>
-                                <li><a href="#"  class="text-white">Weight Loss Medicines</a></li>
-                                <li><a href="#"  class="text-white">Top Sellers Products</a></li>
-                            </ul>
+                                <li><a href="#" class="text-white font-weight-400"><i class="fas fa-plus"></i><strong class="font-bold">Regulated</strong> Pharmacy </a></li>
+                                <li><a href="#"  class="text-white"><i class="fas fa-box"></i><span class="text-black"><strong class="font-bold">Discreet</strong> Packaging </span></a></li>
+                                <li><a href="#"  class="text-white"><i class="fas fa-truck"></i><span class="text-black"> <strong class="font-bold">Free Delivery</strong> on orders over £30* </span></a></li>
+                                <li><a href="#"  class="text-white">Excellent<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i><strong>4.4</strong> based on <strong>1,421</strong> reviews</a></li>
                         </div>
                     </div>
                 </div>
@@ -250,8 +246,8 @@
                     <h5>Subtotal: <span>$310.00</span></h5>
                 </div>
                 <div class="btn-wrapper">
-                    <a href="cart.html" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                    <a href="cart.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                    <a href="/cart" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+                    <a href="/checkout" class="theme-btn-2 btn btn-effect-2">Checkout</a>
                 </div>
                 <p>Free Shipping on All Orders Over $100!</p>
             </div>
@@ -305,15 +301,6 @@
                                 <i class="far fa-user"></i>
                             </span>
                             My Account
-                        </a>
-                    </li>
-                    <li>
-                        <a href="wishlist.html" title="Wishlist">
-                            <span class="utilize-btn-icon">
-                                <i class="far fa-heart"></i>
-                                <sup>3</sup>
-                            </span>
-                            Wishlist
                         </a>
                     </li>
                     <li>

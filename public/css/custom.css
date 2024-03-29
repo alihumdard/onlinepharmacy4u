@@ -385,7 +385,6 @@ color:white;
     border-radius: 30px;
 }
 .footer-top-area{
-    background: rgb(2,195,164);
     background: linear-gradient(90deg, rgba(2,195,164,1) 0%, rgba(61,125,232,1) 100%);
 }
 .footer-menu ul li a, .footer-widget .footer-title,.footer-address ul li .footer-address-icon{
@@ -422,7 +421,7 @@ color:white;
     background-color:#03c4a5 !important;
 }
 .ltn__header-top-area{
-    background-color:#02c3a4;   
+    background-color:#000;   
 }
 .ltn__top-bar-menu ul li a {
     font-weight:400;
@@ -460,12 +459,50 @@ color:white;
 .ltn__main-menu > ul > li > a:hover{
     color:white;
 }
-.header-bottom-area{
-    background: #3c7ce7 !important;
+.header-bottom-area, .bg-blue{
+    background: linear-gradient(90deg, rgba(2,195,164,1) 0%, rgba(61,125,232,1) 100%) !important;
 }
 .card{
     margin-top:10px;
 } 
+.footer-cards p{
+    font-size:14px !important;
+    /* line-height: 15px; */
+    height:50px;
+}
+.footer-cards{
+    background: linear-gradient(90deg, rgba(2,195,164,1) 0%, rgba(61,125,232,1) 100%);
+    padding:20px;
+    margin:10px;
+    border-radius:20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.home-page-last-section{
+    padding:100px 0px !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.mega-menu > li > a{
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px;
+    background-color: #e2f8ff !important;
+    border-radius:20px;
+}
+.countdown-section{
+    background-color:#e7f6f9;
+}
+.border-radius{
+    border-radius:30px ;
+}
+.ltn__main-menu li ul li{
+    padding:12px !important;
+    font-size:14px !important;
+}
+
+
+.mega-menu > li > a{
+    border-bottom:none;
+}
 
 
 /* .ltn__header-area, .ltn__utilize .ltn__utilize-mobile-menu .ltn__utilize-open{
@@ -479,6 +516,7 @@ color:white;
 
 .theme-btn-1{
     border:1px solid white;
+    border-radius:30px; 
 }
 
 
@@ -496,6 +534,9 @@ color:white;
     padding:10px 0px;
 }
 
+.image-radius, .ltn__banner-img img, .ltn__blog-item-3 .ltn__blog-img img, .ltn__blog-item-3:hover .ltn__blog-img img{
+    border-radius:30px;
+}
 
 
 

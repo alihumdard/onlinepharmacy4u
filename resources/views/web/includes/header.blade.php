@@ -83,9 +83,9 @@
                                                 <a href="#"><i class="icon-user"></i></a>
                                                 <ul>
                                                     <li><a href="/login">Sign in</a></li>
-                                                    <li><a href="register.html">Register</a></li>
+                                                    <li><a href="/register">Register</a></li>
                                                     <li><a href="/account">My Account</a></li>
-                                                    <li><a href="/account">Wishlist</a></li>
+                                                    <li><a href="/wishlist">Wishlist</a></li>
                                                 </ul> 
                                             </li>
                                         </ul>

@@ -103,9 +103,7 @@ Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs')
 //     return view('web.pages.register');
 // });
 
-// Route::get('/account', function(){
-//     return view('web.pages.account');
-// });
+
 
 // Route::get('/cart', function(){
 //     return view('web.pages.cart');
@@ -128,6 +126,9 @@ Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
 Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
 
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
+Route::match(['get','post'],'/account', [WebController::class, 'account'])->name('web.account');
+Route::match(['get','post'],'/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
+
 
 //cart
 Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');

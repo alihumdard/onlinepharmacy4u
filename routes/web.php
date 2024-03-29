@@ -34,7 +34,6 @@ Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->
 // Route::match(['get','post'],'/bmiFormStore', [WebController::class, 'bmi_formStore'])->name('web.bmiFormStore');
 // Route::match(['get','post'],'/bmiUpdate', [WebController::class, 'bmi_update'])->name('web.bmiUpdate');
 // Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
-// Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
 // Route::match(['get','post'],'/productQuestion/{id}', [WebController::class, 'product_question'])->name('web.productQuestion');
 // Route::match(['get','post'],'/cart/{id?}', [WebController::class, 'cart'])->name('web.cart');
 // Route::match(['get','post'],'/payment', [WebController::class, 'payment'])->name('payment');
@@ -128,6 +127,7 @@ Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
 Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
 
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
+Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
 
 //cart
 Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');

@@ -70,9 +70,7 @@ return [
             'order' => '9',
         ],        [
             'id' => 10,
-            'title' => 'This medicine should only be used for short term relief.
-                        <p>If your symptoms persist you should  consult your GP.</p>
-                        <p>By confirming below, you are stating that you understand this medicine is for short term use only.</p>',
+            'title' => 'This medicine should only be used for short term relief.If your symptoms persist you should  consult your GP.By confirming below, you are stating that you understand this medicine is for short term use only.',
             'desc' => '',
             'order' => '10',
         ]

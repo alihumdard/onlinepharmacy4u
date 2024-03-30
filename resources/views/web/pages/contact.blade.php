@@ -6,18 +6,16 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-black-40 bg-image"  data-bs-bg="img/bg/14.webp">
+<div class="ltn__breadcrumb-area text-left bg-image"  data-bs-bg="img/bg/14.webp">
     <div class="container">
         <div class="row mt-5 ">
             <div class="col-lg-12">
                 <div class="ltn__breadcrumb-inner">
-                    <h1 class="page-title text-white">Contact Us</h1>
+                    <h1 class="page-title text-black">Contact Us</h1>
                     <div class="ltn__breadcrumb-list">
                         <ul>
-
-                        
-                            <li class="mt-0"><a class="text-white" href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home text-white"></i></span > Home</a></li>
-                            <li style="color: #322525;">Contact</li>
+                            <li class="mt-0"><a class="text-black" href="/"><span class="ltn__secondary-color"><i class="fas fa-home text-white"></i></span > Home</a></li>
+                            <li class="text-black">Contact Us Now</li>
                         </ul>
                     </div>
                 </div>
@@ -56,8 +54,8 @@
                     </div>
                     <h3>Office Address</h3>
                     <p>Unit 2, Mansfield Station Gateway, <br>
-Signal Way, Nottingham, NG19 9QH, <br>
-United Kingdom</p>
+                        Signal Way, Nottingham, NG19 9QH, <br>
+                        United Kingdom</p>
                 </div>
             </div>
         </div>
@@ -125,16 +123,16 @@ United Kingdom</p>
 <!-- GOOGLE MAP AREA END -->
 
 <!-- CALL TO ACTION START (call-to-action-6) -->
-<div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom" data-bs-bg="img/1.jpg--">
-    <div class="container">
-        <div class="row">
+<div class="ltn__call-to-action-area call-to-action-6 before-bg-bottom p-0 m-0" data-bs-bg="img/1.jpg--">
+    <div class="container-fluid p-0 m-0">
+        <div class="row p-0 m-0">
             <div class="col-lg-12">
                 <div class="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
                     <div class="coll-to-info text-color-white">
                         <h1 class="mt-4">WE ARE READY TO SERVE YOU 24 HOURS!</h1>
                     </div>
                     <div class="btn-wrapper">
-                        <a class="btn btn-effect-3 btn-white" href="shop.html" style="display: flex; align-items: center; justify-content: center;">Contact Us<i class="icon-next ms-2"></i></a>
+                        <a class="btn btn-effect-3 btn-white border-radius" href="/shop" style="display: flex; align-items: center; justify-content: center;">Shop Now<i class="icon-next ms-2"></i></a>
                     </div>
                 </div>
             </div>

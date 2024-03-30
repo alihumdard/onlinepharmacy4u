@@ -23,63 +23,11 @@
     </div>
     <!-- BREADCRUMB AREA END -->
 
-    <!-- ABOUT US AREA START -->
-    <div class="ltn__about-us-area pt-25--- pb-120 ">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center">
-                    <div class="about-us-img-wrap about-img-left">
-                        <img src="img/allbanners/About Us page video section.png" alt="About Us Image">
-                    </div>
-                </div>
-                <div class="col-lg-6 align-self-center">
-                    <div class="about-us-info-wrap">
-                        <div class="section-title-area ltn__section-title-2--- mb-30">
-                            <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                            <h1 class="section-title">Lorem ipsum dolor sit amet,</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat interdum. Condimentum lacinia quis vel eros donec ac.</p> <br>
-                            <!-- <p>At Online Pharmacy4U, we prioritise your well-being, ensuring quick and secure delivery of prescriptions right to your doorstep. Our commitment to excellence extends beyond transactions; we're here to provide expert guidance, personalised support, and a user-centric experience. Trust us for a healthier, more accessible future in healthcare.</p> -->
-                        </div>
-                        <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix d-none">
-                            <li><i class="fas fa-check-circle"></i>Fast and Simple.</li>
-                        </ul>
-                        <div class="about-author-info-2 border-top mt-10 d-none">
-                            <p>Our online FREE* consultation only takes a few quick seconds, fast, simple & easy to complete. Our short few questions are similar as those that would be asked at your GP appointment.</p>
-                            <!-- <ul>
-                                <li>
-                                    <div class="about-author-info-2-brief  d-flex">
-                                        <div class="author-img">
-                                        <img src="img/blog/author.jpg" alt="#">
-                                        </div>
-                                        <div class="author-name-designation">
-                                            <h4 class="mb-0">Jerry Henson</h4>
-                                            <small>Medical Specialist</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="about-author-info-2-contact  d-flex">
-                                        <div class="about-contact-icon d-flex align-self-center mr-10">
-                                            <i class="icon-call"></i>
-                                        </div>
-                                        <div class="about-author-info-2-contact-info">
-                                            <small>Get Support</small>
-                                            <h6 class="mb-0">123-456-789-10</h6>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ABOUT US AREA END -->
+
 
     
     <!-- FAQ AREA START (faq-2) (ID > accordion_2) -->
-    <div class="ltn__faq-area pt-115 pb-120">
+    <div class="ltn__faq-area pb-100">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -95,61 +43,55 @@
                             <!-- card -->
                             <div class="card">
                                 <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-1" aria-expanded="true">
-                                    How to buy a product?
+                                How long does delivery take?
                                 </h6>
                                 <div id="faq-item-2-1" class="collapse show" data-bs-parent="#accordion_2">
                                     <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat interdum. Condimentum lacinia quis vel eros donec ac.</p>
+                                        <p>Delivery times vary depending on the option you select in the checkout. We provide free delivery with the Royal Mail monitored 48 deliveries which could take 3-4 days, or you could opt to pay a bit extra to get your order delivered in 1-2 days. We also provide a faster delivery option where the delivery can reach to you as early as 9am on the next day. The delivery times are subject to the cut off time and be impacted by weekends and bank holidays. The delivery times can also depend on when your order is approved by the prescriber.</p>
                                     </div>
                                 </div>
                             </div>
                             <!-- card -->
                             <div class="card">
                                 <h6 class="ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-2" aria-expanded="false"> 
-                                    How can i make refund from your website?
+                                Do you ship outside the UK?
                                 </h6>
                                 <div id="faq-item-2-2" class="collapse " data-bs-parent="#accordion_2">
                                     <div class="card-body">
-                                        <div class="ltn__video-img alignleft">
-                                            <img src="img/bg/17.jpg" alt="video popup bg image">
-                                            <a class="ltn__video-icon-2 ltn__video-icon-2-small ltn__video-icon-2-border----" href="https://www.youtube.com/embed/Cr4LFOgRGeo?autoplay=1&showinfo=0"  data-rel="lightcase:myCollection">
-                                                <i class="fa fa-play"></i>
-                                            </a>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Scelerisque </p>
+                                        <p>Unfortunately, we cannot send any medical products outside of the United Kingdom because of the legal limitations and good practise. The limitation applies across the website as we take guidance from our regulators regarding the license in the destination country.</p>
                                     </div>
                                 </div>
                             </div>                          
                             <!-- card -->
                             <div class="card">
                                 <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-3" aria-expanded="false">
-                                    I am a new user. How should I start?
+                                Are you a provider of controlled drugs?
                                 </h6>
                                 <div id="faq-item-2-3" class="collapse" data-bs-parent="#accordion_2">
                                     <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat interdum. Condimentum lacinia quis vel eros donec ac.</p>
+                                        <p>Yes, we can supply Controlled Drugs. The February 2019 changes to Controlled Drugs legislation mean that Controlled Drugs may now be sent electronically via the Electronic Prescription Service. This means that there is no need to send us a paper prescription. Signed delivery is required for Controlled Drugs. Please get in touch if you have any Controlled Drugs.</p>
                                     </div>
                                 </div>
                             </div>
                             <!-- card -->
                             <div class="card">
                                 <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-4" aria-expanded="false">
-                                    Returns and refunds
+                                Can you deliver my insulin?
                                 </h6>
                                 <div id="faq-item-2-4" class="collapse" data-bs-parent="#accordion_2">
                                     <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat interdum. Condimentum lacinia quis vel eros donec ac.</p>
+                                        <p>Yes, we ship insulin in refrigerated packages on 24 hour tracked delivery. This ensures that your medication is kept at the right temperature during transit.</p>
                                     </div>
                                 </div>
                             </div>
                             <!-- card -->
                             <div class="card">
                                 <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-5" aria-expanded="false">
-                                    Are my details secured?
+                                How do I make a complaint?
                                 </h6>
                                 <div id="faq-item-2-5" class="collapse" data-bs-parent="#accordion_2">
                                     <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Scelerisque eleifend donec pretium vulputate sapien nec sagittis. Proin libero nunc consequat interdum. Condimentum lacinia quis vel eros donec ac.</p>
+                                        <p>To make a complaint please email us on help@online-pharmacy4u.co.uk. You can also use our contact form to write to us, please be as much informative as possible to make sure your complaint is resolved as quickly as possible.</p>
                                     </div>
                                 </div>
                             </div>
@@ -157,9 +99,76 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <aside class="about-us-img-wrap about-img-right">
-                        <img src="img/allbanners/faq600x600.png" alt="Banner Image">
-                    </aside>
+                <div class="ltn__faq-inner ltn__faq-inner-2">
+                        <div id="accordion_2">
+                            <!-- card -->
+                            <div class="card">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-1" aria-expanded="true">
+                                What methods of payment do you accept?
+                                </h6>
+                                <div id="faq-item-2-1" class="collapse show" data-bs-parent="#accordion_2">
+                                    <div class="card-body">
+                                        <p>We accept most major payment methods including Visa, Mastercard, and American Express. However, you must use a card that is registered within the UK.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- card -->
+                            <div class="card">
+                                <h6 class="ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-2" aria-expanded="false"> 
+                                Can I use someone else's payment card?
+                                </h6>
+                                <div id="faq-item-2-2" class="collapse " data-bs-parent="#accordion_2">
+                                    <div class="card-body">
+                                        <p>No, the payment card that you use to place your order must belong to you. This is for security reasons to make sure your order only goes to the person it is intended for. We also require it as our system checks your identity for non-matching name and if there is any risk associated with your order, our system will automatically refuse your order.</p>
+                                    </div>
+                                </div>
+                            </div>                          
+                            <!-- card -->
+                            <div class="card">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-3" aria-expanded="false">
+                                How long does it take for an order to be returned?
+                                </h6>
+                                <div id="faq-item-2-3" class="collapse" data-bs-parent="#accordion_2">
+                                    <div class="card-body">
+                                        <p>The return time depends on what method you use to send back your order. Please note that not all order is approved for returns so please contact us before you return your order back to us if you are unsure.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- card -->
+                            <div class="card">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-4" aria-expanded="false">
+                                My order has been returned to sender. What do I do now?
+                                </h6>
+                                <div id="faq-item-2-4" class="collapse" data-bs-parent="#accordion_2">
+                                    <div class="card-body">
+                                        <p>When returning your order back to us, please let us know whether you would like a refund or a replacement to avoid any delays.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- card -->
+                            <div class="card">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-5" aria-expanded="false">
+                                Do I need a prescription when placing a consultation?
+                                </h6>
+                                <div id="faq-item-2-5" class="collapse" data-bs-parent="#accordion_2">
+                                    <div class="card-body">
+                                        <p>A prescription is not necessary when using our support as you will be issued a private prescription by a pharmacist who is GPhC approved. Once your consultation is accepted, we will send your order to be processed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- card -->
+                            <div class="card">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-5" aria-expanded="false">
+                                How does your service work?
+                                </h6>
+                                <div id="faq-item-2-5" class="collapse" data-bs-parent="#accordion_2">
+                                    <div class="card-body">
+                                        <p>Our service is a convenient and safe way to have medication delivered to your address when you are otherwise unable to go out and get it. Our prices are inclusive of the prescriber and pharamcy costs, so you will fill out a set of questions to be looked at by a prescriber, the prescription will be processed in our pharmacy and then shipped to you using your chosen delivery method. You can read a more comprehensive version of how our service works here.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

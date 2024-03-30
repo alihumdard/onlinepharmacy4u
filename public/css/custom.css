@@ -2,6 +2,11 @@
 .top-social-links{
     padding-left:10px !important; 
 }
+
+
+p{
+    margin-bottom:0px !important; 
+}
 .top-social-links i:hover{
     color:black !important;
 }
@@ -444,7 +449,7 @@ color:white;
 }
 
 .featured-offers-area{
-    background: #3c7ce7 !important;
+    background: linear-gradient(90deg, rgba(2,195,164,1) 0%, rgba(61,125,232,1) 100%) !important;  
 }
 .card-radius{
     border-radius: 30px;
@@ -502,7 +507,10 @@ color:white;
     border-radius:20px;
 }
 .countdown-section{
-    background-color:#e7f6f9;
+    background-image:url('/public/img/slider/injection.webp');
+    position:center;
+    background-size: cover;
+    
 }
 .border-radius{
     border-radius:30px ;
@@ -516,19 +524,56 @@ color:white;
 .mega-menu > li > a{
     border-bottom:none;
 }
+.btn:last-child:hover{
+    border-radius:30px !important;
+}
+/* skincare style  */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
 
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
-/* .ltn__header-area, .ltn__utilize .ltn__utilize-mobile-menu .ltn__utilize-open{
-    background: rgb(2,195,164);
-    background: linear-gradient(90deg, rgba(2,195,164,0.3393732492997199) 0%, rgba(61,125,232,0.3449754901960784) 100%);
-} */
-/* .ltn__header-middle-area{
-    background: rgb(2,195,164);
-    background: linear-gradient(90deg, rgba(2,195,164,0.3393732492997199) 0%, rgba(61,125,232,0.3449754901960784) 100%);
-} */
+.card-img-top {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3 !important;
+    color: #fff !important;
+}
 
 .theme-btn-1{
-    border:1px solid white;
+    /* border:1px solid white; */
     border-radius:30px; 
 }
 .ltn__main-menu li:hover > a{
@@ -552,9 +597,47 @@ color:white;
 .image-radius, .ltn__banner-img img, .ltn__blog-item-3 .ltn__blog-img img, .ltn__blog-item-3:hover .ltn__blog-img img{
     border-radius:30px;
 }
-
-
-
+.help_card{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
+    overflow: hidden;
+}
+.help_card_title h3{
+    font-size:18px;
+    font-weight:400;
+}
+.help_card:hover{
+    background-color:rgb(247, 247, 247);
+}
+.policy-btn{
+    width:260px;
+    margin:10px;
+    padding:10px;
+    background-color:white;
+    border-radius: 30px;
+    color:#000000;
+    border:1px solid black;
+}
+.product_information{
+    height:70px;
+}
+.border-radius{
+    border-radius:30px;
+    /* border:1px solid lightgray; */
+    /* background-color:rgb(240, 240, 240); */
+    padding-top:20px;
+    /* margin:10px; */
+    /* width:auto; */
+}
+.font-weight-400{
+    font-weight:400;
+}
+.ltn__faq-inner-2 .card{
+    margin:10px;
+    border-radius:30px;
+}
+.ltn__faq-inner-2 .card .ltn__card-title::before{
+    border-radius:50px;
+}
 @media only screen and (max-width: 600px) {
     .ltn__header-top-area{
         display:none;

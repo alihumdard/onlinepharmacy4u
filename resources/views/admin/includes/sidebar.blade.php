@@ -220,6 +220,21 @@
             </ul>
         </li>
         @endif
+
+        @if(view_permission('prescription_orders'))
+            <li class="nav-item">
+                <a class="nav-link {{(request()->routeIs(['admin.users'])) ? '' : 'collapsed'}} " data-bs-target="#siderbar-users" data-bs-toggle="collapse">
+                    <i class="bi bi-person"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="siderbar-users" class="nav-content {{(request()->routeIs(['admin.users'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a class="{{(request()->routeIs(['admin.users'])) ? 'nav-link ' : ''}} " href="{{route('admin.users')}}">
+                            <i class="bi bi-circle"></i><span>All Users</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
         <li class="nav-heading">-------- user's Basic Settings --------</li>
 
         @if(view_permission('setting'))

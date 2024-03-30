@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\web\HomeController;
 use App\Http\Controllers\web\WebController;
+use App\Http\Controllers\web\CartController;
 use App\Http\Controllers\Admin\DefualtController;
 
 /*
@@ -138,9 +139,10 @@ Route::match(['get','post'],'/diabetes', [WebController::class, 'diabetes'])->na
 Route::match(['get','post'],'/sleep', [WebController::class, 'sleep'])->name('web.sleep');
 
 //cart
-Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');
-Route::get('/cart', [WebController::class, 'view_cart'])->name('web.view.cart');
-Route::get('/checkout', [WebController::class, 'product_detail'])->name('checkout');
+Route::get('/cart', [CartController::class, 'cart'])->name('web.view.cart');
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('web.cart.add');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('web.cart.update');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('web.checkout');
 
 
 Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');

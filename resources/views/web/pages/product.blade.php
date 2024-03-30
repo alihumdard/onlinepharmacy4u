@@ -1,7 +1,7 @@
 @extends('web.layouts.default')
 @section('title', 'Product Detail')
 @section('content')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- BREADCRUMB AREA START -->
 <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image"  data-bs-bg="img/bg/14.jpg">
     <div class="container">
@@ -107,17 +107,17 @@
                                                     </button>
                                                 </form>
                                             @elseif ($product->product_template == 3)
-                                                <form class="add-to-cart-form" action="{{ route('web.cart.add') }}" method="POST">
+                                                {{-- <form class="add-to-cart-form" action="{{ route('web.cart.add') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="quantity" id="quantity_input" value="1">
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                     <input type="hidden" name="product_data" value="{{ json_encode($product) }}">
                                                     <button type="submit" class="theme-btn-1 btn btn-effect-1 add-to-cart-btn" data-product-id="{{ $product->id }}">Add to Cart</button>
-                                                </form>
-                                                {{-- <a href="{{route('add.to.cart')}}" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                                </form> --}}
+                                                <a href="javascript:void(0)" onclick="addToCart({{ $product->id }});" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                     <i class="fas fa-shopping-cart"></i>
                                                     <span>ADD TO CART</span>
-                                                </a> --}}
+                                                </a>
                                             @endif
                                         </li>
                                     </ul>
@@ -452,7 +452,7 @@
 
 
 <!-- MODAL AREA START (Add To Cart Modal) -->
-<div class="ltn__modal-area ltn__add-to-cart-modal-area">
+{{-- <div class="ltn__modal-area ltn__add-to-cart-modal-area">
     <div class="modal fade" id="add_to_cart_modal" tabindex="-1">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -492,7 +492,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- MODAL AREA END -->
 
 
@@ -502,29 +502,52 @@
 
 @pushOnce('scripts')
 <script>
-    $(document).ready(function() {
-        $(document).delegate(".qtybutton", "click", function(e) {
-            var quantity = $('.cart-plus-minus-box').val();
-            $('#quantity_input').val(quantity);
-        });
-        
-        $('.add-to-cart-form').on('submit', function(event) {
-            event.preventDefault();
-            var formData = $(this).serialize();
-            var url = $(this).attr('action');
-
-            $.ajax({
-                type: 'post',
-                url: url,
-                data: formData,
-                success: function(response) {
-                    $('#add_to_cart_modal').modal('show');
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
+    $.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+    function addToCart(id){
+        $.ajax({
+            url: '{{ route("web.cart.add")}}',
+            type: 'post',
+            data: {id:id},
+            dataType: 'json',
+            success: function(response) {
+                if(response.status == true){
+                    // $('#add_to_cart_modal').modal('show');
+                    window.loation.href = "{{ route('web.view.cart')}}";
                 }
-            });
+                else{
+                    alert(response.message);
+                }
+            }
         });
+    }
+
+    $(document).ready(function() {
+        // $(document).delegate(".qtybutton", "click", function(e) {
+        //     var quantity = $('.cart-plus-minus-box').val();
+        //     $('#quantity_input').val(quantity);
+        // });
+        
+        // $('.add-to-cart-form').on('submit', function(event) {
+        //     event.preventDefault();
+        //     var formData = $(this).serialize();
+        //     var url = $(this).attr('action');
+
+        //     $.ajax({
+        //         type: 'post',
+        //         url: url,
+        //         data: formData,
+        //         success: function(response) {
+        //             $('#add_to_cart_modal').modal('show');
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error(xhr.responseText);
+        //         }
+        //     });
+        // });
     });
 
 </script>

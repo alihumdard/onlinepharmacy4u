@@ -158,7 +158,7 @@
                         </ul>
                     </div>
                     <!-- Price Filter Widget -->
-                    <div class="widget ltn__price-filter-widget">
+                    <div class="widget ltn__price-filter-widget d-none">
                         <h4 class="ltn__widget-title ltn__widget-title-border">Filter by price</h4>
                         <div class="price_filter">
                             <div class="price_slider_amount">
@@ -244,7 +244,7 @@
                         </ul>
                     </div>
                     <!-- Search Widget -->
-                    <div class="widget ltn__search-widget">
+                    <div class="widget ltn__search-widget d-none">
                         <h4 class="ltn__widget-title ltn__widget-title-border">Search Objects</h4>
                         <form action="#">
                             <input type="text" name="search" placeholder="Search your keyword...">
@@ -252,7 +252,7 @@
                         </form>
                     </div>
                     <!-- Tagcloud Widget -->
-                    <div class="widget ltn__tagcloud-widget">
+                    <div class="widget ltn__tagcloud-widget d-none">
                         <h4 class="ltn__widget-title ltn__widget-title-border">Popular Tags</h4>
                         <ul>
                             <li><a href="#">Body</a></li>

@@ -3,7 +3,7 @@
         <div class="footer-top-area  section-bg-1 plr--5">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+                    <div class="col-xl-4 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget footer-about-widget">
                             <div class="footer-logo">
                                 <div class="site-logo">
@@ -51,44 +51,42 @@
                     </div>
                     <!-- display none in bootstrap -->
                     
-                    <div class="col-xl-2 col-md-6 col-sm-6 col-12 display-none">
+                   
+                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget footer-menu-widget clearfix">
-                            <h4 class="footer-title">Services</h4>
+                            <h4 class="footer-title">Information</h4>
                             <div class="footer-menu">
                                 <ul>
-                                    <li><a href="/categories">shop by collection</a></li>
+                                    <li><a href="/work">How it works</a></li>
+                                    <li><a href="/help">Help</a></li>
+                                    <li><a href="/about">About Us</a></li>
+                                    <li><a href="/prescribers">Prescribers</a></li>
+                                    <!-- <li><a href="/blogs">Blogs</a></li> -->
+                                    <li><a href="https://online-pharmacy4u.co.uk/pages/nhs-prescriptions" target="blank">NHS Prescriptions</a></li>
+                                    <li><a href="https://online-pharmacy4u.co.uk/pages/treatment" target="blank">A-Z Treatment</a></li>
+                                    <li><a href="/products_information">Product Information</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget footer-menu-widget clearfix">
-                            <h4 class="footer-title">Customer Care</h4>
+                            <h4 class="footer-title">Important Links</h4>
                             <div class="footer-menu">
                                 <ul>
-                                    <li><a href="/login">Login</a></li>
-                                    <li><a href="/account">My account</a></li>
-                                    <li><a href="#">Order tracking</a></li>
+                                    <li><a href="/returns">Returns & Refunds</a></li>
+                                    <li><a href="/policy">Policies</a></li>
+                                    <li><a href="/delivery">Delivery</a></li>  
+                                    <li><a href="/responsible_pharmacist">Responsible </a></li>
+                                    <li><a href="https://online-pharmacy4u.co.uk/pages/conditions" target="blank">A-Z Condition</a></li>
+                                    <li><a href="/modern_slavery_act">Modern Slavery Act</a></li>
+                                    <!-- <li><a href="/order_tracking">Order tracking</a></li> -->
                                     <li><a href="/faq">FAQ</a></li>
-                                    <li><a href="/contact">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6 col-sm-6 col-12">
-                        <div class="footer-widget footer-menu-widget clearfix">
-                            <h4 class="footer-title">Legel Links</h4>
-                            <div class="footer-menu">
-                                <ul>
-                                    <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="#">lorem</a></li>
-                                    <li><a href="#">lorem</a></li>
-                                    <li><a href="#">lorem</a></li>  
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 col-sm-12 col-12">
+                    <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                         <div class="footer-widget footer-newsletter-widget">
                             <h4 class="footer-title">Newsletter</h4>
                             <p>Subscribe to our weekly Newsletter and receive updates via email.</p>
@@ -119,15 +117,15 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="ltn__copyright-design clearfix">
-                            <p>All Rights Reserved @ Online Pharmacy 4U <span class="current-year"></span> | Design and develop by <a href="https://techsolutionspro.co.uk">Tech Solutions Pro</a></p>
+                            <p>Copyright © 2023 All Rights Reserved<span class="current-year"></span> | Design and develop by <a href="https://techsolutionspro.co.uk">Tech Solutions Pro</a></p>
                         </div>
                     </div>
                     <div class="col-md-6 col-12 align-self-center">
                         <div class="ltn__copyright-menu text-end">
                             <ul>
-                                <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Claim</a></li>
-                                <li><a href="#">Privacy & Policy</a></li>
+                                <li><a href="/terms_and_conditions">Terms & Conditions</a></li>
+                                <li><a href="/returns">Claim</a></li>
+                                <li><a href="/policy">Privacy & Policy</a></li>
                             </ul>
                         </div>
                     </div>

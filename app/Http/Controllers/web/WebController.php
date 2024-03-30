@@ -378,10 +378,10 @@ class WebController extends Controller
         return view('web.pages.wishlist', $data);
     }
 
-    public function howitworks()
+    public function works()
     {
         $data['user'] = auth()->user() ?? [];
-        return view('web.pages.howitworks', $data);
+        return view('web.pages.works', $data);
     }
     public function faq()
     {

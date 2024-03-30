@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -15,11 +16,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->string('product_id')->nullable();
+            $table->string('user_id');
+            $table->string('email');
+            $table->bigInteger('shipped_order_id')->nullable();
+            $table->string('note')->nullable();
             $table->string('coupon_code')->nullable();
-            $table->integer('coupon_value')->nullable();
-            $table->integer('total_ammount');
+            $table->string('coupon_value')->nullable();
+            $table->string('total_ammount');
+            $table->string('shiping_cost');
             $table->string('payment_id')->nullable();
             $table->string('payment_status')->default('Unpaid');
             $table->text('hcp_remarks')->nullable();
@@ -29,6 +33,8 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable()->default(null);
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE orders AUTO_INCREMENT = 240011;");
     }
 
     /**

@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('oder_details', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('order_id');
-            $table->bigInteger('product_id');
-            $table->bigInteger('product_attr_id')->nullable();
-            $table->string('price');
-            $table->string('qty');
+            $table->string('comment_for');
+            $table->string('comment_for_id');
+            $table->string('user_id');
+            $table->string('user_name');
+            $table->string('user_pic')->nullable();
+            $table->text('comment');
+            $table->integer('created_by');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oder_details');
+        Schema::dropIfExists('comments');
     }
 };

@@ -506,12 +506,12 @@ color:white;
     background-color: #e2f8ff !important;
     border-radius:20px;
 }
-.countdown-section{
-    background-image:url('/public/img/slider/injection.webp');
-    position:center;
+.countdown-section {
+    background-image: url('../public/img/slider/injection.webp') !important;
+    background-position: center;
     background-size: cover;
-    
 }
+
 .border-radius{
     border-radius:30px ;
 }

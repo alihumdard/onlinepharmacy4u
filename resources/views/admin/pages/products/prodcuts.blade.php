@@ -72,14 +72,15 @@
                                     <th>Price - Ext_Tax </th>
                                     <th>Inventory <span class="extra-text">(Available Stock)</span></th>
                                     <th>Category</th>
+                                    <th>Template</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($products as $key => $value)
+                                @foreach($products as $key => $value)
                                 <tr>
-                                    <th style="vertical-align: middle; text-align: center;" >{{ ++$key ?? ''}}</th>
+                                    <th style="vertical-align: middle; text-align: center;">{{ ++$key ?? ''}}</th>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('storage/'.$value['main_image'])}}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
@@ -90,23 +91,26 @@
                                         </div>
 
                                     </td>
-                                    <td style="vertical-align: middle; text-align: center;" >
+                                    <td style="vertical-align: middle; text-align: center;">
                                         <p class="fw-normal mb-1">{{ $value['price'] ?? ''}} - {{ $value['ext_tax'] ?? ''}}</p>
                                     </td>
-                                    <td style="vertical-align: middle; text-align: center;" >
+                                    <td style="vertical-align: middle; text-align: center;">
                                         <p class="text-muted mb-0">{{ $value['stock'] ?? ''}}</p>
                                     </td>
-                                    <td style="vertical-align: middle; text-align: center;" >
+                                    <td style="vertical-align: middle; text-align: center;">
                                         <p class="fw-normal mb-1">{{ $value['category']['name'] ?? ''}}</p>
                                     </td>
-                                    <td style="vertical-align: middle; text-align: center;" >
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <p class="fw-normal mb-1">{{ config('constants.PRODUCT_TEMPLATES')[$value['product_template']]}}</p>
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
                                         <span class="badge  {{($value['status'] == 1) ? 'bg-success' : 'bg-danger'; }}  rounded-pill d-inline">{{ ($value['status'] == 1) ? 'Active' : 'Deactive'; }} </span>
                                     </td>
-                                    <td style="vertical-align: middle; text-align: center;" > 
+                                    <td style="vertical-align: middle; text-align: center;">
                                         <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}} data-toggle="tooltip">
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}} data-toggle=" tooltip">
                                             <i class="bi bi-trash-fill"></i>
                                         </a>
                                     </td>
@@ -124,7 +128,7 @@
 
 </main>
 <!-- End #main -->
-<form  id="edit_form" action="{{route('admin.addProduct')}}" method="post">
+<form id="edit_form" action="{{route('admin.addProduct')}}" method="post">
     @csrf
     <input id="edit_form_id_input" type="hidden" value="" name="id">
 </form>
@@ -152,7 +156,7 @@
                 {
                     extend: 'excel',
                     text: 'Excel ',
-                    className: 'btn-blue', 
+                    className: 'btn-blue',
                 },
                 {
                     extend: 'print',
@@ -162,16 +166,16 @@
             ]
         }).buttons().container().appendTo('#tbl_buttons');
     });
-    $(document).ready(function () {
-        $('.edit').click(function () {
-            var id = $(this).data('id'); 
-            $('#edit_form_id_input').val(id); 
-            $('#edit_form').submit(); 
+    $(document).ready(function() {
+        $('.edit').click(function() {
+            var id = $(this).data('id');
+            $('#edit_form_id_input').val(id);
+            $('#edit_form').submit();
         });
 
-        $('.delete').click(function () {
-            var id = $(this).data('id'); 
-            $('#edit_form_id_input').val(id); 
+        $('.delete').click(function() {
+            var id = $(this).data('id');
+            $('#edit_form_id_input').val(id);
             $('#edit_form').submit();
         });
     });

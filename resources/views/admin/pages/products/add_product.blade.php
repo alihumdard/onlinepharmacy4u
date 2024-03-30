@@ -122,8 +122,9 @@
         position: relative;
         padding-bottom: 100%;
     }
-    .hide{
-        display:none !important;
+
+    .hide {
+        display: none !important;
     }
 </style>
 
@@ -193,9 +194,9 @@
                             <label for="category_id" class="form-label">Select Product Category</label>
                             <select id="category_id" name="category_id" class="form-select" required>
                                 <option value="" selected>Choose...</option>
-                                    @foreach ($categories as $key => $value)
-                                    <option value="{{ $value['id'] ?? '' }}" {{ (isset($product['category_id']) && $product['category_id'] == $value['id']) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
-                                    @endforeach
+                                @foreach ($categories as $key => $value)
+                                <option value="{{ $value['id'] ?? '' }}" {{ (isset($product['category_id']) && $product['category_id'] == $value['id']) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
+                                @endforeach
                             </select>
                             <div class="invalid-feedback">* Please select product category</div>
                         </div>
@@ -203,10 +204,10 @@
                             <label for="sub_category" class="form-label">Select Sub Category</label>
                             <select id="sub_category" name="sub_category" class="form-select">
                                 @if(@isset($sub_category))
-                                    <option value="" selected>Choose...</option>
-                                    @foreach ($sub_category as $key => $value)
-                                    <option value="{{ $key ?? '' }}" {{ (isset($product['sub_category']) && $product['sub_category'] == $key) ? 'selected' : '' }}>{{ $value ?? '' }}</option>
-                                    @endforeach
+                                <option value="" selected>Choose...</option>
+                                @foreach ($sub_category as $key => $value)
+                                <option value="{{ $key ?? '' }}" {{ (isset($product['sub_category']) && $product['sub_category'] == $key) ? 'selected' : '' }}>{{ $value ?? '' }}</option>
+                                @endforeach
                                 @endif
                             </select>
                             <div class="invalid-feedback">* Please select sub category</div>
@@ -215,9 +216,9 @@
                             <label for="child_category" class="form-label">Select Child Category</label>
                             <select id="child_category" name="child_category" class="form-select">
                                 @if(@isset($child_category))
-                                    @foreach ($child_category as $key => $value)
-                                    <option value="{{ $key ?? '' }}" {{ (isset($product['child_category']) && $product['child_category'] == $key) ? 'selected' : '' }}>{{ $value ?? '' }}</option>
-                                    @endforeach
+                                @foreach ($child_category as $key => $value)
+                                <option value="{{ $key ?? '' }}" {{ (isset($product['child_category']) && $product['child_category'] == $key) ? 'selected' : '' }}>{{ $value ?? '' }}</option>
+                                @endforeach
                                 @endif
                             </select>
                             <div class="invalid-feedback">* Please select child category</div>
@@ -242,14 +243,14 @@
                 </div>
 
                 @php
-                    $display = isset($product['product_template']) ? ($product['product_template'] != config('constants.COUNTER_MEDICINE') ? '' : 'hide') : '';
+                $display = isset($product['product_template']) ? ($product['product_template'] == config('constants.PRESCRIPTION_MEDICINE') ? '' : 'd-none') : '';
                 @endphp
                 <div class="col-md-6 question_category-div {{$display}}">
                     <label for="question_category" class="col-form-label"> Select Question Category <span class="question-category"></span></label>
-                    <select id="question_category" name="question_category[]" class="form-select select2" data-placeholder="choose categories ..." multiple="multiple">
-                        <option value="all">all</option>
+                    <select id="question_category" name="question_category[]" class="form-select select2 py-1" data-placeholder="choose categories ..." >
+                        <option value="choose">choose</option>
                         @foreach ($question_category as $key => $value)
-                        <option  value="{{ $value['id'] ?? '' }}" {{ (isset($prod_question) && in_array($value['id'], $prod_question)) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
+                        <option value="{{ $value['id'] ?? '' }}" {{ (isset($prod_question) && in_array($value['id'], $prod_question)) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
                         @endforeach
                     </select>
                     <div class="invalid-feedback">Select Question Category!</div>
@@ -257,7 +258,6 @@
                     <div class="alert-danger text-danger ">{{ $message }}</div>
                     @enderror
                 </div>
-
                 <div class="col-md-6">
                     <label for="cut_price" class="col-form-label"> Cut Price <span class="cut-price"></span></label>
                     <input type="text" name="cut_price" id="cut_price" value="{{  $product['cut_price'] ?? old('cut_price') }}" class="form-control">
@@ -285,7 +285,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="stock" class="col-form-label">SKU </label>
-                    <input type="number" name="SKU" id="SKU" value="{{  $product['SKU'] ?? old('SKU') }}" class="form-control" >
+                    <input type="number" name="SKU" id="SKU" value="{{  $product['SKU'] ?? old('SKU') }}" class="form-control">
                     <div class="invalid-feedback">Enter avialable stock!</div>
                     @error('SKU')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -293,7 +293,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="barcode" class="form-label">Barcode (ISBN, UPC, GTIN, etc.)</label>
-                    <input type="number" name="barcode" id="barcode" value="{{  $product['barcode'] ?? old('barcode') }}" class="form-control" >
+                    <input type="number" name="barcode" id="barcode" value="{{  $product['barcode'] ?? old('barcode') }}" class="form-control">
                     <div class="invalid-feedback">Enter GTIN number!</div>
                     @error('barcode')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -335,72 +335,72 @@
                 {{-- existing variants --}}
                 <div id="variant_row_existing">
                     @if(isset($product['variants']))
-                        @foreach ($product['variants'] as $variant)  
-                            <div class="row bg-white rounded-3  mb-4 py-2">
-                                <input type="hidden" value="{{$variant['id']}}" name="exist_vari_id[]">
-                                <div class="col-12">
-                                    <hr class="">
-                                </div>
-                                <div class="col-md-3 col-sm-12">
-                                    <div class="p-2">
-                                        <label for="" class="form-label">Variant Price <span class="extra-text">(Price in UK Pound)</span></label>
-                                        <input type="number" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
-                                        <div class="invalid-feedback">Enter variant price!</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-12">
-                                    <div class="p-2">
-                                        <label for="" class="form-label">Variant Name <span class="extra-text"></span></label>
-                                        <input type="text" class="form-control" name="exist_vari_name[]" id="" value = "{{ $variant['title']}}" required>
-                                        <div class="invalid-feedback">Enter variant title!</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-12 product-md">
-                                    <div class="p-2">
-                                        <label for="" class="form-label">Variant Value <span class="extra-text"></span></label>
-                                        <input type="text" class="form-control" name="exist_vari_value[]" id="" value = "{{ $variant['value']}}" required>
-                                        <div class="invalid-feedback">Enter variant value!</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-12 ">
-                                    <div class="p-2">
-                                        <label for="" class="form-label">Inventory <span class="extra-text">(Available Stock)</span></label>
-                                        <input type="number" class="form-control" name="exist_vari_inventory[]" id="" value = "{{ $variant['inventory']}}" required>
-                                        <div class="invalid-feedback">Enter variant stock!</div>
-                                    </div>
-                                </div>
-            
-                                <div class="col-md-3 col-sm-12">
-                                    <div class="p-2">
-                                        <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
-                                        <input type="number" class="form-control" name="exist_vari_barcode[]" id="" value = "{{ $variant['barcode']}}">
-                                        <div class="invalid-feedback">Enter variant barcode!</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-12">
-                                    <div class="p-2">
-                                        <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
-                                        <input type="number" class="form-control" name="exist_vari_sku[]" id="" value = "{{ $variant['sku']}}">
-                                        <div class="invalid-feedback">Enter variant stock!</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-12 ">
-                                    <div class="p-2">
-                                        <label  class="form-label">Select Image</label>
-                                        <input class="form-control variant-image-exist" name="exist_vari_attr_image[]" type="file" id="">
-                                        <div class="invalid-feedback">Enter variant image!</div>
-                                    </div>
-                                </div>
-                                {{-- <div class="col-md-3 col-sm-12 mt-4 ">
+                    @foreach ($product['variants'] as $variant)
+                    <div class="row bg-white rounded-3  mb-4 py-2">
+                        <input type="hidden" value="{{$variant['id']}}" name="exist_vari_id[]">
+                        <div class="col-12">
+                            <hr class="">
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Price <span class="extra-text">(Price in UK Pound)</span></label>
+                                <input type="number" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
+                                <div class="invalid-feedback">Enter variant price!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Name <span class="extra-text"></span></label>
+                                <input type="text" class="form-control" name="exist_vari_name[]" id="" value="{{ $variant['title']}}" required>
+                                <div class="invalid-feedback">Enter variant title!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 product-md">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Value <span class="extra-text"></span></label>
+                                <input type="text" class="form-control" name="exist_vari_value[]" id="" value="{{ $variant['value']}}" required>
+                                <div class="invalid-feedback">Enter variant value!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 ">
+                            <div class="p-2">
+                                <label for="" class="form-label">Inventory <span class="extra-text">(Available Stock)</span></label>
+                                <input type="number" class="form-control" name="exist_vari_inventory[]" id="" value="{{ $variant['inventory']}}" required>
+                                <div class="invalid-feedback">Enter variant stock!</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
+                                <input type="number" class="form-control" name="exist_vari_barcode[]" id="" value="{{ $variant['barcode']}}">
+                                <div class="invalid-feedback">Enter variant barcode!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
+                                <input type="number" class="form-control" name="exist_vari_sku[]" id="" value="{{ $variant['sku']}}">
+                                <div class="invalid-feedback">Enter variant stock!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12 ">
+                            <div class="p-2">
+                                <label class="form-label">Select Image</label>
+                                <input class="form-control variant-image-exist" name="exist_vari_attr_image[]" type="file" id="">
+                                <div class="invalid-feedback">Enter variant image!</div>
+                            </div>
+                        </div>
+                        {{-- <div class="col-md-3 col-sm-12 mt-4 ">
                                     <div class="p-2 ">
                                         <button type="button" class="btn remove_row btn-danger"><i class="fa fa-minus"></i> Remove</button>
                                     </div>
                                 </div> --}}
-                                <div class="col-12">
-                                    <hr class="">
-                                </div>
-                            </div>
-                        @endforeach
+                        <div class="col-12">
+                            <hr class="">
+                        </div>
+                    </div>
+                    @endforeach
                     @endif
                 </div>
                 <div id="variant_row">
@@ -431,78 +431,75 @@
             $('#sub_category').empty();
             $('#child_category').empty();
             $.ajax({
-                    url: '{{ route("admin.getSubCategory") }}',
-                    type: 'GET',
-                    data: {
-                        category_id: category_id
-                    },
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            $('#sub_category').empty();
-                            $.each(response.sub_category, function(key, value) {
-                                $('#sub_category').append($('<option>', {
-                                    value: key,
-                                    text: value
-                                }));
-                            });
-                            $('#sub_category').prepend($('<option>', {
-                                value: '',
-                                text: 'Select Sub Category',
-                                selected: true, 
-                                disabled: true
+                url: '{{ route("admin.getSubCategory") }}',
+                type: 'GET',
+                data: {
+                    category_id: category_id
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#sub_category').empty();
+                        $.each(response.sub_category, function(key, value) {
+                            $('#sub_category').append($('<option>', {
+                                value: key,
+                                text: value
                             }));
-                        }
-                        else{
-                            console.error('Error:', response.message);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
+                        });
+                        $('#sub_category').prepend($('<option>', {
+                            value: '',
+                            text: 'Select Sub Category',
+                            selected: true,
+                            disabled: true
+                        }));
+                    } else {
+                        console.error('Error:', response.message);
                     }
-                });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
         });
 
         $('#sub_category').change(function() {
             var category_id = $(this).val();
             $.ajax({
-                    url: '{{ route("admin.getChildCategory") }}',
-                    type: 'GET',
-                    data: {
-                        category_id: category_id
-                    },
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            $('#child_category').empty();
-                            $.each(response.child_category, function(key, value) {
-                                $('#child_category').append($('<option>', {
-                                    value: key,
-                                    text: value
-                                }));
-                            });
-                            $('#child_category').prepend($('<option>', {
-                                value: '',
-                                text: 'Select Child Category',
-                                selected: true, 
-                                disabled: true
+                url: '{{ route("admin.getChildCategory") }}',
+                type: 'GET',
+                data: {
+                    category_id: category_id
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#child_category').empty();
+                        $.each(response.child_category, function(key, value) {
+                            $('#child_category').append($('<option>', {
+                                value: key,
+                                text: value
                             }));
-                        }
-                        else{
-                            console.error('Error:', response.message);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
+                        });
+                        $('#child_category').prepend($('<option>', {
+                            value: '',
+                            text: 'Select Child Category',
+                            selected: true,
+                            disabled: true
+                        }));
+                    } else {
+                        console.error('Error:', response.message);
                     }
-                });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
         });
 
         $('#product_template').change(function() {
             var template = $(this).val();
-            if(template == 3){
-                $('.question_category-div').hide();
-            }
-            else{
-                $('.question_category-div').show();
+            if (template == 2) {
+                $('.question_category-div').removeClass('d-none');
+            } else {
+                $('.question_category-div').addClass('d-none');
             }
         });
     });

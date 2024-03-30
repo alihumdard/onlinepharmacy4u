@@ -35,7 +35,7 @@
         padding: 7px 20px !important;
         cursor: pointer;
         outline: none;
-        background-color: transparent;
+        background-color: #ced4da;
         font-weight: 400;
     }
 

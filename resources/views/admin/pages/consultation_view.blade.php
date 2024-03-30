@@ -5,6 +5,23 @@
 <main id="main" class="main">
 
     <style>
+        .read-more-btn {
+            color: #0d6efd !important;
+            font-weight: 600;
+            padding: 0 !important;
+            margin: 0 !important;
+            background-color: #ffff !important;
+        }
+
+        .read-less-btn {
+            color: #dc3545 !important;
+            font-weight: 600;
+            padding: 0 !important;
+            margin: 0 !important;
+            background-color: #ffff !important;
+
+        }
+
         .edit i {
             color: #4154F1;
             font-size: 20px;
@@ -69,45 +86,47 @@
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">Question_id</th>
                                     <th>Title</th>
+                                    <th>Description</th>
                                     <th>Answer</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> </td>
-                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center; background-color:aquamarine !important; "> Costumer Body Profile </td>
+                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center; background-color:aquamarine !important; "> Generic Constulation </td>
+                                    <td> </td>
                                     <td> </td>
                                 </tr>
+                                @foreach($generic_consultation as $key => $val)
                                 <tr>
-                                    <td>#3434</td>
-                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center;"> Costumer Gender </td>
-                                    <td>{{ $body_profile['gender']}} </td>
-                                </tr>
-                                <tr>
-                                    <td>#3434</td>
-                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center;"> Costumer Age </td>
-                                    <td>{{ $body_profile['age']}} </td>
-                                </tr>
-                                <tr>
-                                    <td>#3434</td>
-                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center;"> Costumer DOB </td>
-                                    <td>{{ $body_profile->user->dob}} </td>
-                                </tr>
-                                <tr>
-                                    <td>#3434</td>
-                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center;"> Costumer BMI's </td>
-                                    <td>{{ $body_profile['bmi']}} </td>
-                                </tr>
+                                    <td style="vertical-align: middle; text-align: center;">#00{{$val['id']}}</td>
+                                    <td>
+                                        @if($val['title'])
+                                        @if(strlen(strip_tags($val['title'])) > 80)
+                                        <span class="description-preview">{!! Str::limit(strip_tags($val['title'] ?? ''), 80) !!}</span>
+                                        <span class="description-full" style="display: none;">{!! $val['title'] ?? '' !!}</span>
+                                        <button class="btn btn-link read-more-btn">Read More</button>
+                                        @else
+                                        <span class="description-full">{!! $val['title'] ?? '' !!}</span>
+                                        @endif
+                                        @else
+                                        <span class="text-center"></span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($val['desc'])
+                                        @if(strlen(strip_tags($val['desc'])) > 80)
+                                        <span class="description-preview">{!! Str::limit(strip_tags($val['desc'] ?? ''), 80) !!}</span>
+                                        <span class="description-full" style="display: none;">{!! $val['desc'] ?? '' !!}</span>
+                                        <button class="btn btn-link read-more-btn">Read More</button>
+                                        @else
+                                        <span class="description-full">{!! $val['desc'] ?? '' !!}</span>
+                                        @endif
+                                        @else
+                                        <span class="text-center"></span>
+                                        @endif
 
-                                <tr>
-                                    <td> </td>
-                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center; background-color:aquamarine !important; "> Product Constulation </td>
-                                    <td> </td>
-                                </tr>
-                                @foreach($prodcut_consult as $key => $val)
-                                <tr>
-                                    <td style="vertical-align: middle; text-align: center;">#3434{{$val['id']}}</td>
-                                    <td>{{$val['title']}}</td>
+                                    </td>
                                     <td>
                                         @if (Str::startsWith($val['answer'], 'consultation/product/'))
                                         <a class="fw-bold btn-link" href="{{ asset('storage/'.$val['answer']) }}" download>See File</a>
@@ -117,18 +136,35 @@
                                     </td>
                                 </tr>
                                 @endforeach
-
+                                @if($product_consultation)
                                 <tr>
                                     <td> </td>
-                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center; background-color:aquamarine !important; "> User Constulation </td>
+                                    <td class=" fw-bold text-center" style="vertical-align: middle; text-align: center; background-color:aquamarine !important; "> Product Constulation </td>
+                                    <td> </td>
                                     <td> </td>
                                 </tr>
-                                @foreach($user_consult as $ind => $value)
+                                @foreach($product_consultation ?? [] as $ind => $value)
                                 <tr>
-                                    <td style="vertical-align: middle; text-align: center;">#3434{{$value['id']}}</td>
+                                    <td style="vertical-align: middle; text-align: center;">#00{{$value['id']}}</td>
                                     <td>{{$value['title']}}</td>
                                     <td>
-                                        @if (Str::startsWith($value['answer'], 'consultation/product/'))
+                                        @if($value['desc'])
+                                        @if(strlen(strip_tags($value['desc'])) > 80)
+                                        <span class="description-preview">{!! Str::limit(strip_tags($value['desc'] ?? ''), 80) !!}</span>
+                                        <span class="description-full" style="display: none;">{!! $value['desc'] ?? '' !!}</span>
+                                        <button class="btn btn-link read-more-btn">Read More</button>
+                                        @else
+                                        <span class="description-full">{!! $value['desc'] ?? '' !!}</span>
+                                        @endif
+                                        @else
+                                        <span class="text-center"></span>
+                                        @endif
+
+
+                                    </td>
+
+                                    <td>
+                                        @if (Str::startsWith($value['answer'], 'consultation/user/'))
                                         <a class="fw-bold btn-link" href="{{ asset('storage/'.$value['answer']) }}" download>See File</a>
                                         @else
                                         <p>{{ $value['answer'] }}</p>
@@ -136,6 +172,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @endif
                             </tbody>
                         </table>
                         <div class="card mt-4">
@@ -158,17 +195,17 @@
 <div class="modal fade" id="doctor_remarks" tabindex="-1" data-bs-backdrop="false">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-success">
+            <div class="modal-header" style="background: #20B2AA;">
                 <h5 class="modal-title fw-bold text-white">HealthCare Professional Feedback</h5>
                 <button type="button" class="btn-close fw-bold text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form_hcp_remarks"  class="row g-3 mt-1 needs-validation"  novalidate action="{{route('admin.changeStatus')}}" method="POST">
+                <form id="form_hcp_remarks" class="row g-3 mt-1 needs-validation" novalidate action="{{route('admin.changeStatus')}}" method="POST">
                     @csrf
-                    <input type="hidden" name="id" required  value="{{$order['id']}}">
+                    <input type="hidden" name="id" required value="{{$order_user_detail->order_id}}">
                     <div class="col-12">
                         <label for="status" class="form-label fw-bold">Order Status :</label>
-                        <select id="status" name="status" class="form-select" required >
+                        <select id="status" name="status" class="form-select" required>
                             <option value="" selected>Choose...</option>
                             <option value="Approved">Approved</option>
                             <option value="Not_Approved">Not Approved</option>
@@ -178,14 +215,14 @@
 
                     <div class="col-12">
                         <label for="hcp_remarks" class="form-label fw-bold">Health Care Professional Notes: </label>
-                        <textarea name="hcp_remarks" class="form-control" id="hcp_remarks" rows="4" placeholder="write here..." required ></textarea>
+                        <textarea name="hcp_remarks" class="form-control" id="hcp_remarks" rows="4" placeholder="write here..." required></textarea>
                         <div class="invalid-feedback">Please write Notes!</div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button form="form_hcp_remarks" type="submit" class="btn btn-primary">Save changes</button>
+                <button form="form_hcp_remarks" type="submit" class="btn text-white fw-bold" style="background: #20B2AA;">Save changes</button>
             </div>
         </div>
     </div>
@@ -194,6 +231,23 @@
 
 @pushOnce('scripts')
 <script>
+    $(document).ready(function() {
+        $('.read-more-btn').click(function() {
+            var $descriptionPreview = $(this).siblings('.description-preview');
+            var $descriptionFull = $(this).siblings('.description-full');
+
+            if ($descriptionPreview.is(':visible')) {
+                $descriptionPreview.hide();
+                $descriptionFull.show();
+                $(this).removeClass('btn-primary').addClass('read-less-btn').text('Read Less');
+            } else {
+                $descriptionPreview.show();
+                $descriptionFull.hide();
+                $(this).removeClass('read-less-btn').addClass('btn-primary').text('Read More');
+            }
+        });
+    });
+
     $(function() {
         $("#tbl_data").DataTable({
             "paging": false,
@@ -206,7 +260,7 @@
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             "buttons": [{
                     extend: 'pdf',
-                    text: 'Donwload PDF ',
+                    text: 'Download PDF ',
                     className: 'btn-blue',
                 },
                 // {

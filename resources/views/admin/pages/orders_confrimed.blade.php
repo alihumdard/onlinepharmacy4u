@@ -187,7 +187,7 @@
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             "buttons": [{
                     extend: 'pdf',
-                    text: 'Donwload PDF ',
+                    text: 'Download PDF ',
                     className: 'btn-blue',
                 },
                 // {

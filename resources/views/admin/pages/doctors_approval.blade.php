@@ -69,18 +69,18 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Order No.</th>
-                                    <th>Order History</th>
+                                    <th>Total Orders</th>
                                     <th>Date-Time</th>
                                     <th>Customer Name</th>
-                                    <th>D.O.B</th>
-                                    <th>Address</th>
+                                    <th>Postal Code</th>
+                                    <th>Address1</th>
+                                    <th>Address2</th>
                                     @if($user->role == user_roles('1'))
                                     <th>Total Atm.</th>
                                     @endif
-                                    <th>View Questionnaire </th>
                                     <th>Payment Status</th>
                                     <th>Order Status</th>
-                                    <th>Actions</th>
+                                    <th> Shiped Order</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,40 +88,35 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>
-                                        <a target="_blank" href="{{ route('admin.orderDetail',['id'=> $val['id']]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #3434{{ $val['id'] }}
+                                        <a target="_blank" href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
+                                            #00{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>
                                         @foreach($order_history as $ind => $value)
                                         @if($value['user_id'] == $val['user_id'])
-                                        <a target="_blank" href="{{ route('admin.orderDetail',['id'=> $value['id']]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex;">
-                                            #3434{{$value['id']}}
-                                        </a>
+                                        <span class=" px-5 fw-bold">{{$value['total_orders']}} </span>
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td>{{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}</td>
+                                    <td>{{ isset($val['created_at']) ? date('m-d-y H:i:s', strtotime($val['created_at'])) : '' }}</td>
                                     <td>{{ $val['user']['name'] ?? '' }}</td>
-                                    <td>{{ isset($val['user']['dob']) ? date('M d, Y', strtotime($val['user']['dob'])) : '' }}</td>
+                                    <td>453934</td>
                                     <td>{{$val['user']['address'] ?? ''}}</td>
+                                    <td>address 2</td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
                                     <td>
-                                        <button class="btn btn-primary rounded-pill">Donwload File</button>
-                                    </td>
-                                    <td>
                                         {{$val['payment_status'] ?? ''}}
                                     </td>
                                     <td><span class="btn  fw-bold btn-{{ $val['status'] == 'Approved' ? 'success' : 'danger' }}">{{ $val['status'] ?? '' }}</span></td>
-                                    <td> <a class="edit" title="Edit" data-toggle="tooltip">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a class="delete" title="Delete" data-toggle="tooltip">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
+                                    <td style="display: inline-block;">
+                                        @if($val['status'] == 'Approved')
+                                        <span class="btn  fw-bold btn-primary no-wrap">Ship Now</span>
+                                        @endif
                                     </td>
+
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -152,7 +147,7 @@
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             "buttons": [{
                     extend: 'pdf',
-                    text: 'Donwload PDF ',
+                    text: 'Download PDF ',
                     className: 'btn-blue',
                 },
                 // {

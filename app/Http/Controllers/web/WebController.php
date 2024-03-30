@@ -38,6 +38,8 @@ use App\Models\QuestionMapping;
 use App\Models\QuestionCategory;
 use App\Models\PMedGeneralQuestion;
 use App\Models\PrescriptionMedGeneralQuestion;
+use App\Models\ShipingDetail;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\DB;
 
 use Deyjandi\VivaWallet\Enums\RequestLang;
@@ -114,35 +116,48 @@ class WebController extends Controller
         return view('web.pages.shop', $data);
     }
 
-    // sanader code
-    public function faqs()
+    public function products(Request $request)
     {
-        return view('pages.faqs');
+        session()->forget('pro_id');
+        $cat_id = $request->input('cat_id') ?? NULL;
+        $data['user'] = auth()->user() ?? [];
+        $query = Product::with('category:id,name')->latest('id');
+        if ($cat_id) {
+            $query->where('category_id', $cat_id);
+        }
+        $data['products'] = $query->get()->toArray();
+
+        $data['categories'] = Category::withCount('products')->latest('id')->get()->toArray();
+
+        return view('web.pages.products', $data);
     }
+
 
     public function product_detail(Request $request)
     {
-        // $request->id;
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
-        // $data['rel_products'] = Product::where('category_id', $data['product']['category_id'])->where('id', '!=', $request->id)->take(4)->latest('id')->get()->toArray();
-        // return $data['product' ];
-        return view('web.pages.product', $data);
+        if ($data['product']) {
+            // dd(array_keys(session('consultations')));
+            $data['is_add_to_cart'] = (session()->has('consultations') && in_array($data['product']['id'], array_keys(session('consultations')))) ? 'yes' : null;
+            return view('web.pages.product', $data);
+        } else {
+            redirect()->back();
+        }
     }
 
     public function consultation_form(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
-        $data['template'] = $request->template ?? session('template');
-        $data['product_id'] = $request->product_id ?? session('product_id');
+        $data['template'] = $request->template;
+        $data['product_id'] = $request->product_id;
         if ($data['template'] == config('constants.PHARMACY_MEDECINE')) {
             $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
-            return view('web.pages.temp1_genral_question', $data);
+            return view('web.pages.pmd_genral_question', $data);
         } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
             if (auth()->user()) {
                 $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
-                // dd($data['questions']);
-                return view('web.pages.temp2_genral_question', $data);
+                return view('web.pages.premd_genral_question', $data);
             } else {
                 session()->put('intended_url', 'fromConsultation');
                 session()->put('template', $data['template']);
@@ -154,6 +169,41 @@ class WebController extends Controller
         }
     }
 
+    public function consultation_store(Request $request)
+    {
+        $consultations = Session::get('consultations', []);
+        $questionAnswers = [];
+        foreach ($request->all() as $key => $value) {
+            if ($key === '_token' || $key === 'template') {
+                continue;
+            }
+            if (strpos($key, 'quest_') === 0) {
+                $question_id = substr($key, 6);
+                $questionAnswers[$question_id] = $value;
+            }
+        }
+
+        $consultationData = [];
+        if ($request->template == config('constants.PHARMACY_MEDECINE')) {
+            $consultationData = ['type' => 'pmd', 'product_id' => $request->product_id, 'gen_quest_ans' => $questionAnswers, 'pro_quest_ans' => ''];
+        } else {
+            $category = Product::with('category', 'sub_cat', 'child_cat')->find($request->product_id);
+            $slug = ['main_category' => $category->category->slug, 'sub_category' => $category->sub_cat->slug ?? null, 'child_category' => $category->child_cat->slug ?? null];
+            $consultationData = ['type' => 'premd', 'product_id' => $request->product_id, 'slug' => $slug, 'gen_quest_ans' => $questionAnswers, 'pro_quest_ans' => ''];
+        }
+
+
+
+        if ($request->template == config('constants.PHARMACY_MEDECINE')) {
+            $consultations[$request->product_id] = $consultationData;
+            Session::put('consultations', $consultations);
+            return redirect()->route('web.product', ['id' => $request->product_id]);
+        } else {
+            $consultations[$request->product_id] = $consultationData;
+            Session::put('consultations', $consultations);
+            return redirect()->route('category.products', $slug);
+        }
+    }
 
 
     public function product_question(Request $request)
@@ -239,31 +289,6 @@ class WebController extends Controller
         }
     }
 
-    public function consultation_store(Request $request)
-    {
-
-        $questionAnswers = [];
-        foreach ($request->all() as $key => $value) {
-            $iteration = 1;
-            if ($key === '_token' || $key === 'template') {
-                continue; // Skip unwanted keys
-            }
-            if (strpos($key, 'quest_') === 0) {
-                $question_id = substr($key, 6); // Extract question_id from the key
-                $questionAnswers[$question_id] = $value;
-            }
-        }
-        $category = Product::with('category', 'sub_cat', 'child_cat')->find($request->product_id);
-        $slug = ['main_category' => $category->category->slug, 'sub_category' => $category->sub_cat->slug ?? NULL, 'child_category' => $category->child_cat->slug ?? NULL];
-        // dd($category);
-        Session::put('slug', $slug);
-        Session::put('questionAnswers', $questionAnswers);
-        Session::put('template', $request->template);
-        if ($request->template ==  config('constants.PRESCRIPTION_MEDICINE')) {
-            return redirect()->route('web.productQuestion', ['id' => $request->product_id]);
-        }
-        return redirect()->route('category.products', $slug);
-    }
     public function view_cart(Request $request)
     {
         $data['cart'] = session('cart');
@@ -334,7 +359,6 @@ class WebController extends Controller
         return view('web.pages.collections', $data);
     }
 
-
     // cloned methods of myweightloss
     public function product_question_new()
     {
@@ -395,50 +419,6 @@ class WebController extends Controller
         return view('web.pages.sleep', $data);
     }
 
-    public function products(Request $request)
-    {
-        session()->forget('pro_id');
-        $cat_id = $request->input('cat_id') ?? NULL;
-        $data['user'] = auth()->user() ?? [];
-        $query = Product::with('category:id,name')->latest('id');
-        if ($cat_id) {
-            $query->where('category_id', $cat_id);
-        }
-        $data['products'] = $query->get()->toArray();
-
-        $data['categories'] = Category::withCount('products')->latest('id')->get()->toArray();
-
-        return view('web.pages.products', $data);
-    }
-
-    public function product(Request $request)
-    {
-        $data['user'] = auth()->user() ?? [];
-        $data['product'] = Product::with('category:id,name', 'variants')->findOrFail($request->id)->toArray();
-        $data['rel_products'] = Product::where('category_id', $data['product']['category_id'])->where('id', '!=', $request->id)->take(4)->latest('id')->get()->toArray();
-
-        return view('web.pages.product', $data);
-    }
-
-    public function bmi_form(Request $request)
-    {
-        $data['user'] = auth()->user() ?? [];
-        if (auth()->user()) {
-            $user = auth()->user();
-            $bmiRecord = UserBmi::where('user_id', $user->id)
-                ->latest('id')
-                ->first();
-            $data['bmi_detail'] = $bmiRecord ? $bmiRecord->toArray() : [];
-            if ($data['bmi_detail']) {
-                return view('web.pages.bmi_calculator', $data);
-            } else {
-                return view('web.pages.bmi_form', $data);
-            }
-        } else {
-            return redirect()->route('web.regisrationFrom');
-        }
-    }
-
     public function transaction_store(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
@@ -480,149 +460,129 @@ class WebController extends Controller
         }
     }
 
-    public function bmi_formStore(Request $request)
-    {
-        $data['user'] = auth()->user() ?? [];
-
-        if (auth()->user()) {
-            $weight = $request->weight;
-            $height = $request->height / 100;
-            $bmi = $weight / ($height * $height);
-            $bmi = round($bmi, 1);
-
-            $save =  UserBmi::create([
-                'user_id' => auth()->user()->id,
-                'weight' => $request->weight,
-                'height' => $request->height,
-                'age' => $request->age,
-                'gender' => $request->gender,
-                'bmi' => $bmi,
-                'status' => '1',
-                'created_by' => auth()->user()->id,
-            ]);
-
-            if ($save) {
-                DB::table('users')
-                    ->where('id', auth()->id())
-                    ->update(['profile_status' => 'done']);
-                return redirect()->route('web.bmiForm');
-            }
-        } else {
-            return view('web.pages.regisration_from', $data);
-        }
-    }
-
-    public function bmi_update(Request $request)
-    {
-        $data['user'] = auth()->user() ?? [];
-
-        if (auth()->user()) {
-            // dd($request->all());
-            $weight = $request->weight;
-            $height = $request->height / 100;
-            $bmi = $weight / ($height * $height);
-            $bmi = round($bmi, 1);
-
-            $save =  UserBmi::where('id', $request->id)
-                ->update([
-                    'user_id' => auth()->user()->id,
-                    'weight' => $request->weight,
-                    'height' => $request->height,
-                    'bmi' => $bmi,
-                    'status' => '1',
-                    'created_by' => auth()->user()->id,
-                ]);
-
-            if ($save) {
-                if ($bmi >= 30) {
-                    return redirect()->route('web.consultationForm');
-                } else {
-                    return redirect()->route('web.bmiForm')->with(['status' => 'invalid', 'message' => "You can't proceed futher because You'r bmi is lower than 30."]);
-                }
-            }
-        } else {
-            return view('web.pages.regisration_from', $data);
-        }
-    }
-
     public function payment(Request $request)
     {
-
+        //     Session::flush();
+        //     Auth::logout();
         $user = auth()->user() ?? [];
-        if (auth()->user()) {
-            // creating the order..
-            $save =  Order::create([
-                'user_id'        => auth()->user()->id,
-                'product_id'     => $request->product_id,
-                'coupon_code'    => $request->coupon_code ?? Null,
-                'coupon_value'   => $request->coupon_value ?? Null,
-                'total_ammount'  => $request->total_ammount ?? Null,
-                'created_by'     => auth()->user()->id,
-            ]);
-            if ($save) {
-                return redirect()->away('/Completed-order');
-                $productPrice = $request->total_ammount * 100;
-                $productName = 'health product';
-                $productDescription = $request->product_desc;
+        $order =  Order::create([
+            'user_id'        => $user->id ?? 'guest',
+            'email'          => $request->email,
+            'note'           => $request->note,
+            'shiping_cost'   => $request->shiping_cost,
+            'coupon_code'    => $request->coupon_code ?? Null,
+            'coupon_value'   => $request->coupon_value ?? Null,
+            'total_ammount'  => $request->total_ammount ?? Null,
+        ]);
+        if ($order) {
+            $order_details = [];
+            $index = 0;
+            foreach ($request->order_details['product_id'] as $key => $val) {
+                $consultaion_type = 'one_over';
+                if (isset(session('consultations')[$val])) {
+                    $consultaion_type = session('consultations')[$val]['type'];
+                    $generic_consultation = (isset(session('consultations')[$val]['gen_quest_ans'])) ? json_encode(session('consultations')[$val]['gen_quest_ans'], true) : NULL;
+                    $product_consultation = (isset(session('consultations')[$val]['pro_quest_ans'])) ? json_encode(session('consultations')[$val]['pro_quest_ans'], true) : NULL;
+                }
 
-                // Viva Wallet API credentials
-                $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com';
-                $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL';
-                $credentials = base64_encode($username . ':' . $password);
-
-                // Obtain Access Token
-                $accessToken = $this->getAccessToken($credentials);
-                // dd($accessToken);
-                // Prepare POST fields for creating an order
-                $postFields = [
-                    'amount'              => $productPrice,
-                    'customerTrns'        => $productDescription,
-                    'customer'            => [
-                        'email'       => $user->email,
-                        'fullName'    => $user->name,
-                        'phone'       => $user->phone,
-                        'countryCode' => 'GB', // United Kingdom country code
-                        'requestLang' => 'en-GB', // Request language set to English (United Kingdom)
-                    ],
-                    'paymentTimeout'      => 1800,
-                    'preauth'             => false,
-                    'allowRecurring'      => false,
-                    'maxInstallments'     => 0,
-                    'paymentNotification' => true,
-                    'disableExactAmount'  => false,
-                    'disableCash'         => false,
-                    'disableWallet'       => false,
-                    'sourceCode'          => '2399',
-                    "merchantTrns" => "Short description of items/services purchased by customer",
-                    "tags" =>
-                    [
-                        "tags for grouping and filtering the transactions",
-                        "this tag can be searched on VivaWallet sales dashboard",
-                        "Sample tag 1",
-                        "Sample tag 2",
-                        "Another string"
-                    ],
+                $order_details[] = [
+                    'product_id' => $val,
+                    'order_id' => $order->id,
+                    'product_price' => $request->order_details['product_price'][$index],
+                    'product_name' => $request->order_details['product_name'][$index],
+                    'product_qty' => $request->order_details['product_qty'][$index],
+                    'generic_consultation' => $generic_consultation ?? NULL,
+                    'product_consultation' => $product_consultation ?? NULL,
+                    'consultation_type' => $consultaion_type ?? NULL,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ];
 
-                // Make an HTTP request to create an order
-                $response = $this->sendHttpRequest('https://api.vivapayments.com/checkout/v2/orders', $postFields, $accessToken);
-                // dd($response);
+                $index++;
+            }
+            $inserted =  OrderDetail::insert($order_details);
+            if ($inserted) {
+                $shipping_details = [
+                    'order_id' => $order->id,
+                    'user_id' => $user->id ?? '',
+                    'cost' => $request->shiping_cost,
+                    'method' => $request->shipping_method,
+                    'old_address' => $request->old_address ?? 'no',
+                    'firstName' => $request->firstName,
+                    'lastName' => $request->lastName,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'address' => $request->address,
+                    'address2' => $request->address2,
+                    'city' => $request->city,
+                    'state' => $request->state,
+                    'zip_code' => $request->zip_code,
+                ];
+                $shiping =  ShipingDetail::create($shipping_details);
+                if ($shiping) {
+                    session()->put('order_id', $order->id);
 
-                // Decode the JSON response
-                $responseData = json_decode($response, true);
+                    return redirect()->away('/Completed-order');
+                    $productPrice = $request->total_ammount * 100;
+                    $productName = 'Medical Products';
+                    $productDescription = 'Medical Products';
+                    $full_name = $request->firstName . ' ' . $request->lastName;
 
-                if (isset($responseData['orderCode'])) {
-                    $orderCode = $responseData['orderCode'];
+                    // Viva Wallet API credentials
+                    $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com';
+                    $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL';
+                    $credentials = base64_encode($username . ':' . $password);
 
-                    // Redirect to the Viva Payments checkout page with the orderCode parameter
-                    $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}&color=c50c26";
+                    // Obtain Access Token
+                    $accessToken = $this->getAccessToken($credentials);
+                    // dd($accessToken);
+                    // Prepare POST fields for creating an order
+                    $postFields = [
+                        'amount'              => $productPrice,
+                        'customerTrns'        => $productDescription,
+                        'customer'            => [
+                            'email'       => $request->email,
+                            'fullName'    => $full_name,
+                            'phone'       => $request->phone,
+                            'countryCode' => 'GB', // United Kingdom country code
+                            'requestLang' => 'en-GB', // Request language set to English (United Kingdom)
+                        ],
+                        'paymentTimeout'      => 1800,
+                        'preauth'             => false,
+                        'allowRecurring'      => false,
+                        'maxInstallments'     => 0,
+                        'paymentNotification' => true,
+                        'disableExactAmount'  => false,
+                        'disableCash'         => false,
+                        'disableWallet'       => false,
+                        'sourceCode'          => '2399',
+                        "merchantTrns" => "Short description of items/services purchased by customer",
+                        "tags" =>
+                        [
+                            "tags for grouping and filtering the transactions",
+                            "this tag can be searched on VivaWallet sales dashboard",
+                            "Sample tag 1",
+                            "Sample tag 2",
+                            "Another string"
+                        ],
+                    ];
 
-                    // Redirect to the external URL
-                    return redirect()->away($redirectUrl);
+                    // Make an HTTP request to create an order
+                    $response = $this->sendHttpRequest('https://api.vivapayments.com/checkout/v2/orders', $postFields, $accessToken);
+                    // dd($response);
+
+                    // Decode the JSON response
+                    $responseData = json_decode($response, true);
+
+                    if (isset($responseData['orderCode'])) {
+                        $orderCode = $responseData['orderCode'];
+                        // Redirect to the Viva Payments checkout page with the orderCode parameter
+                        $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}&color=c50c26";
+                        // Redirect to the external URL
+                        return redirect()->away($redirectUrl);
+                    }
                 }
             }
-        } else {
-            return redirect()->route('login');
         }
     }
 
@@ -663,36 +623,18 @@ class WebController extends Controller
         return $response->body();
     }
 
-    // extra code payment through the package...
-    //  public function payment(Request $request){
-    //         $customer = new Customer($email = 'ali@gmail.com',$fullName = 'John Doe',$phone = '+442037347770',$countryCode = 'en',$requestLang = RequestLang::Greek);
-
-    //     $payment = new Payment();
-
-    //     $payment
-    //         ->setAmount(25)
-    //         ->setCustomerTrns('short description of the items/services being purchased')
-    //         ->setCustomer($customer)
-    //         ->setMerchantTrns('customer order reference number')
-    //         ->setTags(['tag-1', 'tag-2']);
-
-    //     $checkoutUrl = VivaWallet::createPaymentOrder($payment);
-    //  }
-
     public function completed_order(Request $request)
     {
-        $data['user'] = auth()->user() ?? [];
 
-        if (auth()->user()) {
-            Order::where(['user_id' => auth()->user()->id, 'payment_status' => 'Unpaid', 'status' => 'Received'])->latest('created_at')->first()
+        if (session('order_id')) {
+            Order::where(['id' => session('order_id'), 'payment_status' => 'Unpaid', 'status' => 'Received'])->latest('created_at')->first()
                 ->update(['payment_status' => 'Paid']);
+            Session::flush();
+            Auth::logout();
 
-            Cart::where(['user_id' => auth()->user()->id, 'status' => 1])
-                ->update(['status' => 2]);
-
-            return view('web.pages.completed_order', $data);
+            return view('web.pages.completed_order');
         } else {
-            return redirect()->route('login');
+            dd('contact to developer');
         }
     }
 
@@ -706,49 +648,5 @@ class WebController extends Controller
         } else {
             return redirect()->route('login');
         }
-    }
-
-    public function get_order(Request $request)
-    {
-        $order_id = $request->id;
-
-        $apiKey = env('ROYAL_MAIL_API_KEY');
-
-        $client = new Client();
-        $response = $client->get('https://api.parcel.royalmail.com/api/v1/orders/' . $order_id, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $apiKey,
-            ]
-        ]);
-
-        $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
-
-        return response()->json([
-            'status_code' => $statusCode,
-            'response' => json_decode($body, true),
-        ]);
-    }
-
-    public function create_order(Request $request)
-    {
-        // response example:  views\web\pages\example.blade.php
-        $apiKey = env('ROYAL_MAIL_API_KEY');
-        $client = new Client();
-        $response = $client->post('https://api.parcel.royalmail.com/api/v1/orders', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $apiKey,
-                'Content-Type' => 'application/json',
-            ],
-            'json' => $request->all(),
-        ]);
-
-        $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
-
-        return response()->json([
-            'status_code' => $statusCode,
-            'response' => json_decode($body, true),
-        ]);
     }
 }

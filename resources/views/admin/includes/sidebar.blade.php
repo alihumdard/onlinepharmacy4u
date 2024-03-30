@@ -223,16 +223,25 @@
 
         @if(view_permission('prescription_orders'))
             <li class="nav-item">
-                <a class="nav-link {{(request()->routeIs(['admin.users'])) ? '' : 'collapsed'}} " data-bs-target="#siderbar-users" data-bs-toggle="collapse">
-                    <i class="bi bi-person"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link" href="{{route('admin.prescriptionOrders')}}">
+                    <i class="bi bi-bar-chart"></i><span>Prescription Orders</span>
                 </a>
-                <ul id="siderbar-users" class="nav-content {{(request()->routeIs(['admin.users'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a class="{{(request()->routeIs(['admin.users'])) ? 'nav-link ' : ''}} " href="{{route('admin.users')}}">
-                            <i class="bi bi-circle"></i><span>All Users</span>
-                        </a>
-                    </li>
-                </ul>
+            </li>
+        @endif
+
+        @if(view_permission('online_clinic_orders'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('admin.onlineClinicOrders')}}">
+                    <i class="bi bi-bar-chart"></i><span>Online Clinic Orders</span>
+                </a>
+            </li>
+        @endif
+
+        @if(view_permission('shop_orders'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('admin.shopOrders')}}">
+                    <i class="bi bi-bar-chart"></i><span>Shop Orders</span>
+                </a>
             </li>
         @endif
         <li class="nav-heading">-------- user's Basic Settings --------</li>

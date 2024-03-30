@@ -4,12 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\Admin\DefualtController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\OrderController;
 
 
 Route::get('/admin', [DefualtController::class, 'index'])->name('admin.index');
 
 Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
-    Route::get('/setting', [DefualtController::class, 'profile_setting'])->name('admin.profileSetting');
+    Route::match(['get','post'], '/setting', [DefualtController::class, 'profile_setting'])->name('admin.profileSetting');
+    Route::match(['get','post'], '/passwordChange', [DefualtController::class, 'password_change'])->name('admin.passwordChange');
     Route::get('/faq', [DefualtController::class, 'faq'])->name('admin.faq');
     Route::get('/contact', [DefualtController::class, 'contact'])->name('admin.contact');
 
@@ -63,4 +65,9 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/changeStatus', [SystemController::class, 'change_status'])->name('admin.changeStatus');
     Route::match(['get', 'post'], '/createShippingOrder', [SystemController::class, 'create_shiping_order'])->name('admin.createShippingOrder');
     Route::match(['get', 'post'], '/getShippingOrder/{id}', [SystemController::class, 'get_shiping_order'])->name('admin.getShippingOrder');
+
+    Route::get('/prescriptionOrders', [OrderController::class, 'prescription_orders'])->name('admin.prescriptionOrders');
+    Route::get('/onlineClinicOrders', [OrderController::class, 'online_clinic_orders'])->name('admin.onlineClinicOrders');
+    Route::get('/shopOrders', [OrderController::class, 'shop_orders'])->name('admin.shopOrders');
+
 });

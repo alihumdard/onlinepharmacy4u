@@ -333,7 +333,15 @@ class DefualtController extends Controller
             }
             $message = "User" . ($request->id ? "Registraion" : "Registraion") . " Successfully";
             if ($saved) {
-                return redirect()->route('login')->with(['msg' => $message]);
+                $intendedUrl = session('intended_url');
+                session()->forget('intended_url');
+                if ($intendedUrl) {
+                    return redirect()->route('web.consultationForm');
+                }
+                else{
+                    return  redirect('/admin');
+                }
+                
             }
         }else{
             return redirect()->back();

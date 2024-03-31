@@ -149,8 +149,8 @@ class WebController extends Controller
     public function consultation_form(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
-        $data['template'] = $request->template;
-        $data['product_id'] = $request->product_id;
+        $data['template'] = $request->template ?? session('template');
+        $data['product_id'] = $request->product_id ?? session('product_id');
         if ($data['template'] == config('constants.PHARMACY_MEDECINE')) {
             $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
             return view('web.pages.pmd_genral_question', $data);
@@ -640,13 +640,7 @@ class WebController extends Controller
 
     public function unsuccessful_order(Request $request)
     {
-
         $data['user'] = auth()->user() ?? [];
-
-        if (auth()->user()) {
-            return view('web.pages.unsuccessful_order', $data);
-        } else {
-            return redirect()->route('login');
-        }
+        return view('web.pages.unsuccessful_order', $data);
     }
 }

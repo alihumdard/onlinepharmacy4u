@@ -169,7 +169,7 @@
                         </div>
                     </div>
                     <!-- Top Rated Product Widget -->
-                    <div class="widget ltn__top-rated-product-widget">
+                    <div class="widget ltn__top-rated-product-widget d-none">
                         <h4 class="ltn__widget-title ltn__widget-title-border">Top Rated Product</h4>
                         <ul>
                             <li>

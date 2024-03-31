@@ -128,12 +128,17 @@
 
                                     </td>
                                     <td>
-                                        @if (Str::startsWith($val['answer'], 'consultation/product/'))
+                                        @if (is_array($val['answer']))
+                                        @foreach ($val['answer'] as $key => $value)
+                                        <p>{{ ucfirst(trim($key, "'")) }}: {{ $value }}</p>
+                                        @endforeach
+                                        @elseif (Str::startsWith($val['answer'], 'consultation/product/'))
                                         <a class="fw-bold btn-link" href="{{ asset('storage/'.$val['answer']) }}" download>See File</a>
                                         @else
                                         <p>{{ $val['answer'] }}</p>
                                         @endif
                                     </td>
+
                                 </tr>
                                 @endforeach
                                 @if($product_consultation)
@@ -160,9 +165,7 @@
                                         <span class="text-center"></span>
                                         @endif
 
-
                                     </td>
-
                                     <td>
                                         @if (Str::startsWith($value['answer'], 'consultation/user/'))
                                         <a class="fw-bold btn-link" href="{{ asset('storage/'.$value['answer']) }}" download>See File</a>

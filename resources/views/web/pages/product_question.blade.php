@@ -136,9 +136,9 @@
                         or
                         not.</p>
                 </div>
-                <form action="{{route('web.consultationStore')}}" method="post">
+                <form action="{{route('web.transactionStore')}}" method="post">
                     @csrf
-                    <input type="hidden" name="template" required value="1">
+                    <input type="hidden" name="template" required value="{{$template}}">
                     <input type="hidden" name="product_id" required value="{{$product_id ?? ''}}">
 
                     @foreach($questions ?? [] as $key => $question)
@@ -147,10 +147,10 @@
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$question['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_5" class="btn-radio" value="Yes" data-label="Yes" required>
+                                <input type="radio" name="quest_{{$question['id']}}" class="btn-radio" value="{{$question['yes_lable']}}" data-label="{{$question['yes_lable']}}" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_5" class="btn-radio" value="No" data-label="No" required>
+                                <input type="radio" name="quest_{{$question['id']}}" class="btn-radio" value="{{$question['no_lable']}}" data-label="{{$question['no_lable']}}" required>
                             </label>
                         </div>
                     </div>
@@ -161,8 +161,8 @@
                             <p class="m-0 fw-bold">{{$question['title'] ?? '' }}</p>
                         </div>
                         <div class="mt-3 mb-0">
-                            <label for="quest_3" class="form-label">Additional Details:</label>
-                            <textarea class="form-control" name="quest_3" id="quest_3" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            <label for="quest_{{$question['id']}}" class="form-label"><p class="mt-1">{{$question['openbox'] ?? '' }}</p></label>
+                            <textarea class="form-control" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
                         </div>
                     </div>
                     @endif
@@ -172,16 +172,20 @@
                             <p class="m-0 fw-bold">{{$question['title'] ?? '' }}</p>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input styled-radio" type="radio" name="quest_1" id="quest_1_option1" value="Me" required>
-                            <label class="form-check-label" for="quest_1_option1">Me</label>
+                            <input class="form-check-input styled-radio" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option1" value="{{$question['optA']}}" required>
+                            <label class="form-check-label" for="quest_{{$question['id']}}_option1">{{$question['optA']}}</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input styled-radio" type="radio" name="quest_1" id="quest_1_option2" value="Myself & someone else" required>
-                            <label class="form-check-label" for="quest_1_option2">Myself & someone else</label>
+                            <input class="form-check-input styled-radio" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option2" value="{{$question['optB']}}" required>
+                            <label class="form-check-label" for="quest_{{$question['id']}}_option2">{{$question['optB']}}</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input styled-radio" type="radio" name="quest_1" id="quest_1_option3" value="Someone else" required>
-                            <label class="form-check-label" for="quest_1_option3">Someone else </label>
+                            <input class="form-check-input styled-radio" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option3" value="{{$question['optC']}}" required>
+                            <label class="form-check-label" for="quest_{{$question['id']}}_option3">{{$question['optC']}}</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input styled-radio" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option3" value="{{$question['optD']}}" required>
+                            <label class="form-check-label" for="quest_{{$question['id']}}_option3">{{$question['optD']}}</label>
                         </div>
                     </div>
                     @endif

@@ -37,8 +37,9 @@ Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web
 
 Route::match(['get','post'],'/productQuestion/{id}', [WebController::class, 'product_question'])->name('web.productQuestion');
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
-Route::get('/product_question', [WebController::class, 'product_question_new']);
 Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
+Route::match(['get', 'post'], '/transactionStore/', [WebController::class, 'transaction_store'])->name('web.transactionStore');
+Route::get('/product_question', [WebController::class, 'product_question_new']);
 Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->name('web.questions_preview');
 
 Route::get('/cart', [CartController::class, 'cart'])->name('web.view.cart');
@@ -90,7 +91,6 @@ include __DIR__ . '/admin.php';
 // Route::match(['get','post'],'/bmiUpdate', [WebController::class, 'bmi_update'])->name('web.bmiUpdate');
 // Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
 // Route::match(['get','post'],'/cart/{id?}', [WebController::class, 'cart'])->name('web.cart');
-// Route::match(['get', 'post'], '/transactionStore/', [WebController::class, 'transaction_store'])->name('web.transactionStore');
 
 // Route::get('/getOrder/{id}', [WebController::class, 'get_order']);
 // Route::post('/createOrder', [WebController::class, 'create_order']);

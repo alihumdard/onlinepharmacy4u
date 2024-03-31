@@ -114,9 +114,9 @@
                     </form>
                     <div class="by-agree text-center">
                         <p>By creating an account, you agree to our:</p>
-                        <p><a href="#">TERMS OF CONDITIONS  &nbsp; &nbsp; | &nbsp; &nbsp;  PRIVACY POLICY</a></p>
+                        <p><a href="/terms_and_conditions/">TERMS OF CONDITIONS  &nbsp; &nbsp; | &nbsp; &nbsp;  PRIVACY POLICY</a></p>
                         <div class="go-to-btn mt-50">
-                            <a href="login.html">ALREADY HAVE AN ACCOUNT ?</a>
+                            <a href="/admin">ALREADY HAVE AN ACCOUNT ?</a>
                         </div>
                     </div>
                 </div>

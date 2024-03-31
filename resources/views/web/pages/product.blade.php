@@ -155,7 +155,7 @@
                                     </ul>
                                 </div>
                                 <hr>
-                                <div class="ltn__safe-checkout">
+                                <div class="ltn__safe-checkout d-none">
                                     <h5>Guaranteed Safe Checkout</h5>
                                     <img src="img/icons/payment-2.png" alt="Payment Image">
                                 </div>
@@ -178,7 +178,7 @@
                                 <p>{{ $product->desc }}</p>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="liton_tab_details_1_2">
+                        <div class="tab-pane fade" id="liton_tab_details_1_2 d-none">
                             <div class="ltn__shop-details-tab-content-inner">
                                 <h4 class="title-2">Customer Reviews</h4>
                                 <div class="product-ratting">
@@ -432,7 +432,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="product-info">
+                    <div class="product-info d-none">
                         <div class="product-ratting">
                             <ul>
                                 <li><a href="#"><i class="fas fa-star"></i></a></li>

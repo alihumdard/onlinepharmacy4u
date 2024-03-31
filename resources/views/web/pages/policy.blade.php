@@ -50,7 +50,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 pt-2">
-                <a href="/faq" class="btn  policy-btn">Faq</a>
+                <a href="/faq" class="btn  policy-btn">FAQ</a>
             </div>
             <div class="col-md-3 pt-2">
                 <a href="/editorial_policy" class="btn  policy-btn">Editorial Policy</a>

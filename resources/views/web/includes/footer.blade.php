@@ -123,9 +123,9 @@
                     <div class="col-md-6 col-12 align-self-center">
                         <div class="ltn__copyright-menu text-end">
                             <ul>
-                                <li><a href="/terms_and_conditions">Terms & Conditions</a></li>
-                                <li><a href="/returns">Claim</a></li>
-                                <li><a href="/policy">Privacy & Policy</a></li>
+                                <li><a href="/terms_and_conditions" class="footer-end-links">Terms & Conditions</a></li>
+                                <li><a href="/returns"  class="footer-end-links">Claim</a></li>
+                                <li><a href="/policy"  class="footer-end-links">Privacy & Policy</a></li>
                             </ul>
                         </div>
                     </div>

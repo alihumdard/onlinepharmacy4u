@@ -432,7 +432,7 @@
 <div class="ltn__call-to-action-area section-bg-1 countdown-section pt-20 pb-20">
     <div class="container">
         <div class="row">
-            <div class="col-lg-5 pb-5">
+            <div class="col-lg-12 pb-5">
                 <div class="conunt-heading pt-5 ">
                     <h4 class="pt-4">Once weekly weight loss injection</h4>
                     <p>We’re proud to offer fast and discreet delivery for all our medicines & treatments. So you can get your order delivered quickly, and only you’ll know what's inside.</p>
@@ -445,7 +445,9 @@
                 </div>
                 <a href="#" class="theme-btn-1 btn">Once weekly weight loss injection</a>
             </div>
-            
+            <div class="col-lg-4 align-center justify-content d-none">
+                <img src="/img/banner/mounjaro_1024x1024@2x.webp" alt="">
+            </div>
         </div>
     </div>
 </div>
@@ -490,7 +492,7 @@
                         </li>
                     </ul>
                     <div class="btn-wrapper animated">
-                        <a href="service.html" class="ltn__secondary-color text-uppercase text-decoration-underline">View Products</a>
+                        <a href="/shop" class="ltn__secondary-color text-uppercase text-decoration-underline">View Products</a>
                     </div>
                 </div>
             </div>

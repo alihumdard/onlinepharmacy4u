@@ -4,7 +4,7 @@
 
 
     <!-- BREADCRUMB AREA START -->
-    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/allbanners/about.png">
+    <div class="ltn__breadcrumb-area text-left  bg-image "  data-bs-bg="img/banner/work-page.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -36,21 +36,18 @@
                     <div class="about-us-info-wrap">
                         <div class="section-title-area ltn__section-title-2--- mb-30">
                             <!-- <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6> -->
-                            <h1 class="section-title">GP Appointments</h1>
+                            <h1 class="section-title">How It Works</h1>
                             <p>You NO longer have to wait for GP appointments. NO more visiting your local pharmacy or waiting in long lines. All our services are FREE*, receive genuine medication delivered conveniently and discreetly packaged to your door. You NO longer need assistance from your GP or your local pharmacy – we do all this online 4U for FREE* here at Online Pharmacy 4U.</p> <br>
                             <!-- <p>At Online Pharmacy4U, we prioritise your well-being, ensuring quick and secure delivery of prescriptions right to your doorstep. Our commitment to excellence extends beyond transactions; we're here to provide expert guidance, personalised support, and a user-centric experience. Trust us for a healthier, more accessible future in healthcare.</p> -->
                         </div>
-                        <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
-                            <li><i class="fas fa-check-circle"></i>Start a FREE* 60 Seconds online consultation.</li>
-                        </ul>
-                        <div class="about-author-info-2 border-top mt-10 ">
+                        <div class="above-section">
+                            <h4>Start a FREE* 60 Seconds online consultation.</h4>
                             <p>We have a comprehensive guide to a wide range of conditions & infections that we can provide treatments for. You can read all about these as well as view the medicines to treat them before you complete an online FREE* consultation and it only takes a few quick seconds!</p>
-                           
                         </div>
                         <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
-                            <li><i class="fas fa-check-circle"></i>Fast and Simple.</li>
+                            <li><h4><i class="fas fa-check-circle"></i>Fast and Simple.</h4></li>
                         </ul>
-                        <div class="about-author-info-2 border-top mt-10 ">
+                        <div class="about-author-info-2 border-top ">
                             <p>Our online FREE* consultation only takes a few quick seconds, fast, simple & easy to complete. Our short few questions are similar as those that would be asked at your GP appointment.</p>
                            
                         </div>
@@ -74,16 +71,13 @@
                         <p>All of our experienced UK Independent prescribers are registered with the General Pharmaceuticals Council (GPhC) they will review your consultation immediately. Once approved Online Pharmacy 4U medical team will then recommend a treatment and issue a FREE* prescription.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
-                            <li><i class="fas fa-check-circle"></i>Genuine Treatments</li>
-                            <p class="pt-3 ">We only stock 100% regulated and approved medications.</p> 
-                            <li><i class="fas fa-check-circle"></i>Top Leading Brands</li>
-                            <p class="pt-3 ">We have a huge selection of top well known brands.</p>
-                            <li><i class="fas fa-check-circle"></i>FREE* Prescription</li>
-                            <p class="pt-3 ">All our services from consultation to prescription is FREE* (please read our terms and conditions)</p>
-                           
-                        </ul>
-
-                    
+                            <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>Genuine Treatments</h4></li>
+                            <p class=" ">We only stock 100% regulated and approved medications.</p> 
+                            <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>Top Leading Brands</h4></li>
+                            <p class=" ">We have a huge selection of top well known brands.</p>
+                            <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>FREE* Prescription</h4></li>
+                            <p class=" ">All our services from consultation to prescription is FREE* (please read our terms and conditions)</p>
+                    </ul>
                 </div>
             </div>
             <div class="col-lg-6 align-self-center">
@@ -113,12 +107,12 @@
                         <p>All order before 3pm are dispatched the very same day in discreet packaging keeping you notified every step of the way until your order is received.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
-                            <li><i class="fas fa-check-circle"></i>Flexible Express Delivery.</li>
-                            <p class="pt-3 ">We have multiple delivery options which you can choose from on checkout from FREE delivery* to express next day delivery*.</p> 
-                            <li><i class="fas fa-check-circle"></i>Discreet Packaging.</li>
-                            <p class="pt-3 ">Each and every order we dispatch is packaged discreetly for your peace of mind and is delivered to your chosen destination.</p>
-                            <li><i class="fas fa-check-circle"></i>REVIEWS.io Approved (Top Rated)</li>
-                            <p class="pt-3 ">Once you have received your medications and are happy with it, we would love to hear from you, every review is seen by our Online Pharmacy 4U team and the World Wide Web. We can't wait to hear from you!</p> 
+                            <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>Flexible Express Delivery.</h4></li>
+                            <p class=" ">We have multiple delivery options which you can choose from on checkout from FREE delivery* to express next day delivery*.</p> 
+                            <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>Discreet Packaging.</4></li>
+                            <p class=" ">Each and every order we dispatch is packaged discreetly for your peace of mind and is delivered to your chosen destination.</p>
+                            <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>REVIEWS.io Approved (Top Rated)</h4></li>
+                            <p class=" ">Once you have received your medications and are happy with it, we would love to hear from you, every review is seen by our Online Pharmacy 4U team and the World Wide Web. We can't wait to hear from you!</p> 
                     </ul>
                     
                 </div>

@@ -181,27 +181,30 @@
                                     <div class="card-body">
                                         @foreach($order['orderdetails'] as $key => $val)
                                         <div class="row">
+                                            @php
+                                            $src = (isset($val['variant']))? $val['variant']['image'] : $val['product']['main_image'];
+                                            @endphp
                                             <div class="col-md-1" style="height:150px; width:150px;">
-                                                <img class="img-fluid pt-3 h-100 w-100" id="product_img" src="{{ asset('storage/') }}" loading="lazy" alt="Prodcut Image">
+                                                <img class="img-fluid pt-3 h-100 w-100" id="product_img" src="{{ asset('storage/'.$src) }}" loading="lazy" alt="Prodcut Image">
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0"><b>Title: </b> {{$val['product_name'] ?? '' }}</p>
+                                                <p class="text-muted mb-0"><b>Title: </b> {{$val['product_name'] ?? $val['product']['title'] }}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small"><b>Variant: </b> {{$order['variant']['title'] ?? '' }}</p>
+                                                <p class="text-muted mb-0 small"><b>Variant: </b> {{$val['variant']['title'] ?? '' }}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                                                 <p class="text-muted mb-0 small"><b>Quantity: </b> {{$val['product_qty']}}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small"><b>Barcode: </b> {{$val['barcode'] ?? ''}}</p>
+                                                <p class="text-muted mb-0 small"><b>Barcode: </b> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small"><b>Price: </b>£ {{$val['product_price'] ?? ''}}</p>
+                                                <p class="text-muted mb-0 small"><b>Price: </b>£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
                                             </div>
                                         </div>
                                         <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                                        @if($val['consultation_type'] != 'one_over')
+                                        @if($val['consultation_type'] == 'premd')
                                         <div class="row d-flex ">
                                             <div class="col-lg-12 text-center ">
                                                 <a target="_blank" href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
@@ -220,7 +223,7 @@
                                                 <div class="button-container" style="display: flex; flex-wrap: wrap;">
                                                     @forelse($userOrders as $index => $val)
                                                     <a target="_blank" href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary m-1">
-                                                        <b>{{ $index + 1 }}.</b> #00343{{ $val['id'] }}
+                                                        <b>{{ $index + 1 }}.</b> #00{{ $val['id'] }}
                                                     </a>
                                                     @empty
                                                     <p class="px-5">No Previous Orders Of that Customer.</p>

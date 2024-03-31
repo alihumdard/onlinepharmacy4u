@@ -890,7 +890,7 @@ class SystemController extends Controller
         }
         if ($request->id) {
             $id = base64_decode($request->id);
-            $order = Order::with('user', 'shipingdetails', 'orderdetails')->where(['id' => $id, 'payment_status' => 'Paid'])->first();
+            $order = Order::with('user', 'shipingdetails', 'orderdetails','orderdetails.product')->where(['id' => $id, 'payment_status' => 'Paid'])->first();
             if ($order) {
                 $data['userOrders'] = Order::select('id')
                     ->where('email', $order->email)
@@ -900,6 +900,7 @@ class SystemController extends Controller
                     ->toArray();
                 $data['userOrders']  = [];
                 $data['order']  = $order->toArray() ?? [];
+                // dd($data);
                 return view('admin.pages.order_detail', $data);
             } else {
                 return redirect()->back()->with('error', 'Order not found.');
@@ -918,6 +919,8 @@ class SystemController extends Controller
         }
         if ($request->odd_id) {
             $odd_id = base64_decode($request->odd_id);
+            $user_result = [];
+            $prod_result = [];
             $consultaion  = OrderDetail::where(['id' => $odd_id, 'status' => '1'])->latest('created_at')->latest('id')->first();
             if ($consultaion) {
                 $consutl_quest_ans = json_decode($consultaion->generic_consultation, true);
@@ -928,11 +931,30 @@ class SystemController extends Controller
                     $consult_questions = PMedGeneralQuestion::whereIn('id', $consult_quest_keys)->select('id', 'title', 'desc')->get()->toArray();
                 } elseif ($consultaion->consultation_type == 'premd') {
                     $consult_questions = PrescriptionMedGeneralQuestion::whereIn('id', $consult_quest_keys)->select('id', 'title', 'desc')->get()->toArray();
+                    $pro_quest_ans = json_decode($consultaion->product_consultation, true);
+                    $pro_quest_ids = array_keys(array_filter($pro_quest_ans, function ($value) {
+                        return $value !== null;
+                    }));
+                    $product_consultation = Question::whereIn('id', $pro_quest_ids)->orderBy('id')->get()->toArray();
+                    $product_consultation = collect($product_consultation)->mapWithKeys(function ($item) {
+                        return [$item['id'] => $item];
+                    });
+
+                    foreach ($pro_quest_ans as $q_id => $answer) {
+                        if (isset($product_consultation[$q_id])) {
+                            $prod_result[] = [
+                                'id' => $q_id,
+                                'title' => $product_consultation[$q_id]['title'],
+                                'desc' => $product_consultation[$q_id]['openbox'],
+                                'answer' => $answer,
+                            ];
+                        }
+                    }
                 }
                 $consult_questions = collect($consult_questions)->mapWithKeys(function ($item) {
                     return [$item['id'] => $item];
                 });
-                $user_result = [];
+
                 foreach ($consutl_quest_ans as $quest_id => $ans) {
                     if (isset($consult_questions[$quest_id])) {
                         $user_result[] = [
@@ -945,7 +967,7 @@ class SystemController extends Controller
                 }
                 $data['order_user_detail'] =  ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
                 $data['generic_consultation'] = $user_result;
-                $data['product_consultation'] = [];
+                $data['product_consultation'] = $prod_result ?? [];
                 return view('admin.pages.consultation_view', $data);
             } else {
                 return redirect()->back()->with('error', 'Transaction not found.');
@@ -998,7 +1020,7 @@ class SystemController extends Controller
         }
         return view('admin.pages.doctors_approval', $data);
     }
-    
+
     public function orders_shiped()
     {
         $data['user'] = auth()->user();

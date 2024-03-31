@@ -53,6 +53,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
 use GuzzleHttp\Client;
+use Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
 
 class WebController extends Controller
 {
@@ -201,15 +202,24 @@ class WebController extends Controller
         } else {
             $consultations[$request->product_id] = $consultationData;
             Session::put('consultations', $consultations);
-            return redirect()->route('category.products', $slug);
+            return redirect()->route('web.productQuestion', ['id' => $request->product_id]);
         }
     }
-
 
     public function product_question(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
         if (auth()->user()) {
+            if (isset(session('consultations')[$request->id])) {
+                $generic_consultation = (isset(session('consultations')[$request->id]['gen_quest_ans'])) ? true : false;
+                if (!$generic_consultation) {
+                    return redirect()->route('shop');
+                }
+            } else {
+                return redirect()->route('shop');
+            }
+
+            $data['template'] = config('constants.PRESCRIPTION_MEDICINE');
             $data['product_id'] = $request->id;
             $data['product_detail'] = Product::find($request->id);
             $question_category = explode(',', $data['product_detail']->question_category);
@@ -282,12 +292,51 @@ class WebController extends Controller
                 return !($question['id'] == 28 && $question['class'] != 'd-none');
             });
             $data['questions'] = array_values($filteredQuestions);
+            // dd($data);
             return view('web.pages.product_question', $data);
         } else {
-            session()->put('pro_id', $data['product']['id']);
-            return redirect()->route('register');
+            session()->put('intended_url', 'fromConsultation');
+            session()->put('template', $data['template']);
+            session()->put('product_id', $data['product_id']);
+            return redirect()->route('login');
         }
     }
+
+    public function transaction_store(Request $request)
+    {
+        if (auth()->user()) {
+            if (isset(session('consultations')[$request->product_id])) {
+                $productSession = session('consultations')[$request->product_id];
+                $generic_consultation = isset($productSession['gen_quest_ans']);
+
+                if ($generic_consultation) {
+                    $questionAnswers = [];
+                    foreach ($request->all() as $key => $value) {
+                        if ($key === '_token' || $key === 'template') {
+                            continue;
+                        }
+                        if (strpos($key, 'quest_') === 0) {
+                            $question_id = substr($key, 6);
+                            $questionAnswers[$question_id] = $value;
+                        }
+                    }
+
+                    $productSession['pro_quest_ans'] = $questionAnswers;
+                    session(['consultations.' . $request->product_id => $productSession]);
+                    $slug = session('consultations')[$request->product_id]['slug'];
+                    return redirect()->route('category.products', $slug);
+                } else {
+                    return redirect()->route('shop');
+                }
+            } else {
+                return redirect()->route('shop');
+            }
+        } else {
+            session()->put('intended_url', 'fromConsultation');
+            return redirect()->route('login');
+        }
+    }
+
 
     public function view_cart(Request $request)
     {
@@ -419,46 +468,6 @@ class WebController extends Controller
         return view('web.pages.sleep', $data);
     }
 
-    public function transaction_store(Request $request)
-    {
-        $data['user'] = auth()->user() ?? [];
-
-        if (auth()->user()) {
-            $product_id = $request->input('product_id');
-            $category_id = $request->input('category_id');
-            $questionAnswers = [];
-
-            foreach ($request->all() as $key => $value) {
-                if (strpos($key, 'qid_') === 0) {
-                    $question_id = substr($key, 4); // Extract question_id from the key
-                    $questionAnswers[$question_id] = $value;
-                } else if (strpos($key, 'qfid_') === 0) {
-                    $question_id = substr($key, 5);
-                    if ($request->hasFile($key)) {
-                        $file = $request->file($key);
-                        $fileName = time() . '_' . uniqid('', true) . '.' . $file->getClientOriginalExtension();
-                        $file->storeAs('consultation/product', $fileName, 'public');
-                        $filePath = 'consultation/product/' . $fileName;
-                        $questionAnswers[$question_id] = $filePath;
-                    }
-                }
-            }
-            $save =  Transaction::create([
-                'user_id' => auth()->user()->id,
-                'product_id' => $product_id,
-                'category_id' => $category_id,
-                'question_answers' =>  json_encode($questionAnswers, JSON_FORCE_OBJECT),
-                'status' => '1',
-                'created_by' => auth()->user()->id,
-            ]);
-
-            if ($save) {
-                return redirect()->route('web.cart', ['id' => $product_id]);
-            }
-        } else {
-            return view('web.pages.regisration_from', $data);
-        }
-    }
 
     public function payment(Request $request)
     {

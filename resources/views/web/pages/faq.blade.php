@@ -42,7 +42,7 @@
                         <div id="accordion_2">
                             <!-- card -->
                             <div class="card">
-                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-1" aria-expanded="true">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-1" aria-expanded="false">
                                 How long does delivery take?
                                 </h6>
                                 <div id="faq-item-2-1" class="collapse show" data-bs-parent="#accordion_2">
@@ -103,10 +103,10 @@
                         <div id="accordion_2">
                             <!-- card -->
                             <div class="card">
-                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-1" aria-expanded="true">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-6" aria-expanded="false">
                                 What methods of payment do you accept?
                                 </h6>
-                                <div id="faq-item-2-1" class="collapse show" data-bs-parent="#accordion_2">
+                                <div id="faq-item-2-6" class="collapse show" data-bs-parent="#accordion_2">
                                     <div class="card-body">
                                         <p>We accept most major payment methods including Visa, Mastercard, and American Express. However, you must use a card that is registered within the UK.</p>
                                     </div>
@@ -114,10 +114,10 @@
                             </div>
                             <!-- card -->
                             <div class="card">
-                                <h6 class="ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-2" aria-expanded="false"> 
+                                <h6 class="ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-7" aria-expanded="false"> 
                                 Can I use someone else's payment card?
                                 </h6>
-                                <div id="faq-item-2-2" class="collapse " data-bs-parent="#accordion_2">
+                                <div id="faq-item-2-7" class="collapse " data-bs-parent="#accordion_2">
                                     <div class="card-body">
                                         <p>No, the payment card that you use to place your order must belong to you. This is for security reasons to make sure your order only goes to the person it is intended for. We also require it as our system checks your identity for non-matching name and if there is any risk associated with your order, our system will automatically refuse your order.</p>
                                     </div>
@@ -125,10 +125,10 @@
                             </div>                          
                             <!-- card -->
                             <div class="card">
-                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-3" aria-expanded="false">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-8" aria-expanded="false">
                                 How long does it take for an order to be returned?
                                 </h6>
-                                <div id="faq-item-2-3" class="collapse" data-bs-parent="#accordion_2">
+                                <div id="faq-item-2-8" class="collapse" data-bs-parent="#accordion_2">
                                     <div class="card-body">
                                         <p>The return time depends on what method you use to send back your order. Please note that not all order is approved for returns so please contact us before you return your order back to us if you are unsure.</p>
                                     </div>
@@ -136,10 +136,10 @@
                             </div>
                             <!-- card -->
                             <div class="card">
-                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-4" aria-expanded="false">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-9" aria-expanded="false">
                                 My order has been returned to sender. What do I do now?
                                 </h6>
-                                <div id="faq-item-2-4" class="collapse" data-bs-parent="#accordion_2">
+                                <div id="faq-item-2-9" class="collapse" data-bs-parent="#accordion_2">
                                     <div class="card-body">
                                         <p>When returning your order back to us, please let us know whether you would like a refund or a replacement to avoid any delays.</p>
                                     </div>
@@ -147,10 +147,10 @@
                             </div>
                             <!-- card -->
                             <div class="card">
-                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-5" aria-expanded="false">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-10" aria-expanded="false">
                                 Do I need a prescription when placing a consultation?
                                 </h6>
-                                <div id="faq-item-2-5" class="collapse" data-bs-parent="#accordion_2">
+                                <div id="faq-item-2-10" class="collapse" data-bs-parent="#accordion_2">
                                     <div class="card-body">
                                         <p>A prescription is not necessary when using our support as you will be issued a private prescription by a pharmacist who is GPhC approved. Once your consultation is accepted, we will send your order to be processed.</p>
                                     </div>
@@ -158,10 +158,10 @@
                             </div>
                             <!-- card -->
                             <div class="card">
-                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-5" aria-expanded="false">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-11" aria-expanded="false">
                                 How does your service work?
                                 </h6>
-                                <div id="faq-item-2-5" class="collapse" data-bs-parent="#accordion_2">
+                                <div id="faq-item-2-11" class="collapse" data-bs-parent="#accordion_2">
                                     <div class="card-body">
                                         <p>Our service is a convenient and safe way to have medication delivered to your address when you are otherwise unable to go out and get it. Our prices are inclusive of the prescriber and pharamcy costs, so you will fill out a set of questions to be looked at by a prescriber, the prescription will be processed in our pharmacy and then shipped to you using your chosen delivery method. You can read a more comprehensive version of how our service works here.</p>
                                     </div>

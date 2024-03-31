@@ -164,5 +164,6 @@ Route::get('/acceptable_use_policy', [HomeController::class, 'acceptable_use_pol
 Route::get('/editorial_policy', [HomeController::class, 'editorial_policy'])->name('web.editorial_policy');
 Route::get('/dispensing_frequencies', [HomeController::class, 'dispensing_frequencies'])->name('web.dispensing_frequencies');
 Route::get('/identity_verification', [HomeController::class, 'identity_verification'])->name('web.identity_verification');
+Route::get('/product_information', [HomeController::class, 'product_information'])->name('web.product_information');
 
 include __DIR__ . '/admin.php';

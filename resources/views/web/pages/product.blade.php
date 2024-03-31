@@ -300,7 +300,7 @@
                 <!-- Shop Tab End -->
             </div>
             <div class="col-lg-4">
-                <aside class="sidebar ltn__shop-sidebar ltn__right-sidebar">
+                <aside class="sidebar ltn__shop-sidebar ltn__right-sidebar d-none">
                     <!-- Top Rated Product Widget -->
                     <div class="widget ltn__top-rated-product-widget">
                         <h4 class="ltn__widget-title ltn__widget-title-border">Top Rated Product</h4>

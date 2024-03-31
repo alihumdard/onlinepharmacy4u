@@ -161,4 +161,5 @@ class HomeController extends Controller
     {
         return view('web.pages.identity_verification');
     }
+    
 }

@@ -161,4 +161,61 @@ include __DIR__ . '/admin.php';
 
 // Route::get('/checkout', function(){
 //     return view('web.pages.checkout');
-// });
+
+
+Route::get('/product_question', [WebController::class, 'product_question_new']);
+
+
+// working routes
+
+Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->name('web.questions_preview');
+
+Route::get('/', [HomeController::class, 'index'])->name('web.index');
+Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
+Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
+Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
+
+Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
+Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
+Route::match(['get','post'],'/account', [WebController::class, 'account'])->name('web.account');
+Route::match(['get','post'],'/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
+Route::match(['get','post'],'/faq', [WebController::class, 'faq'])->name('web.faq');
+Route::match(['get','post'],'/categories', [WebController::class, 'categories'])->name('web.categories');
+Route::match(['get','post'],'/categorydetail', [WebController::class, 'categorydetail'])->name('web.categorydetail');
+Route::match(['get','post'],'/skincare', [WebController::class, 'skincare'])->name('web.skincare');
+Route::match(['get','post'],'/diabetes', [WebController::class, 'diabetes'])->name('web.diabetes');
+Route::match(['get','post'],'/sleep', [WebController::class, 'sleep'])->name('web.sleep');
+
+//cart
+Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');
+Route::get('/cart', [WebController::class, 'view_cart'])->name('web.view.cart');
+Route::get('/checkout', [WebController::class, 'product_detail'])->name('checkout');
+
+// new pages added in home controller
+Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
+Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
+Route::get('/help', [HomeController::class, 'help'])->name('web.help');
+Route::get('/order_status', [HomeController::class, 'order_status'])->name('web.order_status');
+Route::get('/delivery', [HomeController::class, 'delivery'])->name('web.delivery');
+Route::get('/returns', [HomeController::class, 'returns'])->name('web.returns');
+Route::get('/complaints', [HomeController::class, 'complaints'])->name('web.complaints');
+Route::get('/complaints', [HomeController::class, 'complaints'])->name('web.complaints');
+Route::get('/blogs', [HomeController::class, 'blogs'])->name('web.blogs');
+Route::get('/policy', [HomeController::class, 'policy'])->name('web.policy');
+Route::get('/prescribers', [HomeController::class, 'prescribers'])->name('web.prescribers');
+Route::get('/about', [HomeController::class, 'about'])->name('web.about');
+Route::get('/work', [HomeController::class, 'how_it_work'])->name('web.work');
+Route::get('/product_information', [HomeController::class, 'product_information'])->name('web.product_information');
+Route::get('/responsible_pharmacist', [HomeController::class, 'responsible_pharmacist'])->name('web.responsible_pharmacist');
+Route::get('/modern_slavery_act', [HomeController::class, 'modern_slavery_act'])->name('web.modern_slavery_act');
+Route::get('/opioid_policy', [HomeController::class, 'opioid_policy'])->name('web.opioid_policy');
+Route::get('/privacy_and_cookies_policy', [HomeController::class, 'privacy_and_cookies_policy'])->name('web.privacy_and_cookies_policy');
+Route::get('/terms_and_conditions', [HomeController::class, 'terms_and_conditions'])->name('web.terms_and_conditions');
+Route::get('/acceptable_use_policy', [HomeController::class, 'acceptable_use_policy'])->name('web.acceptable_use_policy');
+Route::get('/editorial_policy', [HomeController::class, 'editorial_policy'])->name('web.editorial_policy');
+Route::get('/dispensing_frequencies', [HomeController::class, 'dispensing_frequencies'])->name('web.dispensing_frequencies');
+Route::get('/identity_verification', [HomeController::class, 'identity_verification'])->name('web.identity_verification');
+Route::get('/product_information', [HomeController::class, 'product_information'])->name('web.product_information');
+
+include __DIR__ . '/admin.php';
+

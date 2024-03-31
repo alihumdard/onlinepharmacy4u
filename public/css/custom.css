@@ -507,7 +507,7 @@ color:white;
     border-radius:20px;
 }
 .countdown-section {
-    background-image: url('../public/img/slider/injection.webp') !important;
+    background-image: url('../public/img/slider/injection.png') !important;
     background-position: center;
     background-size: cover;
 }

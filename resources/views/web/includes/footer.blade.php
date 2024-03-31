@@ -117,7 +117,7 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="ltn__copyright-design clearfix">
-                            <p>Copyright © 2023 All Rights Reserved<span class="current-year"></span> | Design and develop by <a href="https://techsolutionspro.co.uk">Tech Solutions Pro</a></p>
+                            <p>Copyright © 2023 All Rights Reserved<span class="current-year"></span> | Designed and develop by <a href="https://techsolutionspro.co.uk">Tech Solutions Pro</a></p>
                         </div>
                     </div>
                     <div class="col-md-6 col-12 align-self-center">

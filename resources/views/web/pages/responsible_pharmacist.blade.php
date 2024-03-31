@@ -6,16 +6,16 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-image " data-bs-bg="img/Pharmacy4banners/help.webp">
+<div class="ltn__breadcrumb-area text-left bg-image " data-bs-bg="img/banner/Pharmacist.png">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="ltn__breadcrumb-inner">
-                    <h1 class="page-title mt-5 text-white">Responsible Pharmacist</h1>
+                    <h1 class="page-title mt-5 text-black">Responsible Pharmacist</h1>
                     <div class="ltn__breadcrumb-list">
                         <ul>
-                            <li><a href="/" class="text-white"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
-                            <li class="text-white">Responsible Pharmacist</li>
+                            <li><a href="/" class="text-black"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                            <li class="text-black">Responsible Pharmacist</li>
                         </ul>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
 <!-- BREADCRUMB AREA END -->
 
 
-<div class="container">
+<div class="container ">
    <div class="row">
     <div class="col-md-8">
         <h1>Responsible Pharmacist Notice</h1>
@@ -46,7 +46,7 @@
         // Format the date as desired
         var formattedDate = currentDate.toLocaleDateString('en-US', options); 
         // Print the formatted date to the paragraph with id="currentDate"
-        document.getElementById("currentDate").innerHTML = "Current Date: " + formattedDate;
+        document.getElementById("currentDate").innerHTML =  formattedDate;
     </script>
     </div>
    </div>
@@ -55,20 +55,26 @@
 <div class="container pb-5">
     <div class="responsible pt-5">
         <p><strong class="font-weight-400">The responsible pharmacist is:</strong></p>
-        <a href="" class="policy-btn">Ali Awwad</a>
+        <div class="mt-2">
+        <a href="" class="policy-btn mt-3">Ali Awwad</a>
+    </div>
     </div>
     <div class="responsible pt-5">
         <p><strong class="font-weight-400">Their registration number is:</strong></p>
+        <div class="mt-2">
         <a href="" class="policy-btn">2084469</a>
+    </div>
     </div>
     <div class="responsible pt-5 pb-0">
         <p><strong class="font-weight-400">Todays responsible Pharmacist is, the above named person is the pharmacist in charge of this pharmacy.</strong></p>
+        <div class="mt-2">
         <a href="https://pharmacyregulation.org" class="policy-btn m-0">pharmacyregulation.org</a>
+        </div>
     </div>
 </div>
 
 
-<div class="ltn__banner-area mt-120---">
+<div class="ltn__banner-area mt-50--- mb-100">
     <div class="container">
         <div class="row ltn__custom-gutter--- justify-content-center">
             <div class="col-lg-4 col-sm-6">

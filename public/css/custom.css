@@ -519,8 +519,13 @@ color:white;
     padding:12px !important;
     font-size:14px !important;
 }
-
-
+.conunt-heading li{
+    margin-top:0px;
+}
+.ltn__list-item-1{
+    padding-bottom:0px !important;
+    margin-bottom:0px !important;
+}
 .mega-menu > li > a{
     border-bottom:none;
 }
@@ -557,7 +562,9 @@ color:white;
     font-size: 1rem;
     color: #555;
 }
-
+.footer-end-links:hover{
+    color:rgba(2,195,164,1);
+}
 .btn {
     background-color: #007bff;
     color: #fff;

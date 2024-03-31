@@ -11,7 +11,6 @@
         display: -webkit-box;
         line-height: 1.4em; 
     }
-}
 </style>
 <!-- BREADCRUMB AREA START -->
 <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="{{ asset('storage/'.$image) }}">
@@ -184,7 +183,7 @@
                         </ul>
                     </div>
                     <!-- Price Filter Widget -->
-                    <div class="widget ltn__price-filter-widget">
+                    <div class="widget ltn__price-filter-widget d-none">
                         <h4 class="ltn__widget-title ltn__widget-title-border">Filter by price</h4>
                         <div class="price_filter">
                             <div class="price_slider_amount">
@@ -195,7 +194,7 @@
                         </div>
                     </div>
                     <!-- Top Rated Product Widget -->
-                    <div class="widget ltn__top-rated-product-widget">
+                    <div class="widget ltn__top-rated-product-widget d-none">
                         <h4 class="ltn__widget-title ltn__widget-title-border">Top Rated Product</h4>
                         <ul>
                             <li>
@@ -269,38 +268,6 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- Search Widget -->
-                    <div class="widget ltn__search-widget">
-                        <h4 class="ltn__widget-title ltn__widget-title-border">Search Objects</h4>
-                        <form action="#">
-                            <input type="text" name="search" placeholder="Search your keyword...">
-                            <button type="submit"><i class="fas fa-search"></i></button>
-                        </form>
-                    </div>
-                    <!-- Tagcloud Widget -->
-                    <div class="widget ltn__tagcloud-widget">
-                        <h4 class="ltn__widget-title ltn__widget-title-border">Popular Tags</h4>
-                        <ul>
-                            <li><a href="#">Body</a></li>
-                            <li><a href="#">Doctor</a></li>
-                            <li><a href="#">Drugs</a></li>
-                            <li><a href="#">Eye</a></li>
-                            <li><a href="#">Face</a></li>
-                            <li><a href="#">Hand</a></li>
-                            <li><a href="#">Mask</a></li>
-                            <li><a href="#">Medicine</a></li>
-                            <li><a href="#">Price</a></li>
-                            <li><a href="#">Sanitizer</a></li>
-                            <li><a href="#">Virus</a></li>
-                        </ul>
-                    </div>
-                    
-                    
-                    <!-- Banner Widget -->
-                    <div class="widget ltn__banner-widget">
-                        <a href="shop.html"><img src="img/banner/banner-2.jpg" alt="#"></a>
-                    </div>
-
                 </aside>
             </div>
         </div>

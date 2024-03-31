@@ -160,7 +160,7 @@
                                                 </li>
                                             @endforeach
                                             <li><a href="/howitworks">How its work</a></li>
-                                            <li><a href="/contact">Contact</a></li>
+                                            <li><a href="/help">Help</a></li>
                                         </ul>
                                     </div>
                                 </nav>

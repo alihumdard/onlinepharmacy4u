@@ -1047,22 +1047,22 @@
         },
         {
             "name": "hardevine/shoppingcart",
-            "version": "3.2",
+            "version": "3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hardevine/LaravelShoppingcart.git",
-                "reference": "df525606697abf68882a2221ad1f2286353b49eb"
+                "reference": "0785c08a0771957070ae1ade48cf70449771ec83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hardevine/LaravelShoppingcart/zipball/df525606697abf68882a2221ad1f2286353b49eb",
-                "reference": "df525606697abf68882a2221ad1f2286353b49eb",
+                "url": "https://api.github.com/repos/hardevine/LaravelShoppingcart/zipball/0785c08a0771957070ae1ade48cf70449771ec83",
+                "reference": "0785c08a0771957070ae1ade48cf70449771ec83",
                 "shasum": ""
             },
             "require": {
-                "illuminate/events": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10",
-                "illuminate/session": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10",
-                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10"
+                "illuminate/events": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10|^11",
+                "illuminate/session": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10|^11",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|^6|^7|^8|^9|^10|^11"
             },
             "require-dev": {
                 "mockery/mockery": "~0.9.0",
@@ -1105,9 +1105,9 @@
             ],
             "support": {
                 "issues": "https://github.com/hardevine/LaravelShoppingcart/issues",
-                "source": "https://github.com/hardevine/LaravelShoppingcart/tree/3.2"
+                "source": "https://github.com/hardevine/LaravelShoppingcart/tree/3.3"
             },
-            "time": "2023-03-09T06:15:48+00:00"
+            "time": "2024-03-30T10:42:21+00:00"
         },
         {
             "name": "laravel/framework",

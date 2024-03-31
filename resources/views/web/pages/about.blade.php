@@ -8,7 +8,7 @@
 </style>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/allbanners/about.png">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/banner/about-us.png">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -115,9 +115,10 @@
                         <p>The pharmacy is registered with the GPhC General Pharmaceutical Council with number 9011792. The Superintendent Pharmacist for online-pharmacy4u is Ali Awaad GPhC Number 2084469. UK Registered Prescribers: Mohamed Mohamed (GPhC Number 2075772)</p>
                     </div>
                     <ul class="ltn__list-item-half clearfix w-100">
-                        <li>
+                        <li class="w-100">
                             <i class="fas fa-globe-europe"></i>
-                            <p><strong>Registered Office Address:</strong> United Healthcare - Online Pharmacy 4U<br>
+                            <p><strong>Registered Office Address:</strong><br>
+                             United Healthcare - Online Pharmacy 4U<br>
                                 20-22 Wenlock Road,<br>
                                 London, N1 7GU,<br>
                                 United Kingdom</p>
@@ -174,7 +175,7 @@
                         <img src="img/icons/icon-img/24.png" alt="#">
                     </div>
                     <div class="ltn__feature-info">
-                        <h4><a href="service-details.html">Free Delivery</a></h4>
+                        <h4><a>Free Delivery</a></h4>
                         <p> Enjoy the convenience of free and smooth delivery of all your health essentials with Online Pharmacy4U.</p>
                     </div>
                 </div>
@@ -186,7 +187,7 @@
                         <img src="img/icons/icon-img/25.png" alt="#">
                     </div>
                     <div class="ltn__feature-info">
-                        <h4><a href="service-details.html">100% Cash Back</a></h4>
+                        <h4><a>100% Cash Back</a></h4>
                         <p> Shop worry-free – you'll receive 100% cashback on your purchases, ensuring a risk-free shopping experience.</p>
                     </div>
                 </div>
@@ -198,7 +199,7 @@
                         <img src="img/icons/icon-img/26.png" alt="#">
                     </div>
                     <div class="ltn__feature-info">
-                        <h4><a href="service-details.html">Quality Product</a></h4>
+                        <h4><a>Quality Product</a></h4>
                         <p> Trust in our commitment to provide reliable pharmaceutical products to meet your health needs.</p>
                     </div>
                 </div>
@@ -210,7 +211,7 @@
                         <img src="img/icons/icon-img/27.png" alt="#">
                     </div>
                     <div class="ltn__feature-info">
-                        <h4><a href="service-details.html">24/7 Support</a></h4>
+                        <h4><a>24/7 Support</a></h4>
                         <p> Experience peace of mind with our round-the-clock customer support, ready to assist you anytime you have queries or concerns.</p>
                     </div>
                 </div>

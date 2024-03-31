@@ -22,10 +22,16 @@
                 <div class="card vh-100">
                     <div class="card-body">
                         <!-- Multi Columns Form -->
-                        <form class="row g-3 mt-3 needs-validation" method="post" action="{{ route('admin.storeCategory') }}" novalidate>
+                        <form class="row g-3 mt-3 needs-validation" method="post" action="{{ route('admin.storeCategory') }}" novalidate enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ $category['id'] ?? ''}}">
 
+                            @php
+                                $path = url('assets/admin/img/upload_btn.png');
+                                if($category['image'] ?? NULL){
+                                    $path = asset('storage/'.$category['image']);
+                                }
+                            @endphp
                             <div class="col-md-4">
                                 <label for="selection" class="form-label">Selection</label>
                                 <select id="selection" name="selection" class="form-select">
@@ -64,6 +70,16 @@
                                             @endforeach
                                         @endif
                                 </select>
+                            </div>
+                            <div class="col-12 mt-2 image">
+                                <label for="image" class="form-label">Upload Image</label>
+                                <div class="d-flex align-items-center" style="gap: 20px; justify-content: space-between;">
+                                    <input type="file" class="form-control w-100" id="image" name="image" value="{{ ($category['image'] ?? NULL) ? 'required' : '' }}" onchange="previewMainImage(this)">
+                                    <label for="image" class=" d-block ">
+                                        <img id="image_preview" src="{{  $path ?? '' }}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px;  cursor:pointer;   object-fit: cover;">
+                                    </label>
+                                </div>
+                                <div class="invalid-feedback">* Upload Image!</div>
                             </div>
                             <div class="col-12">
                                 <label for="desc" class="form-label">Short Description</label>

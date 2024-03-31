@@ -23,15 +23,7 @@ use App\Models\QuestionMapping;
 use App\Models\PMedGeneralQuestion;
 use App\Models\PrescriptionMedGeneralQuestion;
 use Illuminate\Validation\Rule;
-
-// models ...
-use App\Models\ProductAttribute;
-use App\Models\QuestionCategory;
-use App\Models\UserConsultation;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use App\Models\ConsultationQuestion;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -42,6 +34,21 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+
+
+// models ...
+use App\Models\Comment;
+use App\Models\shippedOrder;
+use App\Models\ProductAttribute;
+use App\Models\QuestionCategory;
+use App\Models\UserConsultation;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\ConsultationQuestion;
+use App\Models\OrderDetail;
+use App\Models\ShipingDetail;
+
 
 class SystemController extends Controller
 {
@@ -116,7 +123,7 @@ class SystemController extends Controller
         if (!isset($request->id)) {
             $rules['password'] = 'required';
         }
-    
+
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -202,11 +209,11 @@ class SystemController extends Controller
                 Rule::unique('users')->ignore($request->id),
             ],
         ];
-        
+
         if (!isset($request->id)) {
             $rules['password'] = 'required';
         }
-        
+
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -286,17 +293,15 @@ class SystemController extends Controller
 
         $data['user'] = auth()->user();
         if ($request->has('id')) {
-            if($request->selection == 1){
+            if ($request->selection == 1) {
                 $data['category'] = Category::findOrFail($request->id)->toArray();
-                $data['selection'] = 1;  
-            }
-            elseif($request->selection == 2){
-                $data['category'] = SubCategory::findOrFail($request->id)->toArray(); 
+                $data['selection'] = 1;
+            } elseif ($request->selection == 2) {
+                $data['category'] = SubCategory::findOrFail($request->id)->toArray();
                 $data['selection'] = 2;
                 $data['parents'] = Category::all()->toArray();
                 $data['catName'] = 'category_id';
-            }
-            elseif($request->selection == 3){
+            } elseif ($request->selection == 3) {
                 $data['category'] = ChildCategory::findOrFail($request->id)->toArray();
                 $data['selection'] = 3;
                 $data['parents'] = SubCategory::all()->toArray();
@@ -317,7 +322,7 @@ class SystemController extends Controller
         }
 
         $selection = $request->selection;
-        if($selection == 1){
+        if ($selection == 1) {
             $validator = Validator::make($request->all(), [
                 'publish'   => 'required',
                 'name'     => [
@@ -325,8 +330,7 @@ class SystemController extends Controller
                     Rule::unique('categories')->ignore($request->id),
                 ],
             ]);
-        }
-        elseif ($selection == 2){
+        } elseif ($selection == 2) {
             $validator = Validator::make($request->all(), [
                 'publish'   => 'required',
                 'parent_id'   => 'required',
@@ -335,8 +339,7 @@ class SystemController extends Controller
                     Rule::unique('sub_categories')->ignore($request->id),
                 ],
             ]);
-        }
-        elseif ($selection == 3){
+        } elseif ($selection == 3) {
             $validator = Validator::make($request->all(), [
                 'publish'   => 'required',
                 'parent_id'   => 'required',
@@ -353,7 +356,26 @@ class SystemController extends Controller
 
         $data['user'] = auth()->user();
 
-        if($selection == 1){
+        if ($request->hasFile('image')) {
+            $rules['image'] = [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg,gif,webm,svg,webp',
+                'max:1024',
+                // 'dimensions:max_width=1000,max_height=1000',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json(['status' => 'error', 'message' => $validator->errors()]);
+            }
+
+            $image = $request->file('image');
+            $imageName = time() . '_' . uniqid('', true) . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('category_images/', $imageName, 'public');
+            $imagePath = 'category_images/' . $imageName;
+        }
+
+        if ($selection == 1) {
             $saved = Category::updateOrCreate(
                 ['id' => $request->id ?? NULL],
                 [
@@ -361,6 +383,7 @@ class SystemController extends Controller
                     'slug'       => Str::slug($request->name),
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
+                    'image'      => $imagePath ?? Category::findOrFail($request->id)->image,
                     'created_by' => $user->id,
                 ]
             );
@@ -368,8 +391,7 @@ class SystemController extends Controller
             if ($saved) {
                 return redirect()->route('admin.categories')->with(['msg' => $message]);
             }
-        }
-        elseif($selection == 2){
+        } elseif ($selection == 2) {
             $saved = SubCategory::updateOrCreate(
                 ['id' => $request->id ?? NULL],
                 [
@@ -378,6 +400,7 @@ class SystemController extends Controller
                     'category_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
+                    'image'      => $imagePath ?? SubCategory::findOrFail($request->id)->image,
                     'created_by' => $user->id,
                 ]
             );
@@ -385,8 +408,7 @@ class SystemController extends Controller
             if ($saved) {
                 return redirect()->route('admin.subCategories')->with(['msg' => $message]);
             }
-        }
-        elseif($selection == 3){
+        } elseif ($selection == 3) {
             $saved = ChildCategory::updateOrCreate(
                 ['id' => $request->id ?? NULL],
                 [
@@ -395,6 +417,7 @@ class SystemController extends Controller
                     'sub_category_id' => $request->parent_id,
                     'desc'       => $request->desc,
                     'publish'    => $request->publish,
+                    'image'      => $imagePath ?? ChildCategory::findOrFail($request->id)->image,
                     'created_by' => $user->id,
                 ]
             );
@@ -441,13 +464,12 @@ class SystemController extends Controller
 
     public function get_parent_category(Request $request)
     {
-        $selection = $request->selection; 
-        if($selection == 2){
+        $selection = $request->selection;
+        if ($selection == 2) {
             $parents = Category::select('id', 'name')
                 ->pluck('name', 'id')
                 ->toArray();
-        }
-        elseif($selection == 3){
+        } elseif ($selection == 3) {
             $parents = SubCategory::select('id', 'name')
                 ->pluck('name', 'id')
                 ->toArray();
@@ -457,22 +479,22 @@ class SystemController extends Controller
 
     public function get_sub_category(Request $request)
     {
-        $category_id = $request->category_id; 
+        $category_id = $request->category_id;
         $categories = SubCategory::select('id', 'name')
-                ->where('category_id', $category_id)
-                ->pluck('name', 'id')
-                ->toArray();
+            ->where('category_id', $category_id)
+            ->pluck('name', 'id')
+            ->toArray();
 
         return response()->json(['status' => 'success', 'sub_category' => $categories]);
     }
 
     public function get_child_category(Request $request)
     {
-        $category_id = $request->category_id; 
+        $category_id = $request->category_id;
         $categories = ChildCategory::select('id', 'name')
-                ->where('sub_category_id', $category_id)
-                ->pluck('name', 'id')
-                ->toArray();
+            ->where('sub_category_id', $category_id)
+            ->pluck('name', 'id')
+            ->toArray();
 
         return response()->json(['status' => 'success', 'child_category' => $categories]);
     }
@@ -515,7 +537,7 @@ class SystemController extends Controller
     {
         $user = auth()->user();
         $page_name = 'add_question_category';
-        
+
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
@@ -581,7 +603,7 @@ class SystemController extends Controller
 
         return view('admin.pages.questions.p_med_gq', $data);
     }
-    
+
     public function prescription_med_general_questions(Request $request)
     {
         $user = auth()->user();
@@ -598,25 +620,6 @@ class SystemController extends Controller
 
     public function add_question(Request $request)
     {
-        // $user = auth()->user();
-        // $page_name = 'add_question';
-        // if (!view_permission($page_name)) {
-        //     return redirect()->back();
-        // }
-        // $data['question']['assignments'] = [];
-        // $data['user'] = auth()->user();
-        // $data['categories'] = Category::latest('id')->get()->toArray();
-        // if ($request->has('id')) {
-        //     $data['question'] = Question::with(['assignments' => function ($query) {
-        //         $query->select('category_id', 'category_title', 'question_id');
-        //     }])->findOrFail($request->id)->toArray();
-        //     $categoryIds = [];
-        //     foreach ($data['question']['assignments'] as $assignment) {
-        //         $categoryIds[] = $assignment['category_id'];
-        //     }
-        //     $data['question']['assignments'] = $categoryIds;
-        // }
-
         $user = auth()->user();
         $page_name = 'add_question';
         if (!view_permission($page_name)) {
@@ -712,8 +715,8 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['questions'] = Question::latest('id')->get()->toArray();
+            $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
         }
-
         return view('admin.pages.questions.assign_question', $data);
     }
 
@@ -777,7 +780,7 @@ class SystemController extends Controller
         return redirect()->back()->with(['msg' => $message, 'category_id' => $request->category_id]);
     }
 
-    // Question Mapping
+    // Question Mapping ...
     public function question_mapping(Request $request)
     {
         // Question mapping which question is next base on answer
@@ -850,10 +853,10 @@ class SystemController extends Controller
         // dd(DB::getQueryLog());
 
         $result['dependant_question'] = QuestionMapping::where('category_id', $category_id)
-        ->where('question_id', $question_id)
-        ->get();
+            ->where('question_id', $question_id)
+            ->get();
 
-        
+
         return response()->json(['status' => 'success', 'result' => $result]);
     }
 
@@ -877,8 +880,6 @@ class SystemController extends Controller
         return response()->json(['status' => 'success', 'result' => $result]);
     }
 
-    // products managment...
-
     // orders managment ...
     public function order_detail(Request $request)
     {
@@ -888,8 +889,17 @@ class SystemController extends Controller
             return redirect()->back();
         }
         if ($request->id) {
-            $data['order'] = Order::with('user', 'product', 'product.category')->where(['id' => $request->id, 'payment_status' => 'Paid'])->first()->toArray() ?? [];
-            if ($data['order']) {
+            $id = base64_decode($request->id);
+            $order = Order::with('user', 'shipingdetails', 'orderdetails')->where(['id' => $id, 'payment_status' => 'Paid'])->first();
+            if ($order) {
+                $data['userOrders'] = Order::select('id')
+                    ->where('email', $order->email)
+                    ->where('status', 'Paid')
+                    ->where('id', '!=', $order->id)
+                    ->get()
+                    ->toArray();
+                $data['userOrders']  = [];
+                $data['order']  = $order->toArray() ?? [];
                 return view('admin.pages.order_detail', $data);
             } else {
                 return redirect()->back()->with('error', 'Order not found.');
@@ -906,59 +916,39 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        if ($request->uid && $request->pid) {
-            $uid = base64_decode($request->uid);
-            $pid = base64_decode($request->pid);
-            $data['order']['id'] = base64_decode($request->oid);
-
-            $userbodyPorfile = UserBmi::with('user')->where(['user_id' => $uid, 'status' => '1'])->latest('created_at')->latest('id')->first();
-            if ($userbodyPorfile) {
-                $data['body_profile'] = $userbodyPorfile;
-                $userConsultation = UserConsultation::where(['user_id' => $uid, 'status' => '1'])->latest('created_at')->latest('id')->first();
-                if ($userConsultation) {
-                    $consutl_quest_ans = json_decode($userConsultation->question_answers, true);
-                    $consult_quest_keys = array_keys(array_filter($consutl_quest_ans, function ($value) {
-                        return $value !== null;
-                    }));
-                    $consult_questions = ConsultationQuestion::whereIn('id', $consult_quest_keys)->pluck('title', 'id')->toArray();
-                    $user_result = [];
-                    foreach ($consutl_quest_ans as $quest_id => $ans) {
-                        if (isset($consult_questions[$quest_id])) {
-                            $user_result[] = [
-                                'id' => $quest_id,
-                                'title' => $consult_questions[$quest_id],
-                                'answer' => $ans,
-                            ];
-                        }
-                    }
-                    $data['user_consult'] = $user_result;
-
-                    $transaction = Transaction::where(['user_id' => $uid, 'product_id' => $pid, 'status' => '1'])->latest('created_at')->latest('id')->first();
-                    if ($transaction) {
-                        $question_ans = json_decode($transaction->question_answers, true);
-                        $question_ids = array_keys($question_ans);
-                        $questions = Question::whereIn('id', $question_ids)->pluck('title', 'id')->toArray();
-
-                        $result = [];
-                        foreach ($question_ans as $question_id => $answer) {
-                            if (isset($questions[$question_id])) {
-                                $result[] = [
-                                    'id' => $question_id,
-                                    'title' => $questions[$question_id],
-                                    'answer' => $answer,
-                                ];
-                            }
-                        }
-                        $data['prodcut_consult'] = $result;
-                        return view('admin.pages.consultation_view', $data);
-                    } else {
-                        return redirect()->back()->with('error', 'Transaction not found.');
-                    }
-                } else {
-                    return redirect()->back()->with('error', 'Transaction not found.');
+        if ($request->odd_id) {
+            $odd_id = base64_decode($request->odd_id);
+            $consultaion  = OrderDetail::where(['id' => $odd_id, 'status' => '1'])->latest('created_at')->latest('id')->first();
+            if ($consultaion) {
+                $consutl_quest_ans = json_decode($consultaion->generic_consultation, true);
+                $consult_quest_keys = array_keys(array_filter($consutl_quest_ans, function ($value) {
+                    return $value !== null;
+                }));
+                if ($consultaion->consultation_type == 'pmd') {
+                    $consult_questions = PMedGeneralQuestion::whereIn('id', $consult_quest_keys)->select('id', 'title', 'desc')->get()->toArray();
+                } elseif ($consultaion->consultation_type == 'premd') {
+                    $consult_questions = PrescriptionMedGeneralQuestion::whereIn('id', $consult_quest_keys)->select('id', 'title', 'desc')->get()->toArray();
                 }
+                $consult_questions = collect($consult_questions)->mapWithKeys(function ($item) {
+                    return [$item['id'] => $item];
+                });
+                $user_result = [];
+                foreach ($consutl_quest_ans as $quest_id => $ans) {
+                    if (isset($consult_questions[$quest_id])) {
+                        $user_result[] = [
+                            'id' => $quest_id,
+                            'title' => $consult_questions[$quest_id]['title'],
+                            'desc' => $consult_questions[$quest_id]['desc'],
+                            'answer' => $ans,
+                        ];
+                    }
+                }
+                $data['order_user_detail'] =  ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
+                $data['generic_consultation'] = $user_result;
+                $data['product_consultation'] = [];
+                return view('admin.pages.consultation_view', $data);
             } else {
-                return redirect('/register');
+                return redirect()->back()->with('error', 'Transaction not found.');
             }
         } else {
             return redirect()->back();
@@ -974,13 +964,13 @@ class SystemController extends Controller
         }
         $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
-
-            $userOrdersData = Order::select('id')->whereIn('user_id', $userIds)
-                ->where('id', '!=', $orders[0]['id'])
-                ->select('user_id', 'id')
-                ->get()->toArray();
-
+            $emails = array_unique(Arr::pluck($orders, 'email'));
+            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
+                ->whereIn('email', $emails)
+                ->where('status', 'Paid')
+                ->groupBy('email')
+                ->get()
+                ->toArray();
             $data['order_history'] = $userOrdersData;
             $data['orders'] = $orders;
         }
@@ -998,39 +988,318 @@ class SystemController extends Controller
         $orders = Order::with('user')->where('payment_status', 'Paid')->whereIn('status', ['Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
-
-            $userOrdersData = Order::select('id')->whereIn('user_id', $userIds)
-                ->where('id', '!=', $orders[0]['id'])
-                ->select('user_id', 'id')
-                ->get()->toArray();
-
+            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
+                ->whereIn('user_id', $userIds)
+                ->groupBy('user_id')
+                ->get()
+                ->toArray();
             $data['order_history'] = $userOrdersData;
             $data['orders'] = $orders;
         }
-        return view('admin.pages.doctors_approval',$data);
+        return view('admin.pages.doctors_approval', $data);
     }
-
+    
     public function orders_shiped()
     {
-        return view('admin.pages.orders_shiped');
+        $data['user'] = auth()->user();
+        $page_name = 'orders_recieved';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
+        if ($orders) {
+            $emails = array_unique(Arr::pluck($orders, 'email'));
+            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
+                ->whereIn('email', $emails)
+                ->where('status', 'Paid')
+                ->groupBy('email')
+                ->get()
+                ->toArray();
+            $data['order_history'] = $userOrdersData;
+            $data['orders'] = $orders;
+        }
+
+        return view('admin.pages.orders_shiped', $data);
     }
 
     public function change_status(Request $request)
     {
+        $data['user'] = auth()->user();
+        $page_name = 'orders';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
         $validatedData = $request->validate([
             'id' => 'required|exists:orders,id',
             'status' => 'required',
             'hcp_remarks' => 'required',
         ]);
 
-        // Retrieve the order
         $order = Order::findOrFail($validatedData['id']);
         $order->status = $validatedData['status'];
         $order->hcp_remarks = $validatedData['hcp_remarks'];
         $update = $order->save();
         if ($update) {
-            return redirect()->route('admin.doctorsApproval');
+            return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])]);
         }
         return redirect()->back();
+    }
+
+    public function create_shiping_order(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'orders';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $validatedData = $request->validate([
+            'id' => 'required|exists:orders,id'
+        ]);
+
+        $order = Order::with('user', 'shipingdetails', 'orderdetails')->where(['id' => $request->id, 'payment_status' => 'Paid'])->first();
+        if ($order) {
+
+            try {
+                $order = $order->toArray() ?? [];
+                $payload = $this->make_shiping_payload($order);
+                $apiKey = env('ROYAL_MAIL_API_KEY');
+                $client = new Client();
+                $response = $client->post('https://api.parcel.royalmail.com/api/v1/orders', [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $apiKey,
+                        'Content-Type' => 'application/json',
+                    ],
+                    'json' => $payload,
+                ]);
+
+                $statusCode = $response->getStatusCode();
+                $body = $response->getBody()->getContents();
+                if ($statusCode == 200) {
+                    $response = json_decode($body, true);
+                    // dd($response);
+                    $shipped = [];
+                    if ($response['createdOrders']) {
+                        foreach ($response['createdOrders'] as $key => $val) {
+                            $shipped[] = shippedOrder::create([
+                                'user_id' => $order['user']['id'] ?? 'Guest',
+                                'order_id' => $order['id'],
+                                'order_identifier' => $val['orderIdentifier'],
+                                'order_date' => $val['orderDate'],
+                                'cost' => $order['shiping_cost'],
+                                'errors' => json_encode($val['errors'] ?? []) ?? NULL,
+                                'status' => 'Shipped',
+                                'created_by' => $user->id,
+                            ]);
+                        }
+                    }
+                    if ($response['failedOrders']) {
+                        foreach ($response['failedOrders'] as $key => $val) {
+                            $shipped[] = shippedOrder::create([
+                                'user_id' => $order['user']['id'] ?? 'Guest',
+                                'order_id' => $order['id'],
+                                'order_identifier' => $val['orderIdentifier']  ?? NULL,
+                                'order_date' => $val['orderDate'] ?? NULL,
+                                'cost' => $order['shiping_cost'],
+                                'errors' => json_encode($val['errors'] ?? []),
+                                'status' => 'ShippingFail',
+                                'created_by' => $user->id,
+                            ]);
+                        }
+                    }
+                    $order = Order::findOrFail($order['id']);
+                    $order->shipped_order_id = $shipped[0]->id;
+                    $order->status = $shipped[0]->status;
+                    $update = $order->save();
+                    $msg = ($shipped[0]->status == 'Shipped') ? 'Order is shipped' : 'Order shiping failed';
+                    return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $shipped[0]->status)->with('msg', $msg);
+
+                    // return redirect()->route('admin.getShippingOrder', ['id' => $shipped[0]->order_identifier])->with(['msg' =>$msg ,'status'=>$shipped[0]->status]);
+                } else {
+                    echo "contact to developer";
+                }
+            } catch (\Exception $e) {
+                dd($e);
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function get_shiping_order(Request $request)
+    {
+        $order_id = $request->id;
+
+        $apiKey = env('ROYAL_MAIL_API_KEY');
+
+        $client = new Client();
+        $response = $client->get('https://api.parcel.royalmail.com/api/v1/orders/' . $order_id, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $apiKey,
+            ]
+        ]);
+
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+
+        return response()->json([
+            'status_code' => $statusCode,
+            'response' => json_decode($body, true),
+        ]);
+    }
+
+    private function make_shiping_payload($order)
+    {
+        $payload = [
+            "items" => [
+                [
+                    "orderReference" => null,
+                    "recipient" => [
+                        "address" => [
+                            "fullName" => ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'] . ' ' . $order['shipingdetails']['lastName'] : $order['user']['name'],
+                            "companyName" => "My WeightLoss",
+                            "addressLine1" => $order['shipingdetails']['address'] ?? $order['user']['address'],
+                            "addressLine2" => $order['shipingdetails']['address2'] ?? '',
+                            "addressLine3" => null,
+                            "city" => $order['shipingdetails']['city'] ?? $order['user']['city'],
+                            "county" => "United Kingdom",
+                            "postcode" => $order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'],
+                            "countryCode" => "GB"
+                        ],
+                        "phoneNumber" => $order['shipingdetails']['phone'] ?? $order['user']['phone'],
+                        "emailAddress" => $order['shipingdetails']['email']  ?? $order['user']['email'],
+                        "addressBookReference" => null
+                    ],
+                    "sender" => [
+                        "tradingName" => null,
+                        "phoneNumber" => null,
+                        "emailAddress" => null
+                    ],
+                    "billing" => [
+                        "address" => [
+                            "fullName" => ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'] . ' ' . $order['shipingdetails']['lastName'] : $order['user']['name'],
+                            "companyName" => "My WeightLoss",
+                            "addressLine1" => $order['shipingdetails']['address'] ?? $order['user']['address'],
+                            "addressLine2" => $order['shipingdetails']['address2'] ?? '',
+                            "addressLine3" => null,
+                            "city" => $order['shipingdetails']['city'] ?? $order['user']['city'],
+                            "county" => "United Kingdom",
+                            "postcode" => $order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'],
+                            "countryCode" => "GB"
+                        ],
+                        "phoneNumber" => $order['shipingdetails']['phone'] ?? $order['user']['phone'],
+                        "emailAddress" => $order['shipingdetails']['email']  ?? $order['user']['email']
+                    ],
+                    "packages" => [
+                        [
+                            "weightInGrams" => 200,
+                            "packageFormatIdentifier" => "parcel",
+                            "customPackageFormatIdentifier" => "",
+                            "dimensions" => [
+                                "heightInMms" => 10,
+                                "widthInMms" => 20,
+                                "depthInMms" => 30
+                            ],
+                            "contents" => [
+                                [
+                                    "name" => 'Medical product',
+                                    "SKU" => '2342394',
+                                    "quantity" => 5,
+                                    "unitValue" => 999,
+                                    "unitWeightInGrams" => 200,
+                                    "customsDescription" => 'it is medical product.',
+                                    "extendedCustomsDescription" => "",
+                                    "customsCode" => 'ali' . $order['id'],
+                                    "originCountryCode" => "GB",
+                                    "customsDeclarationCategory" => null,
+                                    "requiresExportLicence" => null,
+                                    "stockLocation" => null
+                                ]
+                            ]
+                        ]
+                    ],
+                    "orderDate" => $order['created_at'],
+                    "plannedDespatchDate" => null,
+                    "specialInstructions" => $order['note'],
+                    "subtotal" => $order['total_ammount'] - $order['shiping_cost'],
+                    "shippingCostCharged" => $order['shiping_cost'],
+                    "otherCosts" => 0,
+                    "customsDutyCosts" => null,
+                    "total" => $order['total_ammount'],
+                    "currencyCode" => "GBP",
+                    "postageDetails" => [
+                        "sendNotificationsTo" => "sender",
+                        "serviceCode" => null,
+                        "serviceRegisterCode" => null,
+                        "consequentialLoss" => 0,
+                        "receiveEmailNotification" => null,
+                        "receiveSmsNotification" => null,
+                        "guaranteedSaturdayDelivery" => null,
+                        "requestSignatureUponDelivery" => null,
+                        "isLocalCollect" => null,
+                        "safePlace" => null,
+                        "department" => null,
+                        "AIRNumber" => null,
+                        "IOSSNumber" => null,
+                        "requiresExportLicense" => null,
+                        "commercialInvoiceNumber" => null,
+                        "commercialInvoiceDate" => null
+                    ],
+                    "tags" => [
+                        [
+                            "key" => "medicins",
+                            "value" => "medicins"
+                        ]
+                    ],
+                    "label" => [
+                        "includeLabelInResponse" => true,
+                        "includeCN" => null,
+                        "includeReturnsLabel" => null
+                    ],
+                    "orderTax" => '343'
+                ]
+            ]
+        ];
+        return       $payload;
+    }
+
+    // comments
+    public function comments(Request $request)
+    {
+        try {
+            $data = Comment::where(['comment_for' => 'Orders', 'comment_for_id' => $request->id])->get()->toArray();
+            $message = 'Comments retirved  successfully';
+
+            return response()->json(['status' => 'success', 'message' => $message, 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'Error geting comments', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function comment_store(Request $request): JsonResponse
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'orders_recieved';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        try {
+
+            $comment = new Comment();
+            $comment->comment_for    = 'Orders';
+            $comment->comment_for_id = $request->comment_for_id;
+            $comment->user_id        = Auth::user()->id;
+            $comment->user_name  = Auth::user()->name;
+            $comment->user_pic   = (Auth::user()->user_pic) ? asset('storage/' . Auth::user()->user_pic) : asset('assets/admin/img/profile-img1.png');
+            $comment->comment    = $request->comment;
+            $comment->created_by = Auth::id();;
+            $save = $comment->save();
+
+            $message = 'Comment added successfully';
+            return response()->json(['status' => 'success', 'message' => $message, 'data' => $save]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'Error storing Invoice', 'error' => $e->getMessage()], 500);
+        }
     }
 }

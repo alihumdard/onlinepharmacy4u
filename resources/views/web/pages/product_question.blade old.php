@@ -198,9 +198,10 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-8">
+
             <div class="firstconsultationstart">
                 <div class="text">
-                    <h2>Temp2 General Health Questions</h2>
+                    <h2>General Health Questions</h2>
                     <p>The information you provide us is treated with the utmost confidentiality and will be
                         reviewed by a GPhC
                         registered independent prescriber. The questions listed are to provide the prescriber
@@ -362,6 +363,288 @@
                     </div>
                 </form>
             </div>
+
+            <div class=" d-none secondConsultationStart">
+                <div class="text">
+                    <h2>Condition Specific Questions</h2>
+                    <p>The information you provide us is treated with the utmost confidentiality and will be
+                        reviewed by a GPhC registered independent prescriber. The questions listed are to
+                        provide the prescriber with an appropriate level of information to make an informed
+                        decision on whether the treatment is suitable or not.</p>
+                </div>
+                <form action="#">
+
+                    <div class="form-group q2">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Do you suffer from any heart, liver or kidney problems?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+                        <div class="d-flex flex-column align-items-center d-none shahroz">
+                            <p class="m-2">Please provide further details</p>
+                            <textarea class="form-control" name="textarea" rows="5"></textarea>
+
+                        </div>
+                    </div>
+                    <!-- Other form groups here -->
+
+                    <div class="form-group q3" id="q3">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Have you ever had a heart attack or stroke?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+                        <div class="d-flex flex-column align-items-center d-none shahroz">
+                            <p class="m-2">When was this? (month/year)</p>
+                            <textarea class="form-control" name="textarea" rows="5"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Do you suffer from low blood pressure (below 90-50) or experience
+                                faints or collapsing because of it?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Can you always get an erection when you want?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Has your GP ever advised you that you are not fit enough for any
+                                physical or sexual activity?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group q7" id="q7">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Do you suffer from any condition affecting the shape of your
+                                penis?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+                        <div class="d-flex flex-column align-items-center d-none shahroz">
+                            <p class="m-2">Please provide more information about your condition.</p>
+                            <textarea class="form-control" name="textarea" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" id="q8">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Have you ever experienced an erection lasting longer than 4
+                                hours?
+                            </p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group" id="q9">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Do you suffer from any eye conditions such as non-arteritic
+                                ischaemic optic neuropathy, retinal problems or retinitis pigmentosa?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+                    </div>
+                    <div class="form-group" id="q10">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Do you suffer from stomach-duodenal ulcers or blood conditions
+                                such as sickle cell, haemophilia or bleeding disorders?
+                            </p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group" id="q11">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Do you suffer from diabetes?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+                    </div>
+                    <div class="form-group q12" id="q12">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Have you tried any erectile dysfunction medication before?</p>
+                            <button type="button" class="btn btn-lg yesButton">Yes</button>
+                            <button type="button" class="btn btn-lg noButton">No</button>
+                        </div>
+                        <div class="d-flex flex-column align-items-center d-none shahroz">
+                            <p class="m-2">When was this? (month/year)</p>
+                            <textarea class="form-control" name="textarea" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" id="q13">
+                        <div class="d-flex flex-column align-items-center">
+                            <p class="me-auto">Do you agree to the following?</p>
+                            <ul>
+                                <li>You agree to our terms and conditions, privacy policy and acceptable use
+                                    policy</li>
+                                <li>You will read the Patient Information Leaflet supplied with your medication
+                                </li>
+                                <li>The treatment is solely for your own use</li>
+                                <li>You are aware you will be subject to a soft check to validate your identity
+                                    via Onfido</li>
+                                <li>You have answered all the above questions accurately and truthfully</li>
+                                <li>You understand the prescriber will take your answers in good faith and base
+                                    their prescribing decisions accordingly, and that incorrect information can
+                                    be hazardous to your health</li>
+                                <li>You will inform your GP of this purchase if appropriate</li>
+                                <li>You give permission to access your NHS Summary Care Record by our
+                                    responsible pharmacist in order to identify you correctly, check your
+                                    medical history and provide the best possible care</li>
+                            </ul>
+                            <div class="d-flex flex-row align-items-end">
+                                <button type="button" class="btn btn-lg yesButton">Yes</button>
+                                <button type="button" class="btn btn-lg noButton">No</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex align-items-center m-3 mb-5 secondconsultationcontinue">
+                        <button type="button" class="btn btn-lg back">Back</button>
+                        <button type="button" class="btn btn-lg next">Continue consultation</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="  d-none thirdaccountcreate">
+                <div class="text">
+                    <h2>Account Creation</h2>
+                    <p>Already registered? <button>Login here</button></p>
+                    <p>Issuing a prescription requires your full name and date of birth as it appears on your
+                        ID.</p>
+                </div>
+                <form action="#">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <p class="">First Name</p>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    <input class="form-control" name="name" rows="5"></input>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <p class="">last Name</p>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    <input class="form-control" name="name" rows="5"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <p>Gender</p>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-lg yesButton">Male</button>
+                                    <button type="button" class="btn btn-lg noButton">Female</button>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <p>Date of Birth (eg: 25 01 1985)</p>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    <input class="form-control" name="name" rows="5" placeholder="DD"></input>
+                                    <span>&nbsp;</span> <!-- Add space -->
+                                    <input class="form-control" name="name" rows="5" placeholder="MM"></input>
+                                    <span>&nbsp;</span> <!-- Add space -->
+                                    <input class="form-control" name="name" rows="5" placeholder="YYYY"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="q12">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Mobile number
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <input class="form-control" name="text" rows="5"></input>
+                        </div>
+                    </div>
+                    <div class="form-group" id="q12">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Email address
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <input class="form-control" name="text" rows="5"></input>
+                        </div>
+                    </div>
+                    <div class="form-group" id="q12">
+                        <div class="d-flex align-items-center">
+                            <p class="me-auto">Password
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <input class="form-control" name="text" rows="5"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex ">
+                            <p>
+                                <input type="checkbox"> I agree to the Terms & Conditions , Privacy Policy , and
+                                Acceptable Use Policy
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center m-3 mb-5 createaccount">
+                        <button type="button" class="btn btn-lg back">Back</button>
+                        <button type="button" class="btn btn-lg next">Create Account</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="d-none fourthproductcategory">
+                <div class="text">
+                    <h1>Choose a treatment</h1>
+                </div>
+                <div class="d-flex align-items-center m-3 mb-5 productcategory">
+                    <button type="button" class="btn btn-lg back">Back</button>
+                    <button type="button" class="btn btn-lg next">Next</button>
+                </div>
+            </div>
+
+            <div class="d-none fifththanks">
+                <div class=content>
+                    <div class="wrapper-1">
+                        <div class="wrapper-2">
+                            <h1 class="text-thank">Thank you !</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam earum molestiae natus architecto! Nam, eaque. </p>
+                            <button class="go-home">
+                                go home
+                            </button>
+                        </div>
+                        <div class="footer-like">
+                            <p>Email not received?
+                                <a href="#">Click here to send again</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <!-- second div  -->
         <div class="col-md-4 bg-info mb-5">

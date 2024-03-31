@@ -12,16 +12,22 @@ class Order extends Model
         'created_at',
     ];
 
-    protected $fillable = ['user_id','product_id','coupon_value','coupon_code','total_ammount','payment_id' ,'payment_status', 'status','created_by','updated_by'];
+    protected $fillable = ['user_id','email','shipped_order_id','note', 'shiping_cost', 'coupon_value', 'coupon_code', 'total_ammount', 'payment_id', 'payment_status', 'status', 'created_by', 'updated_by'];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function product()
+
+    public function shipingdetails()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->hasOne(ShipingDetail::class, 'order_id');
     }
+    public function orderdetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id');
+    }
+
 
 }

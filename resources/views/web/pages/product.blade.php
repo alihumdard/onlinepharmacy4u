@@ -1,9 +1,9 @@
 @extends('web.layouts.default')
 @section('title', 'Product Detail')
 @section('content')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image"  data-bs-bg="img/bg/14.jpg">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image" data-bs-bg="img/bg/14.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -65,7 +65,7 @@
                                 <div class="modal-product-meta ltn__product-details-menu-1">
                                     <ul>
                                         <li>
-                                            <strong>Categories:</strong> 
+                                            <strong>Categories:</strong>
                                             <span>
                                                 <a href="{{ route('category.products', ['main_category' => $product->category->slug]) }}">{{ $product->category->name}}</a>
                                                 @if($product->sub_category)
@@ -86,38 +86,43 @@
                                             </div>
                                         </li>
                                         <li>
-                                            @if($product->product_template == 1)
-                                                <form action="{{ route('web.consultationForm') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="template" value="{{ config('constants.PHARMACY_MEDECINE') }}">
-                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                        <span>Start Consultation</span>
-                                                    </button>
-                                                </form>
-                                            @elseif ($product->product_template == 2)
-                                                <form action="{{ route('web.consultationForm') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="template" value="{{ config('constants.PRESCRIPTION_MEDICINE') }}">
-                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                        <span>Start Consultation</span>
-                                                    </button>
-                                                </form>
-                                            @elseif ($product->product_template == 3)
-                                                <form class="add-to-cart-form" action="{{ route('web.cart.add') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="quantity" id="quantity_input" value="1">
-                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <input type="hidden" name="product_data" value="{{ json_encode($product) }}">
-                                                    <button type="submit" class="theme-btn-1 btn btn-effect-1 add-to-cart-btn" data-product-id="{{ $product->id }}">Add to Cart</button>
-                                                </form>
-                                                {{-- <a href="{{route('add.to.cart')}}" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                            @if($is_add_to_cart == 'yes')
+                                            <a href="javascript:void(0)" onclick="addToCart(@json($product->id));" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <span>ADD TO CART</span>
+                                            </a>
+                                            @elseif($product->product_template == 1)
+                                            <form action="{{ route('web.consultationForm') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="template" value="{{ config('constants.PHARMACY_MEDECINE') }}">
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                     <i class="fas fa-shopping-cart"></i>
-                                                    <span>ADD TO CART</span>
-                                                </a> --}}
+                                                    <span>Start Consultation</span>
+                                                </button>
+                                            </form>
+                                            @elseif ($product->product_template == 2)
+                                            <form action="{{ route('web.consultationForm') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="template" value="{{ config('constants.PRESCRIPTION_MEDICINE') }}">
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                    <span>Start Consultation</span>
+                                                </button>
+                                            </form>
+                                            @elseif ($product->product_template == 3)
+                                            {{-- <form class="add-to-cart-form" action="{{ route('web.cart.add') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="quantity" id="quantity_input" value="1">
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input type="hidden" name="product_data" value="{{ json_encode($product) }}">
+                                            <button type="submit" class="theme-btn-1 btn btn-effect-1 add-to-cart-btn" data-product-id="{{ $product->id }}">Add to Cart</button>
+                                            </form> --}}
+                                            <a href="javascript:void(0)" onclick="addToCart({{ $product->id }});" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <span>ADD TO CART</span>
+                                            </a>
                                             @endif
                                         </li>
                                     </ul>
@@ -146,7 +151,7 @@
                                         <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
                                         <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
                                         <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                                        
+
                                     </ul>
                                 </div>
                                 <hr>
@@ -170,7 +175,7 @@
                         <div class="tab-pane fade active show" id="liton_tab_details_1_1">
                             <div class="ltn__shop-details-tab-content-inner">
                                 <h4 class="title-2">{{ $product->title }}</h4>
-                                <p>{{ $product->desc }}</p> 
+                                <p>{{ $product->desc }}</p>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="liton_tab_details_1_2">
@@ -452,7 +457,7 @@
 
 
 <!-- MODAL AREA START (Add To Cart Modal) -->
-<div class="ltn__modal-area ltn__add-to-cart-modal-area">
+{{-- <div class="ltn__modal-area ltn__add-to-cart-modal-area">
     <div class="modal fade" id="add_to_cart_modal" tabindex="-1">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -471,28 +476,28 @@
                                     </div>
                                      <div class="modal-product-info">
                                         <h5><a href="product-details.html">{{$product->title}}</a></h5>
-                                        <p class="added-cart"><i class="fa fa-check-circle"></i>  Successfully added to your Cart</p>
-                                        <div class="btn-wrapper">
-                                            <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                                            <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
-                                        </div>
-                                     </div>
-                                     <!-- additional-info -->
-                                     <div class="additional-info d-none">
-                                        <p>We want to give you <b>10% discount</b> for your first order, <br>  Use discount code at checkout</p>
-                                        <div class="payment-method">
-                                            <img src="img/icons/payment.png" alt="#">
-                                        </div>
-                                     </div>
-                                </div>
-                            </div>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
+<p class="added-cart"><i class="fa fa-check-circle"></i> Successfully added to your Cart</p>
+<div class="btn-wrapper">
+    <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+    <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+</div>
+</div>
+<!-- additional-info -->
+<div class="additional-info d-none">
+    <p>We want to give you <b>10% discount</b> for your first order, <br> Use discount code at checkout</p>
+    <div class="payment-method">
+        <img src="img/icons/payment.png" alt="#">
     </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div> --}}
 <!-- MODAL AREA END -->
 
 
@@ -502,30 +507,54 @@
 
 @pushOnce('scripts')
 <script>
-    $(document).ready(function() {
-        $(document).delegate(".qtybutton", "click", function(e) {
-            var quantity = $('.cart-plus-minus-box').val();
-            $('#quantity_input').val(quantity);
-        });
-        
-        $('.add-to-cart-form').on('submit', function(event) {
-            event.preventDefault();
-            var formData = $(this).serialize();
-            var url = $(this).attr('action');
-
-            $.ajax({
-                type: 'post',
-                url: url,
-                data: formData,
-                success: function(response) {
-                    $('#add_to_cart_modal').modal('show');
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
 
+    function addToCart(id) {
+        $.ajax({
+            url: '{{ route("web.cart.add")}}',
+            type: 'post',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status == true) {
+                    // $('#add_to_cart_modal').modal('show');
+                    window.loation.href = "{{ route('web.view.cart')}}";
+                } else {
+                    alert(response.message);
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        // $(document).delegate(".qtybutton", "click", function(e) {
+        //     var quantity = $('.cart-plus-minus-box').val();
+        //     $('#quantity_input').val(quantity);
+        // });
+
+        // $('.add-to-cart-form').on('submit', function(event) {
+        //     event.preventDefault();
+        //     var formData = $(this).serialize();
+        //     var url = $(this).attr('action');
+
+        //     $.ajax({
+        //         type: 'post',
+        //         url: url,
+        //         data: formData,
+        //         success: function(response) {
+        //             $('#add_to_cart_modal').modal('show');
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error(xhr.responseText);
+        //         }
+        //     });
+        // });
+    });
 </script>
 @endPushOnce

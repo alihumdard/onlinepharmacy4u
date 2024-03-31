@@ -134,11 +134,10 @@ function view_permission($page_name)
         case 'User':
             switch ($page_name) {
                 case 'dashboard':
-                case 'orders':
-                case 'orders_recieved':
-                case 'contact':
+                case 'prescription_orders':
+                case 'online_clinic_orders':
+                case 'shop_orders':
                 case 'setting':
-                case 'faq':
                     return true;
                 default:
                     return false;

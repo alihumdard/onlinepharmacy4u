@@ -28,6 +28,7 @@ use App\Models\Question;
 use App\Models\AssignQuestion;
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class HomeController extends Controller
 {

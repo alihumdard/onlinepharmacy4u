@@ -29,7 +29,7 @@
 
                     <!-- Sales Card -->
                     @if($role == 4)
-                        <div class="col-xxl-4 col-md-6">
+                        {{-- <div class="col-xxl-4 col-md-6">
                             <div class="card info-card sales-card">
 
                                 <div class="filter">
@@ -61,11 +61,11 @@
                                 </div>
 
                             </div>
-                        </div><!-- End Sales Card -->
+                        </div><!-- End Sales Card --> --}}
                     
 
                     <!-- Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    {{-- <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
 
                             <div class="filter">
@@ -97,10 +97,10 @@
                             </div>
 
                         </div>
-                    </div><!-- End Revenue Card -->
+                    </div><!-- End Revenue Card --> --}}
 
                     <!-- Customers Card -->
-                    <div class="col-xxl-4 col-xl-12">
+                    {{-- <div class="col-xxl-4 col-xl-12">
 
                         <div class="card info-card customers-card">
 
@@ -134,7 +134,7 @@
                             </div>
                         </div>
 
-                    </div><!-- End Customers Card -->
+                    </div><!-- End Customers Card --> --}}
                     @endif
                     <!-- Reports -->
                     <div class="col-12">
@@ -152,7 +152,7 @@
                             </div> -->
 
                             @if($role == 4)
-                                <div class="card-body">
+                                {{-- <div class="card-body">
                                     <h5 class="card-title">BMI<span>/History</span></h5>
 
                                     <!-- Line Chart -->
@@ -160,7 +160,7 @@
 
                                     <!-- End Line Chart -->
 
-                                </div>
+                                </div> --}}
                             @endif
 
                         </div>
@@ -174,7 +174,7 @@
             <div class="col-lg-5">
                 <!-- order status -->
                 @if($role == 4)
-                    <div class="card" style="max-height: 350px; overflow-y: auto;">
+                    {{-- <div class="card" style="max-height: 350px; overflow-y: auto;">
                         <div class="filter">
                             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -240,12 +240,12 @@
 
                             </div>
                         </div>
-                    </div><!-- End order status -->
+                    </div><!-- End order status --> --}}
                 @endif
 
                 <!-- start  my stats  -->
                 @if($role == 4)
-                    <div class="card">
+                    {{-- <div class="card">
 
                         <div class="card-body">
                             <div style="position: relative;">
@@ -395,14 +395,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- End my stats -->
+                    </div><!-- End my stats --> --}}
                     @endif
             </div><!-- End Right side columns -->
 
             <!-- left side colum  -->
             <!-- start bmi calculator  -->
             @if($role == 4)
-                <div class="col-12">
+                {{-- <div class="col-12">
                     <div class="card">
 
                         <div class="card-body pb-0">
@@ -412,7 +412,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
             @endif
             <!-- End bmi_calculator -->
 

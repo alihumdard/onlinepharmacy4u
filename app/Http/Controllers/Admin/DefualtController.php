@@ -78,9 +78,103 @@ class DefualtController extends Controller
         }
     }
 
-    public function profile_setting()
+    public function profile_setting(Request $request)
     {
-        return view('admin.pages.profile_setting');
+        $user = auth()->user();
+        $page_name = 'setting';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        if ($request->all()) {
+            $rules = [
+                'name'      => 'required',
+                'phone'     => 'required|digits:11',
+                'address'   => 'required',
+                'email'     => [
+                    'required',
+                    'email',
+                    Rule::unique('users')->ignore($user->id),
+                ],
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data['user'] = auth()->user();
+
+            if ($request->file('user_pic')) {
+                $image = $request->file('user_pic');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->storeAs('user_images', $imageName, 'public');
+                $ImagePath = 'user_images/' . $imageName;
+            }
+            $updateData = [
+                'name'       => ucwords($request->name),
+                'email'      => $request->email,
+                'phone'      => $request->phone,
+                'user_pic'   => $ImagePath ?? $user->user_pic,
+                'address'    => $request->address,
+                'short_bio'  => $request->short_bio,
+                'status'     => $this->status['Active'],
+                'created_by' => $user->id,
+            ];
+            $saved = User::updateOrCreate(
+                ['id' => $user->id ?? NULL],
+                $updateData
+            );
+            $message = "profile" . ($user->id ? "Updated" : "Saved") . " Successfully";
+            if ($saved) {
+                return redirect()->route('admin.profileSetting')->with(['msg' => $message]);
+            }
+        }
+
+        $data['user'] = $user;
+        return view('admin.pages.profile_setting', $data);
+    }
+
+    public function password_change(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'setting';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        if ($request->all()) {
+            $rules = [
+                'current_password' => 'required',
+                'password' => 'required|min:8',
+                'confirm_password' => 'required|same:password',
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            // Check if the current password matches the one in the database
+            if (Hash::check($request->current_password, $user->password)) {
+                $hashedPassword = Hash::make($request->password);
+                $updateData = [
+                    'password' => $hashedPassword,
+                    'created_by' => $user->id,
+                ];
+                $saved = User::updateOrCreate(
+                    ['id' => $user->id ?? NULL],
+                    $updateData
+                );
+                $message = "Password " . ($user->id ? "Updated" : "Saved") . " Successfully";
+                if ($saved) {
+                    return redirect()->route('admin.profileSetting')->with(['msg' => $message]);
+                }
+            } else {
+                return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.'])->withInput();
+            }
+        }
+
+        $data['user'] = $user;
+        return view('admin.pages.profile_setting', $data);
     }
 
     public function faq()
@@ -239,7 +333,15 @@ class DefualtController extends Controller
             }
             $message = "User" . ($request->id ? "Registraion" : "Registraion") . " Successfully";
             if ($saved) {
-                return redirect()->route('login')->with(['msg' => $message]);
+                $intendedUrl = session('intended_url');
+                session()->forget('intended_url');
+                if ($intendedUrl) {
+                    return redirect()->route('web.consultationForm');
+                }
+                else{
+                    return  redirect('/admin');
+                }
+                
             }
         }else{
             return redirect()->back();

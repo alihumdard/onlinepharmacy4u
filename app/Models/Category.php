@@ -15,6 +15,7 @@ class Category extends Model
         'desc',
         'publish',
         'status',
+        'image',
         'created_by',
     ];
 

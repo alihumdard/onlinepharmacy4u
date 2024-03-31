@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('oder_details', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('order_id');
-            $table->bigInteger('product_id');
-            $table->bigInteger('product_attr_id')->nullable();
-            $table->string('price');
-            $table->string('qty');
-            $table->timestamps();
+        Schema::table('categories', function (Blueprint $table) {
+            $table->text('image')->nullable()->after('status');
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oder_details');
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 };

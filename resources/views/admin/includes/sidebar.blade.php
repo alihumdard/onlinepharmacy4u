@@ -220,6 +220,30 @@
             </ul>
         </li>
         @endif
+
+        @if(view_permission('prescription_orders'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('admin.prescriptionOrders')}}">
+                    <i class="bi bi-bar-chart"></i><span>Prescription Orders</span>
+                </a>
+            </li>
+        @endif
+
+        @if(view_permission('online_clinic_orders'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('admin.onlineClinicOrders')}}">
+                    <i class="bi bi-bar-chart"></i><span>Online Clinic Orders</span>
+                </a>
+            </li>
+        @endif
+
+        @if(view_permission('shop_orders'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('admin.shopOrders')}}">
+                    <i class="bi bi-bar-chart"></i><span>Shop Orders</span>
+                </a>
+            </li>
+        @endif
         <li class="nav-heading">-------- user's Basic Settings --------</li>
 
         @if(view_permission('setting'))

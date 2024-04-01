@@ -119,7 +119,8 @@
     .bnt-checkout {
         border-radius: 10px !important;
     }
-    .form-group{
+
+    .form-group {
         background-color: #15d3ea2e;
     }
 </style>
@@ -130,7 +131,7 @@
             <div class="firstconsultationstart">
                 <div class="text">
                     <h2>General Health Questions</h2>
-                    <p>The information you provide us is treated with the utmost confidentiality and will be
+                    <p class="mb-3">The information you provide us is treated with the utmost confidentiality and will be
                         reviewed by a GPhC
                         registered independent prescriber. The questions listed are to provide the prescriber
                         with
@@ -251,30 +252,58 @@
                         </div>
                     </div>
 
-
-                    <div class="form-group px-4 pt-3 pb-2" >
-                        <div class="d-flex question flex-column align-items-end">
+                    <div class="form-group px-4 pt-4 pb-2">
+                        <div class="question ">
                             <p class="me-auto">What is your height?</p>
-                            <div class="d-flex justify-content-end" style="line-height: 0;">
-                                <p class="me-2 align-self-end">Feet</p> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                                <p class="me-2 align-self-end">Inches</p>
+
+                            <div class="mt-2 mb-4">
+                                <div class="col-9" style="cursor:pointer;">
+                                    <p id="height_switch" class="text-end btn-link fw-bold">Switch to cm</p>
+                                </div>
+                                <div class="d-flex inch d-flex justify-content-end ">
+                                    <div class="col-4">
+                                        <label for="feet" class="form-lable ">Feet</lable>
+                                            <input type="number" min="0.00" class="form-control w-100 " style="padding: 11px !important; " id="feet" name="quest_10['feet']" placeholder="0.0">
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="inches" class="form-lable ">Inches</lable>
+                                            <input type="number" min="0.00" class="form-control w-100 " style="padding: 11px !important; " id="inches" name="quest_10['inches']" placeholder="0.0">
+                                    </div>
+                                </div>
+                                <div class="d-flex cm d-flex justify-content-end d-none">
+                                    <div class="col-6">
+                                        <label for="cm" class="form-lable px-2">cm</lable>
+                                            <input type="number" min="0.00" class="form-control w-100 " style="padding: 11px !important; " id="cm" name="quest_10['cm']" placeholder="0.0">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-end mb-2">
-                                <input type="text"   name="quest_10['feet']" class="me-2" placeholder="6">
-                                <input type="text" name="quest_10['inches']" placeholder="6">
-                            </div>
+
                         </div>
                     </div>
-                    <div class="form-group px-4 pt-4 pb-2" >
-                        <div class="d-flex question flex-column align-items-end" style="line-height: 0;">
+
+                    <div class="form-group px-4 pt-4 pb-2">
+                        <div class="question ">
                             <p class="me-auto">What is your weight?</p>
-                            <div class="d-flex justify-content-end">
-                                <p class="me-2 align-self-end">stone</p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <p class="me-2 align-self-end">pounds</p>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-end mb-2">
-                                <input type="text" name="quest_11['stone']" class="me-2" placeholder="6">
-                                <input type="text" name="quest_11['pounds']" placeholder="6">
+                            <div class="mt-2 mb-4">
+                                <div class="col-9" style="cursor:pointer;">
+                                    <p id="weight_switch" class="text-end btn-link fw-bold">Switch to Kg</p>
+                                </div>
+                                <div class="d-flex stone d-flex justify-content-end ">
+                                    <div class="col-4">
+                                        <label for="stone" class="form-lable ">Stone</lable>
+                                            <input type="number" min="0.00" class="form-control w-100 " style="padding: 11px !important; " id="stone" name="quest_11['stone']" placeholder="0.0">
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="pounds" class="form-lable ">Pounds</lable>
+                                            <input type="number" min="0.00" class="form-control w-100 " style="padding: 11px !important; " id="pounds" name="quest_11['pounds']" placeholder="0.0">
+                                    </div>
+                                </div>
+                                <div class="d-flex kg d-flex justify-content-end d-none">
+                                    <div class="col-6">
+                                        <label for="kg" class="form-lable px-2">Kg</lable>
+                                            <input type="number" min="0.00" class="form-control w-100 " style="padding: 11px !important; " id="kg" name="quest_11['kg']" placeholder="0.0">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -342,6 +371,22 @@
                 });
             }
         });
+
+
+        $('#height_switch').click(function() {
+            $('.cm').toggleClass('d-none');
+            $('.inch').toggleClass('d-none');
+            var buttonText = $(this).text() === 'Switch to cm' ? 'Switch to ft, in' : 'Switch to cm';
+            $(this).text(buttonText);
+        });
+
+        $('#weight_switch').click(function() {
+            $('.stone').toggleClass('d-none');
+            $('.kg').toggleClass('d-none');
+            var buttonText = $(this).text() === 'Switch to Kg' ? 'Switch to st, lb' : 'Switch to Kg';
+            $(this).text(buttonText);
+        });
+
     });
 </script>
 

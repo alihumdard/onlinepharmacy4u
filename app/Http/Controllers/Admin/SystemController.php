@@ -582,8 +582,9 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
         $data['categories'] = [];
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['questions'] = Question::orderBy('category_title')
-                ->orderByRaw('ISNULL(`order`), `order`')
+            $data['questions'] = Question::where(['status' => 'Active'])
+                ->orderBy('category_title')
+                ->orderByRaw('IF(`order` IS NULL, 1, 0), CAST(`order` AS UNSIGNED), `order`')
                 ->orderBy('id')
                 ->get()
                 ->toArray();
@@ -647,6 +648,7 @@ class SystemController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
+            'is_assigned' => 'required',
             'anwser_set' => 'required',
             'category_id' => 'required',
             'title'   => [
@@ -659,14 +661,14 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-
-        $saved = Question::updateOrCreate(
+        $question = Question::updateOrCreate(
             ['id' => $request->id ?? NULL],
             [
                 'category_id' => $request->category_id,
                 'category_title'  => QuestionCategory::findOrFail($request->category_id)->name,
                 'title'       => ucwords($request->title),
                 'desc'        => $request->desc ?? NULL,
+                'is_assigned'  => $request->is_assigned,
                 'anwser_set'  => $request->anwser_set,
                 'type'        => $request->type,
                 'yes_lable'   => ucwords($request->yes_lable) ?? NULL,
@@ -680,7 +682,31 @@ class SystemController extends Controller
                 'created_by' => $user->id,
             ]
         );
-        if ($saved->id) {
+        if ($question->id) {
+            if ($question->is_assigned == 'yes') {
+                $options = ['optA', 'optB', 'optC', 'optD', 'optY', 'optN', 'openBox', 'file'];
+                foreach ($options as $option) {
+                    $value = $request->next_quest[$option];
+                    if ($value !== null && $value !== '') {
+                        $saved = QuestionMapping::updateOrCreate(
+                            [
+                                'question_id' => $question->id,
+                                'category_id' => $question->category_id,
+                                'answer' => $option,
+                            ],
+                            [
+                                'question_id' => $question->id,
+                                'category_id' => $question->category_id,
+                                'answer'      => $option,
+                                'next_question' => $value,
+                                'status'      => 1,
+                                'created_by'  => $user->id
+                            ]
+                        );
+                    }
+                }
+            }
+
             $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
             return redirect()->route('admin.questions')->with(['msg' => $message]);
         }
@@ -697,8 +723,7 @@ class SystemController extends Controller
         }
         $data['user'] = auth()->user();
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['questions'] = Question::latest('id')->get()->toArray();
-            $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
+            $data['categories'] = QuestionCategory::where(['status' => 'Active'])->latest('id')->get()->toArray();
         }
         return view('admin.pages.questions.assign_question', $data);
     }
@@ -715,9 +740,11 @@ class SystemController extends Controller
         $questions = [];
 
         if (isset($user->role) && $user->role == user_roles('1') && $request->has('id')) {
-            $questions = AssignQuestion::select('question_id', 'question_title')
-                ->where('category_id', $request->id)
-                ->pluck('question_title', 'question_id')
+            $questions = Question::select('id', 'title', 'order')
+                ->where(['category_id' => $request->id, 'status' => 'Active'])
+                ->orderByRaw('IF(`order` IS NULL, 1, 0), CAST(`order` AS UNSIGNED), `order`')
+                ->orderBy('id')
+                ->get()
                 ->toArray();
         }
 
@@ -786,31 +813,25 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
 
         $options = ['optA', 'optB', 'optC', 'optD', 'optY', 'optN', 'openBox', 'file'];
-
         foreach ($options as $option) {
             $value = $request->$option;
-
             // Check if the value is not null
             if ($value !== null && $value !== '') {
                 $response = QuestionMapping::updateOrCreate(
                     [
                         'category_id' => $request->category_id,
                         'question_id' => $request->question_id,
-                        'answer' => $option, // Store the option name in the 'answer' column
+                        'answer' => $option,
                     ],
                     [
                         'category_id' => $request->category_id,
                         'question_id' => $request->question_id,
                         'answer'      => $option,
-                        'next_question' => $value, // Store the value in the 'nextquestion' column
+                        'next_question' => $value,
                         'status'      => 1,
                         'created_by'  => $user->id
                     ]
                 );
-                // Update AssignQuestion model
-                AssignQuestion::where('category_id', $request->category_id)
-                    ->where('question_id', $value)
-                    ->update(['is_dependent' => 1]);
             }
         }
 
@@ -823,23 +844,15 @@ class SystemController extends Controller
         $question_id = $request->id;
         $category_id = $request->categoryId;
         $result['detail'] = Question::findOrFail($question_id)->toArray();
-
-        $result['other_qstn'] = AssignQuestion::join('assign_questions as tbl2', function ($join) use ($question_id) {
-            $join->on('assign_questions.category_id', '=', 'tbl2.category_id')
-                ->where('tbl2.question_id', '!=', $question_id);
-        })
-            ->select('tbl2.question_id', 'tbl2.question_title')
-            ->where('assign_questions.question_id', $question_id)
-            ->where('assign_questions.category_id', $category_id)
-            ->pluck('tbl2.question_title', 'tbl2.question_id')
+        $result['other_qstn'] = Question::select('id', 'title')
+            ->where(['category_id' => $category_id, 'is_dependent' => 'yes', 'status' => 'Active'])
+            ->orderBy('id')
+            ->pluck('title', 'id')
             ->toArray();
-        // dd(DB::getQueryLog());
 
         $result['dependant_question'] = QuestionMapping::where('category_id', $category_id)
             ->where('question_id', $question_id)
             ->get();
-
-
         return response()->json(['status' => 'success', 'result' => $result]);
     }
 
@@ -861,6 +874,22 @@ class SystemController extends Controller
             ->toArray();
 
         return response()->json(['status' => 'success', 'result' => $result]);
+    }
+
+
+    public function get_dp_questions(Request $request)
+    {
+        $category_id = $request->cat_id;
+        $result['dp_qstn'] = Question::select('id', 'title')
+            ->where(['category_id' => $category_id, 'is_dependent' => 'yes', 'status' => 'Active'])
+            ->orderBy('id')
+            ->pluck('title', 'id')
+            ->toArray();
+        if ($result['dp_qstn']) {
+            return response()->json(['status' => 'success', 'result' => $result]);
+        } else {
+            return response()->json(['status' => 'empty', 'result' => []]);
+        }
     }
 
     // orders managment ...

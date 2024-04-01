@@ -18,6 +18,10 @@
         background: #03bd8d;
         border: #03bd8d 1px solid;
     }
+
+    .hide {
+        display: none;
+    }
 </style>
 <!-- main stated -->
 <main id="main" class="main">
@@ -42,7 +46,7 @@
                         <!-- Multi Columns Form -->
                         <form class="row g-3 mt-3 needs-validation" method="post" action="{{ route('admin.storeQuestion') }}" novalidate>
                             @csrf
-                            <input type="hidden" name="id" value="{{ $question['id'] ?? ''}}">
+                            <input type="hidden" name="id" id="question_id" value="{{ $question['id'] ?? ''}}">
                             <div class="col-md-12 d-block">
                                 <label for="category_id" class="form-label fw-bold">Select Category</label>
                                 <select id="category_id" name="category_id" class="form-select select2" data-placeholder="choose categories ..." required>
@@ -74,10 +78,10 @@
                             </div>
 
                             <div class="col-md-5 ">
-                                <label for="anwser_set" class="form-label fw-bold">Anwser Set</label>
+                                <label for="anwser_set" class="form-label fw-bold">Answer Set</label>
                                 <select class="form-select" name="anwser_set" id="anwser_set" required>
-                                    <option value="mt_choice" {{ ($question['anwser_set'] ?? old('anwser_set')) == 'mt_choice' ? 'selected' : '' }}>Multiple Choice</option>
                                     <option value="yes_no" {{ (($question['anwser_set'] ?? old('anwser_set')) == 'yes_no') ? 'selected' : '' }}>Yes or No</option>
+                                    <option value="mt_choice" {{ ($question['anwser_set'] ?? old('anwser_set')) == 'mt_choice' ? 'selected' : '' }}>Multiple Choice</option>
                                     <option value="openbox" {{ ($question['anwser_set'] ?? old('anwser_set')) == 'openbox' ? 'selected' : '' }}>Input Box</option>
                                     <option value="file" {{ ($question['anwser_set'] ?? old('anwser_set')) == 'file' ? 'selected' : '' }}>File</option>
                                 </select>
@@ -101,14 +105,145 @@
 
                             <div class="col-md-2 order {{ ($question['type'] ?? old('dependent')) == 'dependent' ? 'd-none' : '' }}">
                                 <label for="order" class="form-label fw-bold">Order</label>
-                                <input type="text" name="order" value="{{  $question['order'] ?? old('order') }}" class="form-control" id="order" required>
+                                <input type="text" name="order" value="{{  $question['order'] ?? old('order') }}" class="form-control" id="order" {{ ($question['type'] ?? old('dependent')) != 'dependent' ? 'required' : '' }}>
                                 <div class="invalid-feedback">Please enter question order!</div>
                                 @error('order')
                                 <div class="alert-danger text-danger ">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="ansewers row  my-3"></div>
+                            <div class="ansewers row  mt-3"></div>
+
+                            <div class="col-md-5">
+                                <label for="is_assigned" class="form-label fw-bold">Assign Next Questions</label>
+                                <select class="form-select" name="is_assigned" id="is_assigned" required>
+                                    <option value="no" {{ ($question['is_assigned'] ?? old('is_assigned')) == 'no' ? 'selected' : '' }}>No</option>
+                                    <option value="yes" {{ ($question['is_assigned'] ?? old('is_assigned')) == 'yes' ? 'selected' : '' }}>Yes</option>
+                                </select>
+                                <div class="invalid-feedback">Please select whether to assign next questions or not!</div>
+                                @error('is_assigned')
+                                <div class="alert-danger text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="row mb-3 next-questions hide py-3">
+                                <div id="no_dp_question" class="empty hide">
+                                    <div class="col-md-12 mx-auto text-center btn py-3 text-danger border border-danger mt-2 ">
+                                        <label class="  py-2 fw-bold">No Depenedent Questions Avialable <small>(add first)</small></label>
+                                    </div>
+                                </div>
+                                <div id="option_id" class="question">
+                                    <div class="col-md-2">
+                                        <label class=" text-center px-5 col-form-label fw-bold btn text-danger">
+                                            Option...
+                                    </div>
+                                    <div class="col-md-10 mt-choice hide ">
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="optionA" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionA')">
+                                                    Option A
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="optionA" class="form-select optA" name="next_quest[optA]">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="optionB" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionB')">
+                                                    Option B
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="optionB" class="form-select optB" name="next_quest[optB]">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="optionC" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionC')">
+                                                    Option C
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="optionC" class="form-select optC" name="next_quest[optC]">
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="optionD" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionD')">
+                                                    Option D
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="optionD" class="form-select optD" name="next_quest[optD]">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- yes no --}}
+                                    <div class="col-md-10 yes-no hide">
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="optionYes" id="option_yes" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionYes')">
+                                                    YES
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="optionYes" class="form-select optY" name="next_quest[optY]">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="optionNo" id="option_no" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionNo')">
+                                                    NO
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="optionNo" class="form-select optN" name="next_quest[optN]">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- openbox --}}
+                                    <div class="col-md-10 open-box hide">
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="openBox" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('openBox')">
+                                                    Next Question
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="openBox" class="form-select" name="next_quest[openBox]">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- file --}}
+                                    <div class="col-md-10 file hide">
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="file" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('file')">
+                                                    Next Question
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select id="file" class="form-select" name="next_quest[file]">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
 
                             <div class="text-center mt-4 mb-3 d-flex justify-content-center ">
                                 <button type="reset" class="btn btn-secondary px-5 py-2 mx-2 fw-bold">Reset</button>
@@ -132,7 +267,16 @@
 <script>
     $(document).ready(function() {
         var anserset = $('#anwser_set').val();
+        var questionId = $('#question_id').val();
+        if (questionId) {
+            let assigned = $('#is_assigned').val();
+            if (assigned === 'yes') {
+                let cate_Id = $('#category_id').val();
+                get_question_detail(questionId, cate_Id);
+            }
+        }
         getoptions(anserset);
+
 
         $('#type').on('change', function() {
             let type = $(this).val();
@@ -145,10 +289,23 @@
             }
         });
 
-
         $('#anwser_set').on('change', function() {
-            anserset = $(this).val();
-            getoptions(anserset);
+            let anwser_set = $(this).val();
+            let assigned = $('#is_assigned').val();
+            if (assigned === 'yes') {
+                let cate_id = $('#category_id').val();
+                if (cate_id) {
+                    $('.next-questions').slideDown('slow', function() {
+                        $(this).removeClass('hide');
+                    });
+
+                    get_dp_question(cate_id, anwser_set);
+                } else {
+                    alert('please Select answer select');
+                }
+            }
+            getoptions(anwser_set);
+
         });
 
         function getoptions(anserset = 'mt_choice') {
@@ -220,6 +377,277 @@
                 alert('Select the correct answer set');
             }
         }
+
+        $('#is_assigned, #category_id', ).on('change', function() {
+            $('#message').text('');
+            let assigned = $('#is_assigned').val();
+            if (assigned === 'yes') {
+                let cate_id = $('#category_id').val();
+                if (cate_id) {
+                    let anwser_set = $('#anwser_set').val();
+                    if (anwser_set) {
+                        $('.next-questions').slideDown('slow', function() {
+                            $(this).removeClass('hide');
+                        });
+
+                        get_dp_question(cate_id, anwser_set);
+                    } else {
+                        alert('please Select answer select');
+                    }
+                } else {
+                    alert('please Select Category first');
+                }
+            } else {
+                $('.next-questions').slideUp('slow');
+                $('.next-questions').addClass('hide');
+            }
+        });
+
+        function get_dp_question(categoryId, rp_option) {
+            var reply_option = rp_option;
+            // Make AJAX request
+            if (categoryId) {
+                if (reply_option) {
+                    $.ajax({
+                        url: '{{ route("admin.getDp_questions") }}',
+                        type: 'GET',
+                        data: {
+                            cat_id: categoryId
+                        },
+                        success: function(response) {
+                            let dp_qeusionts = response.result.dp_qstn;
+                            $('#optionA').empty();
+                            $('#optionB').empty();
+                            $('#optionC').empty();
+                            $('#optionD').empty();
+                            $('#optionYes').empty();
+                            $('#optionNo').empty();
+                            $('#openBox').empty();
+                            $('#file').empty();
+                            $('#no_dp_question').addClass('hide');
+                            $('#option_id').removeClass('hide');
+
+                            if (response.status == 'success') {
+                                if (reply_option == 'mt_choice') {
+                                    $('.mt-choice').removeClass('hide');
+                                    $('.yes-no').addClass('hide');
+                                    $('.open-box').addClass('hide');
+                                    $('.file').addClass('hide');
+                                    $.each(response.result.dp_qstn, function(key, value) {
+                                        $('#optionA').append($('<option>', {
+                                            value: key,
+                                            text: value
+                                        }));
+                                        $('#optionB').append($('<option>', {
+                                            value: key,
+                                            text: value
+                                        }));
+                                        $('#optionC').append($('<option>', {
+                                            value: key,
+                                            text: value
+                                        }));
+                                        $('#optionD').append($('<option>', {
+                                            value: key,
+                                            text: value
+                                        }));
+                                    });
+                                } else if (reply_option == 'yes_no') {
+                                    $('.mt-choice').addClass('hide');
+                                    $('.open-box').addClass('hide');
+                                    $('.yes-no').removeClass('hide');
+                                    $('.file').addClass('hide');
+                                    $.each(response.result.dp_qstn, function(key, value) {
+                                        $('#optionYes').append($('<option>', {
+                                            value: key,
+                                            text: value
+                                        }));
+                                        $('#optionNo').append($('<option>', {
+                                            value: key,
+                                            text: value
+                                        }));
+                                    });
+                                } else if (reply_option == 'openbox') {
+                                    $('.mt-choice').addClass('hide');
+                                    $('.yes-no').addClass('hide');
+                                    $('.open-box').removeClass('hide');
+                                    $('.file').addClass('hide');
+
+                                    $.each(response.result.dp_qstn, function(key, value) {
+                                        $('#openBox').append($('<option>', {
+                                            value: key,
+                                            text: value
+                                        }));
+
+                                    });
+                                } else if (reply_option == 'file') {
+                                    $('.mt-choice').addClass('hide');
+                                    $('.yes-no').addClass('hide');
+                                    $('.open-box').addClass('hide');
+                                    $('.file').removeClass('hide');
+
+                                    $.each(response.result.dp_qstn, function(key, value) {
+                                        $('#file').append($('<option>', {
+                                            value: key,
+                                            text: value
+                                        }));
+
+                                    });
+                                }
+                                $('#optionA, #optionB, #optionC, #optionD, #optionYes, #optionNo, #openBox, #file').prepend($('<option>', {
+                                    value: '',
+                                    text: 'No next Question',
+                                    selected: true,
+                                }));
+
+                                $.each(response.result.dependant_question, function(key, value) {
+                                    // for checking next assign question
+                                    var className = value.answer;
+                                    var selectedItem = value.next_question;
+                                    $('.' + className).val(selectedItem);
+                                });
+                            } else {
+                                $('#no_dp_question').removeClass('hide');
+                                $('#option_id').addClass('hide');
+                            }
+
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                } else {
+                    alert('please select answer Set first');
+                }
+
+            } else {
+                alert('please select category first');
+            }
+        }
+
+        function get_question_detail(questionId, category_Id) {
+            var question_yes = 'Yes';
+            var question_no = 'No';
+            // Make AJAX request
+            $.ajax({
+                url: '{{ route("admin.qustionDetail") }}',
+                type: 'GET',
+                data: {
+                    id: questionId,
+                    categoryId: category_Id
+                },
+                success: function(response) {
+                    var reply_option = response.result.detail.anwser_set;
+                    question_yes = response.result.detail.yes_lable ?? 'Yes';
+                    question_no = response.result.detail.no_lable ?? 'No';
+                    $('#optionA').empty();
+                    $('#optionB').empty();
+                    $('#optionC').empty();
+                    $('#optionD').empty();
+                    $('#optionYes').empty();
+                    $('#optionNo').empty();
+                    $('#openBox').empty();
+                    $('#file').empty();
+                    $('#option_no').text(question_yes)
+                    $('#option_yes').text(question_no)
+                    $('#no_dp_question').addClass('hide');
+                    $('#option_id').removeClass('hide');
+
+                    if (response.status == 'success') {
+                        if (reply_option == 'mt_choice') {
+                            $('.mt-choice').removeClass('hide');
+                            $('.yes-no').addClass('hide');
+                            $('.open-box').addClass('hide');
+                            $('.file').addClass('hide');
+                            $.each(response.result.other_qstn, function(key, value) {
+                                $('#optionA').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+                                $('#optionB').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+                                $('#optionC').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+                                $('#optionD').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+                            });
+                        } else if (reply_option == 'yes_no') {
+                            $('.mt-choice').addClass('hide');
+                            $('.open-box').addClass('hide');
+                            $('.yes-no').removeClass('hide');
+                            $('.file').addClass('hide');
+                            $.each(response.result.other_qstn, function(key, value) {
+                                $('#optionYes').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+                                $('#optionNo').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+                            });
+                        } else if (reply_option == 'openbox') {
+                            $('.mt-choice').addClass('hide');
+                            $('.yes-no').addClass('hide');
+                            $('.open-box').removeClass('hide');
+                            $('.file').addClass('hide');
+
+                            $.each(response.result.other_qstn, function(key, value) {
+                                $('#openBox').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+
+                            });
+                        } else if (reply_option == 'file') {
+                            $('.mt-choice').addClass('hide');
+                            $('.yes-no').addClass('hide');
+                            $('.open-box').addClass('hide');
+                            $('.file').removeClass('hide');
+
+                            $.each(response.result.other_qstn, function(key, value) {
+                                $('#file').append($('<option>', {
+                                    value: key,
+                                    text: value
+                                }));
+
+                            });
+                        }
+                        $('#optionA, #optionB, #optionC, #optionD, #optionYes, #optionNo, #openBox, #file').prepend($('<option>', {
+                            value: '',
+                            text: 'No next Question',
+                            selected: true,
+                        }));
+                        $.each(response.result.dependant_question, function(key, value) {
+                            // for checking next assign question
+                            var className = value.answer;
+                            var selectedItem = value.next_question;
+                            $('.' + className).val(selectedItem);
+                        });
+                        $('.next-questions').removeClass('hide');
+                    } else {
+                        $('.next-questions').addClass('hide');
+                        $('#no_dp_question').removeClass('hide');
+                        $('#option_id').addClass('hide');
+                    }
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        function focusDropdown(id) {
+            var element = document.getElementById(id);
+            $(element).trigger('open');
+        }
+
     });
 </script>
 @endPushOnce

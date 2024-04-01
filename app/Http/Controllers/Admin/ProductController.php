@@ -99,7 +99,7 @@ class ProductController extends Controller
                 'image',
                 'mimes:jpeg,png,jpg,gif,webm,svg,webp',
                 'max:1024',
-                'dimensions:max_width=1000,max_height=1000',
+                // 'dimensions:min_width=1000,min_height=1000',
             ];
         }
 
@@ -116,7 +116,7 @@ class ProductController extends Controller
                 'image',
                 'mimes:jpeg,png,jpg,gif,webm,svg,webp',
                 'max:1024',
-                'dimensions:max_width=1000,max_height=1000',
+                // 'dimensions:min_width=1000,min_height=1000',
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -187,6 +187,7 @@ class ProductController extends Controller
                 // handle the product variations .....
                 $valueArr = $request['vari_value'];
                 $priceArr = $request['vari_price'];
+                $cutPriceArr = $request['vari_cut_price'];
                 $skuArr   = $request['vari_sku'];
                 $nameArr  = $request['vari_name'];
                 $barcodeArr   = $request['vari_barcode'];
@@ -196,6 +197,7 @@ class ProductController extends Controller
                     $productAttrArr['product_id'] = $product->id;
                     $productAttrArr['title'] = $nameArr[$key];
                     $productAttrArr['price'] = $priceArr[$key];
+                    $productAttrArr['cut_price'] = $cutPriceArr[$key];
                     $productAttrArr['value'] = $valueArr[$key];
                     $productAttrArr['barcode'] = $barcodeArr[$key];
                     $productAttrArr['inventory'] = $inventoryArr[$key];
@@ -220,6 +222,7 @@ class ProductController extends Controller
                 $idArrExist = $request['exist_vari_id'];
                 $valueArrExist = $request['exist_vari_value'];
                 $priceArrExist = $request['exist_vari_price'];
+                $cutPriceArrExist = $request['exist_vari_cut_price'];
                 $skuArrExist   = $request['exist_vari_sku'];
                 $nameArrExist  = $request['exist_vari_name'];
                 $barcodeArrExist   = $request['exist_vari_barcode'];
@@ -243,6 +246,7 @@ class ProductController extends Controller
                     $id = $idArrExist[$key1];
                     $productAttrArrE['title'] = $nameArrExist[$key1];
                     $productAttrArrE['price'] = $priceArrExist[$key1];
+                    $productAttrArrE['cut_price'] = $cutPriceArrExist[$key1];
                     $productAttrArrE['value'] = $valueArrExist[$key1];
                     $productAttrArrE['barcode'] = $barcodeArrExist[$key1];
                     $productAttrArrE['inventory'] = $inventoryArrExist[$key1];

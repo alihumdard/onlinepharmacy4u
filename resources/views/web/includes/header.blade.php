@@ -216,7 +216,7 @@
             </div>
             <div class="mini-cart-footer">
                 <div class="mini-cart-sub-total">
-                    <h5>Subtotal: <span>£{{ Cart::subTotal() }}</span></h5>
+                    <h5>Subtotal: <span class="mini-cart-subtotal">£{{ Cart::subTotal() }}</span></h5>
                 </div>
                 <div class="btn-wrapper">
                     <a href="/cart" class="theme-btn-1 btn btn-effect-1">View Cart</a>

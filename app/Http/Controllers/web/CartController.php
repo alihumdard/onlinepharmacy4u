@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
@@ -32,7 +33,12 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $product = Product::find($request->id);
-        
+        $variant_id =  $request->variantId ?? NULL;
+        $variant = null;
+        if($variant_id){
+            $variant = ProductVariant::find($variant_id);
+        }
+
         if($product == null){
             return response()->json([
                 'status' => false,
@@ -51,22 +57,38 @@ class CartController extends Controller
             }
 
             if($productAlreadyExist == false){
-                Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+                if($variant){
+                    Cart::add($product->id, $product->title, 1, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+                }
+                else{
+                    Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+                }
+
                 $status = true;
-                $message = $product->title . " added in cart";
+                $message = $product->title . " added in cart 1";
             } else {
                 $status = false;
                 $message = $product->title . " already added in cart";
             }
         } else {
-            Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+
+            if($variant){
+                Cart::add($product->id, $product->title, 1, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+            }
+            else{
+                Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+            }
+
             $status = true;
-            $message = $product->title . " added in cart";
+            $message = $product->title . " added in cart 2";
         }
 
         return response()->json([
-            'status' => $status,
-            'message' => $message
+            'status'    => $status,
+            'message'   => $message,
+            'count'     => Cart::count(),
+            'subtotal'  => Cart::subTotal(),
+            'cartItems' => Cart::content()
         ]);
     }
 
@@ -92,5 +114,10 @@ class CartController extends Controller
         else{
             return view('web.pages.checkout');
         }
+    }
+
+    public function destroy()
+    {
+        Cart::destroy();
     }
 }

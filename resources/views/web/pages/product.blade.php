@@ -34,13 +34,13 @@
                                 <div class="ltn__shop-details-large-img">
                                     <div class="single-large-img">
                                         <a href="{{ asset('storage/'.$product->main_image)}}" data-rel="lightcase:myCollection">
-                                            <img src="{{ asset('storage/'.$product->main_image)}}" alt="Image">
+                                            <img src="{{ asset('storage/'.$product->main_image)}}" alt="Image" id="product_img">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="ltn__shop-details-small-img slick-arrow-2">
                                     <div class="single-small-img">
-                                        <img src="{{ asset('storage/'.$product->main_image)}}" alt="Image">
+                                        <img src="{{ asset('storage/'.$product->main_image)}}" alt="Image" id="product_img">
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +59,9 @@
                                 </div>
                                 <h3>{{ $product->title }}</h3>
                                 <div class="product-price">
-                                    <span>{{ '£'.$product->price }}</span>
-                                    <del>{{ $product->cut_price ? '£'.$product->cut_price : NULL}}</del>
+                                    <span id="product_price">{{ '£'.$product->price }}</span>
+                                    <del id="product_cut_price">{{ $product->cut_price ? '£'.$product->cut_price : NULL}}</del>
+                                    <input type="hidden" name="variant_id" id="variant_id" value="">
                                 </div>
                                 <div class="modal-product-meta ltn__product-details-menu-1">
                                     <ul>
@@ -112,13 +113,6 @@
                                                 </button>
                                             </form>
                                             @elseif ($product->product_template == 3)
-                                            {{-- <form class="add-to-cart-form" action="{{ route('web.cart.add') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="quantity" id="quantity_input" value="1">
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <input type="hidden" name="product_data" value="{{ json_encode($product) }}">
-                                            <button type="submit" class="theme-btn-1 btn btn-effect-1 add-to-cart-btn" data-product-id="{{ $product->id }}">Add to Cart</button>
-                                            </form> --}}
                                             <a href="javascript:void(0)" onclick="addToCart({{ $product->id }});" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                 <i class="fas fa-shopping-cart"></i>
                                                 <span>ADD TO CART</span>
@@ -140,6 +134,18 @@
                                                 <i class="fas fa-exchange-alt"></i>
                                                 <span>Compare</span>
                                             </a>
+                                        </li>
+                                        <li>
+                                            <div style="padding: 20px;" class="widget widget-tags">
+                                                <h5 class="widget__title" style="margin-bottom: 10px;"><span id="product_title">{{ $product['variants'][0]['title'] ?? ''}} :</span></h5>
+                                                <div class="widget-content">
+                                                    <ul class="list-unstyled">
+                                                        @foreach($product['variants'] as $key => $vrr)
+                                                        <li style="cursor: pointer;"><a class="variants" data-variant_id="{{$vrr['id'] ?? ''}}" data-variant_data="{{ json_encode($vrr) }}" data-main_image="{{ $product->main_image }}">{{ $vrr['value'] }}</a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -457,7 +463,7 @@
 
 
 <!-- MODAL AREA START (Add To Cart Modal) -->
-{{-- <div class="ltn__modal-area ltn__add-to-cart-modal-area">
+<div class="ltn__modal-area ltn__add-to-cart-modal-area">
     <div class="modal fade" id="add_to_cart_modal" tabindex="-1">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -471,33 +477,26 @@
                          <div class="modal-product-item">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="modal-product-img">
+                                    {{-- <div class="modal-product-img">
                                         <img src="img/product/1.png" alt="#">
+                                    </div> --}}
+                                    <div class="modal-product-info"> 
+                                        <h5><a href="product-details.html"></a></h5>
+                                        <p class="added-cart"><i class="fa fa-check-circle"></i> Successfully added to your Cart</p>
+                                        <div class="btn-wrapper">
+                                            <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+                                            <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                                        </div>
                                     </div>
-                                     <div class="modal-product-info">
-                                        <h5><a href="product-details.html">{{$product->title}}</a></h5>
-<p class="added-cart"><i class="fa fa-check-circle"></i> Successfully added to your Cart</p>
-<div class="btn-wrapper">
-    <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-    <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
-</div>
-</div>
-<!-- additional-info -->
-<div class="additional-info d-none">
-    <p>We want to give you <b>10% discount</b> for your first order, <br> Use discount code at checkout</p>
-    <div class="payment-method">
-        <img src="img/icons/payment.png" alt="#">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div> --}}
 <!-- MODAL AREA END -->
 
 
@@ -507,54 +506,30 @@
 
 @pushOnce('scripts')
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    function addToCart(id) {
-        $.ajax({
-            url: '{{ route("web.cart.add")}}',
-            type: 'post',
-            data: {
-                id: id
-            },
-            dataType: 'json',
-            success: function(response) {
-                if (response.status == true) {
-                    // $('#add_to_cart_modal').modal('show');
-                    window.loation.href = "{{ route('web.view.cart')}}";
-                } else {
-                    alert(response.message);
-                }
+    $(document).ready(function() {
+        $(document).on('click', '.variants', function() {
+            var variantId = $(this).data('variant_id');
+            $('#variant_id').val(variantId);
+            var variantData = $(this).data('variant_data');
+            var mainImage = $(this).data('main_image');
+            var image_src = "{{ asset('storage/') }}";
+            if(variantData.image){
+                $('#product_img').attr('src', image_src + '/' + variantData.image);
+            }
+            else{
+                $('#product_img').attr('src', image_src + '/' + mainImage);
+            }
+            // $('#product_quantity').attr('max', variantData.inventory);
+            $('#product_title').text(variantData.title + ' :')
+            $('#product_price').text('£ ' + variantData.price)
+            
+            if(variantData.cut_price){
+                $('#product_cut_price').text('£ ' + variantData.cut_price)
+            }
+            else{
+                $('#product_cut_price').text('');
             }
         });
-    }
-
-    $(document).ready(function() {
-        // $(document).delegate(".qtybutton", "click", function(e) {
-        //     var quantity = $('.cart-plus-minus-box').val();
-        //     $('#quantity_input').val(quantity);
-        // });
-
-        // $('.add-to-cart-form').on('submit', function(event) {
-        //     event.preventDefault();
-        //     var formData = $(this).serialize();
-        //     var url = $(this).attr('action');
-
-        //     $.ajax({
-        //         type: 'post',
-        //         url: url,
-        //         data: formData,
-        //         success: function(response) {
-        //             $('#add_to_cart_modal').modal('show');
-        //         },
-        //         error: function(xhr, status, error) {
-        //             console.error(xhr.responseText);
-        //         }
-        //     });
-        // });
     });
 </script>
 @endPushOnce

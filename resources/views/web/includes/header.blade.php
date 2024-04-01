@@ -84,7 +84,7 @@
                                                 <ul>
                                                     <li><a href="/login">Sign in</a></li>
                                                     <li><a href="/register">Register</a></li>
-                                                    <li><a href="/account">My Account</a></li>
+                                                    <li><a href="{{ route('admin.index') }}">My Account</a></li>
                                                 </ul> 
                                             </li>
                                         </ul>

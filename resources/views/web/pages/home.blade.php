@@ -103,7 +103,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-radius">
-                    <img src="img/product/skincare_1.webp" class="card-img-top card-radius" alt="...">
+                <a href="/skincare"><img src="img/product/skincare_1.webp" class="card-img-top card-radius" alt="..."></a>
                     <div class="card-body">
                         <h5 class="card-title">Skincare</h5>
                         <p class="card-text">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine.</p>
@@ -113,7 +113,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-radius">
-                    <img src="img/product/sleep.png" class="card-img-top card-radius" alt="...">
+                <a href="/sleep"><img src="img/product/sleep.png" class="card-img-top card-radius" alt="..."></a>
                     <div class="card-body">
                         <h5 class="card-title">Sleep</h5>
                         <p class="card-text">Treat insomnia with our range of medications to help you fall asleep faster and to reduce the chances of you waking up in the middle of the night.</p>
@@ -123,7 +123,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-radius">
-                    <img src="img/product/Diabetes.png" class="card-img-top card-radius" alt="...">
+                <a href="/diabetes"><img src="img/product/Diabetes.png" class="card-img-top card-radius" alt="..."></a>
                     <div class="card-body">
                         <h5 class="card-title">Diabetes</h5>
                         <p class="card-text">Living with diabetes can be difficult - that’s why we’re here to provide you with the very best equipment to help you easily manage your condition. </p>
@@ -416,7 +416,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-center">
+        <div class="text-center product-btn">
             <a href="{{route('shop')}}" class="theme-btn-1 btn btn-effect-3 card-radius">
                 <!-- <i class="fas fa-shopping-cart"></i> -->
                 <span> View All Products</span>
@@ -431,10 +431,10 @@
 <!-- COUNTDOWN AREA START -->
 <div class="ltn__call-to-action-area section-bg-1 countdown-section pt-20 pb-20">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 pb-5">
-                <div class="conunt-heading pt-5 ">
-                    <h4 class="pt-4">Once weekly weight loss injection</h4>
+        <div class="row py-5">
+            <div class="col-lg-6">
+                <div class="conunt-heading">
+                    <h2 class="pt-4">Once weekly weight loss injection</h2>
                     <p>We’re proud to offer fast and discreet delivery for all our medicines & treatments. So you can get your order delivered quickly, and only you’ll know what's inside.</p>
                     <ul>
                         <li>No logos</li>
@@ -443,10 +443,10 @@
                     </ul>
                     <p><strong>We respect that many of our products are of a sensitive nature - this is why we take every step to keep your purchases private.</strong></p>
                 </div>
-                <a href="#" class="theme-btn-1 btn">Once weekly weight loss injection</a>
+                <a href="#" class="theme-btn-1 btn mt-2">Once weekly weight loss injection</a>
             </div>
-            <div class="col-lg-4 align-center justify-content d-none">
-                <img src="/img/banner/mounjaro_1024x1024@2x.webp" alt="">
+            <div class="col-lg-6">
+                <img src="img/banner/inject.png" alt="">
             </div>
         </div>
     </div>

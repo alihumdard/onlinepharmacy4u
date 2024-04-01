@@ -181,7 +181,7 @@
                         <div class="tab-pane fade active show" id="liton_tab_details_1_1">
                             <div class="ltn__shop-details-tab-content-inner">
                                 <h4 class="title-2">{{ $product->title }}</h4>
-                                <p>{{ $product->desc }}</p>
+                                <p>{!! $product->desc !!}</p>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="liton_tab_details_1_2 d-none">
@@ -412,7 +412,7 @@
             <!-- ltn__product-item -->
             <div class="col-lg-12">
                 <div class="ltn__product-item ltn__product-item-3 text-center">
-                    <div class="product-img">
+                    <!-- <div class="product-img">
                         <a href="product-details.html"><img src="img/product/7.png" alt="#"></a>
                         <div class="product-badge">
                             <ul>
@@ -453,7 +453,7 @@
                             <span>$149.00</span>
                             <del>$162.00</del>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

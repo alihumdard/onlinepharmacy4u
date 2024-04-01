@@ -43,6 +43,29 @@
         .table-stripe tbody tr:nth-child(even) {
             background-color: deepskyblue;
         }
+
+        .select2-selection__rendered {
+            line-height: 35px !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 40px !important;
+        }
+
+        .select2-selection__arrow {
+            height: 40px !important;
+        }
+
+        .btn_theme {
+            background: #03bd8d;
+            border: #03bd8d 1px solid;
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            visibility: hidden;
+        }
     </style>
 
     <div class="pagetitle">
@@ -61,54 +84,76 @@
             <div class="col-lg-12">
 
                 <div class="card">
-                    <div class="card-header mt-3" id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
-                    </div>
-                    <div class="card-body">
-                        <table id="tbl_data" class="table table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th style="vertical-align: middle; text-align: center;">#</th>
-                                    <th style="vertical-align: middle; text-align: center;">Title</th>
-                                    <th style="vertical-align: middle; text-align: center;">Type</th>
-                                    <th style="vertical-align: middle; text-align: center;">Categories</th>
-                                    <th style="vertical-align: middle; text-align: center;">Status</th>
-                                    <th style="vertical-align: middle; text-align: center;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($questions as $key => $value)
-                                <tr>
-                                    <td style="vertical-align: middle; text-align: center;"> {{ ++$key }} </td>
-                                    <td style="vertical-align: middle; text-align: center; width:50% !important; " > {{ $value['title'] ?? '' }}</td>
-                                    <td style="vertical-align: middle; text-align: center;"> {{ ($value['anwser_set']  == 'mt_choice') ? 'Multiple Choice' : (($value['anwser_set'] == 'yes_no') ? 'True/Fasle' : (($value['anwser_set'] == 'openbox') ? 'Input Reply' : '')) }}</td>
-                                    <td style="vertical-align: middle; text-align: center;">
-                                        @foreach($value['assignments'] as $key => $val)
-                                        <p class="text-muted mb-0 font-weight-semibold" style="font-size: smaller; display:flex;"><b>{{++$key.'. '}}</b> {{ $val['category_title'] ?? ''}} </p>
-                                        @endforeach
-                                    </td>
-                                    <td style="vertical-align: middle; text-align: center;">
-                                        <div class="form-check form-switch d-flex justify-content-center ">
-                                            <input class="form-check-input" style="width: 3.3rem; height: 1.3rem;" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
-                                        </div>
-                                    </td>
-                                    <td style="vertical-align: middle; text-align: center;">
-                                        <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
+                    <div class="card-header mt-3 " id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
+                        <div class="row mb-3 px-4">
+                            <div class="col-md-4 d-block">
+                                <label for="category" class="form-label fw-bold">Filter by Category</label>
+                                <select id="category" class="form-select select2" data-placeholder="choose category name ..." required>
+                                    <option value="All">All</option>
+                                    @foreach ($categories as $key => $cat)
+                                    <option value="{{ $cat}}">{{ $cat}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4 d-block">
+                                <label for="type" class="form-label fw-bold">Filter by Type</label>
+                                <select id="type" class="form-select " >
+                                    <option value="All">All</option>
+                                    <option value="Not Dependent">Not Dependent</option>
+                                    <option value="Dependent Q">Dependent Q</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 text-center d-block">
+                                <label for="search" class="form-label fw-bold">Search </label>
+                                <input type="text" id="search" class="form-control py-2">
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="tbl_data" class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th style="vertical-align: middle; text-align: center;">#</th>
+                                        <th style="vertical-align: middle; text-align: center;">Q.Order No</th>
+                                        <th style="vertical-align: middle; text-align: center;">Title</th>
+                                        <th style="vertical-align: middle; text-align: center;">Answer Type</th>
+                                        <th style="vertical-align: middle; text-align: center;">Type</th>
+                                        <th style="vertical-align: middle; text-align: center;">Categories</th>
+                                        <th style="vertical-align: middle; text-align: center;">Status</th>
+                                        <th style="vertical-align: middle; text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($questions as $key => $value)
+                                    <tr>
+                                        <td style="vertical-align: middle; text-align: center;"> {{ ++$key }} </td>
+                                        <td style="vertical-align: middle; text-align: center; "> {{ $value['order'] ?? '' }}</td>
+                                        <td style="vertical-align: middle; text-align: center; width:30% !important; "> {{ $value['title'] ?? '' }}</td>
+                                        <td style="vertical-align: middle; text-align: center;"> {{ ($value['anwser_set']  == 'mt_choice') ? 'Multiple Choice' : (($value['anwser_set'] == 'yes_no') ? 'True/Fasle' : (($value['anwser_set'] == 'openbox') ? 'Input Reply' : '')) }}</td>
+                                        <td style="vertical-align: middle; text-align: center; "> {{($value['type']  == 'dependent')?'Dependent Q':'Not Dependent'}}</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight:700;"> {{$value['category_title']??''}}</td>
+                                        <td style="vertical-align: middle; text-align: center;">
+                                            <div class="form-check form-switch d-flex justify-content-center ">
+                                                <input class="form-check-input" style="width: 3.3rem; height: 1.3rem;" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+                                            </div>
+                                        </td>
+                                        <td style="vertical-align: middle; text-align: center;">
+                                            <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
 
-                        </table>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
                 </div>
             </div>
-        </div>
     </section>
 
 </main>
@@ -125,7 +170,7 @@
 @pushOnce('scripts')
 <script>
     $(function() {
-        $("#tbl_data").DataTable({
+        var table = $("#tbl_data").DataTable({
             "paging": true,
             "responsive": true,
             "lengthChange": false,
@@ -152,16 +197,44 @@
                 }
             ]
         }).buttons().container();
+
     });
     $(document).ready(function() {
+        var tableApi = $('#tbl_data').DataTable();
+        $('#category').on('change', function() {
+            var category = $(this).val();
+            if (category == 'All') {
+                tableApi.column(5).search('').draw();
+            } else {
+                tableApi.column(5).search(category).draw();
+            }
+        });
 
-        $(document).on('click','.edit',function() {
+        $('#type').on('change', function() {
+            let type = $(this).val();
+            if (type == 'All') {
+                tableApi.column(4).search('').draw();
+            } else {
+                tableApi.column(4).search(type).draw();
+            }
+        });
+
+        $('#search').on('input', function() {
+            let text = $(this).val();
+            if (text === '') {
+                tableApi.search('').draw();
+            } else {
+                tableApi.search(text).draw();
+            }
+        });
+
+        $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
             $('#edit_form_id_input').val(id);
             $('#edit_form').submit();
         });
 
-        $(document).on('click','.delete',function() {
+        $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
             $('#edit_form_id_input').val(id);
             $('#edit_form').submit();

@@ -359,8 +359,8 @@ $('.select2').select2({
   placeholder: function() {
       return $(this).data('placeholder') ? $(this).data('placeholder') : 'Choose...';
   },
-  // width: '100%',
-  // border: '1px solid #e4e5e7',
+  width: '100%',
+  border: '2px solid #dee2e6',
 });
 
 $('.select2').on("select2:select", function(e) {

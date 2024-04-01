@@ -9,9 +9,12 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = [
+        'category_id',
+        'category_title',
         'title',
+        'desc',
         'anwser_set',
-        'openbox',
+        'type',
         'yes_lable',
         'no_lable',
         'optA',
@@ -19,6 +22,9 @@ class Question extends Model
         'optC',
         'optD',
         'order',
+        'is_dependent',
+        'is_assigned',
+        'status',
         'created_by',
     ];
 

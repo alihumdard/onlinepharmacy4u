@@ -580,11 +580,16 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-
+        $data['categories'] = [];
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['questions'] = Question::with(['assignments' => function ($query) {
-                $query->select('category_id', 'category_title', 'question_id');
-            }])->latest('id')->get()->toArray();
+            $data['questions'] = Question::orderBy('category_title')
+                ->orderByRaw('ISNULL(`order`), `order`')
+                ->orderBy('id')
+                ->get()
+                ->toArray();
+            if ($data['questions']) {
+                $data['categories'] = array_unique(array_column($data['questions'], 'category_title'));
+            }
         }
 
         return view('admin.pages.questions.questions', $data);
@@ -625,20 +630,11 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $data['question']['assignments'] = [];
         $data['user'] = auth()->user();
         $data['categories'] = QuestionCategory::latest('id')->get()->toArray();
         if ($request->has('id')) {
-            $data['question'] = Question::with(['assignments' => function ($query) {
-                $query->select('category_id', 'category_title', 'question_id');
-            }])->findOrFail($request->id)->toArray();
-            $categoryIds = [];
-            foreach ($data['question']['assignments'] as $assignment) {
-                $categoryIds[] = $assignment['category_id'];
-            }
-            $data['question']['assignments'] = $categoryIds;
+            $data['question'] = Question::findOrFail($request->id)->toArray();
         }
-
         return view('admin.pages.questions.add_question', $data);
     }
 
@@ -652,13 +648,12 @@ class SystemController extends Controller
 
         $validator = Validator::make($request->all(), [
             'anwser_set' => 'required',
-            'order' => 'required',
+            'category_id' => 'required',
             'title'   => [
                 'required',
                 Rule::unique('questions')->ignore($request->id),
             ],
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -668,36 +663,24 @@ class SystemController extends Controller
         $saved = Question::updateOrCreate(
             ['id' => $request->id ?? NULL],
             [
-                'title'      => ucwords($request->title),
-                'anwser_set' => $request->anwser_set,
-                'openbox'    => $request->openbox ?? NULL,
-                'yes_lable'  => ucwords($request->yes_lable) ?? NULL,
-                'no_lable'   => ucwords($request->no_lable) ?? NULL,
-                'optA'       => ucwords($request->optA) ?? NULL,
-                'optB'       => ucwords($request->optB) ?? NULL,
-                'optC'       => ucwords($request->optC) ?? NULL,
-                'optD'       => ucwords($request->optD) ?? NULL,
-                'order'       => $request->order,
+                'category_id' => $request->category_id,
+                'category_title'  => QuestionCategory::findOrFail($request->category_id)->name,
+                'title'       => ucwords($request->title),
+                'desc'        => $request->desc ?? NULL,
+                'anwser_set'  => $request->anwser_set,
+                'type'        => $request->type,
+                'yes_lable'   => ucwords($request->yes_lable) ?? NULL,
+                'no_lable'    => ucwords($request->no_lable) ?? NULL,
+                'optA'        => ucwords($request->optA) ?? NULL,
+                'optB'        => ucwords($request->optB) ?? NULL,
+                'optC'        => ucwords($request->optC) ?? NULL,
+                'optD'        => ucwords($request->optD) ?? NULL,
+                'order'       => $request->order ?? null,
+                'is_dependent' => ($request->type == 'non_dependent') ? 'no' : 'yes',
                 'created_by' => $user->id,
             ]
         );
         if ($saved->id) {
-
-            if ($request->id) {
-                AssignQuestion::where('question_id', $saved->id)->delete();
-            }
-            if ($request->category_id) {
-                foreach ($request->category_id as $categoryId) {
-                    AssignQuestion::create([
-                        'category_id' => $categoryId,
-                        'category_title' => QuestionCategory::findOrFail($categoryId)->name,
-                        'question_title' => $saved->title,
-                        'question_id' => $saved->id,
-                        'status'      => $this->status['Active'],
-                        'created_by'  => $user->id,
-                    ]);
-                }
-            }
             $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
             return redirect()->route('admin.questions')->with(['msg' => $message]);
         }
@@ -890,7 +873,7 @@ class SystemController extends Controller
         }
         if ($request->id) {
             $id = base64_decode($request->id);
-            $order = Order::with('user', 'shipingdetails', 'orderdetails','orderdetails.product')->where(['id' => $id, 'payment_status' => 'Paid'])->first();
+            $order = Order::with('user', 'shipingdetails', 'orderdetails', 'orderdetails.product')->where(['id' => $id, 'payment_status' => 'Paid'])->first();
             if ($order) {
                 $data['userOrders'] = Order::select('id')
                     ->where('email', $order->email)

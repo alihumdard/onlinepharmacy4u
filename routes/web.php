@@ -220,4 +220,3 @@ Route::get('/identity_verification', [HomeController::class, 'identity_verificat
 Route::get('/product_information', [HomeController::class, 'product_information'])->name('web.product_information');
 
 include __DIR__ . '/admin.php';
-

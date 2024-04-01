@@ -55,52 +55,20 @@
 <div class="container pb-25">
     <div class="row m-2 mb-30">
         <!-- Card 1 -->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="img/product/dermol_500_lotion_-_500ml.webp" class="card-img-top" alt="Card Image">
-                <div class="card-body">
-                    <h5 class="card-title">Dermol 500 Lotion - 500ml</h5>
-                    <p><strong>£8.99</strong></p>
-                    <a href="#" class="btn theme-btn-1">View Product</a>
+        @if($products)
+            @foreach($products as $product)
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="{{asset('storage/'.$product->main_image)}}" class="card-img-top" alt="Card Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->title }}</h5>
+                            <p><strong>{{ '£'.$product->price }}</strong></p>
+                            <a href="{{ route('web.product', ['id' => $product->id]) }}" class="btn theme-btn-1">View Product</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="img/product/dermol_500_lotion_-_500ml.webp" class="card-img-top" alt="Card Image">
-                <div class="card-body">
-                    <h5 class="card-title">Dermol 500 Lotion - 500ml</h5>
-                    <p><strong>£8.99</strong></p>
-                    <a href="#" class="btn theme-btn-1">View Product</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="img/product/dermol_500_lotion_-_500ml.webp" class="card-img-top" alt="Card Image">
-                <div class="card-body">
-                    <h5 class="card-title">Dermol 500 Lotion - 500ml</h5>
-                    <p><strong>£8.99</strong></p>
-                    <a href="#" class="btn theme-btn-1">View Product</a>
-                </div>
-            </div>
-        </div>
-        <!-- Card 4 -->
-        <div class="col-md-3">
-            <div class="card">
-                <img src="img/product/dermol_500_lotion_-_500ml.webp" class="card-img-top" alt="Card Image">
-                <div class="card-body">
-                    <h5 class="card-title">Dermol 500 Lotion - 500ml</h5>
-                    <p><strong>£8.99</strong></p>
-                    <a href="#" class="btn theme-btn-1">View Product</a>
-                </div>
-            </div>
-        </div>
-
+            @endforeach
+        @endif
     </div>
 </div>
 

@@ -549,12 +549,12 @@
                 </div>
             </div>
         </div>
-        <div class="row  ltn__blog-slider-one-active slick-arrow-1 ltn__blog-item-3-normal">
-            <!-- Blog Item -->
+        <div class="row  ltn__blog-slider-one-active slick-arrow-1 ltn__blog-item-3-normal pb-100">
+            <!-- Blog Item 1 -->
             <div class="col-lg-12">
                 <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a href="#"><img src="img/blog/2.png" alt="#"></a>
+                        <a href="#"><img src="img/blog/blog-one.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
@@ -563,29 +563,29 @@
                                     <a href="#"><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Decorate</a>
+                                    <a href="#"><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h3 class="ltn__blog-title"><a href="blog-details.html">10 Brilliant Ways To Decorate Your Home</a></h3>
+                        <h5 class=""><a href="#">Path to Athletic Excellence through Sports Performance</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
-                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>June 24, 2021</li>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>March 1, 2024</li>
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a href="blog-details.html">Read more</a>
+                                <a href="#">Read more</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Blog Item -->
+            <!-- Blog Item 2-->
             <div class="col-lg-12">
-                <div class="ltn__blog-item ltn__blog-item-3">
+            <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a href="blog-details.html"><img src="img/blog/2.png" alt="#"></a>
+                        <a href="#"><img src="img/blog/blog-2.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
@@ -594,29 +594,29 @@
                                     <a href="#"><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Interior</a>
+                                    <a href="#"><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h3 class="ltn__blog-title"><a href="blog-details.html">The Most Inspiring Interior Design Of 2021</a></h3>
+                        <h5 class=""><a href="#">Sports Performance Tests Redefine the Game</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
-                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>July 23, 2021</li>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>March 1, 2024</li>
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a href="blog-details.html">Read more</a>
+                                <a href="#">Read more</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Blog Item -->
-            <div class="col-lg-12">
-                <div class="ltn__blog-item ltn__blog-item-3">
+            <!-- Blog Item 3-->
+            <div class="col-lg-12 ">
+            <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a href="blog-details.html"><img src="img/blog/3.png" alt="#"></a>
+                        <a href="#"><img src="img/blog/blog-3.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
@@ -625,26 +625,26 @@
                                     <a href="#"><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Estate</a>
+                                    <a href="#"><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h3 class="ltn__blog-title"><a href="blog-details.html">Recent Commercial Real Estate Transactions</a></h3>
+                        <h5 class=""><a href="#">Transforming Your Athletic Journey with Performance Tests</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
-                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>May 22, 2021</li>
+                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>March 1, 2024</li>
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a href="blog-details.html">Read more</a>
+                                <a href="#">Read more</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Blog Item -->
-            <div class="col-lg-12">
+            <div class="col-lg-12 d-none">
                 <div class="ltn__blog-item ltn__blog-item-3">
                     <div class="ltn__blog-img">
                         <a href="blog-details.html"><img src="img/blog/4.jpg" alt="#"></a>
@@ -675,7 +675,7 @@
                 </div>
             </div>
             <!-- Blog Item -->
-            <div class="col-lg-12">
+            <div class="col-lg-12 d-none">
                 <div class="ltn__blog-item ltn__blog-item-3">
                     <div class="ltn__blog-img">
                         <a href="blog-details.html"><img src="img/blog/5.jpg" alt="#"></a>

@@ -149,4 +149,5 @@ Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
 Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
 
 
+
 include __DIR__ . '/admin.php';

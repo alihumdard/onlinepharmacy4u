@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->string('category_title');
-            $table->text('title')->unique();
+            $table->text('title');
             $table->text('desc')->nullable();
             $table->string('anwser_set');
             $table->string('type')->default('non_dependent');
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('optB')->nullable();
             $table->text('optC')->nullable();
             $table->text('optD')->nullable();
-            $table->text('order')->nullable();
+            $table->integer('order')->nullable();
             $table->string('is_dependent')->default('no');
             $table->string('is_assigned')->default('no');
             $table->string('status')->default('Active');

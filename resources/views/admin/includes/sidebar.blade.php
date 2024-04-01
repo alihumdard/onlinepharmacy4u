@@ -69,7 +69,7 @@
                 </li>
                 <li>
                     <a class="{{(request()->routeIs(['admin.assignQuestion'])) ? 'nav-link ' : ''}}" href="{{route('admin.assignQuestion')}}">
-                        <i class="bi bi-circle"></i><span>Assign Questions</span>
+                        <i class="bi bi-circle"></i><span>Questions Mapping</span>
                     </a>
                 </li>
                 <li>

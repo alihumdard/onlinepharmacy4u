@@ -181,7 +181,7 @@
                         <div class="tab-pane fade active show" id="liton_tab_details_1_1">
                             <div class="ltn__shop-details-tab-content-inner">
                                 <h4 class="title-2">{{ $product->title }}</h4>
-                                <p>{{ $product->desc }}</p>
+                                <p>{!! $product->desc !!}</p>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="liton_tab_details_1_2 d-none">

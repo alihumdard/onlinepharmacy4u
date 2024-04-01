@@ -82,8 +82,12 @@
                                             <li>
                                                 <a href="#"><i class="icon-user"></i></a>
                                                 <ul>
-                                                    <li><a href="/login">Sign in</a></li>
-                                                    <li><a href="/register">Register</a></li>
+                                                    @if(auth()->user())
+                                                        <li><a href="/logout">Sign Out</a></li>
+                                                    @else
+                                                        <li><a href="/login">Sign in</a></li>
+                                                        <li><a href="/register">Register</a></li>
+                                                    @endif
                                                     <li><a href="{{ route('admin.index') }}">My Account</a></li>
                                                 </ul> 
                                             </li>

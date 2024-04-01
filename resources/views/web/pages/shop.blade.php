@@ -283,7 +283,7 @@
 <!-- PRODUCT DETAILS AREA END -->
 
 <!-- MODAL AREA START (Add To Cart Modal) -->
-{{-- <div class="ltn__modal-area ltn__add-to-cart-modal-area">
+<div class="ltn__modal-area ltn__add-to-cart-modal-area">
     <div class="modal fade" id="add_to_cart_modal" tabindex="-1">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -297,11 +297,11 @@
                          <div class="modal-product-item">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="modal-product-img">
+                                    {{-- <div class="modal-product-img">
                                         <img src="img/product/1.png" alt="#">
-                                    </div>
+                                    </div> --}}
                                      <div class="modal-product-info">
-                                        <h5><a href="product-details.html">{{$product->title}}</a></h5>
+                                        <h5><a href="product-details.html"></a></h5>
                                         <p class="added-cart"><i class="fa fa-check-circle"></i>  Successfully added to your Cart</p>
                                         <div class="btn-wrapper">
                                             <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
@@ -323,35 +323,13 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 <!-- MODAL AREA END -->
 
 @stop
 
 @pushOnce('scripts')
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-	});
     
-    function addToCart(id){
-        $.ajax({
-            url: '{{ route("web.cart.add")}}',
-            type: 'post',
-            data: {id:id},
-            dataType: 'json',
-            success: function(response) {
-                if(response.status == true){
-                    // $('#add_to_cart_modal').modal('show');
-                    window.loation.href = "{{ route('web.view.cart')}}";
-                }
-                else{
-                    alert(response.message);
-                }
-            }
-        });
-    }
 </script>
 @endPushOnce

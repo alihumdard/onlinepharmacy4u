@@ -82,9 +82,13 @@
                                             <li>
                                                 <a href="#"><i class="icon-user"></i></a>
                                                 <ul>
-                                                    <li><a href="/login">Sign in</a></li>
-                                                    <li><a href="/register">Register</a></li>
-                                                    <li><a href="/account">My Account</a></li>
+                                                    @if(auth()->user())
+                                                        <li><a href="/logout">Sign Out</a></li>
+                                                    @else
+                                                        <li><a href="/login">Sign in</a></li>
+                                                        <li><a href="/register">Register</a></li>
+                                                    @endif
+                                                    <li><a href="{{ route('admin.index') }}">My Account</a></li>
                                                 </ul> 
                                             </li>
                                         </ul>
@@ -216,7 +220,7 @@
             </div>
             <div class="mini-cart-footer">
                 <div class="mini-cart-sub-total">
-                    <h5>Subtotal: <span>£{{ Cart::subTotal() }}</span></h5>
+                    <h5>Subtotal: <span class="mini-cart-subtotal">£{{ Cart::subTotal() }}</span></h5>
                 </div>
                 <div class="btn-wrapper">
                     <a href="/cart" class="theme-btn-1 btn btn-effect-1">View Cart</a>

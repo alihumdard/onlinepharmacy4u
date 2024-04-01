@@ -343,9 +343,16 @@
                         </div>
                         <div class="col-md-3 col-sm-12">
                             <div class="p-2">
-                                <label for="" class="form-label">Variant Price <span class="extra-text">(Price in UK Pound)</span></label>
-                                <input type="number" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
+                                <label for="" class="form-label">Variant Price <span class="vari-price">(Price in UK Pound)</span></label>
+                                <input type="text" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
                                 <div class="invalid-feedback">Enter variant price!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Cut Price <span class="vari-cut-price">(Price in UK Pound)</span></label>
+                                <input type="text" class="form-control" name="exist_vari_cut_price[]" id="" value="{{ $variant['cut_price']}}">
+                                <div class="invalid-feedback">Enter variant cut price!</div>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12">
@@ -637,8 +644,15 @@
                         <div class="col-md-3 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Price <span class="extra-text">(Price in UK Pound)</span></label>
-                                <input type="number" class="form-control" name="vari_price[]" id="" required>
+                                <input type="text" class="form-control" name="vari_price[]" id="" required>
                                 <div class="invalid-feedback">Enter variant price!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Cut Price <span class="extra-text">(Price in UK Pound)</span></label>
+                                <input type="text" class="form-control" name="vari_cut_price[]" id="">
+                                <div class="invalid-feedback">Enter variant cut price!</div>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12">
@@ -680,7 +694,7 @@
                         <div class="col-md-3 col-sm-12 ">
                             <div class="p-2">
                                 <label  class="form-label">Select Image</label>
-                                <input class="form-control variant-image" name="vari_attr_image[]" type="file" id="" required>
+                                <input class="form-control variant-image" name="vari_attr_image[]" type="file" id="">
                                 <div class="invalid-feedback">Enter variant image!</div>
                             </div>
                         </div>

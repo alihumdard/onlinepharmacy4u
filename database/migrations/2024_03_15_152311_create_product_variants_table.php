@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('product_id');
             $table->string('title')->nullable();
-            $table->string('price')->nullable();
+            $table->decimal('price',8,2)->nullable();
             $table->string('value')->nullable();
             $table->string('barcode')->nullable();
             $table->string('inventory')->nullable();

@@ -444,18 +444,24 @@ class WebController extends Controller
     public function skincare()
     {
         $data['user'] = auth()->user() ?? [];
+        $sub_category_id = SubCategory::where('slug', 'skin-care')->first()->id;
+        $data['products'] = Product::where(['sub_category' => $sub_category_id])->get();
         return view('web.pages.skincare', $data);
     }
 
     public function diabetes()
     {
         $data['user'] = auth()->user() ?? [];
+        $sub_category_id = SubCategory::where('slug', 'diabetes')->first()->id;
+        $data['products'] = Product::where(['sub_category' => $sub_category_id])->get();
         return view('web.pages.diabetes', $data);
     }
 
     public function sleep()
     {
         $data['user'] = auth()->user() ?? [];
+        $sub_category_id = SubCategory::where('slug', 'sleep')->first()->id;
+        $data['products'] = Product::where(['sub_category' => $sub_category_id])->get();
         return view('web.pages.sleep', $data);
     }
 

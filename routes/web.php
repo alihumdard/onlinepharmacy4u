@@ -187,9 +187,11 @@ Route::match(['get','post'],'/diabetes', [WebController::class, 'diabetes'])->na
 Route::match(['get','post'],'/sleep', [WebController::class, 'sleep'])->name('web.sleep');
 
 //cart
-Route::post('/cart/add', [WebController::class, 'add_to_cart'])->name('web.cart.add');
-Route::get('/cart', [WebController::class, 'view_cart'])->name('web.view.cart');
-Route::get('/checkout', [WebController::class, 'product_detail'])->name('checkout');
+Route::get('/cart', [CartController::class, 'cart'])->name('web.view.cart');
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('web.cart.add');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('web.cart.update');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('web.checkout');
+Route::get('/destroy', [CartController::class, 'destroy'])->name('web.destroy');
 
 // new pages added in home controller
 Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
@@ -218,4 +220,3 @@ Route::get('/identity_verification', [HomeController::class, 'identity_verificat
 Route::get('/product_information', [HomeController::class, 'product_information'])->name('web.product_information');
 
 include __DIR__ . '/admin.php';
-

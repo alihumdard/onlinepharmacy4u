@@ -14,7 +14,8 @@ class QuestionMapping extends Model
         'category_id',
         'question_id',
         'answer',
-        'next_question',
+        'next_type',
+        'selector',
         'status',
         'created_by',
     ];

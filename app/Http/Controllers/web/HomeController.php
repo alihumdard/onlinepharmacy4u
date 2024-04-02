@@ -161,5 +161,8 @@ class HomeController extends Controller
     {
         return view('web.pages.identity_verification');
     }
-    
+    public function clinic(Request $request)
+    {
+        return view('web.pages.clinic');
+    }
 }

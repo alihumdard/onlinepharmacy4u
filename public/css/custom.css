@@ -682,4 +682,47 @@ color:white;
  .ltn__call-to-action-area a{
     padding: 10px 15px !important;
  }
-
+ .clinic-main{
+    background-color: #14aeb994;
+ }
+.erectile-content .btn-large{
+border-radius: 50px !important;
+color: #fff;
+padding: 12px 15px;
+ }
+.erectile-content .view-btn{
+    background-color: transparent;
+    border-radius: 50px;
+    border: 2px solid #0056B3;
+    padding: 10px 15px;
+}
+.treatment .card a{
+    border-radius: 50px !important;
+}
+.explain .explain-step p{
+    font-size: 14px !important;
+}
+.import-btn button{
+    border-radius: 50px !important;
+    font-size: 13px;
+    padding: 12px 15px;
+}
+.explain {
+    background-color: #EBFAFD;
+}
+@media only screen and (max-width:500px){
+    .start{
+        display: block;
+        position: fixed;
+        bottom: 10px;
+        z-index: 99;
+        width: 90% !important;
+    }
+    .small-scr{
+        position: fixed;
+        bottom: 10px;
+        width: 90%;
+        background-color: red !important;
+        z-index: 99;
+    }
+}

@@ -106,6 +106,33 @@ class CartController extends Controller
         ]);
     }
 
+    public function deleteItem(Request $request)
+    {
+        $rowId = $request->rowId;
+        $isMini = $request->isMini;
+        $itemInfo = Cart::get($rowId);
+
+        if($itemInfo == null){
+            $message = "Item not found";
+            session()->flash('false', $message);
+            return response()->json([
+                'status' => true,
+                'message' => $message
+            ]);
+        }
+        else{
+            $message = 'Item deleted successfully';
+            Cart::remove($rowId);
+            session()->flash('success', $message);
+            return response()->json([
+                'status' => true,
+                'message' => $message
+            ]);
+        }
+
+        
+    }
+
     public function checkout()
     {
         if(Cart::count() == 0){

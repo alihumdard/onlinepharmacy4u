@@ -45,6 +45,7 @@ Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->
 Route::get('/cart', [CartController::class, 'cart'])->name('web.view.cart');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('web.cart.add');
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('web.cart.update');
+Route::post('/delete-item', [CartController::class, 'deleteItem'])->name('web.cart.delete');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('web.checkout');
 
 Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs');

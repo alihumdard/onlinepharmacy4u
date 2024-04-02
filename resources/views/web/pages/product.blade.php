@@ -103,7 +103,7 @@
                                                 </button>
                                             </form>
                                             @elseif ($product->product_template == 2)
-                                            <form action="{{ route('web.consultationForm') }}" method="POST">
+                                            {{-- <form action="{{ route('web.consultationForm') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="template" value="{{ config('constants.PRESCRIPTION_MEDICINE') }}">
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -111,7 +111,11 @@
                                                     <i class="fas fa-shopping-cart"></i>
                                                     <span>Start Consultation</span>
                                                 </button>
-                                            </form>
+                                            </form> --}}
+                                            <a href="{{ route('category.products', ['main_category' => $product->category->slug ?? NULL,'sub_category' => $product->sub_cat->slug ?? NULL, 'child_category' => $product->child_cat->slug ?? NULL]) }}" class="theme-btn-1 btn btn-effect-1" title="Start">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <span>Start Consultation</span>
+                                            </a>
                                             @elseif ($product->product_template == 3)
                                             <a href="javascript:void(0)" onclick="addToCart({{ $product->id }});" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                 <i class="fas fa-shopping-cart"></i>
@@ -181,7 +185,7 @@
                         <div class="tab-pane fade active show" id="liton_tab_details_1_1">
                             <div class="ltn__shop-details-tab-content-inner">
                                 <h4 class="title-2">{{ $product->title }}</h4>
-                                <p>{!! $product->desc !!}</p>
+                                <p>{{ $product->desc }}</p>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="liton_tab_details_1_2 d-none">
@@ -412,7 +416,7 @@
             <!-- ltn__product-item -->
             <div class="col-lg-12">
                 <div class="ltn__product-item ltn__product-item-3 text-center">
-                    <!-- <div class="product-img">
+                    <div class="product-img">
                         <a href="product-details.html"><img src="img/product/7.png" alt="#"></a>
                         <div class="product-badge">
                             <ul>
@@ -453,7 +457,7 @@
                             <span>$149.00</span>
                             <del>$162.00</del>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -485,7 +489,7 @@
                                         <p class="added-cart"><i class="fa fa-check-circle"></i> Successfully added to your Cart</p>
                                         <div class="btn-wrapper">
                                             <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                                            <a href="{{route('web.checkout')}}" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                                            <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
                                         </div>
                                     </div>
                                 </div>

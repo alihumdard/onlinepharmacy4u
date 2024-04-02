@@ -86,24 +86,24 @@ class WebController extends Controller
         $level = '';
         if ($category && $sub_category && $child_category) {
             $level = 'child';
-            $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
+            $category_detail = ChildCategory::where('slug', $child_category)->first();
         } else if ($category && $sub_category && !$child_category) {
             $level = 'sub';
-            $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
+            $category_detail = SubCategory::where('slug', $sub_category)->first();
         } else if ($category && !$sub_category && !$child_category) {
             $level = 'main';
-            $category_id = Category::where('slug', $category)->first()->id;
+            $category_detail = Category::where('slug', $category)->first();
         }
 
         switch ($level) {
             case 'main':
-                $products = Product::where(['category_id' => $category_id])->get();
+                $products = Product::where(['category_id' => $category_detail->id])->get();
                 break;
             case 'sub':
-                $products = Product::where(['sub_category' => $sub_category_id])->get();
+                $products = Product::where(['sub_category' => $category_detail->id])->get();
                 break;
             case 'child':
-                $products = Product::where(['child_category' => $child_category_id])->get();
+                $products = Product::where(['child_category' => $category_detail->id])->get();
                 break;
             default:
                 $products = Product::get();
@@ -113,7 +113,8 @@ class WebController extends Controller
         $data['categories_list'] = Category::where('publish', 'Publish')
             ->latest('id')
             ->get();
-
+        $data['category_detail'] = $category_detail;
+ 
         return view('web.pages.shop', $data);
     }
 

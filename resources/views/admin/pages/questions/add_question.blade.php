@@ -77,7 +77,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-5 ">
+                            <div class="col-md-6">
                                 <label for="anwser_set" class="form-label fw-bold">Answer Set</label>
                                 <select class="form-select" name="anwser_set" id="anwser_set" required>
                                     <option value="yes_no" {{ (($question['anwser_set'] ?? old('anwser_set')) == 'yes_no') ? 'selected' : '' }}>Yes or No</option>
@@ -91,7 +91,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-5 ">
+                            <div class="col-md-4 ">
                                 <label for="type" class="form-label fw-bold">Type</label>
                                 <select class="form-select" name="type" id="type" required>
                                     <option value="non_dependent" {{ (($question['tyoe'] ?? old('non_dependent')) == 'non_dependent') ? 'selected' : '' }}>Non Dependent</option>
@@ -112,7 +112,7 @@
                                 @enderror
                             </div>
 
-                            <div class="ansewers row  mt-3"></div>
+                            <div class="ansewers row px-0 mx-0  mt-3"></div>
 
                             <div class="col-md-5">
                                 <label for="is_assigned" class="form-label fw-bold">Assign Next Questions</label>
@@ -139,48 +139,150 @@
                                     </div>
                                     <div class="col-md-10 mt-choice hide ">
                                         <div class="row mt-2">
-                                            <div class="col-md-6">
-                                                <label for="optionA" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionA')">
+                                            <div class="col-md-4 mb-2">
+                                                <label for="next_quest_optA_next_type" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionA')">
                                                     Option A
                                                 </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select id="optionA" class="form-select optA" name="next_quest[optA]">
+                                            <div class="col-md-8">
+                                                <select class="form-select select_option mb-2"  name="next_quest[optA][next_type]" id="next_quest_optA_next_type" >
+                                                    <option value="">Select next display</option>
+                                                    <option value="question" {{ old('next_quest.optA.next_type') == 'question' ? 'selected' : '' }}>Nested Question</option>
+                                                    <option value="alert" {{ old('next_quest.optA.next_type') == 'alert' ? 'selected' : '' }}>Show alert</option>
+                                                    <option value="nothing" {{ old('next_quest.optA.next_type') == 'nothing' ? 'selected' : '' }}>Nothing to Next</option>
                                                 </select>
+                                                <!-- <div class="invalid-feedback">Please select a next display!</div>
+                                                @error('next_quest.optA.next_type')
+                                                <div class="alert-danger text-danger">{{ $message }}</div>
+                                                @enderror -->
+
+                                                <div class="display_option ps-5 mt-2">
+                                                    <div class="row mb-2 pt-1 neseted_question hide">
+                                                        <div class="col-md-12">
+                                                            <select id="optionA" class="form-select optA" name="next_quest[optA][question]">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2 pt-1 show_alert hide">
+                                                        <div class="col-md-4 mb-2">
+                                                            <select class="form-select  py-2" name="next_quest[optA][alert_type]" id="alert_type">
+                                                                <option value="">Alert type</option>
+                                                                <option value="alert-success">Success</option>
+                                                                <option value="alert-warning">Warning</option>
+                                                                <option value="alert-danger">Danger</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="next_quest[optA][alert_msg]" placeholder="alert message"> </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-md-6">
-                                                <label for="optionB" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionB')">
+                                            <div class="col-md-4 mb-2">
+                                                <label for="next_quest_optB_next_type" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionB')">
                                                     Option B
                                                 </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select id="optionB" class="form-select optB" name="next_quest[optB]">
+                                            <div class="col-md-8">
+                                                <select class="form-select  select_option mb-2" name="next_quest[optB][next_type]" id="next_quest_optB_next_type" >
+                                                    <option value="">Select next display</option>
+                                                    <option value="question">Nested Question</option>
+                                                    <option value="alert">Show alert</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
+                                                <div class="display_option ps-5 mt-2">
+                                                    <div class="row mb-2 pt-1 neseted_question hide">
+                                                        <div class="col-md-12">
+                                                            <select id="optionB" class="form-select optB" name="next_quest[optB][question]">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2 pt-1 show_alert hide">
+                                                        <div class="col-md-4 mb-2">
+                                                            <select class="form-select py-2" name="next_quest[optB][alert_type]" id="alert_type">
+                                                                <option value="">Alert type</option>
+                                                                <option value="alert-success">Success</option>
+                                                                <option value="alert-warning">Warning</option>
+                                                                <option value="alert-danger">Danger</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="next_quest[optB][alert_msg]" placeholder="alert message"> </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4 mb-2">
                                                 <label for="optionC" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionC')">
                                                     Option C
                                                 </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select id="optionC" class="form-select optC" name="next_quest[optC]">
-
+                                            <div class="col-md-8">
+                                                <select class="form-select  select_option mb-2" name="next_quest[optC][next_type]" id="next_quest[optC][next_type]" >
+                                                    <option value="">Select next display</option>
+                                                    <option value="question">Nested Question</option>
+                                                    <option value="alert">Show alert</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
+                                                <div class="display_option ps-5 mt-2">
+                                                    <div class="row mb-2 pt-1 neseted_question hide">
+                                                        <div class="col-md-12">
+                                                            <select id="optionC" class="form-select optC" name="next_quest[optC][question]"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2 pt-1 show_alert hide">
+                                                        <div class="col-md-4 mb-2">
+                                                            <select class="form-select py-2" name="next_quest[optC][alert_type]" id="alert_type">
+                                                                <option value="">Alert type</option>
+                                                                <option value="alert-success">Success</option>
+                                                                <option value="alert-warning">Warning</option>
+                                                                <option value="alert-danger">Danger</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="next_quest[optC][alert_msg]" placeholder="alert message"> </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4 mb-2">
                                                 <label for="optionD" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionD')">
                                                     Option D
                                                 </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select id="optionD" class="form-select optD" name="next_quest[optD]">
+                                            <div class="col-md-8">
+                                                <select class="form-select  select_option mb-2" name="next_quest[optD][next_type]" id="next_quest[optD][next_type]">
+                                                    <option value="">Select next display</option>
+                                                    <option value="question">Nested Question</option>
+                                                    <option value="alert">Show alert</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
+                                                <div class="display_option ps-5 mt-2">
+                                                    <div class="row mb-2 pt-1 neseted_question hide">
+                                                        <div class="col-md-12">
+                                                            <select id="optionD" class="form-select optD" name="next_quest[optD][question]"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2 pt-1 show_alert hide">
+                                                        <div class="col-md-4 mb-2">
+                                                            <select class="form-select py-2" name="next_quest[optD][alert_type]" id="alert_type">
+                                                                <option value="">Alert type</option>
+                                                                <option value="alert-success">Success</option>
+                                                                <option value="alert-warning">Warning</option>
+                                                                <option value="alert-danger">Danger</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="next_quest[optD][alert_msg]" placeholder="alert message"> </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -188,25 +290,74 @@
                                     {{-- yes no --}}
                                     <div class="col-md-10 yes-no hide">
                                         <div class="row mt-2">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4 mb-2">
                                                 <label for="optionYes" id="option_yes" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionYes')">
                                                     YES
                                                 </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select id="optionYes" class="form-select optY" name="next_quest[optY]">
+                                            <div class="col-md-8">
+                                                <select id="select_optionYes" class="form-select  select_option mb-2" name="next_quest[optY][next_type]" id="next_quest[optY][next_type]">
+                                                    <option value="">Select next display</option>
+                                                    <option value="question">Nested Question</option>
+                                                    <option value="alert">Show alert</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
+                                                <div class="display_option ps-5 mt-2">
+                                                    <div class="row mb-2 pt-1 neseted_question hide">
+                                                        <div class="col-md-12">
+                                                            <select id="optionYes" class="form-select optY" name="next_quest[optY][question]"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2 pt-1 show_alert hide">
+                                                        <div class="col-md-4 mb-2">
+                                                            <select class="form-select  py-2" name="next_quest[optY][alert_type]" id="next_quest[optY][alert_type]">
+                                                                <option value="">Alert type</option>
+                                                                <option value="alert-success">Success</option>
+                                                                <option value="alert-warning">Warning</option>
+                                                                <option value="alert-danger">Danger</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="next_quest[optY][alert_msg]" placeholder="alert message"> </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mt-2">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4 mb-2">
                                                 <label for="optionNo" id="option_no" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionNo')">
                                                     NO
                                                 </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select id="optionNo" class="form-select optN" name="next_quest[optN]">
+                                            <div class="col-md-8">
+                                                <select class="form-select mb-2 select_option " name="next_quest[optN][next_type]" id="next_quest_optN_next_type">
+                                                    <option value="">Select next display</option>
+                                                    <option value="alert">Show alert</option>
+                                                    <option value="question">Nested Question</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
+                                                <div class="display_option mt-2 ps-5">
+                                                    <div class="row mb-2  pt-1 neseted_question  hide">
+                                                        <div class="col-md-12">
+                                                            <select id="optionNo" class="form-select optN" name="next_quest[optN][question]">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2  pt-1 show_alert hide">
+                                                        <div class="col-md-4 mb-2">
+                                                            <select class="form-select py-2 " name="next_quest[optN][alert_type]" id="next_quest_optN_alert_type">
+                                                                <option value="">Alert type</option>
+                                                                <option value="alert-success">Success</option>
+                                                                <option value="alert-warning">Warning</option>
+                                                                <option value="alert-danger">Danger</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="next_quest[optN][alert_msg]" placeholder="alert message"> </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -214,14 +365,38 @@
                                     {{-- openbox --}}
                                     <div class="col-md-10 open-box hide">
                                         <div class="row mt-2">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4 mb-2">
                                                 <label for="openBox" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('openBox')">
                                                     Next Question
                                                 </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select id="openBox" class="form-select" name="next_quest[openBox]">
+                                            <div class="col-md-8">
+                                                <select class="form-select  select_option mb-2" name="next_quest[openBox][next_type]" id="next_quest[openBox][next_type]">
+                                                    <option value="">Select next display</option>
+                                                    <option value="question">Nested Question</option>
+                                                    <option value="alert">Show alert</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
+                                                <div class="display_option ps-5 mt-2">
+                                                    <div class="row mb-2 pt-1 neseted_question hide">
+                                                        <div class="col-md-12">
+                                                            <select id="openBox" class="form-select openBox" name="next_quest[openBox][question]"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2 pt-1 show_alert hide">
+                                                        <div class="col-md-4 mb-2">
+                                                            <select class="form-select py-2" name="next_quest[openBox][alert_type]" id="next_quest[openBox][alert_type]">
+                                                                <option value="">Alert type</option>
+                                                                <option value="alert-success">Success</option>
+                                                                <option value="alert-warning">Warning</option>
+                                                                <option value="alert-danger">Danger</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="next_quest[openBox][alert_msg]" placeholder="alert message"> </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -229,14 +404,38 @@
                                     {{-- file --}}
                                     <div class="col-md-10 file hide">
                                         <div class="row mt-2">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4 mb-2">
                                                 <label for="file" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('file')">
                                                     Next Question
                                                 </label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select id="file" class="form-select" name="next_quest[file]">
+                                            <div class="col-md-8">
+                                                <select class="form-select  select_option mb-2" name="next_quest[file][next_type]" id="next_quest[file][next_type]">
+                                                    <option value="">Select next display</option>
+                                                    <option value="question">Nested Question</option>
+                                                    <option value="alert">Show alert</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
+                                                <div class="display_option ps-5 mt-2">
+                                                    <div class="row mb-2 pt-1 neseted_question hide">
+                                                        <div class="col-md-12">
+                                                            <select id="file" class="form-select file" name="next_quest[file][question]"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2 pt-1 show_alert hide">
+                                                        <div class="col-md-4 mb-2">
+                                                            <select class="form-select py-2" name="next_quest[file][alert_type]" id="next_quest[file][alert_type]">
+                                                                <option value="">Alert type</option>
+                                                                <option value="alert-success">Success</option>
+                                                                <option value="alert-warning">Warning</option>
+                                                                <option value="alert-danger">Danger</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="next_quest[file][alert_msg]" placeholder="alert message"> </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -277,6 +476,21 @@
         }
         getoptions(anserset);
 
+        $('.select_option').change(function() {
+            var selectedValue = $(this).val();
+            var parentDiv = $(this).closest('.col-md-8').find('.display_option');
+            console.log(parentDiv);
+            if (selectedValue === 'question') {
+                parentDiv.find('.neseted_question').removeClass('hide');
+                parentDiv.find('.show_alert').addClass('hide');
+            } else if (selectedValue === 'alert') {
+                parentDiv.find('.show_alert').removeClass('hide');
+                parentDiv.find('.neseted_question').addClass('hide');
+            } else if (selectedValue === 'nothing') {
+                parentDiv.find('.neseted_question').addClass('hide');
+                parentDiv.find('.show_alert').addClass('hide');
+            }
+        });
 
         $('#type').on('change', function() {
             let type = $(this).val();
@@ -313,8 +527,8 @@
             let optBValue = "{{ $question['optB'] ?? old('optB') }}";
             let optCValue = "{{ $question['optC'] ?? old('optC') }}";
             let optDValue = "{{ $question['optD'] ?? old('optD') }}";
-            let yesLableValue = "{{ $question['yes_lable'] ?? old('yes_lable') }}";
-            let noLableValue = "{{ $question['no_lable'] ?? old('no_lable') }}";
+            let yesLableValue = "{{ (isset($question['yes_lable'])) ? $question['yes_lable'] : old('yes_lable') ?? 'Yes' }}";
+            let noLableValue = "{{ (isset($question['no_lable'])) ? $question['no_lable'] : old('no_lable') ?? 'No' }}";
             if (anserset == 'mt_choice') {
                 $('.ansewers').html('<div class="col-md-6 mb-3">' +
                     '<label for="optA" class="form-label fw-semibold ">Option A</label>' +
@@ -495,7 +709,7 @@
                                 }
                                 $('#optionA, #optionB, #optionC, #optionD, #optionYes, #optionNo, #openBox, #file').prepend($('<option>', {
                                     value: '',
-                                    text: 'No next Question',
+                                    text: 'Select next Question',
                                     selected: true,
                                 }));
 
@@ -620,7 +834,7 @@
                         }
                         $('#optionA, #optionB, #optionC, #optionD, #optionYes, #optionNo, #openBox, #file').prepend($('<option>', {
                             value: '',
-                            text: 'No next Question',
+                            text: 'Select  next Question',
                             selected: true,
                         }));
                         $.each(response.result.dependant_question, function(key, value) {

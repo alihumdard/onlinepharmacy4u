@@ -142,19 +142,19 @@
                         </div>
                         <p class=" ">{!! $question['desc'] ?? '' !!}</p>
                         <div class="form-check">
-                            <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option1" data-append_id="apped_quest_{{$question['id']}}" data-next_quest="{{ (isset($question['next_quest']['optA'])) ? $question['next_quest']['optA'] : ''}}" value="{{$question['optA']}}" required>
+                            <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option1" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['optA'] ?? 'nothing'}}" data-selector="{{ (isset($question['selector']['optA'])) ? $question['selector']['optA'] : ''}}" data-selector="{{ (isset($question['selector']['optA'])) ? $question['selector']['optA'] : ''}}" value="{{$question['optA']}}" required>
                             <label class="form-check-label" for="quest_{{$question['id']}}_option1">{{$question['optA']}}</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option2" data-append_id="apped_quest_{{$question['id']}}" data-next_quest="{{ (isset($question['next_quest']['optB'])) ? $question['next_quest']['optB'] : ''}}" value="{{$question['optB']}}" required>
+                            <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option2" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['optB'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['optB'])) ? $question['selector']['optB'] : ''}}" value="{{$question['optB']}}" required>
                             <label class="form-check-label" for="quest_{{$question['id']}}_option2">{{$question['optB']}}</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option3" data-append_id="apped_quest_{{$question['id']}}" data-next_quest="{{ (isset($question['next_quest']['optB'])) ? $question['next_quest']['optC'] : ''}}" value="{{$question['optC']}}" required>
+                            <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option3" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['optC'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['optC'])) ? $question['selector']['optC'] : ''}}" value="{{$question['optC']}}" required>
                             <label class="form-check-label" for="quest_{{$question['id']}}_option3">{{$question['optC']}}</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option3" data-append_id="apped_quest_{{$question['id']}}" data-next_quest="{{ (isset($question['next_quest']['optD'])) ? $question['next_quest']['optD'] : ''}}" value="{{$question['optD']}}" required>
+                            <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option3" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['optD'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['optD'])) ? $question['selector']['optD'] : ''}}" value="{{$question['optD']}}" required>
                             <label class="form-check-label" for="quest_{{$question['id']}}_option3">{{$question['optD']}}</label>
                         </div>
                     </div>
@@ -169,10 +169,10 @@
                             </div>
                             <div class="d-flex">
                                 <label class="btn" style="padding: 0;">
-                                    <input type="radio" name="quest_{{$question['id']}}" class="btn-radio option" data-append_id="apped_quest_{{$question['id']}}" data-next_quest="{{ (isset($question['next_quest']['yes_lable'])) ? $question['next_quest']['yes_lable'] : ''}}" value="{{$question['yes_lable']}}" data-label="{{$question['yes_lable']}}" required>
+                                    <input type="radio" name="quest_{{$question['id']}}" class="btn-radio option" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['yes_lable'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['yes_lable'])) ? $question['selector']['yes_lable'] : ''}}" value="{{$question['yes_lable']}}" data-label="{{$question['yes_lable']}}" required>
                                 </label>
                                 <label class="btn" style="padding: 0;">
-                                    <input type="radio" name="quest_{{$question['id']}}" class="btn-radio option" data-append_id="apped_quest_{{$question['id']}}" data-next_quest="{{ (isset($question['next_quest']['no_lable'])) ? $question['next_quest']['no_lable'] : ''}}" value="{{$question['no_lable']}}" data-label="{{$question['no_lable']}}" required>
+                                    <input type="radio" name="quest_{{$question['id']}}" class="btn-radio option" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['no_lable'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['no_lable'])) ? $question['selector']['no_lable'] : ''}}" value="{{$question['no_lable']}}" data-label="{{$question['no_lable']}}" required>
                                 </label>
                             </div>
                         </div>
@@ -188,7 +188,7 @@
                             <label for="quest_{{$question['id']}}" class="form-label">
                                 <p class="mt-1">{!! $question['desc'] ?? '' !!}</p>
                             </label>
-                            <textarea class="form-control option" data-append_id="apped_quest_{{$question['id']}}" data-next_quest="{{ (isset($question['next_quest']['openbox'])) ? $question['next_quest']['openbox'] : ''}}" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            <textarea class="form-control option" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['openbox'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['openbox'])) ? $question['selector']['openbox'] : ''}}" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
                         </div>
                     </div>
                     <div id="apped_quest_{{$question['id']}}"></div>
@@ -202,7 +202,7 @@
                             <label for="quest_{{$question['id']}}" class="form-label">
                                 <p class="mt-1">{!! $question['desc'] ?? '' !!}</p>
                             </label>
-                            <input type="file" class="form-control option" data-append_id="apped_quest_{{$question['id']}}" data-next_quest="{{ (isset($question['next_quest']['file'])) ? $question['next_quest']['file'] : ''}}" name="qfid_{{$question['id']}}" id="quest_{{$question['id']}}" required=''>
+                            <input type="file" class="form-control option" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['file'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['file'])) ? $question['selector']['file'] : ''}}" name="qfid_{{$question['id']}}" id="quest_{{$question['id']}}" required=''>
                         </div>
                     </div>
                     <div id="apped_quest_{{$question['id']}}"></div>
@@ -263,56 +263,60 @@
 <script>
     $(document).ready(function() {
         var dependent_questions = @json($dependent_questions);
+        var alerts = @json($alerts);
         $(document).on('click input change', '.option', function() {
-            let quest_id = $(this).data('next_quest');
-            if (quest_id) {
-                let append_id = $(this).data('append_id');
-                let question = dependent_questions[quest_id] ?? null;
-                if (question) {
-                    var quest_html = '';
-                    if (question.anwser_set == 'mt_choice') {
-                        quest_html = `<div class="form-group px-4 question">
+            var next_type = $(this).data('next_type');
+            var selector = $(this).data('selector');
+            var append_id = $(this).data('append_id');
+
+            if (next_type == 'question') {
+                if (selector) {
+                    let question = dependent_questions[selector] ?? null;
+                    if (question) {
+                        var quest_html = '';
+                        if (question.anwser_set == 'mt_choice') {
+                            quest_html = `<div class="form-group px-4 question">
                                         <div class="d-flex align-items-center">
                                             <p class="m-0 fw-bold">${question.title || ''}</p>
                                             </div>
                                             <p class="">${question.desc || ''}</p>
                                         <div class="form-check">
-                                            <input class="form-check-input styled-radio option" type="radio" name="quest_${question.id}" id="quest_${question.id}_option1" data-next_quest="${question.next_quest && question.next_quest.optA ? question.next_quest.optA : ''}" value="${question.optA}" required>
+                                            <input class="form-check-input styled-radio option" type="radio" name="quest_${question.id}" id="quest_${question.id}_option1" data-selector="${question.selector && question.selector.optA ? question.selector.optA : ''}" value="${question.optA}" required>
                                             <label class="form-check-label" for="quest_${question.id}_option1">${question.optA}</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input styled-radio option" type="radio" name="quest_${question.id}" id="quest_${question.id}_option2" data-next_quest="${question.next_quest && question.next_quest.optB ? question.next_quest.optB : ''}" value="${question.optB}" required>
+                                            <input class="form-check-input styled-radio option" type="radio" name="quest_${question.id}" id="quest_${question.id}_option2" data-selector="${question.selector && question.selector.optB ? question.selector.optB : ''}" value="${question.optB}" required>
                                             <label class="form-check-label" for="quest_${question.id}_option2">${question.optB}</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input styled-radio option" type="radio" name="quest_${question.id}" id="quest_${question.id}_option3" data-next_quest="${question.next_quest && question.next_quest.optC ? question.next_quest.optC : ''}" value="${question.optC}" required>
+                                            <input class="form-check-input styled-radio option" type="radio" name="quest_${question.id}" id="quest_${question.id}_option3" data-selector="${question.selector && question.selector.optC ? question.selector.optC : ''}" value="${question.optC}" required>
                                             <label class="form-check-label" for="quest_${question.id}_option3">${question.optC}</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input styled-radio option" type="radio" name="quest_${question.id}" id="quest_${question.id}_option4" data-next_quest="${question.next_quest && question.next_quest.optD ? question.next_quest.optD : ''}" value="${question.optD}" required>
+                                            <input class="form-check-input styled-radio option" type="radio" name="quest_${question.id}" id="quest_${question.id}_option4" data-selector="${question.selector && question.selector.optD ? question.selector.optD : ''}" value="${question.optD}" required>
                                             <label class="form-check-label" for="quest_${question.id}_option4">${question.optD}</label>
                                         </div>
                                     </div>
                                     <div id="apped_quest_${question.id}"></div>`;
 
-                        $('#' + append_id).html(quest_html);
-                    } else if (question.anwser_set == 'yes_no') {
-                        var quest_html = `<div class="form-group px-3 question">
+                            $('#' + append_id).html(quest_html);
+                        } else if (question.anwser_set == 'yes_no') {
+                            var quest_html = `<div class="form-group px-3 question">
                                             <div class="d-flex align-items-start">
                                                     <p class="me-auto" style="font-weight: 400;">${question.title || ''}</p>
                                                     <label class="btn" style="padding: 0;">
-                                                        <input type="radio" name="quest_${question.id}" class="btn-radio option" data-append_id="apped_quest_${question.id}" data-next_quest="${question.next_quest && question.next_quest.yes_lable ? question.next_quest.yes_lable : ''}" value="${question.yes_lable}" data-label="${question.yes_lable}" required>
+                                                        <input type="radio" name="quest_${question.id}" class="btn-radio option" data-append_id="apped_quest_${question.id}" data-selector="${question.selector && question.selector.yes_lable ? question.selector.yes_lable : ''}" value="${question.yes_lable}" data-label="${question.yes_lable}" required>
                                                     </label>
                                                     <label class="btn" style="padding: 0;">
-                                                        <input type="radio" name="quest_${question.id}" class="btn-radio option" data-append_id="apped_quest_${question.id}" data-next_quest="${question.next_quest && question.next_quest.no_lable ? question.next_quest.no_lable : ''}" value="${question.no_lable}" data-label="${question.no_lable}" required>
+                                                        <input type="radio" name="quest_${question.id}" class="btn-radio option" data-append_id="apped_quest_${question.id}" data-selector="${question.selector && question.selector.no_lable ? question.selector.no_lable : ''}" value="${question.no_lable}" data-label="${question.no_lable}" required>
                                                     </label>
                                                 </div>
                                         </div>
                                         <div id="apped_quest_${question.id}"></div>`;
 
-                        $('#' + append_id).html(quest_html);
-                    } else if (question.anwser_set == 'openbox') {
-                        var quest_html = `<div class="form-group px-4 question">
+                            $('#' + append_id).html(quest_html);
+                        } else if (question.anwser_set == 'openbox') {
+                            var quest_html = `<div class="form-group px-4 question">
                                             <div class="d-flex align-items-center">
                                                 <p class="m-0 fw-bold">${question.title || ''}</p>
                                             </div>
@@ -320,15 +324,15 @@
                                                 <label for="quest_${question.id}" class="form-label">
                                                     <p class="mt-1">${question.desc || ''}</p>
                                                 </label>
-                                                <textarea class="form-control option" data-append_id="apped_quest_${question.id}" data-next_quest="${question.next_quest && question.next_quest.openbox ? question.next_quest.openbox : ''}" name="quest_${question.id}" id="quest_${question.id}" rows="7" style="height: 135px; border-radius:15px;" placeholder="Please provide any additional details here" required></textarea>
+                                                <textarea class="form-control option" data-append_id="apped_quest_${question.id}" data-selector="${question.selector && question.selector.openbox ? question.selector.openbox : ''}" name="quest_${question.id}" id="quest_${question.id}" rows="7" style="height: 135px; border-radius:15px;" placeholder="Please provide any additional details here" required></textarea>
                                             </div>
                                         </div>
                                         <div id="apped_quest_${question.id}"></div>`;
 
-                        $('#' + append_id).html(quest_html);
+                            $('#' + append_id).html(quest_html);
 
-                    } else if (question.anwser_set == 'file') {
-                        var quest_html = `<div class="form-group px-4 question">
+                        } else if (question.anwser_set == 'file') {
+                            var quest_html = `<div class="form-group px-4 question">
                                             <div class="d-flex align-items-center">
                                                 <p class="m-0 fw-bold">${question.title || ''}</p>
                                             </div>
@@ -336,12 +340,35 @@
                                                 <label for="quest_${question.id}" class="form-label">
                                                     <p class="mt-1">${question.desc || ''}</p>
                                                 </label>
-                                                <input type="file" class="form-control option" data-append_id="apped_quest_${question.id}" data-next_quest="${question.next_quest && question.next_quest.file ? question.next_quest.file : ''}" name="qfid_${question.id}" id="quest_${question.id}" required>
+                                                <input type="file" class="form-control option" data-append_id="apped_quest_${question.id}" data-selector="${question.selector && question.selector.file ? question.selector.file : ''}" name="qfid_${question.id}" id="quest_${question.id}" required>
                                             </div>
                                         </div>
                                         <div id="apped_quest_${question.id}"></div>`;
-                        $('#' + append_id).html(quest_html);
+                            $('#' + append_id).html(quest_html);
+                        }
                     }
+                } else {
+                    let append_id = $(this).data('append_id');
+                    $('#' + append_id).html('');
+                }
+            } else if (next_type == 'alert') {
+
+                if (selector) {
+                    var alert_detail = alerts[selector] ?? null;
+                    // console.log(alert_detail);
+                    var alert_html = '';
+                    if (alert_detail) {
+                        var alert_html = `<div class="alert ${alert_detail.type} alert-dismissible">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            <p class="px-2 fw-semibold">${alert_detail.body}</p>
+                                        </div>`;
+
+                        $('#' + append_id).html(alert_html);
+                    }
+
+                } else {
+                    let append_id = $(this).data('append_id');
+                    $('#' + append_id).html('');
                 }
             } else {
                 let append_id = $(this).data('append_id');

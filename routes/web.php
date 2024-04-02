@@ -53,6 +53,7 @@ Route::match(['get','post'],'/howitworks', [WebController::class, 'howitworks'])
 Route::match(['get','post'],'/faq', [WebController::class, 'faq'])->name('web.faq');
 Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
 Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
+Route::get('/clinic', [HomeController::class, 'clinic'])->name('web.clinic');
 
 Route::match(['get','post'],'/payment', [WebController::class, 'payment'])->name('payment');
 Route::match(['get','post'],'/Completed-order', [WebController::class, 'completed_order']);

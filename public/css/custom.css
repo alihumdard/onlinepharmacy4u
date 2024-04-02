@@ -719,6 +719,10 @@ padding: 12px 15px;
         width: 90% !important;
     }
     .small-scr{
+        position: fixed;
+        bottom: 10px;
+        width: 90%;
         background-color: red !important;
+        z-index: 99;
     }
 }

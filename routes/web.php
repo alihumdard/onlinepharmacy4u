@@ -32,7 +32,7 @@ Route::match(['get','post'],'/skincare', [WebController::class, 'skincare'])->na
 Route::match(['get','post'],'/categorydetail', [WebController::class, 'categorydetail'])->name('web.categorydetail');
 Route::get('/collections/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_categories'])->name('web.collections');
 
-Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
+Route::get('/shop', [WebController::class, 'shop'])->name('shop');
 Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
 
 Route::match(['get','post'],'/productQuestion/{id}', [WebController::class, 'product_question'])->name('web.productQuestion');
@@ -45,6 +45,7 @@ Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->
 Route::get('/cart', [CartController::class, 'cart'])->name('web.view.cart');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('web.cart.add');
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('web.cart.update');
+Route::post('/delete-item', [CartController::class, 'deleteItem'])->name('web.cart.delete');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('web.checkout');
 
 Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs');
@@ -172,8 +173,8 @@ Route::get('/product_question', [WebController::class, 'product_question_new']);
 Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->name('web.questions_preview');
 
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
-Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
-Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
+// Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
+// Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
 Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
 
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');

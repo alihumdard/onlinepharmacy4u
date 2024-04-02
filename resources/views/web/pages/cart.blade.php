@@ -49,7 +49,7 @@
                                     <tbody>
                                         @foreach($cartContent as $item)
                                             <tr>
-                                                <td class="cart-product-remove">x</td>
+                                                <td class="cart-product-remove"><a href="javascript:void(0)" onclick="deleteItem('{{ $item->rowId }}', false);">x</a></td>
                                                 <td class="cart-product-image">
                                                     <a href="product-details.html"><img src="{{ asset('storage/'.$item->options->productImage)}}" alt="#"></a>
                                                 </td>

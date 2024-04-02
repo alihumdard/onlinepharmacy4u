@@ -208,7 +208,7 @@
                         <div class="mini-cart-item clearfix">
                             <div class="mini-cart-img">
                                 <a href="#"><img src="{{ asset('storage/'.$item->options->productImage)}}" alt="Image"></a>
-                                <span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>
+                                <span class="mini-cart-item-delete"><a href="javascript:void(0)" onclick="deleteItem('{{$item->rowId}}', true);"><i class="icon-cancel"></i></a></span>
                             </div>
                             <div class="mini-cart-info">
                                 <h6><a href="#">{{ $item->name }}</a></h6>

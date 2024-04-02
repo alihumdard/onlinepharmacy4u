@@ -36,6 +36,27 @@
         });
     }
 
+    function deleteItem(rowId, isMini){
+        if(confirm("Are you sure you want to delete?")){
+            $.ajax({
+                url: '{{ route("web.cart.delete") }}',
+                type: 'post',
+                data: {rowId:rowId, isMini:isMini},
+                dataType: 'json',
+                success: function(response){
+                    if(response.status == true){
+                        if(isMini){
+                            location.reload();
+                        }
+                        else{
+                            window.location.href = "{{ route('web.view.cart') }}";
+                        }
+                    }
+                }
+            });
+        }
+    }
+
     function updateMiniCart(cartItems) {
         var miniCartProductArea = $('.mini-cart-product-area');
         miniCartProductArea.empty();
@@ -44,7 +65,7 @@
             var miniCartItem = $('<div class="mini-cart-item clearfix">' +
                                     '<div class="mini-cart-img">' +
                                         '<a href="#"><img src="' + image_src + '/' + item.options.productImage + '" alt="Image"></a>' +
-                                        '<span class="mini-cart-item-delete"><i class="icon-cancel"></i></span>' +
+                                        '<span class="mini-cart-item-delete"><a href="javascript:void(0)" onclick="deleteItem(\''+rowId+'\',1)"><i class="icon-cancel"></i></span>' +
                                     '</div>' +
                                     '<div class="mini-cart-info">' +
                                         '<h6><a href="#">' + item.name + '</a></h6>' +

@@ -71,6 +71,53 @@ class WebController extends Controller
         view()->share('menu_categories', $this->menu_categories);
     }
 
+    public function shop($category = null, $sub_category = null, $child_category = null)
+    {
+        $slug = [
+            "main_category" => $category,
+            "sub_category" => $sub_category,
+            "child_category" => $child_category
+        ];
+        if ($slug == session('slug') ?? []) {
+            $data['is_add_to_cart'] = 'yes';
+        } else {
+            $data['is_add_to_cart'] = Null;
+        }
+        // product listing
+        $level = '';
+        if ($category && $sub_category && $child_category) {
+            $level = 'child';
+            $category_detail = ChildCategory::where('slug', $child_category)->first();
+        } else if ($category && $sub_category && !$child_category) {
+            $level = 'sub';
+            $category_detail = SubCategory::where('slug', $sub_category)->first();
+        } else if ($category && !$sub_category && !$child_category) {
+            $level = 'main';
+            $category_detail = Category::where('slug', $category)->first();
+        }
+
+        switch ($level) {
+            case 'main':
+                $products = Product::where(['category_id' => $category_detail->id])->get();
+                break;
+            case 'sub':
+                $products = Product::where(['sub_category' => $category_detail->id])->get();
+                break;
+            case 'child':
+                $products = Product::where(['child_category' => $category_detail->id])->get();
+                break;
+            default:
+                $products = Product::get();
+        }
+
+        $data['products'] = $products;
+        $data['categories_list'] = Category::where('publish', 'Publish')
+            ->latest('id')
+            ->get();
+ 
+        return view('web.pages.shop', $data);
+    }
+
     public function show_products($category = null, $sub_category = null, $child_category = null)
     {
         $slug = [
@@ -87,24 +134,24 @@ class WebController extends Controller
         $level = '';
         if ($category && $sub_category && $child_category) {
             $level = 'child';
-            $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
+            $category_detail = ChildCategory::where('slug', $child_category)->first();
         } else if ($category && $sub_category && !$child_category) {
             $level = 'sub';
-            $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
+            $category_detail = SubCategory::where('slug', $sub_category)->first();
         } else if ($category && !$sub_category && !$child_category) {
             $level = 'main';
-            $category_id = Category::where('slug', $category)->first()->id;
+            $category_detail = Category::where('slug', $category)->first();
         }
 
         switch ($level) {
             case 'main':
-                $products = Product::where(['category_id' => $category_id])->get();
+                $products = Product::where(['category_id' => $category_detail->id])->get();
                 break;
             case 'sub':
-                $products = Product::where(['sub_category' => $sub_category_id])->get();
+                $products = Product::where(['sub_category' => $category_detail->id])->get();
                 break;
             case 'child':
-                $products = Product::where(['child_category' => $child_category_id])->get();
+                $products = Product::where(['child_category' => $category_detail->id])->get();
                 break;
             default:
                 $products = Product::get();
@@ -114,8 +161,9 @@ class WebController extends Controller
         $data['categories_list'] = Category::where('publish', 'Publish')
             ->latest('id')
             ->get();
-
-        return view('web.pages.shop', $data);
+        $data['category_detail'] = $category_detail;
+ 
+        return view('web.pages.products_list', $data);
     }
 
     public function products(Request $request)

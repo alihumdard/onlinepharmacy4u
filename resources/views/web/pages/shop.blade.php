@@ -11,23 +11,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ltn__breadcrumb-inner">
-                    <h1 class="page-title">{{ $category_detail->name }}</h1>
+                    <h1 class="page-title">Online Pharmacy 4U Shop</h1>
                     <div class="ltn__breadcrumb-list">
-                        {{-- <ul>
-                            <li><a href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                        <ul>
+                            <li><a href="#"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
                             <li>Online Pharmacy 4U Shop</li>
-                        </ul> --}}
-                        @if (! session()->has('consultations'))
-                            <form action="{{ route('web.consultationForm') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="template" value="{{ config('constants.PRESCRIPTION_MEDICINE') }}">
-                                <input type="hidden" name="product_id" value="{{ session('product_id') }}">
-                                <button type="submit" class="theme-btn-1 btn" title="Add to Cart">
-                                    {{-- <i class="fas fa-shopping-cart"></i> --}}
-                                    <span>Start Consultation</span>
-                                </button>
-                            </form>
-                        @endif
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -125,16 +114,10 @@
                                                 </ul>
                                             </div>
                                             <h2 class="product-title"><a href="{{ route('web.product', ['id' => $val->id]) }}">{{ $val->title }}</a></h2>
-                                            @if($val->product_template == config('constants.PRESCRIPTION_MEDICINE'))
-                                                <a href="{{ route('web.product', ['id' => $val->id]) }}" class="theme-btn-1 btn btn-effect-1" title="Start">
-                                                    <span>Learn More</span>
-                                                </a>
-                                            @else
-                                                <div class="product-price">
-                                                    <span>£{{ $val->price }}</span>
-                                                    <del>{{ $val->cut_price ? '£'.$val->cut_price : NULL }}</del>
-                                                </div>
-                                            @endif
+                                            <div class="product-price">
+                                                <span>£{{ $val->price }}</span>
+                                                <del>{{ $val->cut_price ? '£'.$val->cut_price : NULL }}</del>
+                                            </div>
                                             @if($is_add_to_cart == 'yes')
                                             <div class="add_cart">
                                                 <a href="javascript:void(0)" onclick="addToCart({{$val->id}});" class="btn btn-outline-primary">Add to Cart </a>

@@ -14,15 +14,15 @@
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
                                     <!-- <h6 class="slide-sub-title white-color--- animated text-black"> Regulated UK Pharmacist</h6> -->
-                                    <h5 class="slide-title animated text-black">Repeat Prescriptions,<br> Made Simple.</h5>
+                                    <h5 class="slide-title animated text-black poppins-medium">Repeat Prescriptions,<br> Made Simple.</h5>
                                     <div class="slide-brief animated">
-                                        <p class=" text-black">Order with ease and get your NHS repeat prescriptions delivered directly to your door with Online Pharmacy 4U</p>
-                                        <p>Sign-up in seconds<br>
+                                        <p class=" text-black oppins-extralight">Order with ease and get your NHS repeat prescriptions delivered directly to your door </br>with Online Pharmacy 4U
+                                        Sign-up in seconds<br>
                                             ✓ Free delivery to your home or workplace<br>
                                             ✓Discreet packaging</p>
                                     </div>
                                     <div class="btn-wrapper animated">
-                                        <a href="https://healthera.co.uk/app" target="blank" class="theme-btn-1 btn ">Register Now</a>
+                                        <a href="https://healthera.co.uk/app" target="blank" class="theme-btn-1 btn oppins-extralight">Register Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -45,9 +45,9 @@
                                         </a>
                                     </div>
                                     <!-- <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> Regulated UK Pharmacist</h6> -->
-                                    <h5 class="slide-title animated text-black">Rediscover Passion & Reignite That Spark</h5>
+                                    <h5 class="slide-title animated text-black poppins-medium">Rediscover Passion & Reignite That Spark</h5>
                                     <div class="slide-brief animated">
-                                        <p class="text-black">Don't Let ED Put A Wedge Between You And Your Partner. Shop Our Range Of ED Medications!</p>
+                                        <p class="text-black oppins-extralight">Don't Let ED Put A Wedge Between You And Your Partner. Shop Our Range Of ED Medications!</p>
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="/shop" class="theme-btn-1 btn ">Shop Now</a>
@@ -68,9 +68,9 @@
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
                                     <!-- <h6 class="slide-sub-title white-color--- animated  text-black"><span><i class="fas fa-syringe"></i></span> Regulated UK Pharmacist</h6> -->
-                                    <h5 class="slide-title animated  text-black">Beat Travel Sickness And See The World</h5>
+                                    <h5 class="slide-title animated  text-black poppins-medium">Beat Travel Sickness And See The World</h5>
                                     <div class="slide-brief animated">
-                                        <p class="text-black" style="color:black;">Convenient And Easy To Take Tablets-Great For On The Go Clinically Proven To Provide Relief From Nausea Reliefs Feelings Of Motion Sickness Quickly And Effectively Take As Need For All-Day Relief And Comfort</p>
+                                        <p class="text-black  oppins-extralight">Convenient And Easy To Take Tablets-Great For On The Go Clinically Proven To Provide Relief From Nausea Reliefs Feelings Of Motion Sickness Quickly And Effectively Take As Need For All-Day Relief And Comfort</p>
                                     </div>
                                     <div class="btn-wrapper animated">
                                         <a href="/shop" class="theme-btn-1 btn ">Shop Now</a>
@@ -95,7 +95,7 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <div class="feature-offer-heading">
-                    <h1 class="text-white">Featured Offers</h1>
+                    <h1 class="text-white poppins-medium">Featured Offers</h1>
                 </div>
             </div>
             <div class="col-md-4"></div>
@@ -105,8 +105,8 @@
                 <div class="card card-radius">
                     <img src="img/product/skincare_1.webp" class="card-img-top card-radius" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Skincare</h5>
-                        <p class="card-text">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine.</p>
+                        <h5 class="card-title poppins-medium">Skincare</h5>
+                        <p class="card-text  oppins-extralight">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine.</p>
                         <a href="/skincare" class="btn btn-primary theme-btn-1">Buy Now</a>
                     </div>
                 </div>
@@ -952,6 +952,22 @@
     </div>
 </div>
 <!-- MODAL AREA END -->
+
+
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-2"></div>
+            <div class="col-md-4 col-sm-2"></div>
+            <div class="col-md-4 col-sm-2"></div>
+            <div class="col-md-4 col-sm-2"></div>
+        </div>
+    </div>
+</section>
+
+
 
 @stop
 

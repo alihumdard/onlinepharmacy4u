@@ -63,8 +63,8 @@
                     </a>
                 </li>
                 <li>
-                    <a class="{{(request()->routeIs(['admin.addQuestion'])) ? 'nav-link ' : ''}}" href="{{route('admin.addQuestion')}}">
-                        <i class="bi bi-circle"></i><span>Add Question</span>
+                    <a class="{{(request()->routeIs(['admin.questionCategories'])) ? 'nav-link ' : ''}}" href="{{route('admin.questionCategories')}}">
+                        <i class="bi bi-circle"></i><span>Question Categories</span>
                     </a>
                 </li>
                 <li>
@@ -73,8 +73,8 @@
                     </a>
                 </li>
                 <li>
-                    <a class="{{(request()->routeIs(['admin.questionCategories'])) ? 'nav-link ' : ''}}" href="{{route('admin.questionCategories')}}">
-                        <i class="bi bi-circle"></i><span>Question Categories</span>
+                    <a class="{{(request()->routeIs(['admin.addQuestion'])) ? 'nav-link ' : ''}}" href="{{route('admin.addQuestion')}}">
+                        <i class="bi bi-circle"></i><span>Add Question</span>
                     </a>
                 </li>
                 <li>

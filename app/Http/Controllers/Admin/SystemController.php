@@ -357,7 +357,7 @@ class SystemController extends Controller
 
         $data['user'] = auth()->user();
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('image') || ! $request->id) {
             $rules['image'] = [
                 'required',
                 'image',
@@ -367,7 +367,7 @@ class SystemController extends Controller
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return response()->json(['status' => 'error', 'message' => $validator->errors()]);
+                return redirect()->back()->withErrors($validator)->withInput();
             }
 
             $image = $request->file('image');

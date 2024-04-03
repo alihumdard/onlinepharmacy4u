@@ -699,7 +699,7 @@ class SystemController extends Controller
                                 'type' => $value['alert_type'],
                                 'body' => $value['alert_msg'],
                                 'route'         => 'web.productQuestion',
-                                'option'   => $option,
+                                'option'        => $option,
                                 'question_id'   => $question->id,
                                 'q_category_id' => $question->category_id,
                                 'created_by'    => $user->id
@@ -934,7 +934,6 @@ class SystemController extends Controller
         return response()->json(['status' => 'success', 'result' => $result]);
     }
 
-
     public function get_dp_questions(Request $request)
     {
         $category_id = $request->cat_id;
@@ -1015,7 +1014,7 @@ class SystemController extends Controller
                             $prod_result[] = [
                                 'id' => $q_id,
                                 'title' => $product_consultation[$q_id]['title'],
-                                'desc' => $product_consultation[$q_id]['openbox'],
+                                'desc' => $product_consultation[$q_id]['desc'],
                                 'answer' => $answer,
                             ];
                         }

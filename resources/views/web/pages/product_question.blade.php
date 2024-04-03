@@ -129,7 +129,7 @@
                     <h2 class="mb-4">Condition Specific Questions</h2>
                     <p></p>
                 </div>
-                <form action="{{route('web.transactionStore')}}" method="post" enctype="multipart/form-data">
+                <form id="product_consultation_from" action="{{route('web.transactionStore')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="template" required value="{{$template}}">
                     <input type="hidden" name="product_id" required value="{{$product_id ?? ''}}">
@@ -257,6 +257,32 @@
     </div>
 </div>
 
+<!-- MODAL AREA START (Add To Cart Modal) -->
+<div class="">
+    <div class="modal fade" id="attention_modal" tabindex="-1">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger py-2 px-2" >
+                    <h5 class="modal-title mx-5 my-3 text-white fw-bold "> Attention !</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                                <p class="text-danger fw-bold">You can't proceed further with the chosen options.</p>
+                                <p class="text-success fw-bold">Please review your selections or try other suitable options.</p>
+                                <p>If you need assistance, feel free to contact our support team.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL AREA END -->
 @stop
 
 @pushOnce('scripts')
@@ -268,7 +294,6 @@
             var next_type = $(this).data('next_type');
             var selector = $(this).data('selector');
             var append_id = $(this).data('append_id');
-
             if (next_type == 'question') {
                 if (selector) {
                     let question = dependent_questions[selector] ?? null;
@@ -352,7 +377,6 @@
                     $('#' + append_id).html('');
                 }
             } else if (next_type == 'alert') {
-
                 if (selector) {
                     var alert_detail = alerts[selector] ?? null;
                     // console.log(alert_detail);
@@ -376,6 +400,13 @@
             }
         });
 
+        $('#product_consultation_from').submit(function() {
+            if ($('.alert-danger').length > 0) {
+                $('#attention_modal').modal("show");
+                return false;
+            }
+            return true;
+        });
     });
 </script>
 

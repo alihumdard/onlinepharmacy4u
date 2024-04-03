@@ -67,7 +67,7 @@
                                 <div class="col-xl-4 col-sm-6 col-6">
                                     <div class="ltn__product-item ltn__product-item-3 text-center">
                                         <div class="product-img">
-                                            <a href="product-details.html"><img src="{{ asset('storage/'.$val->main_image)}}" alt="#"></a>
+                                            <a href="#"><img src="{{ asset('storage/'.$val->main_image)}}" alt="#"></a>
                                             {{-- <div class="product-badge">
                                                     <ul>
                                                         <li class="sale-badge">New</li>

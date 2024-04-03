@@ -26,7 +26,6 @@ Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->
 
 Route::match(['get','post'],'/categories', [WebController::class, 'categories'])->name('web.categories');
 Route::match(['get','post'],'/sleep', [WebController::class, 'sleep'])->name('web.sleep');
-// Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
 Route::match(['get','post'], '/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
 Route::match(['get','post'],'/diabetes', [WebController::class, 'diabetes'])->name('web.diabetes');
 Route::match(['get','post'],'/skincare', [WebController::class, 'skincare'])->name('web.skincare');

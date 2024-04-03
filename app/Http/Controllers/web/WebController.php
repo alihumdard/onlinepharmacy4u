@@ -193,6 +193,7 @@ class WebController extends Controller
             session()->put('product_id', $data['product']->id); 
             // dd(array_keys(session('consultations')));
             $data['is_add_to_cart'] = (session()->has('consultations') && in_array($data['product']['id'], array_keys(session('consultations')))) ? 'yes' : null;
+            $data['related_products'] = $this->get_related_products($data['product']);
             return view('web.pages.product', $data);
         } else {
             redirect()->back();
@@ -709,5 +710,36 @@ class WebController extends Controller
     {
         $data['user'] = auth()->user() ?? [];
         return view('web.pages.unsuccessful_order', $data);
+    }
+
+    public function get_related_products($product)
+    {
+        $category = $product->category_id;
+        $sub_category = $product->sub_category;
+        $child_category = $product->child_category;
+        $level = '';
+        if ($category && $sub_category && $child_category) {
+            $level = 'child';
+        } else if ($category && $sub_category && !$child_category) {
+            $level = 'sub';
+        } else if ($category && !$sub_category && !$child_category) {
+            $level = 'main';
+        }
+
+        switch ($level) {
+            case 'main':
+                $products = Product::where(['category_id' => $category])->where('id', '!=', $product->id)->latest('id')->get();
+                break;
+            case 'sub':
+                $products = Product::where(['sub_category' => $sub_category])->where('id', '!=',  $product->id)->latest('id')->get();
+                break;
+            case 'child':
+                $products = Product::where(['child_category' => $child_category])->where('id', '!=', $product->id)->latest('id')->get();
+                break;
+            default:
+                $products = Product::get();
+        }
+
+        return $products ?? NULL;
     }
 }

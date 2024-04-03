@@ -74,12 +74,15 @@
                             <div class="col-12 mt-2 image">
                                 <label for="image" class="form-label">Upload Image</label>
                                 <div class="d-flex align-items-center" style="gap: 20px; justify-content: space-between;">
-                                    <input type="file" class="form-control w-100" id="image" name="image" value="{{ ($category['image'] ?? NULL) ? 'required' : '' }}" onchange="previewMainImage(this)">
+                                    <input type="file" class="form-control w-100" id="image" name="image" value="{{ ($category['image'] ?? NULL) ? 'required' : '' }}" {{ (isset($category) && $category['image']) ? '' : 'required' }} onchange="previewMainImage(this)">
                                     <label for="image" class=" d-block ">
                                         <img id="image_preview" src="{{  $path ?? '' }}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px;  cursor:pointer;   object-fit: cover;">
                                     </label>
+                                    <div class="invalid-feedback">* Upload Image!</div>
+                                    @error('image')
+                                    <div class="alert-danger text-danger ">{{ $message }}</div>
+                                @enderror
                                 </div>
-                                <div class="invalid-feedback">* Upload Image!</div>
                             </div>
                             <div class="col-12">
                                 <label for="desc" class="form-label">Short Description</label>

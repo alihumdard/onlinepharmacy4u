@@ -103,19 +103,13 @@
                                                 </button>
                                             </form>
                                             @elseif ($product->product_template == 2)
-                                            {{-- <form action="{{ route('web.consultationForm') }}" method="POST">
+                                            <form action="{{ route('category.products', ['main_category' => $product->category->slug ?? NULL,'sub_category' => $product->sub_cat->slug ?? NULL, 'child_category' => $product->child_cat->slug ?? NULL]) }}" method="POST">
                                                 @csrf
-                                                <input type="hidden" name="template" value="{{ config('constants.PRESCRIPTION_MEDICINE') }}">
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                 <button type="submit" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
-                                                    <i class="fas fa-shopping-cart"></i>
                                                     <span>Start Consultation</span>
                                                 </button>
-                                            </form> --}}
-                                            <a href="{{ route('category.products', ['main_category' => $product->category->slug ?? NULL,'sub_category' => $product->sub_cat->slug ?? NULL, 'child_category' => $product->child_cat->slug ?? NULL]) }}" class="theme-btn-1 btn btn-effect-1" title="Start">
-                                                <i class="fas fa-shopping-cart"></i>
-                                                <span>Start Consultation</span>
-                                            </a>
+                                            </form>
                                             @elseif ($product->product_template == 3)
                                             <a href="javascript:void(0)" onclick="addToCart({{ $product->id }});" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                 <i class="fas fa-shopping-cart"></i>

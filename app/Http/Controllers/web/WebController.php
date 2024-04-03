@@ -118,8 +118,9 @@ class WebController extends Controller
         return view('web.pages.shop', $data);
     }
 
-    public function show_products($category = null, $sub_category = null, $child_category = null)
+    public function show_products(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
+        
         $slug = [
             "main_category" => $category,
             "sub_category" => $sub_category,
@@ -162,7 +163,8 @@ class WebController extends Controller
             ->latest('id')
             ->get();
         $data['category_detail'] = $category_detail;
- 
+        $data['product_id'] = $request->product_id;
+        
         return view('web.pages.products_list', $data);
     }
 

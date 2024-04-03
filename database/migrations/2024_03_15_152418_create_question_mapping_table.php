@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('question_id');
             $table->string('answer');
-            $table->unsignedBigInteger('next_question');
+            $table->string('next_type');
+            $table->string('selector');
             $table->integer('status')->default(1);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();

@@ -40,6 +40,7 @@ use App\Models\PMedGeneralQuestion;
 use App\Models\PrescriptionMedGeneralQuestion;
 use App\Models\ShipingDetail;
 use App\Models\OrderDetail;
+use App\Models\Alert;
 use Illuminate\Support\Facades\DB;
 
 use Deyjandi\VivaWallet\Enums\RequestLang;
@@ -187,6 +188,7 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
         if ($data['product']) {
+            session()->put('product_id', $data['product']->id); 
             // dd(array_keys(session('consultations')));
             $data['is_add_to_cart'] = (session()->has('consultations') && in_array($data['product']['id'], array_keys(session('consultations')))) ? 'yes' : null;
             return view('web.pages.product', $data);
@@ -241,8 +243,6 @@ class WebController extends Controller
             $consultationData = ['type' => 'premd', 'product_id' => $request->product_id, 'slug' => $slug, 'gen_quest_ans' => $questionAnswers, 'pro_quest_ans' => ''];
         }
 
-
-
         if ($request->template == config('constants.PHARMACY_MEDECINE')) {
             $consultations[$request->product_id] = $consultationData;
             Session::put('consultations', $consultations);
@@ -277,41 +277,52 @@ class WebController extends Controller
                 ->get()
                 ->toArray();
             $question_map_cat  = QuestionMapping::where('category_id', $quest_category_id)->get()->toArray();
+            $data['alerts']  = $question_alerts = Alert::where('q_category_id', $quest_category_id)->get()->keyBy('id')->toArray();
             $data['questions'] = [];
             $data['dependent_questions'] = [];
             foreach ($questions as $key => $quest) {
                 $q_id = $quest['id'];
-                $quest['next_quest'] =[];
+                $quest['selector'] = [];
+                $quest['next_type'] = [];
                 if ($quest['anwser_set'] == "mt_choice") {
                     foreach ($question_map_cat as $key => $val1) {
                         if ($val1['question_id'] == $q_id && $val1['answer'] == 'optA') {
                             $quest['next_quest']['optA'] = $val1['next_question'];
+                            $quest['selector']['optA'] = $val1['selector'];
+                            $quest['next_type']['optA'] = $val1['next_type'];
                         } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optB') {
-                            $quest['next_quest']['optB'] = $val1['next_question'];
+                            $quest['selector']['optC'] = $val1['selector'];
+                            $quest['next_type']['optB'] = $val1['next_type'];
                         } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optC') {
-                            $quest['next_quest']['optC'] = $val1['next_question'];
+                            $quest['selector']['optC'] = $val1['selector'];
+                            $quest['next_type']['optC'] = $val1['next_type'];
                         } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optD') {
-                            $quest['next_quest']['optD'] = $val1['next_question'];
+                            $quest['selector']['optD'] = $val1['selector'];
+                            $quest['next_type']['optD'] = $val1['next_type'];
                         }
                     }
                 } else if ($quest['anwser_set'] == "yes_no") {
                     foreach ($question_map_cat as $key => $val2) {
                         if ($val2['question_id'] == $q_id && $val2['answer'] == 'optY') {
-                            $quest['next_quest']['yes_lable'] = $val2['next_question'];
+                            $quest['selector']['yes_lable'] = $val2['selector'];
+                            $quest['next_type']['yes_lable'] = $val2['next_type'];
                         } elseif ($val2['question_id'] == $q_id && $val2['answer'] == 'optN') {
-                            $quest['next_quest']['no_lable']  = $val2['next_question'];
+                            $quest['selector']['no_lable']  = $val2['selector'];
+                            $quest['next_type']['no_lable'] = $val2['next_type'];
                         }
                     }
                 } else if ($quest['anwser_set'] == "file") {
                     foreach ($question_map_cat as $key => $val3) {
                         if ($val3['question_id'] == $q_id && $val3['answer'] == 'file') {
-                            $quest['next_quest']['file'] = $val3['next_question'];
+                            $quest['selector']['file'] = $val3['selector'];
+                            $quest['next_type']['file'] = $val3['next_type'];
                         }
                     }
                 } else if ($quest['anwser_set'] == "openbox") {
                     foreach ($question_map_cat as $key => $val4) {
                         if ($val4['question_id'] == $q_id && $val4['answer'] == 'openBox') {
-                            $quest['next_quest']['openbox'] = $val4['next_question'];
+                            $quest['selector']['openbox'] = $val4['selector'];
+                            $quest['next_type']['openbox'] = $val4['next_type'];
                         }
                     }
                 }

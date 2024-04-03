@@ -573,7 +573,12 @@ color:white;
     padding: 10px;
     transition: background-color 0.3s;
 }
-
+.mega-menu-parent .ltn__main-menu li > a:hover{
+    background-color:lightgray;
+    color:#0056b3 ;
+    border-radius:30px;
+    padding:5px;
+}
 .btn:hover {
     background-color: #0056b3 !important;
     color: #fff !important;
@@ -710,19 +715,39 @@ padding: 12px 15px;
 .explain {
     background-color: #EBFAFD;
 }
+.small-btn{
+    display: none;
+}
+ 
 @media only screen and (max-width:500px){
+    .small-btn{
+        display: block !important;
+        border-radius: 50px;
+    }
+    .large-scr{
+        display: none;
+    }
+    .btn-large{
+        display: none;
+    }
     .start{
-        display: block;
-        position: fixed;
-        bottom: 10px;
-        z-index: 99;
-        width: 90% !important;
+        
+            display: block;
+            width: 90% !important;
+            margin: 0 auto;
+            right: 6%;
+            /* left: 0; */
+            border-radius: 50px;
     }
     .small-scr{
+        padding: 15px 0;
         position: fixed;
-        bottom: 10px;
-        width: 90%;
+        bottom: 0;
+        left: 0;  
+        width: 100%;
+        max-width: 100%;  
         background-color: red !important;
         z-index: 99;
+        text-align: center;
     }
 }

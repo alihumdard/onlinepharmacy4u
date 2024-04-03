@@ -10,9 +10,9 @@
                     <div class="col-md-12">
                         <div class="ltn__top-bar-menu text-center">
                             <ul>
-                                <li><a href="#" class="text-white font-weight-400"><i class="fas fa-comment-medical"  class="text-white"></i>Dispensed by Regulated UK Pharmacists</a></li>
-                                <li><a href="#"  class="text-white"><i class="far fa-certificate"  class="text-white font-weight-400"></i> Registered Pharmacy: 9011972</a></li>
-                                <li class="text-white"><a href="#"  class="text-white  pl-2">  Social Media Link:</a> <a href="https://www.facebook.com/Online-Pharmacy4U-114908691196467" class="top-social-links"><i class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/4uPharmacy" class="top-social-links"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/company/74292944" class="top-social-links"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.tiktok.com/@online.pharmacy4u" class="top-social-links"><i class="fab fa-tiktok"></i></a></li>
+                                <li><a href="#" class="text-white font-weight-400  poppins-thin "><i class="fas fa-comment-medical"  class="text-white"></i>Dispensed by Regulated UK Pharmacists</a></li>
+                                <li><a href="#"  class="text-white  poppins-thin "><i class="far fa-certificate"  class="text-white font-weight-400"></i> Registered Pharmacy: 9011972</a></li>
+                                <li class="#"><a href="#"  class="text-white  pl-2 poppins-regular">  Social Media Link:</a> <a href="https://www.facebook.com/Online-Pharmacy4U-114908691196467" class="top-social-links"><i class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/4uPharmacy" class="top-social-links"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/company/74292944" class="top-social-links"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.tiktok.com/@online.pharmacy4u" class="top-social-links"><i class="fab fa-tiktok"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                     <i class="icon-phone"></i>
                                 </div>
                                 <div class="header-feature-info">
-                                    <h6>Phone</h6>
+                                    <h6 class=" poppins-thin">Phone</h6>
                                     <p><a href="tel:0123456789">+0123-456-789</a></p>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="header-search-1-form">
                                             <form id="#" method="get"  action="#">
-                                                <input type="text" name="search" value="" placeholder="Search here..."/>
+                                                <input class=" poppins-thin " type="text" name="search" value="" placeholder="Search here..."/>
                                                 <button type="submit">
                                                     <span><i class="icon-search"></i></span>
                                                 </button>
@@ -80,7 +80,7 @@
                                     <div class="ltn__drop-menu user-menu">
                                         <ul>
                                             <li>
-                                                <a href="#"><i class="icon-user"></i></a>
+                                                <a href="#" class=" poppins-thin "><i class="icon-user"></i></a>
                                                 <ul>
                                                     @if(auth()->user())
                                                         <li><a href="/logout">Sign Out</a></li>
@@ -98,7 +98,7 @@
                                     <!-- mini-cart 2 -->
                                     <div class="mini-cart-icon mini-cart-icon-2">
                                         <a href="#ltn__utilize-cart-menu" class="ltn__utilize-toggle">
-                                            <span class="mini-cart-icon">
+                                            <span class="mini-cart-icon poppins-thin">
                                                 <i class="icon-shopping-cart"></i>
                                                 <sup>{{ Cart::count() ?? 0}}</sup>
                                             </span>
@@ -147,15 +147,15 @@
                                 <nav>
                                     <div class="ltn__main-menu text-center">
                                         <ul>
-                                            <li><a href="/">Home</a></li>
+                                            <li><a href="/" class="poppins-thin">Home</a></li>
                                             @foreach ($menu_categories as $key => $val)
                                                 <li class=""><a href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
                                                     <ul class="mega-menu">
                                                         @foreach($val['subcategory'] as $key1 => $val1)
-                                                            <li><a href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
+                                                            <li><a  class="poppins-thin" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
                                                                 <ul>
                                                                     @foreach($val1['child_categories'] as $key2 => $val2)
-                                                                    <li><a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
+                                                                    <li><a  class="poppins-thin" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
                                                                     @endforeach
                                                                 </ul>
                                                             </li>
@@ -163,8 +163,8 @@
                                                     </ul>
                                                 </li>
                                             @endforeach
-                                            <li><a href="/work">How it work</a></li>
-                                            <li><a href="/help">Help</a></li>
+                                            <li><a href="/work"  class="poppins-thin">How it work</a></li>
+                                            <li><a href="/help"  class="poppins-thin">Help</a></li>
                                         </ul>
                                     </div>
                                 </nav>

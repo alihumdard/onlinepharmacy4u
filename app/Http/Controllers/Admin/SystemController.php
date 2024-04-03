@@ -48,6 +48,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ConsultationQuestion;
 use App\Models\OrderDetail;
 use App\Models\ShipingDetail;
+use App\Models\Alert;
 
 
 class SystemController extends Controller
@@ -651,10 +652,7 @@ class SystemController extends Controller
             'is_assigned' => 'required',
             'anwser_set' => 'required',
             'category_id' => 'required',
-            'title'   => [
-                'required',
-                Rule::unique('questions')->ignore($request->id),
-            ],
+            'title'   => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -685,10 +683,52 @@ class SystemController extends Controller
         if ($question->id) {
             if ($question->is_assigned == 'yes') {
                 $options = ['optA', 'optB', 'optC', 'optD', 'optY', 'optN', 'openBox', 'file'];
+                // dd($request->next_quest);
                 foreach ($options as $option) {
                     $value = $request->next_quest[$option];
-                    if ($value !== null && $value !== '') {
-                        $saved = QuestionMapping::updateOrCreate(
+                    $selector = 'nothing';
+                    if ($value['next_type'] == 'alert') {
+                        $alert = Alert::updateOrCreate(
+                            [
+                                // 'id' => $question->alert_id ?? NULL,
+                                'question_id' => $question->id,
+                                'q_category_id' => $question->category_id,
+                                'option' => $option,
+                            ],
+                            [
+                                'type' => $value['alert_type'],
+                                'body' => $value['alert_msg'],
+                                'route'         => 'web.productQuestion',
+                                'option'        => $option,
+                                'question_id'   => $question->id,
+                                'q_category_id' => $question->category_id,
+                                'created_by'    => $user->id
+                            ]
+                        );
+                        if ($alert->id) {
+                            $selector = $alert->id;
+                            $mapped = QuestionMapping::updateOrCreate(
+                                [
+                                    'question_id' => $question->id,
+                                    'category_id' => $question->category_id,
+                                    'answer' => $option,
+                                ],
+                                [
+                                    'question_id' => $question->id,
+                                    'category_id' => $question->category_id,
+                                    'answer'      => $option,
+                                    'next_type'   => 'alert',
+                                    'selector'    => $alert->id,
+                                    'status'      => 1,
+                                    'created_by'  => $user->id
+                                ]
+                            );
+                        } else {
+                            dd('alert is not saved');
+                        }
+                    } else if ($value['next_type'] == 'question') {
+                        $selector = $value['question'];
+                        $mapped = QuestionMapping::updateOrCreate(
                             [
                                 'question_id' => $question->id,
                                 'category_id' => $question->category_id,
@@ -698,7 +738,25 @@ class SystemController extends Controller
                                 'question_id' => $question->id,
                                 'category_id' => $question->category_id,
                                 'answer'      => $option,
-                                'next_question' => $value,
+                                'next_type'   => 'question',
+                                'selector'    => $selector,
+                                'status'      => 1,
+                                'created_by'  => $user->id
+                            ]
+                        );
+                    } else if ($value['next_type'] == 'nothing') {
+                        $mapped = QuestionMapping::updateOrCreate(
+                            [
+                                'question_id' => $question->id,
+                                'category_id' => $question->category_id,
+                                'answer' => $option,
+                            ],
+                            [
+                                'question_id' => $question->id,
+                                'category_id' => $question->category_id,
+                                'answer'      => $option,
+                                'next_type'   => 'nothing',
+                                'selector'    => $selector,
                                 'status'      => 1,
                                 'created_by'  => $user->id
                             ]
@@ -876,7 +934,6 @@ class SystemController extends Controller
         return response()->json(['status' => 'success', 'result' => $result]);
     }
 
-
     public function get_dp_questions(Request $request)
     {
         $category_id = $request->cat_id;
@@ -957,7 +1014,7 @@ class SystemController extends Controller
                             $prod_result[] = [
                                 'id' => $q_id,
                                 'title' => $product_consultation[$q_id]['title'],
-                                'desc' => $product_consultation[$q_id]['openbox'],
+                                'desc' => $product_consultation[$q_id]['desc'],
                                 'answer' => $answer,
                             ];
                         }

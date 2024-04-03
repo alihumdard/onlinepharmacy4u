@@ -27,8 +27,8 @@
                     </form>
                     @endif
 
-                    <button form="start_consultation_from" class="btn btn-primary my-3 btn-large">Start {{ $category_detail->name }} </button>
-                    <button class="btn btn-primary my-3 small-btn">Start Consultation </button>
+                    <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 btn-large">Start ({{ $category_detail->name }}) Consultation</button>
+                    <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 small-btn">Start Consultation </button>
                     <button class="btn btn-outline-danger view-btn">View Treatments </button>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                         @if($val->product_template == config('constants.COUNTER_MEDICINE'))
                         <a href="javascript:void(0)" onclick="addToCart(@json($val->id));" title="Add to Cart" class="btn btn-outline-danger w-100">Add To Cart</a>
                         @else
-                        <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Learn more</a>
+                        <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
                         @endif
                     </div>
                 </div>
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="import-btn text-center mt-4">
-            <button form="start_consultation_from" type="submit" class="btn btn-danger large-scr">Start Your {{ $category_detail->name }}</button>
+            <button form="start_consultation_from" type="submit" class="btn btn-danger large-scr">Start ({{ $category_detail->name }} )</button>
             <button  form="start_consultation_from" type="submit" class="btn btn-primary my-3 small-btn">Start Consultation </button>
         </div>
         <div class="small-scr">

@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="modal-product-info shop-details-info pl-0">
-                                <div class="product-ratting">
+                                <div class="product-ratting d-none">
                                     <ul>
                                         <li><a href="#"><i class="fas fa-star"></i></a></li>
                                         <li><a href="#"><i class="fas fa-star"></i></a></li>
@@ -88,7 +88,7 @@
                                         </li>
                                         <li>
                                             @if($is_add_to_cart == 'yes')
-                                            <a href="javascript:void(0)" onclick="addToCart(@json($product->id));" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                            <a href="javascript:void(0)" onclick="addToCart(@json($product->id));" class="theme-btn-1 btn btn-effect-1 add-cart" title="Add to Cart">
                                                 <i class="fas fa-shopping-cart"></i>
                                                 <span>ADD TO CART</span>
                                             </a>
@@ -139,7 +139,7 @@
                                                 <span>Compare</span>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li class="d-none">
                                             <div style="padding: 20px;" class="widget widget-tags">
                                                 <h5 class="widget__title" style="margin-bottom: 10px;"><span id="product_title">{{ $product['variants'][0]['title'] ?? ''}} :</span></h5>
                                                 <div class="widget-content">

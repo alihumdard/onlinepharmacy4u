@@ -271,9 +271,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                                <p class="text-danger fw-bold">You can't proceed further with the chosen options.</p>
-                                <p class="text-success fw-bold">Please review your selections or try other suitable options.</p>
-                                <p>If you need assistance, feel free to contact our support team.</p>
+                                <p class="text-danger fw-bold">You can't proceed further.</p>
+                                <p class="text-success fw-bold">Please review your selections.</p>
+                                <p>You are unable to continue if you do not agree to the terms and conditions of our site.</p>
                         </div>
                     </div>
                 </div>

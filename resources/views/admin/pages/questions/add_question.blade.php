@@ -145,11 +145,10 @@
                                                 </label>
                                             </div>
                                             <div class="col-md-8">
-                                                <select class="form-select select_option mb-2"  name="next_quest[optA][next_type]" id="next_quest_optA_next_type" >
-                                                    <option value="">Select next display</option>
+                                                <select class="form-select select_option mb-2" name="next_quest[optA][next_type]" id="next_quest_optA_next_type">
+                                                    <option value="nothing" {{ old('next_quest.optA.next_type') == 'nothing' ? 'selected' : '' }}>Nothing to Next</option>
                                                     <option value="question" {{ old('next_quest.optA.next_type') == 'question' ? 'selected' : '' }}>Nested Question</option>
                                                     <option value="alert" {{ old('next_quest.optA.next_type') == 'alert' ? 'selected' : '' }}>Show alert</option>
-                                                    <option value="nothing" {{ old('next_quest.optA.next_type') == 'nothing' ? 'selected' : '' }}>Nothing to Next</option>
                                                 </select>
                                                 <!-- <div class="invalid-feedback">Please select a next display!</div>
                                                 @error('next_quest.optA.next_type')
@@ -166,7 +165,6 @@
                                                     <div class="row mb-2 pt-1 show_alert hide">
                                                         <div class="col-md-4 mb-2">
                                                             <select class="form-select  py-2" name="next_quest[optA][alert_type]" id="alert_type">
-                                                                <option value="">Alert type</option>
                                                                 <option value="alert-success">Success</option>
                                                                 <option value="alert-warning">Warning</option>
                                                                 <option value="alert-danger">Danger</option>
@@ -186,11 +184,10 @@
                                                 </label>
                                             </div>
                                             <div class="col-md-8">
-                                                <select class="form-select  select_option mb-2" name="next_quest[optB][next_type]" id="next_quest_optB_next_type" >
-                                                    <option value="">Select next display</option>
+                                                <select class="form-select  select_option mb-2" name="next_quest[optB][next_type]" id="next_quest_optB_next_type">
+                                                    <option value="nothing">Nothing to Next</option>
                                                     <option value="question">Nested Question</option>
                                                     <option value="alert">Show alert</option>
-                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
                                                 <div class="display_option ps-5 mt-2">
                                                     <div class="row mb-2 pt-1 neseted_question hide">
@@ -202,7 +199,7 @@
                                                     <div class="row mb-2 pt-1 show_alert hide">
                                                         <div class="col-md-4 mb-2">
                                                             <select class="form-select py-2" name="next_quest[optB][alert_type]" id="alert_type">
-                                                                <option value="">Alert type</option>
+
                                                                 <option value="alert-success">Success</option>
                                                                 <option value="alert-warning">Warning</option>
                                                                 <option value="alert-danger">Danger</option>
@@ -222,11 +219,10 @@
                                                 </label>
                                             </div>
                                             <div class="col-md-8">
-                                                <select class="form-select  select_option mb-2" name="next_quest[optC][next_type]" id="next_quest[optC][next_type]" >
-                                                    <option value="">Select next display</option>
+                                                <select class="form-select  select_option mb-2" name="next_quest[optC][next_type]" id="next_quest[optC][next_type]">
+                                                    <option value="nothing">Nothing to Next</option>
                                                     <option value="question">Nested Question</option>
                                                     <option value="alert">Show alert</option>
-                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
                                                 <div class="display_option ps-5 mt-2">
                                                     <div class="row mb-2 pt-1 neseted_question hide">
@@ -237,7 +233,6 @@
                                                     <div class="row mb-2 pt-1 show_alert hide">
                                                         <div class="col-md-4 mb-2">
                                                             <select class="form-select py-2" name="next_quest[optC][alert_type]" id="alert_type">
-                                                                <option value="">Alert type</option>
                                                                 <option value="alert-success">Success</option>
                                                                 <option value="alert-warning">Warning</option>
                                                                 <option value="alert-danger">Danger</option>
@@ -258,10 +253,9 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <select class="form-select  select_option mb-2" name="next_quest[optD][next_type]" id="next_quest[optD][next_type]">
-                                                    <option value="">Select next display</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                     <option value="question">Nested Question</option>
                                                     <option value="alert">Show alert</option>
-                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
                                                 <div class="display_option ps-5 mt-2">
                                                     <div class="row mb-2 pt-1 neseted_question hide">
@@ -272,7 +266,6 @@
                                                     <div class="row mb-2 pt-1 show_alert hide">
                                                         <div class="col-md-4 mb-2">
                                                             <select class="form-select py-2" name="next_quest[optD][alert_type]" id="alert_type">
-                                                                <option value="">Alert type</option>
                                                                 <option value="alert-success">Success</option>
                                                                 <option value="alert-warning">Warning</option>
                                                                 <option value="alert-danger">Danger</option>
@@ -291,16 +284,15 @@
                                     <div class="col-md-10 yes-no hide">
                                         <div class="row mt-2">
                                             <div class="col-md-4 mb-2">
-                                                <label for="optionYes" id="option_yes" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionYes')">
+                                                <label for="next_quest_optY_next_type" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionYes')">
                                                     YES
                                                 </label>
                                             </div>
                                             <div class="col-md-8">
-                                                <select id="select_optionYes" class="form-select  select_option mb-2" name="next_quest[optY][next_type]" id="next_quest[optY][next_type]">
-                                                    <option value="">Select next display</option>
+                                                <select id="select_optionYes" class="form-select  select_option mb-2" name="next_quest[optY][next_type]" id="next_quest_optY_next_type">
+                                                    <option value="nothing">Nothing to Next</option>
                                                     <option value="question">Nested Question</option>
                                                     <option value="alert">Show alert</option>
-                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
                                                 <div class="display_option ps-5 mt-2">
                                                     <div class="row mb-2 pt-1 neseted_question hide">
@@ -311,7 +303,6 @@
                                                     <div class="row mb-2 pt-1 show_alert hide">
                                                         <div class="col-md-4 mb-2">
                                                             <select class="form-select  py-2" name="next_quest[optY][alert_type]" id="next_quest[optY][alert_type]">
-                                                                <option value="">Alert type</option>
                                                                 <option value="alert-success">Success</option>
                                                                 <option value="alert-warning">Warning</option>
                                                                 <option value="alert-danger">Danger</option>
@@ -326,16 +317,15 @@
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-md-4 mb-2">
-                                                <label for="optionNo" id="option_no" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionNo')">
+                                                <label for="next_quest_optN_next_type" id="option_no" class=" text-center px-5 col-form-label fw-bold btn btn-outline-secondary" onclick="focusDropdown('optionNo')">
                                                     NO
                                                 </label>
                                             </div>
                                             <div class="col-md-8">
                                                 <select class="form-select mb-2 select_option " name="next_quest[optN][next_type]" id="next_quest_optN_next_type">
-                                                    <option value="">Select next display</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                     <option value="alert">Show alert</option>
                                                     <option value="question">Nested Question</option>
-                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
                                                 <div class="display_option mt-2 ps-5">
                                                     <div class="row mb-2  pt-1 neseted_question  hide">
@@ -347,7 +337,6 @@
                                                     <div class="row mb-2  pt-1 show_alert hide">
                                                         <div class="col-md-4 mb-2">
                                                             <select class="form-select py-2 " name="next_quest[optN][alert_type]" id="next_quest_optN_alert_type">
-                                                                <option value="">Alert type</option>
                                                                 <option value="alert-success">Success</option>
                                                                 <option value="alert-warning">Warning</option>
                                                                 <option value="alert-danger">Danger</option>
@@ -372,10 +361,9 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <select class="form-select  select_option mb-2" name="next_quest[openBox][next_type]" id="next_quest[openBox][next_type]">
-                                                    <option value="">Select next display</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                     <option value="question">Nested Question</option>
                                                     <option value="alert">Show alert</option>
-                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
                                                 <div class="display_option ps-5 mt-2">
                                                     <div class="row mb-2 pt-1 neseted_question hide">
@@ -386,7 +374,7 @@
                                                     <div class="row mb-2 pt-1 show_alert hide">
                                                         <div class="col-md-4 mb-2">
                                                             <select class="form-select py-2" name="next_quest[openBox][alert_type]" id="next_quest[openBox][alert_type]">
-                                                                <option value="">Alert type</option>
+
                                                                 <option value="alert-success">Success</option>
                                                                 <option value="alert-warning">Warning</option>
                                                                 <option value="alert-danger">Danger</option>
@@ -411,10 +399,9 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <select class="form-select  select_option mb-2" name="next_quest[file][next_type]" id="next_quest[file][next_type]">
-                                                    <option value="">Select next display</option>
+                                                    <option value="nothing">Nothing to Next</option>
                                                     <option value="question">Nested Question</option>
                                                     <option value="alert">Show alert</option>
-                                                    <option value="nothing">Nothing to Next</option>
                                                 </select>
                                                 <div class="display_option ps-5 mt-2">
                                                     <div class="row mb-2 pt-1 neseted_question hide">
@@ -425,7 +412,7 @@
                                                     <div class="row mb-2 pt-1 show_alert hide">
                                                         <div class="col-md-4 mb-2">
                                                             <select class="form-select py-2" name="next_quest[file][alert_type]" id="next_quest[file][alert_type]">
-                                                                <option value="">Alert type</option>
+
                                                                 <option value="alert-success">Success</option>
                                                                 <option value="alert-warning">Warning</option>
                                                                 <option value="alert-danger">Danger</option>
@@ -739,8 +726,6 @@
         }
 
         function get_question_detail(questionId, category_Id) {
-            var question_yes = 'Yes';
-            var question_no = 'No';
             // Make AJAX request
             $.ajax({
                 url: '{{ route("admin.qustionDetail") }}',
@@ -761,8 +746,8 @@
                     $('#optionNo').empty();
                     $('#openBox').empty();
                     $('#file').empty();
-                    $('#option_no').text(question_yes)
-                    $('#option_yes').text(question_no)
+                    $('#option_no').text(question_no)
+                    $('#option_yes').text(question_yes)
                     $('#no_dp_question').addClass('hide');
                     $('#option_id').removeClass('hide');
 

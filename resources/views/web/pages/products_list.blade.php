@@ -23,7 +23,7 @@
                     <form id="start_consultation_from" action="{{ route('web.consultationForm') }}" method="POST">
                         @csrf
                         <input type="hidden" name="template" value="{{ config('constants.PRESCRIPTION_MEDICINE') }}">
-                        <input type="hidden" name="product_id" value="{{ session('product_id') }}">
+                        <input type="hidden" name="product_id" value="{{ $product_id }}">
                     </form>
                     @endif
 

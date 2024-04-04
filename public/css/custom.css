@@ -718,6 +718,9 @@ padding: 12px 15px;
 .small-btn{
     display: none;
 }
+.small-scr .start{
+    display: none;
+}
  
 @media only screen and (max-width:500px){
     .small-btn{
@@ -727,6 +730,10 @@ padding: 12px 15px;
     .large-scr{
         display: none;
     }
+    .small-scr .start{
+        display: block;
+    }
+    
     .btn-large{
         display: none;
     }
@@ -746,8 +753,19 @@ padding: 12px 15px;
         left: 0;  
         width: 100%;
         max-width: 100%;  
-        background-color: red !important;
+        background-color: rgba(252, 122, 122, 0.822) !important;
         z-index: 99;
         text-align: center;
     }
+}
+.ltn__product-details-menu-2 .btn-effect-1:hover{
+background-color: #249ACB !important;
+color: #fff !important;
+}
+.btn-effect-1:after{
+    background-color: #249ACB !important;
+color: #fff !important;
+}
+.ltn__social-media ul li a i {
+    color: #5C727D ;
 }

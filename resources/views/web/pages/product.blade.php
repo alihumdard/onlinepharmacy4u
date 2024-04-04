@@ -124,7 +124,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="ltn__product-details-menu-3">
+                                <div class="ltn__product-details-menu-3 d-none">
                                     <ul>
                                         <li>
                                             <a href="#" class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">

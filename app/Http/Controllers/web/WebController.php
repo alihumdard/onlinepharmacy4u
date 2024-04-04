@@ -222,7 +222,7 @@ class WebController extends Controller
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
         if ($data['product']) {
             $data['pre_add_to_cart']  = 'no';
-            foreach (session('consultations') as $key => $value) {
+            foreach (session('consultations') ?? [] as $key => $value) {
                 if ($key == $data['product']->id || strpos($key, ',') !== false && in_array($data['product']->id, explode(',', $key))) {
                     if (isset(session('consultations')[$key])) {
                         $data['pre_add_to_cart']  = 'yes';

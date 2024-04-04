@@ -224,7 +224,7 @@
                                             <li>
                                                 <div class="ltn__comment-item clearfix">
                                                     <div class="ltn__commenter-img">
-                                                        <img src="img/testimonial/3.jpg" alt="Image">
+                                                        <img src="/img/testimonial/3.jpg" alt="Image">
                                                     </div>
                                                     <div class="ltn__commenter-comment">
                                                         <h6><a href="#">Adam Smit</a></h6>

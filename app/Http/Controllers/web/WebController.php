@@ -78,11 +78,23 @@ class WebController extends Controller
             "sub_category" => $sub_category,
             "child_category" => $child_category
         ];
-        if ($slug == session('slug') ?? []) {
-            $data['is_add_to_cart'] = 'yes';
-        } else {
-            $data['is_add_to_cart'] = Null;
+        
+        $consultations = session('consultations') ?? [];
+        $found = false;
+        foreach ($consultations as $consultation) {
+            if ($slug == $consultation['slug']) {
+                $found = true;
+                break;
+            }
         }
+        
+        if ($found) {
+            $data['pre_add_to_cart'] = 'yes';
+        } else {
+            $data['pre_add_to_cart'] = 'no';
+        } 
+        
+
         // product listing
         $level = '';
         if ($category && $sub_category && $child_category) {
@@ -114,23 +126,36 @@ class WebController extends Controller
         $data['categories_list'] = Category::where('publish', 'Publish')
             ->latest('id')
             ->get();
- 
+
         return view('web.pages.shop', $data);
     }
 
     public function show_products(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
         
+
         $slug = [
             "main_category" => $category,
             "sub_category" => $sub_category,
             "child_category" => $child_category
         ];
-        if ($slug == session('slug') ?? []) {
-            $data['is_add_to_cart'] = 'yes';
-        } else {
-            $data['is_add_to_cart'] = Null;
+        
+        $consultations = session('consultations') ?? [];
+        $found = false;
+        foreach ($consultations as $consultation) {
+            if ($slug == $consultation['slug']) {
+                $found = true;
+                break;
+            }
         }
+        
+        if ($found) {
+            $data['pre_add_to_cart'] = 'yes';
+        } else {
+            $data['pre_add_to_cart'] = 'no';
+        } 
+        
+        
         // product listing
         $level = '';
         if ($category && $sub_category && $child_category) {
@@ -159,12 +184,18 @@ class WebController extends Controller
         }
 
         $data['products'] = $products;
+        $product_template_2_ids = [];
+        foreach ($products as $item) {
+            if ($item->product_template == config('constants.PRESCRIPTION_MEDICINE')) {
+                $product_template_2_ids[] = $item->id;
+            }
+        }
+        $data['product_ids'] = implode(',',$product_template_2_ids);
         $data['categories_list'] = Category::where('publish', 'Publish')
             ->latest('id')
             ->get();
         $data['category_detail'] = $category_detail;
-        $data['product_id'] = $request->product_id;
-        
+
         return view('web.pages.products_list', $data);
     }
 
@@ -190,7 +221,7 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
         if ($data['product']) {
-            session()->put('product_id', $data['product']->id); 
+            session()->put('product_id', $data['product']->id);
             // dd(array_keys(session('consultations')));
             $data['is_add_to_cart'] = (session()->has('consultations') && in_array($data['product']['id'], array_keys(session('consultations')))) ? 'yes' : null;
             $data['related_products'] = $this->get_related_products($data['product']);
@@ -241,7 +272,8 @@ class WebController extends Controller
         if ($request->template == config('constants.PHARMACY_MEDECINE')) {
             $consultationData = ['type' => 'pmd', 'product_id' => $request->product_id, 'gen_quest_ans' => $questionAnswers, 'pro_quest_ans' => ''];
         } else {
-            $category = Product::with('category', 'sub_cat', 'child_cat')->find($request->product_id);
+            $product_ids = explode(',', $request->product_id);
+            $category = Product::with('category', 'sub_cat', 'child_cat')->find($product_ids[0]);
             $slug = ['main_category' => $category->category->slug, 'sub_category' => $category->sub_cat->slug ?? null, 'child_category' => $category->child_cat->slug ?? null];
             $consultationData = ['type' => 'premd', 'product_id' => $request->product_id, 'slug' => $slug, 'gen_quest_ans' => $questionAnswers, 'pro_quest_ans' => ''];
         }
@@ -545,16 +577,21 @@ class WebController extends Controller
         if ($order) {
             $order_details = [];
             $index = 0;
-            foreach ($request->order_details['product_id'] as $key => $val) {
+            foreach ($request->order_details['product_id'] as $key => $pro_id) {
                 $consultaion_type = 'one_over';
-                if (isset(session('consultations')[$val])) {
-                    $consultaion_type = session('consultations')[$val]['type'];
-                    $generic_consultation = (isset(session('consultations')[$val]['gen_quest_ans'])) ? json_encode(session('consultations')[$val]['gen_quest_ans'], true) : NULL;
-                    $product_consultation = (isset(session('consultations')[$val]['pro_quest_ans'])) ? json_encode(session('consultations')[$val]['pro_quest_ans'], true) : NULL;
-                }
 
+                foreach (session('consultations') as $key => $value) {
+                    if ($key == $pro_id || strpos($key, ',') !== false && in_array($pro_id, explode(',', $key))) {
+                        if (isset(session('consultations')[$key])) {
+                            $consultaion_type = session('consultations')[$key]['type'];
+                            $generic_consultation = (isset(session('consultations')[$key]['gen_quest_ans'])) ? json_encode(session('consultations')[$key]['gen_quest_ans'], true) : NULL;
+                            $product_consultation = (isset(session('consultations')[$key]['pro_quest_ans'])) ? json_encode(session('consultations')[$key]['pro_quest_ans'], true) : NULL;
+                        }
+                        break;
+                    }
+                }
                 $order_details[] = [
-                    'product_id' => $val,
+                    'product_id' => $pro_id,
                     'order_id' => $order->id,
                     'product_price' => $request->order_details['product_price'][$index],
                     'product_name' => $request->order_details['product_name'][$index],
@@ -741,5 +778,37 @@ class WebController extends Controller
         }
 
         return $products ?? NULL;
+    }
+
+
+    public function get_category_slug($product_id)
+    {
+        $product = Product::find($product_id);
+        dd($product);
+        $category = $product->category_id;
+        $sub_category = $product->sub_category;
+        $child_category = $product->child_category;
+        $level = '';
+        if ($category && $sub_category && $child_category) {
+            $level = 'child';
+        } else if ($category && $sub_category && !$child_category) {
+            $level = 'sub';
+        } else if ($category && !$sub_category && !$child_category) {
+            $level = 'main';
+        }
+
+        switch ($level) {
+            case 'main':
+                $slug['main_category'] = Category::where(['id' => $category])->pluck('slug');
+                break;
+            case 'sub':
+                $slug['sub_category'] = SubCategory::where(['id' => $sub_category])->pluck('slug');;
+                break;
+            case 'child':
+                $slug['child_category'] = ChildCategory::where(['id' => $child_category])->pluck('slug');;
+                break;
+        }
+
+        return $slug ?? NULL;
     }
 }

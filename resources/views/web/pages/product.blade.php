@@ -87,7 +87,12 @@
                                             </div>
                                         </li>
                                         <li>
-                                            @if($is_add_to_cart == 'yes')
+                                            @if($product->product_template == config('constants.PRESCRIPTION_MEDICINE') && $pre_add_to_cart == 'yes')
+                                            <a href="javascript:void(0)" onclick="addToCart(@json($product->id));" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <span>ADD TO CART</span>
+                                            </a>
+                                            @elseif($product->product_template == config('constants.PHARMACY_MEDECINE') && isset(session('consultations')[$product->id]))
                                             <a href="javascript:void(0)" onclick="addToCart(@json($product->id));" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                 <i class="fas fa-shopping-cart"></i>
                                                 <span>ADD TO CART</span>

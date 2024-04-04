@@ -92,15 +92,16 @@
                 </div>
             </div>
         </div>
-
+        @if($product_ids && $pre_add_to_cart == 'no')
+        @if($pre_add_to_cart == 'no')
         <div class="import-btn text-center mt-4">
             <button form="start_consultation_from" type="submit" class="btn btn-danger large-scr">Start {{ $category_detail->name }} Consultation</button>
             <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 small-btn">Start Consultation </button>
         </div>
-        
         <div class="small-scr">
             <button form="start_consultation_from" type="submit" class="btn btn-danger start">Start consultation</button>
         </div>
+        @endif @endif
     </div>
 </section>
 

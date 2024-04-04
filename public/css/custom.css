@@ -714,6 +714,9 @@ padding: 12px 15px;
     position: relative;
     min-height: 370px;
 }
+.treatment .card img{
+    margin: 20px 0 !important;
+}
 .explain .explain-step p{
     font-size: 14px !important;
 }

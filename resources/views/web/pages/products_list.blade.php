@@ -11,24 +11,25 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="erctile-img">
-                    <img src="/img/product/eritile.webp" alt="...">
+                    <img src="{{ asset('storage/'.$category_detail->image)}}" alt="{{ $category_detail->name ?? '' }}">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="erectile-content">
                     <h2>{{ $category_detail->name }}</h2>
-                    <h2>(Impotence)</h2>
                     <p>{!! $category_detail->desc !!}</p>
-                    @if (! session()->has('consultations'))
+                    @if($product_ids && $pre_add_to_cart == 'no')
+                    @if($pre_add_to_cart == 'no')
                     <form id="start_consultation_from" action="{{ route('web.consultationForm') }}" method="POST">
                         @csrf
                         <input type="hidden" name="template" value="{{ config('constants.PRESCRIPTION_MEDICINE') }}">
-                        <input type="hidden" name="product_id" value="{{ $product_id }}">
+                        <input type="hidden" name="product_id" value="{{$product_ids}}">
                     </form>
                     @endif
 
-                    <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 btn-large">Start ({{ $category_detail->name }}) Consultation</button>
+                    <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 btn-large">Start {{ $category_detail->name }} Consultation</button>
                     <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 small-btn">Start Consultation </button>
+                    @endif
                     <button class="btn btn-outline-danger view-btn">View Treatments </button>
                 </div>
             </div>
@@ -44,12 +45,18 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">{{$val->title}}</h5>
                         <img src="{{ asset('storage/'.$val->main_image)}}" class="card-img-top mb-2" alt="...">
                         @if($val->product_template == config('constants.COUNTER_MEDICINE'))
                         <a href="javascript:void(0)" onclick="addToCart(@json($val->id));" title="Add to Cart" class="btn btn-outline-danger w-100">Add To Cart</a>
                         @else
+                        @if($val->product_template == config('constants.PRESCRIPTION_MEDICINE') && $pre_add_to_cart == 'yes')
                         <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
+                        @elseif($val->product_template == config('constants.PHARMACY_MEDECINE') && isset(session('consultations')[$val->id]))
+                        <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
+                        @else
+                        <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Learn More</a>
+                        @endif
                         @endif
                     </div>
                 </div>
@@ -85,12 +92,14 @@
                 </div>
             </div>
         </div>
+
         <div class="import-btn text-center mt-4">
-            <button form="start_consultation_from" type="submit" class="btn btn-danger large-scr">Start ({{ $category_detail->name }} )</button>
-            <button  form="start_consultation_from" type="submit" class="btn btn-primary my-3 small-btn">Start Consultation </button>
+            <button form="start_consultation_from" type="submit" class="btn btn-danger large-scr">Start {{ $category_detail->name }} Consultation</button>
+            <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 small-btn">Start Consultation </button>
         </div>
+        
         <div class="small-scr">
-            <button  form="start_consultation_from" type="submit" class="btn btn-danger start">Start consultation</button>
+            <button form="start_consultation_from" type="submit" class="btn btn-danger start">Start consultation</button>
         </div>
     </div>
 </section>

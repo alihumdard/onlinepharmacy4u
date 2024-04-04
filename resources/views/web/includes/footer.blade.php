@@ -52,7 +52,7 @@
                     <!-- display none in bootstrap -->
                     
                    
-                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
+                    <div class="col-xl-2 col-md-6 col-sm-6 col-6">
                         <div class="footer-widget footer-menu-widget clearfix">
                             <h4 class="footer-title">Information</h4>
                             <div class="footer-menu">
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
+                    <div class="col-xl-2 col-md-6 col-sm-6 col-6">
                         <div class="footer-widget footer-menu-widget clearfix">
                             <h4 class="footer-title">Important Links</h4>
                             <div class="footer-menu">

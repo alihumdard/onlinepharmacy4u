@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="modal-product-info shop-details-info pl-0">
-                                <div class="product-ratting">
+                                <div class="product-ratting d-none">
                                     <ul>
                                         <li><a href="#"><i class="fas fa-star"></i></a></li>
                                         <li><a href="#"><i class="fas fa-star"></i></a></li>
@@ -138,7 +138,7 @@
                                                 <span>Compare</span>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li class="d-none">
                                             <div style="padding: 20px;" class="widget widget-tags">
                                                 <h5 class="widget__title" style="margin-bottom: 10px;"><span id="product_title">{{ $product['variants'][0]['title'] ?? ''}} :</span></h5>
                                                 <div class="widget-content">

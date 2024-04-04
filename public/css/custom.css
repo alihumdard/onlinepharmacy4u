@@ -703,6 +703,16 @@ padding: 12px 15px;
 }
 .treatment .card a{
     border-radius: 50px !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    max-width: 90%;
+    margin: 0 auto;
+    bottom: 12px;
+}
+.treatment .card{
+    position: relative;
+    min-height: 370px;
 }
 .explain .explain-step p{
     font-size: 14px !important;

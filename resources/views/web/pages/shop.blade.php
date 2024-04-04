@@ -85,7 +85,7 @@
                                                         {{-- <a href="#" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
                                                             <i class="fas fa-shopping-cart"></i>
                                                         </a> --}}
-                                                        <a href="javascript:void(0)" onclick="addToCart({{ $val->id }});" title="Add to Cart" >
+                                                        <a href="javascript:void(0)" onclick="addToCart({{ $val->id }});" title="Add to Cart">
                                                             <i class="fas fa-shopping-cart"></i>
                                                         </a>
                                                     </li>
@@ -96,10 +96,7 @@
                                                         </a>
                                                     </li>
                                                     @endif
-                                                    {{-- <li>
-                                                            <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                                                <i class="far fa-heart"></i></a>
-                                                        </li> --}}
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -118,10 +115,16 @@
                                                 <span>£{{ $val->price }}</span>
                                                 <del>{{ $val->cut_price ? '£'.$val->cut_price : NULL }}</del>
                                             </div>
-                                            @if($is_add_to_cart == 'yes')
-                                            <div class="add_cart">
-                                                <a href="javascript:void(0)" onclick="addToCart({{$val->id}});" class="btn btn-outline-primary">Add to Cart </a>
-                                            </div>
+                                            @if($val->product_template == config('constants.COUNTER_MEDICINE'))
+                                            <a href="javascript:void(0)" onclick="addToCart(@json($val->id));" title="Add to Cart" class="btn btn-outline-danger w-100">Add To Cart</a>
+                                            @else
+                                            @if($val->product_template == config('constants.PRESCRIPTION_MEDICINE') && $pre_add_to_cart == 'yes')
+                                            <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
+                                            @elseif($val->product_template == config('constants.PHARMACY_MEDECINE') && isset(session('consultations')[$val->id]))
+                                            <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
+                                            @else
+                                            <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Learn More</a>
+                                            @endif
                                             @endif
                                         </div>
                                     </div>
@@ -293,32 +296,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                     <div class="ltn__quick-view-modal-inner">
-                         <div class="modal-product-item">
+                    <div class="ltn__quick-view-modal-inner">
+                        <div class="modal-product-item">
                             <div class="row">
                                 <div class="col-12">
                                     {{-- <div class="modal-product-img">
                                         <img src="img/product/1.png" alt="#">
                                     </div> --}}
-                                     <div class="modal-product-info">
+                                    <div class="modal-product-info">
                                         <h5><a href="product-details.html"></a></h5>
-                                        <p class="added-cart"><i class="fa fa-check-circle"></i>  Successfully added to your Cart</p>
+                                        <p class="added-cart"><i class="fa fa-check-circle"></i> Successfully added to your Cart</p>
                                         <div class="btn-wrapper">
                                             <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
                                             <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
                                         </div>
-                                     </div>
-                                     <!-- additional-info -->
-                                     <div class="additional-info d-none">
-                                        <p>We want to give you <b>10% discount</b> for your first order, <br>  Use discount code at checkout</p>
+                                    </div>
+                                    <!-- additional-info -->
+                                    <div class="additional-info d-none">
+                                        <p>We want to give you <b>10% discount</b> for your first order, <br> Use discount code at checkout</p>
                                         <div class="payment-method">
                                             <img src="img/icons/payment.png" alt="#">
                                         </div>
-                                     </div>
+                                    </div>
                                 </div>
                             </div>
-                         </div>
-                     </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -330,6 +333,6 @@
 
 @pushOnce('scripts')
 <script>
-    
+
 </script>
 @endPushOnce

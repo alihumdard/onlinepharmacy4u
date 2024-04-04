@@ -78,7 +78,7 @@ class WebController extends Controller
             "sub_category" => $sub_category,
             "child_category" => $child_category
         ];
-        
+
         $consultations = session('consultations') ?? [];
         $found = false;
         foreach ($consultations as $consultation) {
@@ -221,9 +221,15 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
         if ($data['product']) {
-            session()->put('product_id', $data['product']->id);
-            // dd(array_keys(session('consultations')));
-            $data['is_add_to_cart'] = (session()->has('consultations') && in_array($data['product']['id'], array_keys(session('consultations')))) ? 'yes' : null;
+            $data['pre_add_to_cart']  = 'no';
+            foreach (session('consultations') as $key => $value) {
+                if ($key == $data['product']->id || strpos($key, ',') !== false && in_array($data['product']->id, explode(',', $key))) {
+                    if (isset(session('consultations')[$key])) {
+                        $data['pre_add_to_cart']  = 'yes';
+                    }
+                    break;
+                }
+            }
             $data['related_products'] = $this->get_related_products($data['product']);
             return view('web.pages.product', $data);
         } else {

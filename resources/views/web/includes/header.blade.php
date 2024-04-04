@@ -147,9 +147,9 @@
                                 <nav>
                                     <div class="ltn__main-menu text-center">
                                         <ul>
-                                            <li><a href="/" class="poppins-thin">Home</a></li>
+                                            <li><a style="background: none !important;" href="/" class="poppins-thin">Home</a></li>
                                             @foreach ($menu_categories as $key => $val)
-                                                <li class=""><a href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
+                                                <li class=""><a style="background: none !important;" href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
                                                     <ul class="mega-menu">
                                                         @foreach($val['subcategory'] as $key1 => $val1)
                                                             <li><a  class="poppins-thin" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
@@ -163,8 +163,8 @@
                                                     </ul>
                                                 </li>
                                             @endforeach
-                                            <li><a href="/work"  class="poppins-thin">How it work</a></li>
-                                            <li><a href="/help"  class="poppins-thin">Help</a></li>
+                                            <li><a style="background: none !important;" href="/work"  class="poppins-thin">How it work</a></li>
+                                            <li><a style="background: none !important;" href="/help"  class="poppins-thin">Help</a></li>
                                         </ul>
                                     </div>
                                 </nav>

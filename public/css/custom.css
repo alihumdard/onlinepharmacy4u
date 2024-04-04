@@ -596,6 +596,16 @@ color:white;
     color: black;
     text-align: center;
 }
+.ltn__main-menu li > a {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    padding: 6px 10px !important;
+    background-color: #e2f8ff !important;
+    border-radius: 20px;
+    display: flex !important;
+    justify-content: center !important;
+}
 
 
 /* footer styling */

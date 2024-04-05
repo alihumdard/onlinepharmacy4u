@@ -82,18 +82,20 @@ class WebController extends Controller
         $consultations = session('consultations') ?? [];
         $found = false;
         foreach ($consultations as $consultation) {
-            if ($slug == $consultation['slug']) {
-                $found = true;
-                break;
+            if (isset($consultation['slug']) && $slug == $consultation['slug']) {
+                if ($consultation['gen_quest_ans'] != '' && $consultation['pro_quest_ans'] != '') {
+                    $found = true;
+                    break;
+                }
             }
         }
-        
+
         if ($found) {
             $data['pre_add_to_cart'] = 'yes';
         } else {
             $data['pre_add_to_cart'] = 'no';
-        } 
-        
+        }
+
 
         // product listing
         $level = '';
@@ -132,30 +134,32 @@ class WebController extends Controller
 
     public function show_products(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
-        
+
 
         $slug = [
             "main_category" => $category,
             "sub_category" => $sub_category,
             "child_category" => $child_category
         ];
-        
+
         $consultations = session('consultations') ?? [];
         $found = false;
         foreach ($consultations as $consultation) {
-            if ($slug == $consultation['slug']) {
-                $found = true;
-                break;
+            if (isset($consultation['slug']) && $slug == $consultation['slug']) {
+                if ($consultation['gen_quest_ans'] != '' && $consultation['pro_quest_ans'] != '') {
+                    $found = true;
+                    break;
+                }
             }
         }
-        
+
         if ($found) {
             $data['pre_add_to_cart'] = 'yes';
         } else {
             $data['pre_add_to_cart'] = 'no';
-        } 
-        
-        
+        }
+
+
         // product listing
         $level = '';
         if ($category && $sub_category && $child_category) {
@@ -190,7 +194,7 @@ class WebController extends Controller
                 $product_template_2_ids[] = $item->id;
             }
         }
-        $data['product_ids'] = implode(',',$product_template_2_ids);
+        $data['product_ids'] = implode(',', $product_template_2_ids);
         $data['categories_list'] = Category::where('publish', 'Publish')
             ->latest('id')
             ->get();
@@ -224,10 +228,11 @@ class WebController extends Controller
             $data['pre_add_to_cart']  = 'no';
             foreach (session('consultations') ?? [] as $key => $value) {
                 if ($key == $data['product']->id || strpos($key, ',') !== false && in_array($data['product']->id, explode(',', $key))) {
-                    if (isset(session('consultations')[$key])) {
+                    if(isset(session('consultations')[$key]) && session('consultations')[$key]['gen_quest_ans'] != '' && session('consultations')[$key]['pro_quest_ans'] != ''){
                         $data['pre_add_to_cart']  = 'yes';
+                        break;
                     }
-                    break;
+
                 }
             }
             $data['related_products'] = $this->get_related_products($data['product']);
@@ -247,6 +252,15 @@ class WebController extends Controller
             return view('web.pages.pmd_genral_question', $data);
         } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
             if (auth()->user()) {
+                foreach (session('consultations') ?? [] as $key => $value) {
+                    if ($key == $data['product_id'] || strpos($key, ',') !== false && in_array($data['product_id'], explode(',', $key))) {
+                        if(isset(session('consultations')[$key]) && session('consultations')[$key]['gen_quest_ans'] != ''){
+                            return redirect()->route('web.productQuestion', ['id' => $key]);
+                            break;
+                        }
+                    }
+                }
+
                 $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
                 return view('web.pages.premd_genral_question', $data);
             } else {
@@ -302,10 +316,10 @@ class WebController extends Controller
             if (isset(session('consultations')[$request->id])) {
                 $generic_consultation = (isset(session('consultations')[$request->id]['gen_quest_ans'])) ? true : false;
                 if (!$generic_consultation) {
-                    return redirect()->route('shop');
+                    return redirect()->back();
                 }
             } else {
-                return redirect()->route('shop');
+                return redirect()->back();
             }
 
             $data['template'] = config('constants.PRESCRIPTION_MEDICINE');
@@ -378,9 +392,7 @@ class WebController extends Controller
             return view('web.pages.product_question', $data);
         } else {
             session()->put('intended_url', 'fromConsultation');
-            session()->put('template', $data['template']);
-            session()->put('product_id', $data['product_id']);
-            return redirect()->route('login');
+            return redirect()->route('register');
         }
     }
 

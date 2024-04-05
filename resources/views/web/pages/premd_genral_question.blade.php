@@ -133,7 +133,7 @@
                     <h2>General Health Questions</h2>
                     <p class="mb-3">The information you provide us is treated with the utmost confidentiality and will be reviewed by a GPhC registered independent prescriber. The questions listed are to provide the prescriber with an appropriate level of information to make an informed decision on whether the treatment is suitable or not.</p>
                 </div>
-                <form action="{{route('web.consultationStore')}}" method="post">
+                <form id="premed_generic_question" action="{{route('web.consultationStore')}}" method="post">
                     @csrf
                     <input type="hidden" name="template" required value="{{$template}}">
                     <input type="hidden" name="product_id" required value="{{$product_id}}">
@@ -300,7 +300,7 @@
                     </div>
                     <div class="form-group question" style=" background: none; padding:none; margin:none;">
                         <div class="d-flex align-items-center m-3 mb-5  ">
-                            <button type="submit" class="btn btn-outline-success bnt-checkout fw-bold rounded-1" style="border:#ced4da 2xp solid; ">Proceed to Checkout</button>
+                            <button  id="continue_next" type="submit" class="btn btn-outline-success bnt-checkout fw-bold rounded-1" style="border:#ced4da 2xp solid; ">Proceed to Checkout</button>
                         </div>
                     </div>
                 </form>
@@ -436,6 +436,28 @@
     </div>
 
 </div>
+<!-- modal not continue -->
+<div class="modal fade" id="attention_modal" tabindex="-1">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger py-2 px-2">
+                <h5 class="modal-title mx-5 my-3 text-white fw-bold "> Attention !</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-danger fw-bold">You can't proceed further.</p>
+                        <p class="text-success fw-bold">Please review your selections.</p>
+                        <p>You are unable to continue if you do not agree to the terms and conditions of our site.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @pushOnce('scripts')
@@ -456,6 +478,14 @@
             }
         });
 
+        $('#premed_generic_question').submit(function() {
+            if ($('#premed_generic_question .alert-danger').length > 0) {
+                $('#attention_modal').modal("show");
+                // $('#continue_next').attr('disabled',true);
+                return false;
+            }
+            return true;
+        });
 
         $('#height_switch').click(function() {
             $('.cm').toggleClass('d-none');

@@ -49,6 +49,7 @@ use App\Models\ConsultationQuestion;
 use App\Models\OrderDetail;
 use App\Models\ShipingDetail;
 use App\Models\Alert;
+use App\Models\FaqProduct;
 
 
 class SystemController extends Controller
@@ -357,7 +358,7 @@ class SystemController extends Controller
 
         $data['user'] = auth()->user();
 
-        if ($request->hasFile('image') || ! $request->id) {
+        if ($request->hasFile('image') || !$request->id) {
             $rules['image'] = [
                 'required',
                 'image',
@@ -597,6 +598,31 @@ class SystemController extends Controller
         return view('admin.pages.questions.questions', $data);
     }
 
+    public function faq_questions(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'faq_questions';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+        $data['categories'] = [];
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['questions'] = FaqProduct::where(['status' => 'Active'])
+                ->orderBy('product_id')
+                ->orderByRaw('IF(`order` IS NULL, 1, 0), CAST(`order` AS UNSIGNED), `order`')
+                ->orderBy('id')
+                ->get()
+                ->toArray();
+            if ($data['questions']) {
+                $data['products'] = array_unique(array_column($data['questions'], 'product_title'));
+            }
+        }
+
+        return view('admin.pages.questions.faq_questions', $data);
+    }
+
     public function p_med_general_questions(Request $request)
     {
         $user = auth()->user();
@@ -640,6 +666,20 @@ class SystemController extends Controller
         return view('admin.pages.questions.add_question', $data);
     }
 
+    public function add_faq_question(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'faq_questions';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        $data['products'] = Product::where(['status'=>'1'])->latest('id')->get()->toArray();
+        if ($request->has('id')) {
+            $data['question'] = Question::findOrFail($request->id)->toArray();
+        }
+        return view('admin.pages.questions.add_faq_question', $data);
+    }
     public function store_question(Request $request)
     {
         $user = auth()->user();
@@ -770,6 +810,41 @@ class SystemController extends Controller
         }
     }
 
+
+    public function store_faq_question(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'faq_questions';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $validator = Validator::make($request->all(), [
+            'product_id' => 'required',
+            'title'      => 'required',
+            'order'      => 'required',
+            'desc'       => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $data['user'] = auth()->user();
+        $question = FaqProduct::updateOrCreate(
+            ['id' => $request->id ?? NULL],
+            [
+                'product_id' => $request->product_id,
+                'product_title' => Product::findOrFail($request->product_id)->title ,
+                'order'      => $request->order,
+                'title'      => ucwords($request->title),
+                'desc'       => $request->desc ?? NULL,
+                'created_by' => $user->id,
+            ]
+        );
+        if ($question->id) {
+            $message = "FAQ question " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            return redirect()->route('admin.faqQuestions')->with(['msg' => $message]);
+        }
+    }
     // question assignment manament...
     public function assign_question(Request $request)
     {

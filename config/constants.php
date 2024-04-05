@@ -91,7 +91,7 @@ return [
         ],
         [
             'id' => 3,
-            'title' => 'Do you give us consent to write to your GP to share information of the supply & information we hold about you? (Please note that certain medication will require us to share this information if you choose NO your medication could get rejected)',
+            'title' => 'Do you give us consent to write to your GP to share information of the supply & information we hold about you? (optional)',
             'desc' => '',
             'order' => '3',
         ],
@@ -115,7 +115,7 @@ return [
         ],
         [
             'id' => 7,
-            'title' => '1. Please provide more information, including diagnosis, symptoms and treatment.',
+            'title' => 'Please provide more information, including diagnosis, symptoms and treatment.',
             'desc' => '',
             'order' => '7',
         ],
@@ -127,7 +127,7 @@ return [
         ],
         [
             'id' => 9,
-            'title' => '3. Please provide more information, including diagnosis, symptoms and treatment?',
+            'title' => 'Please provide more information, including diagnosis, symptoms and treatment?',
             'desc' => '',
             'order' => '9',
         ],

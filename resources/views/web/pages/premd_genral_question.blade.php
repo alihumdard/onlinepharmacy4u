@@ -131,14 +131,7 @@
             <div class="firstconsultationstart">
                 <div class="text">
                     <h2>General Health Questions</h2>
-                    <p class="mb-3">The information you provide us is treated with the utmost confidentiality and will be
-                        reviewed by a GPhC
-                        registered independent prescriber. The questions listed are to provide the prescriber
-                        with
-                        an appropriate
-                        level of information to make an informed decision on whether the treatment is suitable
-                        or
-                        not.</p>
+                    <p class="mb-3">The information you provide us is treated with the utmost confidentiality and will be reviewed by a GPhC registered independent prescriber. The questions listed are to provide the prescriber with an appropriate level of information to make an informed decision on whether the treatment is suitable or not.</p>
                 </div>
                 <form action="{{route('web.consultationStore')}}" method="post">
                     @csrf
@@ -149,66 +142,29 @@
                         <div class="d-flex question align-items-start">
                             <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[0]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_1" class="btn-radio option" value="Yes" data-next_quest="skip" data-label="Yes" required>
+                                <input type="radio" name="quest_{{$questions[0]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[0]['id']}}" data-selector="question_{{$questions[2]['id']}}" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_1" class="btn-radio option" value="No" data-next_quest="show" data-label="No" required>
+                                <input type="radio" name="quest_{{$questions[0]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[0]['id']}}" data-selector="question_{{$questions[1]['id']}}" data-label="No" required>
                             </label>
                         </div>
+                        <div id="apped_quest_{{$questions[0]['id']}}">
 
-                        <div class="question px-1" style="display:none;">
-                            <hr class="my-3">
-                            <div class="mb-0">
-                                <label for="quest_2" class="form-label pr-2">{{$questions[1]['title'] ?? '' }}</label>
-                                <textarea class="form-control" disabled id="quest_2" name="quest_2" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
-                            </div>
                         </div>
                     </div>
 
                     <div class="form-group px-4 pt-3 pb-2">
                         <div class="d-flex question align-items-start">
-                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[2]['title'] ?? '' }}</p>
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[4]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_3" class="btn-radio option" value="Yes" data-next_quest="skip" data-label="Yes" required>
+                                <input type="radio" name="quest_{{$questions[4]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[4]['id']}}" data-selector="nothing" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_3" class="btn-radio option" value="No" data-next_quest="show" data-label="No" required>
-                            </label>
-                        </div>
-
-                        <div class="question px-1" style="display:none;">
-                            <hr class="my-2">
-                            <div class="mb-0 alert alert-danger bg-danger">
-                                it is alert working fine how are you
-                                it is alert working fine how are you
-                                it is alert working fine how are you
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group px-4 pt-3 pb-2">
-                        <div class="d-flex question align-items-start">
-                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[3]['title'] ?? '' }}</p>
-                            <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_4" class="btn-radio option" value="Yes" data-next_quest="show" data-label="Yes" required>
-                            </label>
-                            <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_4" class="btn-radio option" value="No" data-next_quest="skip" data-label="No" required>
+                                <input type="radio" name="quest_{{$questions[4]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[4]['id']}}" data-selector="alert_1" data-label="No" required>
                             </label>
                         </div>
+                        <div id="apped_quest_{{$questions[4]['id']}}">
 
-                        <div class="question px-1" style="display:none;">
-                            <hr class="my-3">
-                            <div class="mb-0 alert alert-warning ">
-                                it is alert working fine how are you
-                                it is alert working fine how are you
-                                it is alert working fine how are you
-                            </div>
-                            <hr class="my-3">
-                            <div class="mb-0">
-                                <label for="quest_5" class="form-label pr-2">{{$questions[4]['title'] ?? '' }}</label>
-                                <textarea class="form-control" disabled id="quest_5" name="quest_5" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
-                            </div>
                         </div>
                     </div>
 
@@ -216,19 +172,14 @@
                         <div class="d-flex question align-items-start">
                             <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[5]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_6" class="btn-radio option" value="Yes" data-next_quest="show" data-label="Yes" required>
+                                <input type="radio" name="quest_{{$questions[5]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[5]['id']}}" data-selector="question_{{$questions[6]['id']}}" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_6" class="btn-radio option" value="No" data-next_quest="skip" data-label="No" required>
+                                <input type="radio" name="quest_{{$questions[5]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[5]['id']}}" data-selector="nothing" data-label="No" required>
                             </label>
                         </div>
+                        <div id="apped_quest_{{$questions[5]['id']}}">
 
-                        <div class="question px-1" style="display:none;">
-                            <hr class="my-3">
-                            <div class="mb-0">
-                                <label for="quest_7" class="form-label pr-2">{{$questions[6]['title'] ?? '' }}</label>
-                                <textarea class="form-control" disabled id="quest_7" name="quest_7" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
-                            </div>
                         </div>
                     </div>
 
@@ -236,19 +187,59 @@
                         <div class="d-flex question align-items-start">
                             <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[7]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_8" class="btn-radio option" value="Yes" data-next_quest="show" data-label="Yes" required>
+                                <input type="radio" name="quest_{{$questions[7]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[7]['id']}}" data-selector="question_{{$questions[8]['id']}}" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_8" class="btn-radio option" value="No" data-next_quest="skip" data-label="No" required>
+                                <input type="radio" name="quest_{{$questions[7]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[7]['id']}}" data-selector="nothing" data-label="No" required>
                             </label>
                         </div>
+                        <div id="apped_quest_{{$questions[7]['id']}}">
 
-                        <div class="question px-1" style="display:none;">
-                            <hr class="my-3">
-                            <div class="mb-0">
-                                <label for="quest_9" class="form-label pr-2">{{$questions[8]['title'] ?? '' }}</label>
-                                <textarea class="form-control" disabled id="quest_9" name="quest_9" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
-                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group px-4 pt-3 pb-2">
+                        <div class="d-flex question align-items-start">
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[9]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_{{$questions[9]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[9]['id']}}" data-selector="question_{{$questions[10]['id']}}" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_{{$questions[9]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[9]['id']}}" data-selector="nothing" data-label="No" required>
+                            </label>
+                        </div>
+                        <div id="apped_quest_{{$questions[9]['id']}}">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group px-4 pt-3 pb-2">
+                        <div class="d-flex question align-items-start">
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[11]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_{{$questions[11]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[11]['id']}}" data-selector="question_{{$questions[12]['id']}}" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_{{$questions[11]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[11]['id']}}" data-selector="nothing" data-label="No" required>
+                            </label>
+                        </div>
+                        <div id="apped_quest_{{$questions[11]['id']}}">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group px-4 pt-3 pb-2">
+                        <div class="d-flex question align-items-start">
+                            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[13]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_{{$questions[13]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[13]['id']}}" data-selector="question_{{$questions[14]['id']}}" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_{{$questions[13]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[13]['id']}}" data-selector="nothing" data-label="No" required>
+                            </label>
+                        </div>
+                        <div id="apped_quest_{{$questions[13]['id']}}">
+
                         </div>
                     </div>
 
@@ -354,19 +345,112 @@
     </div>
 </div>
 
+<div id="depended_questions" class="depended_q d-none">
+
+    <div id="question_{{$questions[1]['id']}}" class="question px-1" style="display:none;">
+        <hr class="my-3">
+        <div class="mb-0">
+            <label for="quest_{{$questions[1]['id']}}" class="form-label pr-2">{{$questions[1]['title'] ?? '' }}</label>
+            <textarea class="form-control" id="quest_{{$questions[1]['id']}}" name="quest_{{$questions[1]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+        </div>
+    </div>
+
+    <div id="question_{{$questions[2]['id']}}" class="question px-1" style="display:none;">
+        <hr class="my-3">
+        <div class="d-flex question align-items-start">
+            <p class="me-auto mb-2 pt-1" style="font-weight: 400;">{{$questions[2]['title'] ?? '' }}</p>
+            <label class="btn" style="padding: 0;">
+                <input type="radio" name="quest_{{$questions[2]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[2]['id']}}" data-selector="question_{{$questions[3]['id']}}" data-label="Yes" required>
+            </label>
+            <label class="btn" style="padding: 0;">
+                <input type="radio" name="quest_{{$questions[2]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[2]['id']}}" data-selector="nothing" data-label="No" required>
+            </label>
+        </div>
+        <div id="apped_quest_{{$questions[2]['id']}}">
+        </div>
+    </div>
+
+    <div id="question_{{$questions[3]['id']}}" class="question px-1" style="display:none;">
+        <hr class="my-3">
+        <div class="mb-0">
+            <label for="quest_{{$questions[3]['id']}}" class="form-label pr-2">{{$questions[3]['title'] ?? '' }}</label>
+            <textarea class="form-control" id="quest_{{$questions[3]['id']}}" name="quest_{{$questions[3]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+        </div>
+    </div>
+
+    <div id="alert_1" class="question px-1" style="display:none;">
+        <hr class="my-2">
+        <div class="mb-0">
+            <div class="alert alert-danger bg-danger alert-dismissible">
+                <button type="button" class=" text-dark btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <p class="px-2 fw-semibold text-white">Unfortunately, we cannot recommend a suitable treatment for you. If you did this in error, you have the choice to change your answer. If you have any questions about this consultation, please email help@ukmeds.co.uk.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="question_{{$questions[6]['id']}}" class="question px-1" style="display:none;">
+        <hr class="my-3">
+        <div class="mb-0">
+            <label for="quest_{{$questions[6]['id']}}" class="form-label pr-2">{{$questions[6]['title'] ?? '' }}</label>
+            <textarea class="form-control" id="quest_{{$questions[6]['id']}}" name="quest_{{$questions[6]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+        </div>
+    </div>
+
+    <div id="question_{{$questions[8]['id']}}" class="question px-1" style="display:none;">
+        <hr class="my-3">
+        <div class="mb-0">
+            <label for="quest_{{$questions[8]['id']}}" class="form-label pr-2">{{$questions[8]['title'] ?? '' }}</label>
+            <textarea class="form-control" id="quest_{{$questions[8]['id']}}" name="quest_{{$questions[8]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+        </div>
+    </div>
+
+    <div id="question_{{$questions[10]['id']}}" class="question px-1" style="display:none;">
+        <hr class="my-3">
+        <div class="mb-0">
+            <div class="alert alert-warning bg-warning alert-dismissible">
+                <button type="button" class=" text-dark btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <p class="px-2 fw-semibold text-white">Please ensure you have included the strength and the dose of each medicine you have listed, e.g. Ramipril 5mg Tablets Once Daily. Failure to do so may cause delays with your order.</p>
+            </div>
+        </div>
+        <hr class="my-3">
+        <div class="mb-0">
+            <label for="quest_{{$questions[10]['id']}}" class="form-label pr-2">{{$questions[10]['title'] ?? '' }}</label>
+            <textarea class="form-control" id="quest_{{$questions[10]['id']}}" name="quest_{{$questions[10]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+        </div>
+    </div>
+
+    <div id="question_{{$questions[12]['id']}}" class="question px-1" style="display:none;">
+        <hr class="my-3">
+        <div class="mb-0">
+            <label for="quest_{{$questions[12]['id']}}" class="form-label pr-2">{{$questions[12]['title'] ?? '' }}</label>
+            <textarea class="form-control" id="quest_{{$questions[12]['id']}}" name="quest_{{$questions[12]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+        </div>
+    </div>
+
+    <div id="question_{{$questions[14]['id']}}" class="question px-1" style="display:none;">
+        <hr class="my-3">
+        <div class="mb-0">
+            <label for="quest_{{$questions[14]['id']}}" class="form-label pr-2">{{$questions[14]['title'] ?? '' }}</label>
+            <textarea class="form-control" id="quest_{{$questions[14]['id']}}" name="quest_{{$questions[14]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please describe here ..." required=''></textarea>
+        </div>
+    </div>
+
+</div>
 @stop
 
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
-        $('.btn-radio').change(function() {
-            var questionDiv = $(this).closest('.form-group').find('.question');
-            var nextQuest = $(this).data('next_quest');
-            if (nextQuest === 'skip') {
-                questionDiv.hide().find('textarea').val('').attr('disabled', true);
-            } else if (nextQuest === 'show') {
-                questionDiv.find('textarea').attr('disabled', false);
-                questionDiv.slideDown('medium', function() {
+        $(document).on('click', '.option', function() {
+            var selector = $(this).data('selector');
+            var append_id = $(this).data('append_id');
+            var html = '';
+
+            if (selector == 'nothing') {
+                $('#' + append_id).html('');
+            } else {
+                var html = $('#' + selector).clone().removeAttr('style').html();
+                $('#' + append_id).html(html).slideDown('medium', function() {
                     $(this).find('textarea').val('');
                 });
             }

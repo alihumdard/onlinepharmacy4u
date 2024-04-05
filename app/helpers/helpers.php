@@ -68,6 +68,7 @@ function view_permission($page_name)
         case 'Super Admin':
             switch ($page_name) {
                 case 'dashboard':
+                case 'faq_questions':
                 case 'categories':
                 case 'sub_categories':
                 case 'child_categories':

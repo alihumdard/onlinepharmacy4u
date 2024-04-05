@@ -258,29 +258,29 @@
 </div>
 
 <!-- MODAL AREA START (Add To Cart Modal) -->
-<div class="">
-    <div class="modal fade" id="attention_modal" tabindex="-1">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-danger py-2 px-2" >
-                    <h5 class="modal-title mx-5 my-3 text-white fw-bold "> Attention !</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                                <p class="text-danger fw-bold">You can't proceed further.</p>
-                                <p class="text-success fw-bold">Please review your selections.</p>
-                                <p>You are unable to continue if you do not agree to the terms and conditions of our site.</p>
-                        </div>
+
+<div class="modal fade" id="attention_modal" tabindex="-1">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger py-2 px-2">
+                <h5 class="modal-title mx-5 my-3 text-white fw-bold "> Attention !</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-danger fw-bold">You can't proceed further.</p>
+                        <p class="text-success fw-bold">Please review your selections.</p>
+                        <p>You are unable to continue if you do not agree to the terms and conditions of our site.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- MODAL AREA END -->
 @stop

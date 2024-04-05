@@ -83,6 +83,16 @@
                     </a>
                 </li>
                 <li>
+                    <a class="{{(request()->routeIs(['admin.faqQuestions'])) ? 'nav-link ' : ''}}" href="{{route('admin.faqQuestions')}}">
+                        <i class="bi bi-circle"></i><span>FAQ Questions</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.addfaqQuestion'])) ? 'nav-link ' : ''}}" href="{{route('admin.addfaqQuestion')}}">
+                        <i class="bi bi-circle"></i><span>Add FAQ Questions</span>
+                    </a>
+                </li>
+                <li>
                     <a class="{{(request()->routeIs(['admin.pMedGQ'])) ? 'nav-link ' : ''}}" href="{{route('admin.pMedGQ')}}">
                         <i class="bi bi-circle"></i><span>P.Med General Q.</span>
                     </a>

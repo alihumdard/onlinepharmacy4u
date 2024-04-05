@@ -204,7 +204,7 @@
             <div class="col-12">
                 <div class="ltn__category-item ltn__category-item-6 text-center">
                     <div class="ltn__category-item-img">
-                        <a href="#">
+                        <a >
                             <i class="fas fa-microscope"></i>
                         </a>
                     </div>
@@ -303,7 +303,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="#"><img src="img/banner/new_banner2_1.webp" alt="Banner Image" class="image-radius"></a>
+                        <a ><img src="img/banner/new_banner2_1.webp" alt="Banner Image" class="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Select your medication.</h4>
@@ -312,7 +312,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="#"><img src="img/banner/new_banner3_1.webp" alt="Banner Image" class="image-radius"></a>
+                        <a ><img src="img/banner/new_banner3_1.webp" alt="Banner Image" class="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Quick 60 secs FREE consultation.</h4>
@@ -321,7 +321,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="#"><img src="img/banner/new_banner4_1.webp" alt="Banner Image" calss="image-radius"></a>
+                        <a ><img src="img/banner/new_banner4_1.webp" alt="Banner Image" calss="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Receive your Express delivery</h4>
@@ -387,13 +387,13 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
+                                            <a  title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
                                                 <i class="fas fa-shopping-cart"></i>
                                             </a>
                                         </li>
                                         @else
                                         <li>
-                                            <a href="#" title="You have to answer some question">
+                                            <a  title="You have to answer some question">
                                                 <i class="fas fa-plus"></i>
                                             </a>
                                         </li>
@@ -443,7 +443,7 @@
                     </ul>
                     <p><strong>We respect that many of our products are of a sensitive nature - this is why we take every step to keep your purchases private.</strong></p>
                 </div>
-                <a href="#" class="theme-btn-1 btn mt-2">Once weekly weight loss injection</a>
+                <a href="{{url('collections/pharmacy-shop/weight-loss') }}" class="theme-btn-1 btn mt-2">Once weekly weight loss injection</a>
             </div>
             <div class="col-lg-6">
                 <img src="img/banner/inject.png" alt="">
@@ -510,7 +510,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="#"><img src="img/banner/Men_s_Health_400x.webp" alt="Banner Image"></a>
+                        <a href="{{url('collections/online-clinic/mens-health') }}"><img src="img/banner/Men_s_Health_400x.webp" alt="Banner Image"></a>
                         <h4 class="text-center mt-3">Men Health</h4>
                     </div>
                 </div>
@@ -518,7 +518,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/Women_s_Health_400x.webp" alt="Banner Image"></a>
+                        <a href="{{url('collections/online-clinic/womens-health') }}"><img src="img/banner/Women_s_Health_400x.webp" alt="Banner Image"></a>
                         <h4 class="text-center  mt-3">Women Health</h4>
                     </div>
                 </div>
@@ -526,7 +526,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a href="shop.html"><img src="img/banner/General_Health_400x.webp" alt="Banner Image"></a>
+                        <a href="{{url('collections/general-health') }}"><img src="img/banner/General_Health_400x.webp" alt="Banner Image"></a>
                         <h4 class="text-center mt-3">General Health</h4>
                     </div>
                 </div>
@@ -554,20 +554,20 @@
             <div class="col-lg-12">
                 <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a href="#"><img src="img/blog/blog-one.png" alt="#"></a>
+                        <a ><img src="img/blog/blog-one.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                    <a ><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Sports</a>
+                                    <a ><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h5 class=""><a href="#">Path to Athletic Excellence through Sports Performance</a></h5>
+                        <h5 class=""><a >Path to Athletic Excellence through Sports Performance</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
@@ -575,7 +575,7 @@
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a href="#">Read more</a>
+                                <a >Read more</a>
                             </div>
                         </div>
                     </div>
@@ -585,20 +585,20 @@
             <div class="col-lg-12">
             <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a href="#"><img src="img/blog/blog-2.png" alt="#"></a>
+                        <a ><img src="img/blog/blog-2.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                    <a ><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Sports</a>
+                                    <a ><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h5 class=""><a href="#">Sports Performance Tests Redefine the Game</a></h5>
+                        <h5 class=""><a >Sports Performance Tests Redefine the Game</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
@@ -606,7 +606,7 @@
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a href="#">Read more</a>
+                                <a >Read more</a>
                             </div>
                         </div>
                     </div>
@@ -616,20 +616,20 @@
             <div class="col-lg-12 ">
             <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a href="#"><img src="img/blog/blog-3.png" alt="#"></a>
+                        <a ><img src="img/blog/blog-3.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                    <a ><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Sports</a>
+                                    <a ><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h5 class=""><a href="#">Transforming Your Athletic Journey with Performance Tests</a></h5>
+                        <h5 class=""><a >Transforming Your Athletic Journey with Performance Tests</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
@@ -637,7 +637,7 @@
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a href="#">Read more</a>
+                                <a >Read more</a>
                             </div>
                         </div>
                     </div>
@@ -653,10 +653,10 @@
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                    <a ><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Room</a>
+                                    <a ><i class="fas fa-tags"></i>Room</a>
                                 </li>
                             </ul>
                         </div>
@@ -684,10 +684,10 @@
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
+                                    <a ><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Trends</a>
+                                    <a ><i class="fas fa-tags"></i>Trends</a>
                                 </li>
                             </ul>
                         </div>
@@ -821,12 +821,12 @@
                                     <div class="modal-product-info">
                                         <div class="product-ratting">
                                             <ul>
-                                                <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                                <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                <li class="review-total"> <a href="#"> ( 95 Reviews )</a></li>
+                                                <li><a ><i class="fas fa-star"></i></a></li>
+                                                <li><a ><i class="fas fa-star"></i></a></li>
+                                                <li><a ><i class="fas fa-star"></i></a></li>
+                                                <li><a ><i class="fas fa-star-half-alt"></i></a></li>
+                                                <li><a ><i class="far fa-star"></i></a></li>
+                                                <li class="review-total"> <a > ( 95 Reviews )</a></li>
                                             </ul>
                                         </div>
                                         <h3><a href="product-details.html">Digital Stethoscope</a></h3>
@@ -842,13 +842,13 @@
                                         <div class="ltn__product-details-menu-3">
                                             <ul>
                                                 <li>
-                                                    <a href="#" class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
+                                                    <a  class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
                                                         <i class="far fa-heart"></i>
                                                         <span>Add to Wishlist</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" class="" title="Compare" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
+                                                    <a  class="" title="Compare" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
                                                         <i class="fas fa-exchange-alt"></i>
                                                         <span>Compare</span>
                                                     </a>
@@ -859,10 +859,10 @@
                                         <div class="ltn__social-media">
                                             <ul>
                                                 <li>Share:</li>
-                                                <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                                                <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                                                <li><a  title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a  title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a  title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                                <li><a  title="Instagram"><i class="fab fa-instagram"></i></a></li>
 
                                             </ul>
                                         </div>

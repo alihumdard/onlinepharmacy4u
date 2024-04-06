@@ -901,8 +901,8 @@
                                         <h5><a href="product-details.html">Digital Stethoscope</a></h5>
                                         <p class="added-cart"><i class="fa fa-check-circle"></i> Successfully added to your Cart</p>
                                         <div class="btn-wrapper">
-                                            <a href="cart.html" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                                            <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                                            <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+                                            <a href="{{route('web.checkout')}}" class="theme-btn-2 btn btn-effect-2">Checkout</a>
                                         </div>
                                     </div>
                                 </div>

@@ -387,7 +387,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a  title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
+                                            <a href="javascript:void(0)" onclick="addToCart({{ $val->id }});" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                 <i class="fas fa-shopping-cart"></i>
                                             </a>
                                         </li>

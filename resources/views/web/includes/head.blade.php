@@ -21,3 +21,4 @@
 <!-- Custom stylesheet for developer -->
 {{-- <link rel="stylesheet" href="css/custom.css"> --}}
 <link rel="stylesheet" href="{{ asset('/css/custom.css') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">

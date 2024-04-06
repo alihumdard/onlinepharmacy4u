@@ -47,9 +47,9 @@
                             <li><a href="shop-left-sidebar.html">Shop Left sidebar</a></li>
                             <li><a href="shop-right-sidebar.html">Shop right sidebar</a></li>
                             <li><a href="product-details.html">Shop details </a></li>
-                            <li><a href="cart.html">Cart</a></li>
+                            <li><a href="{{route('web.view.cart')}}">Cart</a></li>
                             <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
+                            <li><a href="{{route('web.checkout')}}">Checkout</a></li>
                             <li><a href="order-tracking.html">Order Tracking</a></li>
                             <li><a href="account.html">My Account</a></li>
                             <li><a href="login.html">Sign in</a></li>
@@ -107,7 +107,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="cart.html" title="Shoping Cart">
+                        <a href="{{route('web.view.cart')}}" title="Shoping Cart">
                             <span class="utilize-btn-icon">
                                 <i class="fas fa-shopping-cart"></i>
                                 <sup>5</sup>

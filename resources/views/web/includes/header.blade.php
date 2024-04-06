@@ -281,7 +281,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="cart.html" title="Shoping Cart">
+                        <a href="{{route('web.view.cart')}}" title="Shoping Cart">
                             <span class="utilize-btn-icon">
                                 <i class="fas fa-shopping-cart"></i>
                                 <sup>5</sup>

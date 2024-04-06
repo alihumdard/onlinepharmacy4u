@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="ltn__shop-details-small-img slick-arrow-2">
-                                    <div class="single-small-img" style="height: 30px !important; width: 30px !important;">
+                                    <div class="single-small-img" style="height: 145px !important; width: 145px !important;">
                                         <img src="{{ asset('storage/'.$product->main_image)}}" alt="Image" id="product_img">
                                     </div>
                                 </div>

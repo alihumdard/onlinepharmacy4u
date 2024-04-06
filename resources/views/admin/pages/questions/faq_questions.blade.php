@@ -90,7 +90,7 @@
                                 <label for="category" class="form-label fw-bold">Filter by Product</label>
                                 <select id="category" class="form-select select2" data-placeholder="choose category name ..." required>
                                     <option value="All">All</option>
-                                    @foreach ($products as $key => $pro)
+                                    @foreach ($products ?? [] as $key => $pro)
                                     <option value="{{ $pro}}">{{ $pro}}</option>
                                     @endforeach
                                 </select>

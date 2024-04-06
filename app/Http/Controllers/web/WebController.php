@@ -41,6 +41,7 @@ use App\Models\PrescriptionMedGeneralQuestion;
 use App\Models\ShipingDetail;
 use App\Models\OrderDetail;
 use App\Models\Alert;
+use App\Models\FaqProduct;
 use Illuminate\Support\Facades\DB;
 
 use Deyjandi\VivaWallet\Enums\RequestLang;
@@ -134,8 +135,6 @@ class WebController extends Controller
 
     public function show_products(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
-
-
         $slug = [
             "main_category" => $category,
             "sub_category" => $sub_category,
@@ -228,14 +227,18 @@ class WebController extends Controller
             $data['pre_add_to_cart']  = 'no';
             foreach (session('consultations') ?? [] as $key => $value) {
                 if ($key == $data['product']->id || strpos($key, ',') !== false && in_array($data['product']->id, explode(',', $key))) {
-                    if(isset(session('consultations')[$key]) && session('consultations')[$key]['gen_quest_ans'] != '' && session('consultations')[$key]['pro_quest_ans'] != ''){
+                    if (isset(session('consultations')[$key]) && session('consultations')[$key]['gen_quest_ans'] != '' && session('consultations')[$key]['pro_quest_ans'] != '') {
                         $data['pre_add_to_cart']  = 'yes';
                         break;
                     }
-
                 }
             }
             $data['related_products'] = $this->get_related_products($data['product']);
+            $data['faqs'] = FaqProduct::where(['status' => 'Active', 'product_id' => $data['product']->id])
+                ->orderByRaw('IF(`order` IS NULL, 1, 0), CAST(`order` AS UNSIGNED), `order`')
+                ->orderBy('id')
+                ->get()
+                ->toArray();
             return view('web.pages.product', $data);
         } else {
             redirect()->back();
@@ -254,7 +257,7 @@ class WebController extends Controller
             if (auth()->user()) {
                 foreach (session('consultations') ?? [] as $key => $value) {
                     if ($key == $data['product_id'] || strpos($key, ',') !== false && in_array($data['product_id'], explode(',', $key))) {
-                        if(isset(session('consultations')[$key]) && session('consultations')[$key]['gen_quest_ans'] != ''){
+                        if (isset(session('consultations')[$key]) && session('consultations')[$key]['gen_quest_ans'] != '') {
                             return redirect()->route('web.productQuestion', ['id' => $key]);
                             break;
                         }

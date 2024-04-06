@@ -1564,8 +1564,8 @@ ul {
   cursor: pointer;
   position: absolute;
   bottom: -30px;
-  height: 30px;
-  width: 30px;
+  height: 30px !important;
+  width: 30px !important;
   line-height: 28px;
   display: block;
   left: 15px;

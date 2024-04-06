@@ -51,6 +51,7 @@
                                 <label for="product_id" class="form-label fw-bold">Select product</label>
                                 <select id="product_id" name="product_id" class="form-select select2" data-placeholder="choose product" required>
                                     <option value=""></option>
+                                    
                                     @foreach ($products as $key => $value)
                                     <option {{ (isset($question['product_id']) && $value['id'] == $question['product_id']) ? 'selected' : '' }} {{ ($value['id'] == old('product_id')) ? 'selected' : '' }} value="{{ $value['id'] ?? '' }}">{{ $value['title'] ?? '' }}</option>
                                     @endforeach

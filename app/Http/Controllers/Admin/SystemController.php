@@ -676,7 +676,7 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
         $data['products'] = Product::where(['status'=>'1'])->latest('id')->get()->toArray();
         if ($request->has('id')) {
-            $data['question'] = Question::findOrFail($request->id)->toArray();
+            $data['question'] = FaqProduct::findOrFail($request->id)->toArray();
         }
         return view('admin.pages.questions.add_faq_question', $data);
     }

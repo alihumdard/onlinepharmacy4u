@@ -176,7 +176,9 @@
                     <div class="ltn__shop-details-tab-menu">
                         <div class="nav">
                             <a class="active show" data-bs-toggle="tab" href="#liton_tab_details_1_1">Description</a>
+                            @if($faqs)
                             <a data-bs-toggle="tab" href="#liton_tab_details_1_2" class="">FAQ's</a>
+                            @endif
                         </div>
                     </div>
                     <div class="tab-content">
@@ -189,7 +191,7 @@
 
                         <div class="tab-pane fade" id="liton_tab_details_1_2">
                             <div class="accordion mt-2" id="accordionPanelsStayOpenExample">
-                                @foreach($faqs as $key => $faq)
+                                @foreach($faqs ?? [] as $key => $faq)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="panelsStayOpen-heading{{$faq['id']}}">
                                         <button class="accordion-button{{ $loop->first ? '' : ' collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{$faq['id']}}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-controls="panelsStayOpen-collapse{{$faq['id']}}">

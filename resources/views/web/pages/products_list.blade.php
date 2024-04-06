@@ -9,19 +9,15 @@
 <section class="clinic-main">
     <div class="container py-5">
         <div class="row">
-            <a href="{{ route('web.product', ['id' => $val->id]) }}">
-                <div class="col-md-6">
-                    <div class="erctile-img">
-                        <img src="{{ asset('storage/'.$category_detail->image)}}" alt="{{ $category_detail->name ?? '' }}">
-                    </div>
+            <div class="col-md-6">
+                <div class="erctile-img">
+                    <img src="{{ asset('storage/'.$category_detail->image)}}" alt="{{ $category_detail->name ?? '' }}">
                 </div>
-            </a>
+            </div>
 
             <div class="col-md-6">
                 <div class="erectile-content">
-                    <a href="{{ route('web.product', ['id' => $val->id]) }}">
-                        <h2>{{ $category_detail->name }}</h2>
-                    </a>
+                    <h2>{{ $category_detail->name }}</h2>
                     <p>{!! $category_detail->desc !!}</p>
                     @if($product_ids && $pre_add_to_cart == 'no')
                     @if($pre_add_to_cart == 'no')
@@ -50,8 +46,10 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{$val->title}}</h5>
-                        <img src="{{ asset('storage/'.$val->main_image)}}" class="card-img-top mb-2" alt="...">
+                        <a href="{{ route('web.product', ['id' => $val->id]) }}">
+                            <h5 class="card-title">{{$val->title}}</h5>
+                            <img src="{{ asset('storage/'.$val->main_image)}}" class="card-img-top mb-2" alt="...">
+                        </a>
                         @if($val->product_template == config('constants.COUNTER_MEDICINE'))
                         <a href="javascript:void(0)" onclick="addToCart(@json($val->id));" title="Add to Cart" class="btn btn-outline-danger w-100">Add To Cart</a>
                         @else

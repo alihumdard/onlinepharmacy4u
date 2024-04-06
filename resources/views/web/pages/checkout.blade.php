@@ -86,21 +86,21 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
-                                        <h6>Town / City</h6>
+                                        <h6>City</h6>
                                         <div class="input-item">
                                             <input type="text" name="city" placeholder="City" required>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <h6>State </h6>
+                                    <!-- <div class="col-lg-4 col-md-6">
+                                        <h6>Town</h6>
                                         <div class="input-item">
                                             <input type="text" name="state" placeholder="State" required>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-lg-4 col-md-6">
-                                        <h6>Zip</h6>
+                                        <h6>Postal Code</h6>
                                         <div class="input-item">
-                                            <input type="text" name="zip_code" placeholder="Zip" required>
+                                            <input type="text" name="zip_code" placeholder="Postal Code" required>
                                         </div>
                                     </div>
                                 </div>

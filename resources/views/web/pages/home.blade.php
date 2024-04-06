@@ -392,11 +392,11 @@
                                             </a>
                                         </li>
                                         @else
-                                        <li>
+                                        <!-- <li>
                                             <a  title="You have to answer some question">
                                                 <i class="fas fa-plus"></i>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         @endif
                                     </ul>
                                 </div>

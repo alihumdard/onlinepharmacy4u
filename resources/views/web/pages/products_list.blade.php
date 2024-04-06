@@ -9,14 +9,19 @@
 <section class="clinic-main">
     <div class="container py-5">
         <div class="row">
-            <div class="col-md-6">
-                <div class="erctile-img">
-                    <img src="{{ asset('storage/'.$category_detail->image)}}" alt="{{ $category_detail->name ?? '' }}">
+            <a href="{{ route('web.product', ['id' => $val->id]) }}">
+                <div class="col-md-6">
+                    <div class="erctile-img">
+                        <img src="{{ asset('storage/'.$category_detail->image)}}" alt="{{ $category_detail->name ?? '' }}">
+                    </div>
                 </div>
-            </div>
+            </a>
+
             <div class="col-md-6">
                 <div class="erectile-content">
-                    <h2>{{ $category_detail->name }}</h2>
+                    <a href="{{ route('web.product', ['id' => $val->id]) }}">
+                        <h2>{{ $category_detail->name }}</h2>
+                    </a>
                     <p>{!! $category_detail->desc !!}</p>
                     @if($product_ids && $pre_add_to_cart == 'no')
                     @if($pre_add_to_cart == 'no')
@@ -104,6 +109,41 @@
         @endif @endif
     </div>
 </section>
+
+
+<!-- MODAL AREA START (Add To Cart Modal) -->
+<div class="ltn__modal-area ltn__add-to-cart-modal-area">
+    <div class="modal fade" id="add_to_cart_modal" tabindex="-1">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="ltn__quick-view-modal-inner">
+                        <div class="modal-product-item">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="modal-product-info">
+                                        <h5><a href="product-details.html"></a></h5>
+                                        <p class="added-cart"><i class="fa fa-check-circle"></i> Successfully added to your Cart</p>
+                                        <div class="btn-wrapper">
+                                            <a href="{{route('web.view.cart')}}" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+                                            <a href="{{route('web.checkout')}}" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL AREA END -->
 
 
 

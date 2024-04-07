@@ -59,7 +59,7 @@
                 <i class="checkmark">✓</i>
             </div>
             <h1>Success</h1>
-            <p> Dear {{ $user->name ?? ''}} Thank you for your order, it is now being processed.</p>
+            <p> Dear {{ isset($user->name) ? $user->name: ($name ?? '')}}, Thank you for your order, it is now being processed.</p>
             <a href="{{ route('shop')}}" class="btn btn-primary rounded-pill px-5 mt-3">Buy More</a>
             <a href="{{ route('admin.index')}}" class="btn btn-primary rounded-pill px-5 mt-3">Dashboard</a>
         </div>

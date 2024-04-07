@@ -200,11 +200,13 @@
                                                 <p class="text-muted mb-0 small"><b>Barcode: </b> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                @if((isset($user->role) && $user->role == user_roles('1')))
                                                 <p class="text-muted mb-0 small"><b>Price: </b>£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                         <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
-                                        @if($val['consultation_type'] == 'premd')
+                                        @if($val['consultation_type'] == 'premd' || $val['consultation_type'] == 'pmd')
                                         <div class="row d-flex ">
                                             <div class="col-lg-12 text-center ">
                                                 <a target="_blank" href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
@@ -244,6 +246,7 @@
                                     <p class="mb-0">{{$order['hcp_remarks']}} </p>
                                 </div>
                                 @endif
+                                @if((isset($user->role) && $user->role == user_roles('1')))
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0">Subtotal: </p>
                                     <p class="text-muted mb-0">£ {{$order['total_ammount'] - $order['shiping_cost']}}</p>
@@ -261,7 +264,8 @@
                                     <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
                                         paid: <span class="h2 mb-0 ms-2">£ {{$order['total_ammount']}}</span></h5>
                                 </div>
-                                @if($order['status'] == 'Approved' || $order['status'] == 'ShippingFail' )
+                                @endif
+                                @if($order['status'] != 'Shipped')
                                 <form id="form_shiping_now" action="{{route('admin.createShippingOrder')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="id" required value="{{$order['id']}}">

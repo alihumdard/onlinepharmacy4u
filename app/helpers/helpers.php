@@ -83,6 +83,7 @@ function view_permission($page_name)
                 case 'add_product':
                 case 'orders':
                 case 'consultation_view':
+                case 'orders_shipped':
                 case 'orders_recieved':
                 case 'doctors_approval':
                 case 'doctors':
@@ -106,8 +107,8 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'orders':
-                case 'orders_recieved':
-                case 'doctors_approval':
+                case 'dispensary_approval':
+                case 'orders_shipped':
                 case 'consultation_view':
                 case 'contact':
                 case 'setting':
@@ -121,7 +122,6 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'orders':
-                case 'orders_recieved':
                 case 'consultation_view':
                 case 'doctors_approval':
                 case 'contact':

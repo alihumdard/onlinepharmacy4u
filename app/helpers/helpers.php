@@ -78,6 +78,7 @@ function view_permission($page_name)
                 case 'consultations':
                 case 'questions':
                 case 'add_question':
+                case 'dispensary_approval':
                 case 'assign_question':
                 case 'prodcuts':
                 case 'add_product':

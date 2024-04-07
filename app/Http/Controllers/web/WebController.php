@@ -651,7 +651,7 @@ class WebController extends Controller
                 $shiping =  ShipingDetail::create($shipping_details);
                 if ($shiping) {
                     session()->put('order_id', $order->id);
-                    // return redirect()->away('/Completed-order');
+                    return redirect()->away('/Completed-order');
                     $productPrice = $request->total_ammount * 100;
                     $productName = 'Medical Products';
                     $productDescription = 'Medical Products';

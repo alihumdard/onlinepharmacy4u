@@ -63,6 +63,7 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/commentStore', [SystemController::class, 'comment_store'])->name('admin.commentStore');
     Route::get('/ordersRecieved', [SystemController::class, 'orders_recieved'])->name('admin.ordersRecieved');
     Route::get('/doctorsApproval', [SystemController::class, 'doctors_approval'])->name('admin.doctorsApproval');
+    Route::get('/dispensaryApproval', [SystemController::class, 'dispensary_approval'])->name('admin.dispensaryApproval');
     Route::get('/ordersShiped', [SystemController::class, 'orders_shiped'])->name('admin.ordersShiped');
     Route::get('/orderDetail/{id}', [SystemController::class, 'order_detail'])->name('admin.orderDetail');
     Route::get('/consultationView/{odd_id}', [SystemController::class, 'consultation_view'])->name('admin.consultationView');

@@ -51,12 +51,12 @@
 
         @if(view_permission('questions'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-col" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion','admin.addfaqQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ','admin.faqQuestions'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-col" data-bs-toggle="collapse">
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Questions</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="siderbar-col" class="nav-content {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+            <ul id="siderbar-col" class="nav-content {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.addfaqQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ','admin.faqQuestions'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{(request()->routeIs(['admin.addQuestionCategory'])) ? 'nav-link ' : ''}}" href="{{route('admin.addQuestionCategory')}}">
                         <i class="bi bi-circle"></i><span>Add Category</span>
@@ -106,29 +106,6 @@
         </li>
         @endif
 
-        {{-- @if(view_permission('consultations'))
-        <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.questions','admin.addQuestion'])) ? '' : 'collapsed'}} " data-bs-target="#siderbar-contsult" data-bs-toggle="collapse">
-        <i class="bi bi-menu-button-wide"></i><span>Consultations</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="siderbar-contsult" class="nav-content {{ (request()->routeIs(['admin.questions','admin.assignQuestion', 'admin.addQuestion'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
-
-            <li>
-                <a class="{{(request()->routeIs(['admin.questions'])) ? 'nav-link ' : ''}}" href="{{route('admin.questions')}}">
-                    <i class="bi bi-circle"></i><span>All Questions</span>
-                </a>
-            </li>
-
-            <li>
-                <a class="{{(request()->routeIs(['admin.addQuestion'])) ? 'nav-link ' : ''}}" href="{{route('admin.addQuestion')}}">
-                    <i class="bi bi-circle"></i><span>Add Question</span>
-                </a>
-            </li>
-
-        </ul>
-        </li>
-        @endif --}}
-
         @if(view_permission('prodcuts'))
         <li class="nav-item">
             <a class="nav-link {{ (request()->routeIs(['admin.prodcuts','admin.addProduct'])) ? '' : 'collapsed'}} " data-bs-target="#forms-nav" data-bs-toggle="collapse">
@@ -151,25 +128,38 @@
 
         @if(view_permission('orders'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
                 <i class="bi bi-bar-chart"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped'])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval'])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+                @if(view_permission('orders_recieved'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersRecieved'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersRecieved')}}">
                         <i class="bi bi-circle"></i><span>Order Recieved</span>
                     </a>
                 </li>
+                @endif
+                @if(view_permission('doctors_approval'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.doctorsApproval'])) ? 'nav-link ' : ''}}" href="{{route('admin.doctorsApproval')}}">
-                        <i class="bi bi-circle"></i><span>Medical Professionals Status</span>
+                        <i class="bi bi-circle"></i><span>Medical Professionals</span>
                     </a>
                 </li>
+                @endif
+                @if(view_permission('dispensary_approval'))
+                <li>
+                    <a class="{{(request()->routeIs(['admin.dispensaryApproval'])) ? 'nav-link ' : ''}}" href="{{route('admin.dispensaryApproval')}}">
+                        <i class="bi bi-circle"></i><span>Dispensary Orders</span>
+                    </a>
+                </li>
+                @endif
+                @if(view_permission('orders_shipped'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersShiped'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersShiped')}}">
                         <i class="bi bi-circle"></i><span>Shiped Orders</span>
                     </a>
                 </li>
+                @endif
             </ul>
         </li>
         @endif

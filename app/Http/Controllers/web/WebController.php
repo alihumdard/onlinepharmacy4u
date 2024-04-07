@@ -583,8 +583,6 @@ class WebController extends Controller
 
     public function payment(Request $request)
     {
-        //     Session::flush();
-        //     Auth::logout();
         $user = auth()->user() ?? [];
         $order =  Order::create([
             'user_id'        => $user->id ?? 'guest',
@@ -598,17 +596,20 @@ class WebController extends Controller
         if ($order) {
             $order_details = [];
             $index = 0;
+            $order_for = 'despensory';
             foreach ($request->order_details['product_id'] as $key => $pro_id) {
                 $consultaion_type = 'one_over';
-
-                foreach (session('consultations') as $key => $value) {
+                foreach (session('consultations') ?? [] as $key => $value) {
                     if ($key == $pro_id || strpos($key, ',') !== false && in_array($pro_id, explode(',', $key))) {
                         if (isset(session('consultations')[$key])) {
                             $consultaion_type = session('consultations')[$key]['type'];
                             $generic_consultation = (isset(session('consultations')[$key]['gen_quest_ans'])) ? json_encode(session('consultations')[$key]['gen_quest_ans'], true) : NULL;
                             $product_consultation = (isset(session('consultations')[$key]['pro_quest_ans'])) ? json_encode(session('consultations')[$key]['pro_quest_ans'], true) : NULL;
+                            if ($product_consultation != '""') {
+                                $order_for = 'doctor';
+                            }
+                            break;
                         }
-                        break;
                     }
                 }
                 $order_details[] = [
@@ -626,6 +627,9 @@ class WebController extends Controller
 
                 $index++;
             }
+            
+            Order::where(['id' => $order->id])->latest('created_at')->first()
+                ->update(['order_for' => $order_for]);
             $inserted =  OrderDetail::insert($order_details);
             if ($inserted) {
                 $shipping_details = [
@@ -647,8 +651,7 @@ class WebController extends Controller
                 $shiping =  ShipingDetail::create($shipping_details);
                 if ($shiping) {
                     session()->put('order_id', $order->id);
-
-                    return redirect()->away('/Completed-order');
+                    // return redirect()->away('/Completed-order');
                     $productPrice = $request->total_ammount * 100;
                     $productName = 'Medical Products';
                     $productDescription = 'Medical Products';
@@ -661,7 +664,6 @@ class WebController extends Controller
 
                     // Obtain Access Token
                     $accessToken = $this->getAccessToken($credentials);
-                    // dd($accessToken);
                     // Prepare POST fields for creating an order
                     $postFields = [
                         'amount'              => $productPrice,
@@ -695,7 +697,6 @@ class WebController extends Controller
 
                     // Make an HTTP request to create an order
                     $response = $this->sendHttpRequest('https://api.vivapayments.com/checkout/v2/orders', $postFields, $accessToken);
-                    // dd($response);
 
                     // Decode the JSON response
                     $responseData = json_decode($response, true);
@@ -751,15 +752,26 @@ class WebController extends Controller
 
     public function completed_order(Request $request)
     {
-
         if (session('order_id')) {
-            Order::where(['id' => session('order_id'), 'payment_status' => 'Unpaid', 'status' => 'Received'])->latest('created_at')->first()
+            Order::where(['id' => session('order_id')])->latest('created_at')->first()
                 ->update(['payment_status' => 'Paid']);
-            Session::flush();
-            Auth::logout();
 
-            return view('web.pages.completed_order');
+            if (Auth::check()) {
+                $user = Auth()->user() ?? [];
+                Session::flush();
+                Auth::logout();
+                Auth::login($user);
+                if (Auth()->user()) {
+                    return view('web.pages.completed_order');
+                } else {
+                    dd('Authentication failed. Please try again.');
+                }
+            } else {
+                Session::flush();
+                return view('web.pages.completed_order');
+            }
         } else {
+            return view('web.pages.completed_order');
             dd('contact to developer');
         }
     }

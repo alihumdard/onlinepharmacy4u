@@ -1151,7 +1151,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where('payment_status', 'Paid')->whereIn('status', ['Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor' ])->whereIn('status', ['Received','Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
@@ -1165,10 +1165,32 @@ class SystemController extends Controller
         return view('admin.pages.doctors_approval', $data);
     }
 
+    public function dispensary_approval()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'dispensary_approval';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'despensory' ])->whereIn('status', ['Received','Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        
+        if ($orders) {
+            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
+            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
+                ->whereIn('user_id', $userIds)
+                ->groupBy('user_id')
+                ->get()
+                ->toArray();
+            $data['order_history'] = $userOrdersData;
+            $data['orders'] = $orders;
+        }
+        return view('admin.pages.despensory_approval', $data);
+    }
+
     public function orders_shiped()
     {
         $data['user'] = auth()->user();
-        $page_name = 'orders_recieved';
+        $page_name = 'orders_shipped';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }

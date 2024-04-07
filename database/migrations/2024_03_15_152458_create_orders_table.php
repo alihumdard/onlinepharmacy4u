@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('payment_id')->nullable();
             $table->string('payment_status')->default('Unpaid');
             $table->text('hcp_remarks')->nullable();
+            $table->string('order_for')->default('despensory');
             $table->string('status')->default('Received');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('approved_by')->nullable()->default(null);

@@ -1345,7 +1345,7 @@ class SystemController extends Controller
                     "recipient" => [
                         "address" => [
                             "fullName" => ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'] . ' ' . $order['shipingdetails']['lastName'] : $order['user']['name'],
-                            "companyName" => "My WeightLoss",
+                            "companyName" => "Onlinepharmacy-4u",
                             "addressLine1" => $order['shipingdetails']['address'] ?? $order['user']['address'],
                             "addressLine2" => $order['shipingdetails']['address2'] ?? '',
                             "addressLine3" => null,
@@ -1359,9 +1359,9 @@ class SystemController extends Controller
                         "addressBookReference" => null
                     ],
                     "sender" => [
-                        "tradingName" => null,
-                        "phoneNumber" => null,
-                        "emailAddress" => null
+                        "tradingName" => 'Onlinepharmacy-4u',
+                        "phoneNumber" => '01623572757',
+                        "emailAddress" => 'info@online-pharmacy4u.co.uk'
                     ],
                     "billing" => [
                         "address" => [
@@ -1378,34 +1378,34 @@ class SystemController extends Controller
                         "phoneNumber" => $order['shipingdetails']['phone'] ?? $order['user']['phone'],
                         "emailAddress" => $order['shipingdetails']['email']  ?? $order['user']['email']
                     ],
-                    "packages" => [
-                        [
-                            "weightInGrams" => 200,
-                            "packageFormatIdentifier" => "parcel",
-                            "customPackageFormatIdentifier" => "",
-                            "dimensions" => [
-                                "heightInMms" => 10,
-                                "widthInMms" => 20,
-                                "depthInMms" => 30
-                            ],
-                            "contents" => [
-                                [
-                                    "name" => 'Medical product',
-                                    "SKU" => '2342394',
-                                    "quantity" => 5,
-                                    "unitValue" => 999,
-                                    "unitWeightInGrams" => 200,
-                                    "customsDescription" => 'it is medical product.',
-                                    "extendedCustomsDescription" => "",
-                                    "customsCode" => 'ali' . $order['id'],
-                                    "originCountryCode" => "GB",
-                                    "customsDeclarationCategory" => null,
-                                    "requiresExportLicence" => null,
-                                    "stockLocation" => null
-                                ]
-                            ]
-                        ]
-                    ],
+                    // "packages" => [
+                    //     [
+                    //         "weightInGrams" => 200,
+                    //         "packageFormatIdentifier" => "parcel",
+                    //         "customPackageFormatIdentifier" => "",
+                    //         "dimensions" => [
+                    //             "heightInMms" => 10,
+                    //             "widthInMms" => 20,
+                    //             "depthInMms" => 30
+                    //         ],
+                    //         "contents" => [
+                    //             [
+                    //                 "name" => 'Medical product',
+                    //                 "SKU" => '2342394',
+                    //                 "quantity" => 5,
+                    //                 "unitValue" => 999,
+                    //                 "unitWeightInGrams" => 200,
+                    //                 "customsDescription" => 'it is medical product.',
+                    //                 "extendedCustomsDescription" => "",
+                    //                 "customsCode" => 'ali' . $order['id'],
+                    //                 "originCountryCode" => "GB",
+                    //                 "customsDeclarationCategory" => null,
+                    //                 "requiresExportLicence" => null,
+                    //                 "stockLocation" => null
+                    //             ]
+                    //         ]
+                    //     ]
+                    // ],
                     "orderDate" => $order['created_at'],
                     "plannedDespatchDate" => null,
                     "specialInstructions" => $order['note'],
@@ -1433,18 +1433,18 @@ class SystemController extends Controller
                         "commercialInvoiceNumber" => null,
                         "commercialInvoiceDate" => null
                     ],
-                    "tags" => [
-                        [
-                            "key" => "medicins",
-                            "value" => "medicins"
-                        ]
-                    ],
+                    // "tags" => [
+                    //     [
+                    //         "key" => "medicins",
+                    //         "value" => "medicins"
+                    //     ]
+                    // ],
                     "label" => [
                         "includeLabelInResponse" => true,
                         "includeCN" => null,
                         "includeReturnsLabel" => null
                     ],
-                    "orderTax" => '343'
+                    "orderTax" => 0
                 ]
             ]
         ];

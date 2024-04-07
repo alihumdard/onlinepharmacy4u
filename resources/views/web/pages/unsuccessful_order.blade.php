@@ -61,7 +61,7 @@
             </div>
             <h1>OOPS! Payment Fail</h1>
             <p>Dear {{$user->name ?? ''}}, Unfortunately, your payment was unsuccessful.<br /> Please try again or contact customer support.</p>
-            <a href="{{ route('web.cart')}}" class="btn btn-primary rounded-pill px-5 mt-3">Try Again</a>
+            <a href="{{ route('web.view.cart')}}" class="btn btn-primary rounded-pill px-5 mt-3">Try Again</a>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

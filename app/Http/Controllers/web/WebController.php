@@ -658,8 +658,8 @@ class WebController extends Controller
                     $full_name = $request->firstName . ' ' . $request->lastName;
 
                     // Viva Wallet API credentials
-                    $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com';
-                    $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL';
+                    $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com';//client id
+                    $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
                     $credentials = base64_encode($username . ':' . $password);
 
                     // Obtain Access Token
@@ -683,7 +683,7 @@ class WebController extends Controller
                         'disableExactAmount'  => false,
                         'disableCash'         => false,
                         'disableWallet'       => false,
-                        'sourceCode'          => '2399',
+                        'sourceCode'          => '1503',
                         "merchantTrns" => "Short description of items/services purchased by customer",
                         "tags" =>
                         [

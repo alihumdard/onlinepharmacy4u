@@ -651,14 +651,14 @@ class WebController extends Controller
                 $shiping =  ShipingDetail::create($shipping_details);
                 if ($shiping) {
                     session()->put('order_id', $order->id);
-                    // return redirect()->away('/Completed-order');
+                    return redirect()->away('/Completed-order');
                     $productPrice = $request->total_ammount * 100;
                     $productName = 'Medical Products';
                     $productDescription = 'Medical Products';
                     $full_name = $request->firstName . ' ' . $request->lastName;
 
                     // Viva Wallet API credentials
-                    $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com';//client id
+                    $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
                     $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
                     $credentials = base64_encode($username . ':' . $password);
 
@@ -753,22 +753,27 @@ class WebController extends Controller
     public function completed_order(Request $request)
     {
         if (session('order_id')) {
-            Order::where(['id' => session('order_id')])->latest('created_at')->first()
-                ->update(['payment_status' => 'Paid']);
-
-            if (Auth::check()) {
-                $user = Auth()->user() ?? [];
-                Session::flush();
-                Auth::logout();
-                Auth::login($user);
-                if (Auth()->user()) {
-                    return view('web.pages.completed_order');
+            $order = Order::with('shipingdetails')->where(['id' => session('order_id')])->latest('created_at')->first();
+            if ($order) {
+                $order->update(['payment_status' => 'Paid']);
+                if (Auth::check()) {
+                    $user = Auth()->user() ?? [];
+                    Session::flush();
+                    Auth::logout();
+                    Auth::login($user);
+                    if (Auth()->user()) {
+                        $data['name'] = $order->shipingdetails->firstName;
+                        return view('web.pages.completed_order',$data);
+                    } else {
+                        dd('Authentication failed. Please try again.');
+                    }
                 } else {
-                    dd('Authentication failed. Please try again.');
+                    Session::flush();
+                    return view('web.pages.completed_order');
                 }
             } else {
-                Session::flush();
                 return view('web.pages.completed_order');
+                dd('contact to developer');
             }
         } else {
             return view('web.pages.completed_order');

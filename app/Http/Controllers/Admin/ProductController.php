@@ -84,10 +84,8 @@ class ProductController extends Controller
             'category_id'       => 'required',
             'product_template'  => 'required',
             'stock'             => 'required',
-            'weight'             => 'required',
             'cut_price'         => 'nullable|regex:/^\d+(\.\d{1,2})?$/',
             'desc'              => 'required',
-            'short_desc'        => 'required',
             'title'             => [
                 'required',
                 Rule::unique('products')->ignore($request->id),
@@ -138,7 +136,7 @@ class ProductController extends Controller
             [
                 'title'      => ucwords($request->title),
                 'desc'       => $request->desc,
-                'short_desc' => $request->short_desc,
+                'short_desc' => $request->short_desc ?? Null,
                 'main_image' => $mainImagePath ?? Product::findOrFail($request->id)->main_image,
                 'category_id' => $request->category_id,
                 'sub_category' => $request->sub_category ?? NULL,
@@ -148,7 +146,7 @@ class ProductController extends Controller
                 'cut_price'    => $request->cut_price,
                 'barcode'    => $request->barcode,
                 'SKU'        => $request->SKU,
-                'weight'     => $request->weight,
+                'weight'     => $request->weight ?? 0,
                 'stock'      => $request->stock,
                 'price'      => $request->price,
                 'status'     => $this->status['Active'],
@@ -194,7 +192,7 @@ class ProductController extends Controller
                 $nameArr  = $request['vari_name'];
                 $barcodeArr   = $request['vari_barcode'];
                 $inventoryArr = $request['vari_inventory'];
-                $weightArr = $request['vari_weight'];
+                $weightArr = $request['vari_weight'] ?? 0;
                 foreach ($skuArr as $key => $val) {
 
                     $productAttrArr['product_id'] = $product->id;
@@ -205,7 +203,7 @@ class ProductController extends Controller
                     $productAttrArr['barcode'] = $barcodeArr[$key];
                     $productAttrArr['inventory'] = $inventoryArr[$key];
                     $productAttrArr['sku'] = $skuArr[$key];
-                    $productAttrArr['weight'] = $weightArr[$key];
+                    $productAttrArr['weight'] = $weightArr[$key] ?? 0;
 
                     // Correcting the array key for variant images
                     if ($request->hasFile("vari_attr_images.$key")) {
@@ -231,7 +229,7 @@ class ProductController extends Controller
                 $nameArrExist  = $request['exist_vari_name'];
                 $barcodeArrExist   = $request['exist_vari_barcode'];
                 $inventoryArrExist = $request['exist_vari_inventory'];
-                $weightArrExist = $request['exist_vari_weight'];
+                $weightArrExist = $request['exist_vari_weight'] ?? 0;
                 if ($request->hasFile('exist_vari_attr_images')) {
                     foreach ($request->file('exist_vari_attr_images') as $variantId => $image) {
                         if ($image) {
@@ -256,7 +254,7 @@ class ProductController extends Controller
                     $productAttrArrE['barcode'] = $barcodeArrExist[$key1];
                     $productAttrArrE['inventory'] = $inventoryArrExist[$key1];
                     $productAttrArrE['sku'] = $skuArrExist[$key1];
-                    $productAttrArrE['weight'] = $weightArrExist[$key1];
+                    $productAttrArrE['weight'] = $weightArrExist[$key1] ?? 0;
 
                     DB::table('product_variants')
                         ->where('id', $id)

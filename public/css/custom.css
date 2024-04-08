@@ -804,3 +804,16 @@ color: #fff !important;
 .ltn__social-media ul li a i {
     color: #5C727D ;
 }
+.ltn__product-item {
+    /* border: 1px solid rgb(156, 154, 154) !important; */
+    border-radius: 24px !important;
+    padding: 14px !important;
+    box-shadow: 0px 0px 15px #80808082 !important;
+}
+.ltn__product-item:hover .product-hover-action li a{
+    color: #000 !important;
+    padding: 0px !important;
+    border-radius: 0px !important;
+    line-height: unset !important;
+
+}

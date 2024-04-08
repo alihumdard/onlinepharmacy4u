@@ -40,7 +40,13 @@
                                 </div>
                                 <div class="ltn__shop-details-small-img slick-arrow-2">
                                     <div class="single-small-img" style="height: 145px !important; width: 145px !important;">
-                                        <img src="{{ asset('storage/'.$product->main_image)}}" alt="Image" id="product_img">
+
+                                        @foreach($product->variants ?? [] as $key => $val)
+                                        @php
+                                        $src = isset($val->image) ? $val->image : $product->main_image;
+                                        @endphp
+                                        <img src="{{ asset('storage/'.$src)}}" alt="Image" id="product_img">
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -124,21 +130,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="ltn__product-details-menu-3 d-none">
+                                <div class="ltn__product-details-menu-3 ">
                                     <ul>
                                         <li>
-                                            <a href="#" class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
-                                                <i class="far fa-heart"></i>
-                                                <span>Add to Wishlist</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="" title="Compare" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
-                                                <i class="fas fa-exchange-alt"></i>
-                                                <span>Compare</span>
-                                            </a>
-                                        </li>
-                                        <li class="d-none">
                                             <div style="padding: 20px;" class="widget widget-tags">
                                                 <h5 class="widget__title" style="margin-bottom: 10px;"><span id="product_title">{{ $product['variants'][0]['title'] ?? ''}} :</span></h5>
                                                 <div class="widget-content">
@@ -149,6 +143,18 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                        </li>
+                                        <li class="d-none">
+                                            <a href="#" class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
+                                                <i class="far fa-heart"></i>
+                                                <span>Add to Wishlist</span>
+                                            </a>
+                                        </li>
+                                        <li class="d-none">
+                                            <a href="#" class="" title="Compare" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
+                                                <i class="fas fa-exchange-alt"></i>
+                                                <span>Compare</span>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

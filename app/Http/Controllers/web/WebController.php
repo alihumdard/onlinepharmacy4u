@@ -773,6 +773,7 @@ class WebController extends Controller
                         dd('Authentication failed. Please try again.');
                     }
                 } else {
+                    Mail::to($order->shipingdetails->email)->send(new OrderConfirmation($order));
                     Session::flush();
                     return view('web.pages.completed_order');
                 }

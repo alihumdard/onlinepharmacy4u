@@ -614,6 +614,7 @@ class WebController extends Controller
                 }
                 $order_details[] = [
                     'product_id' => $pro_id,
+                    'weight' => Product::find($pro_id)->weight,
                     'order_id' => $order->id,
                     'product_price' => $request->order_details['product_price'][$index],
                     'product_name' => $request->order_details['product_name'][$index],
@@ -704,7 +705,7 @@ class WebController extends Controller
                     if (isset($responseData['orderCode'])) {
                         $orderCode = $responseData['orderCode'];
                         // Redirect to the Viva Payments checkout page with the orderCode parameter
-                        $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}&color=c50c26";
+                        $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}&color=0000ff";
                         // Redirect to the external URL
                         return redirect()->away($redirectUrl);
                     }
@@ -822,7 +823,6 @@ class WebController extends Controller
     public function get_category_slug($product_id)
     {
         $product = Product::find($product_id);
-        dd($product);
         $category = $product->category_id;
         $sub_category = $product->sub_category;
         $child_category = $product->child_category;

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('desc');
             $table->text('main_image');
             $table->decimal('price',8,2);
+            $table->string('weight');
             $table->string('stock');
             $table->string('SKU')->nullable();
             $table->string('barcode')->nullable();

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('inventory')->nullable();
             $table->string('sku')->nullable();
             $table->decimal('cut_price',8,2)->nullable();
-            $table->string('weight');
+            $table->string('weight')->default(0);
             $table->string('image')->nullable();
             $table->timestamps();
         });

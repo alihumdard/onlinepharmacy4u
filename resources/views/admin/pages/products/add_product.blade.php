@@ -301,7 +301,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="weight" class="form-label">Weight (gm)</label>
-                    <input type="text" name="weight" id="weight" value="{{  $product['weight'] ?? old('weight') }}" class="form-control"  required>
+                    <input type="text" name="weight" id="weight" value="{{  $product['weight'] ?? old('weight') }}" class="form-control"  >
                     <div class="invalid-feedback">Enter product weight!</div>
                     @error('barcode')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -311,7 +311,7 @@
             </div>
             <div class="row mb-5">
                 <div class="form-floating col-12  mt-3">
-                    <textarea class="form-control tinymce-editor" name="short_desc" id="short_desc" placeholder="Product short Description" required=''>{{$product['short_desc'] ?? ''}}</textarea>
+                    <textarea class="form-control tinymce-editor" name="short_desc" id="short_desc" placeholder="Product short Description">{{$product['short_desc'] ?? ''}}</textarea>
                     <div class="invalid-feedback">Please write product short desc!</div>
                     @error('short_desc')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -387,7 +387,7 @@
                         <div class="col-md-4 col-sm-12 ">
                             <div class="p-2">
                                 <label for="" class="form-label">weight <span class="extra-text">(gm)</span></label>
-                                <input type="text" class="form-control" name="exist_vari_weight[]" id="" value="{{ $variant['weight']}}" required>
+                                <input type="text" class="form-control" name="exist_vari_weight[]" id="" value="{{ $variant['weight'] }}" >
                                 <div class="invalid-feedback">Enter variant weight!</div>
                             </div>
                         </div>
@@ -688,7 +688,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Weight <span class="extra-text">(gm)</span></label>
-                                <input type="text" class="form-control" name="vari_weight[]" id="" required>
+                                <input type="text" class="form-control" name="vari_weight[]" id="" >
                                 <div class="invalid-feedback">Enter variant weight!</div>
                             </div>
                         </div>

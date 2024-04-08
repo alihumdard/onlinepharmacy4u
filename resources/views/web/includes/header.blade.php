@@ -155,7 +155,7 @@
                                                             <li><a  class="poppins-thin" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
                                                                 <ul>
                                                                     @foreach($val1['child_categories'] as $key2 => $val2)
-                                                                    <li><a style="font-size: 12px; background-color: #d6e7ec52 !important;"  class="poppins-thin" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
+                                                                    <li><a style="font-size: 12px; background-color: #d6e7ec52l !important;"  class="poppins-thin" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
                                                                     @endforeach
                                                                 </ul>
                                                             </li>

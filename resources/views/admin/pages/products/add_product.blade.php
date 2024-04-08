@@ -299,6 +299,14 @@
                     <div class="alert-danger text-danger ">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="col-md-6">
+                    <label for="weight" class="form-label">Weight (gm)</label>
+                    <input type="text" name="weight" id="weight" value="{{  $product['weight'] ?? old('weight') }}" class="form-control"  required>
+                    <div class="invalid-feedback">Enter product weight!</div>
+                    @error('barcode')
+                    <div class="alert-danger text-danger ">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
             </div>
             <div class="row mb-5">
@@ -341,68 +349,69 @@
                         <div class="col-12">
                             <hr class="">
                         </div>
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Price <span class="vari-price">(Price in UK Pound)</span></label>
                                 <input type="text" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
                                 <div class="invalid-feedback">Enter variant price!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Cut Price <span class="vari-cut-price">(Price in UK Pound)</span></label>
                                 <input type="text" class="form-control" name="exist_vari_cut_price[]" id="" value="{{ $variant['cut_price']}}">
                                 <div class="invalid-feedback">Enter variant cut price!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Name <span class="extra-text"></span></label>
                                 <input type="text" class="form-control" name="exist_vari_name[]" id="" value="{{ $variant['title']}}" required>
                                 <div class="invalid-feedback">Enter variant title!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12 product-md">
+                        <div class="col-md-4 col-sm-12 product-md">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Value <span class="extra-text"></span></label>
                                 <input type="text" class="form-control" name="exist_vari_value[]" id="" value="{{ $variant['value']}}" required>
                                 <div class="invalid-feedback">Enter variant value!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12 ">
+                        <div class="col-md-4 col-sm-12 ">
                             <div class="p-2">
                                 <label for="" class="form-label">Inventory <span class="extra-text">(Available Stock)</span></label>
                                 <input type="number" class="form-control" name="exist_vari_inventory[]" id="" value="{{ $variant['inventory']}}" required>
                                 <div class="invalid-feedback">Enter variant stock!</div>
                             </div>
                         </div>
-
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12 ">
+                            <div class="p-2">
+                                <label for="" class="form-label">weight <span class="extra-text">(gm)</span></label>
+                                <input type="text" class="form-control" name="exist_vari_weight[]" id="" value="{{ $variant['weight']}}" required>
+                                <div class="invalid-feedback">Enter variant weight!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
                                 <input type="number" class="form-control" name="exist_vari_barcode[]" id="" value="{{ $variant['barcode']}}">
                                 <div class="invalid-feedback">Enter variant barcode!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
                                 <input type="number" class="form-control" name="exist_vari_sku[]" id="" value="{{ $variant['sku']}}">
                                 <div class="invalid-feedback">Enter variant stock!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12 ">
+                        <div class="col-md-4 col-sm-12 ">
                             <div class="p-2">
                                 <label class="form-label">Select Image</label>
                                 <input class="form-control variant-image-exist" name="exist_vari_attr_image[]" type="file" id="">
                                 <div class="invalid-feedback">Enter variant image!</div>
                             </div>
                         </div>
-                        {{-- <div class="col-md-3 col-sm-12 mt-4 ">
-                                    <div class="p-2 ">
-                                        <button type="button" class="btn remove_row btn-danger"><i class="fa fa-minus"></i> Remove</button>
-                                    </div>
-                                </div> --}}
                         <div class="col-12">
                             <hr class="">
                         </div>
@@ -641,64 +650,70 @@
                         <div class="col-12">
                             <hr class="">
                         </div>
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Price <span class="extra-text">(Price in UK Pound)</span></label>
                                 <input type="text" class="form-control" name="vari_price[]" id="" required>
                                 <div class="invalid-feedback">Enter variant price!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Cut Price <span class="extra-text">(Price in UK Pound)</span></label>
                                 <input type="text" class="form-control" name="vari_cut_price[]" id="">
                                 <div class="invalid-feedback">Enter variant cut price!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Name <span class="extra-text"></span></label>
                                 <input type="text" class="form-control" name="vari_name[]" id="" required>
                                 <div class="invalid-feedback">Enter variant title!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12 product-md">
+                        <div class="col-md-4 col-sm-12 product-md">
                             <div class="p-2">
                                 <label for="" class="form-label">Variant Value <span class="extra-text"></span></label>
                                 <input type="text" class="form-control" name="vari_value[]" id="" required>
                                 <div class="invalid-feedback">Enter variant value!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12 ">
+                        <div class="col-md-4 col-sm-12 ">
                             <div class="p-2">
                                 <label for="" class="form-label">Inventory <span class="extra-text">(Available Stock)</span></label>
                                 <input type="number" class="form-control" name="vari_inventory[]" id="" required>
                                 <div class="invalid-feedback">Enter variant stock!</div>
                             </div>
                         </div>
-
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Weight <span class="extra-text">(gm)</span></label>
+                                <input type="text" class="form-control" name="vari_weight[]" id="" required>
+                                <div class="invalid-feedback">Enter variant weight!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
                                 <input type="number" class="form-control" name="vari_barcode[]" id="" >
                                 <div class="invalid-feedback">Enter variant barcode!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
                                 <input type="number" class="form-control" name="vari_sku[]" id="" >
                                 <div class="invalid-feedback">Enter variant stock!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12 ">
+                        <div class="col-md-4 col-sm-12 ">
                             <div class="p-2">
                                 <label  class="form-label">Select Image</label>
                                 <input class="form-control variant-image" name="vari_attr_image[]" type="file" id="">
                                 <div class="invalid-feedback">Enter variant image!</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-12 mt-4 ">
+                        <div class="col-md-12 d-flex justify-content-end col-sm-12 mt-4 ">
                             <div class="p-2 ">
                                 <button type="button" class="btn remove_row btn-danger"><i class="fa fa-minus"></i> Remove</button>
                             </div>

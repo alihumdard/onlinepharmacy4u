@@ -1251,6 +1251,9 @@ class SystemController extends Controller
 
             try {
                 $order = $order->toArray() ?? [];
+
+                $order['weight'] = array_sum(array_column($order['orderdetails'],'weight'));
+                $order['quantity'] = array_sum(array_column($order['orderdetails'],'product_qty'));
                 $payload = $this->make_shiping_payload($order);
                 $apiKey = env('ROYAL_MAIL_API_KEY');
                 $client = new Client();
@@ -1378,34 +1381,34 @@ class SystemController extends Controller
                         "phoneNumber" => $order['shipingdetails']['phone'] ?? $order['user']['phone'],
                         "emailAddress" => $order['shipingdetails']['email']  ?? $order['user']['email']
                     ],
-                    // "packages" => [
-                    //     [
-                    //         "weightInGrams" => 200,
-                    //         "packageFormatIdentifier" => "parcel",
-                    //         "customPackageFormatIdentifier" => "",
-                    //         "dimensions" => [
-                    //             "heightInMms" => 10,
-                    //             "widthInMms" => 20,
-                    //             "depthInMms" => 30
-                    //         ],
-                    //         "contents" => [
-                    //             [
-                    //                 "name" => 'Medical product',
-                    //                 "SKU" => '2342394',
-                    //                 "quantity" => 5,
-                    //                 "unitValue" => 999,
-                    //                 "unitWeightInGrams" => 200,
-                    //                 "customsDescription" => 'it is medical product.',
-                    //                 "extendedCustomsDescription" => "",
-                    //                 "customsCode" => 'ali' . $order['id'],
-                    //                 "originCountryCode" => "GB",
-                    //                 "customsDeclarationCategory" => null,
-                    //                 "requiresExportLicence" => null,
-                    //                 "stockLocation" => null
-                    //             ]
-                    //         ]
-                    //     ]
-                    // ],
+                    "packages" => [
+                        [
+                            "weightInGrams" => $order['weight'],
+                            "packageFormatIdentifier" => "parcel",
+                            "customPackageFormatIdentifier" => "",
+                            "dimensions" => [
+                                "heightInMms" => 10,
+                                "widthInMms" => 20,
+                                "depthInMms" => 30
+                            ],
+                            "contents" => [
+                                [
+                                    "name" => 'Medical product',
+                                    "SKU" => null,
+                                    "quantity" => $order['quantity'],
+                                    "unitValue" => 999,
+                                    "unitWeightInGrams" => $order['weight'],
+                                    "customsDescription" => 'it is medical product.',
+                                    "extendedCustomsDescription" => "",
+                                    "customsCode" => '4you' . $order['id'],
+                                    "originCountryCode" => "GB",
+                                    "customsDeclarationCategory" => null,
+                                    "requiresExportLicence" => null,
+                                    "stockLocation" => null
+                                ]
+                            ]
+                        ]
+                    ],
                     "orderDate" => $order['created_at'],
                     "plannedDespatchDate" => null,
                     "specialInstructions" => $order['note'],

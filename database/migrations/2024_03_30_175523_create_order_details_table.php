@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('order_id');
             $table->bigInteger('product_id');
+            $table->bigInteger('weight');
             $table->text('product_name');
             $table->string('product_qty');
             $table->string('product_price');

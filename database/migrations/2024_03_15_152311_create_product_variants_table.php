@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('barcode')->nullable();
             $table->string('inventory')->nullable();
             $table->string('sku')->nullable();
+            $table->decimal('cut_price',8,2)->nullable();
+            $table->string('weight');
             $table->string('image')->nullable();
             $table->timestamps();
         });

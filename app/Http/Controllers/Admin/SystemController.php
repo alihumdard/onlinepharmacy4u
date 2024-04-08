@@ -1341,6 +1341,25 @@ class SystemController extends Controller
 
     private function make_shiping_payload($order)
     {
+        $content = [];
+        foreach ($order['orderdetails'] as $val)
+        {
+            $content[] = [
+                "name" => $val['product_name'],
+                "SKU" => null,
+                "quantity" => $val['product_qty'],
+                "unitValue" => $val['product_price'],
+                "unitWeightInGrams" => $val['weight'],
+                "customsDescription" => 'it is medical product.',
+                "extendedCustomsDescription" => "",
+                "customsCode" => '4you' . $order['id'],
+                "originCountryCode" => "GB",
+                "customsDeclarationCategory" => null,
+                "requiresExportLicence" => null,
+                "stockLocation" => null
+            ];
+        }
+
         $payload = [
             "items" => [
                 [
@@ -1391,22 +1410,7 @@ class SystemController extends Controller
                                 "widthInMms" => 20,
                                 "depthInMms" => 30
                             ],
-                            "contents" => [
-                                [
-                                    "name" => 'Medical product',
-                                    "SKU" => null,
-                                    "quantity" => $order['quantity'],
-                                    "unitValue" => 999,
-                                    "unitWeightInGrams" => $order['weight'],
-                                    "customsDescription" => 'it is medical product.',
-                                    "extendedCustomsDescription" => "",
-                                    "customsCode" => '4you' . $order['id'],
-                                    "originCountryCode" => "GB",
-                                    "customsDeclarationCategory" => null,
-                                    "requiresExportLicence" => null,
-                                    "stockLocation" => null
-                                ]
-                            ]
+                            "contents" => $content
                         ]
                     ],
                     "orderDate" => $order['created_at'],

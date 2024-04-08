@@ -831,3 +831,11 @@ color: #fff !important;
     background-color: #5472f8 !important;
     color: #fff !important; 
 }
+.btn-effect-2:hover::after {
+    background: #0056B3 !important;
+    border-radius: 50px !important;
+    color: #fff !important;
+}
+.mini-cart-footer .btn-wrapper .btn{
+    border-radius: 50px;
+}

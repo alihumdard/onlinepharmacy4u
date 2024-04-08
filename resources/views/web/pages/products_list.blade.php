@@ -31,14 +31,14 @@
                     <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 btn-large">Start {{ $category_detail->name }} Consultation</button>
                     <button form="start_consultation_from" type="submit" class="btn btn-primary my-3 small-btn">Start Consultation </button>
                     @endif
-                    <button class="btn btn-outline-danger view-btn">View Treatments </button>
+                    <a href="#products_list" class="btn btn-outline-danger view-btn">View Treatments </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="treatment my-5 py-5">
+<section id="products_list" class="treatment my-5 py-5">
     <div class="container">
         <h4 class="text-center pb-4">{{ $category_detail->name }}</h4>
         <div class="row">

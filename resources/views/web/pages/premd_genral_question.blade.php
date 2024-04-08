@@ -383,7 +383,7 @@
         <div class="mb-0">
             <div class="alert alert-danger bg-danger alert-dismissible">
                 <button type="button" class=" text-dark btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <p class="px-2 fw-semibold text-white">Unfortunately, we cannot recommend a suitable treatment for you. If you did this in error, you have the choice to change your answer. If you have any questions about this consultation, please email help@ukmeds.co.uk.</p>
+                <p class="px-2 fw-semibold text-white">Unfortunately, we cannot recommend a suitable treatment for you. If you did this in error, you have the choice to change your answer. If you have any questions about this consultation, please email info@online-pharmacy4u.co.uk.</p>
             </div>
         </div>
     </div>

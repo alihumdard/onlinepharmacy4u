@@ -101,7 +101,7 @@
                                             </div>
                                         </div>
                                         <div class="product-info">
-                                            <div class="product-ratting">
+                                            <div class="product-ratting d-none">
                                                 <ul>
                                                     <li><a href="#"><i class="fas fa-star"></i></a></li>
                                                     <li><a href="#"><i class="fas fa-star"></i></a></li>
@@ -181,7 +181,7 @@
                                         <a href="product-details.html"><img src="img/product/1.png" alt="#"></a>
                                     </div>
                                     <div class="top-rated-product-info">
-                                        <div class="product-ratting">
+                                        <div class="product-ratting d-none">
                                             <ul>
                                                 <li><a href="#"><i class="fas fa-star"></i></a></li>
                                                 <li><a href="#"><i class="fas fa-star"></i></a></li>
@@ -204,7 +204,7 @@
                                         <a href="product-details.html"><img src="img/product/2.png" alt="#"></a>
                                     </div>
                                     <div class="top-rated-product-info">
-                                        <div class="product-ratting">
+                                        <div class="product-ratting d-none">
                                             <ul>
                                                 <li><a href="#"><i class="fas fa-star"></i></a></li>
                                                 <li><a href="#"><i class="fas fa-star"></i></a></li>
@@ -227,7 +227,7 @@
                                         <a href="product-details.html"><img src="img/product/3.png" alt="#"></a>
                                     </div>
                                     <div class="top-rated-product-info">
-                                        <div class="product-ratting">
+                                        <div class="product-ratting d-none">
                                             <ul>
                                                 <li><a href="#"><i class="fas fa-star"></i></a></li>
                                                 <li><a href="#"><i class="fas fa-star"></i></a></li>

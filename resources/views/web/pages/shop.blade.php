@@ -274,9 +274,9 @@
 
 
                     <!-- Banner Widget -->
-                    <div class="widget ltn__banner-widget">
+                    <!-- <div class="widget ltn__banner-widget">
                         <a href="shop.html"><img src="img/banner/banner-2.jpg" alt="#"></a>
-                    </div>
+                    </div> -->
 
                 </aside>
             </div>

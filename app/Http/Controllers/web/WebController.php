@@ -43,6 +43,7 @@ use App\Models\OrderDetail;
 use App\Models\Alert;
 use App\Models\FaqProduct;
 use Illuminate\Support\Facades\DB;
+use App\Mail\OrderConfirmation;
 
 use Deyjandi\VivaWallet\Enums\RequestLang;
 use Deyjandi\VivaWallet\Enums\PaymentMethod;
@@ -652,7 +653,7 @@ class WebController extends Controller
                 $shiping =  ShipingDetail::create($shipping_details);
                 if ($shiping) {
                     session()->put('order_id', $order->id);
-                    // return redirect()->away('/Completed-order');
+                    return redirect()->away('/Completed-order');
                     $productPrice = $request->total_ammount * 100;
                     $productName = 'Medical Products';
                     $productDescription = 'Medical Products';
@@ -758,6 +759,9 @@ class WebController extends Controller
             if ($order) {
                 $order->update(['payment_status' => 'Paid']);
                 if (Auth::check()) {
+
+                    Mail::to($order->shipingdetails->email)->send(new OrderConfirmation($order));
+
                     $user = Auth()->user() ?? [];
                     Session::flush();
                     Auth::logout();

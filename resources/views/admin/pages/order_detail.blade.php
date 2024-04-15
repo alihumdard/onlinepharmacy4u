@@ -79,15 +79,24 @@
         }
     </style>
 
-    <div class="pagetitle">
-        <h1>Order Detail</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Order Detail</li>
-            </ol>
-        </nav>
+    <div class="pagetitle ">
+        <div class="">
+            <form id="create_pdf_from"  action="{{route('pdf.creator')}}" method="post" >
+                <input type="hidden" name="content" value="{{json_encode($order)}}" required>
+                <input type="hidden" name="view_name" value="order_details" required>
+            </form>
+            <h1 class="w-100">Order Detail  <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1 fw-semibold" style="float:right; background: #03bd8d;color:#fff">Print out</button> </h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item">Pages</li>
+                    <li class="breadcrumb-item active">Order Detail</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="">
+           
+        </div>
     </div><!-- End Page Title -->
 
     <section class="section">

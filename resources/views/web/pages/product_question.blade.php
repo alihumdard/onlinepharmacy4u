@@ -382,8 +382,7 @@
                     // console.log(alert_detail);
                     var alert_html = '';
                     if (alert_detail) {
-                        var alert_html = `<div class="alert ${alert_detail.type} alert-dismissible">
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        var alert_html = `<div class="alert ${alert_detail.type} ">
                                             <p class="px-2 fw-semibold">${alert_detail.body}</p>
                                         </div>`;
 

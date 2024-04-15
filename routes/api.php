@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\api\SystemUserManagmentController;
-
+use App\Http\Controllers\Admin\api\PdfGeneratorController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,3 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 // Route::middleware('auth:sanctum')->get('/makeCurlRequest', [SystemUserManagmentController::class, 'makeCurlRequest']);
+
+Route::match(['get', 'post'], '/generatepdf', [PdfGeneratorController::class, 'index'])->name('pdf.creator');

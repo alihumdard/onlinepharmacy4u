@@ -285,7 +285,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="stock" class="col-form-label">SKU </label>
-                    <input type="number" name="SKU" id="SKU" value="{{  $product['SKU'] ?? old('SKU') }}" class="form-control">
+                    <input type="text" name="SKU" id="SKU" value="{{  $product['SKU'] ?? old('SKU') }}" class="form-control">
                     <div class="invalid-feedback">Enter avialable stock!</div>
                     @error('SKU')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -401,7 +401,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
-                                <input type="number" class="form-control" name="exist_vari_sku[]" id="" value="{{ $variant['sku']}}">
+                                <input type="text" class="form-control" name="exist_vari_sku[]" id="" value="{{ $variant['sku']}}">
                                 <div class="invalid-feedback">Enter variant stock!</div>
                             </div>
                         </div>
@@ -702,7 +702,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
-                                <input type="number" class="form-control" name="vari_sku[]" id="" >
+                                <input type="text" class="form-control" name="vari_sku[]" id="" >
                                 <div class="invalid-feedback">Enter variant stock!</div>
                             </div>
                         </div>

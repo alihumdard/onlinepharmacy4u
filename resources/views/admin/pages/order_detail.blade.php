@@ -147,8 +147,8 @@
                             <h4 class="fw-bold">Shipping Address</h4>
                             <span><b>City: </b>{{$order['shipingdetails']['city'] ?? $order['user']['city'] }}</span><br>
                             <span><b>Postal Code: </b>{{$order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'] }}</span><br>
-                            <span><b>Address 1: </b>{{$order['shipingdetails']['address'] ?? $order['user']['address'] }}</span><br>
-                            <span><b>Address 2: </b>{{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}</span><br>
+                            <span><b>Address : </b>{{$order['shipingdetails']['address'] ?? $order['user']['address'] }}</span><br>
+                            <span><b>Appartment: </b>{{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}</span><br>
                         </div>
                         <div class="text mt-2">
                             <h5 class="fw-bold mb-0 ">Billing Address</h5>

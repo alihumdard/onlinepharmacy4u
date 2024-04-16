@@ -852,3 +852,9 @@ margin-bottom: 20px !important;
 .contact-form-box {
     padding: 0px 50px 50px !important;
 }
+.about-us-img-wrap img{
+    border-radius: 40px !important;
+}
+.ltn__section-title-2 .section-title{
+    font-size: 34px !important;
+}

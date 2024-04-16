@@ -1,6 +1,33 @@
 @extends('web.layouts.default')
 @section('title', 'Product Detail')
 @section('content')
+<style>
+    .variant_tag {
+        font-size: 14px;
+        line-height: 1;
+        text-transform: capitalize;
+        padding: 7px 15px;
+        border-radius: 6px;
+        border: 1px solid #e6e8eb;
+        transition: all 0.4s ease;
+        border-color: #21cdc0;
+        background-color: #fff;
+        color: var(--ltn__heading-color);
+    }
+
+    .variant_tag_active {
+        font-size: 14px;
+        line-height: 1;
+        text-transform: capitalize;
+        padding: 7px 15px;
+        border-radius: 6px;
+        border: 1px solid #e6e8eb;
+        transition: all 0.4s ease;
+        border-color: #21cdc0;
+        background-color: #0ab9ad;
+        color: #fff;
+    }
+</style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- BREADCRUMB AREA START -->
 <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image" data-bs-bg="img/bg/14.jpg">
@@ -34,21 +61,22 @@
                                 <div class="ltn__shop-details-large-img">
                                     <div class="single-large-img">
                                         <a href="{{ asset('storage/'.$product->main_image)}}" data-rel="lightcase:myCollection">
-                                            <img src="{{ asset('storage/'.$product->main_image)}}" alt="Image" id="product_img">
+                                            <img class="img-fluid" src="{{ asset('storage/'.$product->main_image)}}" alt="Image" id="product_img">
                                         </a>
                                     </div>
                                 </div>
+                                @if(!$product['variants']->isEmpty())
                                 <div class="ltn__shop-details-small-img slick-arrow-2">
-                                    <div class="single-small-img" style="height: 145px !important; width: 145px !important;">
-
-                                        @foreach($product->variants ?? [] as $key => $val)
+                                    @foreach($product->variants ?? [] as $key => $val)
+                                    <div class="single-small-img variant_img_{{$val->id}}" style="height: 145px !important; width: 145px !important;">
                                         @php
-                                        $src = isset($val->image) ? $val->image : $product->main_image;
+                                        $src = ($val->image) ? $val->image : $product->main_image;
                                         @endphp
-                                        <img src="{{ asset('storage/'.$src)}}" alt="Image" id="product_img">
-                                        @endforeach
+                                        <img class="img-fluid variants  variant_no_{{$val->id}}" src="{{ asset('storage/'.$src)}}" alt="Image" data-variant_id="{{$val->id ?? ''}}" data-variant_data="{{ json_encode($val) }}" data-main_image="{{ $product->main_image }}">
                                     </div>
+                                    @endforeach
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -132,18 +160,25 @@
                                 </div>
                                 <div class="ltn__product-details-menu-3 ">
                                     <ul>
+                                        @if(!$product['variants']->isEmpty())
                                         <li>
                                             <div style="padding: 20px;" class="widget widget-tags">
                                                 <h5 class="widget__title" style="margin-bottom: 10px;"><span id="product_title">{{ $product['variants'][0]['title'] ?? ''}} :</span></h5>
                                                 <div class="widget-content">
                                                     <ul class="list-unstyled">
                                                         @foreach($product['variants'] as $key => $vrr)
-                                                        <li style="cursor: pointer;"><a class="variants" data-variant_id="{{$vrr['id'] ?? ''}}" data-variant_data="{{ json_encode($vrr) }}" data-main_image="{{ $product->main_image }}">{{ $vrr['value'] }}</a></li>
+                                                        <li style="cursor: pointer;">
+                                                            <a  class="variants @if($loop->first) variant_tag_active @else variant_tag @endif variant_no_{{$vrr['id']}}" data-variant_id="{{$vrr['id'] ?? ''}}" data-variant_data="{{ json_encode($vrr) }}" data-main_image="{{ $product->main_image }}">
+                                                                {{ $vrr['value'] }}
+                                                            </a>
+                                                        </li>
                                                         @endforeach
+
                                                     </ul>
                                                 </div>
                                             </div>
                                         </li>
+                                        @endif
                                         <li class="d-none">
                                             <a href="#" class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
                                                 <i class="far fa-heart"></i>
@@ -304,6 +339,14 @@
     $(document).ready(function() {
         $(document).on('click', '.variants', function() {
             var variantId = $(this).data('variant_id');
+            $('.variants').removeClass('variant_tag_active');
+            $('.single-small-img').removeClass('slick-current');
+            $('.variant_img_'+variantId).addClass('slick-current');
+            $('.variants').addClass('variant_tag');
+            var activ_class = '.variant_no_'+variantId;
+            $(activ_class).addClass('variant_tag_active');
+            $(activ_class).removeClass('variant_tag');
+            $('.single-small-img .variants').removeClass('variant_tag_active').removeClass('variant_tag');
             $('#variant_id').val(variantId);
             var variantData = $(this).data('variant_data');
             var mainImage = $(this).data('main_image');

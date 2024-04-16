@@ -40,6 +40,22 @@ class ProductController extends Controller
         return view('admin.pages.products.prodcuts', $data);
     }
 
+    public function prodcuts_limits(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'prodcuts';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['products'] = Product::with('category:id,name')->latest('id')->get()->toArray();
+        }
+        // dd($data['products']);
+        return view('admin.pages.products.prodcuts_limits', $data);
+    }
+
+
     public function add_product(Request $request)
     {
         $user = auth()->user();
@@ -50,20 +66,20 @@ class ProductController extends Controller
         $data['categories'] = Category::latest('id')->get()->toArray();
         $data['templates'] = config('constants.PRODUCT_TEMPLATES');
         $data['question_category'] = QuestionCategory::latest('id')->get()->toArray();
-        
+
         $data['product'] = [];
         if ($request->has('id')) {
             $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
-            
+
             $data['sub_category'] = SubCategory::select('id', 'name')
-            ->where('category_id', $data['product']['category_id'])
-            ->pluck('name', 'id')
-            ->toArray(); 
-            
+                ->where('category_id', $data['product']['category_id'])
+                ->pluck('name', 'id')
+                ->toArray();
+
             $data['child_category'] = ChildCategory::select('id', 'name')
-            ->where('sub_category_id', $data['product']['sub_category'])
-            ->pluck('name', 'id')
-            ->toArray();
+                ->where('sub_category_id', $data['product']['sub_category'])
+                ->pluck('name', 'id')
+                ->toArray();
 
             $data['prod_question'] = explode(',', $data['product']['question_category']);
         }
@@ -92,7 +108,7 @@ class ProductController extends Controller
             ],
         ];
 
-        if($request->id == null || !$request->id){
+        if ($request->id == null || !$request->id) {
             $rules['main_image'] = [
                 'required',
                 'image',
@@ -264,6 +280,32 @@ class ProductController extends Controller
         }
 
         $message = "Product " . ($request->id ? "Updated" : "Saved") . " Successfully";
+        return response()->json(['status' => 'success', 'message' => $message, 'data' => []]);
+    }
+    public function update_buy_limits(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'add_product';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $rules = [
+            'id'  => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()]);
+        }
+        $product = Product::findOrFail($request->id);
+        $product->update([
+            'min_buy'       => $request->min_buy,
+            'max_buy'       => $request->max_buy,
+            'comb_variants' => $request->comb_variants,
+        ]);
+
+        $message = "Product Limits " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return response()->json(['status' => 'success', 'message' => $message, 'data' => []]);
     }
 }

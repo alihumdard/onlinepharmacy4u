@@ -91,7 +91,7 @@
                                     {{-- <span>Showing 1–12 of 18 results</span> --}}
                                 </div> 
                             </li>
-                            <li>
+                            <li class="d-none">
                                <div class="short-by text-center">
                                     <select class="nice-select">
                                         <option>Default Sorting</option>
@@ -178,7 +178,7 @@
                         </div>
                     </div> --}}
                 </div>
-                <div class="col-lg-4  mb-120">
+                <div class="col-lg-4  mb-120 d-none">
                     <aside class="sidebar ltn__shop-sidebar ltn__right-sidebar">
                         <!-- Category Widget -->
                         <div class="widget ltn__menu-widget">
@@ -204,6 +204,58 @@
         </div>
     </div>
     <!-- PRODUCT DETAILS AREA END -->
+
+    <!-- FAQ AREA START (faq-2) (ID > accordion_2) -->
+<div class="ltn__faq-area pt-115 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title-area ltn__section-title-2 text-center">
+                    <h1 class="section-title white-color---">What are Tablets for Sleeping?</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ltn__faq-inner ltn__faq-inner-2">
+                    <div id="accordion_2">
+                        <!-- card -->
+                        <div class="card">
+                            <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-1" aria-expanded="true">
+                            Diabetes
+                            </h6>
+                            <div id="faq-item-2-1" class="collapse show" data-bs-parent="#accordion_2">
+                                <div class="card-body">
+                                    <p>Type 2 diabetes is a metabolic condition that affects people of all ages more frequently. In the UK, up to one-third of persons are at risk of developing diabetes due to prediabetes. It is brought about by the interaction of our genes and our way of life.
+                                        <br>
+                                        Being overweight, eating poorly, and not exercising all increase the risk of having diabetes. Early detection of diabetes is crucial because, even if your blood sugar has risen and you are at the prediabetic stage, you can still lower it by changing your lifestyle. Once you have been diagnosed with diabetes, it is crucial to carefully control your blood glucose levels in order to prevent many of the serious complications that can harm your nerves, blood vessels, kidneys, and eyes..
+                                        <br>
+                                        Diabetes is a key contributor to shortened life expectancy and is a known risk factor for cancer, cardiovascular disease, and other illnesses.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- card -->
+                        <div class="card">
+                            <h6 class="ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-2" aria-expanded="false">
+                            HbA1c
+                            </h6>
+                            <div id="faq-item-2-2" class="collapse " data-bs-parent="#accordion_2">
+                                <div class="card-body">
+                                    <p>Glycated haemoglobin, commonly known as haemoglobin A1c (HbA1c), is a longer-term indicator of blood glucose levels than a straightforward blood glucose test.
+                                        <br>
+                                        Your red blood cells' ability to attach glucose to haemoglobin plus the fact that these cells have an average lifespan of 12 to 16 weeks give us a decent idea of the typical quantity of sugar in your blood over the course of three months.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FAQ AREA START -->
 
 
 @stop

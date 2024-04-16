@@ -4,7 +4,7 @@
 
     
     <!-- BREADCRUMB AREA START -->
-    <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/allbanners/signin.webp">
+    <!-- <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image "  data-bs-bg="img/allbanners/signin.webp">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -20,11 +20,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- BREADCRUMB AREA END -->
 
     <!-- LOGIN AREA START -->
-    <div class="ltn__login-area pb-65">
+    <div class="ltn__login-area pb-65 pt-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -46,12 +46,13 @@
                             @csrf
                             <input type="text" name="email" placeholder="Email*">
                             <input type="password" name="password" placeholder="Password*">
-                            <div class="btn-wrapper mt-0">
-                                <button class="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
+                            <div class="go-to-btn mt-0 text-center">
+                                <a href="#"><strong>FORGOTTEN YOUR PASSWORD?</strong></a>
                             </div>
-                            <div class="go-to-btn mt-20">
-                                <a href="#"><small>FORGOTTEN YOUR PASSWORD?</small></a>
+                            <div class="btn-wrapper text-center mt-3">
+                                <button class="theme-btn-1 btn btn-block px-3 py-2" type="submit">SIGN IN</button>
                             </div>
+                           
                         </form>
                     </div>
                 </div>

@@ -468,8 +468,9 @@ color:white;
 }
 .ltn__main-menu > ul > li > a{
     color:#fff;
-    font-weight:400;
+    font-weight:500;
     padding:8px 10px;
+    font-family: "Poppins", sans-serif;
 }
 .sticky-active.ltn__sticky-bg-white .ltn__main-menu > ul > li > a, .ltn__feature-info h1 ,.ltn__feature-info p {
     color:white !important;
@@ -838,4 +839,16 @@ color: #fff !important;
 }
 .mini-cart-footer .btn-wrapper .btn{
     border-radius: 50px;
+}
+input[type="password"]{
+margin-bottom: 20px !important;
+}
+.account-login-inner input{
+    border-radius: 50px !important;
+}
+.account-login-inner .btn-wrapper {
+    margin-top: 20px !important;
+}
+.contact-form-box {
+    padding: 0px 50px 50px !important;
 }

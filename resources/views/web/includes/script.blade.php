@@ -13,6 +13,7 @@
     });
 
     function addToCart(id) {
+        var quantity = $('.cart-plus-minus-box').val();
         var variantId = $('#variant_id').val();
         $.ajax({
             url: '{{ route("web.cart.add")}}',
@@ -20,6 +21,7 @@
             data: {
                 id: id,
                 variantId: variantId,
+                quantity: quantity,
             },
             dataType: 'json',
             success: function(response) {

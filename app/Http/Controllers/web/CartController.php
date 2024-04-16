@@ -34,9 +34,35 @@ class CartController extends Controller
     {
         $product = Product::find($request->id);
         $variant_id =  $request->variantId ?? NULL;
+        $quantity =  $request->quantity;
+        $cartItems = collect(Cart::content());
+
+        $prod_id = $request->id;
+// working continue dont remove any code before complete testing
         $variant = null;
         if($variant_id){
             $variant = ProductVariant::find($variant_id);
+            // $prod_id = $prod_id . '_' . $variant_id;
+        }
+
+        $item = $cartItems->where('id', $prod_id)->first();
+//         $item = $cartItems->filter(function ($item) use ($prod_id) {
+//             return $item['id'] === $prod_id;
+//         })->first();
+// return $item;
+
+        if(($product->min_buy && $quantity < $product->min_buy && !$item)){
+            return response()->json([
+                'status' => false,
+                'message' => 'Buy minimum '.$product->min_buy.' quantity'
+            ]);
+        }
+
+        if($product->max_buy && $quantity > $product->max_buy){
+            return response()->json([
+                'status' => false,
+                'message' => 'Max buy '.$product->max_buy.' quantity'
+            ]);
         }
 
         if($product == null){
@@ -46,42 +72,52 @@ class CartController extends Controller
             ]);
         }
 
-        if(Cart::count() > 0){
-            $cartContent = Cart::content();
-            $productAlreadyExist = false;
+        // if(Cart::count() > 0){
+        //     $cartContent = Cart::content();
+        //     $productAlreadyExist = false;
 
-            foreach($cartContent as $item){
-                if($item->id == $product->id){
-                    $productAlreadyExist = true;
-                }
-            }
+        //     foreach($cartContent as $item){
+        //         if($item->id == $product->id){
+        //             $productAlreadyExist = true;
+        //         }
+        //     }
 
-            if($productAlreadyExist == false){
-                if($variant){
-                    Cart::add($product->id, $product->title, 1, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
-                }
-                else{
-                    Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
-                }
+        //     if($productAlreadyExist == false){
+        //         if($variant){
+        //             Cart::add($variant->id, $product->title, $quantity, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+        //         }
+        //         else{
+        //             Cart::add($product->id, $product->title, $quantity, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+        //         }
 
-                $status = true;
-                $message = $product->title . " added in cart 1";
-            } else {
-                $status = false;
-                $message = $product->title . " already added in cart";
-            }
-        } else {
+        //         $status = true;
+        //         $message = $product->title . " added in cart 1";
+        //     } else {
+        //         $status = false;
+        //         $message = $product->title . " already added in cart";
+        //     }
+        // } else {
 
-            if($variant){
-                Cart::add($product->id, $product->title, 1, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
-            }
-            else{
-                Cart::add($product->id, $product->title, 1, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
-            }
+        //     if($variant){
+        //         Cart::add($variant->id, $product->title, $quantity, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+        //     }
+        //     else{
+        //         Cart::add($product->id, $product->title, $quantity, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+        //     }
 
-            $status = true;
-            $message = $product->title . " added in cart 2";
+        //     $status = true;
+        //     $message = $product->title . " added in cart 2";
+        // }
+
+        if($variant){
+            Cart::add($product->id.'_'.$variant->id, $product->title, $quantity, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '', 'variant_info' => '']);
         }
+        else{
+            Cart::add($product->id, $product->title, $quantity, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+        }
+
+        $status = true;
+        $message = $product->title . " added in cart 2";
 
         return response()->json([
             'status'    => $status,

@@ -1374,7 +1374,7 @@ class SystemController extends Controller
     private function get_tracking_number($orderId)
     {
         $order_id = $orderId;
-        $tracking_nos = Null;
+        $tracking_nos[0] = Null;
         $apiKey = env('ROYAL_MAIL_API_KEY');
 
         $client = new Client();

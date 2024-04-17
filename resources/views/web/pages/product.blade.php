@@ -161,23 +161,25 @@
                                 <div class="ltn__product-details-menu-3 ">
                                     <ul>
                                         @if(!$product['variants']->isEmpty())
-                                        <li>
-                                            <div style="padding: 20px;" class="widget widget-tags">
-                                                <h5 class="widget__title" style="margin-bottom: 10px;"><span id="product_title">{{ $product['variants'][0]['title'] ?? ''}} :</span></h5>
-                                                <div class="widget-content">
-                                                    <ul class="list-unstyled">
-                                                        @foreach($product['variants'] as $key => $vrr)
-                                                        <li style="cursor: pointer;">
-                                                            <a  class="variants @if($loop->first) variant_tag_active @else variant_tag @endif variant_no_{{$vrr['id']}}" data-variant_id="{{$vrr['id'] ?? ''}}" data-variant_data="{{ json_encode($vrr) }}" data-main_image="{{ $product->main_image }}">
-                                                                {{ $vrr['value'] }}
-                                                            </a>
-                                                        </li>
-                                                        @endforeach
-
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            @foreach ($variants_group as $key => $val)
+                                                <li>
+                                                    <div style="padding: 20px;" class="widget widget-tags">
+                                                        <h5 class="widget__title" style="margin-bottom: 10px;"><span id="product_title">{{ $key ?? ''}} :</span></h5>
+                                                        <div class="widget-content">
+                                                            <ul class="list-unstyled">
+                                                                @foreach($val as $key1 => $vrr)
+                                                                <li style="cursor: pointer;">
+                                                                    <a  class="variants @if($loop->parent->first && $loop->first) variant_tag_active @else variant_tag @endif variant_no_{{$vrr['id']}}" data-variant_id="{{$vrr['id'] ?? ''}}" data-variant_data="{{ json_encode($vrr) }}" data-main_image="{{ $product->main_image }}">
+                                                                        {{ $vrr['value'] }}
+                                                                    </a>
+                                                                </li>
+                                                                @endforeach
+        
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
                                         @endif
                                         <li class="d-none">
                                             <a href="#" class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
@@ -357,7 +359,7 @@
                 $('#product_img').attr('src', image_src + '/' + mainImage);
             }
             // $('#product_quantity').attr('max', variantData.inventory);
-            $('#product_title').text(variantData.title + ' :')
+            // $('#product_title').text(variantData.title + ' :')
             $('#product_price').text('£ ' + variantData.price)
 
             if (variantData.cut_price) {

@@ -224,6 +224,11 @@ class WebController extends Controller
     {
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
+        
+        $variantCollection = collect($data['product']['variants']);
+        $variantGroupedData = $variantCollection->groupBy('title');
+        $data['variants_group'] = $variantGroupedData->toArray();
+
         if ($data['product']) {
             $data['pre_add_to_cart']  = 'no';
             foreach (session('consultations') ?? [] as $key => $value) {

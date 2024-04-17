@@ -1374,7 +1374,7 @@ class SystemController extends Controller
     private function get_tracking_number($orderId)
     {
         $order_id = $orderId;
-        $tracking_nos[0] = Null;
+        $tracking_no = Null;
         $apiKey = env('ROYAL_MAIL_API_KEY');
 
         $client = new Client();
@@ -1387,9 +1387,9 @@ class SystemController extends Controller
         $statusCode = $response->getStatusCode();
         $body = json_decode($response->getBody()->getContents(), true);
         if ($statusCode == '200') {
-            $tracking_nos = array_column($body, 'trackingNumber');
+            $tracking_no = array_column($body, 'trackingNumber')[0];
         }
-        return $tracking_nos[0];
+        return $tracking_no ?? Null;
     }
 
     private function make_shiping_payload($order)

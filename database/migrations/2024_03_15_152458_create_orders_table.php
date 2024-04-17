@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('total_ammount');
             $table->string('shiping_cost');
             $table->string('payment_id')->nullable();
+            $table->string('order_identifier')->nullable();
             $table->string('tracking_no')->nullable();
             $table->string('payment_status')->default('Unpaid');
             $table->text('hcp_remarks')->nullable();

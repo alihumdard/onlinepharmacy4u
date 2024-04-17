@@ -1282,7 +1282,7 @@ class SystemController extends Controller
                 $order = $order->toArray() ?? [];
 
                 $weightSum = array_sum(array_column($order['orderdetails'], 'weight'));
-                $order['weight'] = $weightSum !== 0 ? $weightSum : null;
+                $order['weight'] = $weightSum !== 0 ? $weightSum : 'none';
                 $order['quantity'] = array_sum(array_column($order['orderdetails'], 'product_qty'));
                 $payload = $this->make_shiping_payload($order);
                 $apiKey = env('ROYAL_MAIL_API_KEY');
@@ -1331,12 +1331,14 @@ class SystemController extends Controller
                         }
                     }
                     $order = Order::findOrFail($order['id']);
+                    $order->order_identifier = $shipped[0]->order_identifier;
                     $order->tracking_no = $shipped[0]->tracking_no;
                     $order->shipped_order_id = $shipped[0]->id;
                     $order->status = $shipped[0]->status;
                     $update = $order->save();
                     $msg = ($shipped[0]->status == 'Shipped') ? 'Order is shipped' : 'Order shiping failed';
-                    return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $shipped[0]->status)->with('msg', $msg);
+                    $status = ($shipped[0]->status == 'Shipped') ? 'success' : 'fail';
+                    return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $status)->with('msg', $msg);
 
                     // return redirect()->route('admin.getShippingOrder', ['id' => $shipped[0]->order_identifier])->with(['msg' =>$msg ,'status'=>$shipped[0]->status]);
                 } else {
@@ -1351,30 +1353,35 @@ class SystemController extends Controller
 
     public function get_shiping_order(Request $request)
     {
-        $order_id = '59937';
-
+        $order_id = $request->id;
+        $order = Order::findOrFail($order_id);
+        $tracking_nos = Null;
         $apiKey = env('ROYAL_MAIL_API_KEY');
 
         $client = new Client();
-        $response = $client->get('https://api.parcel.royalmail.com/api/v1/orders/' . $order_id, [
+        $response = $client->get('https://api.parcel.royalmail.com/api/v1/orders/'.$order->order_identifier, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $apiKey,
             ]
         ]);
 
         $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
-
-        return response()->json([
-            'status_code' => $statusCode,
-            'response' => json_decode($body, true),
-        ]);
+        $body = json_decode($response->getBody()->getContents(), true);
+        if ($statusCode == '200') {
+            $tracking_nos = array_column($body, 'trackingNumber');
+        }
+        
+        $order->tracking_no = $tracking_nos[0] ?? Null;
+        $update = $order->save();
+        $msg = ($tracking_nos[0] ?? Null) ? 'Order is Tracked' : 'Order tracking failed';
+        $status = ($tracking_nos[0] ?? Null) ? 'success' : 'fail';
+        return redirect()->route('admin.orderDetail', ['id' => base64_encode($order->id)])->with('status', $status)->with('msg', $msg);
     }
 
     private function get_tracking_number($orderId)
     {
         $order_id = $orderId;
-        $tracking_no = Null;
+        $tracking_nos = Null;
         $apiKey = env('ROYAL_MAIL_API_KEY');
 
         $client = new Client();
@@ -1387,9 +1394,9 @@ class SystemController extends Controller
         $statusCode = $response->getStatusCode();
         $body = json_decode($response->getBody()->getContents(), true);
         if ($statusCode == '200') {
-            $tracking_no = array_column($body, 'trackingNumber')[0];
+            $tracking_nos = array_column($body, 'trackingNumber');
         }
-        return $tracking_no ?? Null;
+        return $tracking_nos[0] ?? Null;
     }
 
     private function make_shiping_payload($order)
@@ -1452,6 +1459,19 @@ class SystemController extends Controller
                         "phoneNumber" => $order['shipingdetails']['phone'] ?? $order['user']['phone'],
                         "emailAddress" => $order['shipingdetails']['email']  ?? $order['user']['email']
                     ],
+                    "packages" => [
+                        [
+                            "weightInGrams" => $order['weight'],
+                            "packageFormatIdentifier" => "parcel",
+                            "customPackageFormatIdentifier" => "",
+                            "dimensions" => [
+                                "heightInMms" => 10,
+                                "widthInMms" => 20,
+                                "depthInMms" => 30
+                            ],
+                            "contents" => $content
+                        ]
+                    ],
                     "orderDate" => $order['created_at'],
                     "plannedDespatchDate" => null,
                     "specialInstructions" => $order['note'],
@@ -1488,29 +1508,12 @@ class SystemController extends Controller
                 ]
             ]
         ];
-        if ($order['weight']) {
-            $payload = [
-                "items" => [
-                    [
-                        "packages" => [
-                            [
-                                "weightInGrams" => $order['weight'],
-                                "packageFormatIdentifier" => "parcel",
-                                "customPackageFormatIdentifier" => "",
-                                "dimensions" => [
-                                    "heightInMms" => 10,
-                                    "widthInMms" => 20,
-                                    "depthInMms" => 30
-                                ],
-                                "contents" => $content
-                            ]
-                        ]
-                    ]
-                ]
-            ];
+        
+        if (isset($order['weight']) && $order['weight'] == 'none') {
+            unset($payload['items'][0]['packages']);
         }
 
-        return       $payload;
+        return  $payload;
     }
 
     // comments

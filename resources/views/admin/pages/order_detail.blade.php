@@ -103,13 +103,13 @@
         <div class="row">
 
             <!-- Display Success Message -->
-            @if(session('status') == 'ShippingFail')
+            @if(session('status') == 'fail')
             <div class="alert alert-danger">
                 <strong>Error:</strong> {{ session('msg') }}
             </div>
             @endif
 
-            @if(session('status'))
+            @if(session('status') == 'success')
             <div class="alert alert-success">
                 <strong>Success:</strong> {{ session('msg') }}
             </div>
@@ -252,7 +252,11 @@
                                 @if($order['status'] == 'Shipped')
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0 ">Tracking Number:</p>
+                                    @if($order['tracking_no'])
                                     <a class="fw-bold  mb-0"  target="_blank" href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
+                                    @else
+                                    <a class=" btn btn-primary fw-bold  mb-0"   href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
+                                    @endif
                                 </div>
                                 @endif
                                 @if($order['status'] != 'Recieved')

@@ -293,7 +293,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="barcode" class="form-label">Barcode (ISBN, UPC, GTIN, etc.)</label>
-                    <input type="number" name="barcode" id="barcode" value="{{  $product['barcode'] ?? old('barcode') }}" class="form-control">
+                    <input type="text" name="barcode" id="barcode" value="{{  $product['barcode'] ?? old('barcode') }}" class="form-control">
                     <div class="invalid-feedback">Enter GTIN number!</div>
                     @error('barcode')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -303,7 +303,7 @@
                     <label for="weight" class="form-label">Weight (gm)</label>
                     <input type="text" name="weight" id="weight" value="{{  $product['weight'] ?? old('weight') }}" class="form-control"  >
                     <div class="invalid-feedback">Enter product weight!</div>
-                    @error('barcode')
+                    @error('weight')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
                     @enderror
                 </div>
@@ -394,7 +394,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
-                                <input type="number" class="form-control" name="exist_vari_barcode[]" id="" value="{{ $variant['barcode']}}">
+                                <input type="text" class="form-control" name="exist_vari_barcode[]" id="" value="{{ $variant['barcode']}}">
                                 <div class="invalid-feedback">Enter variant barcode!</div>
                             </div>
                         </div>
@@ -695,7 +695,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="p-2">
                                 <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
-                                <input type="number" class="form-control" name="vari_barcode[]" id="" >
+                                <input type="text" class="form-control" name="vari_barcode[]" id="" >
                                 <div class="invalid-feedback">Enter variant barcode!</div>
                             </div>
                         </div>

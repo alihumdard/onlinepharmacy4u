@@ -1306,6 +1306,7 @@ class SystemController extends Controller
                                 'user_id' => $order['user']['id'] ?? 'Guest',
                                 'order_id' => $order['id'],
                                 'order_identifier' => $val['orderIdentifier'],
+                                'tracking_no' => $this->get_tracking_number($val['orderIdentifier']) ?? Null,
                                 'order_date' => $val['orderDate'],
                                 'cost' => $order['shiping_cost'],
                                 'errors' => json_encode($val['errors'] ?? []) ?? NULL,
@@ -1329,6 +1330,7 @@ class SystemController extends Controller
                         }
                     }
                     $order = Order::findOrFail($order['id']);
+                    $order->tracking_no = $shipped[0]->tracking_no;
                     $order->shipped_order_id = $shipped[0]->id;
                     $order->status = $shipped[0]->status;
                     $update = $order->save();
@@ -1348,7 +1350,7 @@ class SystemController extends Controller
 
     public function get_shiping_order(Request $request)
     {
-        $order_id = $request->id;
+        $order_id = '59937';
 
         $apiKey = env('ROYAL_MAIL_API_KEY');
 
@@ -1366,6 +1368,28 @@ class SystemController extends Controller
             'status_code' => $statusCode,
             'response' => json_decode($body, true),
         ]);
+    }
+
+    private function get_tracking_number($orderId)
+    {
+        $order_id = $orderId;
+        $tracking_nos = Null;
+        $apiKey = env('ROYAL_MAIL_API_KEY');
+
+        $client = new Client();
+        $response = $client->get('https://api.parcel.royalmail.com/api/v1/orders/' . $order_id, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $apiKey,
+            ]
+        ]);
+
+        $statusCode = $response->getStatusCode();
+        $body = json_decode($response->getBody()->getContents(), true);
+        if($statusCode == '200'){
+            $tracking_nos = array_column($body,'trackingNumber');
+            
+        }
+        return $tracking_nos[0];
     }
 
     private function make_shiping_payload($order)

@@ -12,7 +12,7 @@ class shippedOrder extends Model
         'user_id',
         'order_id',
         'order_identifier',
-        'tracking_id',
+        'tracking_no',
         'order_date',
         'cost',
         'errors',

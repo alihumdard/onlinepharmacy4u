@@ -179,15 +179,13 @@
                                 $src = (isset($val['variant']))? $val['variant']['image'] : $val['product']['main_image'];
                                 @endphp
                                 <td>
-                                    <img src="{{ public_path('storage/'.$src) }}" alt="Product Image">
+                                    <img  style="height:60px" src="{{ public_path('storage/'.$src) }}" alt="Product Image">
                                 </td>
-                                <td>
+                                <td style="text-align: left !important;" >
                                     <ul>
-                                        <li>
-                                            <p class="text-muted mb-0">{{$val['product_name'] ?? $val['product']['title']}}</p>
-                                        </li>
-                                        <li>2%</li>
-                                        <li>00994</li>
+                                        <li><b>Product Name:</b> {{$val['product_name'] ?? $val['product']['title']}}</li>
+                                        <li><b>Variant:</b> 2%</li>
+                                        <li><b>SKU:</b> 00994</li>
                                     </ul>
                                 </td>
                                 <td class="text-end">{{$val['product_qty']}}</td>

@@ -136,7 +136,7 @@
             <a class="nav-link {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit'  ])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
                 <i class="bi bi-bar-chart"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.orders_audit' ])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit' ])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
                 @if(view_permission('orders_recieved'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersRecieved'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersRecieved')}}">

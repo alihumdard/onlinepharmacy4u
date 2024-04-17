@@ -200,11 +200,16 @@
         </div>
         <div class="row">
             <div class="thank-u">
-                <h5>Thank You</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae nesciunt, consequatur, repellat quis inventore perferendis, minus reprehenderit esse aspernatur cum saepe perspiciatis? Adipisci officiis est veritatis! Blanditiis, ea impedit. Sapiente distinctio, asperiores nostrum aliquid iusto sit reiciendis adipisci, perspiciatis similique quia mollitia optio, fugiat est officiis voluptatem eligendi ipsam?</p>
+                <h5>Dear Valued Customer, Thank you for choosing us for your pharmacy needs!</h5>
+                <h6>Registered Office: 20-22 Wenlock Road, London N1 7GU.Company No: 13991146 VAT No: 440660907</h6>
+                <p>Would you consider recommending our services to your Friends & Family? We take pride in providing hassle-free NHS prescription services, absolutely FREE of charge.</p>
+                <p>Download our FREE app directly from our website today! </p>
+                <p>https://nhs-prescriptions.uk/</p>
+                <p>Enjoy the ease of having your prescriptions delivered to your door, FREE and FAST. </p>
+                <p>Yours sincerely, </p>
                 <p>Online Pharmacy 4U</p>
-                <p>info@gmail.com</p>
-                <p>onlineinfo@gmail.com</p>
+                <p>info@online-pharmacy4u.co.uk</p>
+                <p>www.online-pharmacy4u.co.uk</p>
             </div>
         </div>
     </div>

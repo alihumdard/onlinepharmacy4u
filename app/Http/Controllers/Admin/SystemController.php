@@ -674,7 +674,7 @@ class SystemController extends Controller
             return redirect()->back();
         }
         $data['user'] = auth()->user();
-        $data['products'] = Product::where(['status'=>'1'])->latest('id')->get()->toArray();
+        $data['products'] = Product::where(['status' => '1'])->latest('id')->get()->toArray();
         if ($request->has('id')) {
             $data['question'] = FaqProduct::findOrFail($request->id)->toArray();
         }
@@ -810,7 +810,6 @@ class SystemController extends Controller
         }
     }
 
-
     public function store_faq_question(Request $request)
     {
         $user = auth()->user();
@@ -833,7 +832,7 @@ class SystemController extends Controller
             ['id' => $request->id ?? NULL],
             [
                 'product_id' => $request->product_id,
-                'product_title' => Product::findOrFail($request->product_id)->title ,
+                'product_title' => Product::findOrFail($request->product_id)->title,
                 'order'      => $request->order,
                 'title'      => ucwords($request->title),
                 'desc'       => $request->desc ?? NULL,
@@ -1151,7 +1150,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor' ])->whereIn('status', ['Received','Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
@@ -1172,8 +1171,8 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'despensory' ])->whereIn('status', ['Received','Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
-        
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
@@ -1208,6 +1207,36 @@ class SystemController extends Controller
         }
 
         return view('admin.pages.orders_shiped', $data);
+    }
+
+    public function orders_audit()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'orders_shipped';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with('user', 'shipingdetails')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
+        $data['filters'] = [];
+        if ($orders) {
+            $combined = array_map(function ($order) {
+                return $order['shipingdetails']['address'].'_chapi_'.$order['shipingdetails']['zip_code'];
+            }, $orders);
+            
+            $uniqueCombined = array_unique($combined);
+            
+            $filters = array_map(function ($item) {
+                $parts = explode('_chapi_', $item, 2);
+                return [
+                    'address' => $parts[0],
+                    'postal_code' => $parts[1]
+                ];
+            }, $uniqueCombined);
+            $data['filters'] = $filters;
+            $data['orders'] = $orders;
+        }
+
+        return view('admin.pages.orders_audit', $data);
     }
 
     public function change_status(Request $request)
@@ -1252,8 +1281,8 @@ class SystemController extends Controller
             try {
                 $order = $order->toArray() ?? [];
 
-                $order['weight'] = array_sum(array_column($order['orderdetails'],'weight'));
-                $order['quantity'] = array_sum(array_column($order['orderdetails'],'product_qty'));
+                $order['weight'] = array_sum(array_column($order['orderdetails'], 'weight'));
+                $order['quantity'] = array_sum(array_column($order['orderdetails'], 'product_qty'));
                 $payload = $this->make_shiping_payload($order);
                 $apiKey = env('ROYAL_MAIL_API_KEY');
                 $client = new Client();
@@ -1342,8 +1371,7 @@ class SystemController extends Controller
     private function make_shiping_payload($order)
     {
         $content = [];
-        foreach ($order['orderdetails'] as $val)
-        {
+        foreach ($order['orderdetails'] as $val) {
             $content[] = [
                 "name" => $val['product_name'],
                 "SKU" => null,

@@ -1220,11 +1220,11 @@ class SystemController extends Controller
         $data['filters'] = [];
         if ($orders) {
             $combined = array_map(function ($order) {
-                return $order['shipingdetails']['address'].'_chapi_'.$order['shipingdetails']['zip_code'];
+                return $order['shipingdetails']['address'] . '_chapi_' . $order['shipingdetails']['zip_code'];
             }, $orders);
-            
+
             $uniqueCombined = array_unique($combined);
-            
+
             $filters = array_map(function ($item) {
                 $parts = explode('_chapi_', $item, 2);
                 return [
@@ -1281,7 +1281,8 @@ class SystemController extends Controller
             try {
                 $order = $order->toArray() ?? [];
 
-                $order['weight'] = array_sum(array_column($order['orderdetails'], 'weight'));
+                $weightSum = array_sum(array_column($order['orderdetails'], 'weight'));
+                $order['weight'] = $weightSum !== 0 ? $weightSum : null;
                 $order['quantity'] = array_sum(array_column($order['orderdetails'], 'product_qty'));
                 $payload = $this->make_shiping_payload($order);
                 $apiKey = env('ROYAL_MAIL_API_KEY');
@@ -1385,9 +1386,8 @@ class SystemController extends Controller
 
         $statusCode = $response->getStatusCode();
         $body = json_decode($response->getBody()->getContents(), true);
-        if($statusCode == '200'){
-            $tracking_nos = array_column($body,'trackingNumber');
-            
+        if ($statusCode == '200') {
+            $tracking_nos = array_column($body, 'trackingNumber');
         }
         return $tracking_nos[0];
     }

@@ -1452,19 +1452,6 @@ class SystemController extends Controller
                         "phoneNumber" => $order['shipingdetails']['phone'] ?? $order['user']['phone'],
                         "emailAddress" => $order['shipingdetails']['email']  ?? $order['user']['email']
                     ],
-                    "packages" => [
-                        [
-                            "weightInGrams" => $order['weight'],
-                            "packageFormatIdentifier" => "parcel",
-                            "customPackageFormatIdentifier" => "",
-                            "dimensions" => [
-                                "heightInMms" => 10,
-                                "widthInMms" => 20,
-                                "depthInMms" => 30
-                            ],
-                            "contents" => $content
-                        ]
-                    ],
                     "orderDate" => $order['created_at'],
                     "plannedDespatchDate" => null,
                     "specialInstructions" => $order['note'],
@@ -1492,12 +1479,6 @@ class SystemController extends Controller
                         "commercialInvoiceNumber" => null,
                         "commercialInvoiceDate" => null
                     ],
-                    // "tags" => [
-                    //     [
-                    //         "key" => "medicins",
-                    //         "value" => "medicins"
-                    //     ]
-                    // ],
                     "label" => [
                         "includeLabelInResponse" => true,
                         "includeCN" => null,
@@ -1507,6 +1488,28 @@ class SystemController extends Controller
                 ]
             ]
         ];
+        if ($order['weight']) {
+            $payload = [
+                "items" => [
+                    [
+                        "packages" => [
+                            [
+                                "weightInGrams" => $order['weight'],
+                                "packageFormatIdentifier" => "parcel",
+                                "customPackageFormatIdentifier" => "",
+                                "dimensions" => [
+                                    "heightInMms" => 10,
+                                    "widthInMms" => 20,
+                                    "depthInMms" => 30
+                                ],
+                                "contents" => $content
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+        }
+
         return       $payload;
     }
 

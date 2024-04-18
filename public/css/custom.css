@@ -858,3 +858,27 @@ margin-bottom: 20px !important;
 .ltn__section-title-2 .section-title{
     font-size: 34px !important;
 }
+.erctile-img img{
+    border-radius: 30px;
+}
+.btn-effect-3:after{
+    background-color: #007bff !important;
+    color: #fff !important;
+    border-radius: 50px !important;
+}
+.ltn__team-area .team-img img{
+    border-radius: 30px;
+}
+.ltn__team-item{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+.footer-white i{
+    color: #fff !important;
+}
+.footer-white i:hover{
+    color: #fff !important;
+}
+.ltn__add-to-cart-modal-area .btn-wrapper .btn{
+    border-radius: 30px !important;
+}

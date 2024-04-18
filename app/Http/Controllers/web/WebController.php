@@ -859,4 +859,30 @@ class WebController extends Controller
 
         return $slug ?? NULL;
     }
+
+    public function search(Request $request)
+    {
+        $data['string'] = $request->q;
+        
+        $category_id = Category::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
+        $subCategory_id = SubCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
+        $childCategory_id = ChildCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
+
+        $data['products'] = Product::where('title', 'like', '"%'.$data['string'].'%"')
+        ->when(!$category_id->isEmpty(), function ($query) use ($category_id) {
+            $query->orWhereIn('category_id', $category_id);
+        })
+        ->when(!$subCategory_id->isEmpty(), function ($query) use ($subCategory_id) {
+            $query->orWhereIn('sub_category', $subCategory_id);
+        })
+        ->when(!$childCategory_id->isEmpty(), function ($query) use ($childCategory_id) {
+            $query->orWhereIn('child_category', $childCategory_id);
+        })
+        ->paginate(20);
+
+        $data['total'] = $data['products']->total();
+        $data['currentPage'] = $data['products']->count();
+        
+        return view('web.pages.search', $data);
+    }
 }

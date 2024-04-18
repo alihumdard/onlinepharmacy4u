@@ -60,6 +60,8 @@ Route::match(['get','post'],'/payment', [WebController::class, 'payment'])->name
 Route::match(['get','post'],'/Completed-order', [WebController::class, 'completed_order']);
 Route::match(['get','post'],'/Unsuccessful-order', [WebController::class, 'unsuccessful_order']);
 
+Route::match(['get','post'],'/search', [WebController::class, 'search'])->name('web.search');
+
 include __DIR__ . '/admin.php';
 
 

@@ -39,7 +39,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="ltn__social-media mt-20">
+                            <div class="ltn__social-media mt-20 footer-white">
                                 <ul>
                                     <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                                     <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>

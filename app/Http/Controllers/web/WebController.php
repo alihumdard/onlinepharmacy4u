@@ -225,26 +225,25 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
         $variants = $data['product']['variants']->toArray() ?? [];
-        $modifyValue = function ($value) {
-            return str_replace([';', ' '], ['', '_'], trim($value));
-        };  
-        $data['variants'] = array_combine(array_map($modifyValue, array_column($variants, 'value')), $variants);
-        
-        // dd($data['variants']);
-        $data['varints_selectors'] = explode(';', $variants[0]['title']);
-        $variants_tags = [];
-        foreach ($variants as $variant) {
-            $variant_selectors = explode(';', $variant['title']);
-            $variant_values = explode(';', $variant['value']);
-            foreach ($variant_selectors as $index => $selector) {
-                if (!in_array($variant_values[$index], $variants_tags[$selector] ?? [])) {
-                    $variants_tags[$selector][] = $variant_values[$index];
+        if ($variants) {
+            $variants_tags = [];
+            foreach ($variants as $variant) {
+                $variant_selectors = explode(';', $variant['title']);
+                $variant_values = explode(';', $variant['value']);
+                foreach ($variant_selectors as $index => $selector) {
+                    if (!in_array($variant_values[$index], $variants_tags[$selector] ?? [])) {
+                        $variants_tags[$selector][] = $variant_values[$index];
+                    }
                 }
             }
+            $modifyValue = function ($value) {
+                return str_replace([';', ' '], ['', '_'], trim($value));
+            };
+
+            $data['varints_selectors'] = explode(';', $variants[0]['title'] ?? '');
+            $data['variants_tags']  = $variants_tags;
+            $data['variants'] = array_combine(array_map($modifyValue, array_column($variants, 'value')), $variants);
         }
-
-        $data['variants_tags']  = $variants_tags;
-
         if ($data['product']) {
             $data['pre_add_to_cart']  = 'no';
             foreach (session('consultations') ?? [] as $key => $value) {

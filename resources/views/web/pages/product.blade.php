@@ -341,7 +341,7 @@
 <script>
     $(document).ready(function() {
         $(document).on('click', '.variants', function() {
-            var variantData = @json($variants);
+            var variantData = @json($variants ?? []);
             var variant_selector = $(this).data('selector');
             $('.' + variant_selector).removeClass('variant_tag_active').addClass('variant_tag');
             $(this).removeClass('variant_tag').addClass('variant_tag_active');

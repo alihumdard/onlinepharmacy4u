@@ -1282,7 +1282,7 @@ class SystemController extends Controller
                 $order = $order->toArray() ?? [];
 
                 $weightSum = array_sum(array_column($order['orderdetails'], 'weight'));
-                $order['weight'] = $weightSum !== 0 ? $weightSum : 'none';
+                $order['weight'] = $weightSum !== 0 ? $weightSum : 1;
                 $order['quantity'] = array_sum(array_column($order['orderdetails'], 'product_qty'));
                 $payload = $this->make_shiping_payload($order);
                 $apiKey = env('ROYAL_MAIL_API_KEY');
@@ -1483,8 +1483,6 @@ class SystemController extends Controller
                     "currencyCode" => "GBP",
                     "postageDetails" => [
                         "sendNotificationsTo" => "sender",
-                        "serviceCode" => null,
-                        "serviceRegisterCode" => null,
                         "consequentialLoss" => 0,
                         "receiveEmailNotification" => null,
                         "receiveSmsNotification" => null,
@@ -1500,19 +1498,14 @@ class SystemController extends Controller
                         "commercialInvoiceDate" => null
                     ],
                     "label" => [
-                        "includeLabelInResponse" => true,
-                        "includeCN" => null,
-                        "includeReturnsLabel" => null
+                        "includeLabelInResponse" => false,
+                        "includeCN" => false,
+                        "includeReturnsLabel" => false
                     ],
                     "orderTax" => 0
                 ]
             ]
         ];
-        
-        if (isset($order['weight']) && $order['weight'] == 'none') {
-            unset($payload['items'][0]['packages']);
-        }
-
         return  $payload;
     }
 

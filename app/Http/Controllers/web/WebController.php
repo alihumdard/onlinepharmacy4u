@@ -224,10 +224,26 @@ class WebController extends Controller
     {
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
+        $variants = $data['product']['variants']->toArray() ?? [];
+        $modifyValue = function ($value) {
+            return str_replace([';', ' '], ['', '_'], trim($value));
+        };  
+        $data['variants'] = array_combine(array_map($modifyValue, array_column($variants, 'value')), $variants);
         
-        $variantCollection = collect($data['product']['variants']);
-        $variantGroupedData = $variantCollection->groupBy('title');
-        $data['variants_group'] = $variantGroupedData->toArray();
+        // dd($data['variants']);
+        $data['varints_selectors'] = explode(';', $variants[0]['title']);
+        $variants_tags = [];
+        foreach ($variants as $variant) {
+            $variant_selectors = explode(';', $variant['title']);
+            $variant_values = explode(';', $variant['value']);
+            foreach ($variant_selectors as $index => $selector) {
+                if (!in_array($variant_values[$index], $variants_tags[$selector] ?? [])) {
+                    $variants_tags[$selector][] = $variant_values[$index];
+                }
+            }
+        }
+
+        $data['variants_tags']  = $variants_tags;
 
         if ($data['product']) {
             $data['pre_add_to_cart']  = 'no';
@@ -634,7 +650,7 @@ class WebController extends Controller
 
                 $index++;
             }
-            
+
             Order::where(['id' => $order->id])->latest('created_at')->first()
                 ->update(['order_for' => $order_for]);
             $inserted =  OrderDetail::insert($order_details);
@@ -773,7 +789,7 @@ class WebController extends Controller
                     Auth::login($user);
                     if (Auth()->user()) {
                         $data['name'] = $order->shipingdetails->firstName;
-                        return view('web.pages.completed_order',$data);
+                        return view('web.pages.completed_order', $data);
                     } else {
                         dd('Authentication failed. Please try again.');
                     }
@@ -863,26 +879,26 @@ class WebController extends Controller
     public function search(Request $request)
     {
         $data['string'] = $request->q;
-        
-        $category_id = Category::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
-        $subCategory_id = SubCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
-        $childCategory_id = ChildCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
 
-        $data['products'] = Product::where('title', 'like', '%'.$data['string'].'%')
-        ->when(!$category_id->isEmpty(), function ($query) use ($category_id) {
-            $query->orWhereIn('category_id', $category_id);
-        })
-        ->when(!$subCategory_id->isEmpty(), function ($query) use ($subCategory_id) {
-            $query->orWhereIn('sub_category', $subCategory_id);
-        })
-        ->when(!$childCategory_id->isEmpty(), function ($query) use ($childCategory_id) {
-            $query->orWhereIn('child_category', $childCategory_id);
-        })
-        ->paginate(20);
+        $category_id = Category::where('name', 'like', '%' . $data['string'] . '%')->pluck('id');
+        $subCategory_id = SubCategory::where('name', 'like', '%' . $data['string'] . '%')->pluck('id');
+        $childCategory_id = ChildCategory::where('name', 'like', '%' . $data['string'] . '%')->pluck('id');
+
+        $data['products'] = Product::where('title', 'like', '%' . $data['string'] . '%')
+            ->when(!$category_id->isEmpty(), function ($query) use ($category_id) {
+                $query->orWhereIn('category_id', $category_id);
+            })
+            ->when(!$subCategory_id->isEmpty(), function ($query) use ($subCategory_id) {
+                $query->orWhereIn('sub_category', $subCategory_id);
+            })
+            ->when(!$childCategory_id->isEmpty(), function ($query) use ($childCategory_id) {
+                $query->orWhereIn('child_category', $childCategory_id);
+            })
+            ->paginate(20);
 
         $data['total'] = $data['products']->total();
         $data['currentPage'] = $data['products']->count();
-        
+
         return view('web.pages.search', $data);
     }
 }

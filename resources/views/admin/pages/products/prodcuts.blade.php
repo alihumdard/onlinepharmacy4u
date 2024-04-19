@@ -147,6 +147,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "pageLength": 100,
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             "buttons": [{
                     extend: 'pdf',
@@ -163,7 +164,12 @@
                     text: 'Print',
                     className: 'btn-blue',
                 }
-            ]
+            ],
+            "columnDefs": [{
+                "targets": [1,2,3,5],
+                "searchable": false
+            }]
+            
         }).buttons().container().appendTo('#tbl_buttons');
     });
     $(document).ready(function() {

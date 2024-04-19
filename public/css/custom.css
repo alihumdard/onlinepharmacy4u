@@ -882,3 +882,41 @@ margin-bottom: 20px !important;
 .ltn__add-to-cart-modal-area .btn-wrapper .btn{
     border-radius: 30px !important;
 }
+.sign-me{
+    padding-left: 0px !important;
+}
+.sign-me input{
+    border-radius: 50px !important;
+}
+.signup-right-side{
+    background: url('../img/banner/sign-up.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    color: #fff;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+.signup-right-side h2{
+    color: #fff;
+    font-size: 48px !important;
+}
+.signup-right-side h4{
+    color: #fff;
+    font-size: 36px !important;
+}
+.shadow-custom{
+    box-shadow: 0 0 15px 0;
+    border-radius: 30px;
+}
+.product-img img {
+    min-height: 200px !important;
+    max-height: 200px !important;
+}
+.reg-me input{
+    border-radius: 30px !important;
+}

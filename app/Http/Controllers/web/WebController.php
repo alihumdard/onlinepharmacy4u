@@ -224,11 +224,26 @@ class WebController extends Controller
     {
         $data['user'] = auth()->user() ?? [];
         $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
-        
-        $variantCollection = collect($data['product']['variants']);
-        $variantGroupedData = $variantCollection->groupBy('title');
-        $data['variants_group'] = $variantGroupedData->toArray();
+        $variants = $data['product']['variants']->toArray() ?? [];
+        if ($variants) {
+            $variants_tags = [];
+            foreach ($variants as $variant) {
+                $variant_selectors = explode(';', $variant['title']);
+                $variant_values = explode(';', $variant['value']);
+                foreach ($variant_selectors as $index => $selector) {
+                    if (!in_array($variant_values[$index], $variants_tags[$selector] ?? [])) {
+                        $variants_tags[$selector][] = $variant_values[$index];
+                    }
+                }
+            }
+            $modifyValue = function ($value) {
+                return str_replace([';', ' '], ['', '_'], trim($value));
+            };
 
+            $data['varints_selectors'] = explode(';', $variants[0]['title'] ?? '');
+            $data['variants_tags']  = $variants_tags;
+            $data['variants'] = array_combine(array_map($modifyValue, array_column($variants, 'value')), $variants);
+        }
         if ($data['product']) {
             $data['pre_add_to_cart']  = 'no';
             foreach (session('consultations') ?? [] as $key => $value) {
@@ -638,7 +653,7 @@ class WebController extends Controller
 
                 $index++;
             }
-            
+
             Order::where(['id' => $order->id])->latest('created_at')->first()
                 ->update(['order_for' => $order_for]);
             $inserted =  OrderDetail::insert($order_details);
@@ -662,7 +677,7 @@ class WebController extends Controller
                 $shiping =  ShipingDetail::create($shipping_details);
                 if ($shiping) {
                     session()->put('order_id', $order->id);
-                    // return redirect()->away('/Completed-order');
+                    return redirect()->away('/Completed-order');
                     $productPrice = $request->total_ammount * 100;
                     $productName = 'Medical Products';
                     $productDescription = 'Medical Products';
@@ -777,7 +792,7 @@ class WebController extends Controller
                     Auth::login($user);
                     if (Auth()->user()) {
                         $data['name'] = $order->shipingdetails->firstName;
-                        return view('web.pages.completed_order',$data);
+                        return view('web.pages.completed_order', $data);
                     } else {
                         dd('Authentication failed. Please try again.');
                     }
@@ -866,8 +881,7 @@ class WebController extends Controller
 
     public function search(Request $request)
     {
-        $data['string'] = $request->q;
-        
+        $data['string'] = $request->q;        
         $category_id = Category::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
         $subCategory_id = SubCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
         $childCategory_id = ChildCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
@@ -886,7 +900,7 @@ class WebController extends Controller
 
         $data['total'] = $data['products']->total();
         $data['currentPage'] = $data['products']->count();
-        
+
         return view('web.pages.search', $data);
     }
 }

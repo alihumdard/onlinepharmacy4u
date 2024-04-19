@@ -7,7 +7,7 @@
         line-height: 1;
         text-transform: capitalize;
         padding: 7px 15px;
-        border-radius: 6px;
+        border-radius: 20px;
         border: 1px solid #e6e8eb;
         transition: all 0.4s ease;
         border-color: #21cdc0;
@@ -20,7 +20,7 @@
         line-height: 1;
         text-transform: capitalize;
         padding: 7px 15px;
-        border-radius: 6px;
+        border-radius: 20px;
         border: 1px solid #e6e8eb;
         transition: all 0.4s ease;
         border-color: #21cdc0;
@@ -72,7 +72,7 @@
                                         @php
                                         $src = ($val->image) ? $val->image : $product->main_image;
                                         @endphp
-                                        <img class="img-fluid variants  variant_no_{{$val->id}}" src="{{ asset('storage/'.$src)}}" alt="Image" data-variant_id="{{$val->id ?? ''}}" data-variant_data="{{ json_encode($val) }}" data-main_image="{{ $product->main_image }}">
+                                        <img class="img-fluid  variant_no_{{$val->id}}" src="{{ asset('storage/'.$src)}}" alt="Image" data-variant_id="{{$val->id ?? ''}}" data-variant_data="{{ json_encode($val) }}" data-main_image="{{ $product->main_image }}">
                                     </div>
                                     @endforeach
                                 </div>
@@ -161,25 +161,26 @@
                                 <div class="ltn__product-details-menu-3 ">
                                     <ul>
                                         @if(!$product['variants']->isEmpty())
-                                            @foreach ($variants_group as $key => $val)
-                                                <li>
-                                                    <div style="padding: 20px;" class="widget widget-tags">
-                                                        <h5 class="widget__title" style="margin-bottom: 10px;"><span id="product_title">{{ $key ?? ''}} :</span></h5>
-                                                        <div class="widget-content">
-                                                            <ul class="list-unstyled">
-                                                                @foreach($val as $key1 => $vrr)
-                                                                <li style="cursor: pointer;">
-                                                                    <a  class="variants @if($loop->parent->first && $loop->first) variant_tag_active @else variant_tag @endif variant_no_{{$vrr['id']}}" data-variant_id="{{$vrr['id'] ?? ''}}" data-variant_data="{{ json_encode($vrr) }}" data-main_image="{{ $product->main_image }}">
-                                                                        {{ $vrr['value'] }}
-                                                                    </a>
-                                                                </li>
-                                                                @endforeach
-        
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            @endforeach
+                                        <li>
+                                            <div style="padding: 20px;" class="widget widget-tags">
+                                                @foreach($varints_selectors as $key => $selector)
+                                                <h5 class="widget__title" style="margin-bottom: 1px !important; margin-top: 20px;"><span id="product_title">{{ $selector ?? ''}} :</span></h5>
+                                                <div class="widget-content">
+                                                    <ul class="list-unstyled">
+                                                        @if(isset($variants_tags[$selector]))
+                                                        @foreach($variants_tags[$selector] as $key => $vrr)
+                                                        <li style="cursor: pointer;">
+                                                            <a class="variants @if($loop->first) variant_tag_active @else variant_tag @endif selector_{{ str_replace(' ', '_', $selector) }}" data-selector="selector_{{ str_replace(' ', '_', $selector) }}" data-variant_val="{{$vrr}}" data-main_image="{{ $product->main_image }}">
+                                                                {{ $vrr }}
+                                                            </a>
+                                                        </li>
+                                                        @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </li>
                                         @endif
                                         <li class="d-none">
                                             <a href="#" class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
@@ -340,30 +341,29 @@
 <script>
     $(document).ready(function() {
         $(document).on('click', '.variants', function() {
-            var variantId = $(this).data('variant_id');
-            $('.variants').removeClass('variant_tag_active');
-            $('.single-small-img').removeClass('slick-current');
-            $('.variant_img_'+variantId).addClass('slick-current');
-            $('.variants').addClass('variant_tag');
-            var activ_class = '.variant_no_'+variantId;
-            $(activ_class).addClass('variant_tag_active');
-            $(activ_class).removeClass('variant_tag');
-            $('.single-small-img .variants').removeClass('variant_tag_active').removeClass('variant_tag');
-            $('#variant_id').val(variantId);
-            var variantData = $(this).data('variant_data');
+            var variantData = @json($variants ?? []);
+            var variant_selector = $(this).data('selector');
+            $('.' + variant_selector).removeClass('variant_tag_active').addClass('variant_tag');
+            $(this).removeClass('variant_tag').addClass('variant_tag_active');
+            var combinedVariantVal = '';
+            $('.variant_tag_active').each(function() {
+                var variantValue = $(this).data('variant_val');
+                variantValue = variantValue.replace(/;/g, '').replace(/ /g, '_');
+                combinedVariantVal += variantValue;
+            });
+            var current_variant = variantData[combinedVariantVal];
             var mainImage = $(this).data('main_image');
             var image_src = "{{ asset('storage/') }}";
-            if (variantData.image) {
-                $('#product_img').attr('src', image_src + '/' + variantData.image);
+
+            if (current_variant.image) {
+                $('#product_img').attr('src', image_src + '/' + current_variant.image);
             } else {
                 $('#product_img').attr('src', image_src + '/' + mainImage);
             }
-            // $('#product_quantity').attr('max', variantData.inventory);
-            // $('#product_title').text(variantData.title + ' :')
-            $('#product_price').text('£ ' + variantData.price)
+            $('#product_price').text('£ ' + current_variant.price)
 
-            if (variantData.cut_price) {
-                $('#product_cut_price').text('£ ' + variantData.cut_price)
+            if (current_variant.cut_price) {
+                $('#product_cut_price').text('£ ' + current_variant.cut_price)
             } else {
                 $('#product_cut_price').text('');
             }

@@ -674,7 +674,7 @@ class SystemController extends Controller
             return redirect()->back();
         }
         $data['user'] = auth()->user();
-        $data['products'] = Product::where(['status'=>'1'])->latest('id')->get()->toArray();
+        $data['products'] = Product::where(['status' => '1'])->latest('id')->get()->toArray();
         if ($request->has('id')) {
             $data['question'] = FaqProduct::findOrFail($request->id)->toArray();
         }
@@ -810,7 +810,6 @@ class SystemController extends Controller
         }
     }
 
-
     public function store_faq_question(Request $request)
     {
         $user = auth()->user();
@@ -833,7 +832,7 @@ class SystemController extends Controller
             ['id' => $request->id ?? NULL],
             [
                 'product_id' => $request->product_id,
-                'product_title' => Product::findOrFail($request->product_id)->title ,
+                'product_title' => Product::findOrFail($request->product_id)->title,
                 'order'      => $request->order,
                 'title'      => ucwords($request->title),
                 'desc'       => $request->desc ?? NULL,
@@ -1151,7 +1150,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor' ])->whereIn('status', ['Received','Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
@@ -1172,8 +1171,8 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'despensory' ])->whereIn('status', ['Received','Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
-        
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
@@ -1208,6 +1207,36 @@ class SystemController extends Controller
         }
 
         return view('admin.pages.orders_shiped', $data);
+    }
+
+    public function orders_audit()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'orders_shipped';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with('user', 'shipingdetails')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
+        $data['filters'] = [];
+        if ($orders) {
+            $combined = array_map(function ($order) {
+                return $order['shipingdetails']['address'] . '_chapi_' . $order['shipingdetails']['zip_code'];
+            }, $orders);
+
+            $uniqueCombined = array_unique($combined);
+
+            $filters = array_map(function ($item) {
+                $parts = explode('_chapi_', $item, 2);
+                return [
+                    'address' => $parts[0],
+                    'postal_code' => $parts[1]
+                ];
+            }, $uniqueCombined);
+            $data['filters'] = $filters;
+            $data['orders'] = $orders;
+        }
+
+        return view('admin.pages.orders_audit', $data);
     }
 
     public function change_status(Request $request)
@@ -1252,8 +1281,9 @@ class SystemController extends Controller
             try {
                 $order = $order->toArray() ?? [];
 
-                $order['weight'] = array_sum(array_column($order['orderdetails'],'weight'));
-                $order['quantity'] = array_sum(array_column($order['orderdetails'],'product_qty'));
+                $weightSum = array_sum(array_column($order['orderdetails'], 'weight'));
+                $order['weight'] = $weightSum !== 0 ? $weightSum : 1;
+                $order['quantity'] = array_sum(array_column($order['orderdetails'], 'product_qty'));
                 $payload = $this->make_shiping_payload($order);
                 $apiKey = env('ROYAL_MAIL_API_KEY');
                 $client = new Client();
@@ -1277,6 +1307,7 @@ class SystemController extends Controller
                                 'user_id' => $order['user']['id'] ?? 'Guest',
                                 'order_id' => $order['id'],
                                 'order_identifier' => $val['orderIdentifier'],
+                                'tracking_no' => $this->get_tracking_number($val['orderIdentifier']) ?? Null,
                                 'order_date' => $val['orderDate'],
                                 'cost' => $order['shiping_cost'],
                                 'errors' => json_encode($val['errors'] ?? []) ?? NULL,
@@ -1300,11 +1331,14 @@ class SystemController extends Controller
                         }
                     }
                     $order = Order::findOrFail($order['id']);
+                    $order->order_identifier = $shipped[0]->order_identifier;
+                    $order->tracking_no = $shipped[0]->tracking_no;
                     $order->shipped_order_id = $shipped[0]->id;
                     $order->status = $shipped[0]->status;
                     $update = $order->save();
                     $msg = ($shipped[0]->status == 'Shipped') ? 'Order is shipped' : 'Order shiping failed';
-                    return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $shipped[0]->status)->with('msg', $msg);
+                    $status = ($shipped[0]->status == 'Shipped') ? 'success' : 'fail';
+                    return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $status)->with('msg', $msg);
 
                     // return redirect()->route('admin.getShippingOrder', ['id' => $shipped[0]->order_identifier])->with(['msg' =>$msg ,'status'=>$shipped[0]->status]);
                 } else {
@@ -1320,7 +1354,34 @@ class SystemController extends Controller
     public function get_shiping_order(Request $request)
     {
         $order_id = $request->id;
+        $order = Order::findOrFail($order_id);
+        $tracking_nos = Null;
+        $apiKey = env('ROYAL_MAIL_API_KEY');
 
+        $client = new Client();
+        $response = $client->get('https://api.parcel.royalmail.com/api/v1/orders/'.$order->order_identifier, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $apiKey,
+            ]
+        ]);
+
+        $statusCode = $response->getStatusCode();
+        $body = json_decode($response->getBody()->getContents(), true);
+        if ($statusCode == '200') {
+            $tracking_nos = array_column($body, 'trackingNumber');
+        }
+        
+        $order->tracking_no = $tracking_nos[0] ?? Null;
+        $update = $order->save();
+        $msg = ($tracking_nos[0] ?? Null) ? 'Order is Tracked' : 'Order tracking failed';
+        $status = ($tracking_nos[0] ?? Null) ? 'success' : 'fail';
+        return redirect()->route('admin.orderDetail', ['id' => base64_encode($order->id)])->with('status', $status)->with('msg', $msg);
+    }
+
+    private function get_tracking_number($orderId)
+    {
+        $order_id = $orderId;
+        $tracking_nos = Null;
         $apiKey = env('ROYAL_MAIL_API_KEY');
 
         $client = new Client();
@@ -1331,19 +1392,17 @@ class SystemController extends Controller
         ]);
 
         $statusCode = $response->getStatusCode();
-        $body = $response->getBody()->getContents();
-
-        return response()->json([
-            'status_code' => $statusCode,
-            'response' => json_decode($body, true),
-        ]);
+        $body = json_decode($response->getBody()->getContents(), true);
+        if ($statusCode == '200') {
+            $tracking_nos = array_column($body, 'trackingNumber');
+        }
+        return $tracking_nos[0] ?? Null;
     }
 
     private function make_shiping_payload($order)
     {
         $content = [];
-        foreach ($order['orderdetails'] as $val)
-        {
+        foreach ($order['orderdetails'] as $val) {
             $content[] = [
                 "name" => $val['product_name'],
                 "SKU" => null,
@@ -1388,7 +1447,7 @@ class SystemController extends Controller
                     "billing" => [
                         "address" => [
                             "fullName" => ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'] . ' ' . $order['shipingdetails']['lastName'] : $order['user']['name'],
-                            "companyName" => "My WeightLoss",
+                            "companyName" => "Online Pharmacy",
                             "addressLine1" => $order['shipingdetails']['address'] ?? $order['user']['address'],
                             "addressLine2" => $order['shipingdetails']['address2'] ?? '',
                             "addressLine3" => null,
@@ -1424,8 +1483,6 @@ class SystemController extends Controller
                     "currencyCode" => "GBP",
                     "postageDetails" => [
                         "sendNotificationsTo" => "sender",
-                        "serviceCode" => null,
-                        "serviceRegisterCode" => null,
                         "consequentialLoss" => 0,
                         "receiveEmailNotification" => null,
                         "receiveSmsNotification" => null,
@@ -1440,22 +1497,16 @@ class SystemController extends Controller
                         "commercialInvoiceNumber" => null,
                         "commercialInvoiceDate" => null
                     ],
-                    // "tags" => [
-                    //     [
-                    //         "key" => "medicins",
-                    //         "value" => "medicins"
-                    //     ]
-                    // ],
                     "label" => [
-                        "includeLabelInResponse" => true,
-                        "includeCN" => null,
-                        "includeReturnsLabel" => null
+                        "includeLabelInResponse" => false,
+                        "includeCN" => false,
+                        "includeReturnsLabel" => false
                     ],
                     "orderTax" => 0
                 ]
             ]
         ];
-        return       $payload;
+        return  $payload;
     }
 
     // comments

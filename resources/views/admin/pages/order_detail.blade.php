@@ -81,11 +81,11 @@
 
     <div class="pagetitle ">
         <div class="">
-            <form id="create_pdf_from"  action="{{route('pdf.creator')}}" method="post" >
+            <form id="create_pdf_from" action="{{route('pdf.creator')}}" method="post">
                 <input type="hidden" name="content" value="{{json_encode($order)}}" required>
                 <input type="hidden" name="view_name" value="order_details" required>
             </form>
-            <h1 class="w-100">Order Detail  <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1 fw-semibold" style="float:right; background: #03bd8d;color:#fff">Print out</button> </h1>
+            <h1 class="w-100">Order Detail <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1 fw-semibold" style="float:right; background: #03bd8d;color:#fff">Print out</button> </h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -95,7 +95,7 @@
             </nav>
         </div>
         <div class="">
-           
+
         </div>
     </div><!-- End Page Title -->
 
@@ -103,13 +103,13 @@
         <div class="row">
 
             <!-- Display Success Message -->
-            @if(session('status') == 'ShippingFail')
+            @if(session('status') == 'fail')
             <div class="alert alert-danger">
                 <strong>Error:</strong> {{ session('msg') }}
             </div>
             @endif
 
-            @if(session('status'))
+            @if(session('status') == 'success')
             <div class="alert alert-success">
                 <strong>Success:</strong> {{ session('msg') }}
             </div>
@@ -285,6 +285,16 @@
                                     <p class="fw-bold mb-0">Order Status: </p>
                                     <p class="mb-0 fw-bold text-success">{{$order['status']}} </p>
                                 </div>
+                                @if($order['status'] == 'Shipped')
+                                <div class="d-flex justify-content-between pt-2">
+                                    <p class="fw-bold mb-0 ">Tracking Number:</p>
+                                    @if($order['tracking_no'])
+                                    <a class="fw-bold  mb-0"  target="_blank" href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
+                                    @else
+                                    <a class=" btn btn-primary fw-bold  mb-0"   href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
+                                    @endif
+                                </div>
+                                @endif
                                 @if($order['status'] != 'Recieved')
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0 ">Health Care Professional Notes:</p>

@@ -178,7 +178,11 @@
                         <h4 class="ltn__widget-title ltn__widget-title-border">Product categories</h4>
                         <ul>
                             @foreach($categories as $key => $val)
-                                <li><a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">{{$val['name']}} <span><i class="fas fa-long-arrow-alt-right"></i></span></a></li>
+                                @if ($is_product)
+                                <li><a href="{{ route('category.products', ['main_category' => $main_slug,'sub_category' => isset($sub_slug) ? $sub_slug : $val['slug'], 'child_category' => isset($sub_slug) ? $val['slug'] : NULL]) }}">{{$val['name']}} <span><i class="fas fa-long-arrow-alt-right"></i></span></a></li>
+                                @else
+                                    <li><a href="{{ route('web.collections', ['main_category' => $main_slug,'sub_category' => isset($sub_slug) ? $sub_slug : $val['slug']]) }}">{{$val['name']}} <span><i class="fas fa-long-arrow-alt-right"></i></span></a></li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>

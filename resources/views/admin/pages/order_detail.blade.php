@@ -115,6 +115,12 @@
             </div>
             @endif
 
+            @if(session('msg'))
+            <div class="alert alert-success">
+                {{ session('msg') }}
+            </div>
+            @endif
+
             <div class="col-md-4">
                 <div class="card  d-flex flex-column">
                     <div class="card-header mt-2" style="border: 0 !important; border-color: transparent !important;"></div>
@@ -143,13 +149,29 @@
                 <div class="card  d-flex flex-column">
                     <div class="card-header mt-2" style="border: 0 !important; border-color: transparent !important;"></div>
                     <div class="card-body flex-grow-1">
-                        <div class="text">
-                            <h4 class="fw-bold">Shipping Address</h4>
-                            <span><b>City: </b>{{$order['shipingdetails']['city'] ?? $order['user']['city'] }}</span><br>
-                            <span><b>Postal Code: </b>{{$order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'] }}</span><br>
-                            <span><b>Address 1: </b>{{$order['shipingdetails']['address'] ?? $order['user']['address'] }}</span><br>
-                            <span><b>Address 2: </b>{{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}</span><br>
-                        </div>
+                        <form class="needs-validation" id="shipping_address_form" method="post" action="{{ route('admin.updateShippingAddress') }}" novalidate>
+                            @csrf
+                            <input type="hidden" name="order_id" value="{{  $order['id'] ?? '' }}">
+                            <div class="col-12">
+                                <label class="form-label"><b>City:</b> {{$order['shipingdetails']['city'] ?? $order['user']['city'] }}</label>
+                                <input class="form-control me-2" type="text" name="city" id="city" placeholder="Change City">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label"><b>Postal Code:</b> {{$order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'] }}</label>
+                                <input class="form-control me-2" type="text" name="postal_code" id="postal_code" placeholder="Change Postal Code">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label"><b>Address 1:</b> {{$order['shipingdetails']['address'] ?? $order['user']['address'] }}</label>
+                                <input class="form-control me-2" type="text" name="address1" id="address1" placeholder="Change Address 1">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label"><b>Address 2:</b> {{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}</label>
+                                <input class="form-control me-2" type="text" name="address2" id="address2" placeholder="Change Address 2">
+                            </div>
+                            <div class=" mt-4 text-end px-4 d-flex d-md-block">
+                                <button class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
                         <div class="text mt-2">
                             <h5 class="fw-bold mb-0 ">Billing Address</h5>
                             <span>Same as shipping address</span>
@@ -168,6 +190,20 @@
                         <div class="text">
                             <span>{{$order['note'] ?? 'No notes from customer'}}</span><br>
                         </div>
+                        <form class="needs-validation" id="additional_note_form" method="post" action="{{ route('admin.updateAdditionalNote') }}" novalidate>
+                            @csrf
+                            <input type="hidden" name="order_id" value="{{  $order['id'] ?? '' }}">
+                            <div class="col-12">
+                                <input class="form-control me-2" type="text" name="note" id="note" placeholder="Change Note" required>
+                                <div class="invalid-feedback">Please write additional note!</div>
+                                @error('note')
+                                <div class="alert-danger text-danger ">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class=" mt-4 text-end px-4 d-flex d-md-block">
+                                <button class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -373,7 +409,7 @@
                             <div class="form-group  mb-4 d-flex flex-row justify-content-end px-3">
                                 <button type="submit" id="btn_comment" class="btn btn-primary fw-bold">
                                     <div class="spinner-border spinner-border-sm text-white d-none" id="spinner_coment"></div>
-                                    <span id="coment_btn">Push You'r Comment </span>
+                                    <span id="coment_btn">Add Comment </span>
                                 </button>
                             </div>
                         </form>

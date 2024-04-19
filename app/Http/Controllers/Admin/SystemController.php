@@ -1497,4 +1497,73 @@ class SystemController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Error storing Invoice', 'error' => $e->getMessage()], 500);
         }
     }
+
+    public function update_additional_note(Request $request)
+    {
+        // update additional notes by admin which enter by user at order received screen
+        $data['user'] = auth()->user();
+        $page_name = 'orders_recieved';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $rules = [
+            'note' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $updateData = [
+            'note'       => $request->note,
+            'updated_by' => $data['user']->id,
+        ];
+
+        $response = Order::where('id', $request->order_id)->update($updateData);
+
+        $message = "Data updated Successfully";
+        if ($response) {
+            return redirect()->route('admin.orderDetail',['id'=> base64_encode($request->order_id)])->with(['msg' => $message]);
+        }
+    }
+
+    public function update_shipping_address(Request $request)
+    {
+        // update shipping address by admin if enter wrong by user at order received screen
+        $data['user'] = auth()->user();
+        $page_name = 'orders_recieved';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $updateData = [];
+        if ($request->city) {
+            $updateData['city'] = $request->city;
+        }
+    
+        if ($request->postal_code) {
+            $updateData['zip_code'] = $request->postal_code;
+        }
+    
+        if ($request->address1) {
+            $updateData['address'] = $request->address1;
+        }
+    
+        if ($request->address2) {
+            $updateData['address2'] = $request->address2;
+        }
+
+        if($request->city || $request->postal_code || $request->address1 || $request->address2){
+            $updateData['updated_by'] = $data['user']->id;
+            $response = ShipingDetail::where('order_id', $request->order_id)->update($updateData);
+            $message = "Data updated Successfully";
+        }
+        else{
+            $message = "No data Received for update";
+        }
+
+        return redirect()->route('admin.orderDetail',['id'=> base64_encode($request->order_id)])->with(['msg' => $message]);
+    }
 }

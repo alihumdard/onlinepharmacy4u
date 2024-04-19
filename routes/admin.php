@@ -78,4 +78,7 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::get('/onlineClinicOrders', [OrderController::class, 'online_clinic_orders'])->name('admin.onlineClinicOrders');
     Route::get('/shopOrders', [OrderController::class, 'shop_orders'])->name('admin.shopOrders');
 
+    Route::match(['get', 'post'], '/updateAdditionalNote', [SystemController::class, 'update_additional_note'])->name('admin.updateAdditionalNote');
+    Route::match(['get', 'post'], '/updateShippingAddress', [SystemController::class, 'update_shipping_address'])->name('admin.updateShippingAddress');
+
 });

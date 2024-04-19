@@ -2,7 +2,8 @@
 @section('title', 'Registration Form')
 @section('content')
 <style>
-    input[type="number"], input[type="date"]{
+    input[type="number"],
+    input[type="date"] {
         background-color: var(--white);
         border: 2px solid;
         border-color: var(--border-color-9);
@@ -75,11 +76,15 @@
                         <div class="alert-danger text-danger ">{{ $message }}</div>
                         @enderror
 
-                        <input type="date" id="dob" name="dob" class="form-control" value="{{ old('dob') }}" required>
-                        <div class="invalid-feedback">Please enter Phone Number!</div>
+                        <!-- Text input for selecting the date -->
+                        <input type="text" id="dob" class="form-control" placeholder="dd-mm-yyyy" required>
+                        <div class="invalid-feedback">Please enter DOB!</div>
                         @error('dob')
                         <div class="alert-danger text-danger ">{{ $message }}</div>
                         @enderror
+
+                        <!-- Script to initialize the datepicker -->
+
 
                         <input type="password" name="password" placeholder="Password*" value="{{ old('password') }}" required>
                         <div class="invalid-feedback">Please enter your password!</div>
@@ -107,14 +112,14 @@
                         @error('address')
                         <div class="alert-danger text-danger ">{{ $message }}</div>
                         @enderror
-                        
+
                         <div class="btn-wrapper text-center px-3">
                             <button class="theme-btn-1 btn reverse-color btn-block text-center px-3" type="submit">CREATE ACCOUNT</button>
                         </div>
                     </form>
                     <div class="by-agree text-center">
                         <p>By creating an account, you agree to our:</p>
-                        <p><a href="/terms_and_conditions/">TERMS OF CONDITIONS  &nbsp; &nbsp; | &nbsp; &nbsp;  PRIVACY POLICY</a></p>
+                        <p><a href="/terms_and_conditions/">TERMS OF CONDITIONS &nbsp; &nbsp; | &nbsp; &nbsp; PRIVACY POLICY</a></p>
                         <div class="go-to-btn mt-50">
                             <a href="/admin"><strong>ALREADY HAVE AN ACCOUNT?</strong></a>
                         </div>
@@ -129,7 +134,33 @@
 @stop
 
 @pushOnce('scripts')
-<script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery UI -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
+<!-- Script to initialize the datepicker -->
+<script>
+    $(document).ready(function() {
+        $("#dob").datepicker({
+            dateFormat: 'dd-mm-yy',
+            maxDate: new Date(2005, 11, 31),
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "c-100:c",
+            onClose: function(selectedDate) {
+                var parts = selectedDate.split('-');
+                var day = parseInt(parts[0]);
+                var month = parseInt(parts[1]) - 1;
+                var year = parseInt(parts[2]);
+                $("#dob").datepicker("setDate", new Date(year, month, day));
+            }
+        });
+
+        // $(".ui-datepicker").css("background-color", "#fff");
+    });
 </script>
+
+
 @endPushOnce

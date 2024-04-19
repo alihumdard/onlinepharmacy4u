@@ -36,33 +36,40 @@ class CartController extends Controller
         $variant_id =  $request->variantId ?? NULL;
         $quantity =  $request->quantity;
         $cartItems = collect(Cart::content());
-
         $prod_id = $request->id;
-// working continue dont remove any code before complete testing
+
         $variant = null;
         if($variant_id){
             $variant = ProductVariant::find($variant_id);
-            // $prod_id = $prod_id . '_' . $variant_id;
         }
 
-        $item = $cartItems->where('id', $prod_id)->first();
-//         $item = $cartItems->filter(function ($item) use ($prod_id) {
-//             return $item['id'] === $prod_id;
-//         })->first();
-// return $item;
+        $item = $cartItems->filter(function ($value) use ($prod_id) {
+            return strpos($value->id, $prod_id) !== false;
+        });
 
-        if(($product->min_buy && $quantity < $product->min_buy && !$item)){
+        if(($product->min_buy && $quantity < $product->min_buy && count($item) == 0)){
             return response()->json([
                 'status' => false,
                 'message' => 'Buy minimum '.$product->min_buy.' quantity'
             ]);
         }
 
-        if($product->max_buy && $quantity > $product->max_buy){
-            return response()->json([
-                'status' => false,
-                'message' => 'Max buy '.$product->max_buy.' quantity'
-            ]);
+        if(count($item) == 0){
+            if($product->max_buy && $quantity > $product->max_buy){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Max buy '.$product->max_buy.' quantity'
+                ]);
+            }
+        }
+        else{
+            $sumOfQty = $item->sum('qty');
+            if($product->max_buy && ($quantity + $sumOfQty > $product->max_buy)){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Max buy '.$product->max_buy.' quantity.' . ' you already add '.$sumOfQty
+                ]);
+            }
         }
 
         if($product == null){
@@ -132,6 +139,43 @@ class CartController extends Controller
     {
         $rowId = $request->rowId;
         $qty = $request->qty;
+///////
+        // $cartProduct = Cart::get($rowId);
+        // $prod_id = explode('_', $cartProduct->id)[0];
+        // $product = Product::find($prod_id);
+        // $quantity =  $qty;
+        // $cartItems = collect(Cart::content());
+
+        // $item = $cartItems->filter(function ($value) use ($prod_id) {
+        //     return strpos($value->id, $prod_id) !== false;
+        // });
+
+        // if(($product->min_buy && $quantity < $product->min_buy && count($item) == 0)){
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'Buy minimum '.$product->min_buy.' quantity'
+        //     ]);
+        // }
+
+        // if(count($item) == 0){
+        //     if($product->max_buy && $quantity > $product->max_buy){
+        //         return response()->json([
+        //             'status' => false,
+        //             'message' => 'Max buy '.$product->max_buy.' quantity'
+        //         ]);
+        //     }
+        // }
+        // else{
+        //     $sumOfQty = $item->sum('qty');
+        //     if($product->max_buy && ($quantity + $sumOfQty > $product->max_buy)){
+        //         return response()->json([
+        //             'status' => false,
+        //             'message' => 'Max buy '.$product->max_buy.' quantity.' . ' you already add '.$sumOfQty
+        //         ]);
+        //     }
+        // }
+//////
+
         Cart::update($rowId, $qty);
 
         $message = 'Cart updated successfully';

@@ -43,8 +43,8 @@
                             </div>
                             <!-- header-search-2 -->
                             <div class="header-search-2">
-                                <form id="#123" method="get"  action="#">
-                                    <input type="text" name="search" value="" placeholder="Search here..."/>
+                                <form method="get"  action="{{route('web.search')}}">
+                                    <input type="text" name="q" value="{{ Request('q')}}" placeholder="Search here..."/>
                                     <button type="submit">
                                         <span><i class="icon-search"></i></span>
                                     </button>

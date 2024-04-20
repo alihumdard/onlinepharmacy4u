@@ -110,9 +110,13 @@
                                         <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}} data-toggle=" tooltip">
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-trash-fill"></i>
                                         </a>
+                                        <a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                            <i class="bi bi-copy"></i>
+                                        </a>
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -131,6 +135,7 @@
 <form id="edit_form" action="{{route('admin.addProduct')}}" method="post">
     @csrf
     <input id="edit_form_id_input" type="hidden" value="" name="id">
+    <input id="duplicate" type="hidden" value="no" name="duplicate">
 </form>
 <!-- End #main -->
 
@@ -173,15 +178,22 @@
         }).buttons().container().appendTo('#tbl_buttons');
     });
     $(document).ready(function() {
-        $(document).on('click','.edit',function() {
+        $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
             $('#edit_form_id_input').val(id);
             $('#edit_form').submit();
         });
 
-        $(document).on('click','.delete',function() {
+        $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
             $('#edit_form_id_input').val(id);
+            $('#duplicate').val('no');
+            $('#edit_form').submit();
+        });
+        $(document).on('click', '.duplicate', function() {
+            var id = $(this).data('id');
+            $('#edit_form_id_input').val(id);
+            $('#duplicate').val('yes');
             $('#edit_form').submit();
         });
     });

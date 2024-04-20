@@ -132,12 +132,12 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Add Product</h1>
+        <h1>{{($duplicate == 'yes') ? 'Duplicate' : ( ($product['id'] ?? '') ? 'Edit' :'Add' ) }} Product</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Add Product</li>
+                <li class="breadcrumb-item active">{{($duplicate == 'yes') ? 'Duplicate' : ( ($product['id'] ?? '') ? 'Edit' :'Add' ) }} Product</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -146,6 +146,7 @@
         <form class=" g-3 mt-3 needs-validation" id="product_detail_from" method="post" action="{{ route('admin.storeProduct') }}" novalidate enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{  $product['id'] ?? '' }}">
+            <input type="hidden" name="duplicate" value="{{  $duplicate ?? 'no' }}">
             <div class="row gy-4">
                 <div class=" col-md-6 extra-images">
                     <label class="form-label">Extra Images</label>

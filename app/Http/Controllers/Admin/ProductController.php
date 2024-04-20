@@ -66,11 +66,11 @@ class ProductController extends Controller
         $data['categories'] = Category::latest('id')->get()->toArray();
         $data['templates'] = config('constants.PRODUCT_TEMPLATES');
         $data['question_category'] = QuestionCategory::latest('id')->get()->toArray();
-
         $data['product'] = [];
+        $data['duplicate'] = 'no';
         if ($request->has('id')) {
+            $data['duplicate'] = $request->duplicate;
             $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
-
             $data['sub_category'] = SubCategory::select('id', 'name')
                 ->where('category_id', $data['product']['category_id'])
                 ->pluck('name', 'id')
@@ -104,7 +104,7 @@ class ProductController extends Controller
             'desc'              => 'required',
             'title'             => [
                 'required',
-                Rule::unique('products')->ignore($request->id),
+                Rule::unique('products')->ignore((isset($request->id) && $request->duplicate == 'no') ? $request->id : null),
             ],
         ];
 
@@ -148,7 +148,7 @@ class ProductController extends Controller
 
         // Create or update product
         $product = Product::updateOrCreate(
-            ['id' => $request->id ?? null],
+            ['id' => (isset($request->id) && $request->duplicate == 'no') ? $request->id : null],
             [
                 'title'      => ucwords($request->title),
                 'desc'       => $request->desc,
@@ -171,7 +171,6 @@ class ProductController extends Controller
         );
 
         if ($product) {
-
             // Handle image uploads
             $uploadedImages = [];
             if ($request->hasFile('images')) {
@@ -235,7 +234,7 @@ class ProductController extends Controller
             }
 
             // update variant
-            if ($request['exist_vari_value'] ?? NULL) {
+            if (isset($request['exist_vari_value']) && $request->duplicate == 'no') {
                 // handle the product variations .....
                 $idArrExist = $request['exist_vari_id'];
                 $valueArrExist = $request['exist_vari_value'];
@@ -275,6 +274,43 @@ class ProductController extends Controller
                     DB::table('product_variants')
                         ->where('id', $id)
                         ->update($productAttrArrE);
+                }
+            }
+
+            // Duplicate variant
+            if (isset($request['exist_vari_value']) && $request->duplicate == 'yes') {
+                $valueArrExist = $request['exist_vari_value'];
+                $priceArrExist = $request['exist_vari_price'];
+                $cutPriceArrExist = $request['exist_vari_cut_price'];
+                $skuArrExist   = $request['exist_vari_sku'];
+                $nameArrExist  = $request['exist_vari_name'];
+                $barcodeArrExist   = $request['exist_vari_barcode'];
+                $inventoryArrExist = $request['exist_vari_inventory'];
+                $weightArrExist = $request['exist_vari_weight'] ?? 0;
+                $imageArrExist = [];
+                if ($request->hasFile('exist_vari_attr_images')) {
+                    foreach ($request->file('exist_vari_attr_images') as $variantId => $image) {
+                        if ($image) {
+                            $variImageNameExist = time() . '_' . uniqid('', true) . '.' . $image->getClientOriginalExtension();
+                            $variImagePathExist = $image->storeAs('product_images/main_images', $variImageNameExist, 'public');
+                            $productAttrImage[] =  $variImagePathExist;
+                        }
+                    }
+                    $imageArrExist = $productAttrImage;
+                }
+                foreach ($skuArrExist as $key1 => $val1) {
+                    $productAttrArrE['product_id'] = $product->id;
+                    $productAttrArrE['title'] = $nameArrExist[$key1];
+                    $productAttrArrE['price'] = $priceArrExist[$key1];
+                    $productAttrArrE['cut_price'] = $cutPriceArrExist[$key1];
+                    $productAttrArrE['value'] = $valueArrExist[$key1];
+                    $productAttrArrE['barcode'] = $barcodeArrExist[$key1];
+                    $productAttrArrE['inventory'] = $inventoryArrExist[$key1];
+                    $productAttrArrE['sku'] = $skuArrExist[$key1];
+                    $productAttrArrE['weight'] = $weightArrExist[$key1] ?? 0;
+                    $productAttrArrE['image'] = $imageArrExist[$key1] ?? 0;
+
+                    DB::table('product_variants')->insert($productAttrArrE);
                 }
             }
         }

@@ -110,11 +110,11 @@
                                         <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
                                         <a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-copy"></i>
+                                        </a>
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                            <i class="bi bi-trash-fill"></i>
                                         </a>
 
                                     </td>

@@ -329,7 +329,7 @@
                     @enderror
                 </div>
             </div>
-
+{{-- Variant Section --}}
             <div class="container-fluid m-0 ">
                 <div class="d-flex justify-content-between col-md-12 align-items-center">
                     <div class="variants-div">
@@ -345,78 +345,83 @@
                 <div id="variant_row_existing">
                     @if(isset($product['variants']))
                     @foreach ($product['variants'] as $variant)
-                    <div class="row bg-white rounded-3  mb-4 py-2">
-                        <input type="hidden" value="{{$variant['id']}}" name="exist_vari_id[]">
-                        <div class="col-12">
-                            <hr class="">
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="p-2">
-                                <label for="" class="form-label">Variant Price <span class="vari-price">(Price in UK Pound)</span></label>
-                                <input type="text" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
-                                <div class="invalid-feedback">Enter variant price!</div>
+                        <div class="row bg-white rounded-3  mb-4 py-2" id="variant_{{ $variant['id'] }}">
+                            <input type="hidden" value="{{$variant['id']}}" name="exist_vari_id[]">
+                            <div class="col-12">
+                                <hr class="">
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="p-2">
+                                    <label for="" class="form-label">Variant Price <span class="vari-price">(Price in UK Pound)</span></label>
+                                    <input type="text" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
+                                    <div class="invalid-feedback">Enter variant price!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="p-2">
+                                    <label for="" class="form-label">Variant Cut Price <span class="vari-cut-price">(Price in UK Pound)</span></label>
+                                    <input type="text" class="form-control" name="exist_vari_cut_price[]" id="" value="{{ $variant['cut_price']}}">
+                                    <div class="invalid-feedback">Enter variant cut price!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="p-2">
+                                    <label for="" class="form-label">Variant Name <span class="extra-text"></span></label>
+                                    <input type="text" class="form-control" name="exist_vari_name[]" id="" value="{{ $variant['title']}}" required>
+                                    <div class="invalid-feedback">Enter variant title!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 product-md">
+                                <div class="p-2">
+                                    <label for="" class="form-label">Variant Value <span class="extra-text"></span></label>
+                                    <input type="text" class="form-control" name="exist_vari_value[]" id="" value="{{ $variant['value']}}" required>
+                                    <div class="invalid-feedback">Enter variant value!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="p-2">
+                                    <label for="" class="form-label">Inventory <span class="extra-text">(Available Stock)</span></label>
+                                    <input type="number" class="form-control" name="exist_vari_inventory[]" id="" value="{{ $variant['inventory']}}" required>
+                                    <div class="invalid-feedback">Enter variant stock!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="p-2">
+                                    <label for="" class="form-label">weight <span class="extra-text">(gm)</span></label>
+                                    <input type="text" class="form-control" name="exist_vari_weight[]" id="" value="{{ $variant['weight'] }}" >
+                                    <div class="invalid-feedback">Enter variant weight!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="p-2">
+                                    <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
+                                    <input type="text" class="form-control" name="exist_vari_barcode[]" id="" value="{{ $variant['barcode']}}">
+                                    <div class="invalid-feedback">Enter variant barcode!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="p-2">
+                                    <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
+                                    <input type="text" class="form-control" name="exist_vari_sku[]" id="" value="{{ $variant['sku']}}">
+                                    <div class="invalid-feedback">Enter variant stock!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="p-2">
+                                    <label class="form-label">Select Image</label>
+                                    <input class="form-control variant-image-exist" name="exist_vari_attr_image[]" type="file" id="">
+                                    <div class="invalid-feedback">Enter variant image!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-end col-sm-12 mt-4 ">
+                                <div class="p-2 ">
+                                    <button type="button" class="btn delete-variant btn-danger" data-id="{{ $variant['id'] }}" data-token="{{ csrf_token() }}"><i class="fa fa-minus"></i> Remove</button>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <hr class="">
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="p-2">
-                                <label for="" class="form-label">Variant Cut Price <span class="vari-cut-price">(Price in UK Pound)</span></label>
-                                <input type="text" class="form-control" name="exist_vari_cut_price[]" id="" value="{{ $variant['cut_price']}}">
-                                <div class="invalid-feedback">Enter variant cut price!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="p-2">
-                                <label for="" class="form-label">Variant Name <span class="extra-text"></span></label>
-                                <input type="text" class="form-control" name="exist_vari_name[]" id="" value="{{ $variant['title']}}" required>
-                                <div class="invalid-feedback">Enter variant title!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 product-md">
-                            <div class="p-2">
-                                <label for="" class="form-label">Variant Value <span class="extra-text"></span></label>
-                                <input type="text" class="form-control" name="exist_vari_value[]" id="" value="{{ $variant['value']}}" required>
-                                <div class="invalid-feedback">Enter variant value!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <div class="p-2">
-                                <label for="" class="form-label">Inventory <span class="extra-text">(Available Stock)</span></label>
-                                <input type="number" class="form-control" name="exist_vari_inventory[]" id="" value="{{ $variant['inventory']}}" required>
-                                <div class="invalid-feedback">Enter variant stock!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <div class="p-2">
-                                <label for="" class="form-label">weight <span class="extra-text">(gm)</span></label>
-                                <input type="text" class="form-control" name="exist_vari_weight[]" id="" value="{{ $variant['weight'] }}" >
-                                <div class="invalid-feedback">Enter variant weight!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="p-2">
-                                <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
-                                <input type="text" class="form-control" name="exist_vari_barcode[]" id="" value="{{ $variant['barcode']}}">
-                                <div class="invalid-feedback">Enter variant barcode!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="p-2">
-                                <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
-                                <input type="text" class="form-control" name="exist_vari_sku[]" id="" value="{{ $variant['sku']}}">
-                                <div class="invalid-feedback">Enter variant stock!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <div class="p-2">
-                                <label class="form-label">Select Image</label>
-                                <input class="form-control variant-image-exist" name="exist_vari_attr_image[]" type="file" id="">
-                                <div class="invalid-feedback">Enter variant image!</div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <hr class="">
-                        </div>
-                    </div>
                     @endforeach
                     @endif
                 </div>
@@ -518,6 +523,33 @@
             } else {
                 $('.question_category-div').addClass('d-none');
             }
+        });
+
+        $('.delete-variant').on('click', function() {
+            var id = $(this).data("id");
+            var token = $(this).data("token");
+        
+            var confirmDelete = confirm("Are you sure you want to delete this variant?");
+            if (!confirmDelete) {
+                return false; 
+            }
+
+            $.ajax({
+                url: '{{ route('admin.deleteVariant') }}',
+                type: 'DELETE',
+                dataType: "JSON",
+                data: {
+                    "id": id,
+                    "_token": token,
+                },
+                success: function (response)
+                {
+                    if(response.status == 'success'){
+                        alert(response.message);
+                        $('#variant_'+id).remove();
+                    }
+                }
+            });
         });
     });
 

@@ -151,7 +151,8 @@ function view_permission($page_name)
     }
 }
 
-function STATE_LIST(){
+function STATE_LIST()
+{
     return [
         'LND' => 'London, City of',
         'ABE' => 'Aberdeen City',

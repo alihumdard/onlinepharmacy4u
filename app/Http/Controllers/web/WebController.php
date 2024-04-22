@@ -677,7 +677,7 @@ class WebController extends Controller
                 $shiping =  ShipingDetail::create($shipping_details);
                 if ($shiping) {
                     session()->put('order_id', $order->id);
-                    return redirect()->away('/Completed-order');
+                    // return redirect()->away('/Completed-order');
                     $productPrice = $request->total_ammount * 100;
                     $productName = 'Medical Products';
                     $productDescription = 'Medical Products';
@@ -730,9 +730,10 @@ class WebController extends Controller
                     if (isset($responseData['orderCode'])) {
                         $orderCode = $responseData['orderCode'];
                         // Redirect to the Viva Payments checkout page with the orderCode parameter
-                        $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}&color=0000ff";
+                        $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
                         // Redirect to the external URL
-                        return redirect()->away($redirectUrl);
+                        // return redirect()->away($redirectUrl);
+                        return response()->json(['redirectUrl' => $redirectUrl]);
                     }
                 }
             }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\ProductVariant;
 
 
 class ProductController extends Controller
@@ -343,5 +344,16 @@ class ProductController extends Controller
 
         $message = "Product Limits " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return response()->json(['status' => 'success', 'message' => $message, 'data' => []]);
+    }
+
+    public function delete_variant(Request $request)
+    {
+        $id = $request->id;
+        $variant = new ProductVariant;
+        $variant = ProductVariant::find($id);
+        $response = $variant->delete($id);
+        if($response){
+            return response()->json(['status' => 'success', 'message' => 'Record Deleted']);
+        }
     }
 }

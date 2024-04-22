@@ -50,6 +50,10 @@
                             <h5 class="card-title">{{$val->title}}</h5>
                             <img src="{{ asset('storage/'.$val->main_image)}}" class="card-img-top mb-2" alt="...">
                         </a>
+                        <div class="product-price">
+                            <span>£{{ $val->price }}</span>
+                            <del>{{ $val->cut_price ? '£'.$val->cut_price : NULL }}</del>
+                        </div>
                         @if($val->product_template == config('constants.COUNTER_MEDICINE'))
                         <a href="javascript:void(0)" onclick="addToCart(@json($val->id));" title="Add to Cart" class="btn btn-outline-danger w-100">Add To Cart</a>
                         @else

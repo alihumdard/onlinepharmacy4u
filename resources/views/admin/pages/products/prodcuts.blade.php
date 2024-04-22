@@ -171,7 +171,7 @@
                 }
             ],
             "columnDefs": [{
-                "targets": [2,3,7],
+                "targets": [3,7],
                 "searchable": false
             }]
             

@@ -73,7 +73,7 @@ class WebController extends Controller
         view()->share('menu_categories', $this->menu_categories);
     }
 
-    public function shop($category = null, $sub_category = null, $child_category = null)
+    public function shop(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
         $slug = [
             "main_category" => $category,
@@ -114,16 +114,26 @@ class WebController extends Controller
 
         switch ($level) {
             case 'main':
-                $products = Product::where(['category_id' => $category_detail->id])->get();
+                $products = Product::where(['category_id' => $category_detail->id])->paginate(20);
                 break;
             case 'sub':
-                $products = Product::where(['sub_category' => $category_detail->id])->get();
+                $products = Product::where(['sub_category' => $category_detail->id])->paginate(20);
                 break;
             case 'child':
-                $products = Product::where(['child_category' => $category_detail->id])->get();
+                $products = Product::where(['child_category' => $category_detail->id])->paginate(20);
                 break;
             default:
-                $products = Product::get();
+                $query = Product::query();
+                if ($request->has('sort')) {
+                    if ($request->sort === 'price_low_high') {
+                        $query->orderBy('price');
+                    } elseif ($request->sort === 'price_high_low') {
+                        $query->orderByDesc('price');
+                    } elseif ($request->sort === 'newest') {
+                        $query->orderByDesc('created_at');
+                    }
+                }
+                $products = $query->paginate(21);
         }
 
         $data['products'] = $products;

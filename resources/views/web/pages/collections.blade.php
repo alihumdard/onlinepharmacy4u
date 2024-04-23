@@ -80,13 +80,18 @@
                         </li>
                         <li>
                            <div class="short-by text-center">
-                                <select class="nice-select">
-                                    <option>Default Sorting</option>
-                                    <option>Sort by popularity</option>
-                                    <option>Sort by new arrivals</option>
-                                    <option>Sort by price: low to high</option>
-                                    <option>Sort by price: high to low</option>
-                                </select>
+                                <form action="{{ route('web.collections', [
+                                    'main_category' => request()->route('main_category'),
+                                    'sub_category' => request()->route('sub_category')
+                                    ]) }}" method="GET" >
+                                    <select class="nice-select" name="sort" onchange="this.form.submit()">
+                                        <option value="">Default Sorting</option>
+                                        {{-- <option>Sort by popularity</option> --}}
+                                        <option value="newest" {{ Request::get('sort') === 'newest' ? 'selected' : '' }}>Sort by new arrivals</option>
+                                        <option value="price_low_high" {{ Request::get('sort') === 'price_low_high' ? 'selected' : '' }}>Sort by price: low to high</option>
+                                        <option value="price_high_low" {{ Request::get('sort') === 'price_high_low' ? 'selected' : '' }}>Sort by price: high to low</option>
+                                    </select>
+                                </form>
                             </div> 
                         </li>
                     </ul>
@@ -152,19 +157,9 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="ltn__pagination-area text-center">
-                    <div class="ltn__pagination">
-                        <ul>
-                            <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
-                            <li><a href="#">1</a></li>
-                            <li class="active"><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">10</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div> --}}
+                <div style="display: flex; justify-content: flex-end;">
+                    {{ $products->withQueryString()->links() }}
+                </div>
             </div>
             <div class="col-lg-4  mb-120">
                 <aside class="sidebar ltn__shop-sidebar ltn__right-sidebar">

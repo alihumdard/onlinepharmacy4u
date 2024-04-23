@@ -75,6 +75,7 @@ class WebController extends Controller
 
     public function shop(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
+        // use with route shop
         $slug = [
             "main_category" => $category,
             "sub_category" => $sub_category,
@@ -146,6 +147,7 @@ class WebController extends Controller
 
     public function show_products(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
+        // use with route category
         $slug = [
             "main_category" => $category,
             "sub_category" => $sub_category,
@@ -185,16 +187,16 @@ class WebController extends Controller
 
         switch ($level) {
             case 'main':
-                $products = Product::where(['category_id' => $category_detail->id])->get();
+                $products = Product::where(['category_id' => $category_detail->id])->paginate(28);
                 break;
             case 'sub':
-                $products = Product::where(['sub_category' => $category_detail->id])->get();
+                $products = Product::where(['sub_category' => $category_detail->id])->paginate(28);
                 break;
             case 'child':
-                $products = Product::where(['child_category' => $category_detail->id])->get();
+                $products = Product::where(['child_category' => $category_detail->id])->paginate(28);
                 break;
             default:
-                $products = Product::get();
+                $products = Product::paginate(28);
         }
 
         $data['products'] = $products;
@@ -504,8 +506,9 @@ class WebController extends Controller
         return response()->json(['message' => 'Item added to cart']);
     }
 
-    public function show_categories($category = null, $sub_category = null, $child_category = null)
+    public function show_categories(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
+        // use with route collections
         $level = '';
         if ($category && $sub_category && $child_category) {
             $level = 'child';
@@ -518,6 +521,8 @@ class WebController extends Controller
             $category_id = Category::where('slug', $category)->first()->id;
         }
 
+        $query = Product::query();
+
         switch ($level) {
             case 'main':
                 $data['main_category'] = Category::where('slug', $category)->first();
@@ -525,7 +530,8 @@ class WebController extends Controller
                 $data['image'] = $data['main_category']['image'];
                 $data['category_name'] = $data['main_category']['name'];
                 $data['main_slug'] = $data['main_category']['slug'];
-                $data['products'] = Product::where(['category_id' => $data['main_category']->id])->get();
+                // $data['products'] = Product::where(['category_id' => $data['main_category']->id])->paginate(21);
+                $query->where(['category_id' => $data['main_category']->id]);
                 $data['is_product'] = false;
                 break;
             case 'sub':
@@ -536,7 +542,8 @@ class WebController extends Controller
                 $data['category_name'] = $data['sub_category']['name'];
                 $data['main_slug'] = $data['main_category']['slug'];
                 $data['sub_slug'] = $data['sub_category']['slug'];
-                $data['products'] = Product::where(['sub_category' => $data['sub_category']->id])->get();
+                // $data['products'] = Product::where(['sub_category' => $data['sub_category']->id])->paginate(21);
+                $query->where(['sub_category' => $data['sub_category']->id]);
                 $data['is_product'] = true;
                 break;
             case 'child':
@@ -544,8 +551,20 @@ class WebController extends Controller
                 $data['is_product'] = true;
                 break;
             default:
-                $products = Product::get();
+                $products = Product::paginate(21);
         }
+
+        if ($request->has('sort')) {
+            if ($request->sort === 'price_low_high') {
+                $query->orderBy('price');
+            } elseif ($request->sort === 'price_high_low') {
+                $query->orderByDesc('price');
+            } elseif ($request->sort === 'newest') {
+                $query->orderByDesc('created_at');
+            }
+        }
+        $data['products'] = $query->paginate(21);
+
         return view('web.pages.collections', $data);
     }
 

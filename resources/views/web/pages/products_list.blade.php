@@ -70,6 +70,9 @@
             </div>
             @endforeach
         </div>
+        <div style="display: flex; justify-content: center; margin-top:20px">
+            {{ $products->withQueryString()->links() }}
+        </div>
     </div>
 </section>
 

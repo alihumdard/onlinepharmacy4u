@@ -63,7 +63,7 @@
                                     <li><a href="/prescribers">Prescribers</a></li>
                                     <!-- <li><a href="/blogs">Blogs</a></li> -->
                                     <li><a href="https://online-pharmacy4u.co.uk/pages/nhs-prescriptions" target="blank">NHS Prescriptions</a></li>
-                                    <li><a href="https://online-pharmacy4u.co.uk/pages/treatment" target="blank">A-Z Treatment</a></li>
+                                    <li><a href="{{ route('web.treatment')}}" target="blank">A-Z Treatment</a></li>
                                     <li><a href="/product_information">Product Information</a></li>
                                 </ul>
                             </div>

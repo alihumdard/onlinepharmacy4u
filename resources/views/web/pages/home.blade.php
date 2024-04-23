@@ -6,14 +6,14 @@
 <div class="ltn__slider-area ltn__slider-3  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/slider/slider-1.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/home-ban-1.png">
             <div class="ltn__slide-item-inner  text-left">
-                <div class="container">
+                <div class="container d-none">
                     <div class="row">
                         <div class="col-lg-12 align-self-center">
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
-                                    <!-- <h6 class="slide-sub-title white-color--- animated text-black"> Regulated UK Pharmacist</h6> -->
+                                    
                                     <h5 class="slide-title animated text-black poppins-medium">Repeat Prescriptions,<br> Made Simple.</h5>
                                     <div class="slide-brief animated">
                                         <p class=" text-black oppins-extralight">Order with ease and get your NHS repeat prescriptions delivered directly to your door </br>with Online Pharmacy 4U
@@ -32,9 +32,9 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/slider/slider-2.png">
+        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/home-ban-2.png">
             <div class="ltn__slide-item-inner text-left">
-                <div class="container">
+                <div class="container d-none">
                     <div class="row">
                         <div class="col-lg-12 align-self-center">
                             <div class="slide-item-info">
@@ -60,9 +60,9 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/slider/slider-3.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/home-ban-3.png">
             <div class="ltn__slide-item-inner  text-left">
-                <div class="container">
+                <div class="container d-none">
                     <div class="row">
                         <div class="col-lg-12 align-self-center">
                             <div class="slide-item-info">

@@ -83,4 +83,5 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
 
     Route::match(['get', 'post'], '/updateAdditionalNote', [SystemController::class, 'update_additional_note'])->name('admin.updateAdditionalNote');
     Route::match(['get', 'post'], '/updateShippingAddress', [SystemController::class, 'update_shipping_address'])->name('admin.updateShippingAddress');
+    Route::delete('/deleteVariant', [ProductController::class, 'delete_variant'])->name('admin.deleteVariant');
 });

@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -56,7 +56,6 @@ class ProductController extends Controller
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['products'] = ImportedPorduct::latest('id')->get()->toArray();
         }
-        // dd($data['products']);
         return view('admin.pages.products.imported_prodcuts', $data);
     }
 
@@ -94,8 +93,17 @@ class ProductController extends Controller
             return response()->json(['error' => 'No file uploaded']);
         }
 
+        $extension = $file->getClientOriginalExtension();
+        if ($extension === 'xlsx') {
+            $fileType = 'xlsx';
+        } elseif ($extension === 'csv') {
+            $fileType = 'csv';
+        } else {
+            return response()->json(['error' => 'Invalid file type']);
+        }
+
         $filePath = $file->getRealPath();
-        Excel::import(new importProduct, $filePath);
+        Excel::import(new importProduct, $filePath, null, \Maatwebsite\Excel\Excel::XLSX);
         return redirect()->route('admin.importedProdcuts')->with(['message' => 'File imported successfully']);
     }
 

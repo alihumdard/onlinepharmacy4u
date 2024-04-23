@@ -108,13 +108,18 @@
 
         @if(view_permission('prodcuts'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct'])) ? '' : 'collapsed'}} " data-bs-target="#forms-nav" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts'])) ? '' : 'collapsed'}} " data-bs-target="#forms-nav" data-bs-toggle="collapse">
                 <i class="bi bi-journal-text"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content {{(request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct'])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content {{(request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts'])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{(request()->routeIs(['admin.prodcuts'])) ? 'nav-link ' : ''}} " href="{{route('admin.prodcuts')}}">
                         <i class="bi bi-circle"></i><span>All Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.importedProdcuts'])) ? 'nav-link ' : ''}} " href="{{route('admin.importedProdcuts')}}">
+                        <i class="bi bi-circle"></i><span>Imported Products</span>
                     </a>
                 </li>
                 <li>
@@ -125,6 +130,11 @@
                 <li>
                     <a class="{{(request()->routeIs(['admin.addProduct'])) ? 'nav-link ' : ''}}" href="{{route('admin.addProduct')}}">
                         <i class="bi bi-circle"></i><span>Add Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.importProducts'])) ? 'nav-link ' : ''}}" href="{{route('admin.importProducts')}}">
+                        <i class="bi bi-circle"></i><span>Import Excel File</span>
                     </a>
                 </li>
             </ul>

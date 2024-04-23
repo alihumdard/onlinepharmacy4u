@@ -169,7 +169,7 @@
                     <div class="row">
                         <div class="col-12">
                             <label class="form-label">Product Title</label>
-                            <input class="form-control me-2" type="text" name="title" id="pro_id" value="{{  $product['title'] ?? old('title') }}" placeholder="Product Title" aria-label="Search" required>
+                            <input class="form-control me-2" type="text" name="title" id="title" value="{{  $product['title'] ?? old('title') }}" placeholder="Product Title" aria-label="Search" required>
                             <div class="invalid-feedback">Please write product title!</div>
                             @error('title')
                             <div class="alert-danger text-danger ">{{ $message }}</div>

@@ -731,18 +731,12 @@ class WebController extends Controller
                         ],
                     ];
 
-                    // Make an HTTP request to create an order
                     $response = $this->sendHttpRequest('https://api.vivapayments.com/checkout/v2/orders', $postFields, $accessToken);
-
-                    // Decode the JSON response
                     $responseData = json_decode($response, true);
 
                     if (isset($responseData['orderCode'])) {
                         $orderCode = $responseData['orderCode'];
-                        // Redirect to the Viva Payments checkout page with the orderCode parameter
                         $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
-                        // Redirect to the external URL
-                        // return redirect()->away($redirectUrl);
                         return response()->json(['redirectUrl' => $redirectUrl]);
                     }
                 }

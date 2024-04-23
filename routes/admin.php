@@ -10,8 +10,8 @@ use App\Http\Controllers\Admin\OrderController;
 Route::get('/admin', [DefualtController::class, 'index'])->name('admin.index');
 
 Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
-    Route::match(['get','post'], '/setting', [DefualtController::class, 'profile_setting'])->name('admin.profileSetting');
-    Route::match(['get','post'], '/passwordChange', [DefualtController::class, 'password_change'])->name('admin.passwordChange');
+    Route::match(['get', 'post'], '/setting', [DefualtController::class, 'profile_setting'])->name('admin.profileSetting');
+    Route::match(['get', 'post'], '/passwordChange', [DefualtController::class, 'password_change'])->name('admin.passwordChange');
     Route::get('/faq', [DefualtController::class, 'faq'])->name('admin.faq');
     Route::get('/contact', [DefualtController::class, 'contact'])->name('admin.contact');
 
@@ -34,6 +34,9 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
 
     Route::match(['get', 'post'], '/prodcuts', [ProductController::class, 'prodcuts'])->name('admin.prodcuts');
     Route::match(['get', 'post'], '/prodcutsLimits', [ProductController::class, 'prodcuts_limits'])->name('admin.prodcutsLimits');
+    Route::match(['get', 'post'], '/importedProdcuts', [ProductController::class, 'imported_prodcuts'])->name('admin.importedProdcuts');
+    Route::get('/importProducts', [ProductController::class, 'import_products'])->name('admin.importProducts');
+    Route::post('/importProducts', [ProductController::class, 'store_import_products'])->name('admin.importProducts');
     Route::match(['get', 'post'], '/addProduct', [ProductController::class, 'add_product'])->name('admin.addProduct');
     Route::match(['get', 'post'], '/storeProduct', [ProductController::class, 'store_product'])->name('admin.storeProduct');
     Route::match(['get', 'post'], '/updateBuyLimits', [ProductController::class, 'update_buy_limits'])->name('admin.updateBuyLimits');
@@ -80,7 +83,5 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
 
     Route::match(['get', 'post'], '/updateAdditionalNote', [SystemController::class, 'update_additional_note'])->name('admin.updateAdditionalNote');
     Route::match(['get', 'post'], '/updateShippingAddress', [SystemController::class, 'update_shipping_address'])->name('admin.updateShippingAddress');
-    
     Route::delete('/deleteVariant', [ProductController::class, 'delete_variant'])->name('admin.deleteVariant');
-
 });

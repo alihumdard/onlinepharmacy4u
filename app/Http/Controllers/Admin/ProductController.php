@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Imports\importProduct;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Models\Product;
+use App\Models\ImportedPorduct;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
@@ -41,6 +45,23 @@ class ProductController extends Controller
         return view('admin.pages.products.prodcuts', $data);
     }
 
+
+    public function imported_prodcuts(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'prodcuts';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['products'] = ImportedPorduct::latest('id')->get()->toArray();
+        }
+        // dd($data['products']);
+        return view('admin.pages.products.imported_prodcuts', $data);
+    }
+
+
     public function prodcuts_limits(Request $request)
     {
         $user = auth()->user();
@@ -56,6 +77,28 @@ class ProductController extends Controller
         return view('admin.pages.products.prodcuts_limits', $data);
     }
 
+    public function import_products()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'prodcuts';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.products.import_products', $data);
+    }
+
+    public function store_import_products(Request $request)
+    {
+        $file = $request->file('file');
+        if (!$file) {
+            return response()->json(['error' => 'No file uploaded']);
+        }
+
+        $filePath = $file->getRealPath();
+        Excel::import(new importProduct, $filePath);
+        return redirect()->route('admin.importedProdcuts')->with(['message' => 'File imported successfully']);
+    }
 
     public function add_product(Request $request)
     {
@@ -71,18 +114,23 @@ class ProductController extends Controller
         $data['duplicate'] = 'no';
         if ($request->has('id')) {
             $data['duplicate'] = $request->duplicate;
-            $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
-            $data['sub_category'] = SubCategory::select('id', 'name')
-                ->where('category_id', $data['product']['category_id'])
-                ->pluck('name', 'id')
-                ->toArray();
+            if (isset($request->imported) && $request->imported == 'yes') {
+                $data['product'] = ImportedPorduct::findOrFail($request->id)->toArray();
+                $data['product']['id'] = Null;
+            } else {
+                $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
+                $data['sub_category'] = SubCategory::select('id', 'name')
+                    ->where('category_id', $data['product']['category_id'])
+                    ->pluck('name', 'id')
+                    ->toArray();
 
-            $data['child_category'] = ChildCategory::select('id', 'name')
-                ->where('sub_category_id', $data['product']['sub_category'])
-                ->pluck('name', 'id')
-                ->toArray();
+                $data['child_category'] = ChildCategory::select('id', 'name')
+                    ->where('sub_category_id', $data['product']['sub_category'])
+                    ->pluck('name', 'id')
+                    ->toArray();
 
-            $data['prod_question'] = explode(',', $data['product']['question_category']);
+                $data['prod_question'] = explode(',', $data['product']['question_category']);
+            }
         }
 
         return view('admin.pages.products.add_product', $data);

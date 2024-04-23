@@ -229,9 +229,7 @@
             } else {
                 $('input[name="city"]').removeClass('is-invalid');
             }
-            var postalCode = $('input[name="zip_code"]').val().trim();
-            var postalCodePattern = /^\d{6}$/;
-            if (postalCode === '' || !postalCodePattern.test(postalCode)) {
+            if (postalCode === '') {
                 isValid = false;
                 $('input[name="zip_code"]').addClass('is-invalid');
             } else {

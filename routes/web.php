@@ -223,4 +223,7 @@ Route::get('/dispensing_frequencies', [HomeController::class, 'dispensing_freque
 Route::get('/identity_verification', [HomeController::class, 'identity_verification'])->name('web.identity_verification');
 Route::get('/product_information', [HomeController::class, 'product_information'])->name('web.product_information');
 
+Route::get('/treatment', [WebController::class, 'treatment'])->name('web.treatment');
+Route::get('/conditions', [WebController::class, 'conditions'])->name('web.conditions');
+
 include __DIR__ . '/admin.php';

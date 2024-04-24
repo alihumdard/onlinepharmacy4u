@@ -927,4 +927,64 @@ class WebController extends Controller
 
         return view('web.pages.search', $data);
     }
+
+    public function treatment(Request $request)
+    {
+        $ranges = [
+            'a-e' => ['a', 'b', 'c', 'd', 'e'],
+            'f-j' => ['f', 'g', 'h', 'i', 'j'],
+            'k-o' => ['k', 'l', 'm', 'n', 'o'],
+            'p-t' => ['p', 'q', 'r', 's', 't'],
+            'u-z' => ['u', 'v', 'w', 'x', 'y', 'z'],
+        ];
+
+        $letters = $request->q ? $ranges[$request->q] : $ranges['a-e'];
+
+        $data['products'] = Product::where(function ($query) use ($letters) {
+            foreach ($letters as $letter) {
+                $query->orWhere('title', 'like', $letter . '%');
+            }
+        })
+        ->orderBy('title')
+        ->get();
+        $data['range'] = $request->q ?? 'a-e';
+
+        return view('web.pages.treatment', $data);
+    }
+
+    public function conditions(Request $request)
+    {
+        $ranges = [
+            'a-e' => ['a', 'b', 'c', 'd', 'e'],
+            'f-j' => ['f', 'g', 'h', 'i', 'j'],
+            'k-o' => ['k', 'l', 'm', 'n', 'o'],
+            'p-t' => ['p', 'q', 'r', 's', 't'],
+            'u-z' => ['u', 'v', 'w', 'x', 'y', 'z'],
+        ];
+
+        $letters = $request->q ? $ranges[$request->q] : $ranges['a-e'];
+
+        $categories  = Category::select('name','slug', 'image')->where(function ($query) use ($letters) {
+            foreach ($letters as $letter) {
+                $query->orWhere('name', 'like', $letter . '%');
+            }
+        });
+
+        $subCategories  = SubCategory::select('name','slug', 'image')->where(function ($query) use ($letters) {
+            foreach ($letters as $letter) {
+                $query->orWhere('name', 'like', $letter . '%');
+            }
+        });
+
+        $childCategories  = SubCategory::select('name','slug', 'image')->where(function ($query) use ($letters) {
+            foreach ($letters as $letter) {
+                $query->orWhere('name', 'like', $letter . '%');
+            }
+        });
+
+        $data['conditions'] = $categories->union($subCategories)->union($childCategories)->orderBy('name')->get();
+        $data['range'] = $request->q ?? 'a-e';
+        
+        return view('web.pages.conditions', $data);
+    }
 }

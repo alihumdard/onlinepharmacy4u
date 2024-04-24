@@ -42,11 +42,11 @@
 <div class="choose">
     <ul>
         <li><strong>Choose</strong> </li>
-        <li class="{{$range == 'a-e' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['q' => 'a-e'])}} ">A-E</a></li>
-        <li class="{{$range == 'f-j' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['q' => 'f-j'])}} ">F-J</a></li>
-        <li class="{{$range == 'k-o' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['q' => 'k-o'])}} ">K-O</a></li>
-        <li class="{{$range == 'p-t' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['q' => 'p-t'])}} ">P-T</a></li>
-        <li class="{{$range == 'u-z' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['q' => 'u-z'])}} ">U-Z</a></li>
+        <li class="{{$range == 'a-e' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['t' => 'a-e'])}} ">A-E</a></li>
+        <li class="{{$range == 'f-j' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['t' => 'f-j'])}} ">F-J</a></li>
+        <li class="{{$range == 'k-o' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['t' => 'k-o'])}} ">K-O</a></li>
+        <li class="{{$range == 'p-t' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['t' => 'p-t'])}} ">P-T</a></li>
+        <li class="{{$range == 'u-z' ? 'active' : ''}}"><a href="{{ route('web.conditions', ['t' => 'u-z'])}} ">U-Z</a></li>
     </ul>
 </div>
 
@@ -60,15 +60,26 @@
                         <div class="team-img">
                             <img src="{{ asset('storage/'.$val['image']) }}" alt="Image">
                         </div>
-                        <div class="team-info">
-                            <h4><a href="">{{ $val['name'] }}</a></h4>
-                            {{-- <h4><a href="{{ route('web.collections', ['main_category' => $main_slug,'sub_category' => isset($sub_slug) ? $sub_slug : $val['slug']]) }}">{{ $val['name'] }}</a></h4> --}}
-                            <p class="description">{{ $val['desc'] }}</p>
-                        </div>
-                        <div class="team-info">
-                            <a href="" class="btn theme-btn-1">View Products</a>
-                            {{-- <a href="{{ route('category.products', ['main_category' => $main_slug,'sub_category' => isset($sub_slug) ? $sub_slug : $val['slug'], 'child_category' => isset($sub_slug) ? $val['slug'] : NULL]) }}" class="btn theme-btn-1">View Products</a> --}}
-                        </div>
+                        @php
+                            $count = count(explode('/', $val['url']));
+                        @endphp
+                        @if ($count == 3)
+                            <div class="team-info">
+                                <h4><a href="/category/{{$val['url']}}">{{ $val['name'] }}</a></h4>
+                                <p class="description">{{ $val['desc'] }}</p>
+                            </div>
+                            <div class="team-info">
+                                <a href="/category/{{$val['url']}}" class="btn theme-btn-1">View Products</a>
+                            </div>
+                        @else
+                            <div class="team-info">
+                                <h4><a href="/collections/{{$val['url']}}">{{ $val['name'] }}</a></h4>
+                                <p class="description">{{ $val['desc'] }}</p>
+                            </div>
+                            <div class="team-info">
+                                <a href="/collections/{{$val['url']}}" class="btn theme-btn-1">View Products</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endforeach

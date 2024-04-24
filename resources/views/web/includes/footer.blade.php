@@ -78,7 +78,7 @@
                                     <li><a href="/policy">Policies</a></li>
                                     <li><a href="/delivery">Delivery</a></li>  
                                     <li><a href="/responsible_pharmacist">Responsible </a></li>
-                                    <li><a href="https://online-pharmacy4u.co.uk/pages/conditions" target="blank">A-Z Condition</a></li>
+                                    <li><a href="{{ route('web.conditions')}}" target="blank">A-Z Condition</a></li>
                                     <li><a href="/modern_slavery_act">Modern Slavery Act</a></li>
                                     <!-- <li><a href="/order_tracking">Order tracking</a></li> -->
                                     <li><a href="/faq">FAQ</a></li>

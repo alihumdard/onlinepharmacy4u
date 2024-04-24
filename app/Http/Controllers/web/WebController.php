@@ -938,7 +938,7 @@ class WebController extends Controller
             'u-z' => ['u', 'v', 'w', 'x', 'y', 'z'],
         ];
 
-        $letters = $request->q ? $ranges[$request->q] : $ranges['a-e'];
+        $letters = $request->t ? $ranges[$request->t] : $ranges['a-e'];
 
         $data['products'] = Product::where(function ($query) use ($letters) {
             foreach ($letters as $letter) {
@@ -946,8 +946,8 @@ class WebController extends Controller
             }
         })
         ->orderBy('title')
-        ->get();
-        $data['range'] = $request->q ?? 'a-e';
+        ->paginate(100);
+        $data['range'] = $request->t ?? 'a-e';
 
         return view('web.pages.treatment', $data);
     }
@@ -962,28 +962,44 @@ class WebController extends Controller
             'u-z' => ['u', 'v', 'w', 'x', 'y', 'z'],
         ];
 
-        $letters = $request->q ? $ranges[$request->q] : $ranges['a-e'];
+        $letters = $request->t ? $ranges[$request->t] : $ranges['a-e'];
 
-        $categories  = Category::select('name','slug', 'image')->where(function ($query) use ($letters) {
+        $categories  = Category::select('name','slug', 'image', 'slug AS url')->where(function ($query) use ($letters) {
             foreach ($letters as $letter) {
                 $query->orWhere('name', 'like', $letter . '%');
             }
         });
 
-        $subCategories  = SubCategory::select('name','slug', 'image')->where(function ($query) use ($letters) {
-            foreach ($letters as $letter) {
-                $query->orWhere('name', 'like', $letter . '%');
-            }
-        });
+        $subCategories = SubCategory::select(
+            'sub_categories.name',
+            'sub_categories.slug',
+            'sub_categories.image',
+            DB::raw("CONCAT(categories.slug, '/', sub_categories.slug) AS url")
+        )
+            ->leftJoin('categories', 'sub_categories.category_id', '=', 'categories.id')
+            ->where(function ($query) use ($letters) {
+                foreach ($letters as $letter) {
+                    $query->orWhere('sub_categories.name', 'like', $letter . '%');
+                }
+            })
+            ->with('category');
 
-        $childCategories  = SubCategory::select('name','slug', 'image')->where(function ($query) use ($letters) {
-            foreach ($letters as $letter) {
-                $query->orWhere('name', 'like', $letter . '%');
-            }
-        });
+        $childCategories = ChildCategory::select(
+            'child_categories.name',
+            'child_categories.slug',
+            'child_categories.image',
+            DB::raw("CONCAT(categories.slug, '/', sub_categories.slug, '/', child_categories.slug) AS url") // URL for child categories
+        )
+            ->leftJoin('sub_categories', 'child_categories.sub_category_id', '=', 'sub_categories.id')
+            ->leftJoin('categories', 'sub_categories.category_id', '=', 'categories.id')
+            ->where(function ($query) use ($letters) {
+                foreach ($letters as $letter) {
+                    $query->orWhere('child_categories.name', 'like', $letter . '%');
+                }
+            });
 
         $data['conditions'] = $categories->union($subCategories)->union($childCategories)->orderBy('name')->get();
-        $data['range'] = $request->q ?? 'a-e';
+        $data['range'] = $request->t ?? 'a-e';
         
         return view('web.pages.conditions', $data);
     }

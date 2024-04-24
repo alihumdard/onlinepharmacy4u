@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->user = auth()->user();
-        $this->status = config('constants.USER_STATUS');
+        $this->status = config('constants.STATUS');
     }
 
     public function prodcuts(Request $request)
@@ -39,10 +39,39 @@ class ProductController extends Controller
         }
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['products'] = Product::with('category:id,name')->latest('id')->get()->toArray();
+            $products = Product::with('category:id,name')->whereIn('status', [$this->status['Active']])->latest('id')->get()->toArray();
+            $data['filters'] = [];
+            if ($products) {
+                $data['filters']['titles'] = array_unique(array_column($products, 'title'));
+                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();  
+                $data['filters']['templates'] = array_unique(array_column($products, 'product_template'));
+                $data['products'] = $products;
+            }
         }
-        // dd($data['products']);
+
         return view('admin.pages.products.prodcuts', $data);
+    }
+    
+    public function prodcut_trash(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'prodcuts';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $products = Product::with('category:id,name')->whereIn('status', [$this->status['Deactive']])->latest('id')->get()->toArray();
+            $data['filters'] = [];
+            if ($products) {
+                $data['filters']['titles'] = array_unique(array_column($products, 'title'));
+                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();  
+                $data['filters']['templates'] = array_unique(array_column($products, 'product_template'));
+                $data['products'] = $products;
+            }
+        }
+
+        return view('admin.pages.products.prodcut_trash', $data);
     }
 
 
@@ -375,6 +404,7 @@ class ProductController extends Controller
         $message = "Product " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return response()->json(['status' => 'success', 'message' => $message, 'data' => []]);
     }
+
     public function update_buy_limits(Request $request)
     {
         $user = auth()->user();
@@ -408,8 +438,33 @@ class ProductController extends Controller
         $variant = new ProductVariant;
         $variant = ProductVariant::find($id);
         $response = $variant->delete($id);
-        if($response){
+        if ($response) {
             return response()->json(['status' => 'success', 'message' => 'Record Deleted']);
         }
+    }
+
+    public function update_status(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'add_product';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $rules = [
+            'id'  => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()]);
+        }
+        $product = Product::findOrFail($request->id);
+        $product->update([
+            'status'       => $request->status,
+        ]);
+
+        $message = "Product status " . ($request->id ? "Updated" : "Saved") . " Successfully";
+        return response()->json(['status' => 'success', 'message' => $message, 'data' => []]);
     }
 }

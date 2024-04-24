@@ -1239,6 +1239,26 @@ class SystemController extends Controller
         return view('admin.pages.orders_audit', $data);
     }
 
+    public function gpa_letters()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'gpa_letters';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved','Shipped'])->latest('created_at')->get()->toArray();
+        if ($orders) {
+            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
+            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
+                ->whereIn('user_id', $userIds)
+                ->groupBy('user_id')
+                ->get()
+                ->toArray();
+            $data['order_history'] = $userOrdersData;
+            $data['orders'] = $orders;
+        }
+        return view('admin.pages.gpa_letters', $data);
+    }
     public function change_status(Request $request)
     {
         $data['user'] = auth()->user();
@@ -1359,7 +1379,7 @@ class SystemController extends Controller
         $apiKey = env('ROYAL_MAIL_API_KEY');
 
         $client = new Client();
-        $response = $client->get('https://api.parcel.royalmail.com/api/v1/orders/'.$order->order_identifier, [
+        $response = $client->get('https://api.parcel.royalmail.com/api/v1/orders/' . $order->order_identifier, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $apiKey,
             ]
@@ -1370,7 +1390,7 @@ class SystemController extends Controller
         if ($statusCode == '200') {
             $tracking_nos = array_column($body, 'trackingNumber');
         }
-        
+
         $order->tracking_no = $tracking_nos[0] ?? Null;
         $update = $order->save();
         $msg = ($tracking_nos[0] ?? Null) ? 'Order is Tracked' : 'Order tracking failed';
@@ -1576,7 +1596,7 @@ class SystemController extends Controller
 
         $message = "Data updated Successfully";
         if ($response) {
-            return redirect()->route('admin.orderDetail',['id'=> base64_encode($request->order_id)])->with(['msg' => $message]);
+            return redirect()->route('admin.orderDetail', ['id' => base64_encode($request->order_id)])->with(['msg' => $message]);
         }
     }
 
@@ -1593,28 +1613,27 @@ class SystemController extends Controller
         if ($request->city) {
             $updateData['city'] = $request->city;
         }
-    
+
         if ($request->postal_code) {
             $updateData['zip_code'] = $request->postal_code;
         }
-    
+
         if ($request->address1) {
             $updateData['address'] = $request->address1;
         }
-    
+
         if ($request->address2) {
             $updateData['address2'] = $request->address2;
         }
 
-        if($request->city || $request->postal_code || $request->address1 || $request->address2){
+        if ($request->city || $request->postal_code || $request->address1 || $request->address2) {
             $updateData['updated_by'] = $data['user']->id;
             $response = ShipingDetail::where('order_id', $request->order_id)->update($updateData);
             $message = "Data updated Successfully";
-        }
-        else{
+        } else {
             $message = "No data Received for update";
         }
 
-        return redirect()->route('admin.orderDetail',['id'=> base64_encode($request->order_id)])->with(['msg' => $message]);
+        return redirect()->route('admin.orderDetail', ['id' => base64_encode($request->order_id)])->with(['msg' => $message]);
     }
 }

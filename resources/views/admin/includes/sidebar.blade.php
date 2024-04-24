@@ -143,10 +143,10 @@
 
         @if(view_permission('orders'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit'  ])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval', 'admin.ordersAudit', 'admin.gpaLeters'])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
                 <i class="bi bi-bar-chart"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit' ])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit', 'admin.gpaLeters' ])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
                 @if(view_permission('orders_recieved'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersRecieved'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersRecieved')}}">
@@ -172,6 +172,13 @@
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersShiped'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersShiped')}}">
                         <i class="bi bi-circle"></i><span>Shiped Orders</span>
+                    </a>
+                </li>
+                @endif
+                @if(view_permission('gpa_letters'))
+                <li>
+                    <a class="{{(request()->routeIs(['admin.gpaLeters'])) ? 'nav-link ' : ''}}" href="{{route('admin.gpaLeters')}}">
+                        <i class="bi bi-circle"></i><span>GPA Letters</span>
                     </a>
                 </li>
                 @endif

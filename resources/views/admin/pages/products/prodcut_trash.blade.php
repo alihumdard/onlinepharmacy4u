@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Products')
+@section('title', 'Trash Products')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -68,6 +68,9 @@
             visibility: hidden;
         }
 
+
+
+
         #snackbar {
             visibility: hidden;
             /* Hidden by default. Visible on click */
@@ -75,7 +78,7 @@
             /* Set a default minimum width */
             margin-left: -125px;
             /* Divide value of min-width by 2 */
-            background-color: #dc3545;
+            background-color: #03c4a5;
             /* Black background color */
             color: #fff;
             /* White text color */
@@ -153,12 +156,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Products</h1>
+        <h1>Trash Products</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Products</li>
+                <li class="breadcrumb-item active">Trash Products</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -198,8 +201,8 @@
                             </select>
                         </div>
                         <div class="col-md-2 text-center d-block">
-                            <label for="endDate" class="form-label fw-bold">Trash</label>
-                            <a href="{{route('admin.proTrash')}}" class="form-control btn btn-success py-2 fw-bold">Go to Trash</a>
+                            <label for="endDate" class="form-label fw-bold">Products</label>
+                            <a href="{{route('admin.prodcuts')}}" class="form-control btn btn-success py-2 fw-bold">Go to Products </a>
                         </div>
                         <div class="col-md-12 mt-3 text-center d-block">
                             <label for="search" class="form-label fw-bold">Search From Table </label>
@@ -222,7 +225,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($products as $key => $value)
+                                @foreach($products ?? [] as $key => $value)
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">{{ ++$key ?? ''}}</th>
                                     <td>
@@ -251,13 +254,10 @@
                                         <span class="badge  {{($value['status'] == 1) ? 'bg-success' : 'bg-danger'; }}  rounded-pill d-inline">{{ ($value['status'] == 1) ? 'Active' : 'Deactive'; }} </span>
                                     </td>
                                     <td style="vertical-align: middle; text-align: center;">
-                                        <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <a class="undo" style="cursor: pointer;" title="undo"  data-status="{{config('constants.STATUS')['Active']}}" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                            <i class="bi-arrow-counterclockwise"></i>
                                         </a>
-                                        <a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-copy"></i>
-                                        </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-status="{{config('constants.STATUS')['Deactive']}}" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-status="{{config('constants.STATUS')['Deleted']}}" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-trash-fill"></i>
                                         </a>
 
@@ -282,7 +282,7 @@
     <input id="duplicate" type="hidden" value="no" name="duplicate">
 </form>
 <!-- End #main -->
-<div id="snackbar" class="fw-bold">Product Deleted Successfully.</div>
+<div id="snackbar" class="fw-bold">Status Updated Successfully.</div>
 
 @stop
 
@@ -343,7 +343,7 @@
             }
         });
 
-        
+
         $('#template').on('change', function() {
             let type = $(this).val();
             if (type == 'All') {
@@ -382,10 +382,9 @@
                 x.className = x.className.replace("show", "");
             }, 2000);
         }
-        $(document).on('click', '.delete', function() {
+        $(document).on('click', '.delete, .undo', function() {
             var id = $(this).data('id');
             var status = $(this).data('status');
-
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var formData = new FormData();
             formData.append('_token', csrfToken);

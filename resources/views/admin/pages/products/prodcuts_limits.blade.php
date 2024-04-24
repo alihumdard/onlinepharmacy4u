@@ -154,7 +154,6 @@
                 opacity: 1;
             }
         }
-
         @keyframes fadein {
             from {
                 bottom: 0;
@@ -166,7 +165,6 @@
                 opacity: 1;
             }
         }
-
         @-webkit-keyframes fadeout {
             from {
                 bottom: 50%;
@@ -178,7 +176,6 @@
                 opacity: 0;
             }
         }
-
         @keyframes fadeout {
             from {
                 bottom: 50%;

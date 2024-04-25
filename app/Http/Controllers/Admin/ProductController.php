@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductVariant;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductController extends Controller
 {
@@ -237,6 +238,7 @@ class ProductController extends Controller
             ['id' => (isset($request->id) && $request->duplicate == 'no') ? $request->id : null],
             [
                 'title'      => ucwords($request->title),
+                // 'slug'       => SlugService::createSlug(Product::class, 'slug', $request->title),
                 'desc'       => $request->desc,
                 'short_desc' => $request->short_desc ?? Null,
                 'main_image' => $mainImagePath ?? Product::findOrFail($request->id)->main_image,

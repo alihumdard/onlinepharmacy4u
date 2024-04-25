@@ -65,10 +65,10 @@
                                         <div class="col-xl-3 col-lg-4 col-sm-6 col-6">
                                             <div class="ltn__product-item ltn__product-item-3 text-center">
                                                 <div class="product-img">
-                                                    <a href="{{ route('web.product', ['id' => $val->id]) }}"><img src="{{ asset('storage/'.$val->main_image)}}" alt="#"></a>
+                                                    <a href="{{ route('web.product', ['id' => $val->slug]) }}"><img src="{{ asset('storage/'.$val->main_image)}}" alt="#"></a>
                                                 </div>
                                                 <div class="product-info">
-                                                    <h2 class="product-title"><a href="{{ route('web.product', ['id' => $val->id]) }}">{{ $val->title }}</a></h2>
+                                                    <h2 class="product-title"><a href="{{ route('web.product', ['id' => $val->slug]) }}">{{ $val->title }}</a></h2>
                                                     <div class="product-price">
                                                         <span>£{{ $val->price }}</span>
                                                         <del>{{ $val->cut_price ? '£'.$val->cut_price : NULL }}</del>

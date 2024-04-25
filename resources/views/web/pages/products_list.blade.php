@@ -46,7 +46,7 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <a href="{{ route('web.product', ['id' => $val->id]) }}">
+                        <a href="{{ route('web.product', ['id' => $val->slug]) }}">
                             <h5 class="card-title">{{$val->title}}</h5>
                             <img src="{{ asset('storage/'.$val->main_image)}}" class="card-img-top mb-2" alt="...">
                         </a>
@@ -58,11 +58,11 @@
                         <a href="javascript:void(0)" onclick="addToCart(@json($val->id));" title="Add to Cart" class="btn btn-outline-danger w-100">Add To Cart</a>
                         @else
                         @if($val->product_template == config('constants.PRESCRIPTION_MEDICINE') && $pre_add_to_cart == 'yes')
-                        <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
+                        <a href="{{ route('web.product', ['id' => $val->slug]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
                         @elseif($val->product_template == config('constants.PHARMACY_MEDECINE') && isset(session('consultations')[$val->id]))
-                        <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
+                        <a href="{{ route('web.product', ['id' => $val->slug]) }}" class="btn btn-outline-danger w-100">Select Treatment </a>
                         @else
-                        <a href="{{ route('web.product', ['id' => $val->id]) }}" class="btn btn-outline-danger w-100">Learn More</a>
+                        <a href="{{ route('web.product', ['id' => $val->slug]) }}" class="btn btn-outline-danger w-100">Learn More</a>
                         @endif
                         @endif
                     </div>

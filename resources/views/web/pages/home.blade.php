@@ -382,7 +382,7 @@
                                     <ul>
                                         @if($val['product_template'] == config('constants.COUNTER_MEDICINE'))
                                         <li>
-                                            <a href="{{ route('web.product', ['id' => $val['id']]) }}">
+                                            <a href="{{ route('web.product', ['id' => $val['slug']]) }}">
                                                 <i class="far fa-eye"></i>
                                             </a>
                                         </li>
@@ -402,7 +402,7 @@
                                 </div>
                             </div>
                             <div class="product-info">
-                                <h2 class="product-title"><a href="{{ route('web.product', ['id' => $val['id']]) }}">{{ $val['title'] }}</a></h2>
+                                <h2 class="product-title"><a href="{{ route('web.product', ['id' => $val['slug']]) }}">{{ $val['title'] }}</a></h2>
                                 <div class="product-price">
                                     <span>£{{ $val['price'] }}</span>
                                     <del>{{ $val['cut_price'] ? '£'.$val['cut_price'] : NULL}}</del>

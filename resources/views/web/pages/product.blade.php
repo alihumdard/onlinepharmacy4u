@@ -276,7 +276,7 @@
             <div class="col-lg-12">
                 <div class="ltn__product-item ltn__product-item-3 text-center">
                     <div class="product-img">
-                        <a href="{{ route('web.product', ['id' => $related_product->id]) }}"><img src="{{ asset('storage/'.$related_product->main_image) }}" alt="image"></a>
+                        <a href="{{ route('web.product', ['id' => $related_product->slug]) }}"><img src="{{ asset('storage/'.$related_product->main_image) }}" alt="image"></a>
                         <div class="product-badge">
                             <ul>
                                 <li class="sale-badge">New</li>
@@ -284,7 +284,7 @@
                         </div>
                     </div>
                     <div class="product-info">
-                        <h2 class="product-title"><a href="{{ route('web.product', ['id' => $related_product->id]) }}">{{ $related_product->title }}</a></h2>
+                        <h2 class="product-title"><a href="{{ route('web.product', ['id' => $related_product->slug]) }}">{{ $related_product->title }}</a></h2>
                     </div>
                 </div>
             </div>

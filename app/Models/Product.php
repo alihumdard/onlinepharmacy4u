@@ -3,12 +3,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
-    protected $fillable = ['title', 'min_buy','max_buy','comb_variants','weight','category_id', 'sub_category', 'child_category','product_template','question_category','main_image','desc','short_desc' ,'price', 'stock', 'SKU', 'barcode', 'cut_price','status','created_by','updated_by'];
+    protected $fillable = ['title', 'slug', 'min_buy','max_buy','comb_variants','weight','category_id', 'sub_category', 'child_category','product_template','question_category','main_image','desc','short_desc' ,'price', 'stock', 'SKU', 'barcode', 'cut_price','status','created_by','updated_by'];
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     public function category()
     {
@@ -32,5 +42,10 @@ class Product extends Model
 
     public function variants(){
         return $this->hasMany(ProductVariant::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

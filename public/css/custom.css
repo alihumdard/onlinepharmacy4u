@@ -920,3 +920,19 @@ margin-bottom: 20px !important;
 .reg-me input{
     border-radius: 30px !important;
 }
+.mobile-slider{
+    display: none !important;
+}
+@media only screen and (max-width:500px){
+    .mobile-slider{
+        display: block !important;
+    }
+    .desktop-slider{
+        display: none !important;
+    }
+}
+.product-price{
+    position: relative !important;
+    z-index: 99;
+    bottom: 30px !important;
+}

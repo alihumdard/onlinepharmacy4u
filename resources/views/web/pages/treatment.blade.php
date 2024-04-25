@@ -31,8 +31,8 @@
                     <h1 class="page-title">Search Treatments A-Z</h1>
                     <p>No matter what ails you, Online Pharmacy 4U is here to offer assistance. We have a wide range of treatments available for various common illnesses. You can be assured of high quality medicine dispensed by a licensed UK pharmacist. Transactions are safe and 100% secured.</p>
                     <br>
-                    {{-- <p>Can't find what you're looking for?</p>
-                    <a href="{{ route('web.conditions')}}" class="btn btn-outline-danger view-btn">Try Our Conditions A-Z </a> --}}
+                    <p>Can't find what you're looking for?</p>
+                    <a href="{{ route('web.conditions')}}" class="btn btn-outline-danger view-btn">Try Our Conditions A-Z </a>
                 </div>
             </div>
         </div>
@@ -42,11 +42,11 @@
 <div class="choose">
     <ul>
         <li><strong>Choose</strong> </li>
-        <li class="{{$range == 'a-e' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['q' => 'a-e'])}} ">A-E</a></li>
-        <li class="{{$range == 'f-j' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['q' => 'f-j'])}} ">F-J</a></li>
-        <li class="{{$range == 'k-o' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['q' => 'k-o'])}} ">K-O</a></li>
-        <li class="{{$range == 'p-t' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['q' => 'p-t'])}} ">P-T</a></li>
-        <li class="{{$range == 'u-z' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['q' => 'u-z'])}} ">U-Z</a></li>
+        <li class="{{$range == 'a-e' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['t' => 'a-e'])}} ">A-E</a></li>
+        <li class="{{$range == 'f-j' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['t' => 'f-j'])}} ">F-J</a></li>
+        <li class="{{$range == 'k-o' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['t' => 'k-o'])}} ">K-O</a></li>
+        <li class="{{$range == 'p-t' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['t' => 'p-t'])}} ">P-T</a></li>
+        <li class="{{$range == 'u-z' ? 'active' : ''}}"><a href="{{ route('web.treatment', ['t' => 'u-z'])}} ">U-Z</a></li>
     </ul>
 </div>
 
@@ -88,8 +88,12 @@
             </div>
         </div>
     </div>
+    <div style="display: flex; justify-content: center;">
+        {{ $products->withQueryString()->links() }}
+    </div>
 </div>
 <!-- PRODUCT DETAILS AREA END -->
+
 
 @stop
 

@@ -368,7 +368,7 @@ class WebController extends Controller
                 ->get()
                 ->toArray();
             $question_map_cat  = QuestionMapping::where('category_id', $quest_category_id)->get()->toArray();
-            $data['alerts']  = $question_alerts = Alert::where('q_category_id', $quest_category_id)->get()->keyBy('id')->toArray();
+            $data['alerts']  =  Alert::where('q_category_id', $quest_category_id)->get()->keyBy('id')->toArray();
             $data['questions'] = [];
             $data['dependent_questions'] = [];
             foreach ($questions as $key => $quest) {
@@ -378,7 +378,6 @@ class WebController extends Controller
                 if ($quest['anwser_set'] == "mt_choice") {
                     foreach ($question_map_cat as $key => $val1) {
                         if ($val1['question_id'] == $q_id && $val1['answer'] == 'optA') {
-                            $quest['next_quest']['optA'] = $val1['next_question'];
                             $quest['selector']['optA'] = $val1['selector'];
                             $quest['next_type']['optA'] = $val1['next_type'];
                         } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optB') {

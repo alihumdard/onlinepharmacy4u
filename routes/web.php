@@ -61,115 +61,6 @@ Route::match(['get','post'],'/Completed-order', [WebController::class, 'complete
 Route::match(['get','post'],'/Unsuccessful-order', [WebController::class, 'unsuccessful_order']);
 
 Route::match(['get','post'],'/search', [WebController::class, 'search'])->name('web.search');
-
-
-// temporary route for generating slugs for existing products
-Route::get('/generate_slug_existing', [WebController::class, 'generate_slug_existing']);
-include __DIR__ . '/admin.php';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
-// Route::get('/blogs', [HomeController::class, 'blogs'])->name('web.blogs');
-// Route::get('/term&conditions', [HomeController::class, 'term'])->name('web.term&conditions');
-// Route::get('/privacypolicy', [HomeController::class, 'privacy'])->name('web.privacypolicy');
-// Route::get('/deliveryReturns', [HomeController::class, 'deliveryReturns'])->name('web.deliveryReturns');
-// Route::get('/howitworks', [HomeController::class, 'howitworks'])->name('web.howitworks');
-// Route::get('/products/{cat_id?}', [WebController::class, 'products'])->name('web.products');
-// Route::match(['get','post'],'/bmiForm', [WebController::class, 'bmi_form'])->name('web.bmiForm');
-// Route::match(['get','post'],'/bmiFormStore', [WebController::class, 'bmi_formStore'])->name('web.bmiFormStore');
-// Route::match(['get','post'],'/bmiUpdate', [WebController::class, 'bmi_update'])->name('web.bmiUpdate');
-// Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
-// Route::match(['get','post'],'/cart/{id?}', [WebController::class, 'cart'])->name('web.cart');
-
-// Route::get('/getOrder/{id}', [WebController::class, 'get_order']);
-// Route::post('/createOrder', [WebController::class, 'create_order']);
-
-// Route::match(['get','post'],'/checkout', function(){
-//     return view('web.pages.checkout');
-// })->name('web.checkout');
-
-// Route::match(['get','post'],'/terms', function(){
-//     return view('web.pages.term');
-// })->name('web.term_conditions');
-
-// Route::match(['get','post'],'/privacypolicy', function(){
-//     return view('web.pages.privacy');
-// })->name('web.privacypolicy');
-
-// Route::match(['get','post'],'/howitworks', function(){
-//     return view('web.pages.howitworks');
-// })->name('web.howitworks');
-
-// Route::match(['get','post'],'/deliveryReturns', function(){
-//     return view('web.pages.deliveryReturns');
-// })->name('web.deliveryReturns');
-
-// Route::get('/blog', function () {
-//     return view('web.pages.blogs');
-// });
-
-// Route::get('/about', function () {
-//     return view('web.pages.about');
-// });
-
-
-
-// Route::get('/contact', function(){
-//     return view('web.pages.contact');
-// });
-
-// Route::get('/faqs', function(){
-//     return view('web.pages.faqs');
-// });
-
-// Route::get('/news', function(){
-//     return view('web.pages.news');
-// });
-
-// Route::get('/services', function(){
-//     return view('web.pages.services');
-// });
-
-// Route::get('/shop', function(){
-//     return view('web.pages.shop');
-// });
-
-// Route::get('/wishlist', function(){
-//     return view('web.pages.wishlist');
-// });
-
-// Route::get('/register', function(){
-//     return view('web.pages.register');
-// });
-
-
-
-// Route::get('/cart', function(){
-//     return view('web.pages.cart');
-// });
-
-// Route::get('/checkout', function(){
-//     return view('web.pages.checkout');
-
-
 Route::get('/product_question', [WebController::class, 'product_question_new']);
 
 
@@ -178,10 +69,6 @@ Route::get('/product_question', [WebController::class, 'product_question_new']);
 Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->name('web.questions_preview');
 
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
-// Route::get('/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
-// Route::get('/shop', [WebController::class, 'show_products'])->name('shop');
-// Route::get('/product/{id}', [WebController::class, 'product_detail'])->name('web.product');
-
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
 Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
 Route::match(['get','post'],'/account', [WebController::class, 'account'])->name('web.account');
@@ -228,5 +115,9 @@ Route::get('/product_information', [HomeController::class, 'product_information'
 
 Route::get('/treatment', [WebController::class, 'treatment'])->name('web.treatment');
 Route::get('/conditions', [WebController::class, 'conditions'])->name('web.conditions');
+
+// temporary route for generating slugs for existing products
+Route::get('/generate_slug_existing', [WebController::class, 'generate_slug_existing']);
+Route::get('/generate_slug_variants_existing', [WebController::class, 'generate_slug_variants_existing']);
 
 include __DIR__ . '/admin.php';

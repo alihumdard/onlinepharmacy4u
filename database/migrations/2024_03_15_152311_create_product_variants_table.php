@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->decimal('price',8,2)->nullable();
             $table->string('value')->nullable();
+            $table->text('value')->nullable();
             $table->string('barcode')->nullable();
             $table->string('inventory')->nullable();
             $table->string('sku')->nullable();

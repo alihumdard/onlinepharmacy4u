@@ -59,6 +59,8 @@ use Illuminate\Support\Facades\Redirect;
 use GuzzleHttp\Client;
 use Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
 
+use App\Models\ProductVariant;
+
 class WebController extends Controller
 {
     private $menu_categories;
@@ -1007,12 +1009,25 @@ class WebController extends Controller
 
     public function generate_slug_existing()
     {
-        // generate slugs for
+        // generate slugs for existing products
         $needSlugs = Product::where('slug', null)->get();
 
         foreach($needSlugs as $slug){
             $slug->update([
                 'slug' => SlugService::createSlug(Product::class, 'slug', $slug->title)
+            ]);
+        }
+        return 1;
+    }
+
+    public function generate_slug_variants_existing()
+    {
+        // generate slugs for existing product variants
+        $needSlugs = ProductVariant::with('product')->where('slug', null)->get();
+
+        foreach($needSlugs as $slug){
+            $slug->update([
+                'slug' => SlugService::createSlug(ProductVariant::class, 'slug', $slug->product->title.' '.$slug->value)
             ]);
         }
         return 1;

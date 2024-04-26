@@ -303,6 +303,7 @@ class ProductController extends Controller
                     $productAttrArr['price'] = $priceArr[$key];
                     $productAttrArr['cut_price'] = $cutPriceArr[$key];
                     $productAttrArr['value'] = $valueArr[$key];
+                    $productAttrArr['slug'] = SlugService::createSlug(ProductVariant::class, 'slug', $request->title.' '.$valueArr[$key], ['unique' => false]);
                     $productAttrArr['barcode'] = $barcodeArr[$key];
                     $productAttrArr['inventory'] = $inventoryArr[$key];
                     $productAttrArr['sku'] = $skuArr[$key];
@@ -354,6 +355,7 @@ class ProductController extends Controller
                     $productAttrArrE['price'] = $priceArrExist[$key1];
                     $productAttrArrE['cut_price'] = $cutPriceArrExist[$key1];
                     $productAttrArrE['value'] = $valueArrExist[$key1];
+                    $productAttrArrE['slug'] = SlugService::createSlug(ProductVariant::class, 'slug', $request->title.' '.$valueArrExist[$key1], ['unique' => false]);
                     $productAttrArrE['barcode'] = $barcodeArrExist[$key1];
                     $productAttrArrE['inventory'] = $inventoryArrExist[$key1];
                     $productAttrArrE['sku'] = $skuArrExist[$key1];

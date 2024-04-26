@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'GPA Letters')
+@section('title', 'GP Letters')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -69,12 +69,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1>GPA Letters</h1>
+        <h1>GP Letters</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">GPA Letters</li>
+                <li class="breadcrumb-item active">GP Letters</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->

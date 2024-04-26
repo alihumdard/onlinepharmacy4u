@@ -142,6 +142,7 @@ function view_permission($page_name)
                 case 'online_clinic_orders':
                 case 'shop_orders':
                 case 'setting':
+                case 'gp_letters':
                     return true;
                 default:
                     return false;

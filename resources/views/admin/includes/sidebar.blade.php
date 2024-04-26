@@ -178,7 +178,7 @@
                 @if(view_permission('gpa_letters'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.gpaLeters'])) ? 'nav-link ' : ''}}" href="{{route('admin.gpaLeters')}}">
-                        <i class="bi bi-circle"></i><span>GPA Letters</span>
+                        <i class="bi bi-circle"></i><span>GP Letters</span>
                     </a>
                 </li>
                 @endif
@@ -271,6 +271,15 @@
             </a>
         </li>
         @endif
+
+        @if(view_permission('gp_letters'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.gpaLeters')}}">
+                <i class="bi bi-bar-chart"></i><span>GP Letters</span>
+            </a>
+        </li>
+        @endif
+
         <li class="nav-heading">-------- user's Basic Settings --------</li>
 
         @if(view_permission('setting'))

@@ -141,22 +141,30 @@
                             <p class="m-0 fw-bold">{{$question['title'] ?? '' }}</p>
                         </div>
                         <p class=" ">{!! $question['desc'] ?? '' !!}</p>
+                        @if($question['optA'])
                         <div class="form-check">
                             <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option1" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['optA'] ?? 'nothing'}}" data-selector="{{ (isset($question['selector']['optA'])) ? $question['selector']['optA'] : ''}}" data-selector="{{ (isset($question['selector']['optA'])) ? $question['selector']['optA'] : ''}}" value="{{$question['optA']}}" required>
                             <label class="form-check-label" for="quest_{{$question['id']}}_option1">{{$question['optA']}}</label>
                         </div>
+                        @endif
+                        @if($question['optB'])
                         <div class="form-check">
                             <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option2" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['optB'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['optB'])) ? $question['selector']['optB'] : ''}}" value="{{$question['optB']}}" required>
                             <label class="form-check-label" for="quest_{{$question['id']}}_option2">{{$question['optB']}}</label>
                         </div>
+                        @endif
+                        @if($question['optC'])
                         <div class="form-check">
                             <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option3" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['optC'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['optC'])) ? $question['selector']['optC'] : ''}}" value="{{$question['optC']}}" required>
                             <label class="form-check-label" for="quest_{{$question['id']}}_option3">{{$question['optC']}}</label>
                         </div>
+                        @endif
+                        @if($question['optD'])
                         <div class="form-check">
                             <input class="form-check-input styled-radio option" type="radio" name="quest_{{$question['id']}}" id="quest_{{$question['id']}}_option3" data-append_id="apped_quest_{{$question['id']}}" data-next_type="{{ $question['next_type']['optD'] ??  'nothing'}}" data-selector="{{ (isset($question['selector']['optD'])) ? $question['selector']['optD'] : ''}}" value="{{$question['optD']}}" required>
                             <label class="form-check-label" for="quest_{{$question['id']}}_option3">{{$question['optD']}}</label>
                         </div>
+                        @endif
                     </div>
                     <div id="apped_quest_{{$question['id']}}"></div>
                     @endif

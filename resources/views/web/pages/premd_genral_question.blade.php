@@ -363,7 +363,7 @@
                 <input type="radio" name="quest_{{$questions[2]['id']}}" class="btn-radio option" value="Yes" data-append_id="apped_quest_{{$questions[2]['id']}}" data-selector="question_{{$questions[3]['id']}}" data-label="Yes" required>
             </label>
             <label class="btn" style="padding: 0;">
-                <input type="radio" name="quest_{{$questions[2]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[2]['id']}}" data-selector="nothing" data-label="No" required>
+                <input type="radio" name="quest_{{$questions[2]['id']}}" class="btn-radio option" value="No" data-append_id="apped_quest_{{$questions[2]['id']}}" data-selector="alert_0" data-label="No" required>
             </label>
         </div>
         <div id="apped_quest_{{$questions[2]['id']}}">
@@ -377,12 +377,19 @@
             <textarea class="form-control" id="quest_{{$questions[3]['id']}}" name="quest_{{$questions[3]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
         </div>
     </div>
+    <div id="alert_0" class="question px-1" style="display:none;">
+        <hr class="my-2">
+        <div class="mb-0">
+            <div class="alert alert-danger bg-danger ">
+                <p class="px-2 fw-semibold text-white">We might need to inform Your GP depending on the product you have purchased. You can change your answer to 'Yes' and continue.</p>
+            </div>
+        </div>
+    </div>
 
     <div id="alert_1" class="question px-1" style="display:none;">
         <hr class="my-2">
         <div class="mb-0">
             <div class="alert alert-danger bg-danger ">
-                <!-- <button type="button" class=" text-dark btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
                 <p class="px-2 fw-semibold text-white">Unfortunately, we cannot recommend a suitable treatment for you. If you did this in error, you have the choice to change your answer. If you have any questions about this consultation, please email info@online-pharmacy4u.co.uk.</p>
             </div>
         </div>

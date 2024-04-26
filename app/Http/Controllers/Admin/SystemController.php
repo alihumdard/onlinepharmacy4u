@@ -285,6 +285,40 @@ class SystemController extends Controller
         return view('admin.pages.categories.categories', $data);
     }
 
+    public function sub_categories()
+    {
+        $user = auth()->user();
+        $page_name = 'sub_categories';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['categories'] = SubCategory::with('category')->latest('id')->get()->toArray();
+        }
+
+        return view('admin.pages.categories.sub_categories', $data);
+    }
+
+    public function child_categories()
+    {
+        $user = auth()->user();
+        $page_name = 'child_categories';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['categories'] = ChildCategory::with('subcategory')->where('status', 'Active')->latest('id')->get()->toArray();
+        }
+
+        return view('admin.pages.categories.child_categories', $data);
+    }
+
     public function add_category(Request $request)
     {
         $user = auth()->user();
@@ -430,40 +464,6 @@ class SystemController extends Controller
         }
     }
 
-    public function sub_categories()
-    {
-        $user = auth()->user();
-        $page_name = 'sub_categories';
-        if (!view_permission($page_name)) {
-            return redirect()->back();
-        }
-
-        $data['user'] = auth()->user();
-
-        if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['categories'] = SubCategory::with('category')->latest('id')->get()->toArray();
-        }
-
-        return view('admin.pages.categories.sub_categories', $data);
-    }
-
-    public function child_categories()
-    {
-        $user = auth()->user();
-        $page_name = 'child_categories';
-        if (!view_permission($page_name)) {
-            return redirect()->back();
-        }
-
-        $data['user'] = auth()->user();
-
-        if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['categories'] = ChildCategory::with('subcategory')->latest('id')->get()->toArray();
-        }
-
-        return view('admin.pages.categories.child_categories', $data);
-    }
-
     public function get_parent_category(Request $request)
     {
         $selection = $request->selection;
@@ -499,6 +499,49 @@ class SystemController extends Controller
             ->toArray();
 
         return response()->json(['status' => 'success', 'child_category' => $categories]);
+    }
+
+    public function delete_category(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'dell_category';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $rules = [
+            'id'  => 'required',
+            'cat_type'  => 'required',
+        ];
+
+        $status = 'Success';
+        $message = "Category deleted Successfully";
+        $class = 'bg-success';
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()]);
+        }
+        $productExists = Product::where($request->cat_type, $request->id)->where('status', 1)->exists();
+        if ($productExists) {
+            $status = 'Failed';
+            $message = "Category can't deleted,Please delete associated products of that category frist.";
+            $class = 'bg-danger';
+        } else {
+            if ($request->cat_type === 'child_category') {
+                $category = ChildCategory::findOrFail($request->id);
+            } elseif ($request->cat_type === 'sub_category') {
+                $category = SubCategory::findOrFail($request->id);
+            } elseif ($request->cat_type === 'category_id') {
+                $category = Category::findOrFail($request->id);
+            }
+              
+            $category->update([
+                'status' => 'Deleted',
+            ]);
+            
+        }
+
+        return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class ]]);
     }
 
     // question management ...
@@ -1246,7 +1289,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved','Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))

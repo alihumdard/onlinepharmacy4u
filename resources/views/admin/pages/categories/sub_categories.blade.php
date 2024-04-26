@@ -43,6 +43,12 @@
         .table-stripe tbody tr:nth-child(even) {
             background-color: deepskyblue;
         }
+
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            visibility: hidden;
+        }
     </style>
 
     <div class="pagetitle">
@@ -63,8 +69,21 @@
                 <div class="card">
                     <div class="card-header mt-3" id="tbl_button" style="border: 0 !important; border-color: transparent !important;">
                     </div>
+                    <div class="row mb-3 px-4">
+                        <div class="col-md-12 mt-3 text-center d-block">
+                            <label for="search" class="form-label fw-bold">Search From Table </label>
+                            <input type="text" id="search" placeholder="Search here..." class="form-control py-2">
+                        </div>
+                        <div class="col-md-12 mt-3 ">
+                            <div id="ajax_alert" class="alert alert-danger d-none text-light border-0 alert-dismissible fade show" role="alert">
+                                <h4 id="status">Success</h4>
+                                <p style="margin-bottom: 0.5rem;" id="alert_msg">Category Successfully deleted.!</p>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <table id="tbl_categories" class="table table-bordered table-striped">
+                        <table id="tbl_data" class="table table-bordered table-striped">
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">#</th>
@@ -84,14 +103,14 @@
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold;">{{$value['publish'] ?? '' }} </td>
                                     <td style="vertical-align: middle; text-align: center;">
                                         <div class="form-check form-switch d-flex justify-content-center ">
-                                            <input class="form-check-input"  style="width: 3.3rem; height: 1.3rem;" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+                                            <input class="form-check-input" style="width: 3.3rem; height: 1.3rem;" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
                                         </div>
                                     </td>
                                     <td style="vertical-align: middle; text-align: center;">
-                                        <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}"  data-toggle="tooltip">
+                                        <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}"  data-toggle="tooltip">
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-trash-fill"></i>
                                         </a>
                                     </td>
@@ -110,7 +129,7 @@
 </main>
 <!-- End #main -->
 
-<form  id="edit_form" action="{{route('admin.addCategory')}}" method="post">
+<form id="edit_form" action="{{route('admin.addCategory')}}" method="post">
     @csrf
     <input id="edit_form_id_input" type="hidden" value="" name="id">
     <input id="selection" type="hidden" value="2" name="selection">
@@ -122,7 +141,7 @@
 @pushOnce('scripts')
 <script>
     $(function() {
-        $("#tbl_categories").DataTable({
+        $("#tbl_data").DataTable({
             "paging": true,
             "responsive": true,
             "lengthChange": false,
@@ -130,18 +149,11 @@
             "searching": true,
             "ordering": true,
             "info": true,
-            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             "buttons": [{
                     extend: 'pdf',
                     text: 'Donwload PDF ',
                     className: 'btn-blue',
                 },
-                // {
-                //     extend: 'excel',
-                //     text: 'Donwload Excel ',
-                //     className: 'btn-blue', 
-                // },
-
                 {
                     extend: 'print',
                     text: 'Print Out',
@@ -150,18 +162,59 @@
             ]
         }).buttons().container();
     });
-    $(document).ready(function () {
-        $('.edit').click(function () {
-            var id = $(this).data('id'); 
-            $('#edit_form_id_input').val(id); 
-            $('#edit_form').submit(); 
-        });
-
-        $('.delete').click(function () {
-            var id = $(this).data('id'); 
-            $('#edit_form_id_input').val(id); 
+    $(document).ready(function() {
+        $('.edit').click(function() {
+            var id = $(this).data('id');
+            $('#edit_form_id_input').val(id);
             $('#edit_form').submit();
         });
+
+        var tableApi = $('#tbl_data').DataTable();
+        $('#search').on('input', function() {
+            let text = $(this).val();
+            if (text === '') {
+                tableApi.search('').draw();
+            } else {
+                tableApi.search(text).draw();
+            }
+        });
+
+
+        $(document).on('click', '.delete', function() {
+            $('#ajax_alert').addClass('d-none').removeClass('bg-success').removeClass('bg-danger');
+            var $id = $(this).data('id');
+            var $cat_type = 'sub_category';
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            var formData = new FormData();
+            formData.append('_token', csrfToken);
+            formData.append('id', $id);
+            formData.append('cat_type', $cat_type);
+            var $rowToDelete = $(this).closest('tr');
+
+            $.ajax({
+                url: "{{ route('admin.dellCategory') }}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.status == 'Success') {
+                        $rowToDelete.fadeOut('slow', function() {
+                            $(this).remove();
+                        });
+                    }
+                    $('#ajax_alert').removeClass('d-none').addClass(response.data.class);
+                    $('#status').text(response.status);
+                    $('#alert_msg').text(response.message);
+
+                },
+                error: function(error) {
+                    alert('Contact To Developer');
+                }
+            });
+        });
+
     });
 </script>
 @endPushOnce

@@ -909,7 +909,7 @@ class WebController extends Controller
         $subCategory_id = SubCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
         $childCategory_id = ChildCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
 
-        $data['products'] = Product::where('title', 'like', '"%'.$data['string'].'%"')
+        $data['products'] = Product::where('title', 'like', '%'.$data['string'].'%')
         ->when(!$category_id->isEmpty(), function ($query) use ($category_id) {
             $query->orWhereIn('category_id', $category_id);
         })

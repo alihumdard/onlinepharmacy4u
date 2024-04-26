@@ -279,7 +279,7 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['categories'] = Category::latest('id')->get()->toArray();
+            $data['categories'] = Category::where('status', 'Active')->latest('id')->get()->toArray();
         }
 
         return view('admin.pages.categories.categories', $data);
@@ -296,7 +296,7 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['categories'] = SubCategory::with('category')->latest('id')->get()->toArray();
+            $data['categories'] = SubCategory::with('category')->where('status', 'Active')->latest('id')->get()->toArray();
         }
 
         return view('admin.pages.categories.sub_categories', $data);

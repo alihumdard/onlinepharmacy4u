@@ -190,7 +190,6 @@ class DefualtController extends Controller
     public function login(Request $request)
     {
         $user = auth()->user();
-        // return $user;
         if (!$user) {
             if ($request->all()) {
                 $validator = Validator::make($request->all(), [
@@ -289,7 +288,6 @@ class DefualtController extends Controller
                 'name'     => 'required',
                 'phone'    => 'required|digits:11',
                 'address'  => 'required',
-                // 'role'     => 'required',
                 'dob'     => 'required',
                 'zip_code'     => 'required',
                 'email'    => [

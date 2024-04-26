@@ -104,7 +104,7 @@
                         @enderror
 
                          <!-- Text input for selecting the date -->
-                         <input type="text" id="dob" class="form-control" placeholder="dd-mm-yyyy" required>
+                         <input type="text" id="dob" name="dob" class="form-control" value="{{old('dob') }}" placeholder="dd-mm-yyyy" required>
                         <div class="invalid-feedback">Please enter DOB!</div>
                         @error('dob')
                         <div class="alert-danger text-danger ">{{ $message }}</div>

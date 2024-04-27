@@ -64,11 +64,17 @@ class WebController extends Controller
 
     public function __construct()
     {
-        $this->menu_categories = Category::with('subcategory.childCategories')
+        $this->menu_categories = Category::where('status', 'Active')
+            ->with(['subcategory' => function ($query) {
+                $query->where('status', 'Active')
+                    ->with(['childCategories' => function ($query) {
+                        $query->where('status', 'Active');
+                    }]);
+            }])
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()
-            ->toArray();
+            ->toArray();;
 
         view()->share('menu_categories', $this->menu_categories);
     }
@@ -230,7 +236,6 @@ class WebController extends Controller
 
         return view('web.pages.products', $data);
     }
-
 
     public function product_detail(Request $request)
     {
@@ -475,7 +480,6 @@ class WebController extends Controller
         }
     }
 
-
     public function view_cart(Request $request)
     {
         $data['cart'] = session('cart');
@@ -511,21 +515,21 @@ class WebController extends Controller
         $level = '';
         if ($category && $sub_category && $child_category) {
             $level = 'child';
-            $child_category_id = ChildCategory::where('slug', $child_category)->first()->id;
+            $child_category_id = ChildCategory::where(['slug' => $child_category,'status' =>'Active'])->where('status', 'Active')->first()->id;
         } else if ($category && $sub_category && !$child_category) {
             $level = 'sub';
-            $sub_category_id = SubCategory::where('slug', $sub_category)->first()->id;
+            $sub_category_id = SubCategory::where(['slug' => $sub_category,'status' =>'Active'])->first()->id;
         } else if ($category && !$sub_category && !$child_category) {
             $level = 'main';
-            $category_id = Category::where('slug', $category)->first()->id;
+            $category_id = Category::where(['slug' => $category,'status' =>'Active'])->first()->id;
         }
 
         $query = Product::query();
 
         switch ($level) {
             case 'main':
-                $data['main_category'] = Category::where('slug', $category)->first();
-                $data['categories'] = SubCategory::where('category_id', $data['main_category']->id)->get()->toArray();
+                $data['main_category'] = Category::where(['slug' => $category,'status' =>'Active'])->first();
+                $data['categories'] = SubCategory::where(['category_id', $data['main_category']->id ,'status' =>'Active'])->get()->toArray();
                 $data['image'] = $data['main_category']['image'];
                 $data['category_name'] = $data['main_category']['name'];
                 $data['main_slug'] = $data['main_category']['slug'];
@@ -534,9 +538,9 @@ class WebController extends Controller
                 $data['is_product'] = false;
                 break;
             case 'sub':
-                $data['main_category'] = Category::where('slug', $category)->first();
-                $data['sub_category'] = SubCategory::where('slug', $sub_category)->first();
-                $data['categories'] = ChildCategory::where('sub_category_id', $data['sub_category']->id)->get()->toArray();
+                $data['main_category'] = Category::where(['slug' => $category,'status' =>'Active'])->first();
+                $data['sub_category'] = SubCategory::where(['slug' => $sub_category,'status' =>'Active'])->first();
+                $data['categories'] = ChildCategory::where(['sub_category_id' => $data['sub_category']->id,'status' =>'Active'])->get()->toArray();
                 $data['image'] = $data['sub_category']['image'];
                 $data['category_name'] = $data['sub_category']['name'];
                 $data['main_slug'] = $data['main_category']['slug'];
@@ -546,7 +550,7 @@ class WebController extends Controller
                 $data['is_product'] = true;
                 break;
             case 'child':
-                $data['category'] = ChildCategory::where('slug', $child_category)->first();
+                $data['category'] = ChildCategory::where(['slug', $child_category,'status' =>'Active'])->first();
                 $data['is_product'] = true;
                 break;
             default:
@@ -591,6 +595,7 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         return view('web.pages.works', $data);
     }
+
     public function faq()
     {
         $data['user'] = auth()->user() ?? [];
@@ -632,7 +637,6 @@ class WebController extends Controller
         $data['products'] = Product::where(['sub_category' => $sub_category_id])->get();
         return view('web.pages.sleep', $data);
     }
-
 
     public function payment(Request $request)
     {
@@ -871,7 +875,6 @@ class WebController extends Controller
         return $products ?? NULL;
     }
 
-
     public function get_category_slug($product_id)
     {
         $product = Product::find($product_id);
@@ -904,22 +907,22 @@ class WebController extends Controller
 
     public function search(Request $request)
     {
-        $data['string'] = $request->q;        
-        $category_id = Category::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
-        $subCategory_id = SubCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
-        $childCategory_id = ChildCategory::where('name', 'like', '%'.$data['string'].'%')->pluck('id');
+        $data['string'] = $request->q;
+        $category_id = Category::where('name', 'like', '%' . $data['string'] . '%')->pluck('id');
+        $subCategory_id = SubCategory::where('name', 'like', '%' . $data['string'] . '%')->pluck('id');
+        $childCategory_id = ChildCategory::where('name', 'like', '%' . $data['string'] . '%')->pluck('id');
 
-        $data['products'] = Product::where('title', 'like', '%'.$data['string'].'%')
-        ->when(!$category_id->isEmpty(), function ($query) use ($category_id) {
-            $query->orWhereIn('category_id', $category_id);
-        })
-        ->when(!$subCategory_id->isEmpty(), function ($query) use ($subCategory_id) {
-            $query->orWhereIn('sub_category', $subCategory_id);
-        })
-        ->when(!$childCategory_id->isEmpty(), function ($query) use ($childCategory_id) {
-            $query->orWhereIn('child_category', $childCategory_id);
-        })
-        ->paginate(20);
+        $data['products'] = Product::where('title', 'like', '%' . $data['string'] . '%')
+            ->when(!$category_id->isEmpty(), function ($query) use ($category_id) {
+                $query->orWhereIn('category_id', $category_id);
+            })
+            ->when(!$subCategory_id->isEmpty(), function ($query) use ($subCategory_id) {
+                $query->orWhereIn('sub_category', $subCategory_id);
+            })
+            ->when(!$childCategory_id->isEmpty(), function ($query) use ($childCategory_id) {
+                $query->orWhereIn('child_category', $childCategory_id);
+            })
+            ->paginate(20);
 
         $data['total'] = $data['products']->total();
         $data['currentPage'] = $data['products']->count();
@@ -944,8 +947,8 @@ class WebController extends Controller
                 $query->orWhere('title', 'like', $letter . '%');
             }
         })
-        ->orderBy('title')
-        ->paginate(100);
+            ->orderBy('title')
+            ->paginate(100);
         $data['range'] = $request->t ?? 'a-e';
 
         return view('web.pages.treatment', $data);
@@ -963,7 +966,7 @@ class WebController extends Controller
 
         $letters = $request->t ? $ranges[$request->t] : $ranges['a-e'];
 
-        $categories  = Category::select('name','slug', 'image', 'slug AS url')->where(function ($query) use ($letters) {
+        $categories  = Category::select('name', 'slug', 'image', 'slug AS url')->where(function ($query) use ($letters) {
             foreach ($letters as $letter) {
                 $query->orWhere('name', 'like', $letter . '%');
             }
@@ -999,7 +1002,7 @@ class WebController extends Controller
 
         $data['conditions'] = $categories->union($subCategories)->union($childCategories)->orderBy('name')->get();
         $data['range'] = $request->t ?? 'a-e';
-        
+
         return view('web.pages.conditions', $data);
     }
 }

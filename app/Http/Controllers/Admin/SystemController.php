@@ -541,7 +541,7 @@ class SystemController extends Controller
             
         }
 
-        return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class ]]);
+        return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class]]);
     }
 
     // question management ...

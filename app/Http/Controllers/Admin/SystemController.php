@@ -534,11 +534,10 @@ class SystemController extends Controller
             } elseif ($request->cat_type === 'category_id') {
                 $category = Category::findOrFail($request->id);
             }
-              
+
             $category->update([
                 'status' => 'Deleted',
             ]);
-            
         }
 
         return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class]]);
@@ -641,6 +640,42 @@ class SystemController extends Controller
         return view('admin.pages.questions.questions', $data);
     }
 
+    public function trash_questions(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'questions';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        $data['route'] = '';
+        $data['q_type'] = $request->q_type;
+        if ($request->q_type === 'pro_question') {
+            $data['route'] = 'admin.questions';
+            $data['categories'] = [];
+            if (isset($user->role) && $user->role == user_roles('1')) {
+                $data['questions'] = Question::where(['status' => 'Deactive'])
+                    ->orderBy('category_title')
+                    ->orderByRaw('IF(`order` IS NULL, 1, 0), CAST(`order` AS UNSIGNED), `order`')
+                    ->orderBy('id')
+                    ->get()
+                    ->toArray();
+                if ($data['questions']) {
+                    $data['categories'] = array_unique(array_column($data['questions'], 'category_title'));
+                }
+            }
+        } elseif ($request->q_type === 'pmd_question') {
+            $data['questions'] = PMedGeneralQuestion::where(['status' => 'Deactive'])->get()->toArray();
+        } elseif ($request->q_type === 'pre_question') {
+            $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+        } else {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.questions.trash_questions', $data);
+    }
+
+
     public function faq_questions(Request $request)
     {
         $user = auth()->user();
@@ -675,7 +710,7 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['questions'] = PMedGeneralQuestion::get()->toArray();
+        $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
 
         return view('admin.pages.questions.p_med_gq', $data);
     }
@@ -689,7 +724,7 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['questions'] = PrescriptionMedGeneralQuestion::get()->toArray();
+        $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
 
         return view('admin.pages.questions.prescription_med_gq', $data);
     }
@@ -887,6 +922,48 @@ class SystemController extends Controller
             return redirect()->route('admin.faqQuestions')->with(['msg' => $message]);
         }
     }
+
+    public function delete_question(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'dell_question';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $rules = [
+            'id'  => 'required',
+            'q_type'  => 'required',
+            'status'  => 'required',
+        ];
+
+        $status = 'Success';
+        $action = ($request->status == 'Active') ? ' Reverted ' : (($request->status == 'Deactive') ? ' Sent to Trash ' : ' Deleted ');        
+        $message = "Question ".$action." Successfully";
+        $class = ($request->status == 'Deleted') ? 'bg-danger' : 'bg-success';
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $status = 'Failed';
+            $message = "Question can't deleted.";
+            $class = 'bg-danger';
+            return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class], 'errors' => $validator->errors()]);
+        }
+
+        if ($request->q_type === 'pro_question') {
+            $question = Question::findOrFail($request->id);
+        } elseif ($request->q_type === 'pmd_question') {
+            $question = PMedGeneralQuestion::findOrFail($request->id);
+        } elseif ($request->q_type === 'pre_question') {
+            $question = PrescriptionMedGeneralQuestion::findOrFail($request->id);
+        }
+
+        $question->update([
+            'status' => $request->status,
+        ]);
+
+        return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class]]);
+    }
+
     // question assignment manament...
     public function assign_question(Request $request)
     {

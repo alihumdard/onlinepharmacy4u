@@ -15,15 +15,19 @@ class CartController extends Controller
 
     public function __construct()
     {
-        $this->menu_categories = Category::with('subcategory.childCategories')
+        $this->menu_categories = Category::where('status', 'Active')
+            ->with(['subcategory' => function ($query) {
+                $query->where('status', 'Active')
+                    ->with(['childCategories' => function ($query) {
+                        $query->where('status', 'Active');
+                    }]);
+            }])
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()
             ->toArray();
-
-        view()->share('menu_categories', $this->menu_categories);
     }
-    
+
     public function cart()
     {
         $data['cartContent'] = Cart::content();
@@ -39,7 +43,7 @@ class CartController extends Controller
         $prod_id = $request->id;
 
         $variant = null;
-        if($variant_id){
+        if ($variant_id) {
             $variant = ProductVariant::find($variant_id);
         }
 
@@ -47,32 +51,31 @@ class CartController extends Controller
             return strpos($value->id, $prod_id) !== false;
         });
 
-        if(($product->min_buy && $quantity < $product->min_buy && count($item) == 0)){
+        if (($product->min_buy && $quantity < $product->min_buy && count($item) == 0)) {
             return response()->json([
                 'status' => false,
-                'message' => 'Buy minimum '.$product->min_buy.' quantity'
+                'message' => 'Buy minimum ' . $product->min_buy . ' quantity'
             ]);
         }
 
-        if(count($item) == 0){
-            if($product->max_buy && $quantity > $product->max_buy){
+        if (count($item) == 0) {
+            if ($product->max_buy && $quantity > $product->max_buy) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Max buy '.$product->max_buy.' quantity'
+                    'message' => 'Max buy ' . $product->max_buy . ' quantity'
                 ]);
             }
-        }
-        else{
+        } else {
             $sumOfQty = $item->sum('qty');
-            if($product->max_buy && ($quantity + $sumOfQty > $product->max_buy)){
+            if ($product->max_buy && ($quantity + $sumOfQty > $product->max_buy)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Max buy '.$product->max_buy.' quantity.' . ' you already add '.$sumOfQty
+                    'message' => 'Max buy ' . $product->max_buy . ' quantity.' . ' you already add ' . $sumOfQty
                 ]);
             }
         }
 
-        if($product == null){
+        if ($product == null) {
             return response()->json([
                 'status' => false,
                 'message' => 'Product Not Found'
@@ -116,10 +119,9 @@ class CartController extends Controller
         //     $message = $product->title . " added in cart 2";
         // }
 
-        if($variant){
-            Cart::add($product->id.'_'.$variant->id, $product->title, $quantity, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '', 'variant_info' => '']);
-        }
-        else{
+        if ($variant) {
+            Cart::add($product->id . '_' . $variant->id, $product->title, $quantity, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '', 'variant_info' => '']);
+        } else {
             Cart::add($product->id, $product->title, $quantity, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
         }
 
@@ -139,42 +141,6 @@ class CartController extends Controller
     {
         $rowId = $request->rowId;
         $qty = $request->qty;
-///////
-        // $cartProduct = Cart::get($rowId);
-        // $prod_id = explode('_', $cartProduct->id)[0];
-        // $product = Product::find($prod_id);
-        // $quantity =  $qty;
-        // $cartItems = collect(Cart::content());
-
-        // $item = $cartItems->filter(function ($value) use ($prod_id) {
-        //     return strpos($value->id, $prod_id) !== false;
-        // });
-
-        // if(($product->min_buy && $quantity < $product->min_buy && count($item) == 0)){
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Buy minimum '.$product->min_buy.' quantity'
-        //     ]);
-        // }
-
-        // if(count($item) == 0){
-        //     if($product->max_buy && $quantity > $product->max_buy){
-        //         return response()->json([
-        //             'status' => false,
-        //             'message' => 'Max buy '.$product->max_buy.' quantity'
-        //         ]);
-        //     }
-        // }
-        // else{
-        //     $sumOfQty = $item->sum('qty');
-        //     if($product->max_buy && ($quantity + $sumOfQty > $product->max_buy)){
-        //         return response()->json([
-        //             'status' => false,
-        //             'message' => 'Max buy '.$product->max_buy.' quantity.' . ' you already add '.$sumOfQty
-        //         ]);
-        //     }
-        // }
-//////
 
         Cart::update($rowId, $qty);
 
@@ -192,15 +158,14 @@ class CartController extends Controller
         $isMini = $request->isMini;
         $itemInfo = Cart::get($rowId);
 
-        if($itemInfo == null){
+        if ($itemInfo == null) {
             $message = "Item not found";
             session()->flash('false', $message);
             return response()->json([
                 'status' => true,
                 'message' => $message
             ]);
-        }
-        else{
+        } else {
             $message = 'Item deleted successfully';
             Cart::remove($rowId);
             session()->flash('success', $message);
@@ -209,16 +174,13 @@ class CartController extends Controller
                 'message' => $message
             ]);
         }
-
-        
     }
 
     public function checkout()
     {
-        if(Cart::count() == 0){
+        if (Cart::count() == 0) {
             return redirect()->route('web.view.cart');
-        }
-        else{
+        } else {
             return view('web.pages.checkout');
         }
     }

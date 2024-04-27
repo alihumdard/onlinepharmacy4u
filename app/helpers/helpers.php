@@ -75,6 +75,7 @@ function view_permission($page_name)
                 case 'dell_category':
                 case 'add_category':
                 case 'questions':
+                case 'dell_question':
                 case 'add_collection':
                 case 'consultations':
                 case 'questions':

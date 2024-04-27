@@ -72,8 +72,10 @@ function view_permission($page_name)
                 case 'categories':
                 case 'sub_categories':
                 case 'child_categories':
+                case 'dell_category':
                 case 'add_category':
                 case 'questions':
+                case 'dell_question':
                 case 'add_collection':
                 case 'consultations':
                 case 'questions':
@@ -142,6 +144,7 @@ function view_permission($page_name)
                 case 'online_clinic_orders':
                 case 'shop_orders':
                 case 'setting':
+                case 'gp_letters':
                     return true;
                 default:
                     return false;

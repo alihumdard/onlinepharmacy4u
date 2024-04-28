@@ -923,6 +923,9 @@ margin-bottom: 20px !important;
 .mobile-slider{
     display: none !important;
 }
+.mobile-logo{
+    display: none !important;
+}
 @media only screen and (max-width:500px){
     .mobile-slider{
         display: block !important;
@@ -930,9 +933,19 @@ margin-bottom: 20px !important;
     .desktop-slider{
         display: none !important;
     }
+    .mobile-logo{
+        display: block !important;
+    }
+    .web-logo{
+        display: none !important;
+    }
+    .footer-widget .footer-title {
+        margin-top: 20px !important;
+        font-size: 17px !important;
+    }
 }
 .product-price{
     position: relative !important;
     z-index: 99;
-    bottom: 30px !important;
+    /* bottom: 30px !important; */
 }

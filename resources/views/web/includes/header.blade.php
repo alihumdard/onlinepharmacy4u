@@ -26,7 +26,8 @@
                 <div class="row">
                     <div class="col">
                         <div class="site-logo">
-                            <a href="/"><img src="{{ asset('img/main-logo.webp') }}" width="100px" alt="Logo"></a>
+                            <a class="web-logo" href="/"><img src="{{ asset('img/main-logo.webp') }}" width="100px" alt="Logo"></a>
+                            <a class="mobile-logo" href="/"><img src="{{ asset('img/mobile-logo.png') }}" width="100px" alt="Logo"></a>
                         </div>
                     </div>
                     <div class="col header-contact-serarch-column d-none d-xl-block">

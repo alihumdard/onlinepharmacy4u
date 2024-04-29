@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'address',
+        'apartment',
         'zip_code',
         'city',
         'state',

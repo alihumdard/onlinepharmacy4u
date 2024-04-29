@@ -315,6 +315,7 @@ class DefualtController extends Controller
                     'role'       => $request->role ?? 'User',
                     'phone'      => $request->phone,
                     'address'    => $request->address,
+                    'apartment'  => $request->apartment,
                     'zip_code'   => $request->zip_code,
                     'city'       => $request->city ?? '',
                     'state'      => $request->state ?? '',

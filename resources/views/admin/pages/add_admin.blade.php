@@ -43,7 +43,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="phone" class="form-label">Phone</label>
                                 <input type="number" name="phone" value="{{  $admin['phone'] ?? old('phone') }}" class="form-control" id="phone" required>
                                 <div class="invalid-feedback">Please enter valid Phone No!</div>
@@ -52,7 +52,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" name="password" class="form-control" id="password" {{ $admin['id'] ?? 'required' }} >
                                 <div class="invalid-feedback">Please enter password!</div>
@@ -61,7 +61,20 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label for="inputPassword5" class="form-label">Gender</label>
+                                <select name="gender" id="gender" class="form-select " required>
+                                    <option value=""> Select Gender</option>
+                                    <option {{ (isset($admin) && $admin['gender'] == 'male') || (old('gender') == 'male' && (!isset($admin) || !isset($admin['gender']))) ? 'selected' : '' }} value="male"> Male</option>
+                                    <option {{ (isset($admin) && $admin['gender'] == 'female') || (old('gender') == 'female' && (!isset($admin) || !isset($admin['gender']))) ? 'selected' : '' }} value="female"> Female</option>
+                                </select>
+                                <div class="invalid-feedback">Please select your gender!</div>
+                                @error('gender')
+                                <div class="alert-danger text-danger ">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-4">
                                 <label for="city" class="form-label">City</label>
                                 <input type="text" name="city" class="form-control" value="{{  $admin['city'] ?? '' }}" id="city" required>
                                 <div class="invalid-feedback">Please enter city name!</div>
@@ -78,10 +91,10 @@
                                 <div class="invalid-feedback">Please select state!</div>
                             </div>
                             
-                            <div class="col-md-2">
-                                <label for="zip_code" class="form-label">Zip Code</label>
+                            <div class="col-md-4">
+                                <label for="zip_code" class="form-label">Postal Code</label>
                                 <input type="text" name="zip_code" value="{{  $admin['zip_code'] ?? '' }}" class="form-control" id="zip_code" required>
-                                <div class="invalid-feedback">Please enter  zip code.</div>
+                                <div class="invalid-feedback">Please enter  Postal code.</div>
                             </div>
 
                             <div class="col-12">

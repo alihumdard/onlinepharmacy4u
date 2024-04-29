@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Main Categories')
+@section('title', 'Trash Categories')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -52,12 +52,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Main Categories</h1>
+        <h1>Trash Categories</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Main Categories</li>
+                <li class="breadcrumb-item active">Trash Categories</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -75,9 +75,9 @@
                             <input type="text" id="search" placeholder="Search here..." class="form-control py-2">
                         </div>
                         <div class="col-md-2  mt-3 text-center d-block">
-                                <label for="endDate" class="form-label fw-bold">Trash</label>
-                                <a href="{{route('admin.categoriesTrash',['cat_type' => 'category_id'])}}" class="form-control btn btn-success py-2 fw-bold">Go to Trash</a>
-                            </div>
+                            <label for="endDate" class="form-label fw-bold">Back</label>
+                            <a href="{{route($route)}}" class="form-control btn btn-success py-2 fw-bold">Back To Categories</a>
+                        </div>
                         <div class="col-md-12 mt-3 ">
                             <div id="ajax_alert" class="alert alert-danger d-none text-light border-0 alert-dismissible fade show" role="alert">
                                 <h4 id="status">Success</h4>
@@ -109,12 +109,11 @@
                                         </div>
                                     </td>
                                     <td style="vertical-align: middle; text-align: center;">
-                                        <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <a class="undo" style="cursor: pointer;" title="undo" data-status="Active" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                            <i class="bi-arrow-counterclockwise"></i>
                                         </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-status="Deleted" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-trash-fill"></i>
-                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -182,17 +181,19 @@
             }
         });
 
-        $(document).on('click', '.delete', function() {
+
+        $(document).on('click', '.delete, .undo', function() {
             $('#ajax_alert').addClass('d-none').removeClass('bg-success').removeClass('bg-danger');
             var $id = $(this).data('id');
-            var $cat_type = 'category_id';
+            var $cat_type = @json($cat_type);
+            var status = $(this).data('status');
 
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var formData = new FormData();
             formData.append('_token', csrfToken);
             formData.append('id', $id);
             formData.append('cat_type', $cat_type);
-            formData.append('status', 'Deactive');
+            formData.append('status', status);
             var $rowToDelete = $(this).closest('tr');
 
             $.ajax({

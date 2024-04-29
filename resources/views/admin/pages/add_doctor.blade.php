@@ -78,10 +78,18 @@
 
                             </div>
 
-                            <!-- <div class="col-md-4">
-                                <label for="inputPassword5" class="form-label">Date of Birth</label>
-                                <input type="date" class="form-control" id="inputPassword5">
-                            </div> -->
+                            <div class="col-md-4">
+                                <label for="inputPassword5" class="form-label">Gender</label>
+                                <select name="gender" id="gender" class="form-select " required>
+                                    <option value=""> Select Gender</option>
+                                    <option {{ (isset($doctor) && $doctor['gender'] == 'male') || (old('gender') == 'male' && (!isset($doctor) || !isset($doctor['gender']))) ? 'selected' : '' }} value="male"> Male</option>
+                                    <option {{ (isset($doctor) && $doctor['gender'] == 'female') || (old('gender') == 'female' && (!isset($doctor) || !isset($doctor['gender']))) ? 'selected' : '' }} value="female"> Female</option>
+                                </select>
+                                <div class="invalid-feedback">Please select your gender!</div>
+                                @error('gender')
+                                <div class="alert-danger text-danger ">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="col-md-8">
                                 <label for="address" class="form-label">Address</label>
@@ -93,14 +101,14 @@
                             </div>
 
                             <div class="col-md-4">
-                                <label for="zip_code" class="form-label">Zip</label>
+                                <label for="zip_code" class="form-label">Postal Code</label>
                                 <input type="text" name="zip_code" value="{{  $doctor['zip_code'] ?? '' }}" class="form-control" id="zip_code" required>
-                                <div class="invalid-feedback">Please enter zip code.</div>
+                                <div class="invalid-feedback">Please enter Postal code.</div>
                             </div>
 
                             <div class="col-12">
                                 <label for="short_bio" class="form-label">Short Bio</label>
-                                <textarea rows="4" name="short_bio" class="form-control" id="short_bio" placeholder="write short bio">{{  $doctor['short_bio'] ?? '' }}</textarea>
+                                <textarea rows="4" name="short_bio" class="form-control" id="short_bio" placeholder="write short bio">{{ $doctor['short_bio'] ?? '' }}</textarea>
                             </div>
 
                             <div class="text-center">

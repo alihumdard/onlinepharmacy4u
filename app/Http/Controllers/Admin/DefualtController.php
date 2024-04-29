@@ -41,7 +41,13 @@ class DefualtController extends Controller
         $this->user = auth()->user();
         $this->status = config('constants.USER_STATUS');
 
-        $this->menu_categories = Category::with('subcategory.childCategories')
+        $this->menu_categories = Category::where('status', 'Active')
+            ->with(['subcategory' => function ($query) {
+                $query->where('status', 'Active')
+                    ->with(['childCategories' => function ($query) {
+                        $query->where('status', 'Active');
+                    }]);
+            }])
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()

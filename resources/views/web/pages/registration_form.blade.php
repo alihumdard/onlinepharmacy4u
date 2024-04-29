@@ -2,7 +2,8 @@
 @section('title', 'Registration Form')
 @section('content')
 <style>
-    input[type="number"], input[type="date"] {
+    input[type="number"],
+    input[type="date"] {
         background-color: var(--white);
         border: 2px solid;
         border-color: var(--border-color-9);
@@ -15,6 +16,21 @@
         width: 100%;
         margin-bottom: 30px;
         border-radius: 0;
+        padding-right: 40px;
+    }
+    select {
+        background-color: var(--white);
+        border: 2px solid;
+        border-color: var(--border-color-9);
+        height: 65px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        padding-left: 20px;
+        font-size: 16px;
+        color: var(--ltn__paragraph-color);
+        width: 100%;
+        margin-bottom: 30px;
+        border-radius: 30px !important;
         padding-right: 40px;
     }
 
@@ -61,6 +77,15 @@
                             @error('phone')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
+                            <select name="gender" id="gender" class="form-select mt-4" required>
+                                <option value=""> Select Gender</option>
+                                <option {{ old('gender') == 'male' ? 'selected' : ''}} value="male"> Male</option>
+                                <option {{ old('gender') == 'female' ? 'selected' : ''}} value="female"> Female</option>
+                            </select>
+                            <div class="invalid-feedback">Please select your gender!</div>
+                            @error('gender')
+                            <div class="alert-danger text-danger ">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-lg-6">
                             <input type="email" name="email" placeholder="Email*" value="{{ old('email') }}" required>
@@ -75,9 +100,6 @@
                             @error('dob')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
-
-                        </div>
-                        <div class="col-12">
                             <div class="mt-0">
                                 <p style="color: #3d7de8 ;">* Make a strong password</p>
                             </div>

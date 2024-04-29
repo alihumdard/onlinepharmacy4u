@@ -288,7 +288,8 @@ class DefualtController extends Controller
                 'name'     => 'required',
                 'phone'    => 'required|digits:11',
                 'address'  => 'required',
-                'dob'     => 'required',
+                'gender'   => 'required',
+                'dob'      => 'required',
                 'zip_code'     => 'required',
                 'email'    => [
                     'required',
@@ -316,6 +317,7 @@ class DefualtController extends Controller
                     'phone'      => $request->phone,
                     'address'    => $request->address,
                     'apartment'  => $request->apartment,
+                    'gender'  => $request->gender,
                     'zip_code'   => $request->zip_code,
                     'city'       => $request->city ?? '',
                     'state'      => $request->state ?? '',

@@ -561,9 +561,11 @@ class SystemController extends Controller
             $data['route'] = 'admin.categories';
             $data['categories'] = Category::where('status', 'Deactive')->latest('id')->get()->toArray();
         } elseif ($request->cat_type === 'sub_category') {
-            $data['categories'] = SubCategory::with('category')->where('status', 'Active')->latest('id')->get()->toArray();
+            $data['route'] = 'admin.subCategories';
+            $data['categories'] = SubCategory::with('category')->where('status', 'Deactive')->latest('id')->get()->toArray();  
         } elseif ($request->cat_type === 'child_category') {
-            $data['categories'] = ChildCategory::with('subcategory')->where('status', 'Active')->latest('id')->get()->toArray();
+            $data['route'] = 'admin.childCategories';          
+            $data['categories'] = ChildCategory::with('subcategory')->where('status', 'Deactive')->latest('id')->get()->toArray();
         } else {
             return redirect()->back();
         }

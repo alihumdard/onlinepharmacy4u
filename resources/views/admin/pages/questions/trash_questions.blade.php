@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Questions')
+@section('title', 'Trash Questions')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -72,9 +72,9 @@
         <h1>Questions</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/admin/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Questions</li>
+                <li class="breadcrumb-item active">Trash Questions</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -86,7 +86,7 @@
                 <div class="card">
                     <div class="card-header mt-3 " id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
                         <div class="row mb-3 px-4">
-                            <div class="col-md-6 d-block">
+                            <div class="col-md-5 d-block">
                                 <label for="category" class="form-label fw-bold">Filter by Category</label>
                                 <select id="category" class="form-select select2" data-placeholder="choose category name ..." required>
                                     <option value="All">All</option>
@@ -103,9 +103,9 @@
                                     <option value="Dependent Q">Dependent Q</option>
                                 </select>
                             </div>
-                            <div class="col-md-2 text-center d-block">
-                                <label for="endDate" class="form-label fw-bold">Trash</label>
-                                <a href="{{route('admin.questionsTrash',['q_type' => 'pro_question'])}}" class="form-control btn btn-success py-2 fw-bold">Go to Trash</a>
+                            <div class="col-md-3 text-center d-block">
+                                <label for="endDate" class="form-label fw-bold">Questions List</label>
+                                <a href="{{route($route)}}" class="form-control btn btn-success py-2 fw-bold">Back to Questions</a>
                             </div>
                             <div class="col-md-12 mt-2 text-center d-block">
                                 <label for="search" class="form-label fw-bold">Search From Table</label>
@@ -129,7 +129,6 @@
                                         <th style="vertical-align: middle; text-align: center;">Answer Type</th>
                                         <th style="vertical-align: middle; text-align: center;">Type</th>
                                         <th style="vertical-align: middle; text-align: center;">Categories</th>
-                                        <th style="vertical-align: middle; text-align: center;">Status</th>
                                         <th style="vertical-align: middle; text-align: center;">Action</th>
                                     </tr>
                                 </thead>
@@ -143,15 +142,10 @@
                                         <td style="vertical-align: middle; text-align: center; "> {{($value['type'] == 'dependent')?'Dependent Q':'Not Dependent'}}</td>
                                         <td style="vertical-align: middle; text-align: center; font-weight:700;"> {{$value['category_title']??''}}</td>
                                         <td style="vertical-align: middle; text-align: center;">
-                                            <div class="form-check form-switch d-flex justify-content-center ">
-                                                <input class="form-check-input" style="width: 3.3rem; height: 1.3rem;" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
-                                            </div>
-                                        </td>
-                                        <td style="vertical-align: middle; text-align: center;">
-                                            <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                                <i class="bi bi-pencil-square"></i>
+                                            <a class="undo" style="cursor: pointer;" title="undo" data-status="Active" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                                <i class="bi-arrow-counterclockwise"></i>
                                             </a>
-                                            <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                            <a class="delete" style="cursor: pointer;" title="Delete" data-status="Deleted" data-id="{{$value['id']}}" data-toggle="tooltip">
                                                 <i class="bi bi-trash-fill"></i>
                                             </a>
                                         </td>
@@ -232,23 +226,20 @@
             }
         });
 
-        $(document).on('click', '.edit', function() {
-            var id = $(this).data('id');
-            $('#edit_form_id_input').val(id);
-            $('#edit_form').submit();
-        });
 
-        $(document).on('click', '.delete', function() {
+
+        $(document).on('click', '.delete, .undo', function() {
             $('#ajax_alert').addClass('d-none').removeClass('bg-success').removeClass('bg-danger');
             var $id = $(this).data('id');
-            var $q_type = 'pro_question';
+            var $q_type = @json($q_type);
+            var status = $(this).data('status');
 
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var formData = new FormData();
             formData.append('_token', csrfToken);
             formData.append('id', $id);
             formData.append('q_type', $q_type);
-            formData.append('status', 'Deactive');
+            formData.append('status', status);
             var $rowToDelete = $(this).closest('tr');
 
             $.ajax({

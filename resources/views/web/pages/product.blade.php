@@ -352,6 +352,14 @@
                 combinedVariantVal += variantValue;
             });
             var current_variant = variantData[combinedVariantVal];
+
+            // update url according to variant start
+            var current_variant_slug = current_variant.slug;
+            var currentUrl = window.location.href;
+            var newUrl = updateUrlParameter(currentUrl, 'variant', current_variant_slug);
+            history.pushState({}, '', newUrl);
+            // update url according to variant end
+
             var mainImage = $(this).data('main_image');
             var image_src = "{{ asset('storage/') }}";
 
@@ -369,5 +377,25 @@
             }
         });
     });
+
+    function updateUrlParameter(url, key, value) {
+        // function for update url when variant change
+        var urlParts = url.split('?');
+        if (urlParts.length >= 2) {
+            var prefix = encodeURIComponent(key) + '=';
+            var params = urlParts[1].split(/[&;]/g);
+
+            for (var i = 0; i < params.length; i++) {
+                if (params[i].startsWith(prefix)) {
+                    params[i] = prefix + encodeURIComponent(value);
+                    return urlParts[0] + '?' + params.join('&');
+                }
+            }
+            url += '&' + prefix + encodeURIComponent(value);
+        } else {
+            url += '?' + encodeURIComponent(key) + '=' + encodeURIComponent(value);
+        }
+        return url;
+    }
 </script>
 @endPushOnce

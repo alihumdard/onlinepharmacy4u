@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Sub Categories')
+@section('title', 'Trash Categories')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -52,12 +52,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Sub Categories</h1>
+        <h1>Trash Categories</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Sub Categories</li>
+                <li class="breadcrumb-item active">Trash Categories</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -75,8 +75,8 @@
                             <input type="text" id="search" placeholder="Search here..." class="form-control py-2">
                         </div>
                         <div class="col-md-2  mt-3 text-center d-block">
-                            <label class="form-label fw-bold">Trash</label>
-                            <a href="{{route('admin.categoriesTrash',['cat_type' => 'sub_category'])}}" class="form-control btn btn-success py-2 fw-bold">Go to Trash</a>
+                            <label for="endDate" class="form-label fw-bold">Back</label>
+                            <a href="{{route($route)}}" class="form-control btn btn-success py-2 fw-bold">Back To Categories</a>
                         </div>
                         <div class="col-md-12 mt-3 ">
                             <div id="ajax_alert" class="alert alert-danger d-none text-light border-0 alert-dismissible fade show" role="alert">
@@ -91,8 +91,10 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">#</th>
+                                    @if($cat_type != 'category_id')
                                     <th style="vertical-align: middle; text-align: center;">Parent Category</th>
-                                    <th style="vertical-align: middle; text-align: center;">Name</th>
+                                    @endif
+                                    <th style="vertical-align: middle; text-align: center;">Category Name</th>
                                     <th style="vertical-align: middle; text-align: center;">Status</th>
                                     <th style="vertical-align: middle; text-align: center;">Active/Inactive</th>
                                     <th style="vertical-align: middle; text-align: center;">Actions</th>
@@ -102,7 +104,9 @@
                                 @foreach($categories as $key => $value)
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">{{ ++$key }}</th>
-                                    <td style="vertical-align: middle; text-align: center;">{{$value['category']['name'] ?? '' }}</td>
+                                    @if($cat_type != 'category_id')
+                                    <td style="vertical-align: middle; text-align: center;">{{($cat_type == 'sub_category') ? $value['category']['name'] : $value['subcategory']['name']; }}</td>
+                                    @endif
                                     <td style="vertical-align: middle; text-align: center;">{{$value['name'] ?? '' }}</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold;">{{$value['publish'] ?? '' }} </td>
                                     <td style="vertical-align: middle; text-align: center;">
@@ -111,12 +115,11 @@
                                         </div>
                                     </td>
                                     <td style="vertical-align: middle; text-align: center;">
-                                        <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <a class="undo" style="cursor: pointer;" title="undo" data-status="Active" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                            <i class="bi-arrow-counterclockwise"></i>
                                         </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-status="Deleted" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi bi-trash-fill"></i>
-                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -136,7 +139,7 @@
 <form id="edit_form" action="{{route('admin.addCategory')}}" method="post">
     @csrf
     <input id="edit_form_id_input" type="hidden" value="" name="id">
-    <input id="selection" type="hidden" value="2" name="selection">
+    <input id="selection" type="hidden" value="1" name="selection">
 </form>
 <!-- End #main -->
 
@@ -166,6 +169,7 @@
             ]
         }).buttons().container();
     });
+
     $(document).ready(function() {
         $('.edit').click(function() {
             var id = $(this).data('id');
@@ -184,17 +188,18 @@
         });
 
 
-        $(document).on('click', '.delete', function() {
+        $(document).on('click', '.delete, .undo', function() {
             $('#ajax_alert').addClass('d-none').removeClass('bg-success').removeClass('bg-danger');
             var $id = $(this).data('id');
-            var $cat_type = 'sub_category';
+            var $cat_type = @json($cat_type);
+            var status = $(this).data('status');
 
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             var formData = new FormData();
             formData.append('_token', csrfToken);
             formData.append('id', $id);
             formData.append('cat_type', $cat_type);
-            formData.append('status', 'Deactive');
+            formData.append('status', status);
             var $rowToDelete = $(this).closest('tr');
 
             $.ajax({
@@ -219,7 +224,6 @@
                 }
             });
         });
-
     });
 </script>
 @endPushOnce

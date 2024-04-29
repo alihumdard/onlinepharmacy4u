@@ -81,9 +81,9 @@
                             </div>
 
                             <div class="col-md-12">
-                                <label for="desc" class="form-label fw-bold">Description</label>
+                                <label for="desc" class="form-label fw-bold">Answer</label>
                                 <textarea name="desc" class="form-control tinymce-editor" cols="10" rows="3" id="desc"  required> {!! $question['desc'] ?? old('desc') !!} </textarea>
-                                <div class="invalid-feedback">Please enter question description!</div>
+                                <div class="invalid-feedback">Please enter question answer!</div>
                                 @error('desc')
                                 <div class="alert-danger text-danger ">{{ $message }}</div>
                                 @enderror

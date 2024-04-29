@@ -41,7 +41,13 @@ class DefualtController extends Controller
         $this->user = auth()->user();
         $this->status = config('constants.USER_STATUS');
 
-        $this->menu_categories = Category::with('subcategory.childCategories')
+        $this->menu_categories = Category::where('status', 'Active')
+            ->with(['subcategory' => function ($query) {
+                $query->where('status', 'Active')
+                    ->with(['childCategories' => function ($query) {
+                        $query->where('status', 'Active');
+                    }]);
+            }])
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()
@@ -190,7 +196,6 @@ class DefualtController extends Controller
     public function login(Request $request)
     {
         $user = auth()->user();
-        // return $user;
         if (!$user) {
             if ($request->all()) {
                 $validator = Validator::make($request->all(), [
@@ -289,8 +294,8 @@ class DefualtController extends Controller
                 'name'     => 'required',
                 'phone'    => 'required|digits:11',
                 'address'  => 'required',
-                // 'role'     => 'required',
-                'dob'     => 'required',
+                'gender'   => 'required',
+                'dob'      => 'required',
                 'zip_code'     => 'required',
                 'email'    => [
                     'required',
@@ -317,6 +322,8 @@ class DefualtController extends Controller
                     'role'       => $request->role ?? 'User',
                     'phone'      => $request->phone,
                     'address'    => $request->address,
+                    'apartment'  => $request->apartment,
+                    'gender'  => $request->gender,
                     'zip_code'   => $request->zip_code,
                     'city'       => $request->city ?? '',
                     'state'      => $request->state ?? '',

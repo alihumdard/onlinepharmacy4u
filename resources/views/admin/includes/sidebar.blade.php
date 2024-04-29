@@ -19,12 +19,12 @@
 
         @if(view_permission('categories'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories', 'admin.addCategory'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-cat" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories', 'admin.addCategory', 'admin.categoriesTrash'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-cat" data-bs-toggle="collapse">
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Categories</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="siderbar-cat" class="nav-content {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories', 'admin.addCategory'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+            <ul id="siderbar-cat" class="nav-content {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories', 'admin.addCategory', 'admin.categoriesTrash'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{(request()->routeIs(['admin.categories'])) ? 'nav-link ' : ''}}" href="{{route('admin.categories')}}">
                         <i class="bi bi-circle"></i><span>Main Categories</span>
@@ -178,7 +178,7 @@
                 @if(view_permission('gpa_letters'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.gpaLeters'])) ? 'nav-link ' : ''}}" href="{{route('admin.gpaLeters')}}">
-                        <i class="bi bi-circle"></i><span>GPA Letters</span>
+                        <i class="bi bi-circle"></i><span>GP Letters</span>
                     </a>
                 </li>
                 @endif
@@ -271,6 +271,15 @@
             </a>
         </li>
         @endif
+
+        @if(view_permission('gp_letters'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.gpaLeters')}}">
+                <i class="bi bi-bar-chart"></i><span>GP Letters</span>
+            </a>
+        </li>
+        @endif
+
         <li class="nav-heading">-------- user's Basic Settings --------</li>
 
         @if(view_permission('setting'))

@@ -91,7 +91,7 @@ return [
         ],
         [
             'id' => 3,
-            'title' => 'Do you give us consent to write to your GP to share information of the supply & information we hold about you? (optional)',
+            'title' => 'Do you give us consent to write to your GP to share information of the supply & information we hold about you?',
             'desc' => '',
             'order' => '3',
         ],

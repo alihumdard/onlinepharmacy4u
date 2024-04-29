@@ -115,6 +115,7 @@ class SystemController extends Controller
             'name'     => 'required',
             'phone'    => 'required',
             'address'  => 'required',
+            'gender'     => 'required',
             'role'     => 'required',
             'email'    => [
                 'required',
@@ -139,6 +140,7 @@ class SystemController extends Controller
             'role'       =>  $request->role,
             'phone'      => $request->phone,
             'address'    => $request->address,
+            'gender'      => $request->gender,
             'zip_code'   => $request->zip_code,
             'city'       => $request->city,
             'state'      => $request->state,
@@ -204,6 +206,7 @@ class SystemController extends Controller
             'name'       => 'required',
             'phone'      => 'required',
             'address'    => 'required',
+            'gender'     => 'required',
             'role'       => 'required',
             'email'      => [
                 'required',
@@ -228,6 +231,7 @@ class SystemController extends Controller
             'email'      => $request->email,
             'role'       => $request->role,
             'phone'      => $request->phone,
+            'gender'      => $request->gender,
             'address'    => $request->address,
             'short_bio'  => $request->short_bio,
             'zip_code'   => $request->zip_code,
@@ -279,10 +283,44 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['categories'] = Category::latest('id')->get()->toArray();
+            $data['categories'] = Category::where('status', 'Active')->latest('id')->get()->toArray();
         }
 
         return view('admin.pages.categories.categories', $data);
+    }
+
+    public function sub_categories()
+    {
+        $user = auth()->user();
+        $page_name = 'sub_categories';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['categories'] = SubCategory::with('category')->where('status', 'Active')->latest('id')->get()->toArray();
+        }
+
+        return view('admin.pages.categories.sub_categories', $data);
+    }
+
+    public function child_categories()
+    {
+        $user = auth()->user();
+        $page_name = 'child_categories';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['categories'] = ChildCategory::with('subcategory')->where('status', 'Active')->latest('id')->get()->toArray();
+        }
+
+        return view('admin.pages.categories.child_categories', $data);
     }
 
     public function add_category(Request $request)
@@ -430,40 +468,6 @@ class SystemController extends Controller
         }
     }
 
-    public function sub_categories()
-    {
-        $user = auth()->user();
-        $page_name = 'sub_categories';
-        if (!view_permission($page_name)) {
-            return redirect()->back();
-        }
-
-        $data['user'] = auth()->user();
-
-        if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['categories'] = SubCategory::with('category')->latest('id')->get()->toArray();
-        }
-
-        return view('admin.pages.categories.sub_categories', $data);
-    }
-
-    public function child_categories()
-    {
-        $user = auth()->user();
-        $page_name = 'child_categories';
-        if (!view_permission($page_name)) {
-            return redirect()->back();
-        }
-
-        $data['user'] = auth()->user();
-
-        if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['categories'] = ChildCategory::with('subcategory')->latest('id')->get()->toArray();
-        }
-
-        return view('admin.pages.categories.child_categories', $data);
-    }
-
     public function get_parent_category(Request $request)
     {
         $selection = $request->selection;
@@ -499,6 +503,74 @@ class SystemController extends Controller
             ->toArray();
 
         return response()->json(['status' => 'success', 'child_category' => $categories]);
+    }
+
+    public function delete_category(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'dell_category';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $rules = [
+            'id'  => 'required',
+            'cat_type'  => 'required',
+            'status'  => 'required',
+        ];
+
+        $status = 'Success';
+        $message = "Category deleted Successfully";
+        $class = 'bg-success';
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()]);
+        }
+        $productExists = Product::where($request->cat_type, $request->id)->where('status', 1)->exists();
+        if ($productExists) {
+            $status = 'Failed';
+            $message = "Category can't deleted,Please delete associated products of that category frist.";
+            $class = 'bg-danger';
+        } else {
+            if ($request->cat_type === 'child_category') {
+                $category = ChildCategory::findOrFail($request->id);
+            } elseif ($request->cat_type === 'sub_category') {
+                $category = SubCategory::findOrFail($request->id);
+            } elseif ($request->cat_type === 'category_id') {
+                $category = Category::findOrFail($request->id);
+            }
+
+            $category->update([
+                'status' => $request->status,
+            ]);
+        }
+
+        return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class]]);
+    }
+    public function trash_categories(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'categories';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        $data['route'] = '';
+        $data['cat_type'] = $request->cat_type;
+        if ($request->cat_type === 'category_id') {
+            $data['route'] = 'admin.categories';
+            $data['categories'] = Category::where('status', 'Deactive')->latest('id')->get()->toArray();
+        } elseif ($request->cat_type === 'sub_category') {
+            $data['route'] = 'admin.subCategories';
+            $data['categories'] = SubCategory::with('category')->where('status', 'Deactive')->latest('id')->get()->toArray();  
+        } elseif ($request->cat_type === 'child_category') {
+            $data['route'] = 'admin.childCategories';          
+            $data['categories'] = ChildCategory::with('subcategory')->where('status', 'Deactive')->latest('id')->get()->toArray();
+        } else {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.categories.trash_categories', $data);
     }
 
     // question management ...
@@ -598,6 +670,41 @@ class SystemController extends Controller
         return view('admin.pages.questions.questions', $data);
     }
 
+    public function trash_questions(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'questions';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        $data['route'] = '';
+        $data['q_type'] = $request->q_type;
+        if ($request->q_type === 'pro_question') {
+            $data['route'] = 'admin.questions';
+            $data['categories'] = [];
+            if (isset($user->role) && $user->role == user_roles('1')) {
+                $data['questions'] = Question::where(['status' => 'Deactive'])
+                    ->orderBy('category_title')
+                    ->orderByRaw('IF(`order` IS NULL, 1, 0), CAST(`order` AS UNSIGNED), `order`')
+                    ->orderBy('id')
+                    ->get()
+                    ->toArray();
+                if ($data['questions']) {
+                    $data['categories'] = array_unique(array_column($data['questions'], 'category_title'));
+                }
+            }
+        } elseif ($request->q_type === 'pmd_question') {
+            $data['questions'] = PMedGeneralQuestion::where(['status' => 'Deactive'])->get()->toArray();
+        } elseif ($request->q_type === 'pre_question') {
+            $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+        } else {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.questions.trash_questions', $data);
+    }
+
     public function faq_questions(Request $request)
     {
         $user = auth()->user();
@@ -632,7 +739,7 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['questions'] = PMedGeneralQuestion::get()->toArray();
+        $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
 
         return view('admin.pages.questions.p_med_gq', $data);
     }
@@ -646,7 +753,7 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['questions'] = PrescriptionMedGeneralQuestion::get()->toArray();
+        $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
 
         return view('admin.pages.questions.prescription_med_gq', $data);
     }
@@ -844,6 +951,48 @@ class SystemController extends Controller
             return redirect()->route('admin.faqQuestions')->with(['msg' => $message]);
         }
     }
+
+    public function delete_question(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'dell_question';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $rules = [
+            'id'  => 'required',
+            'q_type'  => 'required',
+            'status'  => 'required',
+        ];
+
+        $status = 'Success';
+        $action = ($request->status == 'Active') ? ' Reverted ' : (($request->status == 'Deactive') ? ' Sent to Trash ' : ' Deleted ');
+        $message = "Question " . $action . " Successfully";
+        $class = ($request->status == 'Deleted') ? 'bg-danger' : 'bg-success';
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $status = 'Failed';
+            $message = "Question can't deleted.";
+            $class = 'bg-danger';
+            return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class], 'errors' => $validator->errors()]);
+        }
+
+        if ($request->q_type === 'pro_question') {
+            $question = Question::findOrFail($request->id);
+        } elseif ($request->q_type === 'pmd_question') {
+            $question = PMedGeneralQuestion::findOrFail($request->id);
+        } elseif ($request->q_type === 'pre_question') {
+            $question = PrescriptionMedGeneralQuestion::findOrFail($request->id);
+        }
+
+        $question->update([
+            'status' => $request->status,
+        ]);
+
+        return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class]]);
+    }
+
     // question assignment manament...
     public function assign_question(Request $request)
     {
@@ -1246,7 +1395,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved','Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))

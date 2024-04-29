@@ -91,6 +91,9 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">#</th>
+                                    @if($cat_type != 'category_id')
+                                    <th style="vertical-align: middle; text-align: center;">Parent Category</th>
+                                    @endif
                                     <th style="vertical-align: middle; text-align: center;">Category Name</th>
                                     <th style="vertical-align: middle; text-align: center;">Status</th>
                                     <th style="vertical-align: middle; text-align: center;">Active/Inactive</th>
@@ -101,6 +104,9 @@
                                 @foreach($categories as $key => $value)
                                 <tr>
                                     <th style="vertical-align: middle; text-align: center;">{{ ++$key }}</th>
+                                    @if($cat_type != 'category_id')
+                                    <td style="vertical-align: middle; text-align: center;">{{($cat_type == 'sub_category') ? $value['category']['name'] : $value['subcategory']['name']; }}</td>
+                                    @endif
                                     <td style="vertical-align: middle; text-align: center;">{{$value['name'] ?? '' }}</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold;">{{$value['publish'] ?? '' }} </td>
                                     <td style="vertical-align: middle; text-align: center;">

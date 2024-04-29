@@ -19,12 +19,12 @@
 
         @if(view_permission('categories'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories', 'admin.addCategory'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-cat" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories', 'admin.addCategory', 'admin.categoriesTrash'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-cat" data-bs-toggle="collapse">
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Categories</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="siderbar-cat" class="nav-content {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories', 'admin.addCategory'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+            <ul id="siderbar-cat" class="nav-content {{ (request()->routeIs(['admin.categories','admin.subCategories','admin.childCategories', 'admin.addCategory', 'admin.categoriesTrash'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{(request()->routeIs(['admin.categories'])) ? 'nav-link ' : ''}}" href="{{route('admin.categories')}}">
                         <i class="bi bi-circle"></i><span>Main Categories</span>

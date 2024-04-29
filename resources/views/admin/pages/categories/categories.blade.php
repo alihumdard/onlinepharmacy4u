@@ -75,9 +75,9 @@
                             <input type="text" id="search" placeholder="Search here..." class="form-control py-2">
                         </div>
                         <div class="col-md-2  mt-3 text-center d-block">
-                                <label for="endDate" class="form-label fw-bold">Trash</label>
-                                <a href="{{route('admin.categoriesTrash',['cat_type' => 'category_id'])}}" class="form-control btn btn-success py-2 fw-bold">Go to Trash</a>
-                            </div>
+                            <label class="form-label fw-bold">Trash</label>
+                            <a href="{{route('admin.categoriesTrash',['cat_type' => 'category_id'])}}" class="form-control btn btn-success py-2 fw-bold">Go to Trash</a>
+                        </div>
                         <div class="col-md-12 mt-3 ">
                             <div id="ajax_alert" class="alert alert-danger d-none text-light border-0 alert-dismissible fade show" role="alert">
                                 <h4 id="status">Success</h4>

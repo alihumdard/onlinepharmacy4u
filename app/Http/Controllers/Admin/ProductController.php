@@ -144,7 +144,7 @@ class ProductController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $data['categories'] = Category::latest('id')->get()->toArray();
+        $data['categories'] = Category::where('status', 'Active')->latest('id')->get()->toArray();
         $data['templates'] = config('constants.PRODUCT_TEMPLATES');
         $data['question_category'] = QuestionCategory::latest('id')->get()->toArray();
         $data['product'] = [];
@@ -157,12 +157,12 @@ class ProductController extends Controller
             } else {
                 $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
                 $data['sub_category'] = SubCategory::select('id', 'name')
-                    ->where('category_id', $data['product']['category_id'])
+                    ->where(['category_id' => $data['product']['category_id'],'status' => 'Active'])
                     ->pluck('name', 'id')
                     ->toArray();
 
                 $data['child_category'] = ChildCategory::select('id', 'name')
-                    ->where('sub_category_id', $data['product']['sub_category'])
+                    ->where(['sub_category_id' => $data['product']['sub_category'],'status' => 'Active'])
                     ->pluck('name', 'id')
                     ->toArray();
 

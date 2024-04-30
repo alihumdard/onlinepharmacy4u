@@ -70,9 +70,13 @@
                     <div class="card-header mt-3" id="tbl_button" style="border: 0 !important; border-color: transparent !important;">
                     </div>
                     <div class="row mb-3 px-4">
-                        <div class="col-md-12 mt-3 text-center d-block">
+                        <div class="col-md-10 mt-3 text-center d-block">
                             <label for="search" class="form-label fw-bold">Search From Table </label>
                             <input type="text" id="search" placeholder="Search here..." class="form-control py-2">
+                        </div>
+                        <div class="col-md-2  mt-3 text-center d-block">
+                            <label class="form-label fw-bold">Trash</label>
+                            <a href="{{route('admin.categoriesTrash',['cat_type' => 'category_id'])}}" class="form-control btn btn-success py-2 fw-bold">Go to Trash</a>
                         </div>
                         <div class="col-md-12 mt-3 ">
                             <div id="ajax_alert" class="alert alert-danger d-none text-light border-0 alert-dismissible fade show" role="alert">
@@ -188,6 +192,7 @@
             formData.append('_token', csrfToken);
             formData.append('id', $id);
             formData.append('cat_type', $cat_type);
+            formData.append('status', 'Deactive');
             var $rowToDelete = $(this).closest('tr');
 
             $.ajax({

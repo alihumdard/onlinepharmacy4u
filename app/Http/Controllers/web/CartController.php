@@ -26,6 +26,8 @@ class CartController extends Controller
             ->latest('id')
             ->get()
             ->toArray();
+
+        view()->share('menu_categories', $this->menu_categories);
     }
 
     public function cart()

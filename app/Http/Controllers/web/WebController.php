@@ -529,7 +529,7 @@ class WebController extends Controller
         switch ($level) {
             case 'main':
                 $data['main_category'] = Category::where(['slug' => $category,'status' =>'Active'])->first();
-                $data['categories'] = SubCategory::where(['category_id', $data['main_category']->id ,'status' =>'Active'])->get()->toArray();
+                $data['categories'] = SubCategory::where(['category_id' => $data['main_category']->id ,'status' =>'Active'])->get()->toArray();
                 $data['image'] = $data['main_category']['image'];
                 $data['category_name'] = $data['main_category']['name'];
                 $data['main_slug'] = $data['main_category']['slug'];

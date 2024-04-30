@@ -115,6 +115,7 @@ class SystemController extends Controller
             'name'     => 'required',
             'phone'    => 'required',
             'address'  => 'required',
+            'gender'     => 'required',
             'role'     => 'required',
             'email'    => [
                 'required',
@@ -139,6 +140,7 @@ class SystemController extends Controller
             'role'       =>  $request->role,
             'phone'      => $request->phone,
             'address'    => $request->address,
+            'gender'      => $request->gender,
             'zip_code'   => $request->zip_code,
             'city'       => $request->city,
             'state'      => $request->state,
@@ -204,6 +206,7 @@ class SystemController extends Controller
             'name'       => 'required',
             'phone'      => 'required',
             'address'    => 'required',
+            'gender'     => 'required',
             'role'       => 'required',
             'email'      => [
                 'required',
@@ -228,6 +231,7 @@ class SystemController extends Controller
             'email'      => $request->email,
             'role'       => $request->role,
             'phone'      => $request->phone,
+            'gender'      => $request->gender,
             'address'    => $request->address,
             'short_bio'  => $request->short_bio,
             'zip_code'   => $request->zip_code,
@@ -512,6 +516,7 @@ class SystemController extends Controller
         $rules = [
             'id'  => 'required',
             'cat_type'  => 'required',
+            'status'  => 'required',
         ];
 
         $status = 'Success';
@@ -536,11 +541,36 @@ class SystemController extends Controller
             }
 
             $category->update([
-                'status' => 'Deleted',
+                'status' => $request->status,
             ]);
         }
 
         return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class]]);
+    }
+    public function trash_categories(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'categories';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        $data['route'] = '';
+        $data['cat_type'] = $request->cat_type;
+        if ($request->cat_type === 'category_id') {
+            $data['route'] = 'admin.categories';
+            $data['categories'] = Category::where('status', 'Deactive')->latest('id')->get()->toArray();
+        } elseif ($request->cat_type === 'sub_category') {
+            $data['route'] = 'admin.subCategories';
+            $data['categories'] = SubCategory::with('category')->where('status', 'Deactive')->latest('id')->get()->toArray();  
+        } elseif ($request->cat_type === 'child_category') {
+            $data['route'] = 'admin.childCategories';          
+            $data['categories'] = ChildCategory::with('subcategory')->where('status', 'Deactive')->latest('id')->get()->toArray();
+        } else {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.categories.trash_categories', $data);
     }
 
     // question management ...
@@ -674,7 +704,6 @@ class SystemController extends Controller
 
         return view('admin.pages.questions.trash_questions', $data);
     }
-
 
     public function faq_questions(Request $request)
     {
@@ -938,8 +967,8 @@ class SystemController extends Controller
         ];
 
         $status = 'Success';
-        $action = ($request->status == 'Active') ? ' Reverted ' : (($request->status == 'Deactive') ? ' Sent to Trash ' : ' Deleted ');        
-        $message = "Question ".$action." Successfully";
+        $action = ($request->status == 'Active') ? ' Reverted ' : (($request->status == 'Deactive') ? ' Sent to Trash ' : ' Deleted ');
+        $message = "Question " . $action . " Successfully";
         $class = ($request->status == 'Deleted') ? 'bg-danger' : 'bg-success';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {

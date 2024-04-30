@@ -1,5 +1,5 @@
 @extends('web.layouts.default')
-@section('title', 'skin care')
+@section('title', 'Skin Care')
 @section('content')
 
 

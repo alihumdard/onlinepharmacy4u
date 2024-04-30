@@ -1,5 +1,5 @@
 @extends('web.layouts.default')
-@section('title', 'Colelctions')
+@section('title', 'Collection')
 @section('content')
 <style>
     .description {

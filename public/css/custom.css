@@ -505,8 +505,9 @@ color:white;
     font-weight: 500;
     text-align: center;
     padding: 7px 10px;
-    background-color: #e2f8ff !important;
+    background-color: #00c4A3 !important;
     border-radius:20px;
+    color: #fff !important;
 }
 .countdown-section {
     background-image: url('../public/img/slider/injection.png') !important;
@@ -579,8 +580,8 @@ color:white;
     transition: background-color 0.3s;
 }
 .mega-menu-parent .ltn__main-menu li > a:hover{
-    background-color:lightgray;
-    color:#0056b3 ;
+    background-color:#00c4A3;
+    color:#fff ;
     border-radius:30px;
     padding:5px;
 }
@@ -602,7 +603,7 @@ color:white;
     font-weight: 500;
     text-align: center;
     padding: 6px 10px !important;
-    background-color: #e2f8ff;
+    background-color: #00c4A3 ;
     border-radius: 20px;
     display: flex !important;
     justify-content: center !important;
@@ -829,7 +830,7 @@ background-color: #00c4a3 !important;
 color: #fff !important;
 }
 .cat-head-main:hover{
-    background-color: #5472f8 !important;
+    background-color: #00c4A3 !important;
     color: #fff !important; 
 }
 .btn-effect-2:hover::after {
@@ -850,7 +851,7 @@ margin-bottom: 20px !important;
     margin-top: 20px !important;
 }
 .contact-form-box {
-    padding: 0px 50px 50px !important;
+    padding: 0px 10px 50px !important;
 }
 .about-us-img-wrap img{
     border-radius: 40px !important;
@@ -919,6 +920,7 @@ margin-bottom: 20px !important;
 }
 .reg-me input{
     border-radius: 30px !important;
+    height: 50px !important;
 }
 .mobile-slider{
     display: none !important;
@@ -948,4 +950,13 @@ margin-bottom: 20px !important;
     position: relative !important;
     z-index: 99;
     /* bottom: 30px !important; */
+}
+.widget{
+    border-radius: 26px !important;
+}
+.go-to-btn .sign-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 30px;
+    text-align: center;
 }

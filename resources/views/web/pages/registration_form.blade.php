@@ -40,6 +40,10 @@
         -webkit-appearance: none;
         margin: 0;
     }
+
+    input[type="file"]::-webkit-file-upload-button {
+        height: 50px;
+    }
 </style>
 
 
@@ -59,12 +63,12 @@
                 <h4>Your Details</h4>
                 <p>Please complete the below details to create your account and continue your consultation.</p>
                 <div class="go-to-btn mt-4">
-                                <a href="/admin"><strong>ALREADY HAVE AN ACCOUNT?</strong></a>
-                                <a href="/admin" class="btn-primary sign-btn text-center">sign in</a>
-                            </div>
+                    <a href="/admin"><strong>ALREADY HAVE AN ACCOUNT?</strong></a>
+                    <a href="/admin" class="btn-primary sign-btn text-center">sign in</a>
+                </div>
             </div>
             <div class="col-lg-12 pt-4">
-                <form action="{{ route('web.user_register') }}" method="post" class=" reg-me ltn__form-box contact-form-box needs-validation" type="post">
+                <form action="{{ route('web.user_register') }}" method="post" class=" reg-me ltn__form-box contact-form-box needs-validation" type="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
@@ -154,11 +158,11 @@
                                 <p style="color: #3d7de8;">Please upload one of the following documents, by doing so we will verify these documents with 3rd party agencies to validate you.</p>
                                 <ul style="color: #3d7de8; font-weight:bolder; padding-left:2.3rem; margin-top:0rem !important; ">
                                     <li style="margin-top:0.1rem !important; ">Birth Certificate</li>
-                                    <li style="margin-top:0.1rem !important; " >Full / Provisional Driving License</li>
-                                    <li style="margin-top:0.1rem !important; " >UK / EU Passport</li>
+                                    <li style="margin-top:0.1rem !important; ">Full / Provisional Driving License</li>
+                                    <li style="margin-top:0.1rem !important; ">UK / EU Passport</li>
                                 </ul>
                             </div>
-                            <input class="form-control " type="file" name="id_document" id="id_document" required>
+                            <input class="form-control bg-white " type="file" name="id_document" id="id_document" required>
                             @error('id_document')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror

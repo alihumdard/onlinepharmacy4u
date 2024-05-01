@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- SLIDER AREA START (slider-3) -->
-<div class="ltn__slider-area ltn__slider-3  section-bg-1 ">
+<div class="ltn__slider-area ltn__slider-3 desktop-slider  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
         <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/home-ban-1.png">
@@ -61,6 +61,90 @@
         </div>
         <!-- ltn__slide-item -->
         <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/home-ban-3.png">
+            <div class="ltn__slide-item-inner  text-left">
+                <div class="container d-none">
+                    <div class="row">
+                        <div class="col-lg-12 align-self-center">
+                            <div class="slide-item-info">
+                                <div class="slide-item-info-inner ltn__slide-animation">
+                                    <!-- <h6 class="slide-sub-title white-color--- animated  text-black"><span><i class="fas fa-syringe"></i></span> Regulated UK Pharmacist</h6> -->
+                                    <h5 class="slide-title animated  text-black poppins-medium">Beat Travel Sickness And See The World</h5>
+                                    <div class="slide-brief animated">
+                                        <p class="text-black  oppins-extralight">Convenient And Easy To Take Tablets-Great For On The Go Clinically Proven To Provide Relief From Nausea Reliefs Feelings Of Motion Sickness Quickly And Effectively Take As Need For All-Day Relief And Comfort</p>
+                                    </div>
+                                    <div class="btn-wrapper animated">
+                                        <a href="/shop" class="theme-btn-1 btn ">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+    </div>
+</div>
+<!-- SLIDER AREA END -->
+<!-- SLIDER AREA  for mobile START (slider-3) -->
+<div class="ltn__slider-area ltn__slider-3 mobile-slider  section-bg-1 ">
+    <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
+        <!-- ltn__slide-item -->
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/mobile-1.png">
+            <div class="ltn__slide-item-inner  text-left">
+                <div class="container d-none">
+                    <div class="row">
+                        <div class="col-lg-12 align-self-center">
+                            <div class="slide-item-info">
+                                <div class="slide-item-info-inner ltn__slide-animation">
+                                    
+                                    <h5 class="slide-title animated text-black poppins-medium">Repeat Prescriptions,<br> Made Simple.</h5>
+                                    <div class="slide-brief animated">
+                                        <p class=" text-black oppins-extralight">Order with ease and get your NHS repeat prescriptions delivered directly to your door </br>with Online Pharmacy 4U
+                                        Sign-up in seconds<br>
+                                            ✓ Free delivery to your home or workplace<br>
+                                            ✓Discreet packaging</p>
+                                    </div>
+                                    <div class="btn-wrapper animated">
+                                        <a href="https://healthera.co.uk/app" target="blank" class="theme-btn-1 btn oppins-extralight">Register Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ltn__slide-item -->
+        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/mobile-2.png">
+            <div class="ltn__slide-item-inner text-left">
+                <div class="container d-none">
+                    <div class="row">
+                        <div class="col-lg-12 align-self-center">
+                            <div class="slide-item-info">
+                                <div class="slide-item-info-inner ltn__slide-animation">
+                                    <div class="slide-video mb-50 d-none">
+                                        <a class="ltn__video-icon-2 ltn__video-icon-2-border" href="https://www.youtube.com/embed/tlThdr3O5Qo" data-rel="lightcase:myCollection">
+                                            <i class="fa fa-play"></i>
+                                        </a>
+                                    </div>
+                                    <!-- <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> Regulated UK Pharmacist</h6> -->
+                                    <h5 class="slide-title animated text-black poppins-medium">Rediscover Passion & Reignite That Spark</h5>
+                                    <div class="slide-brief animated">
+                                        <p class="text-black oppins-extralight">Don't Let ED Put A Wedge Between You And Your Partner. Shop Our Range Of ED Medications!</p>
+                                    </div>
+                                    <div class="btn-wrapper animated">
+                                        <a href="/shop" class="theme-btn-1 btn ">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ltn__slide-item -->
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/mobile-3.png">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container d-none">
                     <div class="row">

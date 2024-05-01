@@ -47,23 +47,24 @@
 <div class="ltn__login-area pb-110 py-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <!-- <div class="col-lg-12">
                 <div class="section-title-area text-center">
                     <h1 class="section-title">Register <br>Your Account</h1>
-                    <!-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br>
-                         Sit aliquid,  Non distinctio vel iste.</p> -->
+                    
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="row shadow-custom">
-            <div class="col-lg-5 p-0">
-                <div class="signup-right-side">
-                    <div class="sign-cont">
-                    </div>
-                </div>
+            <div class="crate-here ps-5 pt-4">
+                <h4>Your Details</h4>
+                <p>Please complete the below details to create your account and continue your consultation.</p>
+                <div class="go-to-btn mt-4">
+                                <a href="/admin"><strong>ALREADY HAVE AN ACCOUNT?</strong></a>
+                                <a href="/admin" class="btn-primary sign-btn text-center">sign in</a>
+                            </div>
             </div>
-            <div class="col-lg-7 pt-5">
-                <form action="{{ route('web.user_register') }}" method="post" class=" reg-me ltn__form-box contact-form-box needs-validation" type="post" enctype="multipart/form-data">
+            <div class="col-lg-12 pt-4">
+                <form action="{{ route('web.user_register') }}" method="post" class=" reg-me ltn__form-box contact-form-box needs-validation" type="post">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
@@ -129,15 +130,16 @@
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <input type="text" name="address" placeholder="address" value="{{ old('address') }}" required>
                             <div class="invalid-feedback">Please enter your address!</div>
                             @error('address')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-12">
-                            <input type="text" class="form-control" name="apartment" placeholder="apartment, suite, etc(optional)" value="{{ old('address') }}">
+                        <div class="col-md-6">
+                            <input type="text" name="apartment" placeholder="apartment, suite, etc(optional)" value="{{ old('address') }}">
+
                             @error('apartment')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
@@ -161,10 +163,10 @@
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="text-center px-3 mb-3">
-                            <button class="theme-btn-1 btn reverse-color btn-block text-center px-4" type="submit">CREATE ACCOUNT</button>
+                        <div class=" px-3 mb-2">
+                            <button class="theme-btn-1 btn reverse-color btn-block text-center px-3" type="submit">CREATE ACCOUNT</button>
                         </div>
-                        <div class="by-agree text-center">
+                        <div class="by-agree">
                             <p>By creating an account, you agree to our:</p>
                             <p><a href="/terms_and_conditions/">TERMS OF CONDITIONS &nbsp; &nbsp; | &nbsp; &nbsp; PRIVACY POLICY</a></p>
                             <div class="go-to-btn mt-25">

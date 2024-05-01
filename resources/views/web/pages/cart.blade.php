@@ -51,10 +51,10 @@
                                             <tr>
                                                 <td class="cart-product-remove"><a href="javascript:void(0)" onclick="deleteItem('{{ $item->rowId }}', false);">x</a></td>
                                                 <td class="cart-product-image">
-                                                    <a href="product-details.html"><img src="{{ asset('storage/'.$item->options->productImage)}}" alt="#"></a>
+                                                    <a href="{{ route('web.product', ['id' => $item->options->slug]) }}"><img src="{{ asset('storage/'.$item->options->productImage)}}" alt="#"></a>
                                                 </td>
                                                 <td class="cart-product-info">
-                                                    <h6><a href="{{ route('web.product', ['id' => $item->id]) }}">{{ $item->name }}</a></h6>
+                                                    <h6><a href="{{ route('web.product', ['id' => $item->options->slug]) }}">{{ $item->name }} {{ $item->options->variant_info ? '('.$item->options->variant_info->value.')' : '' }}</a></h6>
                                                 </td>
                                                 <td class="cart-product-price">£{{ $item->price }}</td>
                                                 <td class="cart-product-quantity" data-id="{{ $item->rowId }}">

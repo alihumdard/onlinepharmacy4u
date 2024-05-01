@@ -1,5 +1,5 @@
 @extends('web.layouts.default')
-@section('title', 'categorydetail')
+@section('title', 'Diabetes')
 @section('content')
 
 <style>

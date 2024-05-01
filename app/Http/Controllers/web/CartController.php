@@ -122,9 +122,9 @@ class CartController extends Controller
         // }
 
         if ($variant) {
-            Cart::add($product->id . '_' . $variant->id, $product->title, $quantity, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '', 'variant_info' => '']);
+            Cart::add($product->id . '_' . $variant->id, $product->title, $quantity, $variant->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '', 'variant_info' => $variant, 'slug' => $product->slug]);
         } else {
-            Cart::add($product->id, $product->title, $quantity, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '']);
+            Cart::add($product->id, $product->title, $quantity, $product->price, ['productImage' => (!empty($product->main_image)) ? $product->main_image : '', 'slug' => $product->slug]);
         }
 
         $status = true;

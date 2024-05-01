@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 // models ...
 use App\Models\User;
@@ -57,6 +58,8 @@ use Illuminate\Support\Facades\Redirect;
 
 use GuzzleHttp\Client;
 use Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
+
+use App\Models\ProductVariant;
 
 class WebController extends Controller
 {
@@ -236,10 +239,11 @@ class WebController extends Controller
         return view('web.pages.products', $data);
     }
 
-    public function product_detail(Request $request)
+    public function product_detail(Request $request, $slug)
     {
         $data['user'] = auth()->user() ?? [];
-        $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
+        // $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
+        $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->where('slug', $slug)->firstOrFail();
         $variants = $data['product']['variants']->toArray() ?? [];
         if ($variants) {
             $variants_tags = [];
@@ -1036,5 +1040,31 @@ class WebController extends Controller
         $data['range'] = $request->t ?? 'a-e';
 
         return view('web.pages.conditions', $data);
+    }
+
+    public function generate_slug_existing()
+    {
+        // generate slugs for existing products
+        $needSlugs = Product::where('slug', null)->get();
+
+        foreach($needSlugs as $slug){
+            $slug->update([
+                'slug' => SlugService::createSlug(Product::class, 'slug', $slug->title)
+            ]);
+        }
+        return 1;
+    }
+
+    public function generate_slug_variants_existing()
+    {
+        // generate slugs for existing product variants
+        $needSlugs = ProductVariant::with('product')->where('slug', null)->get();
+
+        foreach($needSlugs as $slug){
+            $slug->update([
+                'slug' => SlugService::createSlug(ProductVariant::class, 'slug', $slug->product->title.' '.$slug->value)
+            ]);
+        }
+        return 1;
     }
 }

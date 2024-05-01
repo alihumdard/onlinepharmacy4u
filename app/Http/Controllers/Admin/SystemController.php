@@ -50,7 +50,7 @@ use App\Models\OrderDetail;
 use App\Models\ShipingDetail;
 use App\Models\Alert;
 use App\Models\FaqProduct;
-
+use SebastianBergmann\Type\NullType;
 
 class SystemController extends Controller
 {
@@ -1258,6 +1258,7 @@ class SystemController extends Controller
                     }
                 }
                 $data['order_user_detail'] =  ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
+                $data['user_profile_details'] = User::findOrFail($data['order_user_detail']['user_id']);
                 $data['generic_consultation'] = $user_result;
                 $data['product_consultation'] = $prod_result ?? [];
                 return view('admin.pages.consultation_view', $data);

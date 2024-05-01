@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('short_bio')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
+            $table->text('id_document')->nullable();
             $table->text('apartment')->nullable();
             $table->string('role')->nullable();
             $table->string('user_pic')->nullable();

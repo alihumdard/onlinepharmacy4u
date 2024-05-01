@@ -18,6 +18,7 @@
         border-radius: 0;
         padding-right: 40px;
     }
+
     select {
         background-color: var(--white);
         border: 2px solid;
@@ -62,7 +63,7 @@
                 </div>
             </div>
             <div class="col-lg-7 pt-5">
-                <form action="{{ route('web.user_register') }}" method="post" class=" reg-me ltn__form-box contact-form-box needs-validation" type="post">
+                <form action="{{ route('web.user_register') }}" method="post" class=" reg-me ltn__form-box contact-form-box needs-validation" type="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
@@ -136,18 +137,37 @@
                             @enderror
                         </div>
                         <div class="col-12">
-                            <input type="text" name="apartment" placeholder="apartment, suite, etc(optional)" value="{{ old('address') }}">
+                            <input type="text" class="form-control" name="apartment" placeholder="apartment, suite, etc(optional)" value="{{ old('address') }}">
                             @error('apartment')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="text-center px-3 mb-2">
-                            <button class="theme-btn-1 btn reverse-color btn-block text-center px-3" type="submit">CREATE ACCOUNT</button>
+                        <div class="col-12 mb-4">
+                            <div class="mb-1 small px-1">
+                                <h3 style="color: #3d7de8; margin-bottom: 5px;">Identity Verification</h3>
+                                <p style="color: #3d7de8 ;">
+                                    Due to new policy, you are required to upload one of the documents mentioned below. Please take a photo of yourself holding the identity document and ensure the document is clear and legible. If not, it may be refused and your order may be delayed or canceled.
+                                </p>
+                                <p style="color: #00c4a3; font-weight:bolder;">Accepted Documentation:</p>
+                                <p style="color: #3d7de8;">Please upload one of the following documents, by doing so we will verify these documents with 3rd party agencies to validate you.</p>
+                                <ul style="color: #3d7de8; font-weight:bolder; padding-left:2.3rem; margin-top:0rem !important; ">
+                                    <li style="margin-top:0.1rem !important; ">Birth Certificate</li>
+                                    <li style="margin-top:0.1rem !important; " >Full / Provisional Driving License</li>
+                                    <li style="margin-top:0.1rem !important; " >UK / EU Passport</li>
+                                </ul>
+                            </div>
+                            <input class="form-control " type="file" name="id_document" id="id_document" required>
+                            @error('id_document')
+                            <div class="alert-danger text-danger ">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="text-center px-3 mb-3">
+                            <button class="theme-btn-1 btn reverse-color btn-block text-center px-4" type="submit">CREATE ACCOUNT</button>
                         </div>
                         <div class="by-agree text-center">
                             <p>By creating an account, you agree to our:</p>
                             <p><a href="/terms_and_conditions/">TERMS OF CONDITIONS &nbsp; &nbsp; | &nbsp; &nbsp; PRIVACY POLICY</a></p>
-                            <div class="go-to-btn mt-50">
+                            <div class="go-to-btn mt-25">
                                 <a href="/admin"><strong>ALREADY HAVE AN ACCOUNT?</strong></a>
                             </div>
                         </div>

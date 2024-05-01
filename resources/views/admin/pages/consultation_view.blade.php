@@ -80,6 +80,29 @@
                 <div class="card">
                     <div class="card-header mt-3" id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
                     </div>
+                    @if($user_profile_details)
+                    <div class="row px-4 mt-2 mb-3">
+                        <div class="col-12">
+                            <h4 class="fw-bold ">Costumer Profile Details:</h4>
+                            <label for="" class="fw-bold px-2 ">Name: </label> <span> {{$user_profile_details->name ?? '' }}</span><br>
+                            <label for="" class="fw-bold px-2">Phone: </label> <span> {{$user_profile_details->phone ?? '' }}</span><br>
+                            <label for="" class="fw-bold px-2">Gender: </label> <span> {{$user_profile_details->gender ?? '' }}</span><br>
+                            <label for="" class="fw-bold px-2">DOB: </label> <span> {{$user_profile_details->dob ?? '' }}</span><br>
+                            <label for="" class="fw-bold px-2">Identity Document: </label>
+                            <span>
+                                @if($user_profile_details->id_document)
+                                <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" target="_blank">
+                                    <i class="bi bi-eye-fill"></i> View File 
+                                </a>
+                                <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" download>
+                                    <i class="bi bi-cloud-download"></i> Download File
+                                </a>
+                                @endif
+                            </span><br>
+
+                        </div>
+                    </div>
+                    @endif
                     <div class="card-body">
                         <table id="tbl_data" class="table table-striped">
                             <thead class="thead-dark">

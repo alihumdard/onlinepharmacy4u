@@ -227,34 +227,41 @@
             </div>
         </div>
         <!-- second div  -->
-        <div class="col-md-4 bg-info mb-5">
-            <div class="trackcompleted">
+        <div class="col-md-4 bg-info mb-5 rounded-3" style="border-radius: 25px !important;">
+            <div class="trackcompleted mb-4 ">
                 <div class="text">
                     <h1>How it works</h1>
-                    <hr>
+                    <hr class="my-3">
                 </div>
                 <div class="q1complete">
-                    <div class="mt-5" style="width: 30px; height: 30px; background: #00c4a3; color: #fff; text-align: center; border-radius: 10px; ">
-                        &#49;</div> <span>Complete a consultation</span>
+                    <div class="mt-4 d-flex gap-2">
+                        <span style="width: 29px; height: 29px; background: #00c4a3; color: #fff; text-align: center; border-radius: 50%; ">&#49; </span> <span>Complete a consultation</span>
+                    </div>
+
                     <p>You will need to begin by completing an ailment-based consultation. This will be a set of
                         questions related to your symptoms, medical history and any other information our
                         prescribers might need to be able to recommend a suitable treatment.</p>
                 </div>
                 <div class="q2complete">
-                    <div class="mt-5" style="width: 30px; height: 30px; background: #00c4a3; color: #fff; text-align: center; border-radius: 10px; ">
-                        &#50;</div> <span>Browse treatments</span>
+                    <div class="mt-3 d-flex gap-2">
+                        <span style="width: 29px; height: 29px; background: #00c4a3; color: #fff; text-align: center; border-radius: 50%; ">&#50; </span> <span>Browse treatments</span>
+                    </div>
+
                     <p>Explore our wide range of medications, diagnostic tools and over the counter treatments
                         to learn more about how they work, what they are used for and how much they cost.</p>
                 </div>
                 <div class="q3complete">
-                    <div class="mt-5" style="width: 30px; height: 30px; background: #00c4a3; color: #fff; text-align: center; border-radius: 10px; ">
-                        &#51;</div> <span>Wait for a prescriber to review your request</span>
+                    <div class="mt-3 d-flex ">
+                        <span style="width: 29px; height: 29px; background: #00c4a3; color: #fff; text-align: center; border-radius: 50%; ">&#51; </span> <span>Wait for a prescriber to review your request</span>
+                    </div>
+
                     <p>You can either wait on our website or you can leave the page and wait for a notification
                         from us to let you know that a prescriber has finished reviewing your consultation.</p>
                 </div>
                 <div class="q4complete">
-                    <div class="mt-5" style="width: 30px; height: 30px; background: #00c4a3; color: #fff; text-align: center; border-radius: 10px; ">
-                        &#52;</div> <span>Purchase treatment</span>
+                    <div class="mt-3 d-flex gap-2">
+                        <span style="width: 29px; height: 29px; background: #00c4a3; color: #fff; text-align: center; border-radius: 50%; ">&#52; </span> <span>Purchase treatment</span>
+                    </div>
                     <p>From our selection of available prescription-only and over-the-counter products, the
                         prescriber will let you know which ones they have approved for your condition. From
                         here, you can select your chosen option and continue to payment to complete your order.

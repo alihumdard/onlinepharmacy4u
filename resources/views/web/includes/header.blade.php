@@ -67,8 +67,8 @@
                                             </div>
                                         </div>
                                         <div class="header-search-1-form">
-                                            <form id="#" method="get"  action="#">
-                                                <input class=" poppins-thin " type="text" name="search" value="" placeholder="Search here..."/>
+                                            <form method="get"  action="{{route('web.search')}}">
+                                                <input class=" poppins-thin " type="text" name="q" value="" placeholder="Search here..."/>
                                                 <button type="submit">
                                                     <span><i class="icon-search"></i></span>
                                                 </button>
@@ -244,9 +244,9 @@
                 <button class="ltn__utilize-close">×</button>
             </div>
             <div class="ltn__utilize-menu-search-form">
-                <form action="#">
-                    <input type="text" placeholder="Search...">
-                    <button><i class="fas fa-search"></i></button>
+                <form method="get" action="{{route('web.search')}}">
+                    <input type="text" name="q" value="{{ Request('q')}}" placeholder="Search...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <div class="ltn__utilize-menu">

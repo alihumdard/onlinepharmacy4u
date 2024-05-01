@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductVariant;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductController extends Controller
 {
@@ -237,6 +238,7 @@ class ProductController extends Controller
             ['id' => (isset($request->id) && $request->duplicate == 'no') ? $request->id : null],
             [
                 'title'      => ucwords($request->title),
+                // 'slug'       => SlugService::createSlug(Product::class, 'slug', $request->title),
                 'desc'       => $request->desc,
                 'short_desc' => $request->short_desc ?? Null,
                 'main_image' => $mainImagePath ?? Product::findOrFail($request->id)->main_image,
@@ -301,6 +303,7 @@ class ProductController extends Controller
                     $productAttrArr['price'] = $priceArr[$key];
                     $productAttrArr['cut_price'] = $cutPriceArr[$key];
                     $productAttrArr['value'] = $valueArr[$key];
+                    $productAttrArr['slug'] = SlugService::createSlug(ProductVariant::class, 'slug', $request->title.' '.$valueArr[$key], ['unique' => false]);
                     $productAttrArr['barcode'] = $barcodeArr[$key];
                     $productAttrArr['inventory'] = $inventoryArr[$key];
                     $productAttrArr['sku'] = $skuArr[$key];
@@ -352,6 +355,7 @@ class ProductController extends Controller
                     $productAttrArrE['price'] = $priceArrExist[$key1];
                     $productAttrArrE['cut_price'] = $cutPriceArrExist[$key1];
                     $productAttrArrE['value'] = $valueArrExist[$key1];
+                    $productAttrArrE['slug'] = SlugService::createSlug(ProductVariant::class, 'slug', $request->title.' '.$valueArrExist[$key1], ['unique' => false]);
                     $productAttrArrE['barcode'] = $barcodeArrExist[$key1];
                     $productAttrArrE['inventory'] = $inventoryArrExist[$key1];
                     $productAttrArrE['sku'] = $skuArrExist[$key1];

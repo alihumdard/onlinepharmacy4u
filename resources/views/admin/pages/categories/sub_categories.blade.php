@@ -167,7 +167,7 @@
         }).buttons().container();
     });
     $(document).ready(function() {
-        $('.edit').click(function() {
+        $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
             $('#edit_form_id_input').val(id);
             $('#edit_form').submit();

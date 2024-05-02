@@ -232,11 +232,11 @@
                                             <div class="col-md-1" style="height:150px; width:150px;">
                                                 <img class="img-fluid pt-3 h-100 w-100" id="product_img" src="{{ asset('storage/'.$src) }}" loading="lazy" alt="Prodcut Image">
                                             </div>
-                                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0"><b>Title: </b> {{$val['product_name'] ?? $val['product']['title'] }}</p>
+                                            <div class="col-md-2 text-left d-flex justify-content-start align-items-center">
+                                                <p class="text-muted mb-0"><b>Title: </b> <br> {!! $val['product_name'] ?? $val['product']['title'] !!}</p>
                                             </div>
-                                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small"><b>Variant: </b> {{$val['variant']['title'] ?? '' }}</p>
+                                            <div class="col-md-2 text-left d-flex justify-content-start align-items-center">
+                                                <p class="text-muted mb-0 small"><b>Variant: </b> <br>{!! $val['variant_details'] ?? '' !!}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                                                 <p class="text-muted mb-0 small"><b>Quantity: </b> {{$val['product_qty']}}</p>

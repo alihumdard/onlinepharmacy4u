@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('order_id');
             $table->bigInteger('product_id');
+            $table->bigInteger('variant_id')->nullable();
             $table->bigInteger('weight');
             $table->text('product_name');
+            $table->text('variant_details')->nullable();
             $table->string('product_qty');
             $table->string('product_price');
             $table->text('generic_consultation')->nullable();

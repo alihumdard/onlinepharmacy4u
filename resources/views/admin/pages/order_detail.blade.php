@@ -115,12 +115,6 @@
             </div>
             @endif
 
-            @if(session('msg'))
-            <div class="alert alert-success">
-                {{ session('msg') }}
-            </div>
-            @endif
-
             <div class="col-md-4">
                 <div class="card  d-flex flex-column">
                     <div class="card-header mt-2" style="border: 0 !important; border-color: transparent !important;"></div>

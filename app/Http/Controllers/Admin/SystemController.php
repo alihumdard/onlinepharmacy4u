@@ -1589,10 +1589,11 @@ class SystemController extends Controller
             ];
         }
 
+        $order_ref = '#00'.$order['id'];
         $payload = [
             "items" => [
                 [
-                    "orderReference" => null,
+                    "orderReference" => $order_ref,
                     "recipient" => [
                         "address" => [
                             "fullName" => ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'] . ' ' . $order['shipingdetails']['lastName'] : $order['user']['name'],

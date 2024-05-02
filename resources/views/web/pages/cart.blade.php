@@ -54,7 +54,7 @@
                                                     <a href="{{ route('web.product', ['id' => $item->options->slug]) }}"><img src="{{ asset('storage/'.$item->options->productImage)}}" alt="#"></a>
                                                 </td>
                                                 <td class="cart-product-info">
-                                                    <h6><a href="{{ route('web.product', ['id' => $item->options->slug]) }}">{{ $item->name }} {{ $item->options->variant_info ? '('.$item->options->variant_info->value.')' : '' }}</a></h6>
+                                                    <h6><a href="{{ route('web.product', ['id' => $item->options->slug]) }}">{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!}</a></h6>
                                                 </td>
                                                 <td class="cart-product-price">£{{ $item->price }}</td>
                                                 <td class="cart-product-quantity" data-id="{{ $item->rowId }}">

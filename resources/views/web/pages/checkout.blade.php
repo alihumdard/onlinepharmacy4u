@@ -144,7 +144,7 @@
                                 @if(!empty(Cart::content()))
                                 @foreach(Cart::content() as $item)
                                 <tr>
-                                    <td>{{ $item->name }} <strong>× {{ $item->qty }}</strong></td>
+                                    <td>{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!} <strong>× {{ $item->qty }}</strong></td>
                                     <td>£{{ $item->subtotal }}</td>
                                 </tr>
                                 @endforeach
@@ -247,6 +247,8 @@
                     type: 'POST',
                     data: $('#checkoutForm').serialize(),
                     success: function(response) {
+                        window.location.href = "/Completed-order";
+                        
                         var redirectUrl = response.redirectUrl;
                         var iframe = $('<iframe>', {
                             src: redirectUrl,

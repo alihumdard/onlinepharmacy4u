@@ -152,7 +152,7 @@
                             <div class="mb-1 small px-1">
                                 <h3 style="color: #3d7de8; margin-bottom: 5px;">Identity Verification</h3>
                                 <p style="color: #3d7de8 ;">
-                                    Due to new policy, you are required to upload one of the documents mentioned below. Please take a photo of yourself holding the identity document and ensure the document is clear and legible. If not, it may be refused and your order may be delayed or canceled.
+                                    Due to new regulatory policies, you are now required to upload one of the following documents below you will only have to do this once to verify you are the person who is placing the order today.
                                 </p>
                                 <p style="color: #00c4a3; font-weight:bolder;">Accepted Documentation:</p>
                                 <p style="color: #3d7de8;">Please upload one of the following documents, by doing so we will verify these documents with 3rd party agencies to validate you.</p>

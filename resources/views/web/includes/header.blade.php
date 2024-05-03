@@ -140,7 +140,7 @@
         
         <!-- header-bottom-area start -->
         <div class="header-bottom-area ltn__border-top--- ltn__header-sticky  ltn__sticky-bg-white ltn__primary-bg---- menu-color-white---- d-none--- d-lg-block">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="col--- header-menu-column justify-content-center---">

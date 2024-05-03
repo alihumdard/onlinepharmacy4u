@@ -85,7 +85,10 @@
                 <input type="hidden" name="content" value="{{json_encode($order)}}" required>
                 <input type="hidden" name="view_name" value="order_details" required>
             </form>
-            <h1 class="w-100">Order Detail <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1 fw-semibold" style="float:right; background: #03bd8d;color:#fff">Print out</button> </h1>
+            <h1 class="w-100">
+                Order Detail
+                <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1  {{($order['print'] == 'Printed') ? 'btn-success' : 'btn-primary' }} fw-semibold" style="float:right;">{{$order['print'] ?? '' }}</button>
+            </h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -114,7 +117,6 @@
                 <strong>Success:</strong> {{ session('msg') }}
             </div>
             @endif
-
             <div class="col-md-4">
                 <div class="card  d-flex flex-column">
                     <div class="card-header mt-2" style="border: 0 !important; border-color: transparent !important;"></div>
@@ -160,7 +162,7 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label"><b>Address 2:</b> {{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}</label>
-                                <input class="form-control me-2" type="text" name="address2" id="address2"  value="{{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}" placeholder="Change Address 2">
+                                <input class="form-control me-2" type="text" name="address2" id="address2" value="{{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}" placeholder="Change Address 2">
                             </div>
                             <div class=" mt-4 text-end px-4 d-flex d-md-block">
                                 <button class="btn btn-primary">Update</button>
@@ -283,9 +285,9 @@
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0 ">Tracking Number:</p>
                                     @if($order['tracking_no'])
-                                    <a class="fw-bold  mb-0"  target="_blank" href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
+                                    <a class="fw-bold  mb-0" target="_blank" href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
                                     @else
-                                    <a class=" btn btn-primary fw-bold  mb-0"   href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
+                                    <a class=" btn btn-primary fw-bold  mb-0" href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
                                     @endif
                                 </div>
                                 @endif

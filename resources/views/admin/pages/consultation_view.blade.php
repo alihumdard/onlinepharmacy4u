@@ -83,7 +83,7 @@
                     @if($user_profile_details)
                     <div class="row px-4 mt-2 mb-3">
                         <div class="col-12">
-                            <h4 class="fw-bold ">Customer Profile Detaisl.:</h4>
+                            <h4 class="fw-bold ">Customer Profile Detaisl:</h4>
                             <label for="" class="fw-bold px-2 ">Name: </label> <span> {{$user_profile_details->name ?? '' }}</span><br>
                             <label for="" class="fw-bold px-2">Phone: </label> <span> {{$user_profile_details->phone ?? '' }}</span><br>
                             <label for="" class="fw-bold px-2">Gender: </label> <span> {{$user_profile_details->gender ?? '' }}</span><br>

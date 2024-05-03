@@ -68,7 +68,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Order Consultations<< /li>
+                <li class="breadcrumb-item active">Order Consultations </li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -190,7 +190,7 @@
 
                                     </td>
                                     <td>
-                                        @if (Str::startsWith($value['answer'], 'consultation/user/'))
+                                        @if (Str::startsWith($value['answer'], 'consultation/product/'))
                                         <a class="fw-bold btn-link" href="{{ asset('storage/'.$value['answer']) }}" download>See File</a>
                                         @else
                                         <p>{{ $value['answer'] }}</p>

@@ -148,19 +148,19 @@
                             <input type="hidden" name="order_id" value="{{  $order['id'] ?? '' }}">
                             <div class="col-12">
                                 <label class="form-label"><b>City:</b> {{$order['shipingdetails']['city'] ?? $order['user']['city'] }}</label>
-                                <input class="form-control me-2" type="text" name="city" id="city" placeholder="Change City">
+                                <input class="form-control me-2" type="text" name="city" id="city" value="{{$order['shipingdetails']['city'] ?? $order['user']['city'] }}" placeholder="Change City">
                             </div>
                             <div class="col-12">
                                 <label class="form-label"><b>Postal Code:</b> {{$order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'] }}</label>
-                                <input class="form-control me-2" type="text" name="postal_code" id="postal_code" placeholder="Change Postal Code">
+                                <input class="form-control me-2" type="text" name="postal_code" id="postal_code" value=" {{$order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'] }}" placeholder="Change Postal Code">
                             </div>
                             <div class="col-12">
                                 <label class="form-label"><b>Address 1:</b> {{$order['shipingdetails']['address'] ?? $order['user']['address'] }}</label>
-                                <input class="form-control me-2" type="text" name="address1" id="address1" placeholder="Change Address 1">
+                                <input class="form-control me-2" type="text" name="address1" id="address1" value="{{$order['shipingdetails']['address'] ?? $order['user']['address'] }}" placeholder="Change Address 1">
                             </div>
                             <div class="col-12">
                                 <label class="form-label"><b>Address 2:</b> {{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}</label>
-                                <input class="form-control me-2" type="text" name="address2" id="address2" placeholder="Change Address 2">
+                                <input class="form-control me-2" type="text" name="address2" id="address2"  value="{{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}" placeholder="Change Address 2">
                             </div>
                             <div class=" mt-4 text-end px-4 d-flex d-md-block">
                                 <button class="btn btn-primary">Update</button>
@@ -188,7 +188,7 @@
                             @csrf
                             <input type="hidden" name="order_id" value="{{  $order['id'] ?? '' }}">
                             <div class="col-12">
-                                <input class="form-control me-2" type="text" name="note" id="note" placeholder="Change Note" required>
+                                <input class="form-control me-2" type="text" name="note" id="note" value="{{$order['note'] ?? 'No notes from customer'}}" placeholder="Change Note" required>
                                 <div class="invalid-feedback">Please write additional note!</div>
                                 @error('note')
                                 <div class="alert-danger text-danger ">{{ $message }}</div>

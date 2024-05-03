@@ -11,7 +11,7 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-image "  style="margin-bottom: 45px !important; padding-top:60px; padding-bottom:90px; " data-bs-bg="img/banner/verifications.png">
+<div class="ltn__breadcrumb-area text-left bg-image " style="margin-bottom: 45px !important; padding-top:60px; padding-bottom:90px; " data-bs-bg="img/banner/verifications.png">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -36,7 +36,9 @@
             <div class="firstconsultationstart px-2 pt-4">
                 <div class="text">
                     <h2>Identity Verification</h2>
-                    <p class="mb-3" style="font-size: 17px !important;">Due to new policy, you are required to upload one of the documents mentioned below. Please take a photo of yourself holding the identity document and ensure the document is clear and legible. If not, it may be refused and your order may be delayed or canceled.</p>
+                    <p class="mb-3" style="font-size: 17px !important;">
+                        Due to new regulatory policies, you are now required to upload one of the following documents below you will only have to do this once to verify you are the person who is placing the order today.
+                    </p>
                     <h4 class="mb-3" style="color: #00c4a3; font-weight:bolder;">Accepted Documentation:</h4>
                     <p style="color: #3d7de8;   font-size: 17px !important;">Please upload one of the following documents, by doing so we will verify these documents with 3rd party agencies to validate you.</p>
                     <ul style="color: #3d7de8; font-weight:bolder; padding-left:2.3rem; margin-top:0rem !important; ">

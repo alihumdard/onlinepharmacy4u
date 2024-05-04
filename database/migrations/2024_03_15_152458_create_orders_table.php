@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('note')->nullable();
             $table->string('coupon_code')->nullable();
             $table->string('coupon_value')->nullable();
+            $table->string('print')->default('Print Out');
             $table->string('total_ammount');
             $table->string('shiping_cost');
             $table->string('payment_id')->nullable();

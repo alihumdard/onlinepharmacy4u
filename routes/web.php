@@ -37,6 +37,8 @@ Route::get('/product/{id:slug}', [WebController::class, 'product_detail'])->name
 
 Route::match(['get','post'],'/productQuestion/{id}', [WebController::class, 'product_question'])->name('web.productQuestion');
 Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
+Route::get('/idDocumentForm', [WebController::class, 'id_document_form'])->name('web.idDocumentForm');
+Route::post('/idDocumentForm', [WebController::class, 'id_document_store'])->name('web.idDocumentForm');
 Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
 Route::match(['get', 'post'], '/transactionStore/', [WebController::class, 'transaction_store'])->name('web.transactionStore');
 Route::get('/product_question', [WebController::class, 'product_question_new']);
@@ -110,7 +112,6 @@ Route::get('/terms_and_conditions', [HomeController::class, 'terms_and_condition
 Route::get('/acceptable_use_policy', [HomeController::class, 'acceptable_use_policy'])->name('web.acceptable_use_policy');
 Route::get('/editorial_policy', [HomeController::class, 'editorial_policy'])->name('web.editorial_policy');
 Route::get('/dispensing_frequencies', [HomeController::class, 'dispensing_frequencies'])->name('web.dispensing_frequencies');
-Route::get('/identity_verification', [HomeController::class, 'identity_verification'])->name('web.identity_verification');
 Route::get('/product_information', [HomeController::class, 'product_information'])->name('web.product_information');
 
 Route::get('/treatment', [WebController::class, 'treatment'])->name('web.treatment');

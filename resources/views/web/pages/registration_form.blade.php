@@ -18,6 +18,7 @@
         border-radius: 0;
         padding-right: 40px;
     }
+
     select {
         background-color: var(--white);
         border: 2px solid;
@@ -39,6 +40,10 @@
         -webkit-appearance: none;
         margin: 0;
     }
+
+    input[type="file"]::-webkit-file-upload-button {
+        height: 50px;
+    }
 </style>
 
 
@@ -46,23 +51,24 @@
 <div class="ltn__login-area pb-110 py-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <!-- <div class="col-lg-12">
                 <div class="section-title-area text-center">
                     <h1 class="section-title">Register <br>Your Account</h1>
-                    <!-- <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br>
-                         Sit aliquid,  Non distinctio vel iste.</p> -->
+                    
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="row shadow-custom">
-            <div class="col-lg-5 p-0">
-                <div class="signup-right-side">
-                    <div class="sign-cont">
-                    </div>
+            <div class="crate-here ps-5 pt-4">
+                <h4>Your Details</h4>
+                <p>Please complete the below details to create your account and continue your consultation.</p>
+                <div class="go-to-btn mt-4">
+                    <a href="/admin"><strong>ALREADY HAVE AN ACCOUNT?</strong></a>
+                    <a href="/admin" class="btn-primary sign-btn text-center">sign in</a>
                 </div>
             </div>
-            <div class="col-lg-7 pt-5">
-                <form action="{{ route('web.user_register') }}" method="post" class=" reg-me ltn__form-box contact-form-box needs-validation" type="post">
+            <div class="col-lg-12 pt-4">
+                <form action="{{ route('web.user_register') }}" method="post" class=" reg-me ltn__form-box contact-form-box needs-validation" type="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
@@ -128,26 +134,46 @@
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <input type="text" name="address" placeholder="address" value="{{ old('address') }}" required>
                             <div class="invalid-feedback">Please enter your address!</div>
                             @error('address')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <input type="text" name="apartment" placeholder="apartment, suite, etc(optional)" value="{{ old('address') }}">
+
                             @error('apartment')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="text-center px-3 mb-2">
+                        <div class="col-12 mb-4">
+                            <div class="mb-1 small px-1">
+                                <h3 style="color: #3d7de8; margin-bottom: 5px;">Identity Verification</h3>
+                                <p style="color: #3d7de8 ;">
+                                    Due to new regulatory policies, you are now required to upload one of the following documents below you will only have to do this once to verify you are the person who is placing the order today.
+                                </p>
+                                <p style="color: #00c4a3; font-weight:bolder;">Accepted Documentation:</p>
+                                <p style="color: #3d7de8;">Please upload one of the following documents, by doing so we will verify these documents with 3rd party agencies to validate you.</p>
+                                <ul style="color: #3d7de8; font-weight:bolder; padding-left:2.3rem; margin-top:0rem !important; ">
+                                    <li style="margin-top:0.1rem !important; ">Birth Certificate</li>
+                                    <li style="margin-top:0.1rem !important; ">Full / Provisional Driving License</li>
+                                    <li style="margin-top:0.1rem !important; ">UK / EU Passport</li>
+                                </ul>
+                            </div>
+                            <input class="form-control bg-white " type="file" name="id_document" id="id_document" required>
+                            @error('id_document')
+                            <div class="alert-danger text-danger ">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class=" px-3 mb-2">
                             <button class="theme-btn-1 btn reverse-color btn-block text-center px-3" type="submit">CREATE ACCOUNT</button>
                         </div>
-                        <div class="by-agree text-center">
+                        <div class="by-agree">
                             <p>By creating an account, you agree to our:</p>
                             <p><a href="/terms_and_conditions/">TERMS OF CONDITIONS &nbsp; &nbsp; | &nbsp; &nbsp; PRIVACY POLICY</a></p>
-                            <div class="go-to-btn mt-50">
+                            <div class="go-to-btn mt-25">
                                 <a href="/admin"><strong>ALREADY HAVE AN ACCOUNT?</strong></a>
                             </div>
                         </div>

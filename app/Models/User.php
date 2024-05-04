@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'dob',
+        'id_document',
         'role',
         'password',
         'phone',

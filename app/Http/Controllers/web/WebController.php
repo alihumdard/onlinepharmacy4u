@@ -60,6 +60,7 @@ use GuzzleHttp\Client;
 use Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
 
 use App\Models\ProductVariant;
+use SebastianBergmann\Type\NullType;
 
 class WebController extends Controller
 {
@@ -107,7 +108,6 @@ class WebController extends Controller
         } else {
             $data['pre_add_to_cart'] = 'no';
         }
-
 
         // product listing
         $level = '';
@@ -297,17 +297,24 @@ class WebController extends Controller
             return view('web.pages.pmd_genral_question', $data);
         } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
             if (auth()->user()) {
-                foreach (session('consultations') ?? [] as $key => $value) {
-                    if ($key == $data['product_id'] || strpos($key, ',') !== false && in_array($data['product_id'], explode(',', $key))) {
-                        if (isset(session('consultations')[$key]) && session('consultations')[$key]['gen_quest_ans'] != '') {
-                            return redirect()->route('web.productQuestion', ['id' => $key]);
-                            break;
+                if ($data['user']->id_document ?? Null) {
+                    foreach (session('consultations') ?? [] as $key => $value) {
+                        if ($key == $data['product_id'] || strpos($key, ',') !== false && in_array($data['product_id'], explode(',', $key))) {
+                            if (isset(session('consultations')[$key]) && session('consultations')[$key]['gen_quest_ans'] != '') {
+                                return redirect()->route('web.productQuestion', ['id' => $key]);
+                                break;
+                            }
                         }
                     }
-                }
 
-                $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
-                return view('web.pages.premd_genral_question', $data);
+                    $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+                    return view('web.pages.premd_genral_question', $data);
+                } else {
+                    session()->put('intended_url', 'fromConsultation');
+                    session()->put('template', $data['template']);
+                    session()->put('product_id', $data['product_id']);
+                    return redirect()->route('web.idDocumentForm');
+                }
             } else {
                 session()->put('intended_url', 'fromConsultation');
                 session()->put('template', $data['template']);
@@ -315,8 +322,40 @@ class WebController extends Controller
                 return redirect()->route('login');
             }
         } else {
-            return redirect()->route('shop');
+            return redirect()->back();
         }
+    }
+
+    public function id_document_form(Request $request)
+    {
+        $user = auth()->user();
+        if ($user->id_document ?? Null) {
+            return redirect()->back();
+        } else {
+            return view('web.pages.id_document_form', [$user]);
+        }
+    }
+
+    public function id_document_store(Request $request)
+    {
+        $user = auth()->user();
+        $validator = Validator::make($request->all(), ['id_document'   => 'required',]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->file('id_document')) {
+            $doc = $request->file('id_document');
+            $docName = uniqid() . time() . '_' . $doc->getClientOriginalName();
+            $doc->storeAs('user_docs', $docName, 'public');
+            $docPath = 'user_docs/' . $docName;
+        }
+        $user = User::findOrFail($user->id);
+        $user->update([
+            'id_document' => $docPath,
+        ]);
+
+        return redirect()->route('web.consultationForm');
     }
 
     public function consultation_store(Request $request)
@@ -519,21 +558,21 @@ class WebController extends Controller
         $level = '';
         if ($category && $sub_category && $child_category) {
             $level = 'child';
-            $child_category_id = ChildCategory::where(['slug' => $child_category,'status' =>'Active'])->where('status', 'Active')->first()->id;
+            $child_category_id = ChildCategory::where(['slug' => $child_category, 'status' => 'Active'])->where('status', 'Active')->first()->id;
         } else if ($category && $sub_category && !$child_category) {
             $level = 'sub';
-            $sub_category_id = SubCategory::where(['slug' => $sub_category,'status' =>'Active'])->first()->id;
+            $sub_category_id = SubCategory::where(['slug' => $sub_category, 'status' => 'Active'])->first()->id;
         } else if ($category && !$sub_category && !$child_category) {
             $level = 'main';
-            $category_id = Category::where(['slug' => $category,'status' =>'Active'])->first()->id;
+            $category_id = Category::where(['slug' => $category, 'status' => 'Active'])->first()->id;
         }
 
         $query = Product::query();
 
         switch ($level) {
             case 'main':
-                $data['main_category'] = Category::where(['slug' => $category,'status' =>'Active'])->first();
-                $data['categories'] = SubCategory::where(['category_id' => $data['main_category']->id ,'status' =>'Active'])->get()->toArray();
+                $data['main_category'] = Category::where(['slug' => $category, 'status' => 'Active'])->first();
+                $data['categories'] = SubCategory::where(['category_id' => $data['main_category']->id, 'status' => 'Active'])->get()->toArray();
                 $data['image'] = $data['main_category']['image'];
                 $data['category_name'] = $data['main_category']['name'];
                 $data['main_slug'] = $data['main_category']['slug'];
@@ -542,9 +581,9 @@ class WebController extends Controller
                 $data['is_product'] = false;
                 break;
             case 'sub':
-                $data['main_category'] = Category::where(['slug' => $category,'status' =>'Active'])->first();
-                $data['sub_category'] = SubCategory::where(['slug' => $sub_category,'status' =>'Active'])->first();
-                $data['categories'] = ChildCategory::where(['sub_category_id' => $data['sub_category']->id,'status' =>'Active'])->get()->toArray();
+                $data['main_category'] = Category::where(['slug' => $category, 'status' => 'Active'])->first();
+                $data['sub_category'] = SubCategory::where(['slug' => $sub_category, 'status' => 'Active'])->first();
+                $data['categories'] = ChildCategory::where(['sub_category_id' => $data['sub_category']->id, 'status' => 'Active'])->get()->toArray();
                 $data['image'] = $data['sub_category']['image'];
                 $data['category_name'] = $data['sub_category']['name'];
                 $data['main_slug'] = $data['main_category']['slug'];
@@ -554,7 +593,7 @@ class WebController extends Controller
                 $data['is_product'] = true;
                 break;
             case 'child':
-                $data['category'] = ChildCategory::where(['slug', $child_category,'status' =>'Active'])->first();
+                $data['category'] = ChildCategory::where(['slug', $child_category, 'status' => 'Active'])->first();
                 $data['is_product'] = true;
                 break;
             default:
@@ -652,7 +691,13 @@ class WebController extends Controller
             $order_details = [];
             $index = 0;
             $order_for = 'despensory';
-            foreach ($request->order_details['product_id'] as $key => $pro_id) {
+            foreach ($request->order_details['product_id'] as $key => $ids) {
+                if (strpos($ids, '_') !== false) {
+                    [$pro_id, $variant_id] = explode('_', $ids);
+                } else {
+                    $pro_id = $ids;
+                    $variant_id = NULL;
+                }
                 $consultaion_type = 'one_over';
                 foreach (session('consultations') ?? [] as $key => $value) {
                     if ($key == $pro_id || strpos($key, ',') !== false && in_array($pro_id, explode(',', $key))) {
@@ -667,8 +712,23 @@ class WebController extends Controller
                         }
                     }
                 }
+                if ($variant_id) {
+                    $variant = ProductVariant::find($variant_id);
+                    $vart_type = explode(';', $variant->title);
+                    $vart_value = explode(';', $variant->value);
+                    $var_info = '';
+                    foreach ($vart_type as $key => $type) {
+                        $var_info .= "<b>$type:</b> {$vart_value[$key]}";
+                        if ($key < count($vart_type) - 1) {
+                            $var_info .= ', ';
+                        }
+                    }
+                }
+
                 $order_details[] = [
                     'product_id' => $pro_id,
+                    'variant_id' => $variant_id ?? Null,
+                    'variant_details' => $var_info ?? Null,
                     'weight' => Product::find($pro_id)->weight,
                     'order_id' => $order->id,
                     'product_price' => $request->order_details['product_price'][$index],
@@ -707,7 +767,6 @@ class WebController extends Controller
                 $shiping =  ShipingDetail::create($shipping_details);
                 if ($shiping) {
                     session()->put('order_id', $order->id);
-                    // return redirect()->away('/Completed-order');
                     $productPrice = $request->total_ammount * 100;
                     $productName = 'Medical Products';
                     $productDescription = 'Medical Products';
@@ -1009,7 +1068,7 @@ class WebController extends Controller
         // generate slugs for existing products
         $needSlugs = Product::where('slug', null)->get();
 
-        foreach($needSlugs as $slug){
+        foreach ($needSlugs as $slug) {
             $slug->update([
                 'slug' => SlugService::createSlug(Product::class, 'slug', $slug->title)
             ]);
@@ -1022,9 +1081,9 @@ class WebController extends Controller
         // generate slugs for existing product variants
         $needSlugs = ProductVariant::with('product')->where('slug', null)->get();
 
-        foreach($needSlugs as $slug){
+        foreach ($needSlugs as $slug) {
             $slug->update([
-                'slug' => SlugService::createSlug(ProductVariant::class, 'slug', $slug->product->title.' '.$slug->value)
+                'slug' => SlugService::createSlug(ProductVariant::class, 'slug', $slug->product->title . ' ' . $slug->value)
             ]);
         }
         return 1;

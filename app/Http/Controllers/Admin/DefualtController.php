@@ -295,6 +295,7 @@ class DefualtController extends Controller
                 'phone'    => 'required|digits:11',
                 'address'  => 'required',
                 'gender'   => 'required',
+                'id_document'   => 'required',
                 'dob'      => 'required',
                 'zip_code'     => 'required',
                 'email'    => [
@@ -312,6 +313,12 @@ class DefualtController extends Controller
             }
 
             $data['user'] = auth()->user();
+            if ($request->file('id_document')) {
+                $doc = $request->file('id_document');
+                $docName = uniqid().time() . '_' . $doc->getClientOriginalName();
+                $doc->storeAs('user_docs', $docName, 'public');
+                $docPath = 'user_docs/' . $docName;
+            }
 
             $saved = User::updateOrCreate(
                 ['id' => $request->id ?? NULL],
@@ -323,7 +330,8 @@ class DefualtController extends Controller
                     'phone'      => $request->phone,
                     'address'    => $request->address,
                     'apartment'  => $request->apartment,
-                    'gender'  => $request->gender,
+                    'gender'     => $request->gender,
+                    'id_document'=> $docPath ?? Null,
                     'zip_code'   => $request->zip_code,
                     'city'       => $request->city ?? '',
                     'state'      => $request->state ?? '',

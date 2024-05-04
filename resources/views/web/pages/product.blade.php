@@ -362,6 +362,7 @@
 
             var mainImage = $(this).data('main_image');
             var image_src = "{{ asset('storage/') }}";
+            $('#variant_id').val(current_variant.id);
 
             if (current_variant.image) {
                 $('#product_img').attr('src', image_src + '/' + current_variant.image);

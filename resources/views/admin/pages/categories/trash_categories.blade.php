@@ -171,12 +171,6 @@
     });
 
     $(document).ready(function() {
-        $('.edit').click(function() {
-            var id = $(this).data('id');
-            $('#edit_form_id_input').val(id);
-            $('#edit_form').submit();
-        });
-
         var tableApi = $('#tbl_data').DataTable();
         $('#search').on('input', function() {
             let text = $(this).val();

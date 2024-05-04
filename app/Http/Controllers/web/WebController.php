@@ -385,7 +385,8 @@ class WebController extends Controller
         if ($request->template == config('constants.PHARMACY_MEDECINE')) {
             $consultations[$request->product_id] = $consultationData;
             Session::put('consultations', $consultations);
-            return redirect()->route('web.product', ['id' => $request->product_id]);
+            $prod = Product::findOrFail($request->product_id);
+            return redirect()->route('web.product', ['id' => $prod->slug]);
         } else {
             $consultations[$request->product_id] = $consultationData;
             Session::put('consultations', $consultations);

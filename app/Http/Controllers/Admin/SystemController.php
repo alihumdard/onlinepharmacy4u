@@ -332,7 +332,9 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
+        $data['title'] = 'Add Category';
         if ($request->has('id')) {
+            $data['title'] = 'Edit Category';
             if ($request->selection == 1) {
                 $data['category'] = Category::findOrFail($request->id)->toArray();
                 $data['selection'] = 1;
@@ -352,6 +354,141 @@ class SystemController extends Controller
         return view('admin.pages.categories.add_category', $data);
     }
 
+    public function category_validation($request, $selection)
+    {
+        if ($selection == 1) {
+            if($request->change_type == 2){
+                $validator = Validator::make($request->all(), [
+                    'publish'   => 'required',
+                    'name'     => [
+                        'required',
+                        Rule::unique('categories'),
+                    ],
+                ]);
+            }
+            else{
+                $validator = Validator::make($request->all(), [
+                    'publish'   => 'required',
+                    'name'     => [
+                        'required',
+                        Rule::unique('categories')->ignore($request->id),
+                    ],
+                ]);
+            }
+        } elseif ($selection == 2) {
+            if($request->change_type == 2){
+                $validator = Validator::make($request->all(), [
+                    'publish'   => 'required',
+                    'parent_id'   => 'required',
+                    'name'     => [
+                        'required',
+                        Rule::unique('sub_categories'),
+                    ],
+                ]);
+            }
+            else{
+                $validator = Validator::make($request->all(), [
+                    'publish'   => 'required',
+                    'parent_id'   => 'required',
+                    'name'     => [
+                        'required',
+                        Rule::unique('sub_categories')->ignore($request->id),
+                    ],
+                ]);
+            }
+        } elseif ($selection == 3) {
+            if($request->change_type == 2){
+                $validator = Validator::make($request->all(), [
+                    'publish'   => 'required',
+                    'parent_id'   => 'required',
+                    'name'     => [
+                        'required',
+                        Rule::unique('child_categories'),
+                    ],
+                ]);
+            }
+            else{
+                $validator = Validator::make($request->all(), [
+                    'publish'   => 'required',
+                    'parent_id'   => 'required',
+                    'name'     => [
+                        'required',
+                        Rule::unique('child_categories')->ignore($request->id),
+                    ],
+                ]);
+            }
+        }
+
+        return $validator;
+    }
+
+    public function delete_old_category($old_id, $old_category_type)
+    {
+        // when type of category change than delete category from current type
+        
+        if($old_category_type == 1){
+            $category = Category::findOrFail($old_id);
+        }
+        elseif($old_category_type == 2){
+            $category = SubCategory::findOrFail($old_id);
+        }
+        elseif($old_category_type == 3){
+            $category = ChildCategory::findOrFail($old_id);
+        }
+        $update = $category->update([
+            'status' => 'Deleted',
+        ]);
+
+        return ['update' => $update, 'old_image_path' => $category->image];
+    }
+
+    public function update_product_categories($old_cat_id, $old_cat_type, $new_cat, $new_cat_type)
+    {
+        if($old_cat_type == 1){
+            $products = Product::where('category_id', $old_cat_id)->get()->toArray();
+        }
+        elseif($old_cat_type == 2){
+            $products = Product::where('sub_category', $old_cat_id)->get()->toArray();
+        }
+        elseif($old_cat_type == 3){
+            $products = Product::where('child_category', $old_cat_id)->get()->toArray();
+
+        }
+        
+        $response = true;
+        if($products){
+            $product_ids = array_column($products, 'id');
+            if($new_cat_type == 1){
+                $data = [
+                    'category_id' => $new_cat->id,
+                    'sub_category' => NULL,
+                    'child_category' => NULL,
+                    'updated_by' => auth()->user()->id,
+                ];
+                $response = Product::whereIn('id', $product_ids)->update($data);
+            }
+            elseif($new_cat_type == 2){
+                $data = [
+                    'category_id' => $new_cat->category_id,
+                    'sub_category' => $new_cat->id,
+                    'child_category' => NULL,
+                    'updated_by' => auth()->user()->id,
+                ];
+                $response = Product::whereIn('id', $product_ids)->update($data);
+            }
+            elseif($new_cat_type == 3){
+                $data = [
+                    'category_id' => SubCategory::find($new_cat->sub_category_id)->pluck('category_id'),
+                    'sub_category' => $new_cat->sub_category_id,
+                    'child_category' => $new_cat->id,
+                    'updated_by' => auth()->user()->id,
+                ];
+                $response = Product::whereIn('id', $product_ids)->update($data);
+            }
+        }
+        return $response;
+    }
+
     public function store_category(Request $request)
     {
         // use for main,sub and child categories
@@ -362,34 +499,8 @@ class SystemController extends Controller
         }
 
         $selection = $request->selection;
-        if ($selection == 1) {
-            $validator = Validator::make($request->all(), [
-                'publish'   => 'required',
-                'name'     => [
-                    'required',
-                    Rule::unique('categories')->ignore($request->id),
-                ],
-            ]);
-        } elseif ($selection == 2) {
-            $validator = Validator::make($request->all(), [
-                'publish'   => 'required',
-                'parent_id'   => 'required',
-                'name'     => [
-                    'required',
-                    Rule::unique('sub_categories')->ignore($request->id),
-                ],
-            ]);
-        } elseif ($selection == 3) {
-            $validator = Validator::make($request->all(), [
-                'publish'   => 'required',
-                'parent_id'   => 'required',
-                'name'     => [
-                    'required',
-                    Rule::unique('child_categories')->ignore($request->id),
-                ],
-            ]);
-        }
 
+        $validator = $this->category_validation($request, $selection);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -415,52 +526,106 @@ class SystemController extends Controller
             $imagePath = 'category_images/' . $imageName;
         }
 
+        // if change type is 1 than updation will occur in same category
+        // if change type is 2 than updation will occur in different category (convert child category into sub category)
         if ($selection == 1) {
-            $saved = Category::updateOrCreate(
-                ['id' => $request->id ?? NULL],
-                [
-                    'name'       => ucwords($request->name),
-                    'slug'       => Str::slug($request->name),
-                    'desc'       => $request->desc,
-                    'publish'    => $request->publish,
-                    'image'      => $imagePath ?? Category::findOrFail($request->id)->image,
-                    'created_by' => $user->id,
-                ]
-            );
+            // Main Category
+            if($request->change_type == 2){
+                $response = $this->delete_old_category($request->old_id, $request->old_category_type);
+                $saved = Category::create(
+                    [
+                        'name'       => ucwords($request->name),
+                        'slug'       => Str::slug($request->name),
+                        'desc'       => $request->desc,
+                        'publish'    => $request->publish,
+                        'image'      => $imagePath ?? $response['old_image_path'],
+                        'created_by' => $user->id,
+                    ]
+                );
+                $update_product = $this->update_product_categories($request->old_id, $request->old_category_type, $saved, 1);
+            }
+            else{
+                $saved = Category::updateOrCreate(
+                    ['id' => $request->id ?? NULL],
+                    [
+                        'name'       => ucwords($request->name),
+                        'slug'       => Str::slug($request->name),
+                        'desc'       => $request->desc,
+                        'publish'    => $request->publish,
+                        'image'      => $imagePath ?? Category::findOrFail($request->id)->image,
+                        'created_by' => $user->id,
+                    ]
+                );
+            }
             $message = "category " . ($request->id ? "Updated" : "Saved") . " Successfully";
             if ($saved) {
                 return redirect()->route('admin.categories')->with(['msg' => $message]);
             }
         } elseif ($selection == 2) {
-            $saved = SubCategory::updateOrCreate(
-                ['id' => $request->id ?? NULL],
-                [
-                    'name'       => ucwords($request->name),
-                    'slug'       => Str::slug($request->name),
-                    'category_id' => $request->parent_id,
-                    'desc'       => $request->desc,
-                    'publish'    => $request->publish,
-                    'image'      => $imagePath ?? SubCategory::findOrFail($request->id)->image,
-                    'created_by' => $user->id,
-                ]
-            );
+            // Sub Category
+            if($request->change_type == 2){
+                $response = $this->delete_old_category($request->old_id, $request->old_category_type);
+                $saved = SubCategory::create(
+                    [
+                        'name'       => ucwords($request->name),
+                        'slug'       => Str::slug($request->name),
+                        'category_id' => $request->parent_id,
+                        'desc'       => $request->desc,
+                        'publish'    => $request->publish,
+                        'image'      => $imagePath ?? $response['old_image_path'],
+                        'created_by' => $user->id,
+                    ]
+                );
+                $update_product = $this->update_product_categories($request->old_id, $request->old_category_type, $saved, 2);
+            }
+            else{
+                $saved = SubCategory::updateOrCreate(
+                    ['id' => $request->id ?? NULL],
+                    [
+                        'name'       => ucwords($request->name),
+                        'slug'       => Str::slug($request->name),
+                        'category_id' => $request->parent_id,
+                        'desc'       => $request->desc,
+                        'publish'    => $request->publish,
+                        'image'      => $imagePath ?? SubCategory::findOrFail($request->id)->image,
+                        'created_by' => $user->id,
+                    ]
+                );
+            }
             $message = "sub category " . ($request->id ? "Updated" : "Saved") . " Successfully";
             if ($saved) {
                 return redirect()->route('admin.subCategories')->with(['msg' => $message]);
             }
         } elseif ($selection == 3) {
-            $saved = ChildCategory::updateOrCreate(
-                ['id' => $request->id ?? NULL],
-                [
-                    'name'       => ucwords($request->name),
-                    'slug'       => Str::slug($request->name),
-                    'sub_category_id' => $request->parent_id,
-                    'desc'       => $request->desc,
-                    'publish'    => $request->publish,
-                    'image'      => $imagePath ?? ChildCategory::findOrFail($request->id)->image,
-                    'created_by' => $user->id,
-                ]
-            );
+            // Child Category
+            if($request->change_type == 2){
+                $response = $this->delete_old_category($request->old_id, $request->old_category_type);
+                $saved = ChildCategory::create(
+                    [
+                        'name'       => ucwords($request->name),
+                        'slug'       => Str::slug($request->name),
+                        'sub_category_id' => $request->parent_id,
+                        'desc'       => $request->desc,
+                        'publish'    => $request->publish,
+                        'image'      => $imagePath ?? $response['old_image_path'],
+                        'created_by' => $user->id,
+                    ]
+                );
+            }
+            else{
+                $saved = ChildCategory::updateOrCreate(
+                    ['id' => $request->id ?? NULL],
+                    [
+                        'name'       => ucwords($request->name),
+                        'slug'       => Str::slug($request->name),
+                        'sub_category_id' => $request->parent_id,
+                        'desc'       => $request->desc,
+                        'publish'    => $request->publish,
+                        'image'      => $imagePath ?? ChildCategory::findOrFail($request->id)->image,
+                        'created_by' => $user->id,
+                    ]
+                );
+            }
             $message = "child category " . ($request->id ? "Updated" : "Saved") . " Successfully";
             if ($saved) {
                 return redirect()->route('admin.childCategories')->with(['msg' => $message]);

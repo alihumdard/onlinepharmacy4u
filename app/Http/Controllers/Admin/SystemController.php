@@ -362,7 +362,9 @@ class SystemController extends Controller
                     'publish'   => 'required',
                     'name'     => [
                         'required',
-                        Rule::unique('categories'),
+                        Rule::unique('categories')->where(function ($query) {
+                            return $query->where('status', '!=', 'Deleted');
+                        }),
                     ],
                 ]);
             }
@@ -382,7 +384,10 @@ class SystemController extends Controller
                     'parent_id'   => 'required',
                     'name'     => [
                         'required',
-                        Rule::unique('sub_categories'),
+                        Rule::unique('sub_categories')->where(function ($query) use ($request) {
+                            return $query->where('status', '!=', 'Deleted')
+                                         ->where('category_id', $request->parent_id);
+                        }),
                     ],
                 ]);
             }
@@ -392,7 +397,9 @@ class SystemController extends Controller
                     'parent_id'   => 'required',
                     'name'     => [
                         'required',
-                        Rule::unique('sub_categories')->ignore($request->id),
+                        Rule::unique('sub_categories')->where(function ($query) use ($request) {
+                                return $query->where('category_id', $request->parent_id);
+                            })->ignore($request->id),
                     ],
                 ]);
             }
@@ -403,7 +410,10 @@ class SystemController extends Controller
                     'parent_id'   => 'required',
                     'name'     => [
                         'required',
-                        Rule::unique('child_categories'),
+                        Rule::unique('child_categories')->where(function ($query) use ($request) {
+                            return $query->where('status', '!=', 'Deleted')
+                                         ->where('sub_category_id', $request->parent_id);;
+                        }),
                     ],
                 ]);
             }
@@ -413,7 +423,9 @@ class SystemController extends Controller
                     'parent_id'   => 'required',
                     'name'     => [
                         'required',
-                        Rule::unique('child_categories')->ignore($request->id),
+                        Rule::unique('child_categories')->where(function ($query) use ($request) {
+                            return $query->where('sub_category_id', $request->parent_id);
+                        })->ignore($request->id),
                     ],
                 ]);
             }
@@ -454,7 +466,6 @@ class SystemController extends Controller
             $products = Product::where('child_category', $old_cat_id)->get()->toArray();
 
         }
-        
         $response = true;
         if($products){
             $product_ids = array_column($products, 'id');
@@ -478,7 +489,7 @@ class SystemController extends Controller
             }
             elseif($new_cat_type == 3){
                 $data = [
-                    'category_id' => SubCategory::find($new_cat->sub_category_id)->pluck('category_id'),
+                    'category_id' => SubCategory::where(['id' => $new_cat->sub_category_id, 'status' => 'Active'])->value('category_id'),
                     'sub_category' => $new_cat->sub_category_id,
                     'child_category' => $new_cat->id,
                     'updated_by' => auth()->user()->id,
@@ -501,6 +512,8 @@ class SystemController extends Controller
         $selection = $request->selection;
 
         $validator = $this->category_validation($request, $selection);
+
+        // return $validator;
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -611,6 +624,7 @@ class SystemController extends Controller
                         'created_by' => $user->id,
                     ]
                 );
+                $update_product = $this->update_product_categories($request->old_id, $request->old_category_type, $saved, 3);
             }
             else{
                 $saved = ChildCategory::updateOrCreate(

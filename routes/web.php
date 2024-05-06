@@ -121,4 +121,6 @@ Route::get('/conditions', [WebController::class, 'conditions'])->name('web.condi
 Route::get('/generate_slug_existing', [WebController::class, 'generate_slug_existing']);
 Route::get('/generate_slug_variants_existing', [WebController::class, 'generate_slug_variants_existing']);
 
+Route::fallback([WebController::class, 'error_404']);
+
 include __DIR__ . '/admin.php';

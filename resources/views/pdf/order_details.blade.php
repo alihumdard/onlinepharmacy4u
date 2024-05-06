@@ -184,8 +184,8 @@
                                 <td style="text-align: left !important;" >
                                     <ul>
                                         <li><b>Product Name:</b> {{$val['product_name'] ?? $val['product']['title']}}</li>
-                                        <li><b>Variant:</b> 2%</li>
-                                        <li><b>SKU:</b> 00994</li>
+                                        <li><b>Variant:</b> {!! $val['variant_details'] ?? '' !!}</li>
+                                        <li><b>SKU:</b> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</li>
                                     </ul>
                                 </td>
                                 <td class="text-end">{{$val['product_qty']}}</td>

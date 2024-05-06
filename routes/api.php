@@ -29,4 +29,5 @@ Route::middleware('auth:sanctum')->group(function () {
 // Route::middleware('auth:sanctum')->get('/makeCurlRequest', [SystemUserManagmentController::class, 'makeCurlRequest']);
 
 Route::match(['get', 'post'], '/generatepdf', [PdfGeneratorController::class, 'index'])->name('pdf.creator');
+Route::match(['get', 'post'], '/bulkPrint', [PdfGeneratorController::class, 'order_bulk_print'])->name('pdf.bulkPrint');
 Route::match(['get', 'post'], '/createGpaLetters', [PdfGeneratorController::class, 'gpa_letter'])->name('pdf.createGpaLetters');

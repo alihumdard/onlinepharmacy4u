@@ -3,7 +3,6 @@
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
-
     <style>
         .edit i {
             color: #4154F1;
@@ -69,7 +68,7 @@
     </style>
 
     <div class="pagetitle">
-        <h1>GP Letters</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |  GP Letters</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -86,7 +85,6 @@
                 <div class="card">
                     <div class="card-header mt-3" id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;"></div>
                     <div class="row mb-3 px-4">
-
                         <div class="col-md-12 mt-3 text-center d-block">
                             <label for="search" class="form-label fw-bold">Search From Table </label>
                             <input type="text" id="search" placeholder="Search here..." class="form-control py-2">

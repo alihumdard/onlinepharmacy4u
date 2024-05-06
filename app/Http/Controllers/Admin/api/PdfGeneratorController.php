@@ -51,4 +51,28 @@ class PdfGeneratorController extends Controller
             return redirect()->back()->with('error', 'Order not found.');
         }
     }
+    public function order_bulk_print(Request $request)
+    {
+        if ($request->order_ids) {
+            $orderIds = explode(',', $request->order_ids);
+            $orders = Order::with('user', 'shipingdetails', 'orderdetails', 'orderdetails.product')
+                ->whereIn('id', $orderIds)
+                ->where('payment_status', 'Paid')
+                ->get();
+            if ($orders) {
+                $data['orders']  = $orders->toArray() ?? [];
+                $file_name = 'bulk_orders_print_' . time() . '.pdf';
+                $view_name = 'pdf.' . $request->view_name;
+                // return view($view_name,$data);
+                $pdf = PDF::loadView($view_name, $data);
+                $pdf->setPaper('a4', 'portrait');
+                return $pdf->stream($file_name);
+                // return $pdf->download($file_name);
+            } else {
+                return redirect()->back()->with('error', 'Order not found.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Order not found.');
+        }
+    }
 }

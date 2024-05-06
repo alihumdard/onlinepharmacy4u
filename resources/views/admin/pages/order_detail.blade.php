@@ -86,6 +86,7 @@
                 <input type="hidden" name="view_name" value="order_details" required>
             </form>
             <h1 class="w-100">
+                <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |
                 Order Detail
                 <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1  {{($order['print'] == 'Printed') ? 'btn-success' : 'btn-primary' }} fw-semibold" style="float:right;">{{$order['print'] ?? '' }}</button>
             </h1>
@@ -250,7 +251,7 @@
                                         @if($val['consultation_type'] == 'premd' || $val['consultation_type'] == 'pmd')
                                         <div class="row d-flex ">
                                             <div class="col-lg-12 text-center ">
-                                                <a target="_blank" href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
+                                                <a  href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
                                                     See Consultations
                                                 </a>
                                             </div>
@@ -265,7 +266,7 @@
                                                 <h5 class="fw-bold underline">User Previous Orders History:</h5>
                                                 <div class="button-container" style="display: flex; flex-wrap: wrap;">
                                                     @forelse($userOrders as $index => $val)
-                                                    <a target="_blank" href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary m-1">
+                                                    <a  href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary m-1">
                                                         <b>{{ $index + 1 }}.</b> #00{{ $val['id'] }}
                                                     </a>
                                                     @empty
@@ -285,7 +286,7 @@
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0 ">Tracking Number:</p>
                                     @if($order['tracking_no'])
-                                    <a class="fw-bold  mb-0" target="_blank" href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
+                                    <a class="fw-bold  mb-0"  href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
                                     @else
                                     <a class=" btn btn-primary fw-bold  mb-0" href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
                                     @endif

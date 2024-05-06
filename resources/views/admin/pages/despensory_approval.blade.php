@@ -46,7 +46,7 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Medical Professionals Orders Status</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Medical Professionals Orders Status</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -88,7 +88,7 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>
-                                        <a target="_blank" href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
+                                        <a  href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
                                             #00{{ $val['id'] }}
                                         </a>
                                     </td>

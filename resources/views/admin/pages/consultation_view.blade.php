@@ -63,10 +63,10 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Order Consultations</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Order Consultations</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
                 <li class="breadcrumb-item active">Order Consultations </li>
             </ol>
@@ -93,7 +93,7 @@
                             <label for="" class="fw-bold px-2">Identity Document: </label>
                             <span>
                                 @if($user_profile_details->id_document)
-                                <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" target="_blank">
+                                <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" >
                                     <i class="bi bi-eye-fill"></i> View File 
                                 </a>
                                 <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" download>

@@ -140,7 +140,7 @@
                     @csrf
                     <input type="hidden" name="template" required value="{{$template}}">
                     <input type="hidden" name="product_id" required value="{{$product_id}}">
-                    <div class="form-group px-4 question">
+                    <div class="form-group px-4 question" id="question_0">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[0]['title'] ?? '' }}</p>
                         </div>
@@ -158,7 +158,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question" style="display:none;">
+                    <div class="form-group px-4 question" id="question_1" style="display:none;">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[1]['title'] ?? '' }}?</p>
                         </div>
@@ -176,7 +176,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question" style="display:none;">
+                    <div class="form-group px-4 question" id="question_2" style="display:none;">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[2]['title'] ?? '' }}</p>
                         </div>
@@ -186,7 +186,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question" style="display:none;">
+                    <div class="form-group px-4 question" id="question_3" style="display:none;">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[3]['title'] ?? '' }}</p>
                         </div>
@@ -196,7 +196,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" style="display:none;">
+                    <div class="form-group px-3 question" id="question_4" style="display:none;">
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$questions[4]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
@@ -208,7 +208,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" style="display:none;">
+                    <div class="form-group px-3 question" id="question_5" style="display:none;">
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$questions[5]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
@@ -220,23 +220,23 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" style="display:none;">
+                    <div class="form-group px-3 question" id="question_6" style="display:none;">
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$questions[6]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_7" class="btn-radio" value="Yes" data-label="Yes" required>
+                                <input type="radio" name="quest_7" class="btn-radio " value="Yes" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_7" class="btn-radio" value="No" data-label="No" required>
+                                <input type="radio" name="quest_7" class="btn-radio " value="No" data-label="No" required>
                             </label>
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question" style="display:none;">
+                    <div class="form-group px-4 question " id="question_7">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[7]['title'] ?? '' }}</p>
                         </div>
-                        <div class="mt-3 mb-0">
+                        <div class="mt-3 mb-0 ">
                             <label for="quest_8" class="form-label">Additional Details:</label>
                             <textarea class="form-control" id="quest_8" name="quest_8" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
                         </div>
@@ -301,7 +301,8 @@
                         <span style="width: 29px; height: 29px; background: #00c4a3; color: #fff; text-align: center; border-radius: 50%; ">&#51; </span> <span>Wait for a prescriber to review your request</span>
                     </div>
 
-                    <p>You can either wait on our website or you can leave the page and wait for a notification
+                    <p>You can either wa
+                        it on our website or you can leave the page and wait for a notification
                         from us to let you know that a prescriber has finished reviewing your consultation.</p>
                 </div>
                 <div class="q4complete">
@@ -330,8 +331,18 @@
         function showNextQuestion() {
             if (currentQuestion < totalQuestions - 1) {
                 if (validateInput(currentQuestion)) {
-                    $('.form-group').eq(currentQuestion + 1).slideDown('medium');
-                    currentQuestion++;
+                    if (currentQuestion == 6) {
+                        let quest_7 = $("input[name='quest_7']:checked").val();
+                        if (quest_7 == 'Yes') {
+                            var next_quest = currentQuestion + 1;
+                        } else {
+                            next_quest = currentQuestion + 2;
+                        }
+                    } else {
+                        next_quest = currentQuestion + 1;
+                    }
+                    $('.form-group').eq(next_quest).slideDown('fast');
+                    currentQuestion = next_quest;
                 }
             }
         }
@@ -385,7 +396,14 @@
             }
         });
 
-
+        $("input[name='quest_7']").change(function() {
+            if ($(this).val() == 'Yes') {
+                $("#question_7").slideDown('fast');;
+            } else {
+                $("#question_7").slideUp('fast');
+                $("#quest_8").val(""); 
+            }
+        });
     });
 </script>
 

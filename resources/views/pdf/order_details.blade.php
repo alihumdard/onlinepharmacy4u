@@ -133,10 +133,10 @@
                             <div class="ship">
                                 <h4>Ship to</h4>
                                 <ul>
+                                    <li>Home Name/No: {{$order['shipingdetails']['address2'] ?? ''}}</li>
+                                    <li>Address: {{$order['shipingdetails']['address'] ?? ''}}</li>
                                     <li>City: {{$order['shipingdetails']['city'] ?? ''}}</li>
                                     <li>Postal Code: {{$order['shipingdetails']['zip_code'] ?? ''}}</li>
-                                    <li>Address: {{$order['shipingdetails']['address'] ?? ''}}</li>
-                                    <li>Apartment: {{$order['shipingdetails']['address2'] ?? ''}}</li>
                                     <li>Phone: {{$order['shipingdetails']['phone'] ?? ''}}</li>
                                 </ul>
                             </div>
@@ -147,10 +147,10 @@
                             <div class="ship">
                                 <h4>Bill to</h4>
                                 <ul>
+                                    <li>Home Name/No:: {{$order['shipingdetails']['address2'] ?? ''}}</li>
+                                    <li>Address: {{$order['shipingdetails']['address'] ?? ''}}</li>
                                     <li>City: {{$order['shipingdetails']['city'] ?? ''}}</li>
                                     <li>Postal Code: {{$order['shipingdetails']['zip_code'] ?? ''}}</li>
-                                    <li>Address: {{$order['shipingdetails']['address'] ?? ''}}</li>
-                                    <li>Apartment: {{$order['shipingdetails']['address2'] ?? ''}}</li>
                                     <li>Phone: {{$order['shipingdetails']['phone'] ?? ''}}</li>
                                 </ul>
                             </div>
@@ -184,8 +184,8 @@
                                 <td style="text-align: left !important;" >
                                     <ul>
                                         <li><b>Product Name:</b> {{$val['product_name'] ?? $val['product']['title']}}</li>
-                                        <li><b>Variant:</b> 2%</li>
-                                        <li><b>SKU:</b> 00994</li>
+                                        <li><b>Variant:</b> {!! $val['variant_details'] ?? '' !!}</li>
+                                        <li><b>SKU:</b> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</li>
                                     </ul>
                                 </td>
                                 <td class="text-end">{{$val['product_qty']}}</td>

@@ -185,43 +185,48 @@ class WebController extends Controller
         $level = '';
         if ($category && $sub_category && $child_category) {
             $level = 'child';
-            $category_detail = ChildCategory::where('slug', $child_category)->first();
+            $category_detail = ChildCategory::where('slug', $child_category)->where('status', 'Active')->first();
         } else if ($category && $sub_category && !$child_category) {
             $level = 'sub';
-            $category_detail = SubCategory::where('slug', $sub_category)->first();
+            $category_detail = SubCategory::where('slug', $sub_category)->where('status', 'Active')->first();
         } else if ($category && !$sub_category && !$child_category) {
             $level = 'main';
-            $category_detail = Category::where('slug', $category)->first();
+            $category_detail = Category::where('slug', $category)->where('status', 'Active')->first();
         }
-
-        switch ($level) {
-            case 'main':
-                $products = Product::where(['category_id' => $category_detail->id])->paginate(28);
-                break;
-            case 'sub':
-                $products = Product::where(['sub_category' => $category_detail->id])->paginate(28);
-                break;
-            case 'child':
-                $products = Product::where(['child_category' => $category_detail->id])->paginate(28);
-                break;
-            default:
-                $products = Product::paginate(28);
-        }
-
-        $data['products'] = $products;
-        $product_template_2_ids = [];
-        foreach ($products as $item) {
-            if ($item->product_template == config('constants.PRESCRIPTION_MEDICINE')) {
-                $product_template_2_ids[] = $item->id;
+// return $level;
+        if($category_detail){
+            switch ($level) {
+                case 'main':
+                    $products = Product::where(['category_id' => $category_detail->id])->paginate(28);
+                    break;
+                case 'sub':
+                    $products = Product::where(['sub_category' => $category_detail->id])->paginate(28);
+                    break;
+                case 'child':
+                    $products = Product::where(['child_category' => $category_detail->id])->paginate(28);
+                    break;
+                default:
+                    $products = Product::paginate(28);
             }
+    
+            $data['products'] = $products;
+            $product_template_2_ids = [];
+            foreach ($products as $item) {
+                if ($item->product_template == config('constants.PRESCRIPTION_MEDICINE')) {
+                    $product_template_2_ids[] = $item->id;
+                }
+            }
+            $data['product_ids'] = implode(',', $product_template_2_ids);
+            $data['categories_list'] = Category::where('publish', 'Publish')
+                ->latest('id')
+                ->get();
+            $data['category_detail'] = $category_detail;
+    
+            return view('web.pages.products_list', $data);
         }
-        $data['product_ids'] = implode(',', $product_template_2_ids);
-        $data['categories_list'] = Category::where('publish', 'Publish')
-            ->latest('id')
-            ->get();
-        $data['category_detail'] = $category_detail;
-
-        return view('web.pages.products_list', $data);
+        else{
+            return view('web.pages.404');
+        }
     }
 
     public function products(Request $request)
@@ -385,7 +390,8 @@ class WebController extends Controller
         if ($request->template == config('constants.PHARMACY_MEDECINE')) {
             $consultations[$request->product_id] = $consultationData;
             Session::put('consultations', $consultations);
-            return redirect()->route('web.product', ['id' => $request->product_id]);
+            $prod = Product::findOrFail($request->product_id);
+            return redirect()->route('web.product', ['id' => $prod->slug]);
         } else {
             $consultations[$request->product_id] = $consultationData;
             Session::put('consultations', $consultations);
@@ -556,62 +562,67 @@ class WebController extends Controller
     {
         // use with route collections
         $level = '';
+        $category_id = $sub_category_id = $child_category_id = null;
         if ($category && $sub_category && $child_category) {
             $level = 'child';
-            $child_category_id = ChildCategory::where(['slug' => $child_category, 'status' => 'Active'])->where('status', 'Active')->first()->id;
+            $child_category_id = ChildCategory::where(['slug' => $child_category, 'status' => 'Active'])->where('status', 'Active')->first();
         } else if ($category && $sub_category && !$child_category) {
             $level = 'sub';
-            $sub_category_id = SubCategory::where(['slug' => $sub_category, 'status' => 'Active'])->first()->id;
+            $sub_category_id = SubCategory::where(['slug' => $sub_category, 'status' => 'Active'])->first();
         } else if ($category && !$sub_category && !$child_category) {
             $level = 'main';
-            $category_id = Category::where(['slug' => $category, 'status' => 'Active'])->first()->id;
+            $category_id = Category::where(['slug' => $category, 'status' => 'Active'])->first();
         }
 
-        $query = Product::query();
-
-        switch ($level) {
-            case 'main':
-                $data['main_category'] = Category::where(['slug' => $category, 'status' => 'Active'])->first();
-                $data['categories'] = SubCategory::where(['category_id' => $data['main_category']->id, 'status' => 'Active'])->get()->toArray();
-                $data['image'] = $data['main_category']['image'];
-                $data['category_name'] = $data['main_category']['name'];
-                $data['main_slug'] = $data['main_category']['slug'];
-                // $data['products'] = Product::where(['category_id' => $data['main_category']->id])->paginate(21);
-                $query->where(['category_id' => $data['main_category']->id]);
-                $data['is_product'] = false;
-                break;
-            case 'sub':
-                $data['main_category'] = Category::where(['slug' => $category, 'status' => 'Active'])->first();
-                $data['sub_category'] = SubCategory::where(['slug' => $sub_category, 'status' => 'Active'])->first();
-                $data['categories'] = ChildCategory::where(['sub_category_id' => $data['sub_category']->id, 'status' => 'Active'])->get()->toArray();
-                $data['image'] = $data['sub_category']['image'];
-                $data['category_name'] = $data['sub_category']['name'];
-                $data['main_slug'] = $data['main_category']['slug'];
-                $data['sub_slug'] = $data['sub_category']['slug'];
-                // $data['products'] = Product::where(['sub_category' => $data['sub_category']->id])->paginate(21);
-                $query->where(['sub_category' => $data['sub_category']->id]);
-                $data['is_product'] = true;
-                break;
-            case 'child':
-                $data['category'] = ChildCategory::where(['slug', $child_category, 'status' => 'Active'])->first();
-                $data['is_product'] = true;
-                break;
-            default:
-                $products = Product::paginate(21);
-        }
-
-        if ($request->has('sort')) {
-            if ($request->sort === 'price_low_high') {
-                $query->orderBy('price');
-            } elseif ($request->sort === 'price_high_low') {
-                $query->orderByDesc('price');
-            } elseif ($request->sort === 'newest') {
-                $query->orderByDesc('created_at');
+        if($category_id || $sub_category_id || $child_category_id){
+            $query = Product::query();
+            switch ($level) {
+                case 'main':
+                    $data['main_category'] = Category::where(['slug' => $category, 'status' => 'Active'])->first();
+                    $data['categories'] = SubCategory::where(['category_id' => $data['main_category']->id, 'status' => 'Active'])->get()->toArray();
+                    $data['image'] = $data['main_category']['image'];
+                    $data['category_name'] = $data['main_category']['name'];
+                    $data['main_slug'] = $data['main_category']['slug'];
+                    // $data['products'] = Product::where(['category_id' => $data['main_category']->id])->paginate(21);
+                    $query->where(['category_id' => $data['main_category']->id]);
+                    $data['is_product'] = false;
+                    break;
+                case 'sub':
+                    $data['main_category'] = Category::where(['slug' => $category, 'status' => 'Active'])->first();
+                    $data['sub_category'] = SubCategory::where(['slug' => $sub_category, 'status' => 'Active'])->first();
+                    $data['categories'] = ChildCategory::where(['sub_category_id' => $data['sub_category']->id, 'status' => 'Active'])->get()->toArray();
+                    $data['image'] = $data['sub_category']['image'];
+                    $data['category_name'] = $data['sub_category']['name'];
+                    $data['main_slug'] = $data['main_category']['slug'];
+                    $data['sub_slug'] = $data['sub_category']['slug'];
+                    // $data['products'] = Product::where(['sub_category' => $data['sub_category']->id])->paginate(21);
+                    $query->where(['sub_category' => $data['sub_category']->id]);
+                    $data['is_product'] = true;
+                    break;
+                case 'child':
+                    $data['category'] = ChildCategory::where(['slug', $child_category, 'status' => 'Active'])->first();
+                    $data['is_product'] = true;
+                    break;
+                default:
+                    $products = Product::paginate(21);
             }
-        }
-        $data['products'] = $query->paginate(21);
 
-        return view('web.pages.collections', $data);
+            if ($request->has('sort')) {
+                if ($request->sort === 'price_low_high') {
+                    $query->orderBy('price');
+                } elseif ($request->sort === 'price_high_low') {
+                    $query->orderByDesc('price');
+                } elseif ($request->sort === 'newest') {
+                    $query->orderByDesc('created_at');
+                }
+            }
+            $data['products'] = $query->paginate(21);
+
+            return view('web.pages.collections', $data);
+        }
+        else{
+            return view('web.pages.404');
+        }
     }
 
     // cloned methods of myweightloss
@@ -1087,5 +1098,10 @@ class WebController extends Controller
             ]);
         }
         return 1;
+    }
+
+    public function error_404()
+    {
+        return view('web.pages.404');
     }
 }

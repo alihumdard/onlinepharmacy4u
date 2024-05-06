@@ -30,9 +30,11 @@
                         <!-- Multi Columns Form -->
                         <form class="row g-3 mt-3 needs-validation" method="post" action="{{ route('admin.storeCategory') }}" novalidate enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $category['id'] ?? ''}}">
+                            <input type="hidden" name="id" id="id" value="{{ $category['id'] ?? ''}}">
                             <input type="hidden" name="old_id" value="{{ $category['id'] ?? ''}}">
-                            <input type="hidden" name="old_category_type" value="{{ $selection ?? ''}}">
+                            <input type="hidden" name="old_category_type" id="old_category_type" value="{{ $selection ?? ''}}">
+                            {{-- <input type="hidden" name="cat_type" id="cat_type" value="1"> --}}
+                            <input type="hidden" name="change_type" id="change_type" value="1">
 
                             @php
                                 $path = url('assets/admin/img/upload_btn.png');
@@ -81,7 +83,7 @@
                                 </select>
                             </div>
 
-                            @if (isset($category))
+                            {{-- @if (isset($category))
                                 <div class="col-md-4">
                                     <label for="publish" class="form-label">Change Type</label>
                                     <select id="publish" name="change_type" class="form-select" required>
@@ -90,7 +92,7 @@
                                         <option value="2">Different</option>
                                     </select>
                                 </div>
-                            @endif
+                            @endif --}}
 
                             <div class="col-12 mt-2 image">
                                 <label for="image" class="form-label">Upload Image</label>
@@ -131,6 +133,9 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
+        var old_cat_type = $('#old_category_type').val();
+        var is_edit = $('#id').val();
+
         $('#selection').change(function() {
             var selectedOption = $(this).val();
             if (selectedOption == 1) {
@@ -141,6 +146,15 @@
                 $('#parent_id').val();
                 $('#parent_id').prop('required', true);
                 fetchParentCategories(selectedOption);
+            }
+
+            if(is_edit){
+                if(old_cat_type == selectedOption){
+                    $('#change_type').val(1);
+                }
+                else{
+                    $('#change_type').val(2);
+                }
             }
         });
 

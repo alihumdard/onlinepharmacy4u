@@ -15,14 +15,15 @@
         .container {
             width: 100%;
             max-width: 960px;
-            margin: 0;
-            padding: 0;
+            margin: 0 auto;
+            padding: 0 15px;
         }
 
         .main-cont {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-
+            margin-bottom: 20px;
         }
 
         .pdf-load li {
@@ -33,20 +34,38 @@
             padding-left: 0;
         }
 
+        .ship,
+        .item {
+            margin-bottom: 20px;
+        }
+
+        .item h4 {
+            margin: 0;
+        }
+
         .text-end {
             text-align: end;
         }
 
+        .thank-u {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .thank-u p {
+            margin: 5px 0;
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 1px !important;
         }
 
         th,
         td {
             border: 1px solid #ddd;
-            padding: 0;
+            padding: 8px;
             text-align: left;
         }
 
@@ -80,33 +99,12 @@
 
         #tbl_shiping td {
             text-align: left;
+            padding: 10px 10px;
         }
 
         #tbl_pro_details td {
             text-align: center;
             padding: 10px 10px;
-        }
-
-        #tbl_pro_details th {
-            text-align: center;
-            padding: 5px 5px;
-        }
-        #tbl_header td {
-            margin: 0;
-            padding: 0;
-        }
-
-        #tbl_header td {
-            line-height: 1;
-        }
-
-        .thank-u {
-            margin-top: 20px;
-        }
-
-        .thank-u p {
-            margin: 5px 0;
-            text-align: center;
         }
     </style>
 </head>
@@ -180,8 +178,8 @@
                             <td style="text-align: left !important;">
                                 <ul>
                                     <li><b>Product Name:</b> {{$val['product_name'] ?? $val['product']['title']}}</li>
-                                    <li><b>Variant:</b> 2%</li>
-                                    <li><b>SKU:</b> 00994</li>
+                                    <li><b>Variant:</b>{!! $val['variant_details'] ?? '' !!}</li>
+                                    <li><b>SKU:</b> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</li>
                                 </ul>
                             </td>
                             <td class="text-end">{{$val['product_qty']}}</td>

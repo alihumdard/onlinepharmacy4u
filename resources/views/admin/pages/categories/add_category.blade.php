@@ -20,7 +20,6 @@
             <div class="col-lg-12">
 
                 @if (isset($category))
-                    <h6 class="text-danger fw-bold">Reminder: When switching category types(selection), remember to select "Change Type to Different".</h6>
                     <h6 class="text-danger fw-bold">Reminder: Changing the category type will also update all associated products to the new category.</h6>
                     <h6 class="text-danger fw-bold">Important: Once changed, there is no way to revert back.</h6>
                 @endif

@@ -345,7 +345,6 @@
                 <div class="card">
                     <div class="card-header mt-3 d-flex justify-content-between align-items-center">
                         <div id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
-
                         </div>
                         <div class="p-2">
                             <div id="container">

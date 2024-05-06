@@ -66,6 +66,7 @@ class PdfGeneratorController extends Controller
                 // return view($view_name,$data);
                 $pdf = PDF::loadView($view_name, $data);
                 $pdf->setPaper('a4', 'portrait');
+                $pdf->setOptions(['margin-top' => 0, 'margin-bottom' => 0]);
                 return $pdf->stream($file_name);
                 // return $pdf->download($file_name);
             } else {

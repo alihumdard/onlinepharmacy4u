@@ -132,7 +132,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Import Product</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Import Product</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/">Home</a></li>

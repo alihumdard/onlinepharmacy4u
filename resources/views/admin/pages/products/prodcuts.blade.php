@@ -250,17 +250,25 @@
                                     <td style="vertical-align: middle; text-align: center;">
                                         <span class="badge  {{($value['status'] == 1) ? 'bg-success' : 'bg-danger'; }}  rounded-pill d-inline">{{ ($value['status'] == 1) ? 'Active' : 'Deactive'; }} </span>
                                     </td>
-                                    <td style="vertical-align: middle; text-align: center;">
-                                        <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-copy"></i>
-                                        </a>
-                                        <a class="delete" style="cursor: pointer;" title="Delete" data-status="{{config('constants.STATUS')['Deactive']}}" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
-
+                                    <td style="vertical-align: middle; text-align: center; ">
+                                        <div style="display:flex; justify-content: space-around;">
+                                            <div>
+                                                <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                                <a target="_blank" href="{{route('web.product',['id' => $value['slug']])}}" class="preview" style="cursor: pointer; font-size:larger;" title="Preview" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                                    <i class="bi bi-copy"></i>
+                                                </a>
+                                                <a class="delete" style="cursor: pointer;" title="Delete" data-status="{{config('constants.STATUS')['Deactive']}}" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -343,7 +351,7 @@
             }
         });
 
-        
+
         $('#template').on('change', function() {
             let type = $(this).val();
             if (type == 'All') {

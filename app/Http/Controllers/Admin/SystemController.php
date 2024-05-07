@@ -1776,7 +1776,7 @@ class SystemController extends Controller
                     "recipient" => [
                         "address" => [
                             "fullName" => ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'] . ' ' . $order['shipingdetails']['lastName'] : $order['user']['name'],
-                            "companyName" => "Onlinepharmacy-4u",
+                            "companyName" => null,
                             "addressLine1" => $order['shipingdetails']['address'] ?? $order['user']['address'],
                             "addressLine2" => $order['shipingdetails']['address2'] ?? '',
                             "addressLine3" => null,

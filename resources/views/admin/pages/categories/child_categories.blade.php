@@ -52,7 +52,7 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Child Categories</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Child Categories</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -169,7 +169,7 @@
         }).buttons().container();
     });
     $(document).ready(function() {
-        $('.edit').click(function() {
+        $(document).on('click', '.edit',function() {
             var id = $(this).data('id');
             $('#edit_form_id_input').val(id);
             $('#edit_form').submit();

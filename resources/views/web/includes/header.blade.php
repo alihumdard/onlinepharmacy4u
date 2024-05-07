@@ -140,7 +140,7 @@
         
         <!-- header-bottom-area start -->
         <div class="header-bottom-area ltn__border-top--- ltn__header-sticky  ltn__sticky-bg-white ltn__primary-bg---- menu-color-white---- d-none--- d-lg-block">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="col--- header-menu-column justify-content-center---">
@@ -212,7 +212,7 @@
                                 <span class="mini-cart-item-delete"><a href="javascript:void(0)" onclick="deleteItem('{{$item->rowId}}', true);"><i class="icon-cancel"></i></a></span>
                             </div>
                             <div class="mini-cart-info">
-                                <h6><a href="#">{{ $item->name }}</a></h6>
+                                <h6><a href="#">{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!} </a></h6>
                                 <span class="mini-cart-quantity">{{ $item->qty }} x {{ $item->price}}</span>
                             </div>
                         </div>

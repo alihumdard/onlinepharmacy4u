@@ -63,12 +63,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1>Order Consultations</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Order Consultations</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/admin">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Order Consultations<< /li>
+                <li class="breadcrumb-item active">Order Consultations </li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -83,15 +83,17 @@
                     @if($user_profile_details)
                     <div class="row px-4 mt-2 mb-3">
                         <div class="col-12">
-                            <h4 class="fw-bold ">Costumer Profile Details:</h4>
+                            <h4 class="fw-bold ">Customer Profile Detaisl:</h4>
                             <label for="" class="fw-bold px-2 ">Name: </label> <span> {{$user_profile_details->name ?? '' }}</span><br>
                             <label for="" class="fw-bold px-2">Phone: </label> <span> {{$user_profile_details->phone ?? '' }}</span><br>
                             <label for="" class="fw-bold px-2">Gender: </label> <span> {{$user_profile_details->gender ?? '' }}</span><br>
                             <label for="" class="fw-bold px-2">DOB: </label> <span> {{$user_profile_details->dob ?? '' }}</span><br>
+                            <label for="" class="fw-bold px-2">Address: </label> <span> {{$user_profile_details->address ?? '' }}</span><br>
+                            <label for="" class="fw-bold px-2">Postal Code: </label> <span> {{$user_profile_details->zip_code ?? '' }}</span><br>
                             <label for="" class="fw-bold px-2">Identity Document: </label>
                             <span>
                                 @if($user_profile_details->id_document)
-                                <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" target="_blank">
+                                <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" >
                                     <i class="bi bi-eye-fill"></i> View File 
                                 </a>
                                 <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" download>
@@ -190,7 +192,7 @@
 
                                     </td>
                                     <td>
-                                        @if (Str::startsWith($value['answer'], 'consultation/user/'))
+                                        @if (Str::startsWith($value['answer'], 'consultation/product/'))
                                         <a class="fw-bold btn-link" href="{{ asset('storage/'.$value['answer']) }}" download>See File</a>
                                         @else
                                         <p>{{ $value['answer'] }}</p>

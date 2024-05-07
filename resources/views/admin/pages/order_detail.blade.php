@@ -85,7 +85,11 @@
                 <input type="hidden" name="content" value="{{json_encode($order)}}" required>
                 <input type="hidden" name="view_name" value="order_details" required>
             </form>
-            <h1 class="w-100">Order Detail <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1 fw-semibold" style="float:right; background: #03bd8d;color:#fff">Print out</button> </h1>
+            <h1 class="w-100">
+                <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |
+                Order Detail
+                <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1  {{($order['print'] == 'Printed') ? 'btn-success' : 'btn-primary' }} fw-semibold" style="float:right;">{{$order['print'] ?? '' }}</button>
+            </h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -114,13 +118,6 @@
                 <strong>Success:</strong> {{ session('msg') }}
             </div>
             @endif
-
-            @if(session('msg'))
-            <div class="alert alert-success">
-                {{ session('msg') }}
-            </div>
-            @endif
-
             <div class="col-md-4">
                 <div class="card  d-flex flex-column">
                     <div class="card-header mt-2" style="border: 0 !important; border-color: transparent !important;"></div>
@@ -154,19 +151,19 @@
                             <input type="hidden" name="order_id" value="{{  $order['id'] ?? '' }}">
                             <div class="col-12">
                                 <label class="form-label"><b>City:</b> {{$order['shipingdetails']['city'] ?? $order['user']['city'] }}</label>
-                                <input class="form-control me-2" type="text" name="city" id="city" placeholder="Change City">
+                                <input class="form-control me-2" type="text" name="city" id="city" value="{{$order['shipingdetails']['city'] ?? $order['user']['city'] }}" placeholder="Change City">
                             </div>
                             <div class="col-12">
                                 <label class="form-label"><b>Postal Code:</b> {{$order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'] }}</label>
-                                <input class="form-control me-2" type="text" name="postal_code" id="postal_code" placeholder="Change Postal Code">
+                                <input class="form-control me-2" type="text" name="postal_code" id="postal_code" value=" {{$order['shipingdetails']['zip_code'] ?? $order['user']['zip_code'] }}" placeholder="Change Postal Code">
                             </div>
                             <div class="col-12">
                                 <label class="form-label"><b>Address 1:</b> {{$order['shipingdetails']['address'] ?? $order['user']['address'] }}</label>
-                                <input class="form-control me-2" type="text" name="address1" id="address1" placeholder="Change Address 1">
+                                <input class="form-control me-2" type="text" name="address1" id="address1" value="{{$order['shipingdetails']['address'] ?? $order['user']['address'] }}" placeholder="Change Address 1">
                             </div>
                             <div class="col-12">
                                 <label class="form-label"><b>Address 2:</b> {{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}</label>
-                                <input class="form-control me-2" type="text" name="address2" id="address2" placeholder="Change Address 2">
+                                <input class="form-control me-2" type="text" name="address2" id="address2" value="{{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}" placeholder="Change Address 2">
                             </div>
                             <div class=" mt-4 text-end px-4 d-flex d-md-block">
                                 <button class="btn btn-primary">Update</button>
@@ -194,7 +191,7 @@
                             @csrf
                             <input type="hidden" name="order_id" value="{{  $order['id'] ?? '' }}">
                             <div class="col-12">
-                                <input class="form-control me-2" type="text" name="note" id="note" placeholder="Change Note" required>
+                                <input class="form-control me-2" type="text" name="note" id="note" value="{{$order['note'] ?? 'No notes from customer'}}" placeholder="Change Note" required>
                                 <div class="invalid-feedback">Please write additional note!</div>
                                 @error('note')
                                 <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -232,11 +229,11 @@
                                             <div class="col-md-1" style="height:150px; width:150px;">
                                                 <img class="img-fluid pt-3 h-100 w-100" id="product_img" src="{{ asset('storage/'.$src) }}" loading="lazy" alt="Prodcut Image">
                                             </div>
-                                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0"><b>Title: </b> {{$val['product_name'] ?? $val['product']['title'] }}</p>
+                                            <div class="col-md-2 text-left d-flex justify-content-start align-items-center">
+                                                <p class="text-muted mb-0"><b>Title: </b> <br> {!! $val['product_name'] ?? $val['product']['title'] !!}</p>
                                             </div>
-                                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small"><b>Variant: </b> {{$val['variant']['title'] ?? '' }}</p>
+                                            <div class="col-md-2 text-left d-flex justify-content-start align-items-center">
+                                                <p class="text-muted mb-0 small"><b>Variant: </b> <br>{!! $val['variant_details'] ?? '' !!}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                                                 <p class="text-muted mb-0 small"><b>Quantity: </b> {{$val['product_qty']}}</p>
@@ -254,7 +251,7 @@
                                         @if($val['consultation_type'] == 'premd' || $val['consultation_type'] == 'pmd')
                                         <div class="row d-flex ">
                                             <div class="col-lg-12 text-center ">
-                                                <a target="_blank" href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
+                                                <a  href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
                                                     See Consultations
                                                 </a>
                                             </div>
@@ -269,7 +266,7 @@
                                                 <h5 class="fw-bold underline">User Previous Orders History:</h5>
                                                 <div class="button-container" style="display: flex; flex-wrap: wrap;">
                                                     @forelse($userOrders as $index => $val)
-                                                    <a target="_blank" href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary m-1">
+                                                    <a  href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary m-1">
                                                         <b>{{ $index + 1 }}.</b> #00{{ $val['id'] }}
                                                     </a>
                                                     @empty
@@ -289,9 +286,9 @@
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0 ">Tracking Number:</p>
                                     @if($order['tracking_no'])
-                                    <a class="fw-bold  mb-0"  target="_blank" href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
+                                    <a class="fw-bold  mb-0"  href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
                                     @else
-                                    <a class=" btn btn-primary fw-bold  mb-0"   href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
+                                    <a class=" btn btn-primary fw-bold  mb-0" href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
                                     @endif
                                 </div>
                                 @endif

@@ -1,16 +1,16 @@
 @extends('admin.layouts.default')
-@section('title', 'Add Category')
+@section('title', $title)
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Add Category</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |  {{ $title }}</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Add Category</li>
+                <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -19,12 +19,21 @@
         <div class="row">
             <div class="col-lg-12">
 
+                @if (isset($category))
+                    <h6 class="text-danger fw-bold">Reminder: Changing the category type will also update all associated products to the new category.</h6>
+                    <h6 class="text-danger fw-bold">Important: Once changed, there is no way to revert back.</h6>
+                @endif
+
                 <div class="card vh-100">
                     <div class="card-body">
                         <!-- Multi Columns Form -->
                         <form class="row g-3 mt-3 needs-validation" method="post" action="{{ route('admin.storeCategory') }}" novalidate enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $category['id'] ?? ''}}">
+                            <input type="hidden" name="id" id="id" value="{{ $category['id'] ?? ''}}">
+                            <input type="hidden" name="old_id" value="{{ $category['id'] ?? ''}}">
+                            <input type="hidden" name="old_category_type" id="old_category_type" value="{{ $selection ?? ''}}">
+                            {{-- <input type="hidden" name="cat_type" id="cat_type" value="1"> --}}
+                            <input type="hidden" name="change_type" id="change_type" value="1">
 
                             @php
                                 $path = url('assets/admin/img/upload_btn.png');
@@ -34,18 +43,19 @@
                             @endphp
                             <div class="col-md-4">
                                 <label for="selection" class="form-label">Selection</label>
-                                <select id="selection" name="selection" class="form-select">
-                                    <option {{ (isset($selection) && $selection == '') ? 'selected' : '' }} value="1" >Select</option>
+                                <select id="selection" name="selection" class="form-select" required>
+                                    <option {{ (isset($selection) && $selection == '') ? 'selected' : '' }} value="">Select</option>
                                     <option {{ (isset($selection) && $selection == 1) ? 'selected' : '' }} value="1" >Main Category</option>
                                     <option {{ (isset($selection) && $selection == 2) ? 'selected' : '' }} value="2" >Sub Category</option>
                                     <option {{ (isset($selection) && $selection == 3) ? 'selected' : '' }} value="3" >Child Category</option>
                                 </select>
+                                <div class="invalid-feedback">Please make selection!</div>
                             </div>
                             <div class="col-md-8"></div>
 
                             <div class="col-md-8">
                                 <label for="name" class="form-label">Category Name</label>
-                                <input type="text" name="name" value="{{  $category['name'] ?? old('name') }}" class="form-control" id="name" required>
+                                <input type="text" name="name" value="{{  $category['name'] ?? old('name') }}" class="form-control" id="name">
                                 <div class="invalid-feedback">Please enter category name!</div>
                                 @error('name')
                                 <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -62,7 +72,7 @@
 
                             <div class="col-md-4 parent-div" @if(isset($selection) && $selection == 1) style="display: none" @endif;>
                                 <label for="publish" class="form-label">Select Parent</label>
-                                <select id="parent_id" name="parent_id" class="form-select">
+                                <select id="parent_id" name="parent_id" class="form-select" @if(isset($selection) && $selection != 1) required @endif>
                                     <option value="">Select</option>
                                         @if(@isset($parents))
                                             @foreach ($parents as $key => $value)
@@ -71,6 +81,18 @@
                                         @endif
                                 </select>
                             </div>
+
+                            {{-- @if (isset($category))
+                                <div class="col-md-4">
+                                    <label for="publish" class="form-label">Change Type</label>
+                                    <select id="publish" name="change_type" class="form-select" required>
+                                        <option selected value="">Select Option</option>
+                                        <option value="1">Same</option>
+                                        <option value="2">Different</option>
+                                    </select>
+                                </div>
+                            @endif --}}
+
                             <div class="col-12 mt-2 image">
                                 <label for="image" class="form-label">Upload Image</label>
                                 <div class="d-flex align-items-center" style="gap: 20px; justify-content: space-between;">
@@ -110,6 +132,9 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
+        var old_cat_type = $('#old_category_type').val();
+        var is_edit = $('#id').val();
+
         $('#selection').change(function() {
             var selectedOption = $(this).val();
             if (selectedOption == 1) {
@@ -118,7 +143,17 @@
             } else {
                 $('.parent-div').show();
                 $('#parent_id').val();
+                $('#parent_id').prop('required', true);
                 fetchParentCategories(selectedOption);
+            }
+
+            if(is_edit){
+                if(old_cat_type == selectedOption){
+                    $('#change_type').val(1);
+                }
+                else{
+                    $('#change_type').val(2);
+                }
             }
         });
 

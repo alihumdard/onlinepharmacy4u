@@ -69,10 +69,10 @@
     </style>
 
     <div class="pagetitle">
-        <h1>GP Letters</h1>
+        <h1> <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |GP Letters</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/admin/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
                 <li class="breadcrumb-item active">GP Letters</li>
             </ol>
@@ -162,37 +162,10 @@
                     text: 'Print Out',
                     className: 'btn-blue',
                 }
-            ],
-            "columnDefs": [{
-                "targets": 2,
-                "type": "date"
-            }]
+            ]
         }).buttons().container().appendTo('#tbl_buttons');
-
-        var table = $('#tbl_data').DataTable();
-        $('#startDate, #endDate').change(function() {
-            var startDate = $('#startDate').val();
-            var endDate = $('#endDate').val();
-            table.draw();
-        });
-
-        $.fn.dataTable.ext.search.push(
-            function(settings, data, dataIndex) {
-                var min = $('#startDate').val();
-                var max = $('#endDate').val();
-                var date = data[2] || '';
-                var startDate = new Date(min);
-                var endDate = new Date(max);
-                var currentDate = new Date(date);
-
-                if ((min === "" || startDate <= currentDate) &&
-                    (max === "" || currentDate <= endDate)) {
-                    return true;
-                }
-                return false;
-            }
-        );
     });
+
 
     $(document).ready(function() {
         var tableApi = $('#tbl_data').DataTable();

@@ -357,7 +357,7 @@ class SystemController extends Controller
     public function category_validation($request, $selection)
     {
         if ($selection == 1) {
-            if($request->change_type == 2){
+            if ($request->change_type == 2) {
                 $validator = Validator::make($request->all(), [
                     'publish'   => 'required',
                     'name'     => [
@@ -367,8 +367,7 @@ class SystemController extends Controller
                         }),
                     ],
                 ]);
-            }
-            else{
+            } else {
                 $validator = Validator::make($request->all(), [
                     'publish'   => 'required',
                     'name'     => [
@@ -378,7 +377,7 @@ class SystemController extends Controller
                 ]);
             }
         } elseif ($selection == 2) {
-            if($request->change_type == 2){
+            if ($request->change_type == 2) {
                 $validator = Validator::make($request->all(), [
                     'publish'   => 'required',
                     'parent_id'   => 'required',
@@ -386,25 +385,24 @@ class SystemController extends Controller
                         'required',
                         Rule::unique('sub_categories')->where(function ($query) use ($request) {
                             return $query->where('status', '!=', 'Deleted')
-                                         ->where('category_id', $request->parent_id);
+                                ->where('category_id', $request->parent_id);
                         }),
                     ],
                 ]);
-            }
-            else{
+            } else {
                 $validator = Validator::make($request->all(), [
                     'publish'   => 'required',
                     'parent_id'   => 'required',
                     'name'     => [
                         'required',
                         Rule::unique('sub_categories')->where(function ($query) use ($request) {
-                                return $query->where('category_id', $request->parent_id);
-                            })->ignore($request->id),
+                            return $query->where('category_id', $request->parent_id);
+                        })->ignore($request->id),
                     ],
                 ]);
             }
         } elseif ($selection == 3) {
-            if($request->change_type == 2){
+            if ($request->change_type == 2) {
                 $validator = Validator::make($request->all(), [
                     'publish'   => 'required',
                     'parent_id'   => 'required',
@@ -412,12 +410,11 @@ class SystemController extends Controller
                         'required',
                         Rule::unique('child_categories')->where(function ($query) use ($request) {
                             return $query->where('status', '!=', 'Deleted')
-                                         ->where('sub_category_id', $request->parent_id);;
+                                ->where('sub_category_id', $request->parent_id);;
                         }),
                     ],
                 ]);
-            }
-            else{
+            } else {
                 $validator = Validator::make($request->all(), [
                     'publish'   => 'required',
                     'parent_id'   => 'required',
@@ -437,14 +434,12 @@ class SystemController extends Controller
     public function delete_old_category($old_id, $old_category_type)
     {
         // when type of category change than delete category from current type
-        
-        if($old_category_type == 1){
+
+        if ($old_category_type == 1) {
             $category = Category::findOrFail($old_id);
-        }
-        elseif($old_category_type == 2){
+        } elseif ($old_category_type == 2) {
             $category = SubCategory::findOrFail($old_id);
-        }
-        elseif($old_category_type == 3){
+        } elseif ($old_category_type == 3) {
             $category = ChildCategory::findOrFail($old_id);
         }
         $update = $category->update([
@@ -456,20 +451,17 @@ class SystemController extends Controller
 
     public function update_product_categories($old_cat_id, $old_cat_type, $new_cat, $new_cat_type)
     {
-        if($old_cat_type == 1){
+        if ($old_cat_type == 1) {
             $products = Product::where('category_id', $old_cat_id)->get()->toArray();
-        }
-        elseif($old_cat_type == 2){
+        } elseif ($old_cat_type == 2) {
             $products = Product::where('sub_category', $old_cat_id)->get()->toArray();
-        }
-        elseif($old_cat_type == 3){
+        } elseif ($old_cat_type == 3) {
             $products = Product::where('child_category', $old_cat_id)->get()->toArray();
-
         }
         $response = true;
-        if($products){
+        if ($products) {
             $product_ids = array_column($products, 'id');
-            if($new_cat_type == 1){
+            if ($new_cat_type == 1) {
                 $data = [
                     'category_id' => $new_cat->id,
                     'sub_category' => NULL,
@@ -477,8 +469,7 @@ class SystemController extends Controller
                     'updated_by' => auth()->user()->id,
                 ];
                 $response = Product::whereIn('id', $product_ids)->update($data);
-            }
-            elseif($new_cat_type == 2){
+            } elseif ($new_cat_type == 2) {
                 $data = [
                     'category_id' => $new_cat->category_id,
                     'sub_category' => $new_cat->id,
@@ -486,8 +477,7 @@ class SystemController extends Controller
                     'updated_by' => auth()->user()->id,
                 ];
                 $response = Product::whereIn('id', $product_ids)->update($data);
-            }
-            elseif($new_cat_type == 3){
+            } elseif ($new_cat_type == 3) {
                 $data = [
                     'category_id' => SubCategory::where(['id' => $new_cat->sub_category_id, 'status' => 'Active'])->value('category_id'),
                     'sub_category' => $new_cat->sub_category_id,
@@ -543,7 +533,7 @@ class SystemController extends Controller
         // if change type is 2 than updation will occur in different category (convert child category into sub category)
         if ($selection == 1) {
             // Main Category
-            if($request->change_type == 2){
+            if ($request->change_type == 2) {
                 $response = $this->delete_old_category($request->old_id, $request->old_category_type);
                 $saved = Category::create(
                     [
@@ -556,8 +546,7 @@ class SystemController extends Controller
                     ]
                 );
                 $update_product = $this->update_product_categories($request->old_id, $request->old_category_type, $saved, 1);
-            }
-            else{
+            } else {
                 $saved = Category::updateOrCreate(
                     ['id' => $request->id ?? NULL],
                     [
@@ -576,7 +565,7 @@ class SystemController extends Controller
             }
         } elseif ($selection == 2) {
             // Sub Category
-            if($request->change_type == 2){
+            if ($request->change_type == 2) {
                 $response = $this->delete_old_category($request->old_id, $request->old_category_type);
                 $saved = SubCategory::create(
                     [
@@ -590,8 +579,7 @@ class SystemController extends Controller
                     ]
                 );
                 $update_product = $this->update_product_categories($request->old_id, $request->old_category_type, $saved, 2);
-            }
-            else{
+            } else {
                 $saved = SubCategory::updateOrCreate(
                     ['id' => $request->id ?? NULL],
                     [
@@ -611,7 +599,7 @@ class SystemController extends Controller
             }
         } elseif ($selection == 3) {
             // Child Category
-            if($request->change_type == 2){
+            if ($request->change_type == 2) {
                 $response = $this->delete_old_category($request->old_id, $request->old_category_type);
                 $saved = ChildCategory::create(
                     [
@@ -625,8 +613,7 @@ class SystemController extends Controller
                     ]
                 );
                 $update_product = $this->update_product_categories($request->old_id, $request->old_category_type, $saved, 3);
-            }
-            else{
+            } else {
                 $saved = ChildCategory::updateOrCreate(
                     ['id' => $request->id ?? NULL],
                     [
@@ -741,9 +728,9 @@ class SystemController extends Controller
             $data['categories'] = Category::where('status', 'Deactive')->latest('id')->get()->toArray();
         } elseif ($request->cat_type === 'sub_category') {
             $data['route'] = 'admin.subCategories';
-            $data['categories'] = SubCategory::with('category')->where('status', 'Deactive')->latest('id')->get()->toArray();  
+            $data['categories'] = SubCategory::with('category')->where('status', 'Deactive')->latest('id')->get()->toArray();
         } elseif ($request->cat_type === 'child_category') {
-            $data['route'] = 'admin.childCategories';          
+            $data['route'] = 'admin.childCategories';
             $data['categories'] = ChildCategory::with('subcategory')->where('status', 'Deactive')->latest('id')->get()->toArray();
         } else {
             return redirect()->back();
@@ -1760,7 +1747,7 @@ class SystemController extends Controller
                 "unitWeightInGrams" => $val['weight'],
                 "customsDescription" => 'it is medical product.',
                 "extendedCustomsDescription" => "",
-                "customsCode" => '4you' . $order['id'],
+                "customsCode" => null,
                 "originCountryCode" => "GB",
                 "customsDeclarationCategory" => null,
                 "requiresExportLicence" => null,
@@ -1768,7 +1755,7 @@ class SystemController extends Controller
             ];
         }
 
-        $order_ref = '#00'.$order['id'];
+        $order_ref = '#00' . $order['id'];
         $payload = [
             "items" => [
                 [
@@ -1790,14 +1777,14 @@ class SystemController extends Controller
                         "addressBookReference" => null
                     ],
                     "sender" => [
-                        "tradingName" => 'Onlinepharmacy-4u',
+                        "tradingName" => null,
                         "phoneNumber" => '01623572757',
                         "emailAddress" => 'info@online-pharmacy4u.co.uk'
                     ],
                     "billing" => [
                         "address" => [
                             "fullName" => ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'] . ' ' . $order['shipingdetails']['lastName'] : $order['user']['name'],
-                            "companyName" => "Online Pharmacy",
+                            "companyName" => null,
                             "addressLine1" => $order['shipingdetails']['address'] ?? $order['user']['address'],
                             "addressLine2" => $order['shipingdetails']['address2'] ?? '',
                             "addressLine3" => null,
@@ -1858,6 +1845,7 @@ class SystemController extends Controller
         ];
         return  $payload;
     }
+
 
     // comments
     public function comments(Request $request)

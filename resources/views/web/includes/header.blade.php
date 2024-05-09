@@ -305,3 +305,242 @@
     <!-- Utilize Mobile Menu End -->
 
 
+
+
+
+
+
+
+
+    <!-- for  mobile main menu  css or html or script is here  -->
+
+<!-- 
+<style>
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+.icon {
+  display: none;
+}
+.menu {
+  width: 0;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #333;
+  overflow-x: hidden;
+  transition: width 0.5s ease;  
+  padding-top: 60px;
+}
+
+.menu a {
+  padding: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: block;
+}
+.menu a span{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.menu a:hover {
+  background-color: #555;
+}
+.menu.show {
+  width: 200px;
+}
+
+.submenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -200px;  
+  background-color: #333;
+  width: 200px;
+  padding-top: 60px;  
+  transition: left 0.5s ease;  
+}
+
+.submenu.show {
+  display: block;
+  left: 0;  
+}
+.submenu .closebtn {
+  padding: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: block;
+  text-align: right;
+}
+
+.subchild {
+  padding-left: 20px;
+  display: none;
+}
+
+.subchild.show {
+  display: block;
+}
+
+.icon i{
+  display: none;
+}
+
+.plus-minus-icon i {
+  margin-right: 5px;
+  font-size: 11px;
+}
+
+.plus-icon:before {
+  content: "\f054"; 
+}
+
+.minus-icon:before {
+  content: "\f107"; 
+}
+
+@media only screen and (max-width:500px){
+  .icon i{
+    display: block !important;
+  }
+  #myNavbar .mobile{
+    display: none;
+  }
+}
+</style>
+
+
+<body>
+<div class="navbar" id="myNavbar">
+  <a href="#" class="active">Home</a>
+  <a href="#" class="mobile">About</a>
+  <a href="#" class="mobile">Services</a>
+  <a href="#" class="mobile">Contact</a>
+  <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+
+<div class="menu" id="myMenu">
+  <a href="#" class="closebtn" onclick="toggleMenu()">&times; Close</a>
+  <a href="#" onclick="toggleSubMenu(1)">
+    <span class="plus-minus-icon"> Submenu 1<i class="fa plus-icon"></i></span> 
+  </a>
+  <div class="submenu" id="mySubMenu1">
+    <a href="#" class="closebtn" onclick="toggleSubMenu(1)">&times; Close</a>
+    <a href="#" onclick="toggleSubChild(1, 1)">
+      <span class="plus-minus-icon">Submenu 1 Item 1 <i class="fa plus-icon"></i></span> 
+    </a>
+    <div class="subchild" id="subChild1_1">
+      <a href="#">Subchild 1 Item 1</a>
+      <a href="#">Subchild 1 Item 2</a>
+      <a href="#">Subchild 1 Item 3</a>
+    </div>
+    <a href="#">Submenu 1 Item 2</a>
+    <a href="#">Submenu 1 Item 3</a>
+ 
+  </div>
+  <a href="#" onclick="toggleSubMenu(2)">
+    <span class="plus-minus-icon"> Submenu 2<i class="fa plus-icon"></i></span> 
+  </a>
+  <div class="submenu" id="mySubMenu2">
+    <a href="#" class="closebtn" onclick="toggleSubMenu(2)">&times; Close</a>
+    <a href="#" onclick="toggleSubChild(2, 1)">
+      <span class="plus-minus-icon">Submenu 2 Item 1 <i class="fa plus-icon"></i></span> 
+    </a>
+    <div class="subchild" id="subChild2_1">
+      <a href="#">Subchild 1 Item 1</a>
+      <a href="#">Subchild 1 Item 2</a>
+      <a href="#">Subchild 1 Item 3</a>
+    </div>
+  
+  </div>
+  <a href="#" onclick="toggleSubMenu(3)">
+    <span class="plus-minus-icon"> Submenu 3<i class="fa plus-icon"></i></span> 
+  </a>
+  <div class="submenu" id="mySubMenu3">
+    <a href="#" class="closebtn" onclick="toggleSubMenu(3)">&times; Close</a>
+    <a href="#" onclick="toggleSubChild(3, 1)">
+      <span class="plus-minus-icon">Submenu 3 Item 1 <i class="fa plus-icon"></i></span> 
+    </a>
+    <div class="subchild" id="subChild3_1">
+      <a href="#">Subchild 1 Item 1</a>
+      <a href="#">Subchild 1 Item 2</a>
+      <a href="#">Subchild 1 Item 3</a>
+    </div>
+     
+  </div>
+  <a href="#" onclick="toggleSubMenu(4)">
+    <span class="plus-minus-icon"> Submenu 4<i class="fa plus-icon"></i></span> 
+  </a>
+  <div class="submenu" id="mySubMenu4">
+    <a href="#" class="closebtn" onclick="toggleSubMenu(4)">&times; Close</a>
+    <a href="#" onclick="toggleSubChild(4, 1)">
+      <span class="plus-minus-icon">Submenu 4 Item 1 <i class="fa plus-icon"></i></span> 
+    </a>
+    <div class="subchild" id="subChild4_1">
+      <a href="#">Subchild 1 Item 1</a>
+      <a href="#">Subchild 1 Item 2</a>
+      <a href="#">Subchild 1 Item 3</a>
+    </div>
+    
+  </div>
+ 
+</div>
+
+<script>
+function toggleMenu() {
+  document.getElementById("myMenu").classList.toggle("show");
+}
+
+function toggleSubMenu(submenuNumber) {
+  var submenuId = "mySubMenu" + submenuNumber;
+  var allSubmenus = document.getElementsByClassName("submenu");
+  for (var i = 0; i < allSubmenus.length; i++) {
+    if (allSubmenus[i].id === submenuId) {
+      allSubmenus[i].classList.toggle("show");
+      var plusMinusIcon = allSubmenus[i].previousElementSibling.querySelector(".plus-minus-icon i");
+      plusMinusIcon.classList.toggle("plus-icon");
+      plusMinusIcon.classList.toggle("minus-icon");
+    } else {
+      allSubmenus[i].classList.remove("show");
+      var plusIcon = allSubmenus[i].previousElementSibling.querySelector(".plus-minus-icon i");
+      if (plusIcon.classList.contains("minus-icon")) {
+        plusIcon.classList.remove("minus-icon");
+        plusIcon.classList.add("plus-icon");
+      }
+    }
+  }
+}
+
+function toggleSubChild(submenuNumber, subchildNumber) {
+  var subchildId = "subChild" + submenuNumber + "_" + subchildNumber;
+  var subchild = document.getElementById(subchildId);
+  subchild.classList.toggle("show");
+  var plusMinusIcon = subchild.previousElementSibling.querySelector(".plus-minus-icon i");
+  plusMinusIcon.classList.toggle("plus-icon");
+  plusMinusIcon.classList.toggle("minus-icon");
+}
+</script>
+</body> -->
+
+
+    <!-- for  mobile main menu  css or html or script is here  -->
+
+

@@ -50,15 +50,7 @@
 <!-- LOGIN AREA START (Register) -->
 <div class="ltn__login-area pb-110 py-5">
     <div class="container">
-        <div class="row">
-            <!-- <div class="col-lg-12">
-                <div class="section-title-area text-center">
-                    <h1 class="section-title">Register <br>Your Account</h1>
-                    
-                </div>
-            </div> -->
-        </div>
-        <div class="row shadow-custom">
+        <div class="row bg-white">
             <div class="crate-here ps-5 pt-4">
                 <h4>Your Details</h4>
                 <p>Please complete the below details to create your account and continue your consultation.</p>

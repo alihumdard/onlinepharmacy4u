@@ -2,7 +2,7 @@
 <div class="body-wrapper">
 
     <!-- HEADER AREA START (header-3) -->
-    <header class="ltn__header-area ltn__header-3 section-bg-6---">   
+    <header class="ltn__header-area ltn__header-3 section-bg-6---">
         <!-- ltn__header-top-area start -->
         <div class="ltn__header-top-area border-bottom top-area-color-white---">
             <div class="container">
@@ -10,16 +10,16 @@
                     <div class="col-md-12">
                         <div class="ltn__top-bar-menu text-center">
                             <ul>
-                                <li><a href="#" class="text-white font-weight-400  poppins-thin "><i class="fas fa-comment-medical"  class="text-white"></i>Dispensed by Regulated UK Pharmacists</a></li>
-                                <li><a href="#"  class="text-white  poppins-thin "><i class="far fa-certificate"  class="text-white font-weight-400"></i> Registered Pharmacy: 9011972</a></li>
-                                <li class="#"><a href="#"  class="text-white  pl-2 poppins-regular">  Social Media Link:</a> <a href="https://www.facebook.com/Online-Pharmacy4U-114908691196467" class="top-social-links"><i class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/4uPharmacy" class="top-social-links"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/company/74292944" class="top-social-links"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.tiktok.com/@online.pharmacy4u" class="top-social-links"><i class="fab fa-tiktok"></i></a></li>
+                                <li><a href="#" class="text-white font-weight-400  poppins-thin "><i class="fas fa-comment-medical" class="text-white"></i>Dispensed by Regulated UK Pharmacists</a></li>
+                                <li><a href="#" class="text-white  poppins-thin "><i class="far fa-certificate" class="text-white font-weight-400"></i> Registered Pharmacy: 9011972</a></li>
+                                <li class="#"><a href="#" class="text-white  pl-2 poppins-regular"> Social Media Link:</a> <a href="https://www.facebook.com/Online-Pharmacy4U-114908691196467" class="top-social-links"><i class="fab fa-facebook-f"></i></a> <a href="https://twitter.com/4uPharmacy" class="top-social-links"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/company/74292944" class="top-social-links"><i class="fab fa-linkedin-in"></i></a> <a href="https://www.tiktok.com/@online.pharmacy4u" class="top-social-links"><i class="fab fa-tiktok"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- ltn__header-top-area end -->     
+        <!-- ltn__header-top-area end -->
         <!-- ltn__header-middle-area start -->
         <div class="ltn__header-middle-area">
             <div class="container">
@@ -44,8 +44,8 @@
                             </div>
                             <!-- header-search-2 -->
                             <div class="header-search-2">
-                                <form method="get"  action="{{route('web.search')}}">
-                                    <input type="text" name="q" value="{{ Request('q')}}" placeholder="Search here..."/>
+                                <form method="get" action="{{route('web.search')}}">
+                                    <input type="text" name="q" value="{{ Request('q')}}" placeholder="Search here..." />
                                     <button type="submit">
                                         <span><i class="icon-search"></i></span>
                                     </button>
@@ -67,8 +67,8 @@
                                             </div>
                                         </div>
                                         <div class="header-search-1-form">
-                                            <form method="get"  action="{{route('web.search')}}">
-                                                <input class=" poppins-thin " type="text" name="q" value="" placeholder="Search here..."/>
+                                            <form method="get" action="{{route('web.search')}}">
+                                                <input class=" poppins-thin " type="text" name="q" value="" placeholder="Search here..." />
                                                 <button type="submit">
                                                     <span><i class="icon-search"></i></span>
                                                 </button>
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="d-none---"> 
+                                <li class="d-none---">
                                     <!-- user-menu -->
                                     <div class="ltn__drop-menu user-menu">
                                         <ul>
@@ -84,13 +84,13 @@
                                                 <a href="#" class=" poppins-thin "><i class="icon-user"></i></a>
                                                 <ul>
                                                     @if(auth()->user())
-                                                        <li><a href="/logout">Sign Out</a></li>
+                                                    <li><a href="/logout">Sign Out</a></li>
                                                     @else
-                                                        <li><a href="/login">Sign in</a></li>
-                                                        <li><a href="/register">Register</a></li>
+                                                    <li><a href="/login">Sign in</a></li>
+                                                    <li><a href="/register">Register</a></li>
                                                     @endif
                                                     <li><a href="{{ route('admin.index') }}">My Account</a></li>
-                                                </ul> 
+                                                </ul>
                                             </li>
                                         </ul>
                                     </div>
@@ -103,7 +103,7 @@
                                                 <i class="icon-shopping-cart"></i>
                                                 <sup>{{ Cart::count() ?? 0}}</sup>
                                             </span>
-                                            </a>
+                                        </a>
                                     </div>
                                 </li>
                             </ul>
@@ -113,8 +113,8 @@
             </div>
         </div>
         <!-- ltn__header-middle-area end -->
-        
-        
+
+
 
         <!-- MOBILE MENU START -->
         <div class="mobile-header-menu-fullwidth mb-20 d-block d-lg-none">
@@ -137,7 +137,7 @@
             </div>
         </div>
         <!-- MOBILE MENU END -->
-        
+
         <!-- header-bottom-area start -->
         <div class="header-bottom-area ltn__border-top--- ltn__header-sticky  ltn__sticky-bg-white ltn__primary-bg---- menu-color-white---- d-none--- d-lg-block">
             <div class="container-fluid">
@@ -150,22 +150,22 @@
                                         <ul>
                                             <li><a style="background: none !important;" href="/" class="poppins-thin">Home</a></li>
                                             @foreach ($menu_categories as $key => $val)
-                                                <li class=""><a style="background: none !important;" href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
-                                                    <ul class="mega-menu">
-                                                        @foreach($val['subcategory'] as $key1 => $val1)
-                                                            <li><a  class="poppins-thin cat-head-main" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
-                                                                <ul>
-                                                                    @foreach($val1['child_categories'] as $key2 => $val2)
-                                                                    <li><a style="font-size:12px; background-color:#b8c9ce8f;"  class="poppins-thin sub-back" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                </li>
+                                            <li class=""><a style="background: none !important;" href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
+                                                <ul class="mega-menu">
+                                                    @foreach($val['subcategory'] as $key1 => $val1)
+                                                    <li><a class="poppins-thin cat-head-main" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
+                                                        <ul>
+                                                            @foreach($val1['child_categories'] as $key2 => $val2)
+                                                            <li><a style="font-size:12px; background-color:#b8c9ce8f;" class="poppins-thin sub-back" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
                                             @endforeach
-                                            <li><a style="background: none !important;" href="/work"  class="poppins-thin">How it work</a></li>
-                                            <li><a style="background: none !important;" href="/help"  class="poppins-thin">Help</a></li>
+                                            <li><a style="background: none !important;" href="/work" class="poppins-thin">How it work</a></li>
+                                            <li><a style="background: none !important;" href="/help" class="poppins-thin">Help</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -185,9 +185,9 @@
                         <div class="ltn__top-bar-menu">
                             <ul>
                                 <li><a href="#" class="text-white font-weight-400"><i class="fas fa-plus"></i><strong class="font-bold">Regulated</strong> Pharmacy </a></li>
-                                <li><a href="#"  class="text-white"><i class="fas fa-box"></i><span class="text-black"><strong class="font-bold">Discreet</strong> Packaging </span></a></li>
-                                <li><a href="#"  class="text-white"><i class="fas fa-truck"></i><span class="text-black"> <strong class="font-bold">Free Delivery</strong> on orders over £40* </span></a></li>
-                                <li><a href="#"  class="text-white">Excellent<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i><strong>4.4</strong> based on <strong>1,421</strong> reviews</a></li>
+                                <li><a href="#" class="text-white"><i class="fas fa-box"></i><span class="text-black"><strong class="font-bold">Discreet</strong> Packaging </span></a></li>
+                                <li><a href="#" class="text-white"><i class="fas fa-truck"></i><span class="text-black"> <strong class="font-bold">Free Delivery</strong> on orders over £40* </span></a></li>
+                                <li><a href="#" class="text-white">Excellent<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i><strong>4.4</strong> based on <strong>1,421</strong> reviews</a></li>
                         </div>
                     </div>
                 </div>
@@ -205,18 +205,18 @@
             </div>
             <div class="mini-cart-product-area ltn__scrollbar">
                 @if(!empty(Cart::content()))
-                    @foreach(Cart::content() as $item)
-                        <div class="mini-cart-item clearfix">
-                            <div class="mini-cart-img">
-                                <a href="#"><img src="{{ asset('storage/'.$item->options->productImage)}}" alt="Image"></a>
-                                <span class="mini-cart-item-delete"><a href="javascript:void(0)" onclick="deleteItem('{{$item->rowId}}', true);"><i class="icon-cancel"></i></a></span>
-                            </div>
-                            <div class="mini-cart-info">
-                                <h6><a href="#">{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!} </a></h6>
-                                <span class="mini-cart-quantity">{{ $item->qty }} x {{ $item->price}}</span>
-                            </div>
-                        </div>
-                    @endforeach
+                @foreach(Cart::content() as $item)
+                <div class="mini-cart-item clearfix">
+                    <div class="mini-cart-img">
+                        <a href="#"><img src="{{ asset('storage/'.$item->options->productImage)}}" alt="Image"></a>
+                        <span class="mini-cart-item-delete"><a href="javascript:void(0)" onclick="deleteItem('{{$item->rowId}}', true);"><i class="icon-cancel"></i></a></span>
+                    </div>
+                    <div class="mini-cart-info">
+                        <h6><a href="#">{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!} </a></h6>
+                        <span class="mini-cart-quantity">{{ $item->qty }} x {{ $item->price}}</span>
+                    </div>
+                </div>
+                @endforeach
                 @endif
             </div>
             <div class="mini-cart-footer">
@@ -234,6 +234,121 @@
     </div>
     <!-- Utilize Cart Menu End -->
 
+    <style>
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .icon {
+            display: none;
+        }
+
+        .menu {
+            width: 0;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: width 0.5s ease;
+            padding-top: 60px;
+        }
+
+        .menu a {
+            padding: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+
+        .menu a span {
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu a:hover {
+            background-color: #555;
+        }
+
+        .menu.show {
+            width: 200px;
+        }
+
+        .submenu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: -200px;
+            background-color: #333;
+            width: 200px;
+            padding-top: 60px;
+            transition: left 0.5s ease;
+        }
+
+        .submenu.show {
+            display: block;
+            left: 0;
+        }
+
+        .submenu .closebtn {
+            padding: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            text-align: right;
+        }
+
+        .subchild {
+            padding-left: 20px;
+            display: none;
+        }
+
+        .subchild.show {
+            display: block;
+        }
+
+        .icon i {
+            display: none;
+        }
+
+        .plus-minus-icon i {
+            margin-right: 5px;
+            font-size: 11px;
+        }
+
+        .plus-icon:before {
+            content: "\f054";
+        }
+
+        .minus-icon:before {
+            content: "\f107";
+        }
+
+        @media only screen and (max-width:500px) {
+            .icon i {
+                display: block !important;
+            }
+
+            #myNavbar .mobile {
+                display: none;
+            }
+        }
+    </style>
+
     <!-- Utilize Mobile Menu Start -->
     <div id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
         <div class="ltn__utilize-menu-inner ltn__scrollbar">
@@ -250,26 +365,37 @@
                 </form>
             </div>
             <div class="ltn__utilize-menu">
-                <ul>
-                    <li><a href="/">Home</a></li>
+                <div class="navbar" id="myNavbar">
+                    <a href="/" class="active">Home</a>
+                    <a href="#" class="mobile">About</a>
+                    <a href="#" class="mobile">Services</a>
+                    <a href="#" class="mobile">Contact</a>
+                    <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+
+                <div class="menu" id="myMenu">
+                    <a href="#" class="closebtn" onclick="toggleMenu()">&times; Close</a>
                     @foreach ($menu_categories as $key => $val)
-                        <li class=""><a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">{{$val['name']}}</a>
-                            <ul class="sub-menu">
-                                @foreach($val['subcategory'] as $key1 => $val1)
-                                    <li><a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{$val1['name']}}</a>
-                                        <ul class="sub-menu">
-                                            @foreach($val1['child_categories'] as $key2 => $val2)
-                                                <li><a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{$val2['name']}}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
+                    <a href="{{ route('category.products', ['main_category' => $val['slug']]) }}" onclick="toggleSubMenu(1)">
+                        <span class="plus-minus-icon"> {{$val['name']}}<i class="fa plus-icon"></i></span>
+                    </a>
+                    @foreach($val['subcategory'] as $key1 => $val1)
+                    <div class="submenu" id="mySubMenu1">
+                        <a href="#" class="closebtn" onclick="toggleSubMenu(1)">&times; Close</a>
+                        <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}" onclick="toggleSubChild(1, 1)">
+                            <span class="plus-minus-icon">{{$val1['name']}}<i class="fa plus-icon"></i></span>
+                        </a>
+                        @foreach($val1['child_categories'] as $key2 => $val2)
+                        <div class="subchild" id="subChild1_1">
+                            <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{$val2['name']}}</a>
+                        </div>
+                        @endforeach
+                    </div>
                     @endforeach
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+                    @endforeach
+                </div>
             </div>
             <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
                 <ul>
@@ -304,4 +430,37 @@
     </div>
     <!-- Utilize Mobile Menu End -->
 
+    <script>
+        function toggleMenu() {
+            document.getElementById("myMenu").classList.toggle("show");
+        }
 
+        function toggleSubMenu(submenuNumber) {
+            var submenuId = "mySubMenu" + submenuNumber;
+            var allSubmenus = document.getElementsByClassName("submenu");
+            for (var i = 0; i < allSubmenus.length; i++) {
+                if (allSubmenus[i].id === submenuId) {
+                    allSubmenus[i].classList.toggle("show");
+                    var plusMinusIcon = allSubmenus[i].previousElementSibling.querySelector(".plus-minus-icon i");
+                    plusMinusIcon.classList.toggle("plus-icon");
+                    plusMinusIcon.classList.toggle("minus-icon");
+                } else {
+                    allSubmenus[i].classList.remove("show");
+                    var plusIcon = allSubmenus[i].previousElementSibling.querySelector(".plus-minus-icon i");
+                    if (plusIcon.classList.contains("minus-icon")) {
+                        plusIcon.classList.remove("minus-icon");
+                        plusIcon.classList.add("plus-icon");
+                    }
+                }
+            }
+        }
+
+        function toggleSubChild(submenuNumber, subchildNumber) {
+            var subchildId = "subChild" + submenuNumber + "_" + subchildNumber;
+            var subchild = document.getElementById(subchildId);
+            subchild.classList.toggle("show");
+            var plusMinusIcon = subchild.previousElementSibling.querySelector(".plus-minus-icon i");
+            plusMinusIcon.classList.toggle("plus-icon");
+            plusMinusIcon.classList.toggle("minus-icon");
+        }
+    </script>

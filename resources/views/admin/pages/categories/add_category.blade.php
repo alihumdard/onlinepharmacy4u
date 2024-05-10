@@ -5,7 +5,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>{{ $title }}</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |  {{ $title }}</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -20,7 +20,6 @@
             <div class="col-lg-12">
 
                 @if (isset($category))
-                    <h6 class="text-danger fw-bold">Reminder: When switching category types(selection), remember to select "Change Type to Different".</h6>
                     <h6 class="text-danger fw-bold">Reminder: Changing the category type will also update all associated products to the new category.</h6>
                     <h6 class="text-danger fw-bold">Important: Once changed, there is no way to revert back.</h6>
                 @endif

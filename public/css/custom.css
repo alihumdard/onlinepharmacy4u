@@ -925,6 +925,9 @@ margin-bottom: 20px !important;
 .mobile-slider{
     display: none !important;
 }
+.mobile-slider .ltn__slide-item {
+    background-size: contain !important;
+}
 .mobile-logo{
     display: none !important;
 }
@@ -959,4 +962,7 @@ margin-bottom: 20px !important;
     font-size: 14px;
     border-radius: 30px;
     text-align: center;
+}
+.ltn__login-area{
+    background: #00c4a375;
 }

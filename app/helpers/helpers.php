@@ -87,6 +87,7 @@ function view_permission($page_name)
                 case 'orders':
                 case 'consultation_view':
                 case 'orders_shipped':
+                case 'orders_refunded':
                 case 'orders_audit':
                 case 'gpa_letters':
                 case 'orders_recieved':
@@ -111,6 +112,7 @@ function view_permission($page_name)
         case 'Dispensary':
             switch ($page_name) {
                 case 'dashboard':
+                case 'gpa_letters':
                 case 'orders':
                 case 'dispensary_approval':
                 case 'orders_shipped':

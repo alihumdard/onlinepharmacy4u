@@ -1424,7 +1424,7 @@ class SystemController extends Controller
                     }
                 }
                 $data['order_user_detail'] =  ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
-                $data['user_profile_details'] = ($data['order_user_detail']['user_id'] ?? null) ? User::findOrFail($data['order_user_detail']['user_id']) : [];
+                $data['user_profile_details'] =  (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [] ;
                 $data['generic_consultation'] = $user_result;
                 $data['product_consultation'] = $prod_result ?? [];
                 return view('admin.pages.consultation_view', $data);
@@ -1457,6 +1457,29 @@ class SystemController extends Controller
         }
 
         return view('admin.pages.orders_recieved', $data);
+    }
+
+    public function orders_refunded()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'orders_refunded';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Refund'])->latest('created_at')->get()->toArray();
+        if ($orders) {
+            $emails = array_unique(Arr::pluck($orders, 'email'));
+            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
+                ->whereIn('email', $emails)
+                ->where('status', 'Paid')
+                ->groupBy('email')
+                ->get()
+                ->toArray();
+            $data['order_history'] = $userOrdersData;
+            $data['orders'] = $orders;
+        }
+
+        return view('admin.pages.orders_refunded', $data);
     }
 
     public function doctors_approval()
@@ -1586,15 +1609,16 @@ class SystemController extends Controller
         $validatedData = $request->validate([
             'id' => 'required|exists:orders,id',
             'status' => 'required',
-            'hcp_remarks' => 'required',
         ]);
 
         $order = Order::findOrFail($validatedData['id']);
         $order->status = $validatedData['status'];
-        $order->hcp_remarks = $validatedData['hcp_remarks'];
+        $order->hcp_remarks = $validatedData['hcp_remarks'] ?? null;
         $update = $order->save();
         if ($update) {
-            return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])]);
+            $msg = 'Order is '.$validatedData['status'];
+            $status = 'success';
+            return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $status)->with('msg', $msg);
         }
         return redirect()->back();
     }

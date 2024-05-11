@@ -129,6 +129,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'orders':
+                case 'gpa_letters':
                 case 'consultation_view':
                 case 'doctors_approval':
                 case 'contact':

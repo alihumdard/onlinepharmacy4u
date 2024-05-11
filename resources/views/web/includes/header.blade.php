@@ -117,24 +117,82 @@
 
 
         <!-- MOBILE MENU START -->
-        <div class="mobile-header-menu-fullwidth mb-20 d-block d-lg-none">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <!-- Mobile Menu Button -->
-                        <div class="mobile-menu-toggle d-lg-none">
-                            <span>MENU</span>
-                            <a href="#ltn__utilize-mobile-menu" class="ltn__utilize-toggle">
-                                <svg viewBox="0 0 800 600">
-                                    <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"></path>
-                                    <path d="M300,320 L540,320" id="middle"></path>
-                                    <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
+        <div class="mobile-res-secton" style="background: #b2e0eb !important; padding: 10px;">
+            <div class="mobile-bav-here">
+                <div class="navbar" id="myNavbar">
+                    <a href="#" class="active">Home</a>
+                    <a href="#" class="mobile">About</a>
+                    <a href="#" class="mobile">Services</a>
+                    <a href="#" class="mobile">Contact</a>
+                    <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+                        <i class="fa fa-bars"></i>
+                    </a>
                 </div>
             </div>
+
+            <div class="menu px-3 py-4" id="myMenu">
+                <a href="#" class="closebtn" onclick="toggleMenu()"><i class="fa fa-times" aria-hidden="true"></i> Back</a>
+                <div class="search-container">
+                    <input type="text" placeholder="Search...">
+                    <i class="icon-search"></i>
+                </div>
+                @foreach ($menu_categories as $key => $val)
+                <div style="display: flex !important; justify-content: space-between;align-items: center; padding:5px 10px;">
+                <a href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">
+                    <span class="plus-minus-icon">{{ $val['name'] }}</span>
+                </a><i class="fa plus-icon" onclick="toggleSubMenu(1)"></i>
+                </div>
+                
+                <div class="submenu" id="mySubMenu1">
+                    <a href="#" class="closebtn" onclick="toggleSubMenu(1)"><i class="fa fa-times" aria-hidden="true"></i> Back</a>
+                    @foreach($val['subcategory'] as $key1 => $val1)
+                   <div style="display: flex !important; justify-content: space-between;align-items: center; padding:5px 10px;">
+                   <a href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
+                        <span class="plus-minus-icon">{{ $val1['name'] }}</span>
+                    </a>
+                    <i class="fa plus-icon" onclick="toggleSubChild(1, 1)"></i>
+                   </div>
+                    <div class="subchild" id="subChild1_1">
+                        @foreach($val1['child_categories'] as $key2 => $val2)
+                        <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a>
+                        @endforeach
+                    </div>
+                    @endforeach
+                </div>
+                @endforeach
+
+                <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
+                    <ul>
+                        <li>
+                            <a href="account.html" title="My Account">
+                                <span class="utilize-btn-icon">
+                                    <i class="far fa-user"></i>
+                                </span>
+                                My Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('web.view.cart')}}" title="Shoping Cart">
+                                <span class="utilize-btn-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <sup>5</sup>
+                                </span>
+                                Shoping Cart
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ltn__social-media-2">
+                    <ul>
+                        <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+
         </div>
         <!-- MOBILE MENU END -->
 
@@ -235,18 +293,56 @@
     <!-- Utilize Cart Menu End -->
 
     <style>
+        .mobile-res-secton {
+            display: none !important;
+        }
+
         .navbar {
-            background-color: #333;
+            /* background-color: #333; */
             overflow: hidden;
+            border: 1px solid #b8acac;
+            max-width: 90%;
+            margin: 0 auto;
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 !important;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 85%;
+            margin: 0 auto;
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 14px;
+            top: 18px;
+            font-size: 16px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0px 0px 0px 0px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 12px;
+            box-sizing: border-box;
+            height: 46px;
+            margin: 0 !important;
+            position: relative;
+            border-radius: 50px;
         }
 
         .navbar a {
             float: left;
             display: block;
-            color: white;
+            color: gray;
             text-align: center;
             padding: 14px 20px;
             text-decoration: none;
+            font-size: 18px;
         }
 
         .icon {
@@ -258,49 +354,73 @@
             height: 100%;
             position: fixed;
             top: 0;
-            left: 0;
-            background-color: #333;
+            left: -34px;
+            background-color: #577BBF;
             overflow-x: hidden;
             transition: width 0.5s ease;
             padding-top: 60px;
         }
 
         .menu a {
-            padding: 10px;
+            /* padding: 10px; */
             text-decoration: none;
             font-size: 18px;
-            color: white;
+            color: #fff;
             display: block;
+            margin-right: 25px;
         }
 
         .menu a span {
             justify-content: space-between;
             display: flex;
             align-items: center;
+            font-size: 16px;
         }
 
         .menu a:hover {
-            background-color: #555;
+            background-color: #1AA7C0;
+            color: #fff;
         }
 
         .menu.show {
-            width: 200px;
+            width: 290px;
+            box-shadow: 5px 0px 15px 5px gray;
+            left: 0px;
         }
+
 
         .submenu {
             display: none;
             position: fixed;
             top: 0;
-            left: -200px;
-            background-color: #333;
-            width: 200px;
+            left: 0;
+            transform: translateX(-100%);
+            /* Initially off-screen to the left */
+            background-color: #4D72B7;
+            width: 260px;
+            /* Set initial width */
             padding-top: 60px;
-            transition: left 0.5s ease;
+            transition: transform 0.5s ease, width 0.5s ease;
+            /* Transition transform and width */
+            transition-delay: 0.5s;
+            /* Delay transition */
+            height: 100%;
         }
 
         .submenu.show {
             display: block;
-            left: 0;
+            transform: translateX(0);
+            /* Move into view from the left */
+            width: 260px;
+            /* Adjust width to desired size */
+            box-shadow: 5px 0px 15px 5px #babbca;
+            z-index: 99;
+        }
+
+
+        .submenu.show a {
+            color: #fff;
+            font-size: 16px;
         }
 
         .submenu .closebtn {
@@ -338,7 +458,53 @@
             content: "\f107";
         }
 
+        .main-mobile-res {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .mobile-logo-icon ul li {
+            list-style: none;
+            padding: 0 10px;
+        }
+
+        .mobile-logo-icon ul {
+            display: flex;
+            padding: 0 15px;
+        }
+
+        #myNavbar .mobile {
+            display: none;
+        }
+
+        .ltn__social-media-2 ul li a {
+            background-color: var(--section-bg-1);
+            color: var(--ltn__paragraph-color);
+            display: block;
+            width: 34px !important;
+            height: 34px !important;
+            line-height: 35px !important;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .ltn__utilize-buttons .utilize-btn-icon {
+            width: 42px !important;
+            display: inline-block;
+            height: 42px !important;
+            border: 2px solid var(--border-color-1);
+            line-height: 43px !important;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+
         @media only screen and (max-width:500px) {
+            .mobile-res-secton {
+                display: block !important;
+            }
+
             .icon i {
                 display: block !important;
             }
@@ -366,10 +532,10 @@
             </div>
             <div class="ltn__utilize-menu">
                 <div class="navbar" id="myNavbar">
-                    <a href="/" class="active">Home</a>
-                    <a href="#" class="mobile">About</a>
+                    <a href="/" class="active">Menu</a>
+                    <!-- <a href="#" class="mobile">About</a>
                     <a href="#" class="mobile">Services</a>
-                    <a href="#" class="mobile">Contact</a>
+                    <a href="#" class="mobile">Contact</a> -->
                     <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
                         <i class="fa fa-bars"></i>
                     </a>
@@ -378,15 +544,23 @@
                 <div class="menu" id="myMenu">
                     <a href="#" class="closebtn" onclick="toggleMenu()">&times; Close</a>
                     @foreach ($menu_categories as $key => $val)
-                    <a href="{{ route('category.products', ['main_category' => $val['slug']]) }}" onclick="toggleSubMenu(1)">
-                        <span class="plus-minus-icon"> {{$val['name']}}<i class="fa plus-icon"></i></span>
-                    </a>
+                    <div class="d-flex for-mob">
+                        <a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">
+                            <span class="plus-minus-icon"> {{$val['name']}}</span>
+                        </a>
+                        <i onclick="toggleSubMenu(1)" class="fa plus-icon"></i>
+                    </div>
+
                     @foreach($val['subcategory'] as $key1 => $val1)
                     <div class="submenu" id="mySubMenu1">
                         <a href="#" class="closebtn" onclick="toggleSubMenu(1)">&times; Close</a>
-                        <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}" onclick="toggleSubChild(1, 1)">
-                            <span class="plus-minus-icon">{{$val1['name']}}<i class="fa plus-icon"></i></span>
-                        </a>
+                        <div class="d-flex for-mob">
+                            <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
+                                <span class="plus-minus-icon">{{$val1['name']}}</span>
+                            </a>
+                            <i onclick="toggleSubChild(1, 1)" class="fa plus-icon"></i>
+                        </div>
+
                         @foreach($val1['child_categories'] as $key2 => $val2)
                         <div class="subchild" id="subChild1_1">
                             <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{$val2['name']}}</a>

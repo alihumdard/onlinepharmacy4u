@@ -182,10 +182,11 @@
                         </div>
                         <div class="mt-3 mb-0">
                             <label for="quest_3" class="form-label">Additional Details:</label>
-                            <textarea class="form-control" name="quest_3" id="quest_3" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            <textarea class="form-control" name="quest_3" id="quest_3" rows="7" style="height: 135px; border-radius:15px; " placeholder="medicine be used for write here" required=''></textarea>
                         </div>
                     </div>
 
+                    
                     <div class="form-group px-4 question" id="question_3" style="display:none;">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[3]['title'] ?? '' }}</p>
@@ -196,15 +197,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" id="question_4" style="display:none;">
-                        <div class="d-flex align-items-start">
-                            <p class="me-auto " style="font-weight: 400;">{{$questions[4]['title'] ?? '' }}</p>
-                            <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_5" class="btn-radio" value="Yes" data-label="Yes" required>
-                            </label>
-                            <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_5" class="btn-radio" value="No" data-label="No" required>
-                            </label>
+                    <div class="form-group px-4 question" id="question_4" style="display:none;">
+                        <div class="d-flex align-items-center">
+                            <p class="m-0 fw-bold">{{$questions[4]['title'] ?? '' }}</p>
+                        </div>
+                        <div class="mt-3 mb-0">
+                            <label for="quest_6" class="form-label">Additional Details:</label>
+                            <textarea class="form-control" name="quest_5" id="quest_5" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
                         </div>
                     </div>
 
@@ -224,32 +223,44 @@
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$questions[6]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_7" class="btn-radio " value="Yes" data-label="Yes" required>
+                                <input type="radio" name="quest_7" class="btn-radio" value="Yes" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_7" class="btn-radio " value="No" data-label="No" required>
+                                <input type="radio" name="quest_7" class="btn-radio" value="No" data-label="No" required>
                             </label>
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question " id="question_7">
+                    <div class="form-group px-3 question" id="question_7" style="display:none;">
+                        <div class="d-flex align-items-start">
+                            <p class="me-auto " style="font-weight: 400;">{{$questions[7]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_8" class="btn-radio " value="Yes" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_8" class="btn-radio " value="No" data-label="No" required>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group px-4 question " id="question_8">
                         <div class="d-flex align-items-center">
-                            <p class="m-0 fw-bold">{{$questions[7]['title'] ?? '' }}</p>
+                            <p class="m-0 fw-bold">{{$questions[8]['title'] ?? '' }}</p>
                         </div>
                         <div class="mt-3 mb-0 ">
-                            <label for="quest_8" class="form-label">Additional Details:</label>
-                            <textarea class="form-control" id="quest_8" name="quest_8" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            <label for="quest_9" class="form-label">Additional Details:</label>
+                            <textarea class="form-control" id="quest_9" name="quest_9" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
                         </div>
                     </div>
 
                     <div class="form-group px-3 question" style="display:none;">
                         <div class="d-flex align-items-start">
-                            <p class="me-auto " style="font-weight: 400;">{{$questions[8]['title'] ?? '' }}</p>
+                            <p class="me-auto " style="font-weight: 400;">{{$questions[9]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_9" class="btn-radio" value="Yes" data-label="Yes" required>
+                                <input type="radio" name="quest_10" class="btn-radio" value="Yes" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_9" class="btn-radio" value="No" data-label="No" required>
+                                <input type="radio" name="quest_10" class="btn-radio" value="No" data-label="No" required>
                             </label>
                         </div>
                     </div>
@@ -257,10 +268,10 @@
                     <div class="form-group px-3 question" style="display:none;">
                         <div class="d-flex align-items-start">
                             <div>
-                                <lable for="quest_10" class="me-auto " style="font-weight: 400;">{!! $questions[9]['title'] ?? '' !!}</lable>
+                                <lable for="quest_10" class="me-auto " style="font-weight: 400;">{!! $questions[10]['title'] ?? '' !!}</lable>
                             </div>
                             <div>
-                                <input class="custom-checkbox" id="quest_10" name="quest_10" type="checkbox" value="agreed" required>
+                                <input class="custom-checkbox" id="quest_11" name="quest_11" type="checkbox" value="agreed" required>
                             </div>
                         </div>
                     </div>
@@ -398,9 +409,9 @@
 
         $("input[name='quest_7']").change(function() {
             if ($(this).val() == 'Yes') {
-                $("#question_7").slideDown('fast');;
+                $("#question_8").slideDown('fast');;
             } else {
-                $("#question_7").slideUp('fast');
+                $("#question_8").slideUp('fast');
                 $("#quest_8").val(""); 
             }
         });

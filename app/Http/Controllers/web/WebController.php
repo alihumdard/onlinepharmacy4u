@@ -65,9 +65,12 @@ use SebastianBergmann\Type\NullType;
 class WebController extends Controller
 {
     private $menu_categories;
+    protected $status;
 
     public function __construct()
     {
+        $this->status = config('constants.STATUS');
+
         $this->menu_categories = Category::where('status', 'Active')
             ->with(['subcategory' => function ($query) {
                 $query->where('status', 'Active')
@@ -124,16 +127,16 @@ class WebController extends Controller
 
         switch ($level) {
             case 'main':
-                $products = Product::where(['category_id' => $category_detail->id])->paginate(20);
+                $products = Product::where(['status' => $this->status['Active'],'category_id' => $category_detail->id])->paginate(20);
                 break;
             case 'sub':
-                $products = Product::where(['sub_category' => $category_detail->id])->paginate(20);
+                $products = Product::where(['status' => $this->status['Active'], 'sub_category' => $category_detail->id])->paginate(20);
                 break;
             case 'child':
-                $products = Product::where(['child_category' => $category_detail->id])->paginate(20);
+                $products = Product::where(['status' => $this->status['Active'], 'child_category' => $category_detail->id])->paginate(20);
                 break;
             default:
-                $query = Product::query();
+                $query = Product::query()->where('status', $this->status['Active']);
                 if ($request->has('sort')) {
                     if ($request->sort === 'price_low_high') {
                         $query->orderBy('price');
@@ -197,16 +200,16 @@ class WebController extends Controller
         if($category_detail){
             switch ($level) {
                 case 'main':
-                    $products = Product::where(['category_id' => $category_detail->id])->paginate(28);
+                    $products = Product::where(['status' => $this->status['Active'],'category_id' => $category_detail->id])->paginate(28);
                     break;
                 case 'sub':
-                    $products = Product::where(['sub_category' => $category_detail->id])->paginate(28);
+                    $products = Product::where(['status' => $this->status['Active'], 'sub_category' => $category_detail->id])->paginate(28);
                     break;
                 case 'child':
-                    $products = Product::where(['child_category' => $category_detail->id])->paginate(28);
+                    $products = Product::where(['status' => $this->status['Active'],'child_category' => $category_detail->id])->paginate(28);
                     break;
                 default:
-                    $products = Product::paginate(28);
+                $products = Product::where('status', $this->status['Active'])->paginate(28);
             }
     
             $data['products'] = $products;
@@ -234,7 +237,7 @@ class WebController extends Controller
         session()->forget('pro_id');
         $cat_id = $request->input('cat_id') ?? NULL;
         $data['user'] = auth()->user() ?? [];
-        $query = Product::with('category:id,name')->latest('id');
+        $query = Product::with('category:id,name')->where('status', $this->status['Active'])->latest('id');
         if ($cat_id) {
             $query->where('category_id', $cat_id);
         }
@@ -249,7 +252,7 @@ class WebController extends Controller
     {
         $data['user'] = auth()->user() ?? [];
         // $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
-        $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->where('slug', $slug)->firstOrFail();
+        $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->where('slug', $slug)->where('status', $this->status['Active'])->firstOrFail();
         $variants = $data['product']['variants']->toArray() ?? [];
         if ($variants) {
             $variants_tags = [];
@@ -382,7 +385,7 @@ class WebController extends Controller
             $consultationData = ['type' => 'pmd', 'product_id' => $request->product_id, 'gen_quest_ans' => $questionAnswers, 'pro_quest_ans' => ''];
         } else {
             $product_ids = explode(',', $request->product_id);
-            $category = Product::with('category', 'sub_cat', 'child_cat')->find($product_ids[0]);
+            $category = Product::with('category', 'sub_cat', 'child_cat')->where('status', $this->status['Active'])->find($product_ids[0]);
             $slug = ['main_category' => $category->category->slug, 'sub_category' => $category->sub_cat->slug ?? null, 'child_category' => $category->child_cat->slug ?? null];
             $consultationData = ['type' => 'premd', 'product_id' => $request->product_id, 'slug' => $slug, 'gen_quest_ans' => $questionAnswers, 'pro_quest_ans' => ''];
         }
@@ -575,7 +578,7 @@ class WebController extends Controller
         }
 
         if($category_id || $sub_category_id || $child_category_id){
-            $query = Product::query();
+            $query = Product::query()->where('status', $this->status['Active']);
             switch ($level) {
                 case 'main':
                     $data['main_category'] = Category::where(['slug' => $category, 'status' => 'Active'])->first();
@@ -604,7 +607,7 @@ class WebController extends Controller
                     $data['is_product'] = true;
                     break;
                 default:
-                    $products = Product::paginate(21);
+                $products = Product::where('status', $this->status['Active'])->paginate(21);
             }
 
             if ($request->has('sort')) {
@@ -666,7 +669,7 @@ class WebController extends Controller
     {
         $data['user'] = auth()->user() ?? [];
         $sub_category_id = SubCategory::where('slug', 'skin-care')->first()->id;
-        $data['products'] = Product::where(['sub_category' => $sub_category_id])->get();
+        $data['products'] = Product::where(['sub_category' => $sub_category_id, 'status' => $this->status['Active']])->get();
         return view('web.pages.skincare', $data);
     }
 
@@ -674,7 +677,7 @@ class WebController extends Controller
     {
         $data['user'] = auth()->user() ?? [];
         $sub_category_id = SubCategory::where('slug', 'diabetes')->first()->id;
-        $data['products'] = Product::where(['sub_category' => $sub_category_id])->get();
+        $data['products'] = Product::where(['sub_category' => $sub_category_id])->where('status', $this->status['Active'])->get();
         return view('web.pages.diabetes', $data);
     }
 
@@ -682,7 +685,7 @@ class WebController extends Controller
     {
         $data['user'] = auth()->user() ?? [];
         $sub_category_id = SubCategory::where('slug', 'sleep')->first()->id;
-        $data['products'] = Product::where(['sub_category' => $sub_category_id])->get();
+        $data['products'] = Product::where('sub_category', $sub_category_id)->where('status', $this->status['Active'])->get();
         return view('web.pages.sleep', $data);
     }
 
@@ -928,16 +931,16 @@ class WebController extends Controller
 
         switch ($level) {
             case 'main':
-                $products = Product::where(['category_id' => $category])->where('id', '!=', $product->id)->latest('id')->get();
+                $products = Product::where(['status' => $this->status['Active'],'category_id' => $category])->where('id', '!=', $product->id)->latest('id')->get();
                 break;
             case 'sub':
-                $products = Product::where(['sub_category' => $sub_category])->where('id', '!=',  $product->id)->latest('id')->get();
+                $products = Product::where(['status' => $this->status['Active'],'sub_category' => $sub_category])->where('id', '!=',  $product->id)->latest('id')->get();
                 break;
             case 'child':
-                $products = Product::where(['child_category' => $child_category])->where('id', '!=', $product->id)->latest('id')->get();
+                $products = Product::where(['status' => $this->status['Active'],'child_category' => $child_category])->where('id', '!=', $product->id)->latest('id')->get();
                 break;
             default:
-                $products = Product::get();
+                $products = Product::where(['status' => $this->status['Active']])->get();
         }
 
         return $products ?? NULL;
@@ -980,7 +983,7 @@ class WebController extends Controller
         $subCategory_id = SubCategory::where('name', 'like', '%' . $data['string'] . '%')->pluck('id');
         $childCategory_id = ChildCategory::where('name', 'like', '%' . $data['string'] . '%')->pluck('id');
 
-        $data['products'] = Product::where('title', 'like', '%' . $data['string'] . '%')
+        $data['products'] = Product::where(['status' => $this->status['Active']])->where('title', 'like', '%' . $data['string'] . '%')
             ->when(!$category_id->isEmpty(), function ($query) use ($category_id) {
                 $query->orWhereIn('category_id', $category_id);
             })
@@ -1010,7 +1013,7 @@ class WebController extends Controller
 
         $letters = $request->t ? $ranges[$request->t] : $ranges['a-e'];
 
-        $data['products'] = Product::where(function ($query) use ($letters) {
+        $data['products'] = Product::where(['status' => $this->status['Active']])->where(function ($query) use ($letters) {
             foreach ($letters as $letter) {
                 $query->orWhere('title', 'like', $letter . '%');
             }
@@ -1077,7 +1080,7 @@ class WebController extends Controller
     public function generate_slug_existing()
     {
         // generate slugs for existing products
-        $needSlugs = Product::where('slug', null)->get();
+        $needSlugs = Product::where(['status' => $this->status['Active']])->where('slug', null)->get();
 
         foreach ($needSlugs as $slug) {
             $slug->update([

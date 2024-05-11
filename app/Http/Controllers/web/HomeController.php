@@ -33,9 +33,11 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class HomeController extends Controller
 {
     private $menu_categories;
-
+    protected $status;
+    
     public function __construct()
     {
+        $this->status = config('constants.STATUS');
         $this->menu_categories = Category::where('status', 'Active')
             ->with(['subcategory' => function ($query) {
                 $query->where('status', 'Active')
@@ -55,7 +57,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
-        $data['products'] = Product::latest()->take(6)->get();
+        $data['products'] = Product::where(['status' => $this->status['Active']])->latest()->take(6)->get();
         return view('web.pages.home', $data);
     }
     public function questions_preview(Request $request)

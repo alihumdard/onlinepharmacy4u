@@ -31,48 +31,54 @@ return [
         ],
         [
             'id' => 3,
-            'title' => 'What will this medicine be used for?',
+            'title' => 'What is the age of the person who is going to be taking this medication ?',
             'desc' => '',
             'order' => '3',
         ],
         [
             'id' => 4,
-            'title' => 'How long have the symptoms been present?',
+            'title' => 'What will this medicine be used for?',
             'desc' => '',
             'order' => '4',
         ],
         [
             'id' => 5,
-            'title' => 'Have any medicine been already taken to treat these symptoms?',
+            'title' => 'How long have the symptoms been present?',
             'desc' => '',
             'order' => '5',
         ],
         [
             'id' => 6,
-            'title' => 'Does the person who will use this medicine have any medical conditions?',
+            'title' => 'Have any medicine been already taken to treat these symptoms?',
             'desc' => '',
             'order' => '6',
         ],
         [
             'id' => 7,
-            'title' => 'Is the person who will use this medicine currently taking any medication?',
+            'title' => 'Does the person who will use this medicine have any medical conditions?',
             'desc' => '',
             'order' => '7',
-        ],        [
+        ],
+        [
             'id' => 8,
-            'title' => 'Do you have any questions or concerns about this medicine that you would like to make the pharmacy team aware of?',
+            'title' => 'Is the person who will use this medicine currently taking any medication?',
             'desc' => '',
             'order' => '8',
         ],        [
             'id' => 9,
-            'title' => 'Have you read the information on the product page and will you read the Patient Information Leafiet before taking the medicine?',
+            'title' => 'Do you have any questions or concerns about this medicine that you would like to make the pharmacy team aware of?',
             'desc' => '',
             'order' => '9',
         ],        [
             'id' => 10,
-            'title' => 'This medicine should only be used for short term relief.If your symptoms persist you should  consult your GP.By confirming below, you are stating that you understand this medicine is for short term use only.',
+            'title' => 'Have you read the information on the product page and will you read the Patient Information Leafiet before taking the medicine?',
             'desc' => '',
             'order' => '10',
+        ],        [
+            'id' => 11,
+            'title' => 'This medicine should only be used for short term relief.If your symptoms persist you should  consult your GP.By confirming below, you are stating that you understand this medicine is for short term use only.',
+            'desc' => '',
+            'order' => '11',
         ]
     ],
 

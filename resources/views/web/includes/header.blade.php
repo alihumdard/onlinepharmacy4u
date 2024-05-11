@@ -84,12 +84,12 @@
                                                 <a href="#" class=" poppins-thin "><i class="icon-user"></i></a>
                                                 <ul>
                                                     @if(auth()->user())
+                                                    <li><a href="{{ route('admin.index') }}">My Account</a></li>
                                                     <li><a href="/logout">Sign Out</a></li>
                                                     @else
                                                     <li><a href="/login">Sign in</a></li>
                                                     <li><a href="/register">Register</a></li>
                                                     @endif
-                                                    <li><a href="{{ route('admin.index') }}">My Account</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -115,6 +115,242 @@
         <!-- ltn__header-middle-area end -->
 
 
+        <style>
+            .mobile-res-secton {
+                display: none !important;
+            }
+
+            .navbar {
+                /* background-color: #333; */
+                overflow: hidden;
+                border: 1px solid #b8acac;
+                max-width: 90%;
+                margin: 0 auto;
+                border-radius: 50px;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 !important;
+            }
+
+            .search-container {
+                position: relative;
+                max-width: 85%;
+                margin: 0 auto;
+            }
+
+            .search-container button {
+                position: absolute;
+                right: 14px;
+                top: 9px;
+                font-size: 16px;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                padding: 0px 0px 0px 0px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 12px;
+                box-sizing: border-box;
+                height: 46px;
+                margin: 0 !important;
+                position: relative;
+                border-radius: 50px;
+                font-weight: 300;
+                color: #000;
+                opacity: 1;
+            }
+
+            .navbar a {
+                float: left;
+                display: block;
+                color: gray;
+                text-align: center;
+                padding: 14px 20px;
+                text-decoration: none;
+                font-size: 18px;
+            }
+
+            .icon {
+                display: none;
+            }
+
+            .menu {
+                width: 0;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: -34px;
+                background-color: #577BBF;
+                overflow-x: hidden;
+                transition: width 0.5s ease;
+                padding-top: 60px;
+            }
+
+            .menu a {
+                /* padding: 10px; */
+                text-decoration: none;
+                font-size: 18px;
+                color: #fff;
+                display: block;
+                margin-right: 25px;
+            }
+
+            .menu a span {
+                justify-content: space-between;
+                display: flex;
+                align-items: center;
+                font-size: 16px;
+            }
+
+            .menu a:hover {
+                background-color: #1AA7C0;
+                color: #fff;
+            }
+
+            .menu.show {
+                width: 290px;
+                box-shadow: 5px 0px 15px 5px gray;
+                left: 0px;
+                overflow-y: scroll;
+            }
+
+
+            .submenu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                transform: translateX(-100%);
+                /* Initially off-screen to the left */
+                background-color: #4D72B7;
+                width: 260px;
+                /* Set initial width */
+                padding-top: 60px;
+                transition: transform 0.5s ease, width 0.5s ease;
+                /* Transition transform and width */
+                transition-delay: 0.5s;
+                /* Delay transition */
+                height: 100%;
+            }
+
+            .submenu.show {
+                display: block;
+                transform: translateX(0);
+                /* Move into view from the left */
+                width: 260px;
+                /* Adjust width to desired size */
+                box-shadow: 5px 0px 15px 5px #babbca;
+                z-index: 99;
+                overflow-y: scroll;
+            }
+
+            .header-search-1-form button[type="submit"] {
+                top: -5px !important;
+            }
+
+            .search-open.header-search-1-form {
+                height: 45px !important;
+                border-radius: 30px;
+            }
+
+
+            .submenu.show a {
+                color: #fff;
+                font-size: 16px;
+            }
+
+            .submenu .closebtn {
+                padding: 10px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                display: block;
+                text-align: right;
+            }
+
+            .subchild {
+                padding-left: 20px;
+                display: none;
+            }
+
+            .subchild.show {
+                display: block;
+            }
+
+            .icon i {
+                display: none;
+            }
+
+            .plus-minus-icon i {
+                margin-right: 5px;
+                font-size: 11px;
+            }
+
+            .plus-icon:before {
+                content: "\f054";
+            }
+
+            .minus-icon:before {
+                content: "\f107";
+            }
+
+            .main-mobile-res {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+
+            .mobile-logo-icon ul li {
+                list-style: none;
+                padding: 0 10px;
+            }
+
+            .mobile-logo-icon ul {
+                display: flex;
+                padding: 0 15px;
+            }
+
+            #myNavbar .mobile {
+                display: none;
+            }
+
+            .ltn__social-media-2 ul li a {
+                background-color: var(--section-bg-1);
+                color: var(--ltn__paragraph-color);
+                display: block;
+                width: 34px !important;
+                height: 34px !important;
+                line-height: 35px !important;
+                text-align: center;
+                margin-right: 10px;
+            }
+
+            .ltn__utilize-buttons .utilize-btn-icon {
+                width: 42px !important;
+                display: inline-block;
+                height: 42px !important;
+                border: 2px solid var(--border-color-1);
+                line-height: 43px !important;
+                text-align: center;
+                margin-right: 10px;
+            }
+
+
+            @media only screen and (max-width:500px) {
+                .mobile-res-secton {
+                    display: block !important;
+                }
+
+                .icon i {
+                    display: block !important;
+                }
+
+                #myNavbar .mobile {
+                    display: none;
+                }
+            }
+        </style>
 
         <!-- MOBILE MENU START -->
         <div class="mobile-res-secton" style="background: #b2e0eb !important; padding: 10px;">
@@ -133,26 +369,33 @@
             <div class="menu px-3 py-4" id="myMenu">
                 <a href="#" class="closebtn" onclick="toggleMenu()"><i class="fa fa-times" aria-hidden="true"></i> Back</a>
                 <div class="search-container">
-                    <input type="text" placeholder="Search...">
-                    <i class="icon-search"></i>
+                    <form method="get" action="{{route('web.search')}}">
+                        <input type="text" name="q" value="{{ Request('q')}}" placeholder="Search...">
+                        <button type="submit" style="background:transparent;"><i class="icon-search"></i></button>
+                    </form>
                 </div>
                 @foreach ($menu_categories as $key => $val)
                 <div style="display: flex !important; justify-content: space-between;align-items: center; padding:5px 10px;">
-                <a href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">
-                    <span class="plus-minus-icon">{{ $val['name'] }}</span>
-                </a><i class="fa plus-icon" onclick="toggleSubMenu(1)"></i>
-                </div>
-                
-                <div class="submenu" id="mySubMenu1">
-                    <a href="#" class="closebtn" onclick="toggleSubMenu(1)"><i class="fa fa-times" aria-hidden="true"></i> Back</a>
-                    @foreach($val['subcategory'] as $key1 => $val1)
-                   <div style="display: flex !important; justify-content: space-between;align-items: center; padding:5px 10px;">
-                   <a href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
-                        <span class="plus-minus-icon">{{ $val1['name'] }}</span>
+                    <a href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">
+                        <span class="plus-minus-icon">{{ $val['name'] }}</span>
                     </a>
-                    <i class="fa plus-icon" onclick="toggleSubChild(1, 1)"></i>
-                   </div>
-                    <div class="subchild" id="subChild1_1">
+                    @if($val['subcategory'])
+                    <i class="fa plus-icon" onclick="toggleSubMenu({{++$key}})"></i>
+                    @endif
+                </div>
+
+                <div class="submenu" id="mySubMenu{{$key}}">
+                    <a href="#" class="closebtn" onclick="toggleSubMenu({{$key}})"><i class="fa fa-times" aria-hidden="true"></i> Back</a>
+                    @foreach($val['subcategory'] as $key1 => $val1)
+                    <div style="display: flex !important; justify-content: space-between;align-items: center; padding:5px 10px;">
+                        <a href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
+                            <span class="plus-minus-icon">{{ $val1['name'] }}</span>
+                        </a>
+                        @if($val1['child_categories'])
+                        <i class="fa plus-icon" onclick="toggleSubChild({{$key}}, {{++$key1}})"></i>
+                        @endif
+                    </div>
+                    <div class="subchild" id="subChild{{$key}}_{{$key1}}">
                         @foreach($val1['child_categories'] as $key2 => $val2)
                         <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a>
                         @endforeach
@@ -163,8 +406,9 @@
 
                 <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
                     <ul>
+
                         <li>
-                            <a href="account.html" title="My Account">
+                            <a title="My Account" href="{{ route('admin.index') }}">
                                 <span class="utilize-btn-icon">
                                     <i class="far fa-user"></i>
                                 </span>
@@ -175,7 +419,7 @@
                             <a href="{{route('web.view.cart')}}" title="Shoping Cart">
                                 <span class="utilize-btn-icon">
                                     <i class="fas fa-shopping-cart"></i>
-                                    <sup>5</sup>
+                                    <sup>{{ Cart::count() ?? 0}}</sup>
                                 </span>
                                 Shoping Cart
                             </a>
@@ -292,317 +536,6 @@
     </div>
     <!-- Utilize Cart Menu End -->
 
-    <style>
-        .mobile-res-secton {
-            display: none !important;
-        }
-
-        .navbar {
-            /* background-color: #333; */
-            overflow: hidden;
-            border: 1px solid #b8acac;
-            max-width: 90%;
-            margin: 0 auto;
-            border-radius: 50px;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 !important;
-        }
-
-        .search-container {
-            position: relative;
-            max-width: 85%;
-            margin: 0 auto;
-        }
-
-        .search-container i {
-            position: absolute;
-            right: 14px;
-            top: 18px;
-            font-size: 16px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 0px 0px 0px 0px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 12px;
-            box-sizing: border-box;
-            height: 46px;
-            margin: 0 !important;
-            position: relative;
-            border-radius: 50px;
-        }
-
-        .navbar a {
-            float: left;
-            display: block;
-            color: gray;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        .icon {
-            display: none;
-        }
-
-        .menu {
-            width: 0;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: -34px;
-            background-color: #577BBF;
-            overflow-x: hidden;
-            transition: width 0.5s ease;
-            padding-top: 60px;
-        }
-
-        .menu a {
-            /* padding: 10px; */
-            text-decoration: none;
-            font-size: 18px;
-            color: #fff;
-            display: block;
-            margin-right: 25px;
-        }
-
-        .menu a span {
-            justify-content: space-between;
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-        }
-
-        .menu a:hover {
-            background-color: #1AA7C0;
-            color: #fff;
-        }
-
-        .menu.show {
-            width: 290px;
-            box-shadow: 5px 0px 15px 5px gray;
-            left: 0px;
-        }
-
-
-        .submenu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translateX(-100%);
-            /* Initially off-screen to the left */
-            background-color: #4D72B7;
-            width: 260px;
-            /* Set initial width */
-            padding-top: 60px;
-            transition: transform 0.5s ease, width 0.5s ease;
-            /* Transition transform and width */
-            transition-delay: 0.5s;
-            /* Delay transition */
-            height: 100%;
-        }
-
-        .submenu.show {
-            display: block;
-            transform: translateX(0);
-            /* Move into view from the left */
-            width: 260px;
-            /* Adjust width to desired size */
-            box-shadow: 5px 0px 15px 5px #babbca;
-            z-index: 99;
-        }
-
-
-        .submenu.show a {
-            color: #fff;
-            font-size: 16px;
-        }
-
-        .submenu .closebtn {
-            padding: 10px;
-            text-decoration: none;
-            font-size: 18px;
-            color: white;
-            display: block;
-            text-align: right;
-        }
-
-        .subchild {
-            padding-left: 20px;
-            display: none;
-        }
-
-        .subchild.show {
-            display: block;
-        }
-
-        .icon i {
-            display: none;
-        }
-
-        .plus-minus-icon i {
-            margin-right: 5px;
-            font-size: 11px;
-        }
-
-        .plus-icon:before {
-            content: "\f054";
-        }
-
-        .minus-icon:before {
-            content: "\f107";
-        }
-
-        .main-mobile-res {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .mobile-logo-icon ul li {
-            list-style: none;
-            padding: 0 10px;
-        }
-
-        .mobile-logo-icon ul {
-            display: flex;
-            padding: 0 15px;
-        }
-
-        #myNavbar .mobile {
-            display: none;
-        }
-
-        .ltn__social-media-2 ul li a {
-            background-color: var(--section-bg-1);
-            color: var(--ltn__paragraph-color);
-            display: block;
-            width: 34px !important;
-            height: 34px !important;
-            line-height: 35px !important;
-            text-align: center;
-            margin-right: 10px;
-        }
-
-        .ltn__utilize-buttons .utilize-btn-icon {
-            width: 42px !important;
-            display: inline-block;
-            height: 42px !important;
-            border: 2px solid var(--border-color-1);
-            line-height: 43px !important;
-            text-align: center;
-            margin-right: 10px;
-        }
-
-
-        @media only screen and (max-width:500px) {
-            .mobile-res-secton {
-                display: block !important;
-            }
-
-            .icon i {
-                display: block !important;
-            }
-
-            #myNavbar .mobile {
-                display: none;
-            }
-        }
-    </style>
-
-    <!-- Utilize Mobile Menu Start -->
-    <div id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
-        <div class="ltn__utilize-menu-inner ltn__scrollbar">
-            <div class="ltn__utilize-menu-head">
-                <div class="site-logo">
-                    <a href="/"><img src="img/logo.webp" alt="Logo"></a>
-                </div>
-                <button class="ltn__utilize-close">×</button>
-            </div>
-            <div class="ltn__utilize-menu-search-form">
-                <form method="get" action="{{route('web.search')}}">
-                    <input type="text" name="q" value="{{ Request('q')}}" placeholder="Search...">
-                    <button type="submit"><i class="fas fa-search"></i></button>
-                </form>
-            </div>
-            <div class="ltn__utilize-menu">
-                <div class="navbar" id="myNavbar">
-                    <a href="/" class="active">Menu</a>
-                    <!-- <a href="#" class="mobile">About</a>
-                    <a href="#" class="mobile">Services</a>
-                    <a href="#" class="mobile">Contact</a> -->
-                    <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </div>
-
-                <div class="menu" id="myMenu">
-                    <a href="#" class="closebtn" onclick="toggleMenu()">&times; Close</a>
-                    @foreach ($menu_categories as $key => $val)
-                    <div class="d-flex for-mob">
-                        <a href="{{ route('category.products', ['main_category' => $val['slug']]) }}">
-                            <span class="plus-minus-icon"> {{$val['name']}}</span>
-                        </a>
-                        <i onclick="toggleSubMenu(1)" class="fa plus-icon"></i>
-                    </div>
-
-                    @foreach($val['subcategory'] as $key1 => $val1)
-                    <div class="submenu" id="mySubMenu1">
-                        <a href="#" class="closebtn" onclick="toggleSubMenu(1)">&times; Close</a>
-                        <div class="d-flex for-mob">
-                            <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
-                                <span class="plus-minus-icon">{{$val1['name']}}</span>
-                            </a>
-                            <i onclick="toggleSubChild(1, 1)" class="fa plus-icon"></i>
-                        </div>
-
-                        @foreach($val1['child_categories'] as $key2 => $val2)
-                        <div class="subchild" id="subChild1_1">
-                            <a href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{$val2['name']}}</a>
-                        </div>
-                        @endforeach
-                    </div>
-                    @endforeach
-                    @endforeach
-                </div>
-            </div>
-            <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
-                <ul>
-                    <li>
-                        <a href="account.html" title="My Account">
-                            <span class="utilize-btn-icon">
-                                <i class="far fa-user"></i>
-                            </span>
-                            My Account
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('web.view.cart')}}" title="Shoping Cart">
-                            <span class="utilize-btn-icon">
-                                <i class="fas fa-shopping-cart"></i>
-                                <sup>5</sup>
-                            </span>
-                            Shoping Cart
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="ltn__social-media-2">
-                <ul>
-                    <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                    <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- Utilize Mobile Menu End -->
 
     <script>
         function toggleMenu() {
@@ -612,19 +545,14 @@
         function toggleSubMenu(submenuNumber) {
             var submenuId = "mySubMenu" + submenuNumber;
             var allSubmenus = document.getElementsByClassName("submenu");
+            console.log(allSubmenus);
             for (var i = 0; i < allSubmenus.length; i++) {
                 if (allSubmenus[i].id === submenuId) {
                     allSubmenus[i].classList.toggle("show");
-                    var plusMinusIcon = allSubmenus[i].previousElementSibling.querySelector(".plus-minus-icon i");
-                    plusMinusIcon.classList.toggle("plus-icon");
-                    plusMinusIcon.classList.toggle("minus-icon");
+
                 } else {
                     allSubmenus[i].classList.remove("show");
-                    var plusIcon = allSubmenus[i].previousElementSibling.querySelector(".plus-minus-icon i");
-                    if (plusIcon.classList.contains("minus-icon")) {
-                        plusIcon.classList.remove("minus-icon");
-                        plusIcon.classList.add("plus-icon");
-                    }
+
                 }
             }
         }
@@ -633,8 +561,5 @@
             var subchildId = "subChild" + submenuNumber + "_" + subchildNumber;
             var subchild = document.getElementById(subchildId);
             subchild.classList.toggle("show");
-            var plusMinusIcon = subchild.previousElementSibling.querySelector(".plus-minus-icon i");
-            plusMinusIcon.classList.toggle("plus-icon");
-            plusMinusIcon.classList.toggle("minus-icon");
         }
     </script>

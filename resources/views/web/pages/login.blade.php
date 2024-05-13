@@ -5,7 +5,7 @@
     <!-- LOGIN AREA START -->
     <div class="ltn__login-area pb-65 pt-5">
         <div class="container">
-        <div class="row my-5 shadow-custom">
+        <div class="row my-5 shadow-custom bg-white">
             <div class="col-md-6 p-0">
                 <div class="signup-right-side">
                     <div class="sign-cont">

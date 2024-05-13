@@ -966,3 +966,15 @@ margin-bottom: 20px !important;
 .ltn__login-area{
     background: #00c4a375;
 }
+.sign-me input{
+    height: 46px !important;
+}
+
+.sign-me input[type="password"] {
+    margin-top: 20px !important;
+}
+.input.cart-plus-minus-box{
+    width: 40% !important;
+    border: none !important;
+    border-radius: 0 !important;
+}

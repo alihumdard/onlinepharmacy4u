@@ -145,7 +145,7 @@
                 font-size: 16px;
             }
 
-            input[type="text"] {
+           .mobile-res-secton input[type="text"] {
                 width: 100%;
                 padding: 0px 0px 0px 0px;
                 border: 1px solid #ccc;

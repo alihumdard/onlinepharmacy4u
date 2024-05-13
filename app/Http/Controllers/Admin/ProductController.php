@@ -40,11 +40,13 @@ class ProductController extends Controller
         }
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $products = Product::with('category:id,name')->whereIn('status', [$this->status['Active']])->latest('id')->get()->toArray();
+            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')->whereIn('status', [$this->status['Active']])->latest('id')->get()->toArray();
             $data['filters'] = [];
             if ($products) {
                 $data['filters']['titles'] = array_unique(array_column($products, 'title'));
-                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();  
+                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();
+                $data['filters']['sub_cat'] =  collect($products)->pluck('sub_cat.name')->unique()->values()->all();
+                $data['filters']['child_cat'] =  collect($products)->pluck('child_cat.name')->unique()->values()->all();
                 $data['filters']['templates'] = array_unique(array_column($products, 'product_template'));
                 $data['products'] = $products;
             }
@@ -62,11 +64,13 @@ class ProductController extends Controller
         }
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $products = Product::with('category:id,name')->whereIn('status', [$this->status['Deactive']])->latest('id')->get()->toArray();
+            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')->whereIn('status', [$this->status['Deactive']])->latest('id')->get()->toArray();
             $data['filters'] = [];
             if ($products) {
                 $data['filters']['titles'] = array_unique(array_column($products, 'title'));
-                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();  
+                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();
+                $data['filters']['sub_cat'] =  collect($products)->pluck('sub_cat.name')->unique()->values()->all();
+                $data['filters']['child_cat'] =  collect($products)->pluck('child_cat.name')->unique()->values()->all();
                 $data['filters']['templates'] = array_unique(array_column($products, 'product_template'));
                 $data['products'] = $products;
             }
@@ -158,12 +162,12 @@ class ProductController extends Controller
             } else {
                 $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
                 $data['sub_category'] = SubCategory::select('id', 'name')
-                    ->where(['category_id' => $data['product']['category_id'],'status' => 'Active'])
+                    ->where(['category_id' => $data['product']['category_id'], 'status' => 'Active'])
                     ->pluck('name', 'id')
                     ->toArray();
 
                 $data['child_category'] = ChildCategory::select('id', 'name')
-                    ->where(['sub_category_id' => $data['product']['sub_category'],'status' => 'Active'])
+                    ->where(['sub_category_id' => $data['product']['sub_category'], 'status' => 'Active'])
                     ->pluck('name', 'id')
                     ->toArray();
 
@@ -303,7 +307,7 @@ class ProductController extends Controller
                     $productAttrArr['price'] = $priceArr[$key];
                     $productAttrArr['cut_price'] = $cutPriceArr[$key];
                     $productAttrArr['value'] = $valueArr[$key];
-                    $productAttrArr['slug'] = SlugService::createSlug(ProductVariant::class, 'slug', $request->title.' '.$valueArr[$key], ['unique' => false]);
+                    $productAttrArr['slug'] = SlugService::createSlug(ProductVariant::class, 'slug', $request->title . ' ' . $valueArr[$key], ['unique' => false]);
                     $productAttrArr['barcode'] = $barcodeArr[$key];
                     $productAttrArr['inventory'] = $inventoryArr[$key];
                     $productAttrArr['sku'] = $skuArr[$key];
@@ -355,7 +359,7 @@ class ProductController extends Controller
                     $productAttrArrE['price'] = $priceArrExist[$key1];
                     $productAttrArrE['cut_price'] = $cutPriceArrExist[$key1];
                     $productAttrArrE['value'] = $valueArrExist[$key1];
-                    $productAttrArrE['slug'] = SlugService::createSlug(ProductVariant::class, 'slug', $request->title.' '.$valueArrExist[$key1], ['unique' => false]);
+                    $productAttrArrE['slug'] = SlugService::createSlug(ProductVariant::class, 'slug', $request->title . ' ' . $valueArrExist[$key1], ['unique' => false]);
                     $productAttrArrE['barcode'] = $barcodeArrExist[$key1];
                     $productAttrArrE['inventory'] = $inventoryArrExist[$key1];
                     $productAttrArrE['sku'] = $skuArrExist[$key1];

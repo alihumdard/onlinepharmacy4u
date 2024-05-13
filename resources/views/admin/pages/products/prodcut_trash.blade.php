@@ -173,16 +173,7 @@
                 <div class="card">
                     <div class="card-header mt-3" id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;"></div>
                     <div class="row mb-3 px-4">
-                        <div class="col-md-4 d-block">
-                            <label for="title" class="form-label fw-bold">Filter by Title</label>
-                            <select id="title" class="form-select select2" data-placeholder="search title...">
-                                <option value="All">All</option>
-                                @foreach ($filters['titles'] ?? [] as $key => $title)
-                                <option value="{{$title}}">{{ $title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-3 d-block">
+                        <div class="col-md-4  mt-2 d-block">
                             <label for="category" class="form-label fw-bold">Filter by Category</label>
                             <select id="category" class="form-select select2" data-placeholder="search category...">
                                 <option value="All">All</option>
@@ -191,16 +182,43 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3 d-block">
+                        <div class="col-md-4  mt-2 d-block">
+                            <label for="sub_category" class="form-label fw-bold">Filter by Sub Category</label>
+                            <select id="sub_category" class="form-select select2" data-placeholder="search sub category...">
+                                <option value="All">All</option>
+                                @foreach ($filters['sub_cat'] ?? [] as $key => $sub_category)
+                                <option value="{{$sub_category}}">{{$sub_category}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4  mt-2 d-block">
+                            <label for="child_category" class="form-label fw-bold">Filter by Child Category</label>
+                            <select id="child_category" class="form-select select2" data-placeholder="search child category...">
+                                <option value="All">All</option>
+                                @foreach ($filters['child_cat'] ?? [] as $key => $child_category)
+                                <option value="{{$child_category}}">{{$child_category}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4  mt-2 d-block">
+                            <label for="title" class="form-label fw-bold">Filter by Title</label>
+                            <select id="title" class="form-select select2" data-placeholder="search title...">
+                                <option value="All">All</option>
+                                @foreach ($filters['titles'] ?? [] as $key => $title)
+                                <option value="{{$title}}">{{ $title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4  mt-2 d-block">
                             <label for="template" class="form-label fw-bold">Filter by Template</label>
                             <select id="template" class="form-select select2" data-placeholder="search template...">
                                 <option value="All">All</option>
                                 @foreach ($filters['templates'] ?? [] as $key => $template)
-                                <option value="{{config('constants.PRODUCT_TEMPLATES')[$template]}}"> {{config('constants.PRODUCT_TEMPLATES')[$template]}}</option>
+                                <option value="{{config('constants.PRODUCT_TEMPLATES')[$template]}}">{{config('constants.PRODUCT_TEMPLATES')[$template]}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2 text-center d-block">
+                        <div class="col-md-3 text-center mt-2 d-block">
                             <label for="endDate" class="form-label fw-bold">Products</label>
                             <a href="{{route('admin.prodcuts')}}" class="form-control btn btn-success py-2 fw-bold">Go to Products </a>
                         </div>
@@ -219,6 +237,8 @@
                                     <th>Price - Ext_Tax </th>
                                     <th>Inventory <span class="extra-text">(Available Stock)</span></th>
                                     <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Child Category</th>
                                     <th>Template</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -248,13 +268,19 @@
                                         <p class="fw-normal mb-1">{{ $value['category']['name'] ?? ''}}</p>
                                     </td>
                                     <td style="vertical-align: middle; text-align: center;">
-                                        <p class="fw-normal mb-1">{{ config('constants.PRODUCT_TEMPLATES')[$value['product_template']]}}</p>
+                                        <p class="fw-normal mb-1">{{ $value['sub_cat']['name'] ?? ''}}</p>
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <p class="fw-normal mb-1">{{ $value['child_cat']['name'] ?? ''}}</p>
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <p class="fw-normal mb-1">{{config('constants.PRODUCT_TEMPLATES')[$value['product_template']]}}</p>
                                     </td>
                                     <td style="vertical-align: middle; text-align: center;">
                                         <span class="badge  {{($value['status'] == 1) ? 'bg-success' : 'bg-danger'; }}  rounded-pill d-inline">{{ ($value['status'] == 1) ? 'Active' : 'Deactive'; }} </span>
                                     </td>
                                     <td style="vertical-align: middle; text-align: center;">
-                                        <a class="undo" style="cursor: pointer;" title="undo"  data-status="{{config('constants.STATUS')['Active']}}" data-id="{{$value['id']}}" data-toggle="tooltip">
+                                        <a class="undo" style="cursor: pointer;" title="undo" data-status="{{config('constants.STATUS')['Active']}}" data-id="{{$value['id']}}" data-toggle="tooltip">
                                             <i class="bi-arrow-counterclockwise"></i>
                                         </a>
                                         <a class="delete" style="cursor: pointer;" title="Delete" data-status="{{config('constants.STATUS')['Deleted']}}" data-id="{{$value['id']}}" data-toggle="tooltip">
@@ -316,7 +342,7 @@
                 }
             ],
             "columnDefs": [{
-                "targets": [3, 7],
+                "targets": [3,8,9],
                 "searchable": false
             }]
 
@@ -343,13 +369,30 @@
             }
         });
 
-
-        $('#template').on('change', function() {
+        $('#sub_category').on('change', function() {
             let type = $(this).val();
             if (type == 'All') {
                 tableApi.column(5).search('').draw();
             } else {
                 tableApi.column(5).search(type).draw();
+            }
+        });
+
+        $('#child_category').on('change', function() {
+            let type = $(this).val();
+            if (type == 'All') {
+                tableApi.column(6).search('').draw();
+            } else {
+                tableApi.column(6).search(type).draw();
+            }
+        });
+
+        $('#template').on('change', function() {
+            let type = $(this).val();
+            if (type == 'All') {
+                tableApi.column(7).search('').draw();
+            } else {
+                tableApi.column(7).search(type).draw();
             }
         });
 

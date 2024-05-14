@@ -194,6 +194,7 @@
                 color: #fff;
                 display: block;
                 margin-right: 25px;
+                padding: 10px;
             }
 
             .menu a span {
@@ -206,6 +207,10 @@
             .menu a:hover {
                 background-color: #1AA7C0;
                 color: #fff;
+                border-radius: 30px;
+            }
+            .ltn__social-media-2 a{
+                padding: 0 !important;
             }
 
             .menu.show {
@@ -289,6 +294,7 @@
 
             .plus-icon:before {
                 content: "\f054";
+                color:#fff;
             }
 
             .minus-icon:before {
@@ -335,6 +341,10 @@
                 text-align: center;
                 margin-right: 10px;
             }
+            .custom-spec a {
+            padding: 0px 14px !important;
+            margin: 8px 0;
+            }
 
 
             @media only screen and (max-width:500px) {
@@ -367,7 +377,7 @@
             </div>
 
             <div class="menu px-3 py-4" id="myMenu">
-                <a href="#" class="closebtn" onclick="toggleMenu()"><i class="fa fa-times" aria-hidden="true"></i> Back</a>
+                <a href="#" class="closebtn mb-2" onclick="toggleMenu()"><i class="fa fa-times" aria-hidden="true"></i> Back</a>
                 <div class="search-container">
                     <form method="get" action="{{route('web.search')}}">
                         <input type="text" name="q" value="{{ Request('q')}}" placeholder="Search...">
@@ -375,7 +385,7 @@
                     </form>
                 </div>
                 @foreach ($menu_categories as $key => $val)
-                <div style="display: flex !important; justify-content: space-between;align-items: center; padding:5px 10px;">
+                <div class="custom-spec" style="display: flex !important; justify-content: space-between;align-items: center; padding:5px 10px;">
                     <a href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">
                         <span class="plus-minus-icon">{{ $val['name'] }}</span>
                     </a>

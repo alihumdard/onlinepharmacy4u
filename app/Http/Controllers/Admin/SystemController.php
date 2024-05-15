@@ -639,10 +639,12 @@ class SystemController extends Controller
         $selection = $request->selection;
         if ($selection == 2) {
             $parents = Category::select('id', 'name')
+                ->where('status', 'Active')
                 ->pluck('name', 'id')
                 ->toArray();
         } elseif ($selection == 3) {
             $parents = SubCategory::select('id', 'name')
+                ->where('status', 'Active')
                 ->pluck('name', 'id')
                 ->toArray();
         }
@@ -653,6 +655,7 @@ class SystemController extends Controller
     {
         $category_id = $request->category_id;
         $categories = SubCategory::select('id', 'name')
+            ->where('status', 'Active')
             ->where('category_id', $category_id)
             ->pluck('name', 'id')
             ->toArray();
@@ -664,6 +667,7 @@ class SystemController extends Controller
     {
         $category_id = $request->category_id;
         $categories = ChildCategory::select('id', 'name')
+            ->where('status', 'Active')
             ->where('sub_category_id', $category_id)
             ->pluck('name', 'id')
             ->toArray();
@@ -1424,7 +1428,7 @@ class SystemController extends Controller
                     }
                 }
                 $data['order_user_detail'] =  ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
-                $data['user_profile_details'] =  (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [] ;
+                $data['user_profile_details'] =  (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [];
                 $data['generic_consultation'] = $user_result;
                 $data['product_consultation'] = $prod_result ?? [];
                 return view('admin.pages.consultation_view', $data);
@@ -1616,7 +1620,7 @@ class SystemController extends Controller
         $order->hcp_remarks = $validatedData['hcp_remarks'] ?? null;
         $update = $order->save();
         if ($update) {
-            $msg = 'Order is '.$validatedData['status'];
+            $msg = 'Order is ' . $validatedData['status'];
             $status = 'success';
             return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $status)->with('msg', $msg);
         }

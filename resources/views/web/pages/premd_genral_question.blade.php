@@ -380,74 +380,90 @@
     <div id="question_{{$questions[3]['id']}}" class="question px-1" style="display:none;">
         <hr class="my-3">
         <div class="mb-0">
-            <label for="quest_{{$questions[3]['id']}}" class="form-label pr-2">{{$questions[3]['title'] ?? '' }}</label>
-            <textarea class="form-control" id="quest_{{$questions[3]['id']}}" name="quest_{{$questions[3]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
-        </div>
-    </div>
-    <div id="alert_0" class="question px-1" style="display:none;">
-        <hr class="my-2">
-        <div class="mb-0">
-            <div class="alert alert-danger bg-danger ">
-                <p class="px-2 fw-semibold text-white">We might need to inform Your GP depending on the product you have purchased. You can change your answer to 'Yes' and continue.</p>
+            <div class="form-group">
+                <label for="quest_{{$questions[3]['id']}}" class="form-label pr-2">{{$questions[3]['title'] ?? '' }}</label>
+                <input type="text" class="form-control" id="quest_{{$questions[3]['id']}}" name="quest_{{$questions[3]['id']}}" list="list-timezone" placeholder="Please provide gp-location" required=''>
+                <datalist id="list-timezone" class="dropdown-menu dropdown-menu-left">>
+                    @foreach($gp_locations as $key => $value)
+                    <option>
+                        <div><strong>{{$value['b']}}</strong>,{{$value['e'] }}<br />{{$value['f'] }},{{$value['i']}}</div>
+                    </option>
+                    @endforeach
+                </datalist>
+                <!-- <select id="single" class="js-states form-control">
+                    <option>Java</option>
+                    <option>Javascript</option>
+                    <option>PHP</option>
+                    <option>Visual Basic</option>
+                </select> -->
             </div>
         </div>
     </div>
-
-    <div id="alert_1" class="question px-1" style="display:none;">
-        <hr class="my-2">
-        <div class="mb-0">
-            <div class="alert alert-danger bg-danger ">
-                <p class="px-2 fw-semibold text-white">Unfortunately, we cannot recommend a suitable treatment for you. If you did this in error, you have the choice to change your answer. If you have any questions about this consultation, please email info@online-pharmacy4u.co.uk.</p>
-            </div>
+</div>
+<div id="alert_0" class="question px-1" style="display:none;">
+    <hr class="my-2">
+    <div class="mb-0">
+        <div class="alert alert-danger bg-danger ">
+            <p class="px-2 fw-semibold text-white">We might need to inform Your GP depending on the product you have purchased. You can change your answer to 'Yes' and continue.</p>
         </div>
     </div>
+</div>
 
-    <div id="question_{{$questions[6]['id']}}" class="question px-1" style="display:none;">
-        <hr class="my-3">
-        <div class="mb-0">
-            <label for="quest_{{$questions[6]['id']}}" class="form-label pr-2">{{$questions[6]['title'] ?? '' }}</label>
-            <textarea class="form-control" id="quest_{{$questions[6]['id']}}" name="quest_{{$questions[6]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+<div id="alert_1" class="question px-1" style="display:none;">
+    <hr class="my-2">
+    <div class="mb-0">
+        <div class="alert alert-danger bg-danger ">
+            <p class="px-2 fw-semibold text-white">Unfortunately, we cannot recommend a suitable treatment for you. If you did this in error, you have the choice to change your answer. If you have any questions about this consultation, please email info@online-pharmacy4u.co.uk.</p>
         </div>
     </div>
+</div>
 
-    <div id="question_{{$questions[8]['id']}}" class="question px-1" style="display:none;">
-        <hr class="my-3">
-        <div class="mb-0">
-            <label for="quest_{{$questions[8]['id']}}" class="form-label pr-2">{{$questions[8]['title'] ?? '' }}</label>
-            <textarea class="form-control" id="quest_{{$questions[8]['id']}}" name="quest_{{$questions[8]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+<div id="question_{{$questions[6]['id']}}" class="question px-1" style="display:none;">
+    <hr class="my-3">
+    <div class="mb-0">
+        <label for="quest_{{$questions[6]['id']}}" class="form-label pr-2">{{$questions[6]['title'] ?? '' }}</label>
+        <textarea class="form-control" id="quest_{{$questions[6]['id']}}" name="quest_{{$questions[6]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+    </div>
+</div>
+
+<div id="question_{{$questions[8]['id']}}" class="question px-1" style="display:none;">
+    <hr class="my-3">
+    <div class="mb-0">
+        <label for="quest_{{$questions[8]['id']}}" class="form-label pr-2">{{$questions[8]['title'] ?? '' }}</label>
+        <textarea class="form-control" id="quest_{{$questions[8]['id']}}" name="quest_{{$questions[8]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+    </div>
+</div>
+
+<div id="question_{{$questions[10]['id']}}" class="question px-1" style="display:none;">
+    <hr class="my-3">
+    <div class="mb-0">
+        <div class="alert alert-warning bg-warning alert-dismissible">
+            <button type="button" class=" text-dark btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <p class="px-2 fw-semibold text-white">Please ensure you have included the strength and the dose of each medicine you have listed, e.g. Ramipril 5mg Tablets Once Daily. Failure to do so may cause delays with your order.</p>
         </div>
     </div>
-
-    <div id="question_{{$questions[10]['id']}}" class="question px-1" style="display:none;">
-        <hr class="my-3">
-        <div class="mb-0">
-            <div class="alert alert-warning bg-warning alert-dismissible">
-                <button type="button" class=" text-dark btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                <p class="px-2 fw-semibold text-white">Please ensure you have included the strength and the dose of each medicine you have listed, e.g. Ramipril 5mg Tablets Once Daily. Failure to do so may cause delays with your order.</p>
-            </div>
-        </div>
-        <hr class="my-3">
-        <div class="mb-0">
-            <label for="quest_{{$questions[10]['id']}}" class="form-label pr-2">{{$questions[10]['title'] ?? '' }}</label>
-            <textarea class="form-control" id="quest_{{$questions[10]['id']}}" name="quest_{{$questions[10]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
-        </div>
+    <hr class="my-3">
+    <div class="mb-0">
+        <label for="quest_{{$questions[10]['id']}}" class="form-label pr-2">{{$questions[10]['title'] ?? '' }}</label>
+        <textarea class="form-control" id="quest_{{$questions[10]['id']}}" name="quest_{{$questions[10]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
     </div>
+</div>
 
-    <div id="question_{{$questions[12]['id']}}" class="question px-1" style="display:none;">
-        <hr class="my-3">
-        <div class="mb-0">
-            <label for="quest_{{$questions[12]['id']}}" class="form-label pr-2">{{$questions[12]['title'] ?? '' }}</label>
-            <textarea class="form-control" id="quest_{{$questions[12]['id']}}" name="quest_{{$questions[12]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
-        </div>
+<div id="question_{{$questions[12]['id']}}" class="question px-1" style="display:none;">
+    <hr class="my-3">
+    <div class="mb-0">
+        <label for="quest_{{$questions[12]['id']}}" class="form-label pr-2">{{$questions[12]['title'] ?? '' }}</label>
+        <textarea class="form-control" id="quest_{{$questions[12]['id']}}" name="quest_{{$questions[12]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
     </div>
+</div>
 
-    <div id="question_{{$questions[14]['id']}}" class="question px-1" style="display:none;">
-        <hr class="my-3">
-        <div class="mb-0">
-            <label for="quest_{{$questions[14]['id']}}" class="form-label pr-2">{{$questions[14]['title'] ?? '' }}</label>
-            <textarea class="form-control" id="quest_{{$questions[14]['id']}}" name="quest_{{$questions[14]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please describe here ..." required=''></textarea>
-        </div>
+<div id="question_{{$questions[14]['id']}}" class="question px-1" style="display:none;">
+    <hr class="my-3">
+    <div class="mb-0">
+        <label for="quest_{{$questions[14]['id']}}" class="form-label pr-2">{{$questions[14]['title'] ?? '' }}</label>
+        <textarea class="form-control" id="quest_{{$questions[14]['id']}}" name="quest_{{$questions[14]['id']}}" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please describe here ..." required=''></textarea>
     </div>
+</div>
 
 </div>
 <!-- modal not continue -->
@@ -518,4 +534,12 @@
     });
 </script>
 
+<!-- Select2 -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+    $("#single").select2({
+        placeholder: "Select a programming language",
+        allowClear: true
+    });
+</script> -->
 @endPushOnce

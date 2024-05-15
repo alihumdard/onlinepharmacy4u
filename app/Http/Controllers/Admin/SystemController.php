@@ -38,6 +38,7 @@ use Illuminate\Validation\ValidationException;
 
 // models ...
 use App\Models\Comment;
+use App\Models\Pharmacy4uGpLocation;
 use App\Models\shippedOrder;
 use App\Models\ProductAttribute;
 use App\Models\QuestionCategory;
@@ -1981,5 +1982,22 @@ class SystemController extends Controller
         }
 
         return redirect()->route('admin.orderDetail', ['id' => base64_encode($request->order_id)])->with(['msg' => $message]);
+    }
+
+    public function gp_locations()
+    {
+        $user = auth()->user();
+        $page_name = 'gp_locations';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['gp_locations'] = Pharmacy4uGpLocation::where('status', 'Active')->latest('id')->get()->toArray();
+        }
+
+        return view('admin.pages.questions.gp_locations', $data);
     }
 }

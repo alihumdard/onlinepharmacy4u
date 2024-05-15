@@ -69,6 +69,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'faq_questions':
+                case 'gp_locations':
                 case 'categories':
                 case 'sub_categories':
                 case 'child_categories':

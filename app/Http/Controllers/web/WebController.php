@@ -39,6 +39,7 @@ use App\Models\QuestionMapping;
 use App\Models\QuestionCategory;
 use App\Models\PMedGeneralQuestion;
 use App\Models\PrescriptionMedGeneralQuestion;
+use App\Models\Pharmacy4uGpLocation;
 use App\Models\ShipingDetail;
 use App\Models\OrderDetail;
 use App\Models\Alert;
@@ -316,6 +317,7 @@ class WebController extends Controller
                     }
 
                     $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+                    $data['gp_locations'] = Pharmacy4uGpLocation::where('status', 'Active')->latest('id')->get()->toArray();
                     return view('web.pages.premd_genral_question', $data);
                 } else {
                     session()->put('intended_url', 'fromConsultation');

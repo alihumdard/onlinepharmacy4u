@@ -978,3 +978,10 @@ margin-bottom: 20px !important;
     border: none !important;
     border-radius: 0 !important;
 }
+.error-404-inner .btn-wrapper a{
+    border-radius: 30px !important;
+    padding: 8px 20px !important;
+}
+.footer-widget img{
+    width: 110px !important;
+}

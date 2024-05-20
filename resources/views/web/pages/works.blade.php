@@ -76,7 +76,7 @@
                             <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>Top Leading Brands</h4></li>
                             <p class=" ">We have a huge selection of top well known brands.</p>
                             <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>FREE* Prescription</h4></li>
-                            <p class=" ">All our services from consultation to prescription is FREE* (please read our terms and conditions)</p>
+                            <p class=" ">All our services from consultation to prescription are FREE* (please read our terms and conditions)</p>
                     </ul>
                 </div>
             </div>

@@ -10,7 +10,8 @@
                                         <div class="col-md-12"><img src="{{ asset('img/brand-logo/pharmay-footer-logo.webp') }} " width="200px" height="auto" alt="Logo"></div>
                                 </div>
                             </div>
-                            <p>You NO longer have to wait for GP appointments. NO more visiting your local pharmacy or waiting in long lines. All our services are FREE*, receive genuine medication delivered conveniently and discreetly packaged to your door. You NO longer need assistance from your GP or your local pharmacy – we do all this online 4U for FREE* here at Online Pharmacy 4U</p>
+                            <p>You NO longer have to wait for GP appointments. NO more visiting your local pharmacy or waiting in long lines. All our services are FREE*, receive genuine medication delivered conveniently and discreetly packaged to your door. </p>
+                            <!-- You NO longer need assistance from your GP or your local pharmacy – we do all this online 4U for FREE* here at Online Pharmacy 4U -->
                             <div class="footer-address">
                                 <ul>
                                     <li>
@@ -41,10 +42,10 @@
                             </div>
                             <div class="ltn__social-media mt-20 footer-white">
                                 <ul>
-                                    <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                                    <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="https://www.facebook.com/" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="https://x.com/" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a href="https://youtube.com/" title="Youtube"><i class="fab fa-youtube"></i></a></li>
                                 </ul>
                             </div>
                         </div>

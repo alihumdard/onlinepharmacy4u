@@ -476,7 +476,7 @@
                                                 </ul>
                                             </li>
                                             @endforeach
-                                            <li><a style="background: none !important;" href="/work" class="poppins-thin">How it work</a></li>
+                                            <li><a style="background: none !important;" href="/work" class="poppins-thin">How it work's</a></li>
                                             <li><a style="background: none !important;" href="/help" class="poppins-thin">Help</a></li>
                                         </ul>
                                     </div>

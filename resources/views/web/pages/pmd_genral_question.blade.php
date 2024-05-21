@@ -339,12 +339,35 @@
         var currentQuestion = 0;
         var totalQuestions = $('.form-group').length;
 
+
+        $("input[name='quest_8']").change(function() {
+            if ($(this).val() == 'Yes') {
+                $("#question_8").slideDown('fast');;
+            } else {
+                $("#question_8").slideUp('fast');
+                $("#quest_8").val("");
+                currentQuestion = 7;
+            }
+        });
+
+        $('input[type="radio"], input[type="checkbox"]').change(function() {
+            showNextQuestion();
+        });
+
+        var textareaFocusCount = 0;
+        $('textarea').on('input', function() {
+            textareaFocusCount++;
+            if (textareaFocusCount >= 2) {
+                showNextQuestion();
+            }
+        });
+
         function showNextQuestion() {
             if (currentQuestion < totalQuestions - 1) {
                 if (validateInput(currentQuestion)) {
-                    if (currentQuestion == 6) {
-                        let quest_7 = $("input[name='quest_7']:checked").val();
-                        if (quest_7 == 'Yes') {
+                    if (currentQuestion == 7) {
+                        let quest_8 = $("input[name='quest_8']:checked").val();
+                        if (quest_8 == 'Yes') {
                             var next_quest = currentQuestion + 1;
                         } else {
                             next_quest = currentQuestion + 2;
@@ -394,27 +417,6 @@
             return valid;
         }
 
-
-        $('input[type="radio"], input[type="checkbox"]').change(function() {
-            showNextQuestion();
-        });
-
-        var textareaFocusCount = 0;
-        $('textarea').on('input', function() {
-            textareaFocusCount++;
-            if (textareaFocusCount >= 2) {
-                showNextQuestion();
-            }
-        });
-
-        $("input[name='quest_7']").change(function() {
-            if ($(this).val() == 'Yes') {
-                $("#question_8").slideDown('fast');;
-            } else {
-                $("#question_8").slideUp('fast');
-                $("#quest_8").val(""); 
-            }
-        });
     });
 </script>
 

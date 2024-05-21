@@ -105,7 +105,7 @@
                         <div class="footer-widget pt-5">
                             <a href="https://www.pharmacyregulation.org/registers/pharmacy/location/ng19%2B9qh">
                                 <div>
-                                    <img src="{{ asset('img/brand-logo/R.avif') }}" width="200px" height="auto" alt="Logo">
+                                    <img class="cert-auther" src="{{ asset('img/brand-logo/R.avif') }}" width="200px" height="auto" alt="Logo">
                                 </div>
                             </a>
                         </div>

@@ -338,14 +338,13 @@
     $(document).ready(function() {
         var currentQuestion = 0;
         var totalQuestions = $('.form-group').length;
-
-
         $("input[name='quest_8']").change(function() {
-            if ($(this).val() == 'Yes') {
-                $("#question_8").slideDown('fast');;
+            if ($(this).val() === 'Yes') {
+                $("#quest_9").attr("required", true);
+                $("#question_8").slideDown('fast');
             } else {
                 $("#question_8").slideUp('fast');
-                $("#quest_8").val("");
+                $("#quest_9").val("").removeAttr("required");
                 currentQuestion = 7;
             }
         });

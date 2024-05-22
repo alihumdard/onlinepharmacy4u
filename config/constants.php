@@ -47,6 +47,7 @@ return [
             'desc' => '',
             'order' => '5',
         ],
+
         [
             'id' => 6,
             'title' => 'Have any medicine been already taken to treat these symptoms?',
@@ -55,30 +56,43 @@ return [
         ],
         [
             'id' => 7,
-            'title' => 'Does the person who will use this medicine have any medical conditions?',
+            'title' => 'Additional Details of symptoms',
             'desc' => '',
             'order' => '7',
         ],
+
         [
             'id' => 8,
-            'title' => 'Is the person who will use this medicine currently taking any medication?',
+            'title' => 'Does the person who will use this medicine have any medical conditions?',
             'desc' => '',
             'order' => '8',
-        ],        [
+        ],
+        [
             'id' => 9,
-            'title' => 'Do you have any questions or concerns about this medicine that you would like to make the pharmacy team aware of?',
+            'title' => 'Additional Details of medical conditions',
             'desc' => '',
             'order' => '9',
-        ],        [
+        ],
+        [
             'id' => 10,
-            'title' => 'Have you read the information on the product page and will you read the Patient Information Leafiet before taking the medicine?',
+            'title' => 'Is the person who will use this medicine currently taking any medication?',
             'desc' => '',
             'order' => '10',
         ],        [
             'id' => 11,
-            'title' => 'This medicine should only be used for short term relief.If your symptoms persist you should  consult your GP.By confirming below, you are stating that you understand this medicine is for short term use only.',
+            'title' => 'Do you have any questions or concerns about this medicine that you would like to make the pharmacy team aware of?',
             'desc' => '',
             'order' => '11',
+        ],        [
+            'id' => 12,
+            'title' => 'Have you read the information on the product page and will you read the Patient Information Leafiet before taking the medicine?',
+            'desc' => '',
+            'order' => '12',
+        ],        [
+            'id' => 13,
+            'title' => 'This medicine should only be used for short term relief.If your symptoms persist you should  consult your GP.By confirming below, you are stating that you understand this medicine is for short term use only.',
+            'desc' => '',
+            'order' => '13',
         ]
     ],
 

@@ -200,12 +200,18 @@ class DefualtController extends Controller
         if (!$user) {
             if ($request->all()) {
                 $validator = Validator::make($request->all(), [
-                    'password' => 'required',
-                    'email' => 'required',
+                    'email'    => [
+                        'required',
+                        'email',
+                    ],
+                    'password' => [
+                        'required',
+                        'min:8'
+                    ]
                 ]);
 
                 if ($validator->fails()) {
-                    return redirect()->back()->with(['status' => 'error', 'message' => $validator->errors()]);
+                   return redirect()->back()->withErrors($validator)->withInput()->with(['status' => 'error', 'message' => $validator->errors()]);
                 }
 
                 $credentials = $request->only('email', 'password');

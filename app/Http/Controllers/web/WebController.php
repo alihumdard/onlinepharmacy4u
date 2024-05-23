@@ -899,7 +899,6 @@ class WebController extends Controller
             ])->get($url);
 
             $responseData = json_decode($response, true);
-            print_r($responseData);
             $update_payment = [
                 'transactionId' => $transetion_id , 
                 'fullName' => $responseData['fullName'], 
@@ -911,7 +910,9 @@ class WebController extends Controller
             ];
            $payment =   PaymentDetail::where('id', $payment_detail->id)->update($update_payment);
 
-            $order = Order::where(['id' => $payment->order_id])->latest('created_at')->first();
+            $payment_detail = PaymentDetail::find($payment_detail->id);
+            $order = Order::where('id', $payment_detail->order_id)->latest('created_at')->first();
+
             if ($order) {
                 $order->update(['payment_status' => 'Paid']);
                 if (Auth::check()) {

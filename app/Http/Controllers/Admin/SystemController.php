@@ -2,26 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\UserBmi;
-use App\Models\Category;
-use App\Models\Question;
-use App\Models\Collection;
-use App\Models\SubCategory;
-use App\Models\Transaction;
+
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Mail\otpVerifcation;
 use Illuminate\Http\Request;
-use App\Models\ChildCategory;
-use App\Models\AssignQuestion;
-use App\Models\ProductVariant;
-use App\Models\QuestionMapping;
-use App\Models\PMedGeneralQuestion;
-use App\Models\PrescriptionMedGeneralQuestion;
 use Illuminate\Validation\Rule;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +19,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-
+use SebastianBergmann\Type\NullType;
+use Carbon\Carbon;
 
 // models ...
 use App\Models\Comment;
@@ -42,16 +28,26 @@ use App\Models\Pharmacy4uGpLocation;
 use App\Models\shippedOrder;
 use App\Models\ProductAttribute;
 use App\Models\QuestionCategory;
-use App\Models\UserConsultation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\ConsultationQuestion;
 use App\Models\OrderDetail;
 use App\Models\ShipingDetail;
 use App\Models\Alert;
 use App\Models\FaqProduct;
-use SebastianBergmann\Type\NullType;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Question;
+use App\Models\Collection;
+use App\Models\SubCategory;
+use App\Models\ChildCategory;
+use App\Models\AssignQuestion;
+use App\Models\ProductVariant;
+use App\Models\QuestionMapping;
+use App\Models\PMedGeneralQuestion;
+use App\Models\PrescriptionMedGeneralQuestion;
 
 class SystemController extends Controller
 {
@@ -958,6 +954,7 @@ class SystemController extends Controller
         }
         return view('admin.pages.questions.add_faq_question', $data);
     }
+
     public function store_question(Request $request)
     {
         $user = auth()->user();
@@ -1464,6 +1461,29 @@ class SystemController extends Controller
         return view('admin.pages.orders_recieved', $data);
     }
 
+    public function orders_created()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'orders_created';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        if ($orders) {
+            $emails = array_unique(Arr::pluck($orders, 'email'));
+            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
+                ->whereIn('email', $emails)
+                ->where('status', 'Paid')
+                ->groupBy('email')
+                ->get()
+                ->toArray();
+            $data['order_history'] = $userOrdersData;
+            $data['orders'] = $orders;
+        }
+
+        return view('admin.pages.orders_created', $data);
+    }
+
     public function orders_refunded()
     {
         $data['user'] = auth()->user();
@@ -1583,6 +1603,63 @@ class SystemController extends Controller
         return view('admin.pages.orders_audit', $data);
     }
 
+    public function add_order(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'orders_created';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        $data['products'] = Product::with('variants')->where('status', $this->status['Active'])->latest('id')->get()->sortBy('title')->values()->keyBy('id')->toArray();
+        foreach ($data['products'] as $key => $product) {
+            if ($product['variants']) {
+                $data['variants'][$product['id']] = $product['variants'];
+            }
+        }
+        $data['users'] = User::where(['status' => $this->status['Active'], 'role' => user_roles('4')])->latest('id')->get()->sortBy('name')->keyBy('id')->toArray();
+        return view('admin.pages.add_order', $data);
+    }
+
+    public function store_order(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'orders_created';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $validator = Validator::make($request->all(), [
+            'product_id'        => 'required',
+            'firstName'         => 'required',
+            'lastName'          => 'required',
+            'email'             => 'required',
+            'phone'             => 'required',
+            'address'           => 'required',
+            'city'              => 'required',
+            'zip_code'          => 'required',
+            'shiping_cost'      => 'required',
+            'product_qty'       => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $order =  Order::create([
+            'user_id'        => $request->user_id ?? 'guest',
+            'email'          => $request->email,
+            'note'           => $request->note,
+            'shiping_cost'   => $request->shiping_cost,
+            'coupon_code'    => $request->coupon_code ?? Null,
+            'coupon_value'   => $request->coupon_value ?? Null,
+            'total_ammount'  => $request->total_ammount ?? Null,
+        ]);
+        dd($order);
+        if ($order) {
+
+            $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            return redirect()->route('admin.questions')->with(['msg' => $message]);
+        }
+    }
+
     public function gpa_letters()
     {
         $data['user'] = auth()->user();
@@ -1603,6 +1680,7 @@ class SystemController extends Controller
         }
         return view('admin.pages.gpa_letters', $data);
     }
+
     public function change_status(Request $request)
     {
         $data['user'] = auth()->user();
@@ -1874,7 +1952,6 @@ class SystemController extends Controller
         ];
         return  $payload;
     }
-
 
     // comments
     public function comments(Request $request)

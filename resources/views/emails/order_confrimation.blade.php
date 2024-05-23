@@ -18,7 +18,7 @@
                     Pharmacy 4U!!
                 </p>
                 <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px; font-size: 24px; text-align: center; color: #333333;">
-                   Order id: #{{ $order->id }}
+                   Order id: #00{{ $order->id }}
                 </div>
                 <p style="margin-top: 20px; color: #666666;">Hi {{ $order->shipingdetails->firstName }} , we're getting your order ready to be shipped. We will notify you when it has been sent.</p>
             </td>

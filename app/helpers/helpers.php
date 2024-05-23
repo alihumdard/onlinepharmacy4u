@@ -88,6 +88,7 @@ function view_permission($page_name)
                 case 'orders':
                 case 'consultation_view':
                 case 'orders_shipped':
+                case 'orders_created':
                 case 'orders_refunded':
                 case 'orders_audit':
                 case 'gpa_letters':

@@ -26,7 +26,7 @@
                             <input type="text" name="email" placeholder="Email*">
                             <input type="password" name="password" placeholder="Password*">
                             <div class="go-to-btn mt-0 text-end">
-                                <a href="#"><small>FORGOT YOUR PASSWORD?</small></a>
+                                <a href="{{route('forgotPassword')}}"><small>FORGOT YOUR PASSWORD?</small></a>
                             </div>
                             <div class="btn-wrapper text-center mt-3">
                                 <button class="theme-btn-1 btn btn-block px-4 py-2" type="submit">SIGN IN</button>
@@ -43,50 +43,6 @@
                 </div>
             </div>
         </div>
-
-
-
-            <!-- <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title-area text-center">
-                        <h1 class="section-title">Sign In<br>To Your Account</h1>
-                        <p>Sign in to your account for seamless access to your health essentials and exclusive benefits.</p>
-                        @if(session('msg'))
-                            <div class="alert alert-success">
-                                {{ session('msg') }}
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="account-login-inner">
-                        <form action="{{ route('login')}}" method="post" class="ltn__form-box contact-form-box">
-                            @csrf
-                            <input type="text" name="email" placeholder="Email*">
-                            <input type="password" name="password" placeholder="Password*">
-                            <div class="go-to-btn mt-0 text-center">
-                                <a href="#"><strong>FORGOTTEN YOUR PASSWORD?</strong></a>
-                            </div>
-                            <div class="btn-wrapper text-center mt-3">
-                                <button class="theme-btn-1 btn btn-block px-3 py-2" type="submit">SIGN IN</button>
-                            </div>
-                           
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="account-create text-center pt-50">
-                        <h4>DON'T HAVE AN ACCOUNT?</h4>
-                        <p>Add items to your wishlistget personalised recommendations <br>
-                            check out more quickly track your orders register</p>
-                        <div class="btn-wrapper">
-                            <a href="/register" class="theme-btn-1 btn black-btn">CREATE ACCOUNT</a>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
     <!-- LOGIN AREA END -->

@@ -127,9 +127,9 @@
                                                 <label for="email" class="form-label">Email</label>
                                                 <div class="input-group has-validation">
                                                     <input type="email" name="email" class="form-control w-100 " id="email" value="{{ session('email') ?? old('email') }}" placeholder="write your email" required>
-                                                    <div class="invalid-feedback">Please enter a valid email.</div>
+                                                    <div class="invalid-feedback"> &nbsp; * Please enter a valid email.</div>
                                                     @error('email')
-                                                    <div class="text-danger">{{ $message }}</div>
+                                                    <div class="text-danger"> &nbsp; * {{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -137,9 +137,9 @@
                                                 <label for="otp" class="form-label">OTP Code</label>
                                                 <div class="input-group has-validation">
                                                     <input type="text" name="otp" class="form-control w-100 " id="otp" value="{{ session('otp') ?? old('otp') }}" placeholder="Please enter your password" required>
-                                                    <div class="invalid-feedback">Please enter a valid OTP code.</div>
+                                                    <div class="invalid-feedback"> &nbsp; * Please enter a valid OTP code.</div>
                                                     @error('otp')
-                                                    <div class="text-danger">{{ $message }}</div>
+                                                    <div class="text-danger"> &nbsp; * {{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -147,9 +147,9 @@
                                                 <label for="password" class="form-label">New Password</label>
                                                 <div class="input-group has-validation">
                                                     <input type="password" name="password" class="form-control w-100 " id="password" placeholder="Please enter your password" required>
-                                                    <div class="invalid-feedback">Please enter your password.</div>
+                                                    <div class="invalid-feedback"> &nbsp; * Please enter your password.</div>
                                                     @error('password')
-                                                    <div class="text-danger">{{ $message }}</div>
+                                                    <div class="text-danger"> &nbsp; * {{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>

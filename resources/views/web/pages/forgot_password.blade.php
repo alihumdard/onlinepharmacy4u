@@ -125,9 +125,9 @@
                                                 <!-- <label for="email" class="form-label">Email</label> -->
                                                 <div class="input-group has-validation pt-3">
                                                     <input type="email" name="email" class="form-control w-100 " id="email" value="{{ session('email') ?? old('email') }}" placeholder="Enter your email" required>
-                                                    <div class="invalid-feedback">Please enter valid email.</div>
+                                                    <div class="invalid-feedback px-5"> &nbsp; * Please enter valid email.</div>
                                                     @error('email')
-                                                    <div class="text-danger">{{ $message }}</div>
+                                                    <div class="text-danger px-5"> &nbsp; * {{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>

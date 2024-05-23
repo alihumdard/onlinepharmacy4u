@@ -121,20 +121,13 @@ Route::get('/conditions', [WebController::class, 'conditions'])->name('web.condi
 Route::get('/generate_slug_existing', [WebController::class, 'generate_slug_existing']);
 Route::get('/generate_slug_variants_existing', [WebController::class, 'generate_slug_variants_existing']);
 
+// forgot password
+Route::match(['get', 'post'], '/forgotPassword', [DefualtController::class, 'forgot_password'])->name('forgotPassword');
+Route::match(['get', 'post'], '/sendOtp', [DefualtController::class, 'send_otp'])->name('sendOtp');
+Route::match(['get', 'post'], '/verifyOtp', [DefualtController::class, 'verify_otp'])->name('verifyOtp');
+Route::match(['get', 'post'], '/changePassword', [DefualtController::class, 'change_password'])->name('changePassword');
+
 Route::fallback([WebController::class, 'error_404']);
-
-Route::match(['get', 'post'], '/passwordChange', function () {
-    return view('web.pages.change_password');
-})->name('admin.passwordChange');
-
-Route::match(['get', 'post'], '/forgotPassword', function () {
-    return view('web.pages.forgot_password');
-})->name('admin.forgotPassword');
-
-Route::match(['get', 'post'], '/sendOtp', function () {
-    return view('web.pages.forgot_password');
-})->name('sendOtp');
-Route::match(['get', 'post'], '/verifyOtp', function () {
-    return view('web.pages.forgot_password');
-})->name('verifyOtp');
 include __DIR__ . '/admin.php';
+
+

@@ -68,8 +68,8 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::get('/pMedGQ', [SystemController::class, 'p_med_general_questions'])->name('admin.pMedGQ');
     Route::get('/prescriptionMedGQ', [SystemController::class, 'prescription_med_general_questions'])->name('admin.prescriptionMedGQ');
     Route::match(['get', 'post'], '/questionsTrash/{q_type}', [SystemController::class, 'trash_questions'])->name('admin.questionsTrash');
-    Route::match(['get', 'post'],'/dellQuestion', [SystemController::class, 'delete_question'])->name('admin.dellQuestion');
-    Route::match(['get', 'post'],'/gpLocations', [SystemController::class, 'gp_locations'])->name('admin.gpLocations');
+    Route::match(['get', 'post'], '/dellQuestion', [SystemController::class, 'delete_question'])->name('admin.dellQuestion');
+    Route::match(['get', 'post'], '/gpLocations', [SystemController::class, 'gp_locations'])->name('admin.gpLocations');
 
     Route::get('/comments/id', [SystemController::class, 'comments'])->name('admin.comments');
     Route::match(['get', 'post'], '/commentStore', [SystemController::class, 'comment_store'])->name('admin.commentStore');
@@ -95,3 +95,4 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/updateShippingAddress', [SystemController::class, 'update_shipping_address'])->name('admin.updateShippingAddress');
     Route::delete('/deleteVariant', [ProductController::class, 'delete_variant'])->name('admin.deleteVariant');
 });
+

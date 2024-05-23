@@ -18,28 +18,28 @@ use App\Http\Controllers\Admin\DefualtController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
-Route::match(['get','post'],'/account', [WebController::class, 'account'])->name('web.account');
+Route::match(['get', 'post'], '/account', [WebController::class, 'account'])->name('web.account');
 Route::match(['get', 'post'], '/login', [DefualtController::class, 'login'])->name('login');
 Route::match(['get', 'post'], '/register', [DefualtController::class, 'registration_form'])->name('register');
 Route::match(['get', 'post'], '/regisrationFrom', [DefualtController::class, 'user_register'])->name('web.user_register');
 Route::match(['get', 'post'], '/logout', [DefualtController::class, 'logout'])->name('web.logout');
 
-Route::match(['get','post'],'/categories', [WebController::class, 'categories'])->name('web.categories');
-Route::match(['get','post'],'/sleep', [WebController::class, 'sleep'])->name('web.sleep');
-Route::match(['get','post'], '/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
-Route::match(['get','post'],'/diabetes', [WebController::class, 'diabetes'])->name('web.diabetes');
-Route::match(['get','post'],'/skincare', [WebController::class, 'skincare'])->name('web.skincare');
-Route::match(['get','post'],'/categorydetail', [WebController::class, 'categorydetail'])->name('web.categorydetail');
+Route::match(['get', 'post'], '/categories', [WebController::class, 'categories'])->name('web.categories');
+Route::match(['get', 'post'], '/sleep', [WebController::class, 'sleep'])->name('web.sleep');
+Route::match(['get', 'post'], '/category/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_products'])->name('category.products');
+Route::match(['get', 'post'], '/diabetes', [WebController::class, 'diabetes'])->name('web.diabetes');
+Route::match(['get', 'post'], '/skincare', [WebController::class, 'skincare'])->name('web.skincare');
+Route::match(['get', 'post'], '/categorydetail', [WebController::class, 'categorydetail'])->name('web.categorydetail');
 Route::get('/collections/{main_category?}/{sub_category?}/{child_category?}', [WebController::class, 'show_categories'])->name('web.collections');
 
 Route::get('/shop', [WebController::class, 'shop'])->name('shop');
 Route::get('/product/{id:slug}', [WebController::class, 'product_detail'])->name('web.product');
 
-Route::match(['get','post'],'/productQuestion/{id}', [WebController::class, 'product_question'])->name('web.productQuestion');
-Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
+Route::match(['get', 'post'], '/productQuestion/{id}', [WebController::class, 'product_question'])->name('web.productQuestion');
+Route::match(['get', 'post'], '/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
 Route::get('/idDocumentForm', [WebController::class, 'id_document_form'])->name('web.idDocumentForm');
 Route::post('/idDocumentForm', [WebController::class, 'id_document_store'])->name('web.idDocumentForm');
-Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
+Route::match(['get', 'post'], '/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
 Route::match(['get', 'post'], '/transactionStore/', [WebController::class, 'transaction_store'])->name('web.transactionStore');
 Route::get('/product_question', [WebController::class, 'product_question_new']);
 Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->name('web.questions_preview');
@@ -51,18 +51,18 @@ Route::post('/delete-item', [CartController::class, 'deleteItem'])->name('web.ca
 Route::get('/checkout', [CartController::class, 'checkout'])->name('web.checkout');
 
 Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs');
-Route::match(['get','post'],'/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
-Route::match(['get','post'],'/howitworks', [WebController::class, 'howitworks'])->name('web.howitworks');
-Route::match(['get','post'],'/faq', [WebController::class, 'faq'])->name('web.faq');
+Route::match(['get', 'post'], '/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
+Route::match(['get', 'post'], '/howitworks', [WebController::class, 'howitworks'])->name('web.howitworks');
+Route::match(['get', 'post'], '/faq', [WebController::class, 'faq'])->name('web.faq');
 Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
 Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
 Route::get('/clinic', [HomeController::class, 'clinic'])->name('web.clinic');
 
-Route::match(['get','post'],'/payment', [WebController::class, 'payment'])->name('payment');
-Route::match(['get','post'],'/Completed-order', [WebController::class, 'completed_order']);
-Route::match(['get','post'],'/Unsuccessful-order', [WebController::class, 'unsuccessful_order']);
+Route::match(['get', 'post'], '/payment', [WebController::class, 'payment'])->name('payment');
+Route::match(['get', 'post'], '/Completed-order', [WebController::class, 'completed_order']);
+Route::match(['get', 'post'], '/Unsuccessful-order', [WebController::class, 'unsuccessful_order']);
 
-Route::match(['get','post'],'/search', [WebController::class, 'search'])->name('web.search');
+Route::match(['get', 'post'], '/search', [WebController::class, 'search'])->name('web.search');
 Route::get('/product_question', [WebController::class, 'product_question_new']);
 
 
@@ -71,16 +71,16 @@ Route::get('/product_question', [WebController::class, 'product_question_new']);
 Route::get('/questions_preview', [HomeController::class, 'questions_preview'])->name('web.questions_preview');
 
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
-Route::match(['get','post'],'/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
-Route::match(['get','post'],'/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
-Route::match(['get','post'],'/account', [WebController::class, 'account'])->name('web.account');
-Route::match(['get','post'],'/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
-Route::match(['get','post'],'/faq', [WebController::class, 'faq'])->name('web.faq');
-Route::match(['get','post'],'/categories', [WebController::class, 'categories'])->name('web.categories');
-Route::match(['get','post'],'/categorydetail', [WebController::class, 'categorydetail'])->name('web.categorydetail');
-Route::match(['get','post'],'/skincare', [WebController::class, 'skincare'])->name('web.skincare');
-Route::match(['get','post'],'/diabetes', [WebController::class, 'diabetes'])->name('web.diabetes');
-Route::match(['get','post'],'/sleep', [WebController::class, 'sleep'])->name('web.sleep');
+Route::match(['get', 'post'], '/consultationForm', [WebController::class, 'consultation_form'])->name('web.consultationForm');
+Route::match(['get', 'post'], '/consultationStore', [WebController::class, 'consultation_store'])->name('web.consultationStore');
+Route::match(['get', 'post'], '/account', [WebController::class, 'account'])->name('web.account');
+Route::match(['get', 'post'], '/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
+Route::match(['get', 'post'], '/faq', [WebController::class, 'faq'])->name('web.faq');
+Route::match(['get', 'post'], '/categories', [WebController::class, 'categories'])->name('web.categories');
+Route::match(['get', 'post'], '/categorydetail', [WebController::class, 'categorydetail'])->name('web.categorydetail');
+Route::match(['get', 'post'], '/skincare', [WebController::class, 'skincare'])->name('web.skincare');
+Route::match(['get', 'post'], '/diabetes', [WebController::class, 'diabetes'])->name('web.diabetes');
+Route::match(['get', 'post'], '/sleep', [WebController::class, 'sleep'])->name('web.sleep');
 
 //cart
 Route::get('/cart', [CartController::class, 'cart'])->name('web.view.cart');
@@ -123,4 +123,18 @@ Route::get('/generate_slug_variants_existing', [WebController::class, 'generate_
 
 Route::fallback([WebController::class, 'error_404']);
 
+Route::match(['get', 'post'], '/passwordChange', function () {
+    return view('web.pages.change_password');
+})->name('admin.passwordChange');
+
+Route::match(['get', 'post'], '/forgotPassword', function () {
+    return view('web.pages.forgot_password');
+})->name('admin.forgotPassword');
+
+Route::match(['get', 'post'], '/sendOtp', function () {
+    return view('web.pages.forgot_password');
+})->name('sendOtp');
+Route::match(['get', 'post'], '/verifyOtp', function () {
+    return view('web.pages.forgot_password');
+})->name('verifyOtp');
 include __DIR__ . '/admin.php';

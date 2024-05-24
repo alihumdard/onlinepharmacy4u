@@ -583,6 +583,7 @@ class WebController extends Controller
                     $data['categories'] = SubCategory::where(['category_id' => $data['main_category']->id, 'status' => 'Active'])->get()->toArray();
                     $data['image'] = $data['main_category']['image'];
                     $data['category_name'] = $data['main_category']['name'];
+                    $data['category_desc'] = $data['main_category']['desc'];
                     $data['main_slug'] = $data['main_category']['slug'];
                     // $data['products'] = Product::where(['category_id' => $data['main_category']->id])->paginate(21);
                     $query->where(['category_id' => $data['main_category']->id]);
@@ -594,6 +595,7 @@ class WebController extends Controller
                     $data['categories'] = ChildCategory::where(['sub_category_id' => $data['sub_category']->id, 'status' => 'Active'])->get()->toArray();
                     $data['image'] = $data['sub_category']['image'];
                     $data['category_name'] = $data['sub_category']['name'];
+                    $data['category_desc'] = $data['sub_category']['desc'];
                     $data['main_slug'] = $data['main_category']['slug'];
                     $data['sub_slug'] = $data['sub_category']['slug'];
                     // $data['products'] = Product::where(['sub_category' => $data['sub_category']->id])->paginate(21);

@@ -29,5 +29,9 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class, 'order_id');
     }
 
+    public function paymentdetails()
+    {
+        return $this->hasOne(PaymentDetail::class, 'order_id');
+    }
 
 }

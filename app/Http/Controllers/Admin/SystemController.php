@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use SebastianBergmann\Type\NullType;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 // models ...
 use App\Models\Comment;
@@ -48,6 +50,7 @@ use App\Models\ProductVariant;
 use App\Models\QuestionMapping;
 use App\Models\PMedGeneralQuestion;
 use App\Models\PrescriptionMedGeneralQuestion;
+use App\Models\PaymentDetail;
 
 class SystemController extends Controller
 {
@@ -58,6 +61,37 @@ class SystemController extends Controller
     {
         $this->user = auth()->user();
         $this->status = config('constants.USER_STATUS');
+    }
+
+
+    private function getAccessToken()
+    {
+        try {
+            // Viva Wallet API credentials
+            $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
+            $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
+            $credentials = base64_encode($username . ':' . $password);
+
+            // Make an HTTP request to obtain an access token
+            $response = Http::asForm()->withHeaders([
+                'Authorization' => 'Basic ' . $credentials,
+            ])->post('https://accounts.vivapayments.com/connect/token', [
+                'grant_type' => 'client_credentials',
+            ]);
+
+            // Check if the request was successful (status code 2xx)
+            if ($response->successful()) {
+                return $response->json('access_token');
+            } else {
+                // Log the error response for further investigation
+                Log::error('Error response: ' . $response->body());
+                return null;
+            }
+        } catch (\Exception $e) {
+            // Log any exceptions that occurred during the request
+            Log::error('Exception: ' . $e->getMessage());
+            return null;
+        }
     }
 
     public function index()
@@ -1445,15 +1479,10 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $emails = array_unique(Arr::pluck($orders, 'email'));
-            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
-                ->whereIn('email', $emails)
-                ->where('status', 'Paid')
-                ->groupBy('email')
-                ->get()
-                ->toArray();
+            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))->whereIn('email', $emails)->where('status', 'Paid')->groupBy('email')->get()->toArray();
             $data['order_history'] = $userOrdersData;
             $data['orders'] = $orders;
         }
@@ -1468,7 +1497,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $emails = array_unique(Arr::pluck($orders, 'email'));
             $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
@@ -1491,7 +1520,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Refund'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Refund'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $emails = array_unique(Arr::pluck($orders, 'email'));
             $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
@@ -1514,7 +1543,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
@@ -1535,7 +1564,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
 
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
@@ -1557,7 +1586,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $emails = array_unique(Arr::pluck($orders, 'email'));
             $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
@@ -1667,7 +1696,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
@@ -1702,6 +1731,54 @@ class SystemController extends Controller
             $msg = 'Order is ' . $validatedData['status'];
             $status = 'success';
             return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $status)->with('msg', $msg);
+        }
+        return redirect()->back();
+    }
+
+    public function refund_order(Request $request)
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'orders';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $validatedData = $request->validate([
+            'id' => 'required|exists:orders,id',
+            'status' => 'required',
+            'ammount' => 'required|numeric|gt:0',
+        ]);
+
+        $order = Order::with('paymentdetails')->findOrFail($validatedData['id']);
+        if ($order) {
+            $ammount = $request->ammount;
+            $transetion_id = $order->paymentdetails->transactionId;
+            $source_code = 1503;
+            $accessToken = $this->getAccessToken();
+            $url = "https://www.vivapayments.com/api/transactions/{$transetion_id}/";
+            $response = Http::withHeaders([
+                'Authorization' => 'Basic ' . base64_encode('MerchantID:APIKey'),  // Replace with actual credentials
+                'Content-Type' => 'application/json',
+            ])
+            ->delete($url, [
+                'amount' => $ammount,
+                'sourceCode' => $source_code
+            ]);
+            
+            $responseData = json_decode($response->body(), true);
+            dd($responseData);
+            $update_payment = [
+                'statusId' => $responseData['statusId'],
+            ];
+            $payment =   PaymentDetail::where('id', $order->paymentdetails->id)->update($update_payment);
+
+            $order->status = $validatedData['status'];
+            $update = $order->save();
+            if ($update) {
+                $msg = 'Order is ' . $validatedData['status'];
+                $status = 'success';
+                return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $status)->with('msg', $msg);
+            }
         }
         return redirect()->back();
     }

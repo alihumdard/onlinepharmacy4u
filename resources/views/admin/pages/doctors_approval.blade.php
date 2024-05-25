@@ -416,7 +416,7 @@
                                         @endforeach
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('m-d-y H:i:s', strtotime($val['created_at'])) : '' }}</td>
-                                    <td>{{ $val['user']['name'] ?? '' }}</td>
+                                    <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     <td>453934</td>
                                     <td>{{$val['user']['address'] ?? ''}}</td>
                                     <td>address 2</td>

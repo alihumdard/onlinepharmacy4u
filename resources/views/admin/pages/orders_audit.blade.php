@@ -137,12 +137,12 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>
-                                        <a  href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
+                                        <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
                                             #00{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('Y-m-d h:i A', strtotime($val['created_at'])) : '' }}</td>
-                                    <td>{{ $val['user']['name'] ?? '' }}</td>
+                                    <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     <td>{{$val['shipingdetails']['zip_code'] ?? ''}}</td>
                                     <td>{{$val['shipingdetails']['address'] ?? ''}}</td>
                                     <th> <button class="btn btn-success text-center"> {{$val['status'] ?? ''}} </button></th>

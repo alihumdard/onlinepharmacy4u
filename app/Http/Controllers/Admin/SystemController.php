@@ -1757,7 +1757,7 @@ class SystemController extends Controller
             $accessToken = $this->getAccessToken();
             $url = "https://www.vivapayments.com/api/transactions/{$transetion_id}/";
             $response = Http::withHeaders([
-                'Authorization' => 'Basic ' . base64_encode('MerchantID:APIKey'),  // Replace with actual credentials
+                'Authorization' => 'Bearer ' . $accessToken,
                 'Content-Type' => 'application/json',
             ])
             ->delete($url, [

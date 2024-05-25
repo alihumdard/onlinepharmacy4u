@@ -60,6 +60,8 @@ Route::get('/clinic', [HomeController::class, 'clinic'])->name('web.clinic');
 
 Route::match(['get', 'post'], '/payment', [WebController::class, 'payment'])->name('payment');
 Route::match(['get', 'post'], '/Completed-order', [WebController::class, 'completed_order']);
+Route::match(['get', 'post'], '/thankYou', [WebController::class, 'thank_you'])->name('thankYou');
+Route::match(['get', 'post'], '/transetionFail', [WebController::class, 'transetion_fail'])->name('transetionFail');
 Route::match(['get', 'post'], '/Unsuccessful-order', [WebController::class, 'unsuccessful_order']);
 
 Route::match(['get', 'post'], '/search', [WebController::class, 'search'])->name('web.search');

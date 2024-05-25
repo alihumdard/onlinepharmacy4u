@@ -902,15 +902,15 @@ class WebController extends Controller
 
             $responseData = json_decode($response, true);
             $update_payment = [
-                'transactionId' => $transetion_id , 
-                'fullName' => $responseData['fullName'], 
-                'email' => $responseData['email'], 
-                'cardNumber' => $responseData['cardNumber'], 
-                'statusId' => $responseData['statusId'], 
-                'insDate' => $responseData['insDate'], 
-                'amount' => $responseData['amount'], 
+                'transactionId' => $transetion_id,
+                'fullName' => $responseData['fullName'],
+                'email' => $responseData['email'],
+                'cardNumber' => $responseData['cardNumber'],
+                'statusId' => $responseData['statusId'],
+                'insDate' => $responseData['insDate'],
+                'amount' => $responseData['amount'],
             ];
-           $payment =   PaymentDetail::where('id', $payment_detail->id)->update($update_payment);
+            $payment =   PaymentDetail::where('id', $payment_detail->id)->update($update_payment);
 
             $payment_detail = PaymentDetail::find($payment_detail->id);
             $order = Order::where('id', $payment_detail->order_id)->latest('created_at')->first();
@@ -926,15 +926,30 @@ class WebController extends Controller
                     Auth::logout();
                     Auth::login($user);
                     if (Auth()->user()) {
-                        $data['name'] = $order->shipingdetails->firstName;
-                        return view('web.pages.completed_order', $data);
+                        $name = $order->shipingdetails->firstName;
+                        echo "<script>
+                            if (window.self !== window.top) {
+                                window.top.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                            } else {
+                                window.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                            }
+                        </script>";
+                        exit;
                     } else {
                         dd('Authentication failed. Please try again.');
                     }
                 } else {
                     Mail::to($order->shipingdetails->email)->send(new OrderConfirmation($order));
                     Session::flush();
-                    return view('web.pages.completed_order');
+                    $name = $order->shipingdetails->firstName;
+                    echo "<script>
+                        if (window.self !== window.top) {
+                            window.top.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                        } else {
+                            window.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                        }
+                    </script>";
+                    exit;
                 }
             } else {
                 dd('Order could not developer');
@@ -946,8 +961,72 @@ class WebController extends Controller
 
     public function unsuccessful_order(Request $request)
     {
-        $data['user'] = auth()->user() ?? [];
-        return view('web.pages.unsuccessful_order', $data);
+
+        $transetion_id = $request->query('t');
+        $orderCode = $request->query('s');
+        $payment_detail = PaymentDetail::where('orderCode', $orderCode)->firstOrFail();
+        if ($payment_detail) {
+            $accessToken = $this->getAccessToken();
+            $url = "https://api.vivapayments.com/checkout/v2/transactions/{$transetion_id}";
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Content-Type'  => 'application/json',
+            ])->get($url);
+
+            $responseData = json_decode($response, true);
+            $update_payment = [
+                'transactionId' => $transetion_id,
+                'fullName' => $responseData['fullName'],
+                'email' => $responseData['email'],
+                'cardNumber' => $responseData['cardNumber'],
+                'statusId' => $responseData['statusId'],
+                'insDate' => $responseData['insDate'],
+                'amount' => $responseData['amount'],
+                'status' => 'Fail',
+            ];
+            $payment =   PaymentDetail::where('id', $payment_detail->id)->update($update_payment);
+
+            $payment_detail = PaymentDetail::find($payment_detail->id);
+            $order = Order::where('id', $payment_detail->order_id)->latest('created_at')->first();
+
+            if ($order) {
+                if (Auth::check()) {
+                    $user = Auth()->user() ?? [];
+                    Session::flush();
+                    Auth::logout();
+                    Auth::login($user);
+                    if (Auth()->user()) {
+                        $name = $order->shipingdetails->firstName;
+                        echo "<script>
+                            if (window.self !== window.top) {
+                                window.top.location.href = '" . route('transetionFail', ['n' => $name]) . "';
+                            } else {
+                                window.location.href = '" . route('transetionFail', ['n' => $name]) . "';
+                            }
+                        </script>";
+                        exit;
+                    } else {
+                        dd('Authentication failed. Please try again.');
+                    }
+                } else {
+                    Session::flush();
+                    $name = $order->shipingdetails->firstName;
+                    echo "<script>
+                        if (window.self !== window.top) {
+                            window.top.location.href = '" . route('transetionFail', ['n' => $name]) . "';
+                        } else {
+                            window.location.href = '" . route('transetionFail', ['n' => $name]) . "';
+                        }
+                    </script>";
+                    exit;
+                }
+            } else {
+                dd('Order could not  found.');
+            }
+        } else {
+            dd('No Payment details found.');
+        }
     }
 
     public function get_related_products($product)
@@ -1141,5 +1220,21 @@ class WebController extends Controller
     public function error_404()
     {
         return view('web.pages.404');
+    }
+
+    public function thank_you(Request $request)
+    {
+        $data['user'] = auth()->user() ?? [];
+        $name = $request->query('n');
+        $data['name'] = $name ?? 'Guest';
+        return view('web.pages.completed_order', $data);
+    }
+
+    public function transetion_fail(Request $request)
+    {
+        $data['user'] = auth()->user() ?? [];
+        $name = $request->query('n');
+        $data['name'] = $name ?? 'Guest';
+        return view('web.pages.unsuccessful_order', $data);
     }
 }

@@ -247,8 +247,8 @@
                     type: 'POST',
                     data: $('#checkoutForm').serialize(),
                     success: function(response) {
-                        // window.location.href = "/Completed-order";
-                        
+                       
+
                         var redirectUrl = response.redirectUrl;
                         var iframe = $('<iframe>', {
                             src: redirectUrl,

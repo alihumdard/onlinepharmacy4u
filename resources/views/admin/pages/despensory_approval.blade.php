@@ -383,9 +383,6 @@
                                     <th>Total Orders</th>
                                     <th>Date-Time</th>
                                     <th>Customer Name</th>
-                                    <th>Postal Code</th>
-                                    <th>Address1</th>
-                                    <th>Address2</th>
                                     @if($user->role == user_roles('1'))
                                     <th>Total Atm.</th>
                                     @endif
@@ -417,9 +414,6 @@
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('m-d-y H:i:s', strtotime($val['created_at'])) : '' }}</td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
-                                    <td>453934</td>
-                                    <td>{{$val['user']['address'] ?? ''}}</td>
-                                    <td>address 2</td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif

@@ -464,7 +464,75 @@
                                             @foreach ($menu_categories as $key => $val)
                                             <li class=""><a style="background: none !important;" href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
                                                 <ul class="mega-menu">
-                                                    @foreach($val['subcategory'] as $key1 => $val1)
+                                                <div class="row">
+                                                <div class="col-md-4">
+                                                    <ul class="new-req-menu">
+                                                        <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 1
+                                                        </span>
+                                                        </a></li>
+                                                        <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 1
+                                                        </span>
+                                                        </a></li>
+                                                        <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 1
+                                                        </span>
+                                                        </a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-4">
+                                                <ul class="new-req-menu">
+                                                <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 2
+                                                        </span>
+                                                        </a></li>
+                                                        <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 2
+                                                        </span>
+                                                        </a></li>
+                                                        <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 2
+                                                        </span>
+                                                        </a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-4">
+                                                <ul class="new-req-menu">
+                                                <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 3
+                                                        </span>
+                                                        </a></li>
+                                                        <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 3
+                                                        </span>
+                                                        </a></li>
+                                                        <li> <a href="">
+                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <span>
+                                                        test 3
+                                                        </span>
+                                                        </a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                                    <!-- @foreach($val['subcategory'] as $key1 => $val1)
                                                     <li><a class="poppins-thin cat-head-main" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
                                                         <ul>
                                                             @foreach($val1['child_categories'] as $key2 => $val2)
@@ -472,7 +540,7 @@
                                                             @endforeach
                                                         </ul>
                                                     </li>
-                                                    @endforeach
+                                                    @endforeach -->
                                                 </ul>
                                             </li>
                                             @endforeach

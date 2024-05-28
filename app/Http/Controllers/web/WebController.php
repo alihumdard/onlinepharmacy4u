@@ -883,8 +883,9 @@ class WebController extends Controller
         // Return the response body
         return $response->body();
     }
-    // response example  url : https://myweightlosscentre.co.uk/Completed-order?t=8cbe1c22-08bf-46f7-815a-b4edf9c76c22&s=7217646205950618&lang=en-GB&eventId=0&eci=1
 
+
+    // response example  url : https://onlinepharmacy-4u.co.uk/Completed-order?t=8cbe1c22-08bf-46f7-815a-b4edf9c76c22&s=7217646205950618&lang=en-GB&eventId=0&eci=1
     public function completed_order(Request $request)
     {
 
@@ -961,7 +962,6 @@ class WebController extends Controller
 
     public function unsuccessful_order(Request $request)
     {
-
         $transetion_id = $request->query('t');
         $orderCode = $request->query('s');
         $payment_detail = PaymentDetail::where('orderCode', $orderCode)->firstOrFail();

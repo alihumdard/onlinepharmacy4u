@@ -402,7 +402,7 @@
                                     <td>{{ ++$key }}</td>
                                     <td>
                                         <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #00{{ $val['id'] }}
+                                            #{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>
@@ -420,13 +420,13 @@
                                     <td>
                                         {{$val['payment_status'] ?? ''}}
                                     </td>
-                                    <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }}">{{ $val['status'] ?? '' }}</span></td>
+                                    <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} rounded-pill">{{ $val['status'] ?? '' }}</span></td>
                                     <td style="display: inline-block;">
                                         @if($val['status'] == 'Approved')
-                                        <span class="btn  fw-bold btn-primary no-wrap">Ship Now</span>
+                                        <span data-order_id="{{$val['id']}}" class="btn ship_now  fw-bold btn-primary no-wrap rounded-pill">Ship Now</span>
                                         @endif
                                         @if($val['status'] == 'Shiped')
-                                        <span class="btn  fw-bold btn-success no-wrap">Shiped</span>
+                                        <span class="btn  fw-bold btn-success no-wrap rounded-pill">Shiped</span>
                                         @endif
                                     </td>
 
@@ -446,6 +446,10 @@
 <form id="bulk_print" action="{{route('pdf.bulkPrint')}}" method="post">
     <input type="hidden" name="order_ids" value="" required>
     <input type="hidden" name="view_name" value="order_bulk_print" required>
+</form>
+<form id="form_shiping_now" action="{{route('admin.createShippingOrder')}}" method="POST">
+    @csrf
+    <input type="hidden" id="shiping_order" name="id" required value="">
 </form>
 @stop
 
@@ -513,6 +517,13 @@
             } else {
                 alert('Please select at least one order.');
             }
+        });
+
+        $(document).on('click', ".ship_now", function() {
+            let order_id = $(this).data('order_id');
+            alert(order_id);
+            $('#shiping_order').val(order_id);
+            $('#form_shiping_now').submit();
         });
     });
 </script>

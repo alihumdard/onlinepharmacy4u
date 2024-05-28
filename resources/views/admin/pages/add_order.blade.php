@@ -50,11 +50,12 @@
                             <label for="product_id" class="form-label fw-bold">Select Product: </label>
                             <div class="row">
                                 <div class="col-11  d-block">
-                                    <select id="product_id" name="product_id" class="form-select select2" data-placeholder="choose product ..." required>
+                                    <select id="product_id" name="product_id" class="form-select select2" data-placeholder="choose product ..." >
                                         <option value=""></option>
                                         @foreach ($products ?? [] as $key => $product)
-
-                                        <option {{ (isset($order['product_id']) && $product['id'] == $order['product_id']) ? 'selected' : '' }} {{ ($product['id'] == old('product_id')) ? 'selected' : '' }} value="{{$product['id']}}">{{ $product['title'] ?? '' }}</option>
+                                        <option {{ (isset($order['product_id']) && $product['id'] == $order['product_id']) ? 'selected' : '' }} {{ ($product['id'] == old('product_id')) ? 'selected' : '' }} value="{{$product['id']}}" data-img="{{ asset('storage/'.$product['main_image']) }}">
+                                            {{ $product['title'] ?? '' }}
+                                        </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Please select product!</div>
@@ -93,6 +94,60 @@
                                             </tbody>
 
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <div class="card">
+                                    <div class="card-header text-center " style="background:#88888870;">
+                                        <label class=" fw-bold text-dark m-0">Payment Details</label>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="col-12 px-4 border-1 mt-3 mb-4 ">
+                                            <div class="row ">
+                                                <div class="col-4 ">
+                                                    <lable class="fw-semibold large text-left ">Total Items: </lable>
+                                                </div>
+                                                <div class="col-4 text-center ">
+                                                    <span id="total_items"> 0 </span> items
+                                                </div>
+                                                <div class="col-4 text-center ">
+                                                    <span id="total_price">0.00</span>£
+                                                </div>
+                                            </div>
+                                            <div class="row mt-1">
+                                                <div class="col-4">
+                                                    <lable class="fw-semibold large text-left ">Shiping Cost: </lable>
+                                                </div>
+                                                <div class="col-4 text-center"> --------</div>
+                                                <div class="col-4 text-center">
+                                                    <span id="shiping_cost">0.00</span>£
+                                                </div>
+                                            </div>
+                                            <div class="row mt-1">
+                                                <div class="col-4">
+                                                    <lable class="fw-semibold large text-left">Add Discount:</lable>
+                                                </div>
+                                                <div class="col-4 text-center d-flex justify-content-center">
+                                                    <div style="width: 100%;">
+                                                        <input type="number" placeholder="0 ٪" max="100" min="0.01" step="0.01" style="text-align: center;" name="discount_percent" id="discount_percent" class="form-control mx-auto w-50">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <span id="discount_amount">0.00</span>£
+                                                </div>
+                                            </div>
+                                            <div class="row mt-1">
+                                                <div class="col-4">
+                                                    <lable class="fw-bold large text-left">Total Ammount:</lable>
+                                                </div>
+                                                <div class="col-4 text-center">--------</div>
+                                                <div class="col-4 text-center">
+                                                    <span id="total_amount">0.00</span>£
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -165,8 +220,8 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-md-6 mt-2">
-                                                    <label for="address2" class="form-label ">Apartment, suite, unit etc. (optional)</label>
-                                                    <input type="address2" name="address2" value="{{  $order['address2'] ?? old('address2') }}" class="form-control" id="address2" required>
+                                                    <label for="address2" class="form-label ">Town (optional)</label>
+                                                    <input type="address2" name="address2" value="{{  $order['address2'] ?? old('address2') }}" class="form-control" id="address2" >
                                                     <div class="invalid-feedback">Please enter Apartment!</div>
                                                     @error('address2')
                                                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -196,23 +251,22 @@
                                                 <div class="col-md-12 mt-2 d-flex justify-content-center gap-5">
                                                     <div class="form-check">
                                                         <div class="custom-control">
-                                                            <input class="form-check-input" type="radio" name="shiping_cost" id="express_delivery" value="4.95" checked="" data-ship="4.95" required="">
-                                                            <label class="form-check-label" for="express_delivery">Royal Mail Tracked 24
-                                                                <span class="float-right">£4.95</span>
-                                                                <div class="ml-4 mb-2 small">(1-2 working days)</div>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <div class="custom-control">
-                                                            <input class="form-check-input" type="radio" name="shiping_cost" id="fast_delivery" value="3.95" data-ship="3.95" required="">
+                                                            <input class="form-check-input" type="radio" name="shiping_cost" id="fast_delivery" value="3.95" data-ship="3.95" checked="" required="">
                                                             <label class="form-check-label" for="fast_delivery">Royal Mail Tracked 48
                                                                 <span class="float-right">£3.95</span>
                                                                 <div class="ml-4 mb-2 small">(3-5 working days)</div>
                                                             </label>
                                                         </div>
                                                     </div>
-
+                                                    <div class="form-check">
+                                                        <div class="custom-control">
+                                                            <input class="form-check-input" type="radio" name="shiping_cost" id="express_delivery" value="4.95" data-ship="4.95" required="">
+                                                            <label class="form-check-label" for="express_delivery">Royal Mail Tracked 24
+                                                                <span class="float-right">£4.95</span>
+                                                                <div class="ml-4 mb-2 small">(1-2 working days)</div>
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                     @error('shipping_method')
                                                     <div class="alert-danger text-danger ">{{ $message }}</div>
                                                     @enderror
@@ -231,51 +285,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 mt-4">
-                                <div class="card">
-                                    <div class="card-header text-center " style="background:#88888870;">
-                                        <label class=" fw-bold text-dark m-0">Payment Details</label>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <div class="col-12 px-4 border-1 mt-3 mb-4 ">
-                                            <div class="row ">
-                                                <div class="col-4 ">
-                                                    <lable class="fw-semibold large text-left ">Total Items: </lable>
-                                                </div>
-                                                <div class="col-4 text-center ">
-                                                    2 items
-                                                </div>
-                                                <div class="col-4 text-center ">£7.23</div>
-                                            </div>
-                                            <div class="row mt-1">
-                                                <div class="col-4">
-                                                    <lable class="fw-semibold large text-left ">Shiping Cost: </lable>
-                                                </div>
-                                                <div class="col-4 text-center"> --------</div>
-                                                <div class="col-4 text-center">£7.23</div>
-                                            </div>
-                                            <div class="row mt-1">
-                                                <div class="col-4">
-                                                    <lable class="fw-semibold large text-left">Add Discount:</lable>
-                                                </div>
-                                                <div class="col-4 text-center d-flex justify-content-center">
-                                                    <div style="width: 100%;">
-                                                        <input type="number" name="" id="" class="form-control mx-auto w-50">
-                                                    </div>
-                                                </div>
-                                                <div class="col-4 text-center">£7.23</div>
-                                            </div>
-                                            <div class="row mt-1">
-                                                <div class="col-4">
-                                                    <lable class="fw-bold large text-left">Total Ammount:</lable>
-                                                </div>
-                                                <div class="col-4 text-center">--------</div>
-                                                <div class="col-4 text-center">£7.23</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="text-center mt-4 mb-3 d-flex justify-content-center ">
                                 <button type="reset" class="btn btn-secondary px-5 py-2 mx-2 fw-bold">Reset</button>
                                 <button type="submit" class="btn btn-success px-5 py-2 btn_theme fw-bold">Generate Payement Link</button>
@@ -299,7 +308,8 @@
         var $products = @json($products);
         var $variants = @json($variants);
         var $users = @json($users);
-
+        var total_items = 0;
+        var total_price = 0;
         $(document).on('click', '#add_product', function() {
             var productHtml = '';
             var variHtml = 'No';
@@ -312,41 +322,42 @@
                     if ($variants[proId]) {
                         $.each($variants[proId], function(index, variant) {
                             if (variant.id == $('#variant_id').val()) {
-                                variHtml = variant.slug;
+                                variHtml = variant.slug +`<input type="hidden" name="pro_${product.id}_vari" value="${variant.id}" />`;
                             }
                         });
                     }
                     productHtml = `
-                <tr>
-                    <th style="vertical-align: middle; text-align: center;">${product.id}</th>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="${imageUrl}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
-                            <div class="ms-3">
-                                <label class="fw-semibold mb-1">${product.title}</label>
-                                <p class="text-muted mb-0"><b>Variant:</b> ${variHtml} </p>
-                            </div>
-                        </div>
-                    </td>
-                    <td style="vertical-align: middle; text-align: center;">
-                        <p class="fw-normal mb-1">${product.price} €</p>
-                    </td>
-                    <td style="vertical-align: middle; text-align: center;">
-                        <div style="display: inline-block; width: 100%;">
-                            <input type="number" name="product_qty" value="1" class="form-control py-2 text-center w-50 fw-semibold" id="product_qty" required style="margin: 0 auto;">
-                            <div class="invalid-feedback">Please enter Quantity!</div>
-                        </div>
-                    </td>
-                    <td style="vertical-align: middle; text-align: center;">
-                        <a class="delete" style="cursor: pointer;" title="Delete" data-id="${product.id}" data-toggle="tooltip">
-                            <i class="bi bi-trash-fill"></i>
-                        </a>
-                    </td>
-                </tr>
-            `;
+                                <tr>
+                                    <th style="vertical-align: middle; text-align: center;">${product.id}</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="${imageUrl}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
+                                            <div class="ms-3">
+                                                <label class="fw-semibold mb-1">${product.title}</label>
+                                                <p class="text-muted mb-0"><b>Variant:</b> ${variHtml} </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <span class="fw-normal mb-1" id="price_id_${product.id}">${product.price} </span>£
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <div style="display: inline-block; width: 100%;">
+                                            <input type="number" name="pro_${product.id}_qty" value="1" data-price_id="${product.id}"  data-price_qty="1" class="form-control py-2 text-center w-50 fw-semibold product_qty" id="product_qty_${product.id}" required style="margin: 0 auto;">
+                                            <div class="invalid-feedback">Please enter Quantity!</div>
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-row_id="${product.id}" data-toggle="tooltip">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>`;
                     $('#tbl_data tbody').prepend(productHtml);
                     $('#product_id').val(null).trigger('change');
-                    $('.variants').html('')
+                    $('.variants').html('');
+                    total_items++;
+                    calculate_payment(product.price);
                 } else {
                     alert('Selected Product does not exist.')
                 }
@@ -355,27 +366,52 @@
             }
         });
 
+        $(document).on('click', '.delete', function() {
+            var row_id = $(this).data('row_id');
+            $(this).closest('tr').fadeOut('slow', function() {
+                var product_qty = parseFloat($('#product_qty_'+row_id).val());
+                if (product_qty) {
+                    let product_price = $('#price_id_' + row_id).text();
+                    total_price -= parseFloat(product_price) * product_qty;
+                    let price = 0;
+                    total_items--;
+                    calculate_payment(price);
+                }
+                $(this).remove();
+            });
+        });
 
         $(document).on('change', '#product_id', function() {
             var productId = $(this).val();
             if ($products[productId]) {
                 if ($variants[productId]) {
                     var variantHtml = '<label for="variant_id" class="form-label fw-bold">Choose Variant</label>' +
-                        '<select id="variant_id" name="variant_id" class="form-select"  required>';
+                        '<select id="variant_id" name="variant_id" class="form-select select2" required>';
 
                     $.each($variants[productId], function(index, variant) {
-                        variantHtml += '<option value="' + variant.id + '">' + variant.slug + '</option>';
+                        var img_src = $('#product_id option:selected').data('img');
+                        if (variant.image) {
+                            img_src = "{{asset('storage')}}/" + variant.image;
+                        }
+                        variantHtml += '<option value="' + variant.id + '" data-img="' + img_src + '">' + variant.slug + '</option>';
                     });
 
                     variantHtml += '</select>' +
                         '<div class="invalid-feedback">Please enter variant!</div>';
                     $('.variants').html(variantHtml);
+
+                    // Initialize Select2 with custom template
+                    $('#variant_id').select2({
+                        templateResult: imageState,
+                        templateSelection: imageState,
+                        width: '100%'
+                    });
                 } else {
                     $('.variants').html('');
                 }
             }
-
         });
+
         $(document).on('change', '#user_id', function() {
             var userId = $(this).val();
             if ($users[userId]) {
@@ -392,11 +428,117 @@
             }
         });
 
-        $(document).on('click', '.delete', function() {
-            $(this).closest('tr').fadeOut('slow', function() {
-                $(this).remove();
-            });
+
+        $('#discount_percent').on('input', function() {
+            var discountPercent = parseFloat($(this).val());
+            if (discountPercent < 0) {
+                $(this).val('0.01');
+            } else if (discountPercent > 100) {
+                $(this).val('100');
+            }
+            $(this).removeClass('is-invalid');
+            update_d_payment();
         });
+
+        $(document).on('input', '.product_qty', function() {
+            var product_qty = parseFloat($(this).val());
+            if (product_qty) {
+                let row_id = $(this).data('price_id');
+                let price_qty = $(this).data('price_qty');
+                let product_price = $('#price_id_' + row_id).text();
+                total_price -= parseFloat(product_price) * price_qty;
+                let price = parseFloat(product_price) * product_qty;
+                calculate_payment(price);
+                $(this).data('price_qty', product_qty);
+            }
+        });
+
+        $(document).on('blur', '.product_qty', function() {
+            var product_qty = parseFloat($(this).val());
+            if (isNaN(product_qty) || product_qty <= 0) {
+                $(this).val(1).trigger('input');
+            }
+        });
+
+        const update_d_payment = () => {
+            let price = $('#total_price').text();
+            var d_amount = 0.00;
+            if (typeof price === 'string') {
+                price = parseFloat(price);
+            }
+            // Default price to 0 if it's not a valid number
+            if (typeof price !== 'number' || isNaN(price)) {
+                price = 0;
+            }
+
+            total_price = price;
+
+            let shippingCost = $('input[name="shiping_cost"]:checked').val();
+            var total_amount = parseFloat(total_price) + parseFloat(shippingCost);
+            var discountPercent = $('#discount_percent').val();
+            if (discountPercent) {
+                discountPercent = (typeof discountPercent === 'undefined' || isNaN(discountPercent)) ? 0 : parseFloat(discountPercent);
+                let discountDecimal = discountPercent / 100;
+                let discountAmount = parseFloat(total_price) * discountDecimal;
+                total_amount = total_amount - parseFloat(discountAmount);
+                d_amount = discountAmount.toFixed(2);
+            }
+            var t_price = total_price.toFixed(2);
+            var t_amount = total_amount.toFixed(2);
+
+            $('#total_items').text(total_items);
+            $('#total_price').text(t_price);
+            $('#shiping_cost').text(shippingCost);
+            $('#discount_amount').text(d_amount);
+            $('#total_amount').text(t_amount);
+
+        }
+
+        function imageState(state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var imgSrc = $(state.element).data('img');
+            if (imgSrc) {
+                var $state = $(
+                    '<span><img src="' + imgSrc + '" class="rounded-circle" style="width: 35px; height: 35px; margin-right: 8px;" />' + state.text + '</span>'
+                );
+                return $state;
+            } else {
+                return state.text;
+            }
+        }
+
+        const calculate_payment = (price) => {
+            var d_amount = 0.00;
+            if (typeof price === 'string') {
+                price = parseFloat(price);
+            }
+            // Default price to 0 if it's not a valid number
+            if (typeof price !== 'number' || isNaN(price)) {
+                price = 0;
+            }
+            total_price += price;
+
+            let shippingCost = $('input[name="shiping_cost"]:checked').val();
+            var total_amount = parseFloat(total_price) + parseFloat(shippingCost);
+            var discountPercent = $('#discount_percent').val();
+            if (discountPercent) {
+                discountPercent = (typeof discountPercent === 'undefined' || isNaN(discountPercent)) ? 0 : parseFloat(discountPercent);
+                let discountDecimal = discountPercent / 100;
+                let discountAmount = parseFloat(total_price) * discountDecimal;
+                total_amount = total_amount - parseFloat(discountAmount);
+                d_amount = discountAmount.toFixed(2);
+            }
+            var t_price = total_price.toFixed(2);
+            var t_amount = total_amount.toFixed(2);
+
+            $('#total_items').text(total_items);
+            $('#total_price').text(t_price);
+            $('#shiping_cost').text(shippingCost);
+            $('#discount_amount').text(d_amount);
+            $('#total_amount').text(t_amount);
+        }
 
         // $.ajax({
         //     url: $(this).attr('action'),
@@ -428,6 +570,27 @@
         //         alert('technical error occur')
         //     }
         // });
+    });
+
+    function formatState(state) {
+        if (!state.id) {
+            return state.text;
+        }
+        var imgSrc = $(state.element).data('img');
+        if (imgSrc) {
+            var $state = $(
+                '<span><img src="' + imgSrc + '" class="rounded-circle" style="width: 35px; height: 35px; margin-right: 8px;" />' + state.text + '</span>'
+            );
+            return $state;
+        } else {
+            return state.text;
+        }
+    }
+
+    $('#product_id').select2({
+        templateResult: formatState,
+        templateSelection: formatState,
+        width: '100%'
     });
 </script>
 @endPushOnce

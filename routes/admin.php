@@ -34,10 +34,10 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/addCollection', [SystemController::class, 'add_collection'])->name('admin.addCollection');
     Route::match(['get', 'post'], '/storeCollection', [SystemController::class, 'store_collection'])->name('admin.storeCollection');
 
-    Route::match(['get', 'post'], '/prodcuts', [ProductController::class, 'prodcuts'])->name('admin.prodcuts');
-    Route::match(['get', 'post'], '/proTrash', [ProductController::class, 'prodcut_trash'])->name('admin.proTrash');
-    Route::match(['get', 'post'], '/prodcutsLimits', [ProductController::class, 'prodcuts_limits'])->name('admin.prodcutsLimits');
-    Route::match(['get', 'post'], '/importedProdcuts', [ProductController::class, 'imported_prodcuts'])->name('admin.importedProdcuts');
+    Route::match(['get', 'post'], '/products', [ProductController::class, 'products'])->name('admin.prodcuts');
+    Route::match(['get', 'post'], '/proTrash', [ProductController::class, 'product_trash'])->name('admin.proTrash');
+    Route::match(['get', 'post'], '/productsLimits', [ProductController::class, 'products_limits'])->name('admin.prodcutsLimits');
+    Route::match(['get', 'post'], '/importedProducts', [ProductController::class, 'imported_products'])->name('admin.importedProdcuts');
     Route::get('/importProducts', [ProductController::class, 'import_products'])->name('admin.importProducts');
     Route::post('/importProducts', [ProductController::class, 'store_import_products'])->name('admin.importProducts');
     Route::match(['get', 'post'], '/addProduct', [ProductController::class, 'add_product'])->name('admin.addProduct');
@@ -74,7 +74,7 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::get('/comments/id', [SystemController::class, 'comments'])->name('admin.comments');
     Route::match(['get', 'post'], '/commentStore', [SystemController::class, 'comment_store'])->name('admin.commentStore');
 
-    Route::get('/ordersRecieved', [SystemController::class, 'orders_recieved'])->name('admin.ordersRecieved');
+    Route::get('/ordersReceived', [SystemController::class, 'orders_recieved'])->name('admin.ordersRecieved');
     Route::get('/ordersCreated', [SystemController::class, 'orders_created'])->name('admin.ordersCreated');
     Route::match(['get','post'],'/addOrder', [SystemController::class, 'add_order'])->name('admin.addOrder');
     Route::match(['get','post'],'/storeOder', [SystemController::class, 'store_order'])->name('admin.storeOder');

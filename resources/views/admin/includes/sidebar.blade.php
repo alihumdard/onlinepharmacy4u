@@ -129,7 +129,7 @@
                 </li>
                 <li>
                     <a class="{{(request()->routeIs(['admin.prodcutsLimits'])) ? 'nav-link ' : ''}} " href="{{route('admin.prodcutsLimits')}}">
-                        <i class="bi bi-circle"></i><span>Prodcuts Limits</span>
+                        <i class="bi bi-circle"></i><span>Products Limits</span>
                     </a>
                 </li>
                 <li>
@@ -155,7 +155,7 @@
                 @if(view_permission('orders_recieved'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersRecieved'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersRecieved')}}">
-                        <i class="bi bi-circle"></i><span>Recieved Orders</span>
+                        <i class="bi bi-circle"></i><span>Received Orders</span>
                     </a>
                 </li>
                 @endif
@@ -176,7 +176,7 @@
                 @if(view_permission('doctors_approval'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.doctorsApproval'])) ? 'nav-link ' : ''}}" href="{{route('admin.doctorsApproval')}}">
-                        <i class="bi bi-circle"></i><span>Medical Professionals</span>
+                        <i class="bi bi-circle"></i><span>{{ ($user->role == user_roles('2') ? 'Medical Professionals Approved' : 'Medical Professionals' )}}</span>
                     </a>
                 </li>
                 @endif

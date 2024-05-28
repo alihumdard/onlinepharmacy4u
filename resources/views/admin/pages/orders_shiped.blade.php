@@ -421,7 +421,7 @@
                                     <td>
                                     <span class="btn  fw-bold btn-warning rounded-pill">{{$val['payment_status'] ?? ''}}</span>
                                     </td>
-                                    <td><span class="btn  fw-bold btn-primary rounded-pill">{{$val['status'] ?? ''}}</span></td>
+                                    <td><span class="btn  fw-bold btn-success rounded-pill">{{$val['status'] ?? ''}}</span></td>
                                 </tr>
                                 @endforeach
                             </tbody>

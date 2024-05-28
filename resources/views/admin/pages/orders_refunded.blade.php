@@ -415,7 +415,7 @@
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
-                                    <td>{{$val['status'] ?? ''}}</td>
+                                    <td><span class="btn  fw-bold btn-primary rounded-pill">{{$val['status'] ?? ''}}</span> </td>
                                 </tr>
                                 @endforeach
                             </tbody>

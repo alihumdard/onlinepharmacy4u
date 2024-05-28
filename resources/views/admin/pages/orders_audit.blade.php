@@ -145,7 +145,7 @@
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     <td>{{$val['shipingdetails']['zip_code'] ?? ''}}</td>
                                     <td>{{$val['shipingdetails']['address'] ?? ''}}</td>
-                                    <th> <button class="btn btn-success text-center"> {{$val['status'] ?? ''}} </button></th>
+                                    <th> <button class="btn btn-success rounded-pill text-center"> {{$val['status'] ?? ''}} </button></th>
                                 </tr>
                                 @endforeach
                             </tbody>

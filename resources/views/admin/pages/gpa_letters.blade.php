@@ -119,7 +119,7 @@
                                     <td>{{ $val['email'] ?? '' }}</td>
                                     <td>{{$val['shipingdetails']['address'] ?? ''}}</td>
                                     <th>
-                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-success text-center download_gpa"> Download Letter</button>
+                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-success rounded-pill text-center download_gpa"> Download Letter</button>
                                     </th>
                                 </tr>
                                 @endforeach

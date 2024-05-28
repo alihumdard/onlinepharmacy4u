@@ -31,7 +31,7 @@ class ProductController extends Controller
         $this->status = config('constants.STATUS');
     }
 
-    public function prodcuts(Request $request)
+    public function products(Request $request)
     {
         $user = auth()->user();
         $page_name = 'prodcuts';
@@ -55,7 +55,7 @@ class ProductController extends Controller
         return view('admin.pages.products.prodcuts', $data);
     }
     
-    public function prodcut_trash(Request $request)
+    public function product_trash(Request $request)
     {
         $user = auth()->user();
         $page_name = 'prodcuts';
@@ -80,7 +80,7 @@ class ProductController extends Controller
     }
 
 
-    public function imported_prodcuts(Request $request)
+    public function imported_products(Request $request)
     {
         $user = auth()->user();
         $page_name = 'prodcuts';
@@ -95,7 +95,7 @@ class ProductController extends Controller
     }
 
 
-    public function prodcuts_limits(Request $request)
+    public function products_limits(Request $request)
     {
         $user = auth()->user();
         $page_name = 'prodcuts';

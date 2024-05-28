@@ -126,7 +126,7 @@
                         <div class="text">
                             <h4 class="fw-bold">Customer Details</h4>
                             <span><b>Name: </b>{{ ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] : $order['user']['name'] }}</span><br>
-                            <span><b>Order Id: </b><span class="text-primary">#00{{$order['id']}}</span></span>
+                            <span><b>Order Id: </b><span class="text-primary">#{{$order['id']}}</span></span>
                         </div>
                         <div class="text">
                             <p class="pr-2">
@@ -267,7 +267,7 @@
                                                 <div class="button-container" style="display: flex; flex-wrap: wrap;">
                                                     @forelse($userOrders as $index => $val)
                                                     <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary m-1">
-                                                        <b>{{ $index + 1 }}.</b> #00{{ $val['id'] }}
+                                                        <b>{{ $index + 1 }}.</b> #{{ $val['id'] }}
                                                     </a>
                                                     @empty
                                                     <p class="px-5">No Previous Orders Of that Customer.</p>
@@ -292,9 +292,13 @@
                                     @endif
                                 </div>
                                 @endif
-                                @if($order['status'] != 'Recieved')
+                                @if($order['status'] != 'Received')
                                 <div class="d-flex justify-content-between pt-2">
-                                    <p class="fw-bold mb-0 ">Health Care Professional Notes:</p>
+                                    <p class="fw-bold mb-0 ">Marked By:</p>
+                                    <p class="mb-0">{{$marked_by['name'] ?? '' }} ({{$marked_by['email'] ?? ''}}) </p>
+                                </div>
+                                <div class="d-flex justify-content-between pt-2">
+                                    <p class="fw-bold mb-0 ">Health Care Professional Remarks:</p>
                                     <p class="mb-0">{{$order['hcp_remarks']}} </p>
                                 </div>
                                 @endif

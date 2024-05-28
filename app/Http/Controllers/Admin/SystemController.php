@@ -1394,6 +1394,9 @@ class SystemController extends Controller
                     ->toArray();
                 $data['userOrders']  = [];
                 $data['order']  = $order->toArray() ?? [];
+                if ($order->approved_by) {
+                    $data['marked_by']  = User::findOrFail($order->approved_by) ?? [];
+                }
                 // dd($data);
                 return view('admin.pages.order_detail', $data);
             } else {
@@ -1543,7 +1546,11 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        if (isset($data['user']->role) && $data['user']->role == user_roles('2')) {
+            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid','status' => 'Approved','order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        } else{
+            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        }
         if ($orders) {
             $userIds = array_unique(Arr::pluck($orders, 'user.id'));
             $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
@@ -1657,8 +1664,9 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
+
+        dd($request->all());
         $validator = Validator::make($request->all(), [
-            'product_id'        => 'required',
             'firstName'         => 'required',
             'lastName'          => 'required',
             'email'             => 'required',
@@ -1667,7 +1675,6 @@ class SystemController extends Controller
             'city'              => 'required',
             'zip_code'          => 'required',
             'shiping_cost'      => 'required',
-            'product_qty'       => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -1681,7 +1688,7 @@ class SystemController extends Controller
             'coupon_value'   => $request->coupon_value ?? Null,
             'total_ammount'  => $request->total_ammount ?? Null,
         ]);
-        dd($order);
+        // dd($order);
         if ($order) {
 
             $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
@@ -1725,7 +1732,10 @@ class SystemController extends Controller
 
         $order = Order::findOrFail($validatedData['id']);
         $order->status = $validatedData['status'];
-        $order->hcp_remarks = $validatedData['hcp_remarks'] ?? null;
+        $order->hcp_remarks = $request->hcp_remarks ?? null;
+        if ($request->approved_by) {
+            $order->approved_by = $request->approved_by;
+        }
         $update = $order->save();
         if ($update) {
             $msg = 'Order is ' . $validatedData['status'];
@@ -1760,11 +1770,11 @@ class SystemController extends Controller
                 'Authorization' => 'Bearer ' . $accessToken,
                 'Content-Type' => 'application/json',
             ])
-            ->delete($url, [
-                'amount' => $ammount,
-                'sourceCode' => $source_code
-            ]);
-            
+                ->delete($url, [
+                    'amount' => $ammount,
+                    'sourceCode' => $source_code
+                ]);
+
             $responseData = json_decode($response->body(), true);
             dd($responseData);
             $update_payment = [
@@ -1802,7 +1812,7 @@ class SystemController extends Controller
                 $order = $order->toArray() ?? [];
 
                 $weightSum = array_sum(array_column($order['orderdetails'], 'weight'));
-                $order['weight'] = $weightSum !== 0 ? $weightSum : 1;
+                $order['weight'] = $weightSum !== 0 ? floatval($weightSum) : 1;
                 $order['quantity'] = array_sum(array_column($order['orderdetails'], 'product_qty'));
                 $payload = $this->make_shiping_payload($order);
                 $apiKey = env('ROYAL_MAIL_API_KEY');
@@ -1819,7 +1829,6 @@ class SystemController extends Controller
                 $body = $response->getBody()->getContents();
                 if ($statusCode == 200) {
                     $response = json_decode($body, true);
-                    // dd($response);
                     $shipped = [];
                     if ($response['createdOrders']) {
                         foreach ($response['createdOrders'] as $key => $val) {
@@ -1928,7 +1937,7 @@ class SystemController extends Controller
                 "SKU" => null,
                 "quantity" => $val['product_qty'],
                 "unitValue" => $val['product_price'],
-                "unitWeightInGrams" => $val['weight'],
+                "unitWeightInGrams" => floatval($val['weight']),
                 "customsDescription" => 'it is medical product.',
                 "extendedCustomsDescription" => "",
                 "customsCode" => null,

@@ -83,7 +83,7 @@
                     @if($user_profile_details)
                     <div class="row px-4 mt-2 mb-3">
                         <div class="col-12">
-                            <h4 class="fw-bold ">Customer Profile Detaisl:</h4>
+                            <h4 class="fw-bold ">Customer Profile Details:</h4>
                             <label for="" class="fw-bold px-2 ">Name: </label> <span> {{$user_profile_details->name ?? '' }}</span><br>
                             <label for="" class="fw-bold px-2">Phone: </label> <span> {{$user_profile_details->phone ?? '' }}</span><br>
                             <label for="" class="fw-bold px-2">Gender: </label> <span> {{$user_profile_details->gender ?? '' }}</span><br>
@@ -124,7 +124,7 @@
                                 </tr>
                                 @foreach($generic_consultation as $key => $val)
                                 <tr>
-                                    <td style="vertical-align: middle; text-align: center;">#00{{$val['id']}}</td>
+                                    <td style="vertical-align: middle; text-align: center;">#{{$val['id']}}</td>
                                     <td>
                                         @if($val['title'])
                                         @if(strlen(strip_tags($val['title'])) > 80)
@@ -175,7 +175,7 @@
                                 </tr>
                                 @foreach($product_consultation ?? [] as $ind => $value)
                                 <tr>
-                                    <td style="vertical-align: middle; text-align: center;">#00{{$value['id']}}</td>
+                                    <td style="vertical-align: middle; text-align: center;">#{{$value['id']}}</td>
                                     <td>{{$value['title']}}</td>
                                     <td>
                                         @if($value['desc'])
@@ -231,6 +231,7 @@
                 <form id="form_hcp_remarks" class="row g-3 mt-1 needs-validation" novalidate action="{{route('admin.changeStatus')}}" method="POST">
                     @csrf
                     <input type="hidden" name="id" required value="{{$order_user_detail->order_id}}">
+                    <input type="hidden" name="approved_by" required value="{{$user->id}}">
                     <div class="col-12">
                         <label for="status" class="form-label fw-bold">Order Status :</label>
                         <select id="status" name="status" class="form-select" required>

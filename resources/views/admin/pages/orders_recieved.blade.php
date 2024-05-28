@@ -393,7 +393,7 @@
                                     <th>Total Orders</th>
                                     <th>Date-Time</th>
                                     <th>Customer Name</th>
-                                    <th>D.O.B</th>
+                                    <th>Order Type</th>
                                     @if($user->role == user_roles('1'))
                                     <th>Total Atm.</th>
                                     @endif
@@ -412,7 +412,7 @@
                                     <td>{{ ++$key }}</td>
                                     <td>
                                         <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #00{{ $val['id'] }}
+                                            #{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>
@@ -422,16 +422,14 @@
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td>{{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}</td>
+                                    <td>{{ isset($val['created_at']) ? date('d,M Y H:i:s', strtotime($val['created_at'])) : '' }}</td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
-                                    <td>{{ isset($val['user']['dob']) ? date('M d, Y', strtotime($val['user']['dob'])) : '-----' }}</td>
+                                    <td><span class="btn  fw-bold rounded-pill {{ ($val['order_for'] == 'despensory') ? 'btn-success':'btn-primary' }}">{{ ($val['order_for'] == 'despensory') ? 'P.Med' : 'POM' }}</span> </td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
-                                    <td>
-                                        {{$val['payment_status'] ?? ''}}
-                                    </td>
-                                    <td>{{$val['status'] ?? ''}}</td>
+                                    <td><span class="btn fw-bold rounded-pill btn-warning"> {{$val['payment_status'] ?? ''}}</span> </td>
+                                    <td><span class="btn  fw-bold btn-primary rounded-pill">{{$val['status'] ?? ''}}</span></td>
                                 </tr>
                                 @endforeach
                             </tbody>

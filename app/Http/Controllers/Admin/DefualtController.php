@@ -69,7 +69,7 @@ class DefualtController extends Controller
             session(['user_details' => $user]);
             $data['user']       = $user;
             $data['role'] = user_role_no($user->role);
-            // User roles: 1 for Super Admin, 2 for Admin, 3 for Doctor, 4 User
+            // User roles: 1 for Super Admin, 2 for Despensory, 3 for Doctor, 4 User
             if (isset($user->role) && $user->role == user_roles('1')) {
                 return view('admin.pages.dashboard', $data);
             } else if (isset($user->role) && $user->role == user_roles('2')) {

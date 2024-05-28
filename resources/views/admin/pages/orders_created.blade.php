@@ -411,7 +411,7 @@
                                     <td>{{ ++$key }}</td>
                                     <td>
                                         <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #00{{ $val['id'] }}
+                                            #{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>

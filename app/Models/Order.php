@@ -34,4 +34,9 @@ class Order extends Model
         return $this->hasOne(PaymentDetail::class, 'order_id');
     }
 
+    public function approved_by()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
 }

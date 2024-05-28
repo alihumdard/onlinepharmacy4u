@@ -117,6 +117,7 @@ function view_permission($page_name)
                 case 'gpa_letters':
                 case 'orders':
                 case 'dispensary_approval':
+                case 'doctors_approval':
                 case 'orders_shipped':
                 case 'consultation_view':
                 case 'contact':

@@ -419,9 +419,9 @@
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
                                     <td>
-                                        {{$val['payment_status'] ?? ''}}
+                                    <span class="btn  fw-bold btn-warning rounded-pill">{{$val['payment_status'] ?? ''}}</span>
                                     </td>
-                                    <td>{{$val['status'] ?? ''}}</td>
+                                    <td><span class="btn  fw-bold btn-primary rounded-pill">{{$val['status'] ?? ''}}</span></td>
                                 </tr>
                                 @endforeach
                             </tbody>

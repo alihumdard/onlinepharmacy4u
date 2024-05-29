@@ -149,25 +149,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
-            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            "buttons": [{
-                    extend: 'pdf',
-                    text: 'Donwload PDF ',
-                    className: 'btn-blue',
-                },
-                // {
-                //     extend: 'excel',
-                //     text: 'Donwload Excel ',
-                //     className: 'btn-blue', 
-                // },
-
-                {
-                    extend: 'print',
-                    text: 'Print Out',
-                    className: 'btn-blue',
-                }
-            ]
-        }).buttons().container().appendTo('#tbl_buttons');
+        });
     });
 </script>
 @endPushOnce

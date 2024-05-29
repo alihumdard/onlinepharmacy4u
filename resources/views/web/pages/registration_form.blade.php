@@ -92,12 +92,43 @@
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
 
-                            <!-- Text input for selecting the date -->
-                            <input type="text" id="dob" name="dob" class="form-control" value="{{old('dob') }}" placeholder="dd-mm-yyyy" required>
-                            <div class="invalid-feedback">Please enter DOB!</div>
-                            @error('dob')
-                            <div class="alert-danger text-danger ">{{ $message }}</div>
-                            @enderror
+                            <div class="row ">
+                                <div class="col-4">
+                                    <select name="day" class="form-select" required>
+                                        <option value="" disabled selected>Day</option>
+                                        @for ($i = 1; $i <= 31; $i++) <option value="{{ $i }}" {{ old('day') == $i ? 'selected' : '' }}>{{ $i }}</option>@endfor
+                                    </select>
+                                    <div class="invalid-feedback">Please select the day!</div>
+                                    @error('day')
+                                    <div class="alert-danger text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-4">
+                                    <select name="month" required>
+                                        <option value="" disabled selected>Month</option>
+                                        @for ($i = 1; $i <= 12; $i++) <option value="{{ $i }}" {{ old('month') == $i ? 'selected' : '' }}>{{ date('F', mktime(0, 0, 0, $i, 1)) }}</option>
+                                            @endfor
+                                    </select>
+                                    <div class="invalid-feedback">Please select the month!</div>
+                                    @error('month')
+                                    <div class="alert-danger text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-4">
+                                    <select name="year" required>
+                                        <option value="" disabled selected>Year</option>
+                                        @for ($i = 2006; $i >= 1900; $i--)
+                                        <option value="{{ $i }}" {{ old('year') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                    <div class="invalid-feedback">Please select the year!</div>
+                                    @error('year')
+                                    <div class="alert-danger text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
                             <div class="mt-0">
                                 <p style="color: #3d7de8 ;">* Make a strong password</p>
                             </div>
@@ -187,25 +218,7 @@
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
 <!-- Script to initialize the datepicker -->
-<script>
-    $(document).ready(function() {
-        $("#dob").datepicker({
-            dateFormat: 'dd-mm-yy',
-            maxDate: new Date(2005, 11, 31),
-            changeMonth: true,
-            changeYear: true,
-            yearRange: "c-100:c",
-            onClose: function(selectedDate) {
-                var parts = selectedDate.split('-');
-                var day = parseInt(parts[0]);
-                var month = parseInt(parts[1]) - 1;
-                var year = parseInt(parts[2]);
-                $("#dob").datepicker("setDate", new Date(year, month, day));
-            }
-        });
 
-        // $(".ui-datepicker").css("background-color", "#fff");
-    });
 </script>
 
 

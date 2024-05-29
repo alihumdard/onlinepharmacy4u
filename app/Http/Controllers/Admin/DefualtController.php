@@ -211,7 +211,7 @@ class DefualtController extends Controller
                 ]);
 
                 if ($validator->fails()) {
-                   return redirect()->back()->withErrors($validator)->withInput()->with(['status' => 'error', 'message' => $validator->errors()]);
+                    return redirect()->back()->withErrors($validator)->withInput()->with(['status' => 'error', 'message' => $validator->errors()]);
                 }
 
                 $credentials = $request->only('email', 'password');
@@ -304,7 +304,9 @@ class DefualtController extends Controller
                     'address'  => 'required',
                     'gender'   => 'required',
                     'id_document'   => 'required',
-                    'dob'      => 'required',
+                    'day'     => 'required',
+                    'month'     => 'required',
+                    'year'     => 'required',
                     'zip_code'     => 'required',
                     'email'    => [
                         'required',
@@ -323,6 +325,8 @@ class DefualtController extends Controller
             }
 
             $data['user'] = auth()->user();
+            $dob = $request->day . '-' . $request->month . '-' . $request->year;
+
             if ($request->file('id_document')) {
                 $doc = $request->file('id_document');
                 $docName = uniqid() . time() . '_' . $doc->getClientOriginalName();
@@ -335,7 +339,7 @@ class DefualtController extends Controller
                 [
                     'name'       => ucwords($request->name),
                     'email'      => $request->email,
-                    'dob'        => $request->dob,
+                    'dob'        => $dob,
                     'role'       => $request->role ?? 'User',
                     'phone'      => $request->phone,
                     'address'    => $request->address,

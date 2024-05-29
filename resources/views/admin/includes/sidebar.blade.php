@@ -176,7 +176,7 @@
                 @if(view_permission('doctors_approval'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.doctorsApproval'])) ? 'nav-link ' : ''}}" href="{{route('admin.doctorsApproval')}}">
-                        <i class="bi bi-circle"></i><span>{{ ($user->role == user_roles('2') ? 'Medical Professionals Approved' : 'Medical Professionals' )}}</span>
+                        <i class="bi bi-circle"></i><span>{{ (isset($user) && $user->role == user_roles('2')) ? 'Medical Professionals Approved' : 'Medical Professionals'}}</span>
                     </a>
                 </li>
                 @endif

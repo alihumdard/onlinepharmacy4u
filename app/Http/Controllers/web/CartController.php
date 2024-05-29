@@ -40,7 +40,7 @@ class CartController extends Controller
     {
         $product = Product::find($request->id);
         $variant_id =  $request->variantId ?? NULL;
-        $quantity =  $request->quantity;
+        $quantity =  $request->quantity ?? 1;
         $cartItems = collect(Cart::content());
         $prod_id = $request->id;
 

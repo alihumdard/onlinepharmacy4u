@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Medical Professionals Orders Status')
+@section('title', 'Despensory Orders')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -328,12 +328,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Medical Professionals Orders Status</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Despensory Orders</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Medical Professionals Orders Status</li>
+                <li class="breadcrumb-item active">Despensory Orders</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -406,11 +406,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @foreach($order_history as $ind => $value)
-                                        @if($value['user_id'] == $val['user_id'])
-                                        <span class=" px-5 fw-bold">{{$value['total_orders']}} </span>
+                                        @if(isset($order_history[$val['email']]))
+                                        <span class=" px-5 fw-bold">{{ $order_history[$val['email']]['total_orders'] ?? 0}} </span>
                                         @endif
-                                        @endforeach
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('m-d-y H:i:s', strtotime($val['created_at'])) : '' }}</td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>

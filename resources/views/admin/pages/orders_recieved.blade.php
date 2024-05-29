@@ -350,9 +350,8 @@
 
     <section class="section">
         <div class="row">
-            <div class="col-lg-12">
-
-                <div class="card">
+            <div class="col-12">
+                <div class="card w-100">
                     <div class="card-header mt-3 d-flex justify-content-between align-items-center">
                         <div id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
                         </div>
@@ -416,11 +415,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @foreach($order_history as $ind => $value)
-                                        @if($value['email'] == $val['email'])
-                                        <span class=" px-5 fw-bold">{{$value['total_orders'] ?? 0}} </span>
+                                        @if(isset($order_history[$val['email']]))
+                                        <span class=" px-5 fw-bold">{{ $order_history[$val['email']]['total_orders'] ?? 0}} </span>
                                         @endif
-                                        @endforeach
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('d,M Y H:i:s', strtotime($val['created_at'])) : '' }}</td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>

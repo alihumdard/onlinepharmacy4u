@@ -1386,13 +1386,7 @@ class SystemController extends Controller
             $id = base64_decode($request->id);
             $order = Order::with('user', 'shipingdetails', 'orderdetails', 'orderdetails.product')->where(['id' => $id, 'payment_status' => 'Paid'])->first();
             if ($order) {
-                $data['userOrders'] = Order::select('id')
-                    ->where('email', $order->email)
-                    ->where('status', 'Paid')
-                    ->where('id', '!=', $order->id)
-                    ->get()
-                    ->toArray();
-                $data['userOrders']  = [];
+                $data['userOrders'] = Order::select('id')->where('email', $order->email)->where('payment_status', 'Paid')->where('id', '!=', $order->id)->get()->toArray() ?? [];
                 $data['order']  = $order->toArray() ?? [];
                 if ($order->approved_by) {
                     $data['marked_by']  = User::findOrFail($order->approved_by) ?? [];
@@ -1484,12 +1478,9 @@ class SystemController extends Controller
         }
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $emails = array_unique(Arr::pluck($orders, 'email'));
-            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))->whereIn('email', $emails)->where('status', 'Paid')->groupBy('email')->get()->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);;
             $data['orders'] = $orders;
         }
-
         return view('admin.pages.orders_recieved', $data);
     }
 
@@ -1502,14 +1493,7 @@ class SystemController extends Controller
         }
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $emails = array_unique(Arr::pluck($orders, 'email'));
-            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
-                ->whereIn('email', $emails)
-                ->where('status', 'Paid')
-                ->groupBy('email')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
 
@@ -1525,14 +1509,7 @@ class SystemController extends Controller
         }
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Refund'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $emails = array_unique(Arr::pluck($orders, 'email'));
-            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
-                ->whereIn('email', $emails)
-                ->where('status', 'Paid')
-                ->groupBy('email')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
 
@@ -1547,18 +1524,12 @@ class SystemController extends Controller
             return redirect()->back();
         }
         if (isset($data['user']->role) && $data['user']->role == user_roles('2')) {
-            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid','status' => 'Approved','order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
-        } else{
+            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Approved', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        } else {
             $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         }
         if ($orders) {
-            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
-            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
-                ->whereIn('user_id', $userIds)
-                ->groupBy('user_id')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
         return view('admin.pages.doctors_approval', $data);
@@ -1574,13 +1545,7 @@ class SystemController extends Controller
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
 
         if ($orders) {
-            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
-            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
-                ->whereIn('user_id', $userIds)
-                ->groupBy('user_id')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
         return view('admin.pages.despensory_approval', $data);
@@ -1595,14 +1560,7 @@ class SystemController extends Controller
         }
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $emails = array_unique(Arr::pluck($orders, 'email'));
-            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
-                ->whereIn('email', $emails)
-                ->where('status', 'Paid')
-                ->groupBy('email')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
 
@@ -1703,15 +1661,9 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName,address'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
-            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
-                ->whereIn('user_id', $userIds)
-                ->groupBy('user_id')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
         return view('admin.pages.gpa_letters', $data);
@@ -2038,7 +1990,12 @@ class SystemController extends Controller
         ];
         return  $payload;
     }
-
+    private function get_prev_orders($orders)
+    {
+        $emails = array_unique(Arr::pluck($orders, 'email'));
+        $prev_orders = Order::select('email', DB::raw('count(*) as total_orders'))->whereIn('email', $emails)->where('payment_status', 'Paid')->groupBy('email')->get()->sortBy('email')->values()->keyBy('email')->toArray();
+        return $prev_orders;
+    }
     // comments
     public function comments(Request $request)
     {

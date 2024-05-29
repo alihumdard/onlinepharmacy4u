@@ -106,97 +106,115 @@
             text-align: center;
             padding: 10px 10px;
         }
+
+        .order-container {
+            page-break-before: always;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container pdf-load">
-        <h2 style="text-align: center;">Online Pharmacy 4U</h2>
-        @foreach($orders as $key => $order)
-        <div class="main-cont">
-            <table id="tbl_header" style="border: none !important;">
-                <tr style="border: none !important;">
-                    <td style="border: none !important;">
-                        <ul>
-                            <li><b>{{++$key}}. </b>Order No: #{{$order['id'] ?? ''}}</li>
-                        </ul>
-                    </td>
-                    <td style="border: none !important;">
-                        <ul>
-                            <li>{{ \Carbon\Carbon::parse($order['created_at'] ?? '')->format('M, d, Y - H:i') }}</li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="border: none !important;">
-                        <ul>
-                            <li>
-                                <b>Ship to:</b>
-                            </li>
-                            <li>Home Name/No: {{$order['shipingdetails']['address2'] ?? ''}}</li>
-                            <li>Address: {{$order['shipingdetails']['address'] ?? ''}}</li>
-                            <li>City: {{$order['shipingdetails']['city'] ?? ''}}</li>
-                            <li>Postal Code: {{$order['shipingdetails']['zip_code'] ?? ''}}</li>
-                            <li>Phone: {{$order['shipingdetails']['phone'] ?? ''}}</li>
-                        </ul>
-                    </td>
-                    <td style="border: none !important; text-align:left; ">
-                        <ul>
-                            <li>
-                                <b>Bill to:</b>
-                            </li>
-                            <li>Home Name/No: {{$order['shipingdetails']['address2'] ?? ''}}</li>
-                            <li>Address: {{$order['shipingdetails']['address'] ?? ''}}</li>
-                            <li>City: {{$order['shipingdetails']['city'] ?? ''}}</li>
-                            <li>Postal Code: {{$order['shipingdetails']['zip_code'] ?? ''}}</li>
-                            <li>Phone: {{$order['shipingdetails']['phone'] ?? ''}}</li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="row">
-            <div class="item">
-                <table id="tbl_pro_details">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($order['orderdetails'] ?? [] as $key => $val)
-                        <tr>
-                            @php
-                            $src = (isset($val['variant']))? $val['variant']['image'] : $val['product']['main_image'];
-                            @endphp
-                            <td>
-                                <img style="height:60px" src="{{ public_path('storage/'.$src) }}" alt="Product Image">
-                            </td>
-                            <td style="text-align: left !important;">
-                                <ul>
-                                    <li><b>Product Name:</b> {{$val['product_name'] ?? $val['product']['title']}}</li>
-                                    <li><b>Variant:</b>{!! $val['variant_details'] ?? '' !!}</li>
-                                    <li><b>SKU:</b> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</li>
-                                </ul>
-                            </td>
-                            <td class="text-end">{{$val['product_qty']}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+    @foreach($orders as $key => $order)
+    <div class="{{ $loop->first ? '' : 'order-container'}}">
+        <div class="container pdf-load">
+            <div class="main-cont">
+                <table id="tbl_header" style="border: none !important;">
+                    <tr style="border: none !important;">
+                        <td style="border: none !important;">
+                            <h2>Online Pharmacy 4U</h2>
+                        </td>
+                        <td style="border: none !important;">
+                            <ul>
+                                <li>#{{$order['id'] ?? ''}}</li>
+                                <li>{{ \Carbon\Carbon::parse($order['created_at'] ?? '')->format('M, d, Y - H:i') }}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                <table id="tbl_shiping">
+                    <tr>
+                        <td style="border: none !important;">
+                            <div class="col-6">
+                                <div class="ship">
+                                    <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                        <strong>Ship to</strong></br>
+                                        <small> <span style="font-weight: 500;">Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
+                                        <small><span style="font-weight: 500;">Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
+                                        <small><span style="font-weight: 500;">City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
+                                        <small><span style="font-weight: 500;">Postal Code: </span> {{$order['shipingdetails']['zip_code'] ?? ''}}</small></br>
+                                        <small><span style="font-weight: 500;">Phone: </span> {{$order['shipingdetails']['phone'] ?? ''}}</small></br>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="border: none !important;">
+                            <div class="col-6">
+                                <div class="ship">
+                                    <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                        <strong>Bill to</strong></br>
+                                        <small> <span style="font-weight: 500;">Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
+                                        <small><span style="font-weight: 500;">Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
+                                        <small><span style="font-weight: 500;">City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
+                                        <small><span style="font-weight: 500;">Postal Code: </span> {{$order['shipingdetails']['zip_code'] ?? ''}}</small></br>
+                                        <small><span style="font-weight: 500;">Phone: </span> {{$order['shipingdetails']['phone'] ?? ''}}</small></br>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </div>
-        </div>
-        @endforeach
-        <div class="row">
-            <div class="thank-u">
-                <p>info@online-pharmacy4u.co.uk</p>
-                <p>www.online-pharmacy4u.co.uk</p>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="item">
+                        <table id="tbl_pro_details">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($order['orderdetails'] ?? [] as $key => $val)
+                                <tr>
+                                    @php
+                                    $src = (isset($val['variant']))? $val['variant']['image'] : $val['product']['main_image'];
+                                    @endphp
+                                    <td>
+                                        <img style="height:55px; margin:0 !important; padding:0 !important;" src="{{ public_path('storage/'.$src) }}" alt="Product Image">
+                                    </td>
+                                    <td>
+                                        <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                            <small><strong>Product Name:</strong> {{$val['product_name'] ?? $val['product']['title']}}</small></br>
+                                            <small><strong>Variant:</strong> {!! $val['variant_details'] ?? '' !!}</small></br>
+                                            <small><strong>SKU:</strong> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</small>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p style=" margin:0 !important; padding:0 !important;">{{$val['product_qty']}}</p>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="thank-u">
+                    <p>Dear Valued Customer, Thank you for choosing us for your pharmacy needs! <br>
+                        <small><strong>Registered Office:</strong> 20-22 Wenlock Road, London N1 7GU.Company No: 13991146 VAT No: 440660907</small></br></br>
+                        Download our FREE app directly from our website today! (https://nhs-prescriptions.uk/) <br>
+                        Enjoy the ease of having your prescriptions delivered to your door, FREE and FAST.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+    @endforeach
 </body>
 
 </html>

@@ -12,7 +12,7 @@ class Order extends Model
         'created_at',
     ];
 
-    protected $fillable = ['user_id','order_identifier','tracking_no', 'order_for','email','shipped_order_id','note', 'shiping_cost', 'coupon_value', 'coupon_code', 'total_ammount', 'payment_id', 'payment_status', 'status', 'created_by', 'updated_by'];
+    protected $fillable = ['user_id', 'order_identifier', 'tracking_no', 'order_for', 'email', 'shipped_order_id', 'note', 'shiping_cost', 'coupon_value', 'coupon_code', 'total_ammount', 'payment_id', 'payment_status', 'status', 'created_by', 'updated_by'];
 
     public function user()
     {
@@ -39,4 +39,14 @@ class Order extends Model
         return $this->belongsTo(User::class, 'approved_by');
     }
 
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = strtolower($value);
+    }
+
+    // Accessor for email attribute
+    public function getEmailAttribute($value)
+    {
+        return strtolower($value);
+    }
 }

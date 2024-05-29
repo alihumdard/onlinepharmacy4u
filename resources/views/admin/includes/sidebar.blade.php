@@ -7,6 +7,14 @@
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
+        @if(view_permission('home'))
+        <li class="nav-item">
+            <a class="btn btn-success w-100 mb-2 rounded-pill px-5 py-2 fw-bold" href="{{route('web.index')}}">
+            <i class="bi bi-arrow-right-circle"></i>
+                <span>Go To Shop</span>
+            </a>
+        </li>
+        @endif
 
         @if(view_permission('dashboard'))
         <li class="nav-item">
@@ -269,7 +277,7 @@
 
         @if(view_permission('prescription_orders'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.prescriptionOrders')}}">
+            <a class="nav-link {{(request()->routeIs('admin.prescriptionOrders')) ? '' : 'collapsed'}}  " href="{{route('admin.prescriptionOrders')}}">
                 <i class="bi bi-bar-chart"></i><span>Prescription Orders</span>
             </a>
         </li>
@@ -277,15 +285,15 @@
 
         @if(view_permission('online_clinic_orders'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.onlineClinicOrders')}}">
+            <a class="nav-link {{(request()->routeIs('admin.onlineClinicOrders')) ? '' : 'collapsed'}} " href="{{route('admin.onlineClinicOrders')}}">
                 <i class="bi bi-bar-chart"></i><span>Online Clinic Orders</span>
             </a>
         </li>
         @endif
 
         @if(view_permission('shop_orders'))
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.shopOrders')}}">
+        <li class="nav-item ">
+            <a class="nav-link {{(request()->routeIs('admin.shopOrders')) ? '' : 'collapsed'}}" href="{{route('admin.shopOrders')}}">
                 <i class="bi bi-bar-chart"></i><span>Shop Orders</span>
             </a>
         </li>
@@ -293,7 +301,7 @@
 
         @if(view_permission('gp_letters'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.gpaLeters')}}">
+            <a class="nav-link {{(request()->routeIs('admin.gpaLeters')) ? '' : 'collapsed'}}" href="{{route('admin.gpaLeters')}}">
                 <i class="bi bi-bar-chart"></i><span>GP Letters</span>
             </a>
         </li>

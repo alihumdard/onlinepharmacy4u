@@ -89,7 +89,9 @@
                 <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |
                 Order Detail
                 <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1  {{($order['print'] == 'Printed') ? 'btn-success' : 'btn-primary' }} fw-semibold" style="float:right;">{{$order['print'] ?? '' }}</button>
+                @if((isset($user->role) && $user->role == user_roles('1')))
                 <button type="button" data-bs-toggle="modal" data-bs-target="#order_refund_mdl" class=" btn fs-5 py-1  mx-2 btn-danger fw-semibold" style="float:right;"> <i class="bi-arrow-counterclockwise"></i>Refund</button>
+                @endif
             </h1>
             <nav>
                 <ol class="breadcrumb">

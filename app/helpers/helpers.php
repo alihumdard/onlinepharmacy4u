@@ -145,6 +145,7 @@ function view_permission($page_name)
 
         case 'User':
             switch ($page_name) {
+                case 'home':
                 case 'dashboard':
                 case 'prescription_orders':
                 case 'online_clinic_orders':

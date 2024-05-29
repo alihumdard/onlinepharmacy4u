@@ -135,7 +135,7 @@
         <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | {{($duplicate == 'yes') ? 'Duplicate' : ( ($product['id'] ?? '') ? 'Edit' :'Add' ) }} Product</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
                 <li class="breadcrumb-item active">{{($duplicate == 'yes') ? 'Duplicate' : ( ($product['id'] ?? '') ? 'Edit' :'Add' ) }} Product</li>
             </ol>

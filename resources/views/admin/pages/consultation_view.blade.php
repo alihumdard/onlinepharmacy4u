@@ -93,8 +93,8 @@
                             <label for="" class="fw-bold px-2">Identity Document: </label>
                             <span>
                                 @if($user_profile_details->id_document)
-                                <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" >
-                                    <i class="bi bi-eye-fill"></i> View File 
+                                <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" target="_blank">
+                                    <i class="bi bi-eye-fill"></i> View File
                                 </a>
                                 <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$user_profile_details->id_document) }}" download>
                                     <i class="bi bi-cloud-download"></i> Download File
@@ -158,7 +158,12 @@
                                         <p>{{ ucfirst(trim($key, "'")) }}: {{ $value }}</p>
                                         @endforeach
                                         @elseif (Str::startsWith($val['answer'], 'consultation/product/'))
-                                        <a class="fw-bold btn-link" href="{{ asset('storage/'.$val['answer']) }}" download>See File</a>
+                                        <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$val['answer']) }}"  target="_blank">
+                                            <i class="bi bi-eye-fill"></i> View File
+                                        </a>
+                                        <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$val['answer']) }}" download>
+                                            <i class="bi bi-cloud-download"></i> Download File
+                                        </a>
                                         @else
                                         <p>{{ $val['answer'] }}</p>
                                         @endif
@@ -193,7 +198,12 @@
                                     </td>
                                     <td>
                                         @if (Str::startsWith($value['answer'], 'consultation/product/'))
-                                        <a class="fw-bold btn-link" href="{{ asset('storage/'.$value['answer']) }}" download>See File</a>
+                                        <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$value['answer']) }}" target="_blank">
+                                            <i class="bi bi-eye-fill"></i> View File
+                                        </a>
+                                        <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$value['answer']) }}" download>
+                                            <i class="bi bi-cloud-download"></i> Download File
+                                        </a>
                                         @else
                                         <p>{{ $value['answer'] }}</p>
                                         @endif

@@ -247,7 +247,7 @@
                                     <th style="vertical-align: middle; text-align: center;">{{ ++$key ?? ''}}</th>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <!-- <img src="{{ asset('storage/'.$value['main_image'])}}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" /> -->
+                                            <img src="{{ asset('storage/'.$value['main_image'])}}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
                                             <div class="ms-3">
                                                 <p class="fw-bold mb-1">{{ $value['title'] ?? ''}}</p>
                                                 <p class="text-muted mb-0">{{ $value['barcode'] ?? ''}}</p>

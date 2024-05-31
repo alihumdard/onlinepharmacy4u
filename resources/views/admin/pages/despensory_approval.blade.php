@@ -411,7 +411,20 @@
                                         <span class=" px-5 fw-bold">{{ $order_history[$val['email']]['total_orders'] ?? 0}} </span>
                                         @endif
                                     </td>
-                                    <td>{{ isset($val['created_at']) ? date('m-d-y H:i:s', strtotime($val['created_at'])) : '' }}</td>
+                                    @php
+                                    $isNewOrder = null;
+                                    if($val['status'] == 'Received'):
+                                    $createdAt = isset($val['created_at']) ? strtotime($val['created_at']) : null;
+                                    $isNewOrder = $createdAt && ($createdAt > strtotime('-3 days'));
+                                    endif;
+                                    @endphp
+
+                                    <td>
+                                        @if($isNewOrder)
+                                        <span class="badge bg-primary">New Order</span> <br>
+                                        @endif
+                                        {{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}
+                                    </td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>

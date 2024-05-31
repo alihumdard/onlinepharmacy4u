@@ -390,12 +390,6 @@
                     </option>
                     @endforeach
                 </datalist>
-                <!-- <select id="single" class="js-states form-control">
-                    <option>Java</option>
-                    <option>Javascript</option>
-                    <option>PHP</option>
-                    <option>Visual Basic</option>
-                </select> -->
             </div>
         </div>
     </div>

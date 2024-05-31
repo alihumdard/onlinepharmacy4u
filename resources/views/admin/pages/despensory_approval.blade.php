@@ -386,6 +386,7 @@
                                     @if($user->role == user_roles('1'))
                                     <th>Total Atm.</th>
                                     @endif
+                                    <th>Order Type</th>
                                     <th>Payment Status</th>
                                     <th>Order Status</th>
                                     <th> Shiped Order</th>
@@ -410,14 +411,26 @@
                                         <span class=" px-5 fw-bold">{{ $order_history[$val['email']]['total_orders'] ?? 0}} </span>
                                         @endif
                                     </td>
-                                    <td>{{ isset($val['created_at']) ? date('m-d-y H:i:s', strtotime($val['created_at'])) : '' }}</td>
+                                    @php
+                                    $isNewOrder = null;
+                                    if($val['status'] == 'Received'):
+                                    $createdAt = isset($val['created_at']) ? strtotime($val['created_at']) : null;
+                                    $isNewOrder = $createdAt && ($createdAt > strtotime('-3 days'));
+                                    endif;
+                                    @endphp
+
+                                    <td>
+                                        @if($isNewOrder)
+                                        <span class="badge bg-primary">New Order</span> <br>
+                                        @endif
+                                        {{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}
+                                    </td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
-                                    <td>
-                                        {{$val['payment_status'] ?? ''}}
-                                    </td>
+                                    <td><span class="btn  fw-bold rounded-pill {{ ($val['order_type'] == 'premd') ? 'btn-primary': (($val['order_type'] == 'pmd') ? 'btn-warning' : 'btn-success') }}">{{ ($val['order_type'] == 'premd') ? 'Pre.Med': (($val['order_type'] == 'pmd') ? 'P.Med' : 'O.T.C') }}</span> </td>
+                                    <td><span class="btn fw-bold rounded-pill btn-success"> {{$val['payment_status'] ?? ''}}</span> </td>
                                     <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} rounded-pill">{{ $val['status'] ?? '' }}</span></td>
                                     <td style="display: inline-block;">
                                         @if($val['status'] == 'Approved')

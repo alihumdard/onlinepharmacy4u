@@ -392,10 +392,10 @@
                                     <th>Total Orders</th>
                                     <th>Date-Time</th>
                                     <th>Customer Name</th>
-                                    <th>Order Type</th>
                                     @if($user->role == user_roles('1'))
                                     <th>Total Atm.</th>
                                     @endif
+                                    <th>Order Type</th>
                                     <th>Payment Status</th>
                                     <th>Order Status</th>
                                 </tr>
@@ -421,11 +421,11 @@
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('d,M Y H:i:s', strtotime($val['created_at'])) : '' }}</td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
-                                    <td><span class="btn  fw-bold rounded-pill {{ ($val['order_for'] == 'despensory') ? 'btn-success':'btn-primary' }}">{{ ($val['order_for'] == 'despensory') ? 'P.Med' : 'POM' }}</span> </td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
-                                    <td><span class="btn fw-bold rounded-pill btn-warning"> {{$val['payment_status'] ?? ''}}</span> </td>
+                                    <td><span class="btn  fw-bold rounded-pill {{ ($val['order_type'] == 'premd') ? 'btn-primary': (($val['order_type'] == 'pmd') ? 'btn-warning' : 'btn-success') }}">{{ ($val['order_type'] == 'premd') ? 'Pre.Med': (($val['order_type'] == 'pmd') ? 'P.Med' : 'O.T.C') }}</span> </td>
+                                    <td><span class="btn fw-bold rounded-pill btn-success"> {{$val['payment_status'] ?? ''}}</span> </td>
                                     <td><span class="btn  fw-bold btn-primary rounded-pill">{{$val['status'] ?? ''}}</span></td>
                                 </tr>
                                 @endforeach

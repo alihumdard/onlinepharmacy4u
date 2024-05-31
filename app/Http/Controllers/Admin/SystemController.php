@@ -1475,10 +1475,10 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $data['order_history'] = $this->get_prev_orders($orders);;
-            $data['orders'] = $orders;
+            $data['order_history'] = $this->get_prev_orders($orders);
+            $data['orders'] = $this->assign_order_types($orders);
         }
         return view('admin.pages.orders_recieved', $data);
     }
@@ -1490,10 +1490,10 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
-            $data['orders'] = $orders;
+            $data['orders'] = $this->assign_order_types($orders);;
         }
 
         return view('admin.pages.orders_created', $data);
@@ -1506,10 +1506,10 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Refund'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Refund'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
-            $data['orders'] = $orders;
+            $data['orders'] = $this->assign_order_types($orders);
         }
 
         return view('admin.pages.orders_refunded', $data);
@@ -1523,13 +1523,13 @@ class SystemController extends Controller
             return redirect()->back();
         }
         if (isset($data['user']->role) && $data['user']->role == user_roles('2')) {
-            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Approved', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Approved', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         } else {
-            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         }
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
-            $data['orders'] = $orders;
+            $data['orders'] = $this->assign_order_types($orders);
         }
         return view('admin.pages.doctors_approval', $data);
     }
@@ -1541,11 +1541,11 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
 
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
-            $data['orders'] = $orders;
+            $data['orders'] = $this->assign_order_types($orders);
         }
         return view('admin.pages.despensory_approval', $data);
     }
@@ -1557,14 +1557,30 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
-            $data['orders'] = $orders;
+            $data['orders'] = $this->assign_order_types($orders);
         }
 
         return view('admin.pages.orders_shiped', $data);
     }
+
+    public function gpa_letters()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'gpa_letters';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName,address','orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
+        if ($orders) {
+            $data['order_history'] = $this->get_prev_orders($orders);
+            $data['orders'] = $this->assign_order_types($orders);
+        }
+        return view('admin.pages.gpa_letters', $data);
+    }
+
 
     public function orders_audit()
     {
@@ -1573,7 +1589,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user', 'shipingdetails')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with('user', 'shipingdetails','orderdetails:id,order_id,consultation_type')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
         $data['filters'] = [];
         if ($orders) {
             $combined = array_map(function ($order) {
@@ -1590,7 +1606,7 @@ class SystemController extends Controller
                 ];
             }, $uniqueCombined);
             $data['filters'] = $filters;
-            $data['orders'] = $orders;
+            $data['orders'] = $this->assign_order_types($orders);
         }
 
         return view('admin.pages.orders_audit', $data);
@@ -1651,22 +1667,6 @@ class SystemController extends Controller
             return redirect()->route('admin.questions')->with(['msg' => $message]);
         }
     }
-
-    public function gpa_letters()
-    {
-        $data['user'] = auth()->user();
-        $page_name = 'gpa_letters';
-        if (!view_permission($page_name)) {
-            return redirect()->back();
-        }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName,address'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
-        if ($orders) {
-            $data['order_history'] = $this->get_prev_orders($orders);
-            $data['orders'] = $orders;
-        }
-        return view('admin.pages.gpa_letters', $data);
-    }
-
     public function change_status(Request $request)
     {
         $data['user'] = auth()->user();
@@ -2010,6 +2010,22 @@ class SystemController extends Controller
         $emails = array_unique(Arr::pluck($orders, 'email'));
         $prev_orders = Order::select('email', DB::raw('count(*) as total_orders'))->whereIn('email', $emails)->where('payment_status', 'Paid')->groupBy('email')->get()->sortBy('email')->values()->keyBy('email')->toArray();
         return $prev_orders;
+    }
+
+    private function assign_order_types($orders)
+    {
+        foreach ($orders as &$order) {
+            $consultationTypes = array_column($order['orderdetails'], 'consultation_type');
+
+            if (in_array('premd', $consultationTypes)) {
+                $order['order_type'] = 'premd';
+            } elseif (in_array('pmd', $consultationTypes)) {
+                $order['order_type'] = 'pmd';
+            } else {
+                $order['order_type'] = 'one_over';
+            }
+        }
+        return $orders;
     }
     // comments
     public function comments(Request $request)

@@ -386,6 +386,7 @@
                                     @if($user->role == user_roles('1'))
                                     <th>Total Atm.</th>
                                     @endif
+                                    <th>Order Type</th>
                                     <th>Payment Status</th>
                                     <th>Order Status</th>
                                     <th>Marked By </th>
@@ -418,10 +419,8 @@
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
-                                    <td>
-                                        {{$val['payment_status'] ?? ''}}
-                                    </td>
-
+                                    <td><span class="btn  fw-bold rounded-pill {{ ($val['order_type'] == 'premd') ? 'btn-primary': (($val['order_type'] == 'pmd') ? 'btn-warning' : 'btn-success') }}">{{ ($val['order_type'] == 'premd') ? 'Pre.Med': (($val['order_type'] == 'pmd') ? 'P.Med' : 'O.T.C') }}</span> </td>
+                                    <td><span class="btn fw-bold rounded-pill btn-success"> {{$val['payment_status'] ?? ''}}</span> </td>
                                     <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }}">{{ $val['status'] ?? '' }}</span></td>
                                     <td style="display: inline-block;">
                                         @if($val['status'] != 'Received')

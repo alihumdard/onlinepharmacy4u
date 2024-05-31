@@ -56,6 +56,8 @@ class SystemController extends Controller
 {
     protected $status;
     protected $user;
+    private   $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
+    private   $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
 
     public function __construct()
     {
@@ -67,10 +69,7 @@ class SystemController extends Controller
     private function getAccessToken()
     {
         try {
-            // Viva Wallet API credentials
-            $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
-            $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
-            $credentials = base64_encode($username . ':' . $password);
+            $credentials = base64_encode($this->username . ':' . $this->password);
 
             // Make an HTTP request to obtain an access token
             $response = Http::asForm()->withHeaders([
@@ -1599,12 +1598,11 @@ class SystemController extends Controller
 
     public function add_order(Request $request)
     {
-        $user = auth()->user();
+        $data['user'] = auth()->user();
         $page_name = 'orders_created';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $data['user'] = auth()->user();
         $data['products'] = Product::with('variants')->where('status', $this->status['Active'])->latest('id')->get()->sortBy('title')->values()->keyBy('id')->toArray();
         foreach ($data['products'] as $key => $product) {
             if ($product['variants']) {
@@ -1712,27 +1710,44 @@ class SystemController extends Controller
         ]);
 
         $order = Order::with('paymentdetails')->findOrFail($validatedData['id']);
-        if ($order) {
+        if ($order->paymentdetails) {
             $ammount = $request->ammount;
             $transetion_id = $order->paymentdetails->transactionId;
             $source_code = 1503;
-            $accessToken = $this->getAccessToken();
-            $url = "https://www.vivapayments.com/api/transactions/{$transetion_id}/";
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $accessToken,
-                'Content-Type' => 'application/json',
-            ])
-                ->delete($url, [
-                    'amount' => $ammount,
-                    'sourceCode' => $source_code
-                ]);
+            $credentials = base64_encode($this->username . ':' . $this->password);
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://www.vivapayments.com/api/transactions/{$transetion_id}/?amount={$ammount}&sourceCode={$source_code}",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'DELETE',
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Basic ' . $credentials
+                ),
+            ));
 
-            $responseData = json_decode($response->body(), true);
-            dd($responseData);
-            $update_payment = [
-                'statusId' => $responseData['statusId'],
-            ];
-            $payment =   PaymentDetail::where('id', $order->paymentdetails->id)->update($update_payment);
+            $response = curl_exec($curl);
+            curl_close($curl);
+            dd($response);
+
+
+            // $url = "https://www.vivapayments.com/api/transactions/{$transetion_id}/";
+            // $response = Http::asForm()->withHeaders([
+            //     'Authorization' => 'Basic ' . $credentials,
+            // ])->delete($url, [
+            //     'amount' => $ammount,
+            //     'sourceCode' => $source_code
+            // ]);
+
+            // $responseData = json_decode($response->body(), true);
+            // dd($responseData);
+            // $update_payment = [
+            //     'statusId' => $responseData['statusId'],
+            // ];
+            // $payment =   PaymentDetail::where('id', $order->paymentdetails->id)->update($update_payment);
 
             $order->status = $validatedData['status'];
             $update = $order->save();

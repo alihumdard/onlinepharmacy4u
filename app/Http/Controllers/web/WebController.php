@@ -830,16 +830,16 @@ class WebController extends Controller
                         $temp_transetion = 'testing'; // testing purspose
                         $payment_detials = [
                             'order_id' => $order->id,
-                            // 'orderCode' => $orderCode,
-                            'orderCode' => $temp_code,
+                            'orderCode' => $orderCode,
+                            // 'orderCode' => $temp_code,
                             'amount' => $request->total_ammount
                         ];
 
                         $payment_init =  PaymentDetail::create($payment_detials);
                         Order::where('id', $order->id)->update(['payment_id' => $payment_init->id]);
                         if ($payment_init) {
-                            // $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
-                            $redirectUrl = url("/Completed-order?t=$temp_transetion&s=$temp_code&lang=en-GB&eventId=0&eci=1");
+                            $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
+                            // $redirectUrl = url("/Completed-order?t=$temp_transetion&s=$temp_code&lang=en-GB&eventId=0&eci=1");
                             return response()->json(['redirectUrl' => $redirectUrl]);
                         }
                     }

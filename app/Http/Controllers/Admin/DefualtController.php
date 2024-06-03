@@ -441,4 +441,17 @@ class DefualtController extends Controller
             return redirect()->back();
         }
     }
+
+    public function read_notifications(){
+        auth()->user()->unreadNotifications->markAsRead();
+        return redirect()->back();
+    }
+
+    public function get_unread_notifications(){
+        $unreadNotifications = Auth::user()->unreadNotifications;
+        if($unreadNotifications){
+            // notify()->success('New order received. ⚡️');
+        }
+        return response()->json($unreadNotifications);
+    }
 }

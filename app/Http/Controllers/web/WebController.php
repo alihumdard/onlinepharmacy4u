@@ -33,6 +33,8 @@ use Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
 use SebastianBergmann\Type\NullType;
 
 use App\Mail\OrderConfirmation;
+use App\Notifications\UserOrderNotification;
+use Illuminate\Support\Facades\Notification;
 
 // models ...
 use App\Models\User;
@@ -824,16 +826,20 @@ class WebController extends Controller
                     if (isset($responseData['orderCode'])) {
 
                         $orderCode = $responseData['orderCode'];
+                        $temp_code = random_int(00000,99999); //tesitng ..
+                        $temp_transetion = 'testing'; // testing purspose
                         $payment_detials = [
                             'order_id' => $order->id,
-                            'orderCode' => $orderCode,
+                            // 'orderCode' => $orderCode,
+                            'orderCode' => $temp_code,
                             'amount' => $request->total_ammount
                         ];
 
                         $payment_init =  PaymentDetail::create($payment_detials);
                         Order::where('id', $order->id)->update(['payment_id' => $payment_init->id]);
                         if ($payment_init) {
-                            $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
+                            // $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
+                            $redirectUrl = url("/Completed-order?t=$temp_transetion&s=$temp_code&lang=en-GB&eventId=0&eci=1");
                             return response()->json(['redirectUrl' => $redirectUrl]);
                         }
                     }
@@ -893,65 +899,61 @@ class WebController extends Controller
         $orderCode = $request->query('s');
         $payment_detail = PaymentDetail::where('orderCode', $orderCode)->firstOrFail();
         if ($payment_detail) {
-            $accessToken = $this->getAccessToken();
-            $url = "https://api.vivapayments.com/checkout/v2/transactions/{$transetion_id}";
-
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $accessToken,
-                'Content-Type'  => 'application/json',
-            ])->get($url);
-
-            $responseData = json_decode($response, true);
-            $update_payment = [
-                'transactionId' => $transetion_id,
-                'fullName' => $responseData['fullName'],
-                'email' => $responseData['email'],
-                'cardNumber' => $responseData['cardNumber'],
-                'statusId' => $responseData['statusId'],
-                'insDate' => $responseData['insDate'],
-                'amount' => $responseData['amount'],
-            ];
+            if($transetion_id != 'testing'){
+                $accessToken = $this->getAccessToken();
+                $url = "https://api.vivapayments.com/checkout/v2/transactions/{$transetion_id}";
+    
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $accessToken,
+                    'Content-Type'  => 'application/json',
+                ])->get($url);
+    
+                $responseData = json_decode($response, true);
+                $update_payment = [
+                    'transactionId' => $transetion_id,
+                    'fullName' => $responseData['fullName'],
+                    'email' => $responseData['email'],
+                    'cardNumber' => $responseData['cardNumber'],
+                    'statusId' => $responseData['statusId'],
+                    'insDate' => $responseData['insDate'],
+                    'amount' => $responseData['amount'],
+                ]; 
+            }else{
+                $update_payment = [
+                    'transactionId' => $transetion_id,
+                    'fullName' => 'test',
+                    'email' => 'testing@gmail.com',
+                    'cardNumber' => '34234test34234',
+                    'statusId' => 'F',
+                    'insDate' => now(),
+                ];
+            }
             $payment =   PaymentDetail::where('id', $payment_detail->id)->update($update_payment);
 
             $payment_detail = PaymentDetail::find($payment_detail->id);
-            $order = Order::where('id', $payment_detail->order_id)->latest('created_at')->first();
+            $order = Order::with('orderdetails','orderdetails.product')->where('id', $payment_detail->order_id)->latest('created_at')->first();
 
             if ($order) {
+                $user = auth()->user() ?? [];
                 $order->update(['payment_status' => 'Paid']);
-                if (Auth::check()) {
-
-                    Mail::to($order->shipingdetails->email)->send(new OrderConfirmation($order));
-
-                    $user = Auth()->user() ?? [];
-                    Session::flush();
+                $name = $order->shipingdetails->firstName;
+                $order_for = [user_roles('1'),($order->order_for == 'doctor') ? user_roles('3'): user_roles('2')] ;
+                $users = User::where('status', 1)->WhereIn('role', $order_for)->get();
+                Notification::send($users, new UserOrderNotification($order));
+                Mail::to($order->shipingdetails->email)->send(new OrderConfirmation($order));
+                Session::flush();
+                if ($user) {
                     Auth::logout();
                     Auth::login($user);
-                    if (Auth()->user()) {
-                        $name = $order->shipingdetails->firstName;
-                        echo "<script>
-                            if (window.self !== window.top) {
-                                window.top.location.href = '" . route('thankYou', ['n' => $name]) . "';
-                            } else {
-                                window.location.href = '" . route('thankYou', ['n' => $name]) . "';
-                            }
-                        </script>";
-                        exit;
-                    } else {
-                        dd('Authentication failed. Please try again.');
-                    }
-                } else {
-                    Mail::to($order->shipingdetails->email)->send(new OrderConfirmation($order));
-                    Session::flush();
-                    $name = $order->shipingdetails->firstName;
-                    echo "<script>
-                        if (window.self !== window.top) {
-                            window.top.location.href = '" . route('thankYou', ['n' => $name]) . "';
-                        } else {
-                            window.location.href = '" . route('thankYou', ['n' => $name]) . "';
-                        }
-                    </script>";
-                    exit;
                 }
+                echo "<script>
+                if (window.self !== window.top) {
+                    window.top.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                } else {
+                    window.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                }
+                </script>";
+                exit;
             } else {
                 dd('Order could not developer');
             }

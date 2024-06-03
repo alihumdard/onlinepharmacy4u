@@ -3,12 +3,13 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>@yield('title' , 'My WeightLoss')</title>
+    <title>@yield('title' , 'My WeightLoss')</title>
 
     @include('admin.includes.head')
+    @notifyCss
 </head>
 
 <body>
@@ -19,6 +20,7 @@
     @include('admin.includes.script')
     @stack('scripts')
     @include('admin.pages.apicall')
+    @notifyJs
 </body>
 
 </html>

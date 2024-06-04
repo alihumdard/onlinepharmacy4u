@@ -115,6 +115,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'gpa_letters':
+                case 'gp_locations':
                 case 'orders':
                 case 'dispensary_approval':
                 case 'doctors_approval':
@@ -132,6 +133,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'orders':
+                case 'gp_locations':
                 case 'gpa_letters':
                 case 'consultation_view':
                 case 'doctors_approval':

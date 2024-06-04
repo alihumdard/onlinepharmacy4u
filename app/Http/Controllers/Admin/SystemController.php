@@ -1461,9 +1461,11 @@ class SystemController extends Controller
                 $data['product_consultation'] = $prod_result ?? [];
                 return view('admin.pages.consultation_view', $data);
             } else {
+                notify()->error('Consultaions Id Did not found. ⚡️');
                 return redirect()->back()->with('error', 'Transaction not found.');
             }
         } else {
+            notify()->error('Consultaions Id Did not found. ⚡️');
             return redirect()->back();
         }
     }

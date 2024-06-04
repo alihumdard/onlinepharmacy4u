@@ -66,7 +66,7 @@ class WebController extends Controller
 {
     private $menu_categories;
     protected $status;
-
+    protected $ENV;
     public function __construct()
     {
         $this->status = config('constants.STATUS');
@@ -84,6 +84,7 @@ class WebController extends Controller
             ->toArray();;
 
         view()->share('menu_categories', $this->menu_categories);
+        $this->ENV = 'Live'; //1. Live, 2. Local.
     }
 
     public function shop(Request $request, $category = null, $sub_category = null, $child_category = null)
@@ -830,16 +831,14 @@ class WebController extends Controller
                         $temp_transetion = 'testing'; // testing purspose
                         $payment_detials = [
                             'order_id' => $order->id,
-                            'orderCode' => $orderCode,
-                            // 'orderCode' => $temp_code,
+                            'orderCode' => ($this->ENV == 'Live') ?  $orderCode: $temp_code,
                             'amount' => $request->total_ammount
                         ];
 
                         $payment_init =  PaymentDetail::create($payment_detials);
                         Order::where('id', $order->id)->update(['payment_id' => $payment_init->id]);
                         if ($payment_init) {
-                            $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
-                            // $redirectUrl = url("/Completed-order?t=$temp_transetion&s=$temp_code&lang=en-GB&eventId=0&eci=1");
+                            $redirectUrl = ($this->ENV == 'Live') ? "https://www.vivapayments.com/web/checkout?ref={$orderCode}" : url("/Completed-order?t=$temp_transetion&s=$temp_code&lang=en-GB&eventId=0&eci=1");
                             return response()->json(['redirectUrl' => $redirectUrl]);
                         }
                     }
@@ -899,7 +898,7 @@ class WebController extends Controller
         $orderCode = $request->query('s');
         $payment_detail = PaymentDetail::where('orderCode', $orderCode)->firstOrFail();
         if ($payment_detail) {
-            if($transetion_id != 'testing'){
+            if($this->ENV == 'Live'){
                 $accessToken = $this->getAccessToken();
                 $url = "https://api.vivapayments.com/checkout/v2/transactions/{$transetion_id}";
     

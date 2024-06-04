@@ -149,11 +149,11 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'home':
                 case 'dashboard':
+                case 'consultation_view':
                 case 'prescription_orders':
                 case 'online_clinic_orders':
                 case 'shop_orders':
                 case 'setting':
-                case 'gp_letters':
                     return true;
                 default:
                     return false;

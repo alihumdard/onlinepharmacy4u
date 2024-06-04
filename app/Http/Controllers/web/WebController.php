@@ -84,7 +84,7 @@ class WebController extends Controller
             ->toArray();;
 
         view()->share('menu_categories', $this->menu_categories);
-        $this->ENV = 'Live'; //1. Live, 2. Local.
+        $this->ENV = env('PAYMENT_ENV', 'Live') ?? 'Live'; //1. Live, 2. Local.
     }
 
     public function shop(Request $request, $category = null, $sub_category = null, $child_category = null)

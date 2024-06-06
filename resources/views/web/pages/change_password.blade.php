@@ -155,7 +155,7 @@
                                             </div>
 
                                             <div class="col-12">
-                                                <button class="btn btn-primary w-100 change-custom-pass" type="submit">Change Password</button>
+                                                <button class="btn btn-primary bg-primary w-100 change-custom-pass" type="submit">Change Password</button>
                                             </div>
                                             <div class="col-12 ">
                                                 <div class="mt-4 mb-3 d-flex justify-content-between"> <!-- Change justify-content-end to justify-content-between -->

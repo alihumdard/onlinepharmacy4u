@@ -176,7 +176,7 @@
                         </div>
                         <div class="row">
                             <div class="d-grid mt-2">
-                                <a class="btn btn-primary edit" data-id="{{$value['id']}}"  type="button"><i class=" me-3 bi bi-eye-fill"></i>View
+                                <a class="btn btn-primary bg-primary edit" data-id="{{$value['id']}}"  type="button"><i class=" me-3 bi bi-eye-fill"></i>View
                                     Profile</a>
                             </div>
                         </div>

@@ -1,570 +1,325 @@
 @extends('admin.layouts.default')
 @section('title', 'Dashboard')
 @section('content')
-<style>
-    .displaynone{
-        display: none;
-    }
-</style>
-
-<!-- main stated -->
-<main id="main" class="main">
-
-    <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Dashboard</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </nav>
-    </div>
-
-    <section class="section dashboard" {{$role != 4 ? 'style=height:350px' : ''}}>
-        <div class="row">
-
-            <!-- Left side columns -->
-            <div class="col-lg-7">
-                <div class="row">
-
-                    <!-- Sales Card -->
-                    @if($role == 4)
-                        {{-- <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
-
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Order <span>| Today</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-cart"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>145</h6>
-                                            <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Sales Card --> --}}
-                    
-
-                    <!-- Revenue Card -->
-                    {{-- <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card revenue-card">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Order <span>| This Month</span></h5>
-
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-currency-pound"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>3,264</h6>
-                                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- End Revenue Card --> --}}
-
-                    <!-- Customers Card -->
-                    {{-- <div class="col-xxl-4 col-xl-12">
-
-                        <div class="card info-card customers-card">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Order <span>| This Year</span></h5>
-
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-people"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>1244</h6>
-                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div><!-- End Customers Card --> --}}
-                    @endif
-                    <!-- Reports -->
-                    <div class="col-12">
-                        <div class="card">
-
-                            <!-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div> -->
-
-                            @if($role == 4)
-                                {{-- <div class="card-body">
-                                    <h5 class="card-title">BMI<span>/History</span></h5>
-
-                                    <!-- Line Chart -->
-                                    <div id="reportsChart"></div>
-
-                                    <!-- End Line Chart -->
-
-                                </div> --}}
-                            @endif
-
-                        </div>
-                    </div><!-- End Reports -->
-
-
-                </div>
-            </div><!-- End Left side columns -->
-
-            <!-- Right side columns -->
-            <div class="col-lg-5">
-                <!-- order status -->
-                @if($role == 4)
-                    {{-- <div class="card" style="max-height: 350px; overflow-y: auto;">
-                        <div class="filter">
-                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                <li class="dropdown-header text-start">
-                                    <h6>Filter</h6>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Today</a></li>
-                                <li><a class="dropdown-item" href="#">This Month</a></li>
-                                <li><a class="dropdown-item" href="#">This Year</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="card-body">
-                            <h5 class="card-title">Order Status <span>| Today</span></h5>
-                            <div class="activity">
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">32 min</div>
-                                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                    <div class="activity-content">
-                                        Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-                                    </div>
-                                </div><!-- End activity item-->
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">56 min</div>
-                                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                    <div class="activity-content">
-                                        Voluptatem blanditiis blanditiis eveniet
-                                    </div>
-                                </div><!-- End activity item-->
-
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">2 hrs</div>
-                                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                                    <div class="activity-content">
-                                        Voluptates corrupti molestias voluptatem
-                                    </div>
-                                </div><!-- End activity item-->
-
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">1 day</div>
-                                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                                    <div class="activity-content">
-                                        Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                                    </div>
-                                </div><!-- End activity item-->
-
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">2 days</div>
-                                    <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                                    <div class="activity-content">
-                                        Est sit eum reiciendis exercitationem
-                                    </div>
-                                </div><!-- End activity item-->
-
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">4 weeks</div>
-                                    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                                    <div class="activity-content">
-                                        Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                                    </div>
-                                </div><!-- End activity item-->
-
-
-                            </div>
-                        </div>
-                    </div><!-- End order status --> --}}
-                @endif
-
-                <!-- start  my stats  -->
-                @if($role == 4)
-                    {{-- <div class="card">
-
-                        <div class="card-body">
-                            <div style="position: relative;">
-                                <img src="https://i.ibb.co/CmRQbgh/pen-1250615-1.png" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="w-70 h-auto" alt="edit" style="width: 15px; height: 15px; position: absolute; top: 100%; right: 0; margin-top:10px; cursor:pointer;">
-                            </div>
-                            <div class="link d-flex justify-content-between align-items-center mt-3">
-                                <h5 class="card-title mb-0 ">My Stats</h5>
-                                <span id="switchToUnit" onclick="toggleUnit()" style="cursor: pointer;" class="text-info">Switch to Imperial</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="activity-item d-flex  align-items-center flex-column h-100" style="background-color: #1aa9dd;">
-                                        <div class="activity-content">
-
-                                            <!-- Height image centered -->
-                                            <div class="activite-label mr-auto text-center mt-3">
-                                                <img src="https://i.ibb.co/1nGzhKh/height-icon.png" class="w-50 h-auto" alt="height">
-                                            </div>
-                                            <!-- Content -->
-                                            <div class="text-center text-light pt-2">
-                                                <h5 class="mb-0">Height</h5>
-                                                <span id="heightValue">0cm</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Add another col-md-6 for the second box -->
-                                <div class="col-md-6 mb-4">
-                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100 " style="background-color: #769ccd;">
-                                        <div class="activite-label mr-auto text-center mt-3">
-                                            <div class="activity-content d-flex align-items-center justify-content-center">
-                                                <img src="https://i.ibb.co/HGkLc5M/weight-icon.png" class="w-50 h-auto" alt="calculate">
-                                            </div>
-                                            <div class="text-center text-light pt-2">
-                                                <h5 class="mb-0">Weight</h5>
-                                                <span id="weightValue">0kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Edit Height and Weight</h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: red; color: white; border: none;">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mt-3">
-                                            <input type="text" id="heightInput" oninput="updateMeasurement('height')" class="form-control" placeholder="Enter height..."> <br />
-                                            <input type="text" id="weightInput" oninput="updateMeasurement('weight')" class="form-control" placeholder="Enter weight...">
-                                        </div>
-                                        <div class="modal-footer border-0">
-                                            <button type="button" id="saveChangesBtn" class="btn btn-primary text-center" onclick="updateMeasurement()">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                                function toggleUnit() {
-                                    var switchToUnit = document.getElementById("switchToUnit");
-
-                                    var currentUnit = switchToUnit.innerText.trim();
-
-                                    var heightInput = document.getElementById("heightInput").value;
-                                    var weightInput = document.getElementById("weightInput").value;
-
-                                    if (currentUnit === "Switch to Imperial") {
-                                        var heightInFeet = (parseFloat(heightInput) / 30.48).toFixed(2);
-                                        var weightInLbs = (parseFloat(weightInput) / 0.45359237).toFixed(2);
-
-                                        document.getElementById("heightValue").innerText = heightInFeet + " ft";
-                                        document.getElementById("weightValue").innerText = weightInLbs + " lbs";
-
-                                        switchToUnit.innerText = "Switch to Metric";
-                                    } else {
-
-                                        var heightInCm = (parseFloat(heightInput) * 30.48).toFixed(2);
-                                        var weightInKg = (parseFloat(weightInput) * 0.45359237).toFixed(2);
-
-                                        document.getElementById("heightValue").innerText = heightInCm + " cm";
-                                        document.getElementById("weightValue").innerText = weightInKg + " kg";
-
-                                        switchToUnit.innerText = "Switch to Imperial";
-                                    }
-                                }
-
-
-                                // Function to update measurement units
-                                function updateMeasurement(type) {
-                                    var heightInput = document.getElementById("heightInput").value;
-                                    var weightInput = document.getElementById("weightInput").value;
-
-                                    // Update the displayed value
-                                    var heightValue = (type === "height") ? heightInput : document.getElementById("heightValue").innerText;
-                                    var weightValue = (type === "weight") ? weightInput : document.getElementById("weightValue").innerText;
-
-                                    // Update the displayed values
-                                    document.getElementById("heightValue").innerText = heightValue;
-                                    document.getElementById("weightValue").innerText = weightValue;
-
-                                    // Check if both input fields have values
-                                    var saveChangesBtn = document.getElementById("saveChangesBtn");
-                                    if (heightInput.trim() !== "" && weightInput.trim() !== "") {
-                                        saveChangesBtn.disabled = false; // Enable the button
-                                    } else {
-                                        saveChangesBtn.disabled = true; // Disable the button
-                                    }
-                                }
-                            </script>
-                            <div class="row">
-                                <!-- Add another col-md-6 for the third box -->
-                                <div class="col-md-6  py-3 pb-2  mr-md-2">
-                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100" style="background-color: #769ccd;">
-                                        <div class="activite-label mr-auto text-center">
-                                            <div class="activity-content d-flex align-items-center justify-content-center">
-                                                <img src="https://i.ibb.co/LSDDDfp/noinfo.png" class="w-50 h-auto mt-3" alt="calculate">
-                                            </div>
-                                            <div class="text-center text-light mb-0 pt-3">
-                                                <h5 class="mb-0">BMI</h5>
-                                                <span>0kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Add another col-md-6 for the fourth box -->
-                                <div class="col-md-6   py-3 pb-2 ml-md-2 displaynone">
-                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100" style="background-color: #1aa9dd;">
-                                        <div class="activite-label mr-auto text-center">
-                                            <div class="activity-content d-flex align-items-center justify-content-center">
-                                                <img src="https://i.ibb.co/3zrC2BV/waist.png" class="w-50 h-auto mt-3" alt="calculate">
-                                            </div>
-                                            <div class="text-center text-light mb-0 pt-3">
-                                                <h5 class="mb-0">Waist</h5>
-                                                <span>0 cm</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- End my stats --> --}}
-                    @endif
-            </div><!-- End Right side columns -->
-
-            <!-- left side colum  -->
-            <!-- start bmi calculator  -->
-            @if($role == 4)
-                {{-- <div class="col-12">
-                    <div class="card">
-
-                        <div class="card-body pb-0">
-                            <h5 class="card-title fw-bold text-center">Body Mass Index</h5>
-
-                            <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
-                        </div>
-                    </div>
-                </div> --}}
-            @endif
-            <!-- End bmi_calculator -->
-
+    <style>
+        .displaynone {
+            display: none;
+        }
+    </style>
+    <!-- main stated -->
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i
+                        class="bi bi-arrow-left"></i> Back</a> | Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
         </div>
-    </section>
 
-</main>
-<!-- End #main -->
+        <section class="section dashboard">
+            <div class="row">
+                <!-- Left side columns -->
+                <div class="col-lg-6">
+                    <canvas id="myChart" style="width:100%;max-height:400px"></canvas>
+                </div>
+                <div class="col-lg-6">
+                    <div id="myPlot" style="width:100%;max-width:700px"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Left side columns -->
+                <div class="col-lg-6">
+                    <canvas id="myChart1" style="width:100%;max-height:400px"></canvas>
+                </div>
+                <div class="col-lg-6">
+                    <div id="myPlot1" style="width:100%;max-width:700px"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Left side columns -->
+                <div class="col-lg-6">
+                    <canvas id="myChart2" style="width:100%;max-height:400px"></canvas>
+                </div>
+                <div class="col-lg-6">
+                    <div id="myPlot2" style="width:100%; max-width:600px; height:500px;"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <!-- End #main -->
+
 
 @stop
 
 @pushOnce('scripts')
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        new ApexCharts(document.querySelector("#reportsChart"), {
-            series: [{
-                name: 'BMI',
-                data: [ 42, 52, 56],
-            }],
-            chart: {
-                height: 350,
-                type: 'area',
-                toolbar: {
-                    show: false
-                },
+    <script>
+        const xValues = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+
+                    data: [300, 2000, 1500, 4000, 5000, 3000, 2000, 5000, 3000, 2000],
+                    borderColor: "red",
+                    fill: false
+                }]
             },
-            markers: {
-                size: 4
-            },
-            colors: [ '#2eca6a'],
-            fill: {
-                type: "gradient",
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.3,
-                    opacityTo: 0.4,
-                    stops: [0, 90, 100]
+            options: {
+                legend: {
+                    display: false
                 }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 2
-            },
-            xaxis: {
-                type: 'datetime',
-                categories: [ "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
-                },
             }
-        }).render();
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-        echarts.init(document.querySelector("#trafficChart")).setOption({
-            tooltip: {
-                trigger: 'item'
+        });
+
+        new Chart("myChart1", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+
+                    data: [300, 700, 2000, 6000, 4000, 4000, 6000, 3000, 4000, 2000],
+                    borderColor: "blue",
+                    fill: false
+                }]
             },
-            legend: {
-                top: '5%',
-                left: 'center'
+            options: {
+                legend: {
+                    display: false
+                }
+            }
+        });
+        new Chart("myChart2", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+
+                    data: [300, 2000, 700, 3000, 400, 2000, 5000, 4000, 1500, 3500],
+                    borderColor: "green",
+                    fill: false
+                }]
             },
-            series: [{
-                name: 'Access From',
-                type: 'pie',
-                radius: ['40%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                    show: false,
-                    position: 'center'
+            options: {
+                legend: {
+                    display: false
+                }
+            }
+        });
+
+        const xArray = ["Italy", "France", "Spain", "USA", "Argentina"];
+        const yArray = [55, 49, 44, 24, 15];
+
+        const data = [{
+            x: xArray,
+            y: yArray,
+            type: "bar",
+            orientation: "v",
+            marker: {
+                color: "rgba(0,0,255,0.6)"
+            }
+        }];
+
+        const layout = {
+            title: "World Wide Wine Production"
+        };
+
+        Plotly.newPlot("myPlot", data, layout);
+
+
+        const data1 = [{
+            x: xArray,
+            y: yArray,
+            type: "bar",
+            orientation: "h",
+            marker: {
+                color: "rgba(255,0,0,0.6)"
+            }
+        }];
+        Plotly.newPlot("myPlot1", data1, layout);
+
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            const data = google.visualization.arrayToDataTable([
+                ['Contry', 'Mhl'],
+                ['Italy', 55],
+                ['France', 49],
+                ['Spain', 44],
+                ['USA', 24],
+                ['Argentina', 15]
+            ]);
+
+            const options = {
+                title: 'World Wide Wine Production'
+            };
+
+            const chart = new google.visualization.BarChart(document.getElementById('myPlot2'));
+            chart.draw(data, options);
+        }
+
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            new ApexCharts(document.querySelector("#reportsChart"), {
+                series: [{
+                    name: 'BMI',
+                    data: [42, 52, 56],
+                }],
+                chart: {
+                    height: 350,
+                    type: 'area',
+                    toolbar: {
+                        show: false
+                    },
                 },
-                emphasis: {
+                markers: {
+                    size: 4
+                },
+                colors: ['#2eca6a'],
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.3,
+                        opacityTo: 0.4,
+                        stops: [0, 90, 100]
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                xaxis: {
+                    type: 'datetime',
+                    categories: ["2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
+                        "2018-09-19T06:30:00.000Z"
+                    ]
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                }
+            }).render();
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            echarts.init(document.querySelector("#trafficChart")).setOption({
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    top: '5%',
+                    left: 'center'
+                },
+                series: [{
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
                     label: {
-                        show: true,
-                        fontSize: '18',
-                        fontWeight: 'bold'
-                    }
-                },
-                labelLine: {
-                    show: false
-                },
-                data: [{
-                        value: 18,
-                        name: 'Under Weight'
+                        show: false,
+                        position: 'center'
                     },
-                    {
-                        value: 25,
-                        name: 'Normal'
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '18',
+                            fontWeight: 'bold'
+                        }
                     },
-                    {
-                        value: 30,
-                        name: 'Pre-Obesity'
+                    labelLine: {
+                        show: false
                     },
-                    {
-                        value: 100,
-                        name: 'Obese'
-                    },
-                ]
-            }]
+                    data: [{
+                            value: 18,
+                            name: 'Under Weight'
+                        },
+                        {
+                            value: 25,
+                            name: 'Normal'
+                        },
+                        {
+                            value: 30,
+                            name: 'Pre-Obesity'
+                        },
+                        {
+                            value: 100,
+                            name: 'Obese'
+                        },
+                    ]
+                }]
+            });
         });
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-        var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
-            legend: {
-                data: ['Allocated Budget', 'Actual Spending']
-            },
-            radar: {
-                // shape: 'circle',
-                indicator: [{
-                        name: 'Sales',
-                        max: 6500
-                    },
-                    {
-                        name: 'Administration',
-                        max: 16000
-                    },
-                    {
-                        name: 'Information Technology',
-                        max: 30000
-                    },
-                    {
-                        name: 'Customer Support',
-                        max: 38000
-                    },
-                    {
-                        name: 'Development',
-                        max: 52000
-                    },
-                    {
-                        name: 'Marketing',
-                        max: 25000
-                    }
-                ]
-            },
-            series: [{
-                name: 'Budget vs spending',
-                type: 'radar',
-                data: [{
-                        value: [4200, 3000, 20000, 35000, 50000, 18000],
-                        name: 'Allocated Budget'
-                    },
-                    {
-                        value: [5000, 14000, 28000, 26000, 42000, 21000],
-                        name: 'Actual Spending'
-                    }
-                ]
-            }]
+        document.addEventListener("DOMContentLoaded", () => {
+            var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                legend: {
+                    data: ['Allocated Budget', 'Actual Spending']
+                },
+                radar: {
+                    // shape: 'circle',
+                    indicator: [{
+                            name: 'Sales',
+                            max: 6500
+                        },
+                        {
+                            name: 'Administration',
+                            max: 16000
+                        },
+                        {
+                            name: 'Information Technology',
+                            max: 30000
+                        },
+                        {
+                            name: 'Customer Support',
+                            max: 38000
+                        },
+                        {
+                            name: 'Development',
+                            max: 52000
+                        },
+                        {
+                            name: 'Marketing',
+                            max: 25000
+                        }
+                    ]
+                },
+                series: [{
+                    name: 'Budget vs spending',
+                    type: 'radar',
+                    data: [{
+                            value: [4200, 3000, 20000, 35000, 50000, 18000],
+                            name: 'Allocated Budget'
+                        },
+                        {
+                            value: [5000, 14000, 28000, 26000, 42000, 21000],
+                            name: 'Actual Spending'
+                        }
+                    ]
+                }]
+            });
         });
-    });
-</script>
+    </script>
 @endPushOnce

@@ -2,7 +2,12 @@
 @section('title', 'Checkout')
 @section('content')
 
-
+<style>
+    .usmani-puncher {
+        margin-top: 20px !important;
+        margin-bottom: 0px !important;
+    }
+</style>
 <!-- BREADCRUMB AREA START -->
 <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/bg/14.jpg">
     <div class="container">
@@ -46,7 +51,7 @@
                                 @endif
                                 <input type="hidden" id="total_ammount" name="total_ammount" value="{{str_replace(',', '', Cart::subTotal()) + 4.95}}">
                                 <input type="hidden" id="shiping_cost" name="shiping_cost" value="4.95">
-                                <h6>Personal Information</h6>
+                                <h6 class="usmani-puncher">Personal Information</h6>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-item input-item-name ltn__custom-icon">
@@ -75,7 +80,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12">
-                                        <h6>Address</h6>
+                                        <h6 class="usmani-puncher">Address</h6>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="input-item">
@@ -91,21 +96,21 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
-                                        <h6>City</h6>
+                                        <h6 class="usmani-puncher">City</h6>
                                         <div class="input-item">
                                             <input type="text" name="city" style="margin-top: 20px !important; margin-bottom:0px !important;" placeholder="City" required>
                                             <div class="invalid-feedback">Please enter your city.</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
-                                        <h6>Postal Code</h6>
+                                        <h6 class="usmani-puncher">Postal Code</h6>
                                         <div class="input-item">
                                             <input type="text" name="zip_code" style="margin-top: 20px !important; margin-bottom:0px !important;" placeholder="Postal Code" required>
                                             <div class="invalid-feedback">Please enter your postal code.</div>
                                         </div>
                                     </div>
                                 </div>
-                                <h6>Order Notes (optional)</h6>
+                                <h6 class="mt-3">Order Notes (optional)</h6>
                                 <div class="input-item input-item-textarea ltn__custom-icon">
                                     <textarea name="note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                 </div>
@@ -119,20 +124,19 @@
                     <div class="ltn__checkout-payment-method mt-50">
                         <h4 class="title-2">Shipping Method</h4>
                         <div class="form-check">
-                            <div class="custom-control">
+                            <div class="custom-control" style="display: flex; align-items:center;">
                                 <input class="form-check-input" type="radio" name="shipping_method" id="express_delivery" value="express" checked data-ship="4.95" required>
-                                <label class="form-check-label" for="express_delivery">Royal Mail Tracked 24</label>
-                                <span class="float-right">£4.95</span>
+                                <label class="form-check-label" for="express_delivery"><img src="{{url('img/24-hours.jpg')}}" alt="" style="max-width:140px !important; margin-left:10px;"></label>
+
                             </div>
-                            <div class="ml-4 mb-2 small">(1-2 working days)</div>
+
                         </div>
                         <div class="form-check">
-                            <div class="custom-control">
+                            <div class="custom-control" style="display: flex; align-items:center;">
                                 <input class="form-check-input" type="radio" name="shipping_method" id="fast_delivery" value="fast" data-ship="3.95" required>
-                                <label class="form-check-label" for="fast_delivery">Royal Mail Tracked 48</label>
-                                <span class="float-right">£3.95</span>
+                                <label class="form-check-label" for="fast_delivery"><img src="{{url('img/48-hours.jpg')}}" alt="" style="max-width:140px !important; margin-left:10px;"></label>
                             </div>
-                            <div class="ml-4 mb-2 small">(3-5 working days)</div>
+
                         </div>
                     </div>
                 </div>
@@ -155,7 +159,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Order Total</strong></td>
-                                    <td class="order_total"><strong>{{str_replace(',', '', Cart::subTotal()) + 4.95}}</strong></td>
+                                    <td class="order_total"><strong>£{{str_replace(',', '', Cart::subTotal()) + 4.95}}</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -178,8 +182,8 @@
         var shippingCost = parseFloat($('input[name="shipping_method"]:checked').data('ship')) || 0;
         var subTotal = parseFloat(@json(strval(Cart::subTotal())).replace(',', '')) || 0;
         var granTotal = (shippingCost + subTotal).toFixed(2);
-        $('.shipping_cost').text('£ ' + shippingCost.toFixed(2));
-        $('.order_total').text('£ ' + granTotal);
+        $('.shipping_cost').text('£' + shippingCost.toFixed(2));
+        $('.order_total').text('£' + granTotal);
         $('#total_ammount').val(granTotal);
         $('#shiping_cost').val(shippingCost.toFixed(2));
     });
@@ -247,7 +251,7 @@
                     type: 'POST',
                     data: $('#checkoutForm').serialize(),
                     success: function(response) {
-                       
+
 
                         var redirectUrl = response.redirectUrl;
                         var iframe = $('<iframe>', {

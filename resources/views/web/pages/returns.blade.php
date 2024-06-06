@@ -37,8 +37,8 @@
     <p>If your prescription was rejected for whatever reason, please note there will be a prescription service charge of £5.00. This also includes false/fraudulent information that you may have provided to try to pass and online consultation with the view to obtain a medication, you will also be charged if you fail to provide us with additional information when requested via email/phone from our prescriber.</p>
     <h6>How long do I have to return my order?</h6>
     <p>You have 14 days from the date of delivery to return your order.</p>
-    <h6>Rejected Prescription & Prescription Surcharge?</h6>
-    <p>Prescription surcharge is what we charge if you decide to cancel your prescription once it’s been issued but before the items been dispensed or shipped, this fee is set at £5.00* (but £10.00 for all weightloss items) this also applies if the item is a special order or is awaiting to arrive back in stock due to shortages within the marketplace, which is out of our control.</p>
+    <h6>Rejected Prescription & Cancellation Prescription Surcharge?</h6>
+    <p>Prescription surcharge is what we charge if you decide to cancel your prescription once it’s been issued but before the items are dispensed or shipped, this fee is set at £5.00* (but £10.00 for all weightloss items and £10 for all TestoGels, TestoSachets & HRT) this also applies if the item is a special order or is awaiting to arrive back in stock due to shortages within the marketplace, which is out of our control.</p>
     <h6>GeneticTest Kits Cancellation?</h6>
     <p>All Genetic test kits are non-refundable and returnable as these are made at the laboratory and barcodes allocated specifically to your profile and order.</p>
     <h6>Blood Test Kits Cancellation?</h6>

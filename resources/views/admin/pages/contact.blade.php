@@ -46,8 +46,9 @@
                   </div>
                 </div>
               </form>
-              @endif
+              @else
               <p>{{$contact_details['address1']['content'] ?? ''}},<br>{{$contact_details['address2']['content'] ?? ''}}</p>
+              @endif
             </div>
           </div>
           <div class="col-lg-6">
@@ -68,8 +69,9 @@
                   </div>
                 </div>
               </form>
-              @endif
+              @else
               <p>{{$contact_details['phone1']['content'] ?? ''}},<br>{{$contact_details['phone2']['content'] ?? ''}}</p>
+              @endif
 
             </div>
           </div>
@@ -91,8 +93,9 @@
                   </div>
                 </div>
               </form>
-              @endif
+              @else
               <p>{{$contact_details['email1']['content'] ?? ''}},<br>{{$contact_details['email2']['content'] ?? ''}}</p>
+              @endif
             </div>
           </div>
           <div class="col-lg-6">
@@ -113,8 +116,9 @@
                   </div>
                 </div>
               </form>
-              @endif
+              @else
               <p>{{$contact_details['timing1']['content'] ?? ''}}, {{$contact_details['timing2']['content'] ?? ''}}</p>
+              @endif
             </div>
           </div>
         </div>

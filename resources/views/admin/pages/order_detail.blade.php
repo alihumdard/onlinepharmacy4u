@@ -169,7 +169,7 @@
                                 <input class="form-control me-2" type="text" name="address2" id="address2" value="{{(isset($order['shipingdetails']['address2'])) ? $order['shipingdetails']['address2'] :($order['user']['apartment'] ?? '') }}" placeholder="Change Address 2">
                             </div>
                             <div class=" mt-4 text-end px-4 d-flex d-md-block">
-                                <button class="btn btn-primary">Update</button>
+                                <button class="btn btn-primary bg-primary">Update</button>
                             </div>
                         </form>
                         <div class="text mt-2">
@@ -201,7 +201,7 @@
                                 @enderror
                             </div>
                             <div class=" mt-4 text-end px-4 d-flex d-md-block">
-                                <button class="btn btn-primary">Update</button>
+                                <button class="btn btn-primary bg-primary">Update</button>
                             </div>
                         </form>
                     </div>
@@ -268,7 +268,7 @@
                                                 <h5 class="fw-bold underline">User Previous Orders History:</h5>
                                                 <div class="button-container" style="display: flex; flex-wrap: wrap;">
                                                     @forelse($userOrders as $index => $val)
-                                                    <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary m-1">
+                                                    <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary bg-primary m-1">
                                                         <b>{{ $index + 1 }}.</b> #{{ $val['id'] }}
                                                     </a>
                                                     @empty
@@ -290,7 +290,7 @@
                                     @if($order['tracking_no'])
                                     <a class="fw-bold  mb-0" href="https://www.royalmail.com/track-your-item#/tracking-results/{{$order['tracking_no']}}">{{$order['tracking_no']}} </a>
                                     @else
-                                    <a class=" btn btn-primary fw-bold  mb-0" href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
+                                    <a class=" btn btn-primary bg-primary fw-bold  mb-0" href="{{route('admin.getShippingOrder',['id'=>$order['id']])}}">Track</a>
                                     @endif
                                 </div>
                                 @endif
@@ -330,7 +330,7 @@
                                 </form>
                                 <div class="card  mt-1">
                                     <div class="card-body d-flex justify-content-center align-items-center py-3">
-                                        <button form="form_shiping_now" type="submit" class="btn btn-primary rounded-pill px-5 py-2 fw-bold">
+                                        <button form="form_shiping_now" type="submit" class="btn btn-primary bg-primary rounded-pill px-5 py-2 fw-bold">
                                             <i class="bi bi-arrow-right-circle"></i> Ship Now
                                         </button>
                                     </div>
@@ -420,7 +420,7 @@
                                 <textarea class="form-control" rows="4" id="comment" name="comment" placeholder="Type your message" required></textarea>
                             </div>
                             <div class="form-group  mb-4 d-flex flex-row justify-content-end px-3">
-                                <button type="submit" id="btn_comment" class="btn btn-primary fw-bold">
+                                <button type="submit" id="btn_comment" class="btn btn-primary bg-primary fw-bold">
                                     <div class="spinner-border spinner-border-sm text-white d-none" id="spinner_coment"></div>
                                     <span id="coment_btn">Add Comment </span>
                                 </button>

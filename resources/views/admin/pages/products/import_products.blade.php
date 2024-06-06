@@ -156,7 +156,7 @@
                 <div class="invalid-feedback">* Upload product main Image!</div>
             </div>
             <div class="product-btns mt-4 text-end px-4 d-flex d-md-block">
-                <input type="reset" class=" btn btn-secondary rounded-2  px-5 mx-1 fw-bold" value="Cancel">
+                <input type="reset" class=" btn btn-secondary bg-secondary rounded-2  px-5 mx-1 fw-bold" value="Cancel">
                 <button class="rounded-2 py-2 px-5 fw-bold mt-0">Submit</button>
             </div>
         </form>

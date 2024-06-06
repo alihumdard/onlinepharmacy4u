@@ -139,42 +139,8 @@
                         </div>
                     </div>
 
-
-
                 </div>
             </div>
-
-
-
-            {{-- <div class="row">
-                <!-- Left side columns -->
-                <div class="col-lg-6">
-                    <canvas id="myChart" style="width:100%;max-height:400px"></canvas>
-                </div>
-                <div class="col-lg-6">
-                    <div id="myPlot" style="width:100%;max-width:700px"></div>
-                </div>
-            </div>
-
-            <div class="row">
-                <!-- Left side columns -->
-                <div class="col-lg-6">
-                    <canvas id="myChart1" style="width:100%;max-height:400px"></canvas>
-                </div>
-                <div class="col-lg-6">
-                    <div id="myPlot1" style="width:100%;max-width:700px"></div>
-                </div>
-            </div>
-
-            <div class="row">
-                <!-- Left side columns -->
-                <div class="col-lg-6">
-                    <canvas id="myChart2" style="width:100%;max-height:400px"></canvas>
-                </div>
-                <div class="col-lg-6">
-                    <div id="myPlot2" style="width:100%; max-width:600px; height:500px;"></div>
-                </div>
-            </div> --}}
         </section>
 
     </main>
@@ -194,17 +160,31 @@
         const dailyDataTotalSales = [10, 250, 50, 300, 150, 500, 305];
         const weeklyDataTotalSales = [100, 350, 200, 150, 500, 250, 450];
 
+        const dailyDataPreviousTotalSales = [15, 150, 100, 250, 100, 400, 200];
+        const weeklyDataPreviousTotalSales = [90, 500, 250, 360, 650, 400, 630];
+
+
         const dailyDataSalesByChannel = [50, 70, 90];
         const weeklyDataSalesByChannel = [500, 300, 200];
 
         const dailyDataTotalOrders = [150, 100, 250, 150, 250, 150, 250];
         const weeklyDataTotalOrders = [350, 700, 450, 650, 500, 650, 750];
 
+        const dailyDataPreviousTotalOrders = [100, 300, 150, 350, 250, 400, 150];
+        const weeklyDataPreviousTotalOrders = [500, 700, 600, 400, 750, 450, 500];
+
         const dailyDataAvgOrderValue = [200, 300, 250, 300, 250, 300, 250];
         const weeklyDataAvgOrderValue = [500, 700, 600, 400, 750, 450, 500];
 
+
+        const dailyDataPreviousAvgOrderValue = [150, 250, 200, 250, 200, 250, 200];
+        const weeklyDataPreviousAvgOrderValue = [300, 900, 450, 300, 800, 250, 500];
+
+
+
         const labelsDaily = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         const labelsWeekly = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'];
+
 
         const totalSalesGraph = new Chart(ctxTotalSales, {
             type: 'line',
@@ -215,6 +195,14 @@
                     data: dailyDataTotalSales,
                     borderColor: 'blue',
                     borderWidth: 1,
+                    fill: false,
+                    pointRadius: 0
+                }, {
+                    label: 'Previous Sales',
+                    data: dailyDataPreviousTotalSales,
+                    borderColor: 'blue',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
                     fill: false,
                     pointRadius: 0
                 }]
@@ -232,7 +220,7 @@
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     }
                 },
                 responsive: true,
@@ -292,6 +280,14 @@
                     borderWidth: 1,
                     fill: false,
                     pointRadius: 0
+                }, {
+                    label: 'Previous Total Orders',
+                    data: dailyDataPreviousTotalOrders, // Assuming you have data for previous total orders
+                    borderColor: 'orange', // Adjust color as needed
+                    borderWidth: 1,
+                    borderDash: [5, 5], // Optional: Dashed line for previous data
+                    fill: false,
+                    pointRadius: 0
                 }]
             },
             options: {
@@ -320,13 +316,23 @@
             data: {
                 labels: labelsDaily,
                 datasets: [{
-                    label: 'Average Order Value',
-                    data: dailyDataAvgOrderValue,
-                    borderColor: 'red',
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0
-                }]
+                        label: 'Average Order Value',
+                        data: dailyDataAvgOrderValue,
+                        borderColor: 'red',
+                        borderWidth: 1,
+                        fill: false,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'Previous Average Order Value',
+                        data: dailyDataPreviousAvgOrderValue, // Assuming you have data for previous average order value
+                        borderColor: 'orange', // Adjust color as needed
+                        borderWidth: 1,
+                        borderDash: [5, 5], // Optional: Dashed line for previous data
+                        fill: false,
+                        pointRadius: 0
+                    }
+                ]
             },
             options: {
                 scales: {
@@ -354,19 +360,22 @@
 
         dailyButton.addEventListener('click', function() {
             updateCharts(labelsDaily, dailyDataTotalSales, dailyDataSalesByChannel, dailyDataTotalOrders,
-                dailyDataAvgOrderValue);
+                dailyDataAvgOrderValue, dailyDataPreviousTotalSales, dailyDataPreviousTotalSales, dailyDataPreviousAvgOrderValue);
             setActiveButton(dailyButton);
         });
 
         weeklyButton.addEventListener('click', function() {
             updateCharts(labelsWeekly, weeklyDataTotalSales, weeklyDataSalesByChannel, weeklyDataTotalOrders,
-                weeklyDataAvgOrderValue);
+                weeklyDataAvgOrderValue, weeklyDataPreviousTotalSales, weeklyDataPreviousTotalOrders, weeklyDataPreviousAvgOrderValue);
             setActiveButton(weeklyButton);
         });
 
-        function updateCharts(labels, dataTotalSales, dataSalesByChannel, dataTotalOrders, dataAvgOrderValue) {
+
+        function updateCharts(labels, dataTotalSales, dataSalesByChannel, dataTotalOrders, dataAvgOrderValue,
+            DataPreviousTotalSales, DataPreviousTotalOrders, DataPreviousAvgOrderValue) {
             totalSalesGraph.data.labels = labels;
             totalSalesGraph.data.datasets[0].data = dataTotalSales;
+            totalSalesGraph.data.datasets[1].data = DataPreviousTotalSales;
             totalSalesGraph.update();
 
             salesByChannelGraph.data.datasets[0].data = dataSalesByChannel;
@@ -374,10 +383,12 @@
 
             totalOrdersGraph.data.labels = labels;
             totalOrdersGraph.data.datasets[0].data = dataTotalOrders;
+            totalOrdersGraph.data.datasets[1].data = DataPreviousTotalOrders;
             totalOrdersGraph.update();
 
             avgOrderValueGraph.data.labels = labels;
             avgOrderValueGraph.data.datasets[0].data = dataAvgOrderValue;
+            avgOrderValueGraph.data.datasets[1].data = DataPreviousAvgOrderValue;
             avgOrderValueGraph.update();
         }
 
@@ -386,115 +397,6 @@
             weeklyButton.classList.remove('active');
             button.classList.add('active');
         }
-        // const xValues = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
-
-        // new Chart("myChart", {
-        //     type: "line",
-        //     data: {
-        //         labels: xValues,
-        //         datasets: [{
-
-        //             data: [300, 2000, 1500, 4000, 5000, 3000, 2000, 5000, 3000, 2000],
-        //             borderColor: "red",
-        //             fill: false
-        //         }]
-        //     },
-        //     options: {
-        //         legend: {
-        //             display: false
-        //         }
-        //     }
-        // });
-
-        // new Chart("myChart1", {
-        //     type: "line",
-        //     data: {
-        //         labels: xValues,
-        //         datasets: [{
-
-        //             data: [300, 700, 2000, 6000, 4000, 4000, 6000, 3000, 4000, 2000],
-        //             borderColor: "blue",
-        //             fill: false
-        //         }]
-        //     },
-        //     options: {
-        //         legend: {
-        //             display: false
-        //         }
-        //     }
-        // });
-        // new Chart("myChart2", {
-        //     type: "line",
-        //     data: {
-        //         labels: xValues,
-        //         datasets: [{
-
-        //             data: [300, 2000, 700, 3000, 400, 2000, 5000, 4000, 1500, 3500],
-        //             borderColor: "green",
-        //             fill: false
-        //         }]
-        //     },
-        //     options: {
-        //         legend: {
-        //             display: false
-        //         }
-        //     }
-        // });
-
-        // const xArray = ["Italy", "France", "Spain", "USA", "Argentina"];
-        // const yArray = [55, 49, 44, 24, 15];
-
-        // const data = [{
-        //     x: xArray,
-        //     y: yArray,
-        //     type: "bar",
-        //     orientation: "v",
-        //     marker: {
-        //         color: "rgba(0,0,255,0.6)"
-        //     }
-        // }];
-
-        // const layout = {
-        //     title: "World Wide Wine Production"
-        // };
-
-        // Plotly.newPlot("myPlot", data, layout);
-
-
-        // const data1 = [{
-        //     x: xArray,
-        //     y: yArray,
-        //     type: "bar",
-        //     orientation: "h",
-        //     marker: {
-        //         color: "rgba(255,0,0,0.6)"
-        //     }
-        // }];
-        // Plotly.newPlot("myPlot1", data1, layout);
-
-        // google.charts.load('current', {
-        //     'packages': ['corechart']
-        // });
-        // google.charts.setOnLoadCallback(drawChart);
-
-        // function drawChart() {
-        //     const data = google.visualization.arrayToDataTable([
-        //         ['Contry', 'Mhl'],
-        //         ['Italy', 55],
-        //         ['France', 49],
-        //         ['Spain', 44],
-        //         ['USA', 24],
-        //         ['Argentina', 15]
-        //     ]);
-
-        //     const options = {
-        //         title: 'World Wide Wine Production'
-        //     };
-
-        //     const chart = new google.visualization.BarChart(document.getElementById('myPlot2'));
-        //     chart.draw(data, options);
-        // }
-
 
 
 

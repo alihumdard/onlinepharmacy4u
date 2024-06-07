@@ -39,3 +39,13 @@
 <!-- Filterizr-->
 <script src="{{asset('assets/js/custom.js')}}"></script>
 <script src="{{asset('/assets/admin/dist/js/main.js')}}"></script>
+
+{{-- charts script added here --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+<script src="{{asset('assets/admin/plugins/chartjs/Chart.min.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/chartjs/Chart.extension.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/chartjs/index.js')}}"></script>
+<script src="{{asset('assets/admin/plugins/chartjs/jquery-jvectormap-2.0.2.min.js')}}"></script>7
+<script src="{{asset('assets/admin/plugins/chartjs/jquery-jvectormap-world-mill-en.js')}}"></script>7
+<script src="{{asset('assets/admin/plugins/chartjs/jquery.min.js')}}"></script>
+

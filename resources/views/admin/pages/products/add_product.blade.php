@@ -415,7 +415,7 @@
                             </div>
                             <div class="col-md-12 d-flex justify-content-end col-sm-12 mt-4 ">
                                 <div class="p-2 ">
-                                    <button type="button" class="btn delete-variant btn-danger" data-id="{{ $variant['id'] }}" data-token="{{ csrf_token() }}"><i class="fa fa-minus"></i> Remove</button>
+                                    <button type="button" class="btn delete-variant btn-danger bg-danger" data-id="{{ $variant['id'] }}" data-token="{{ csrf_token() }}"><i class="fa fa-minus"></i> Remove</button>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -748,7 +748,7 @@
                         </div>
                         <div class="col-md-12 d-flex justify-content-end col-sm-12 mt-4 ">
                             <div class="p-2 ">
-                                <button type="button" class="btn remove_row btn-danger"><i class="fa fa-minus"></i> Remove</button>
+                                <button type="button" class="btn remove_row btn-danger bg-danger"><i class="fa fa-minus"></i> Remove</button>
                             </div>
                         </div>
                         <div class="col-12">

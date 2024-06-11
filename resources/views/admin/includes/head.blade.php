@@ -38,12 +38,19 @@
 <!-- custome styling -->
 <link rel="stylesheet" href="{{ asset('/assets/admin/dist/css/style.css') }}">
 
+{{-- css added --}}
+<link rel="stylesheet" href="{{ asset('/assets/admin/dist/css/dashstyle.css') }}">
+<link href="{{ asset('/assets/admin/dist/css/bootstrap-extended.css') }}" rel="stylesheet">
+
+
 
 {{-- select2 libarary --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
 
 <
 <style>

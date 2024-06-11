@@ -1,6 +1,13 @@
 @extends('admin.layouts.default')
 @section('title', 'Dashboard')
 @section('content')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    {{-- css added --}}
+    <link rel="stylesheet" href="{{ asset('/assets/admin/dist/css/dashstyle.css') }}">
+    <link href="{{ asset('/assets/admin/dist/css/bootstrap-extended.css') }}" rel="stylesheet">
     <style>
         .graphs {
             display: flex;
@@ -396,6 +403,16 @@
 @stop
 
 @pushOnce('scripts')
+    <script src="{{ asset('assets/admin/plugins/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/chartjs/Chart.extension.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/chartjs/index.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/chartjs/jquery-jvectormap-2.0.2.min.js') }}"></script>7
+    <script src="{{ asset('assets/admin/plugins/chartjs/jquery-jvectormap-world-mill-en.js') }}"></script>7
+    <script src="{{ asset('assets/admin/plugins/chartjs/jquery.min.js') }}"></script>
+
+
+
+
     {{-- <script>
 
 

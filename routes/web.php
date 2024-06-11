@@ -129,6 +129,10 @@ Route::match(['get', 'post'], '/sendOtp', [DefualtController::class, 'send_otp']
 Route::match(['get', 'post'], '/verifyOtp', [DefualtController::class, 'verify_otp'])->name('verifyOtp');
 Route::match(['get', 'post'], '/changePassword', [DefualtController::class, 'change_password'])->name('changePassword');
 
+
+Route::get('/dashboard/details', [DefualtController::class, 'dashboard_details'])->name('dashboard.details');
+
+
 Route::fallback([WebController::class, 'error_404']);
 include __DIR__ . '/admin.php';
 

@@ -44,22 +44,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card radius-10 border-start border-0 border-3 border-danger">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary" style="font-size: 25px"  >Total Revenue</p>
-                                    <h4 class="my-1  text-info " style="font-size: 35px" id="totalAmount">Loading...</h4>
-
-                                </div>
-                                <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto">
-                                    <i class='bx bxs-wallet'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              
                 <div class="col">
                     <div class="card radius-10 border-start border-0 border-3 border-warning">
                         <div class="card-body">
@@ -91,57 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card radius-10 border-start border-0 border-3 border-success">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary"  style="font-size: 25px">Total Refund Orders</p>
-                                    <h4 class="my-1 text-info" id="refundOrders" style="font-size: 35px">Loading...</h4>
-
-                                </div>
-                                <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                    <i class='bx bxs-bar-chart-alt-2'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card radius-10 border-start border-0 border-3 border-success">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary"  style="font-size: 25px">Total Unpaid Orders</p>
-                                    <h4 class="my-1 text-info" id="unpaidOrders" style="font-size: 35px">Loading...</h4>
-
-                                </div>
-                                <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                    <i class='bx bxs-bar-chart-alt-2'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col">
-                    <div class="card radius-10 border-start border-0 border-3 border-success">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary" style="font-size: 25px" >Total Paid Orders</p>
-                                    <h4 class="my-1 text-info" id="paidOrders" style="font-size: 35px">Loading...</h4>
-
-                                </div>
-                                <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                    <i class='bx bxs-bar-chart-alt-2'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+             
                 <div class="col">
                     <div class="card radius-10 border-start border-0 border-3 border-success">
                         <div class="card-body">

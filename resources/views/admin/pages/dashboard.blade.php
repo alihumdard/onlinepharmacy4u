@@ -1,570 +1,553 @@
 @extends('admin.layouts.default')
 @section('title', 'Dashboard')
 @section('content')
-<style>
-    .displaynone{
-        display: none;
-    }
-</style>
+    <style>
+        .displaynone {
+            display: none;
+        }
 
-<!-- main stated -->
-<main id="main" class="main">
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
 
-    <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Dashboard</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </nav>
-    </div>
+        .analytics-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-    <section class="section dashboard" {{$role != 4 ? 'style=height:350px' : ''}}>
-        <div class="row">
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
 
-            <!-- Left side columns -->
-            <div class="col-lg-7">
-                <div class="row">
+        .date-selection button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #d0d0d0;
+            cursor: pointer;
+        }
 
-                    <!-- Sales Card -->
-                    @if($role == 4)
-                        {{-- <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
+        .date-selection button.active {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
 
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
+        .graphs {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
 
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
+        .graph {
+            width: 48%;
+            padding: 20px;
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
 
-                                <div class="card-body">
-                                    <h5 class="card-title">Order <span>| Today</span></h5>
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-                                    <div class="d-flex align-items-center">
-                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-cart"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>145</h6>
-                                            <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+        .graph-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
 
-                                        </div>
-                                    </div>
-                                </div>
+        .graph-header p {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
 
-                            </div>
-                        </div><!-- End Sales Card --> --}}
-                    
+        canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+    </style>
+    <!-- main stated -->
+    <main id="main" class="main">
 
-                    <!-- Revenue Card -->
-                    {{-- <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card revenue-card">
+        <div class="pagetitle">
+            <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i
+                        class="bi bi-arrow-left"></i> Back</a> | Dashboard</h1>
+            {{-- <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav> --}}
+        </div>
 
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
+        <section class="section dashboard">
 
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
+            <div class="row">
+                <div class="col-lg-12">
 
-                            <div class="card-body">
-                                <h5 class="card-title">Order <span>| This Month</span></h5>
 
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-currency-pound"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>3,264</h6>
-                                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- End Revenue Card --> --}}
-
-                    <!-- Customers Card -->
-                    {{-- <div class="col-xxl-4 col-xl-12">
-
-                        <div class="card info-card customers-card">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Order <span>| This Year</span></h5>
-
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-people"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>1244</h6>
-                                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                                    </div>
-                                </div>
-
+                    <div class="analytics-container">
+                        <div class="header">
+                            <div class="date-selection">
+                                <button id="dailyButton" class="active">Daily</button>
+                                <button id="weeklyButton">Weekly</button>
                             </div>
                         </div>
-
-                    </div><!-- End Customers Card --> --}}
-                    @endif
-                    <!-- Reports -->
-                    <div class="col-12">
-                        <div class="card">
-
-                            <!-- <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div> -->
-
-                            @if($role == 4)
-                                {{-- <div class="card-body">
-                                    <h5 class="card-title">BMI<span>/History</span></h5>
-
-                                    <!-- Line Chart -->
-                                    <div id="reportsChart"></div>
-
-                                    <!-- End Line Chart -->
-
-                                </div> --}}
-                            @endif
-
-                        </div>
-                    </div><!-- End Reports -->
-
-
-                </div>
-            </div><!-- End Left side columns -->
-
-            <!-- Right side columns -->
-            <div class="col-lg-5">
-                <!-- order status -->
-                @if($role == 4)
-                    {{-- <div class="card" style="max-height: 350px; overflow-y: auto;">
-                        <div class="filter">
-                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                <li class="dropdown-header text-start">
-                                    <h6>Filter</h6>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Today</a></li>
-                                <li><a class="dropdown-item" href="#">This Month</a></li>
-                                <li><a class="dropdown-item" href="#">This Year</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="card-body">
-                            <h5 class="card-title">Order Status <span>| Today</span></h5>
-                            <div class="activity">
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">32 min</div>
-                                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                    <div class="activity-content">
-                                        Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-                                    </div>
-                                </div><!-- End activity item-->
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">56 min</div>
-                                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                    <div class="activity-content">
-                                        Voluptatem blanditiis blanditiis eveniet
-                                    </div>
-                                </div><!-- End activity item-->
-
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">2 hrs</div>
-                                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                                    <div class="activity-content">
-                                        Voluptates corrupti molestias voluptatem
-                                    </div>
-                                </div><!-- End activity item-->
-
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">1 day</div>
-                                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                                    <div class="activity-content">
-                                        Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                                    </div>
-                                </div><!-- End activity item-->
-
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">2 days</div>
-                                    <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                                    <div class="activity-content">
-                                        Est sit eum reiciendis exercitationem
-                                    </div>
-                                </div><!-- End activity item-->
-
-                                <div class="activity-item d-flex">
-                                    <div class="activite-label">4 weeks</div>
-                                    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                                    <div class="activity-content">
-                                        Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                                    </div>
-                                </div><!-- End activity item-->
-
-
+                        <div class="graphs">
+                            <div class="graph">
+                                <div class="graph-header">
+                                    <h2>Total sales</h2>
+                                    <p>$ 950.00</p>
+                                </div>
+                                <canvas id="totalSalesGraph"></canvas>
+                            </div>
+                            <div class="graph">
+                                <div class="graph-header">
+                                    <h2>Sales by channel</h2>
+                                </div>
+                                <canvas id="salesByChannelGraph"></canvas>
                             </div>
                         </div>
-                    </div><!-- End order status --> --}}
-                @endif
-
-                <!-- start  my stats  -->
-                @if($role == 4)
-                    {{-- <div class="card">
-
-                        <div class="card-body">
-                            <div style="position: relative;">
-                                <img src="https://i.ibb.co/CmRQbgh/pen-1250615-1.png" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="w-70 h-auto" alt="edit" style="width: 15px; height: 15px; position: absolute; top: 100%; right: 0; margin-top:10px; cursor:pointer;">
-                            </div>
-                            <div class="link d-flex justify-content-between align-items-center mt-3">
-                                <h5 class="card-title mb-0 ">My Stats</h5>
-                                <span id="switchToUnit" onclick="toggleUnit()" style="cursor: pointer;" class="text-info">Switch to Imperial</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="activity-item d-flex  align-items-center flex-column h-100" style="background-color: #1aa9dd;">
-                                        <div class="activity-content">
-
-                                            <!-- Height image centered -->
-                                            <div class="activite-label mr-auto text-center mt-3">
-                                                <img src="https://i.ibb.co/1nGzhKh/height-icon.png" class="w-50 h-auto" alt="height">
-                                            </div>
-                                            <!-- Content -->
-                                            <div class="text-center text-light pt-2">
-                                                <h5 class="mb-0">Height</h5>
-                                                <span id="heightValue">0cm</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="graphs">
+                            <div class="graph">
+                                <div class="graph-header">
+                                    <h2>Total orders</h2>
                                 </div>
-
-                                <!-- Add another col-md-6 for the second box -->
-                                <div class="col-md-6 mb-4">
-                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100 " style="background-color: #769ccd;">
-                                        <div class="activite-label mr-auto text-center mt-3">
-                                            <div class="activity-content d-flex align-items-center justify-content-center">
-                                                <img src="https://i.ibb.co/HGkLc5M/weight-icon.png" class="w-50 h-auto" alt="calculate">
-                                            </div>
-                                            <div class="text-center text-light pt-2">
-                                                <h5 class="mb-0">Weight</h5>
-                                                <span id="weightValue">0kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <canvas id="totalOrdersGraph"></canvas>
                             </div>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Edit Height and Weight</h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: red; color: white; border: none;">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mt-3">
-                                            <input type="text" id="heightInput" oninput="updateMeasurement('height')" class="form-control" placeholder="Enter height..."> <br />
-                                            <input type="text" id="weightInput" oninput="updateMeasurement('weight')" class="form-control" placeholder="Enter weight...">
-                                        </div>
-                                        <div class="modal-footer border-0">
-                                            <button type="button" id="saveChangesBtn" class="btn btn-primary text-center" onclick="updateMeasurement()">Save changes</button>
-                                        </div>
-                                    </div>
+                            <div class="graph">
+                                <div class="graph-header">
+                                    <h2>Average order value</h2>
                                 </div>
+                                <canvas id="avgOrderValueGraph"></canvas>
                             </div>
-
-                            <script>
-                                function toggleUnit() {
-                                    var switchToUnit = document.getElementById("switchToUnit");
-
-                                    var currentUnit = switchToUnit.innerText.trim();
-
-                                    var heightInput = document.getElementById("heightInput").value;
-                                    var weightInput = document.getElementById("weightInput").value;
-
-                                    if (currentUnit === "Switch to Imperial") {
-                                        var heightInFeet = (parseFloat(heightInput) / 30.48).toFixed(2);
-                                        var weightInLbs = (parseFloat(weightInput) / 0.45359237).toFixed(2);
-
-                                        document.getElementById("heightValue").innerText = heightInFeet + " ft";
-                                        document.getElementById("weightValue").innerText = weightInLbs + " lbs";
-
-                                        switchToUnit.innerText = "Switch to Metric";
-                                    } else {
-
-                                        var heightInCm = (parseFloat(heightInput) * 30.48).toFixed(2);
-                                        var weightInKg = (parseFloat(weightInput) * 0.45359237).toFixed(2);
-
-                                        document.getElementById("heightValue").innerText = heightInCm + " cm";
-                                        document.getElementById("weightValue").innerText = weightInKg + " kg";
-
-                                        switchToUnit.innerText = "Switch to Imperial";
-                                    }
-                                }
-
-
-                                // Function to update measurement units
-                                function updateMeasurement(type) {
-                                    var heightInput = document.getElementById("heightInput").value;
-                                    var weightInput = document.getElementById("weightInput").value;
-
-                                    // Update the displayed value
-                                    var heightValue = (type === "height") ? heightInput : document.getElementById("heightValue").innerText;
-                                    var weightValue = (type === "weight") ? weightInput : document.getElementById("weightValue").innerText;
-
-                                    // Update the displayed values
-                                    document.getElementById("heightValue").innerText = heightValue;
-                                    document.getElementById("weightValue").innerText = weightValue;
-
-                                    // Check if both input fields have values
-                                    var saveChangesBtn = document.getElementById("saveChangesBtn");
-                                    if (heightInput.trim() !== "" && weightInput.trim() !== "") {
-                                        saveChangesBtn.disabled = false; // Enable the button
-                                    } else {
-                                        saveChangesBtn.disabled = true; // Disable the button
-                                    }
-                                }
-                            </script>
-                            <div class="row">
-                                <!-- Add another col-md-6 for the third box -->
-                                <div class="col-md-6  py-3 pb-2  mr-md-2">
-                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100" style="background-color: #769ccd;">
-                                        <div class="activite-label mr-auto text-center">
-                                            <div class="activity-content d-flex align-items-center justify-content-center">
-                                                <img src="https://i.ibb.co/LSDDDfp/noinfo.png" class="w-50 h-auto mt-3" alt="calculate">
-                                            </div>
-                                            <div class="text-center text-light mb-0 pt-3">
-                                                <h5 class="mb-0">BMI</h5>
-                                                <span>0kg</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Add another col-md-6 for the fourth box -->
-                                <div class="col-md-6   py-3 pb-2 ml-md-2 displaynone">
-                                    <div class="activity-item d-flex align-items-center justify-content-center flex-column h-100" style="background-color: #1aa9dd;">
-                                        <div class="activite-label mr-auto text-center">
-                                            <div class="activity-content d-flex align-items-center justify-content-center">
-                                                <img src="https://i.ibb.co/3zrC2BV/waist.png" class="w-50 h-auto mt-3" alt="calculate">
-                                            </div>
-                                            <div class="text-center text-light mb-0 pt-3">
-                                                <h5 class="mb-0">Waist</h5>
-                                                <span>0 cm</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- End my stats --> --}}
-                    @endif
-            </div><!-- End Right side columns -->
-
-            <!-- left side colum  -->
-            <!-- start bmi calculator  -->
-            @if($role == 4)
-                {{-- <div class="col-12">
-                    <div class="card">
-
-                        <div class="card-body pb-0">
-                            <h5 class="card-title fw-bold text-center">Body Mass Index</h5>
-
-                            <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
                         </div>
                     </div>
-                </div> --}}
-            @endif
-            <!-- End bmi_calculator -->
 
-        </div>
-    </section>
+                </div>
+            </div>
+        </section>
 
-</main>
-<!-- End #main -->
+    </main>
+    <!-- End #main -->
+
 
 @stop
 
 @pushOnce('scripts')
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        new ApexCharts(document.querySelector("#reportsChart"), {
-            series: [{
-                name: 'BMI',
-                data: [ 42, 52, 56],
-            }],
-            chart: {
-                height: 350,
-                type: 'area',
-                toolbar: {
-                    show: false
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctxTotalSales = document.getElementById('totalSalesGraph').getContext('2d');
+        const ctxSalesByChannel = document.getElementById('salesByChannelGraph').getContext('2d');
+        const ctxTotalOrders = document.getElementById('totalOrdersGraph').getContext('2d');
+        const ctxAvgOrderValue = document.getElementById('avgOrderValueGraph').getContext('2d');
+
+        const dailyDataTotalSales = [10, 250, 50, 300, 150, 500, 305];
+        const weeklyDataTotalSales = [100, 350, 200, 150, 500, 250, 450];
+
+        const dailyDataPreviousTotalSales = [15, 150, 100, 250, 100, 400, 200];
+        const weeklyDataPreviousTotalSales = [90, 500, 250, 360, 650, 400, 630];
+
+
+        const dailyDataSalesByChannel = [50, 70, 90];
+        const weeklyDataSalesByChannel = [500, 300, 200];
+
+        const dailyDataTotalOrders = [150, 100, 250, 150, 250, 150, 250];
+        const weeklyDataTotalOrders = [350, 700, 450, 650, 500, 650, 750];
+
+        const dailyDataPreviousTotalOrders = [100, 300, 150, 350, 250, 400, 150];
+        const weeklyDataPreviousTotalOrders = [500, 700, 600, 400, 750, 450, 500];
+
+        const dailyDataAvgOrderValue = [200, 300, 250, 300, 250, 300, 250];
+        const weeklyDataAvgOrderValue = [500, 700, 600, 400, 750, 450, 500];
+
+
+        const dailyDataPreviousAvgOrderValue = [150, 250, 200, 250, 200, 250, 200];
+        const weeklyDataPreviousAvgOrderValue = [300, 900, 450, 300, 800, 250, 500];
+
+
+
+        const labelsDaily = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        const labelsWeekly = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'];
+
+
+        const totalSalesGraph = new Chart(ctxTotalSales, {
+            type: 'line',
+            data: {
+                labels: labelsDaily,
+                datasets: [{
+                    label: 'Sales',
+                    data: dailyDataTotalSales,
+                    borderColor: 'blue',
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 0
+                }, {
+                    label: 'Previous Sales',
+                    data: dailyDataPreviousTotalSales,
+                    borderColor: 'blue',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }
                 },
-            },
-            markers: {
-                size: 4
-            },
-            colors: [ '#2eca6a'],
-            fill: {
-                type: "gradient",
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.3,
-                    opacityTo: 0.4,
-                    stops: [0, 90, 100]
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 2
-            },
-            xaxis: {
-                type: 'datetime',
-                categories: [ "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
+                plugins: {
+                    legend: {
+                        display: true
+                    }
                 },
+                responsive: true,
+                maintainAspectRatio: false
             }
-        }).render();
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-        echarts.init(document.querySelector("#trafficChart")).setOption({
-            tooltip: {
-                trigger: 'item'
+        });
+
+        const salesByChannelGraph = new Chart(ctxSalesByChannel, {
+            type: 'bar',
+            data: {
+                labels: ['Online', 'In-store', 'Mail-order'],
+                datasets: [{
+                    label: 'Sales by channel',
+                    data: dailyDataSalesByChannel,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
             },
-            legend: {
-                top: '5%',
-                left: 'center'
-            },
-            series: [{
-                name: 'Access From',
-                type: 'pie',
-                radius: ['40%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                    show: false,
-                    position: 'center'
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }
                 },
-                emphasis: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        const totalOrdersGraph = new Chart(ctxTotalOrders, {
+            type: 'line',
+            data: {
+                labels: labelsDaily,
+                datasets: [{
+                    label: 'Total Orders',
+                    data: dailyDataTotalOrders,
+                    borderColor: 'green',
+                    borderWidth: 1,
+                    fill: false,
+                    pointRadius: 0
+                }, {
+                    label: 'Previous Total Orders',
+                    data: dailyDataPreviousTotalOrders, // Assuming you have data for previous total orders
+                    borderColor: 'orange', // Adjust color as needed
+                    borderWidth: 1,
+                    borderDash: [5, 5], // Optional: Dashed line for previous data
+                    fill: false,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value;
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        const avgOrderValueGraph = new Chart(ctxAvgOrderValue, {
+            type: 'line',
+            data: {
+                labels: labelsDaily,
+                datasets: [{
+                        label: 'Average Order Value',
+                        data: dailyDataAvgOrderValue,
+                        borderColor: 'red',
+                        borderWidth: 1,
+                        fill: false,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'Previous Average Order Value',
+                        data: dailyDataPreviousAvgOrderValue, // Assuming you have data for previous average order value
+                        borderColor: 'orange', // Adjust color as needed
+                        borderWidth: 1,
+                        borderDash: [5, 5], // Optional: Dashed line for previous data
+                        fill: false,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        const dailyButton = document.getElementById('dailyButton');
+        const weeklyButton = document.getElementById('weeklyButton');
+
+        dailyButton.addEventListener('click', function() {
+            updateCharts(labelsDaily, dailyDataTotalSales, dailyDataSalesByChannel, dailyDataTotalOrders,
+                dailyDataAvgOrderValue, dailyDataPreviousTotalSales, dailyDataPreviousTotalSales, dailyDataPreviousAvgOrderValue);
+            setActiveButton(dailyButton);
+        });
+
+        weeklyButton.addEventListener('click', function() {
+            updateCharts(labelsWeekly, weeklyDataTotalSales, weeklyDataSalesByChannel, weeklyDataTotalOrders,
+                weeklyDataAvgOrderValue, weeklyDataPreviousTotalSales, weeklyDataPreviousTotalOrders, weeklyDataPreviousAvgOrderValue);
+            setActiveButton(weeklyButton);
+        });
+
+
+        function updateCharts(labels, dataTotalSales, dataSalesByChannel, dataTotalOrders, dataAvgOrderValue,
+            DataPreviousTotalSales, DataPreviousTotalOrders, DataPreviousAvgOrderValue) {
+            totalSalesGraph.data.labels = labels;
+            totalSalesGraph.data.datasets[0].data = dataTotalSales;
+            totalSalesGraph.data.datasets[1].data = DataPreviousTotalSales;
+            totalSalesGraph.update();
+
+            salesByChannelGraph.data.datasets[0].data = dataSalesByChannel;
+            salesByChannelGraph.update();
+
+            totalOrdersGraph.data.labels = labels;
+            totalOrdersGraph.data.datasets[0].data = dataTotalOrders;
+            totalOrdersGraph.data.datasets[1].data = DataPreviousTotalOrders;
+            totalOrdersGraph.update();
+
+            avgOrderValueGraph.data.labels = labels;
+            avgOrderValueGraph.data.datasets[0].data = dataAvgOrderValue;
+            avgOrderValueGraph.data.datasets[1].data = DataPreviousAvgOrderValue;
+            avgOrderValueGraph.update();
+        }
+
+        function setActiveButton(button) {
+            dailyButton.classList.remove('active');
+            weeklyButton.classList.remove('active');
+            button.classList.add('active');
+        }
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            new ApexCharts(document.querySelector("#reportsChart"), {
+                series: [{
+                    name: 'BMI',
+                    data: [42, 52, 56],
+                }],
+                chart: {
+                    height: 350,
+                    type: 'area',
+                    toolbar: {
+                        show: false
+                    },
+                },
+                markers: {
+                    size: 4
+                },
+                colors: ['#2eca6a'],
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.3,
+                        opacityTo: 0.4,
+                        stops: [0, 90, 100]
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                xaxis: {
+                    type: 'datetime',
+                    categories: ["2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
+                        "2018-09-19T06:30:00.000Z"
+                    ]
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                }
+            }).render();
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            echarts.init(document.querySelector("#trafficChart")).setOption({
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    top: '5%',
+                    left: 'center'
+                },
+                series: [{
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
                     label: {
-                        show: true,
-                        fontSize: '18',
-                        fontWeight: 'bold'
-                    }
-                },
-                labelLine: {
-                    show: false
-                },
-                data: [{
-                        value: 18,
-                        name: 'Under Weight'
+                        show: false,
+                        position: 'center'
                     },
-                    {
-                        value: 25,
-                        name: 'Normal'
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '18',
+                            fontWeight: 'bold'
+                        }
                     },
-                    {
-                        value: 30,
-                        name: 'Pre-Obesity'
+                    labelLine: {
+                        show: false
                     },
-                    {
-                        value: 100,
-                        name: 'Obese'
-                    },
-                ]
-            }]
+                    data: [{
+                            value: 18,
+                            name: 'Under Weight'
+                        },
+                        {
+                            value: 25,
+                            name: 'Normal'
+                        },
+                        {
+                            value: 30,
+                            name: 'Pre-Obesity'
+                        },
+                        {
+                            value: 100,
+                            name: 'Obese'
+                        },
+                    ]
+                }]
+            });
         });
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-        var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
-            legend: {
-                data: ['Allocated Budget', 'Actual Spending']
-            },
-            radar: {
-                // shape: 'circle',
-                indicator: [{
-                        name: 'Sales',
-                        max: 6500
-                    },
-                    {
-                        name: 'Administration',
-                        max: 16000
-                    },
-                    {
-                        name: 'Information Technology',
-                        max: 30000
-                    },
-                    {
-                        name: 'Customer Support',
-                        max: 38000
-                    },
-                    {
-                        name: 'Development',
-                        max: 52000
-                    },
-                    {
-                        name: 'Marketing',
-                        max: 25000
-                    }
-                ]
-            },
-            series: [{
-                name: 'Budget vs spending',
-                type: 'radar',
-                data: [{
-                        value: [4200, 3000, 20000, 35000, 50000, 18000],
-                        name: 'Allocated Budget'
-                    },
-                    {
-                        value: [5000, 14000, 28000, 26000, 42000, 21000],
-                        name: 'Actual Spending'
-                    }
-                ]
-            }]
+        document.addEventListener("DOMContentLoaded", () => {
+            var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                legend: {
+                    data: ['Allocated Budget', 'Actual Spending']
+                },
+                radar: {
+                    // shape: 'circle',
+                    indicator: [{
+                            name: 'Sales',
+                            max: 6500
+                        },
+                        {
+                            name: 'Administration',
+                            max: 16000
+                        },
+                        {
+                            name: 'Information Technology',
+                            max: 30000
+                        },
+                        {
+                            name: 'Customer Support',
+                            max: 38000
+                        },
+                        {
+                            name: 'Development',
+                            max: 52000
+                        },
+                        {
+                            name: 'Marketing',
+                            max: 25000
+                        }
+                    ]
+                },
+                series: [{
+                    name: 'Budget vs spending',
+                    type: 'radar',
+                    data: [{
+                            value: [4200, 3000, 20000, 35000, 50000, 18000],
+                            name: 'Allocated Budget'
+                        },
+                        {
+                            value: [5000, 14000, 28000, 26000, 42000, 21000],
+                            name: 'Actual Spending'
+                        }
+                    ]
+                }]
+            });
         });
-    });
-</script>
+    </script>
 @endPushOnce

@@ -17,8 +17,8 @@
                     <h2>(Impotence)</h2>
                     <P>Many men experience erection problems at some point in their life, and erectile dysfunction (which is also known as ED or impotence) is much more common than you might think.</P>
                     <P>You might struggle to get or keep an erection when you’re feeling particularly stressed or anxious about something (ironically, being anxious about ED doesn’t help this!) or simply because you’ve had a bit too much to drink. However, if you’re experiencing long-term erectile dysfunction it may be caused by other medical conditions, such as diabetes, high blood pressure or cholesterol, or hormonal problems.</P>
-                    <button class="btn btn-primary my-3 btn-large">Start Erectile Dysfunction (Impotence) Consultation </button>
-                    <button class="btn btn-primary my-3 small-btn">Start Consultation </button>
+                    <button class="btn btn-primary bg-primary my-3 btn-large">Start Erectile Dysfunction (Impotence) Consultation </button>
+                    <button class="btn btn-primary bg-primary my-3 small-btn">Start Consultation </button>
                     <button class="btn btn-outline-danger view-btn">View Treatments </button>
                 </div>
             </div>
@@ -98,7 +98,7 @@
         </div>
         <div class="import-btn text-center mt-4">
             <button class="btn btn-danger large-scr">Start Your Erectile Dysfunction (Impotence) consultation</button>
-            <button class="btn btn-primary my-3 small-btn">Start Consultation </button>
+            <button class="btn btn-primary bg-primary my-3 small-btn">Start Consultation </button>
         </div>
         <div class="small-scr">
         <button class="btn btn-danger start">Start consultation</button>

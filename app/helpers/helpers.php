@@ -75,7 +75,8 @@ function view_permission($page_name)
                 case 'child_categories':
                 case 'dell_category':
                 case 'add_category':
-                case 'questions':
+                case 'store_query':
+                case 'company_details':
                 case 'dell_question':
                 case 'add_collection':
                 case 'consultations':
@@ -115,7 +116,9 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'gpa_letters':
+                case 'gp_locations':
                 case 'orders':
+                case 'store_query':
                 case 'dispensary_approval':
                 case 'doctors_approval':
                 case 'orders_shipped':
@@ -131,7 +134,9 @@ function view_permission($page_name)
         case 'Doctor':
             switch ($page_name) {
                 case 'dashboard':
+                case 'store_query':
                 case 'orders':
+                case 'gp_locations':
                 case 'gpa_letters':
                 case 'consultation_view':
                 case 'doctors_approval':
@@ -147,11 +152,13 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'home':
                 case 'dashboard':
+                case 'store_query':
+                case 'consultation_view':
                 case 'prescription_orders':
                 case 'online_clinic_orders':
                 case 'shop_orders':
+                case 'contact':
                 case 'setting':
-                case 'gp_letters':
                     return true;
                 default:
                     return false;

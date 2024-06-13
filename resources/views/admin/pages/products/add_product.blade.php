@@ -415,7 +415,7 @@
                             </div>
                             <div class="col-md-12 d-flex justify-content-end col-sm-12 mt-4 ">
                                 <div class="p-2 ">
-                                    <button type="button" class="btn delete-variant btn-danger" data-id="{{ $variant['id'] }}" data-token="{{ csrf_token() }}"><i class="fa fa-minus"></i> Remove</button>
+                                    <button type="button" class="btn delete-variant btn-danger bg-danger" data-id="{{ $variant['id'] }}" data-token="{{ csrf_token() }}"><i class="fa fa-minus"></i> Remove</button>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -430,7 +430,7 @@
                 </div>
             </div>
             <div class="product-btns mt-4 text-end px-4 d-flex d-md-block">
-                <input type="reset" class=" btn btn-secondary rounded-2  px-5 mx-1 fw-bold" value="Cancel">
+                <input type="reset" class=" btn btn-secondary bg-secondary rounded-2  px-5 mx-1 fw-bold" value="Cancel">
                 <button class="rounded-2 py-2 px-5 fw-bold mt-0">Submit</button>
             </div>
 
@@ -748,7 +748,7 @@
                         </div>
                         <div class="col-md-12 d-flex justify-content-end col-sm-12 mt-4 ">
                             <div class="p-2 ">
-                                <button type="button" class="btn remove_row btn-danger"><i class="fa fa-minus"></i> Remove</button>
+                                <button type="button" class="btn remove_row btn-danger bg-danger"><i class="fa fa-minus"></i> Remove</button>
                             </div>
                         </div>
                         <div class="col-12">

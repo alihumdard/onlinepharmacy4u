@@ -468,19 +468,19 @@
                                                 <div class="col-md-4">
                                                     <ul class="new-req-menu">
                                                         <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                         <img src="{{ asset('icons/facial.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 1
                                                         </span>
                                                         </a></li>
                                                         <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <img src="{{ asset('icons/asthma.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 1
                                                         </span>
                                                         </a></li>
                                                         <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <img src="{{ asset('icons/allergy.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 1
                                                         </span>
@@ -490,19 +490,19 @@
                                                 <div class="col-md-4">
                                                 <ul class="new-req-menu">
                                                 <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                <img src="{{ asset('icons/blood-test.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 2
                                                         </span>
                                                         </a></li>
                                                         <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <img src="{{ asset('icons/gender.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 2
                                                         </span>
                                                         </a></li>
                                                         <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <img src="{{ asset('icons/dna.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 2
                                                         </span>
@@ -512,19 +512,19 @@
                                                 <div class="col-md-4">
                                                 <ul class="new-req-menu">
                                                 <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                <img src="{{ asset('icons/human.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 3
                                                         </span>
                                                         </a></li>
                                                         <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <img src="{{ asset('icons/thyroid.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 3
                                                         </span>
                                                         </a></li>
                                                         <li> <a href="">
-                                                        <i class="fab fa-accessible-icon"></i>
+                                                        <img src="{{ asset('icons/toy.png') }}" width="20px" alt="" class="me-2">
                                                         <span>
                                                         test 3
                                                         </span>

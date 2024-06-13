@@ -456,7 +456,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="col--- header-menu-column justify-content-center---">
-                            <div class="header-menu header-menu-2 text-start">
+                            <div class="header-menu header-menu-2 text-start mega-icon-menu">
                                 <nav>
                                     <div class="ltn__main-menu text-center">
                                         <ul>

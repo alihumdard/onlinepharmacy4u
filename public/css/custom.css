@@ -993,7 +993,7 @@ margin-bottom: 20px !important;
     padding: 6px 40px !important;
      
     border-radius: 20px !important;
-    display: block !important;
+    display: inline-block !important;
     justify-content:left !important;
 }
 

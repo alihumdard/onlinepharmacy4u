@@ -136,7 +136,7 @@
                         or
                         not.</p>
                 </div>
-                <form action="{{route('web.consultationStore')}}" method="post">
+                <form id="pmed_generic_question" action="{{route('web.consultationStore')}}" method="post">
                     @csrf
                     <input type="hidden" name="template" required value="{{$template}}">
                     <input type="hidden" name="product_id" required value="{{$product_id}}">
@@ -267,7 +267,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group Indpendent_q px-3" style="display:none;">
+                    <div class="form-group Indpendent_q px-3" style="margin-bottom: 15px; display:none;">
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$questions[11]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
@@ -276,6 +276,15 @@
                             <label class="btn" style="padding: 0;">
                                 <input type="radio" name="quest_12" class="btn-radio" value="No" data-label="No" required>
                             </label>
+                        </div>
+                    </div>
+
+                    <div id="alert_1" class="px-1" style="display:none;">
+                        <hr style="height:2px;" class="mb-2 mt-0 bg-dark">
+                        <div class="mb-0">
+                            <div class="alert py-4  bg-danger ">
+                                <p class="px-2  fw-semibold text-white">You are unable to continue if you do not agree to the terms and conditions of our site.</p>
+                            </div>
                         </div>
                     </div>
 
@@ -344,6 +353,28 @@
     </div>
 </div>
 
+<!-- modal not continue -->
+<div class="modal fade" id="attention_modal" tabindex="-1">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger py-2 px-2">
+                <h5 class="modal-title mx-5 my-3 text-white fw-bold "> Attention !</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-danger fw-bold">You can't proceed further.</p>
+                        <p class="text-success fw-bold">Please review your selections.</p>
+                        <p>You are unable to continue if you do not agree to the terms and conditions of our site.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @pushOnce('scripts')
@@ -380,6 +411,16 @@
             } else {
                 $("#dp_question_3").slideUp('fast');
                 $("#dp_quest_3").val("").removeAttr("required");
+            }
+        });
+
+        $("input[name='quest_12']").change(function() {
+            if ($(this).val() === 'No') {
+                $(".alert").addClass('alert-danger');
+                $("#alert_1").show().slideDown('fast');
+            } else {
+                $(".alert").removeClass('alert-danger');
+                $("#alert_1").hide().slideUp('fast');
             }
         });
 
@@ -440,6 +481,13 @@
             return valid;
         }
 
+        $('#pmed_generic_question').submit(function() {
+            if ($('.alert-danger').length > 0) {
+                $('#attention_modal').modal("show");
+                return false;
+            }
+            return true;
+        });
     });
 </script>
 

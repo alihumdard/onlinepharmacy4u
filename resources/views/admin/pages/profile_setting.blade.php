@@ -107,7 +107,7 @@
                       <img id="img_preview" src="{{ ($user->user_pic ?? '') ? asset('storage/'.$user->user_pic) : asset('assets/admin/img/profile-img.png') }}" alt="Profile">
                       <div class="pt-2">
                         <input id="profile_pic" class="d-none profile_pic" type="file" name="user_pic" onchange="previewImage(this);">
-                        <label for="profile_pic" class="btn btn-primary text-white btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></lable>
+                        <label for="profile_pic" class="btn btn-primary bg-primary text-white btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></lable>
                           <!-- <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a> -->
                       </div>
                       <label class="text-danger d-none img-error"></label>
@@ -168,7 +168,7 @@
                   </div>
 
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary bg-primary">Save Changes</button>
                   </div>
                 </form><!-- End Profile Edit Form -->
 
@@ -212,8 +212,8 @@
                     </div>
                   </div>
 
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Change Password</button>
+                  <div class="text-center"> 
+                    <button type="submit" class="btn btn-primary bg-primary">Change Password</button>
                   </div>
                 </form>
 

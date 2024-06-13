@@ -158,7 +158,7 @@
                                         <p>{{ ucfirst(trim($key, "'")) }}: {{ $value }}</p>
                                         @endforeach
                                         @elseif (Str::startsWith($val['answer'], 'consultation/product/'))
-                                        <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$val['answer']) }}"  target="_blank">
+                                        <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$val['answer']) }}" target="_blank">
                                             <i class="bi bi-eye-fill"></i> View File
                                         </a>
                                         <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$val['answer']) }}" download>
@@ -213,6 +213,7 @@
                                 @endif
                             </tbody>
                         </table>
+                        @if((isset($user->role) && $user->role != user_roles('4')))
                         <div class="card mt-4">
                             <div class="card-body d-flex justify-content-center align-items-center py-3">
                                 <button class="btn btn-success rounded-pill px-5 py-2 fw-bold" data-bs-toggle="modal" data-bs-target="#doctor_remarks">
@@ -220,7 +221,7 @@
                                 </button>
                             </div>
                         </div>
-
+                        @endif
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -230,6 +231,8 @@
 
 </main>
 <!-- End #main -->
+<!-- modal for doctors approval -->
+@if((isset($user->role) && $user->role != user_roles('4')))
 <div class="modal fade" id="doctor_remarks" tabindex="-1" data-bs-backdrop="false">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
@@ -266,6 +269,7 @@
         </div>
     </div>
 </div>
+@endif
 @stop
 
 @pushOnce('scripts')

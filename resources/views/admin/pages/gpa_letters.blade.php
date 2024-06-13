@@ -96,19 +96,18 @@
                         <table id="tbl_data" class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th>#</th>
                                     <th>Order No.</th>
                                     <th>Date-Time</th>
                                     <th>Customer Name</th>
                                     <th>Shipping Email</th>
                                     <th>Address</th>
+                                    <th>Order Type</th>
                                     <th>Order Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($orders ?? [] as $key => $val)
                                 <tr>
-                                    <td>{{ ++$key }}</td>
                                     <td>
                                         <a target="_blank" href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
                                             #{{ $val['id'] }}
@@ -118,8 +117,9 @@
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     <td>{{ $val['email'] ?? '' }}</td>
                                     <td>{{$val['shipingdetails']['address'] ?? ''}}</td>
+                                    <td><span class="btn  fw-bold rounded-pill {{ ($val['order_type'] == 'premd') ? 'btn-primary': (($val['order_type'] == 'pmd') ? 'btn-warning' : 'btn-success') }}">{{ ($val['order_type'] == 'premd') ? 'POM': (($val['order_type'] == 'pmd') ? 'P.Med' : 'O.T.C') }}</span> </td>
                                     <th>
-                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-success rounded-pill text-center download_gpa"> Download Letter</button>
+                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-success bg-success rounded-pill text-center download_gpa"> Download Letter</button>
                                     </th>
                                 </tr>
                                 @endforeach

@@ -11,9 +11,13 @@ Route::get('/admin', [DefualtController::class, 'index'])->name('admin.index');
 
 Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/setting', [DefualtController::class, 'profile_setting'])->name('admin.profileSetting');
+    Route::match(['get', 'post'], '/storeQuery', [DefualtController::class, 'store_query'])->name('admin.storeQuery');
+    Route::match(['get', 'post'], '/storeCompanyDetails', [DefualtController::class, 'store_company_details'])->name('admin.storeCompanyDetails');
     Route::match(['get', 'post'], '/passwordChange', [DefualtController::class, 'password_change'])->name('admin.passwordChange');
     Route::get('/faq', [DefualtController::class, 'faq'])->name('admin.faq');
     Route::get('/contact', [DefualtController::class, 'contact'])->name('admin.contact');
+    Route::get('/allreadNotifications', [DefualtController::class, 'read_notifications'])->name('admin.allreadNotifications');
+    Route::get('/notifications/unread', [DefualtController::class, 'get_unread_notifications'])->name('admin.notifications.unread');
 
     Route::get('/doctors', [SystemController::class, 'doctors'])->name('admin.doctors');
     Route::match(['get', 'post'], '/addDoctor',   [SystemController::class, 'add_doctor'])->name('admin.addDoctor');

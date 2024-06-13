@@ -34,10 +34,10 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/addCollection', [SystemController::class, 'add_collection'])->name('admin.addCollection');
     Route::match(['get', 'post'], '/storeCollection', [SystemController::class, 'store_collection'])->name('admin.storeCollection');
 
-    Route::match(['get', 'post'], '/prodcuts', [ProductController::class, 'prodcuts'])->name('admin.prodcuts');
-    Route::match(['get', 'post'], '/proTrash', [ProductController::class, 'prodcut_trash'])->name('admin.proTrash');
-    Route::match(['get', 'post'], '/prodcutsLimits', [ProductController::class, 'prodcuts_limits'])->name('admin.prodcutsLimits');
-    Route::match(['get', 'post'], '/importedProdcuts', [ProductController::class, 'imported_prodcuts'])->name('admin.importedProdcuts');
+    Route::match(['get', 'post'], '/products', [ProductController::class, 'products'])->name('admin.prodcuts');
+    Route::match(['get', 'post'], '/proTrash', [ProductController::class, 'product_trash'])->name('admin.proTrash');
+    Route::match(['get', 'post'], '/productsLimits', [ProductController::class, 'products_limits'])->name('admin.prodcutsLimits');
+    Route::match(['get', 'post'], '/importedProducts', [ProductController::class, 'imported_products'])->name('admin.importedProdcuts');
     Route::get('/importProducts', [ProductController::class, 'import_products'])->name('admin.importProducts');
     Route::post('/importProducts', [ProductController::class, 'store_import_products'])->name('admin.importProducts');
     Route::match(['get', 'post'], '/addProduct', [ProductController::class, 'add_product'])->name('admin.addProduct');
@@ -67,13 +67,17 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::get('/getDp_questions', [SystemController::class, 'get_dp_questions'])->name('admin.getDp_questions');
     Route::get('/pMedGQ', [SystemController::class, 'p_med_general_questions'])->name('admin.pMedGQ');
     Route::get('/prescriptionMedGQ', [SystemController::class, 'prescription_med_general_questions'])->name('admin.prescriptionMedGQ');
-    Route::match(['get', 'post'],'/dellQuestion', [SystemController::class, 'delete_question'])->name('admin.dellQuestion');
     Route::match(['get', 'post'], '/questionsTrash/{q_type}', [SystemController::class, 'trash_questions'])->name('admin.questionsTrash');
+    Route::match(['get', 'post'], '/dellQuestion', [SystemController::class, 'delete_question'])->name('admin.dellQuestion');
+    Route::match(['get', 'post'], '/gpLocations', [SystemController::class, 'gp_locations'])->name('admin.gpLocations');
 
     Route::get('/comments/id', [SystemController::class, 'comments'])->name('admin.comments');
     Route::match(['get', 'post'], '/commentStore', [SystemController::class, 'comment_store'])->name('admin.commentStore');
 
-    Route::get('/ordersRecieved', [SystemController::class, 'orders_recieved'])->name('admin.ordersRecieved');
+    Route::get('/ordersReceived', [SystemController::class, 'orders_recieved'])->name('admin.ordersRecieved');
+    Route::get('/ordersCreated', [SystemController::class, 'orders_created'])->name('admin.ordersCreated');
+    Route::match(['get','post'],'/addOrder', [SystemController::class, 'add_order'])->name('admin.addOrder');
+    Route::match(['get','post'],'/storeOder', [SystemController::class, 'store_order'])->name('admin.storeOder');
     Route::get('/ordersRefunded', [SystemController::class, 'orders_refunded'])->name('admin.ordersRefunded');
     Route::get('/doctorsApproval', [SystemController::class, 'doctors_approval'])->name('admin.doctorsApproval');
     Route::get('/dispensaryApproval', [SystemController::class, 'dispensary_approval'])->name('admin.dispensaryApproval');
@@ -83,6 +87,7 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::get('/orderDetail/{id}', [SystemController::class, 'order_detail'])->name('admin.orderDetail');
     Route::get('/consultationView/{odd_id}', [SystemController::class, 'consultation_view'])->name('admin.consultationView');
     Route::match(['get', 'post'], '/changeStatus', [SystemController::class, 'change_status'])->name('admin.changeStatus');
+    Route::match(['get', 'post'], '/refundOrder', [SystemController::class, 'refund_order'])->name('admin.refundOrder');
     Route::match(['get', 'post'], '/createShippingOrder', [SystemController::class, 'create_shiping_order'])->name('admin.createShippingOrder');
     Route::match(['get', 'post'], '/getShippingOrder/{id}', [SystemController::class, 'get_shiping_order'])->name('admin.getShippingOrder');
 
@@ -94,3 +99,4 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/updateShippingAddress', [SystemController::class, 'update_shipping_address'])->name('admin.updateShippingAddress');
     Route::delete('/deleteVariant', [ProductController::class, 'delete_variant'])->name('admin.deleteVariant');
 });
+

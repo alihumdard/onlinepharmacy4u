@@ -131,28 +131,28 @@
                     <td style="border: none !important;">
                         <div class="col-6">
                             <div class="ship">
-                                <h4>Ship to</h4>
-                                <ul>
-                                    <li>Home Name/No: {{$order['shipingdetails']['address2'] ?? ''}}</li>
-                                    <li>Address: {{$order['shipingdetails']['address'] ?? ''}}</li>
-                                    <li>City: {{$order['shipingdetails']['city'] ?? ''}}</li>
-                                    <li>Postal Code: {{$order['shipingdetails']['zip_code'] ?? ''}}</li>
-                                    <li>Phone: {{$order['shipingdetails']['phone'] ?? ''}}</li>
-                                </ul>
+                                <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                    <strong>Ship to</strong></br> 
+                                    <small> <span style="font-weight: 500;" >Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
+                                    <small><span style="font-weight: 500;" >Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
+                                    <small><span style="font-weight: 500;" >City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
+                                    <small><span style="font-weight: 500;" >Postal Code: </span> {{$order['shipingdetails']['zip_code'] ?? ''}}</small></br>
+                                    <small><span style="font-weight: 500;" >Phone: </span> {{$order['shipingdetails']['phone'] ?? ''}}</small></br>
+                                </p>
                             </div>
                         </div>
                     </td>
                     <td style="border: none !important;">
                         <div class="col-6">
                             <div class="ship">
-                                <h4>Bill to</h4>
-                                <ul>
-                                    <li>Home Name/No:: {{$order['shipingdetails']['address2'] ?? ''}}</li>
-                                    <li>Address: {{$order['shipingdetails']['address'] ?? ''}}</li>
-                                    <li>City: {{$order['shipingdetails']['city'] ?? ''}}</li>
-                                    <li>Postal Code: {{$order['shipingdetails']['zip_code'] ?? ''}}</li>
-                                    <li>Phone: {{$order['shipingdetails']['phone'] ?? ''}}</li>
-                                </ul>
+                                <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                    <strong>Bill to</strong></br> 
+                                    <small> <span style="font-weight: 500;" >Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
+                                    <small><span style="font-weight: 500;" >Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
+                                    <small><span style="font-weight: 500;" >City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
+                                    <small><span style="font-weight: 500;" >Postal Code: </span> {{$order['shipingdetails']['zip_code'] ?? ''}}</small></br>
+                                    <small><span style="font-weight: 500;" >Phone: </span> {{$order['shipingdetails']['phone'] ?? ''}}</small></br>
+                                </p>
                             </div>
                         </div>
                     </td>
@@ -163,7 +163,6 @@
         <div class="row">
             <div class="col-12">
                 <div class="item">
-                    <h4>Items</h4>
                     <table id="tbl_pro_details">
                         <thead>
                             <tr>
@@ -179,18 +178,21 @@
                                 $src = (isset($val['variant']))? $val['variant']['image'] : $val['product']['main_image'];
                                 @endphp
                                 <td>
-                                    <img  style="height:60px" src="{{ public_path('storage/'.$src) }}" alt="Product Image">
+                                    <img style="height:55px; margin:0 !important; padding:0 !important;" src="{{ public_path('storage/'.$src) }}" alt="Product Image">
                                 </td>
-                                <td style="text-align: left !important;" >
-                                    <ul>
-                                        <li><b>Product Name:</b> {{$val['product_name'] ?? $val['product']['title']}}</li>
-                                        <li><b>Variant:</b> {!! $val['variant_details'] ?? '' !!}</li>
-                                        <li><b>SKU:</b> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</li>
-                                    </ul>
+                                <td>
+                                    <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                        <small><strong>Product Name:</strong> {{$val['product_name'] ?? $val['product']['title']}}</small></br>
+                                        <small><strong>Variant:</strong> {!! $val['variant_details'] ?? '' !!}</small></br>
+                                        <small><strong>SKU:</strong> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</small>
+                                    </p>
                                 </td>
-                                <td class="text-end">{{$val['product_qty']}}</td>
+                                <td>
+                                    <p style=" margin:0 !important; padding:0 !important;">{{$val['product_qty']}}</p>
+                                </td>
                             </tr>
                             @endforeach
+                            
                         </tbody>
                     </table>
                 </div>
@@ -198,16 +200,11 @@
         </div>
         <div class="row">
             <div class="thank-u">
-                <h5>Dear Valued Customer, Thank you for choosing us for your pharmacy needs!</h5>
-                <h6>Registered Office: 20-22 Wenlock Road, London N1 7GU.Company No: 13991146 VAT No: 440660907</h6>
-                <p>Would you consider recommending our services to your Friends & Family? We take pride in providing hassle-free NHS prescription services, absolutely FREE of charge.</p>
-                <p>Download our FREE app directly from our website today! </p>
-                <p>https://nhs-prescriptions.uk/</p>
-                <p>Enjoy the ease of having your prescriptions delivered to your door, FREE and FAST. </p>
-                <p>Yours sincerely, </p>
-                <p>Online Pharmacy 4U</p>
-                <p>info@online-pharmacy4u.co.uk</p>
-                <p>www.online-pharmacy4u.co.uk</p>
+                <p>Dear Valued Customer, Thank you for choosing us for your pharmacy needs! <br>
+                    <small><strong>Registered Office:</strong> 20-22 Wenlock Road, London N1 7GU.Company No: 13991146 VAT No: 440660907</small></br></br>
+                    Download our FREE app directly from our website today! (https://nhs-prescriptions.uk/) <br>
+                    Enjoy the ease of having your prescriptions delivered to your door, FREE and FAST.
+                </p>
             </div>
         </div>
     </div>

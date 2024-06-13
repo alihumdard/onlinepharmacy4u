@@ -72,7 +72,7 @@
         <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Orders Audit</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
                 <li class="breadcrumb-item active">Orders Audit</li>
             </ol>
@@ -137,15 +137,15 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>
-                                        <a  href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #00{{ $val['id'] }}
+                                        <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
+                                            #{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('Y-m-d h:i A', strtotime($val['created_at'])) : '' }}</td>
-                                    <td>{{ $val['user']['name'] ?? '' }}</td>
+                                    <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     <td>{{$val['shipingdetails']['zip_code'] ?? ''}}</td>
                                     <td>{{$val['shipingdetails']['address'] ?? ''}}</td>
-                                    <th> <button class="btn btn-success text-center"> {{$val['status'] ?? ''}} </button></th>
+                                    <th> <button class="btn btn-success rounded-pill text-center"> {{$val['status'] ?? ''}} </button></th>
                                 </tr>
                                 @endforeach
                             </tbody>

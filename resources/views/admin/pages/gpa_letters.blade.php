@@ -111,15 +111,15 @@
                                     <td>{{ ++$key }}</td>
                                     <td>
                                         <a target="_blank" href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #00{{ $val['id'] }}
+                                            #{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('Y-m-d h:i A', strtotime($val['created_at'])) : '' }}</td>
-                                    <td>{{ $val['user']['name'] ?? '' }}</td>
+                                    <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     <td>{{ $val['email'] ?? '' }}</td>
                                     <td>{{$val['shipingdetails']['address'] ?? ''}}</td>
                                     <th>
-                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-success text-center download_gpa"> Download Letter</button>
+                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-success rounded-pill text-center download_gpa"> Download Letter</button>
                                     </th>
                                 </tr>
                                 @endforeach

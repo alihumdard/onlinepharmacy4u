@@ -89,7 +89,9 @@
                 <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |
                 Order Detail
                 <button type="submit" form="create_pdf_from" class=" btn fs-5 py-1  {{($order['print'] == 'Printed') ? 'btn-success' : 'btn-primary' }} fw-semibold" style="float:right;">{{$order['print'] ?? '' }}</button>
-                <button type="submit" form="form_refund" class=" btn fs-5 py-1  mx-2 btn-danger fw-semibold" style="float:right;"> <i class="bi-arrow-counterclockwise"></i>Refund</button>
+                @if((isset($user->role) && $user->role == user_roles('1')))
+                <button type="button" data-bs-toggle="modal" data-bs-target="#order_refund_mdl" class=" btn fs-5 py-1  mx-2 btn-danger fw-semibold" style="float:right;"> <i class="bi-arrow-counterclockwise"></i>Refund</button>
+                @endif
             </h1>
             <nav>
                 <ol class="breadcrumb">
@@ -126,7 +128,7 @@
                         <div class="text">
                             <h4 class="fw-bold">Customer Details</h4>
                             <span><b>Name: </b>{{ ($order['shipingdetails']['firstName']) ? $order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] : $order['user']['name'] }}</span><br>
-                            <span><b>Order Id: </b><span class="text-primary">#00{{$order['id']}}</span></span>
+                            <span><b>Order Id: </b><span class="text-primary">#{{$order['id']}}</span></span>
                         </div>
                         <div class="text">
                             <p class="pr-2">
@@ -218,7 +220,6 @@
                                 <div class="text">
                                     <h4 class="fw-bold">Fulfill By</h4>
                                     <p>{{ \Carbon\Carbon::parse($order['created_at'])->format('M, d, Y - H:i') }}</p>
-
                                 </div>
                                 <div class="card shadow-0 border mb-4">
                                     <div class="card-body">
@@ -268,7 +269,7 @@
                                                 <div class="button-container" style="display: flex; flex-wrap: wrap;">
                                                     @forelse($userOrders as $index => $val)
                                                     <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="btn btn-primary m-1">
-                                                        <b>{{ $index + 1 }}.</b> #00{{ $val['id'] }}
+                                                        <b>{{ $index + 1 }}.</b> #{{ $val['id'] }}
                                                     </a>
                                                     @empty
                                                     <p class="px-5">No Previous Orders Of that Customer.</p>
@@ -293,9 +294,13 @@
                                     @endif
                                 </div>
                                 @endif
-                                @if($order['status'] != 'Recieved')
+                                @if($order['status'] != 'Received')
                                 <div class="d-flex justify-content-between pt-2">
-                                    <p class="fw-bold mb-0 ">Health Care Professional Notes:</p>
+                                    <p class="fw-bold mb-0 ">Marked By:</p>
+                                    <p class="mb-0">{{$marked_by['name'] ?? '' }} ({{$marked_by['email'] ?? ''}}) </p>
+                                </div>
+                                <div class="d-flex justify-content-between pt-2">
+                                    <p class="fw-bold mb-0 ">Health Care Professional Remarks:</p>
                                     <p class="mb-0">{{$order['hcp_remarks']}} </p>
                                 </div>
                                 @endif
@@ -430,11 +435,34 @@
     <input type="hidden" id="user_id" value="{{auth()->user()->id}}">
 </main>
 <!-- End #main -->
-<form id="form_refund" class="d-none needs-validation" novalidate action="{{route('admin.changeStatus')}}" method="POST">
-    @csrf
-    <input type="hidden" name="id" required value="{{$order['id']}}">
-    <input id="status" name="status" class="form-select" value="Refund" required>
-</form>
+
+<div class="modal fade" id="order_refund_mdl" tabindex="-1" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #20B2AA;">
+                <h5 class="modal-title fw-bold text-white">Order Ammount Refund</h5>
+                <button type="button" class="btn-close fw-bold text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_refund" class="row g-3 mt-1 needs-validation" novalidate action="{{route('admin.refundOrder')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" required value="{{$order['id']}}">
+                    <input type="hidden" id="status" name="status" class="form-control" value="Refund" required>
+
+                    <div class="col-12">
+                        <label for="ammount" class="form-label fw-bold">Ammount To Refund: </label>
+                        <input type="text" name="ammount" class="form-control" id="ammount" value="{{$order['total_ammount']}}" required>
+                        <div class="invalid-feedback">Please enter ammount!</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button form="form_refund" type="submit" class="btn text-white fw-bold" style="background: #20B2AA;">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 
 @pushOnce('scripts')

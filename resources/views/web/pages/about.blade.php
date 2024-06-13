@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ltn__breadcrumb-inner">
-                    <h1 class="page-title mt-5">About Pharmacy4U</h1>
+                    <h1 class="page-title mt-5">About Us</h1>
                     <div class="ltn__breadcrumb-list">
                         <ul>
                             <li>

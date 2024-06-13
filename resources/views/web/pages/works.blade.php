@@ -76,7 +76,7 @@
                             <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>Top Leading Brands</h4></li>
                             <p class=" ">We have a huge selection of top well known brands.</p>
                             <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>FREE* Prescription</h4></li>
-                            <p class=" ">All our services from consultation to prescription is FREE* (please read our terms and conditions)</p>
+                            <p class=" ">All our services from consultation to prescription are FREE* (please read our terms and conditions)</p>
                     </ul>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                     <div class="section-title-area ltn__section-title-2--- mb-20">
                         <h6 class="section-subtitle section-subtitle-2--- ltn__secondary-color d-none">N95 Facial Covering Mask</h6>
                         <h1 class="section-title">Receive Your Delivery</h1>
-                        <p>All order before 3pm are dispatched the very same day in discreet packaging keeping you notified every step of the way until your order is received.</p>
+                        <p>All order's before 3 pm are dispatched the very same day in discreet packaging keeping you notified every step of the way until your order is received.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
                             <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>Flexible Express Delivery.</h4></li>

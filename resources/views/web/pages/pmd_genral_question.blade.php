@@ -140,7 +140,7 @@
                     @csrf
                     <input type="hidden" name="template" required value="{{$template}}">
                     <input type="hidden" name="product_id" required value="{{$product_id}}">
-                    <div class="form-group px-4 question" id="question_0">
+                    <div class="form-group Indpendent_q px-4" id="question_0">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[0]['title'] ?? '' }}</p>
                         </div>
@@ -158,7 +158,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question" id="question_1" style="display:none;">
+                    <div class="form-group Indpendent_q px-4" id="question_1" style="display:none;">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[1]['title'] ?? '' }}?</p>
                         </div>
@@ -176,7 +176,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question" id="question_2" style="display:none;">
+                    <div class="form-group Indpendent_q px-4" id="question_2" style="display:none;">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[2]['title'] ?? '' }}</p>
                         </div>
@@ -186,8 +186,8 @@
                         </div>
                     </div>
 
-                    
-                    <div class="form-group px-4 question" id="question_3" style="display:none;">
+
+                    <div class="form-group Indpendent_q px-4" id="question_3" style="display:none;">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[3]['title'] ?? '' }}</p>
                         </div>
@@ -197,7 +197,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question" id="question_4" style="display:none;">
+                    <div class="form-group Indpendent_q px-4" id="question_4" style="display:none;">
                         <div class="d-flex align-items-center">
                             <p class="m-0 fw-bold">{{$questions[4]['title'] ?? '' }}</p>
                         </div>
@@ -207,7 +207,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" id="question_5" style="display:none;">
+                    <div class="form-group Indpendent_q px-3" id="question_5" style="display:none;">
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$questions[5]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
@@ -219,63 +219,77 @@
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" id="question_6" style="display:none;">
-                        <div class="d-flex align-items-start">
-                            <p class="me-auto " style="font-weight: 400;">{{$questions[6]['title'] ?? '' }}</p>
-                            <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_7" class="btn-radio" value="Yes" data-label="Yes" required>
-                            </label>
-                            <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_7" class="btn-radio" value="No" data-label="No" required>
-                            </label>
+                    <div class="form-group dpendent_q px-4 " id="dp_question_1" style="display:none;">
+                        <div class="mt-3 mb-0 ">
+                            <label for="dp_quest_1" class="form-label">{{$questions[6]['title'] ?? '' }}</label>
+                            <textarea class="form-control" id="dp_quest_1" name="quest_7" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" id="question_7" style="display:none;">
+                    <div class="form-group Indpendent_q px-3" id="question_6" style="display:none;">
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$questions[7]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_8" class="btn-radio " value="Yes" data-label="Yes" required>
+                                <input type="radio" name="quest_8" class="btn-radio" value="Yes" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_8" class="btn-radio " value="No" data-label="No" required>
+                                <input type="radio" name="quest_8" class="btn-radio" value="No" data-label="No" required>
                             </label>
                         </div>
                     </div>
 
-                    <div class="form-group px-4 question " id="question_8">
-                        <div class="d-flex align-items-center">
-                            <p class="m-0 fw-bold">{{$questions[8]['title'] ?? '' }}</p>
-                        </div>
+                    <div class="form-group dpendent_q px-4 " id="dp_question_2" style="display:none;">
                         <div class="mt-3 mb-0 ">
-                            <label for="quest_9" class="form-label">Additional Details:</label>
-                            <textarea class="form-control" id="quest_9" name="quest_9" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                            <label for="dp_quest_2" class="form-label">{{$questions[8]['title'] ?? '' }}</label>
+                            <textarea class="form-control" id="dp_quest_2" name="quest_9" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" style="display:none;">
+                    <div class="form-group Indpendent_q px-3" id="question_7" style="display:none;">
                         <div class="d-flex align-items-start">
                             <p class="me-auto " style="font-weight: 400;">{{$questions[9]['title'] ?? '' }}</p>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_10" class="btn-radio" value="Yes" data-label="Yes" required>
+                                <input type="radio" name="quest_10" class="btn-radio " value="Yes" data-label="Yes" required>
                             </label>
                             <label class="btn" style="padding: 0;">
-                                <input type="radio" name="quest_10" class="btn-radio" value="No" data-label="No" required>
+                                <input type="radio" name="quest_10" class="btn-radio " value="No" data-label="No" required>
                             </label>
                         </div>
                     </div>
 
-                    <div class="form-group px-3 question" style="display:none;">
+                    <div class="form-group dpendent_q px-4 " id="dp_question_3" style="display:none;">
+                        <div class="d-flex align-items-center">
+                            <p class="m-0 fw-bold">{{$questions[10]['title'] ?? '' }}</p>
+                        </div>
+                        <div class="mt-3 mb-0 ">
+                            <label for="dp_quest_3" class="form-label">Additional Details:</label>
+                            <textarea class="form-control" id="dp_quest_3" name="quest_11" rows="7" style="height: 135px; border-radius:15px; " placeholder="Please provide any additional details here" required=''></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group Indpendent_q px-3" style="display:none;">
+                        <div class="d-flex align-items-start">
+                            <p class="me-auto " style="font-weight: 400;">{{$questions[11]['title'] ?? '' }}</p>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_12" class="btn-radio" value="Yes" data-label="Yes" required>
+                            </label>
+                            <label class="btn" style="padding: 0;">
+                                <input type="radio" name="quest_12" class="btn-radio" value="No" data-label="No" required>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group Indpendent_q px-3" style="display:none;">
                         <div class="d-flex align-items-start">
                             <div>
-                                <lable for="quest_10" class="me-auto " style="font-weight: 400;">{!! $questions[10]['title'] ?? '' !!}</lable>
+                                <lable for="quest_13" class="me-auto " style="font-weight: 400;">{!! $questions[12]['title'] ?? '' !!}</lable>
                             </div>
                             <div>
-                                <input class="custom-checkbox" id="quest_11" name="quest_11" type="checkbox" value="agreed" required>
+                                <input class="custom-checkbox" id="quest_13" name="quest_13" type="checkbox" value="agreed" required>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group question" style="display:none; background: none; padding:none; margin:none;">
+                    <div class="form-group Indpendent_q" style="display:none; background: none; padding:none; margin:none;">
                         <div class="d-flex align-items-center m-3 mb-5  ">
                             <button type="submit" class="btn btn-outline-success bnt-checkout fw-bold rounded-1" style="border:#ced4da 2xp solid; ">Proceed to Checkout</button>
                         </div>
@@ -334,26 +348,58 @@
 
 @pushOnce('scripts')
 <script>
-    $('.question').not(':first').hide();
     $(document).ready(function() {
         var currentQuestion = 0;
-        var totalQuestions = $('.form-group').length;
+        var totalQuestions = $('.Indpendent_q').length;
+
+        $("input[name='quest_6']").change(function() {
+            if ($(this).val() === 'Yes') {
+                $("#dp_quest_1").attr("required", true);
+                $("#dp_question_1").slideDown('fast');
+            } else {
+                $("#dp_question_1").slideUp('fast');
+                $("#dp_quest_1").val("").removeAttr("required");
+            }
+        });
+
+        $("input[name='quest_8']").change(function() {
+            if ($(this).val() === 'Yes') {
+                $("#dp_quest_2").attr("required", true);
+                $("#dp_question_2").slideDown('fast');
+            } else {
+                $("#dp_question_2").slideUp('fast');
+                $("#dp_quest_2").val("").removeAttr("required");
+            }
+        });
+
+
+        $("input[name='quest_10']").change(function() {
+            if ($(this).val() === 'Yes') {
+                $("#dp_quest_3").attr("required", true);
+                $("#dp_question_3").slideDown('fast');
+            } else {
+                $("#dp_question_3").slideUp('fast');
+                $("#dp_quest_3").val("").removeAttr("required");
+            }
+        });
+
+        $('input[type="radio"], input[type="checkbox"]').change(function() {
+            showNextQuestion();
+        });
+
+        var textareaFocusCount = 0;
+        $('textarea').on('input', function() {
+            textareaFocusCount++;
+            if (textareaFocusCount >= 2) {
+                showNextQuestion();
+            }
+        });
 
         function showNextQuestion() {
             if (currentQuestion < totalQuestions - 1) {
                 if (validateInput(currentQuestion)) {
-                    if (currentQuestion == 6) {
-                        let quest_7 = $("input[name='quest_7']:checked").val();
-                        if (quest_7 == 'Yes') {
-                            var next_quest = currentQuestion + 1;
-                        } else {
-                            next_quest = currentQuestion + 2;
-                        }
-                    } else {
-                        next_quest = currentQuestion + 1;
-                    }
-                    $('.form-group').eq(next_quest).slideDown('fast');
-                    currentQuestion = next_quest;
+                    let next_quest = ++currentQuestion;
+                    $('.Indpendent_q').eq(next_quest).slideDown('fast');
                 }
             }
         }
@@ -362,7 +408,7 @@
             var valid = true;
             var radioGroups = {};
 
-            $('.form-group').eq(questionIndex).find('input[type="radio"], input[type="checkbox"]').each(function() {
+            $('.Indpendent_q').eq(questionIndex).find('input[type="radio"], input[type="checkbox"]').each(function() {
                 if ($(this).is(':radio')) {
                     var groupName = $(this).attr('name');
                     if (!radioGroups[groupName]) {
@@ -384,7 +430,7 @@
                 }
             });
 
-            $('.form-group').eq(questionIndex).find('textarea').each(function() {
+            $('.Indpendent_q').eq(questionIndex).find('textarea').each(function() {
                 if ($(this).val().trim() === '') {
                     valid = false;
                     return false;
@@ -394,27 +440,6 @@
             return valid;
         }
 
-
-        $('input[type="radio"], input[type="checkbox"]').change(function() {
-            showNextQuestion();
-        });
-
-        var textareaFocusCount = 0;
-        $('textarea').on('input', function() {
-            textareaFocusCount++;
-            if (textareaFocusCount >= 2) {
-                showNextQuestion();
-            }
-        });
-
-        $("input[name='quest_7']").change(function() {
-            if ($(this).val() == 'Yes') {
-                $("#question_8").slideDown('fast');;
-            } else {
-                $("#question_8").slideUp('fast');
-                $("#quest_8").val(""); 
-            }
-        });
     });
 </script>
 

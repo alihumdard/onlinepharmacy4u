@@ -69,6 +69,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'faq_questions':
+                case 'gp_locations':
                 case 'categories':
                 case 'sub_categories':
                 case 'child_categories':
@@ -87,6 +88,7 @@ function view_permission($page_name)
                 case 'orders':
                 case 'consultation_view':
                 case 'orders_shipped':
+                case 'orders_created':
                 case 'orders_refunded':
                 case 'orders_audit':
                 case 'gpa_letters':
@@ -115,6 +117,7 @@ function view_permission($page_name)
                 case 'gpa_letters':
                 case 'orders':
                 case 'dispensary_approval':
+                case 'doctors_approval':
                 case 'orders_shipped':
                 case 'consultation_view':
                 case 'contact':
@@ -142,6 +145,7 @@ function view_permission($page_name)
 
         case 'User':
             switch ($page_name) {
+                case 'home':
                 case 'dashboard':
                 case 'prescription_orders':
                 case 'online_clinic_orders':

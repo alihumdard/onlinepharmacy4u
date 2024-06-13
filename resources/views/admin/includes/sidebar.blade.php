@@ -7,6 +7,14 @@
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
+        @if(view_permission('home'))
+        <li class="nav-item">
+            <a class="btn btn-success w-100 mb-2 rounded-pill px-5 py-2 fw-bold" href="{{route('web.index')}}">
+            <i class="bi bi-arrow-right-circle"></i>
+                <span>Go To Shop</span>
+            </a>
+        </li>
+        @endif
 
         @if(view_permission('dashboard'))
         <li class="nav-item">
@@ -51,12 +59,12 @@
 
         @if(view_permission('questions'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion','admin.addfaqQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ','admin.faqQuestions'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-col" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion','admin.addfaqQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ','admin.faqQuestions','admin.gpLocations'])) ? '' : 'collapsed'}}" data-bs-target="#siderbar-col" data-bs-toggle="collapse">
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Questions</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="siderbar-col" class="nav-content {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.addfaqQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ','admin.faqQuestions'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+            <ul id="siderbar-col" class="nav-content {{ (request()->routeIs(['admin.questionCategories', 'admin.addQuestionCategory', 'admin.questions', 'admin.addQuestion', 'admin.addfaqQuestion', 'admin.assignQuestion', 'admin.pMedGQ', 'admin.prescriptionMedGQ','admin.faqQuestions'.'admin.gpLocations'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{(request()->routeIs(['admin.addQuestionCategory'])) ? 'nav-link ' : ''}}" href="{{route('admin.addQuestionCategory')}}">
                         <i class="bi bi-circle"></i><span>Add Category</span>
@@ -102,16 +110,21 @@
                         <i class="bi bi-circle"></i><span>Prescription Med General Q.</span>
                     </a>
                 </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.gpLocations'])) ? 'nav-link ' : ''}}" href="{{route('admin.gpLocations')}}">
+                        <i class="bi bi-circle"></i><span>GP Locations</span>
+                    </a>
+                </li>
             </ul>
         </li>
         @endif
 
         @if(view_permission('prodcuts'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts'])) ? '' : 'collapsed'}} " data-bs-target="#forms-nav" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts','admin.proTrash'])) ? '' : 'collapsed'}} " data-bs-target="#forms-nav" data-bs-toggle="collapse">
                 <i class="bi bi-journal-text"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content {{(request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts'])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content {{(request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts','admin.proTrash'])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{(request()->routeIs(['admin.prodcuts'])) ? 'nav-link ' : ''}} " href="{{route('admin.prodcuts')}}">
                         <i class="bi bi-circle"></i><span>All Products</span>
@@ -124,7 +137,7 @@
                 </li>
                 <li>
                     <a class="{{(request()->routeIs(['admin.prodcutsLimits'])) ? 'nav-link ' : ''}} " href="{{route('admin.prodcutsLimits')}}">
-                        <i class="bi bi-circle"></i><span>Prodcuts Limits</span>
+                        <i class="bi bi-circle"></i><span>Products Limits</span>
                     </a>
                 </li>
                 <li>
@@ -143,14 +156,21 @@
 
         @if(view_permission('orders'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval', 'admin.ordersAudit', 'admin.gpaLeters','admin.ordersRefunded'])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval', 'admin.ordersAudit', 'admin.gpaLeters','admin.ordersRefunded', 'admin.ordersCreated'])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
                 <i class="bi bi-bar-chart"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit', 'admin.gpaLeters','admin.ordersRefunded' ])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit', 'admin.gpaLeters','admin.ordersRefunded', 'admin.ordersCreated' ])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
                 @if(view_permission('orders_recieved'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersRecieved'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersRecieved')}}">
-                        <i class="bi bi-circle"></i><span>Recieved Orders</span>
+                        <i class="bi bi-circle"></i><span>Received Orders</span>
+                    </a>
+                </li>
+                @endif
+                @if(view_permission('orders_created'))
+                <li>
+                    <a class="{{(request()->routeIs(['admin.ordersCreated'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersCreated')}}">
+                        <i class="bi bi-circle"></i><span>Created Orders</span>
                     </a>
                 </li>
                 @endif
@@ -164,7 +184,7 @@
                 @if(view_permission('doctors_approval'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.doctorsApproval'])) ? 'nav-link ' : ''}}" href="{{route('admin.doctorsApproval')}}">
-                        <i class="bi bi-circle"></i><span>Medical Professionals</span>
+                        <i class="bi bi-circle"></i><span>{{ (isset($user) && $user->role == user_roles('2')) ? 'Medical Professionals Approved' : 'Medical Professionals'}}</span>
                     </a>
                 </li>
                 @endif
@@ -257,7 +277,7 @@
 
         @if(view_permission('prescription_orders'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.prescriptionOrders')}}">
+            <a class="nav-link {{(request()->routeIs('admin.prescriptionOrders')) ? '' : 'collapsed'}}  " href="{{route('admin.prescriptionOrders')}}">
                 <i class="bi bi-bar-chart"></i><span>Prescription Orders</span>
             </a>
         </li>
@@ -265,15 +285,15 @@
 
         @if(view_permission('online_clinic_orders'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.onlineClinicOrders')}}">
+            <a class="nav-link {{(request()->routeIs('admin.onlineClinicOrders')) ? '' : 'collapsed'}} " href="{{route('admin.onlineClinicOrders')}}">
                 <i class="bi bi-bar-chart"></i><span>Online Clinic Orders</span>
             </a>
         </li>
         @endif
 
         @if(view_permission('shop_orders'))
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.shopOrders')}}">
+        <li class="nav-item ">
+            <a class="nav-link {{(request()->routeIs('admin.shopOrders')) ? '' : 'collapsed'}}" href="{{route('admin.shopOrders')}}">
                 <i class="bi bi-bar-chart"></i><span>Shop Orders</span>
             </a>
         </li>
@@ -281,7 +301,7 @@
 
         @if(view_permission('gp_letters'))
         <li class="nav-item">
-            <a class="nav-link" href="{{route('admin.gpaLeters')}}">
+            <a class="nav-link {{(request()->routeIs('admin.gpaLeters')) ? '' : 'collapsed'}}" href="{{route('admin.gpaLeters')}}">
                 <i class="bi bi-bar-chart"></i><span>GP Letters</span>
             </a>
         </li>

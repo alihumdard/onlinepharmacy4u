@@ -363,13 +363,13 @@
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-30">
                         <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                        <h1 class="section-title">Our Online Pharmacy 4U <br> Healthcare Professionals </h1>
-                        <p>Our Healthcare Professionals here at Online Pharmacy 4U get asked hundreds of questions regards symptoms and treatments daily, visit out A to Z Conditions & Treatments finder to find what your looking for.</p>
+                        <h1 class="section-title"> Healthcare Professionals  <br>  at Online Pharmacy 4U</h1>
+                        <p>Our Healthcare Professionals here at Online Pharmacy 4U get asked hundreds of questions regards symptoms and treatments daily, visit our A to Z Conditions & Treatments finder to find what you are looking for.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
                         <li><i class="fas fa-check-square"></i> Watch our explainer video</li>
                         <li><i class="fas fa-check-square"></i> Helps explain some of the</li>
-                        <li><i class="fas fa-check-square"></i> common conditions</li>
+                        <li><i class="fas fa-check-square"></i> Common conditions</li>
                         <li><i class="fas fa-check-square"></i> Watch ''how we work'' Video!</li>
                         <li><a href="https://www.youtube.com/@onlinepharmacy4u468" class="btn theme-btn-1">Our YouTube Channel</a></li>
                     </ul>
@@ -390,7 +390,7 @@
                         <a ><img src="img/banner/new_banner2_1.webp" alt="Banner Image" class="image-radius"></a>
                     </div>
                 </div>
-                <h4 class="text-center">Select your medication.</h4>
+                <h4 class="text-center">Select your medication</h4>
                 <p class="text-center">Simply select the medication you wish to purchase by searching for it directly or by browsing the categories using the top navigation bar. It's easy!</p>
             </div>
             <div class="col-lg-4 col-sm-6">
@@ -399,7 +399,7 @@
                         <a ><img src="img/banner/new_banner3_1.webp" alt="Banner Image" class="image-radius"></a>
                     </div>
                 </div>
-                <h4 class="text-center">Quick 60 secs FREE consultation.</h4>
+                <h4 class="text-center">Quick 60 secs FREE consultation</h4>
                 <p class="text-center">Once you have selected your medication, you will need to complete a FREE 1-minute consultation. Our panel of GPhC approved prescribers will check your consultation and once approved, your prescription will be dispensed by Online Pharmacy4U.</p>
             </div>
             <div class="col-lg-4 col-sm-6">

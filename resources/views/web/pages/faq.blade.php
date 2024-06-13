@@ -12,7 +12,7 @@
                         <h1 class="page-title mt-5">Frequently Asked Question</h1>
                         <div class="ltn__breadcrumb-list">
                             <ul>
-                                <li><a href="index.html"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
+                                <li><a href="/"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a></li>
                                 <li>Frequently Asked Question</li>
                             </ul>
                         </div>
@@ -95,6 +95,17 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="card">
+                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-11" aria-expanded="false">
+                                How does your service work?
+                                </h6>
+                                <div id="faq-item-2-11" class="collapse" data-bs-parent="#accordion_2">
+                                    <div class="card-body">
+                                        <p>Our service is a convenient and safe way to have medication delivered to your address when you are otherwise unable to go out and get it. Our prices are inclusive of the prescriber and pharamcy costs, so you will fill out a set of questions to be looked at by a prescriber, the prescription will be processed in our pharmacy and then shipped to you using your chosen delivery method. You can read a more comprehensive version of how our service works here.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,16 +168,7 @@
                                 </div>
                             </div>
                             <!-- card -->
-                            <div class="card">
-                                <h6 class="collapsed ltn__card-title" data-bs-toggle="collapse" data-bs-target="#faq-item-2-11" aria-expanded="false">
-                                How does your service work?
-                                </h6>
-                                <div id="faq-item-2-11" class="collapse" data-bs-parent="#accordion_2">
-                                    <div class="card-body">
-                                        <p>Our service is a convenient and safe way to have medication delivered to your address when you are otherwise unable to go out and get it. Our prices are inclusive of the prescriber and pharamcy costs, so you will fill out a set of questions to be looked at by a prescriber, the prescription will be processed in our pharmacy and then shipped to you using your chosen delivery method. You can read a more comprehensive version of how our service works here.</p>
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Config;
+use App\Mail\OTPMail;
 
 // models ...
 use App\Models\User;
@@ -68,7 +69,7 @@ class DefualtController extends Controller
             session(['user_details' => $user]);
             $data['user']       = $user;
             $data['role'] = user_role_no($user->role);
-            // User roles: 1 for Super Admin, 2 for Admin, 3 for Doctor, 4 User
+            // User roles: 1 for Super Admin, 2 for Despensory, 3 for Doctor, 4 User
             if (isset($user->role) && $user->role == user_roles('1')) {
                 return view('admin.pages.dashboard', $data);
             } else if (isset($user->role) && $user->role == user_roles('2')) {
@@ -199,12 +200,18 @@ class DefualtController extends Controller
         if (!$user) {
             if ($request->all()) {
                 $validator = Validator::make($request->all(), [
-                    'password' => 'required',
-                    'email' => 'required',
+                    'email'    => [
+                        'required',
+                        'email',
+                    ],
+                    'password' => [
+                        'required',
+                        'min:8'
+                    ]
                 ]);
 
                 if ($validator->fails()) {
-                    return redirect()->back()->with(['status' => 'error', 'message' => $validator->errors()]);
+                    return redirect()->back()->withErrors($validator)->withInput()->with(['status' => 'error', 'message' => $validator->errors()]);
                 }
 
                 $credentials = $request->only('email', 'password');
@@ -220,13 +227,12 @@ class DefualtController extends Controller
                                 return  redirect('/admin');
                             } else if (isset($user->role) && $user->role == user_roles('3')) {
                                 return  redirect('/admin');
-                            } else if (isset($user->role) && $user->role == user_roles('4')) {  
+                            } else if (isset($user->role) && $user->role == user_roles('4')) {
                                 $intendedUrl = session('intended_url');
                                 session()->forget('intended_url');
                                 if ($intendedUrl) {
                                     return redirect()->route('web.consultationForm');
-                                }
-                                else{
+                                } else {
                                     return  redirect('/admin');
                                 }
                             }
@@ -253,7 +259,7 @@ class DefualtController extends Controller
             } else if (isset($user->role) && $user->role == user_roles('3')) {
                 return  redirect('/admin');
             } else if (isset($user->role) && $user->role == user_roles('4')) {
-                return  redirect('/admin');
+                return  redirect('/');
             }
         }
         return view('web.pages.login');
@@ -290,22 +296,28 @@ class DefualtController extends Controller
     {
         $user = auth()->user();
         if (!$user) {
-            $validator = Validator::make($request->all(), [
-                'name'     => 'required',
-                'phone'    => 'required|digits:11',
-                'address'  => 'required',
-                'gender'   => 'required',
-                'id_document'   => 'required',
-                'dob'      => 'required',
-                'zip_code'     => 'required',
-                'email'    => [
-                    'required',
-                    'email',
-                    Rule::unique('users')->ignore($request->id),
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'name'     => 'required',
+                    'phone'    => 'required|digits:11',
+                    'address'  => 'required',
+                    'gender'   => 'required',
+                    'id_document'   => 'required',
+                    'day'     => 'required',
+                    'month'     => 'required',
+                    'year'     => 'required',
+                    'zip_code'     => 'required',
+                    'email'    => [
+                        'required',
+                        'email',
+                        Rule::unique('users')->ignore($request->id),
+                    ],
+                    'password' => [
+                        'required',
+                        'min:8'
+                    ]
                 ],
-                'password' => [
-                    'required',
-                    'min:8']                ],
             );
 
             if ($validator->fails()) {
@@ -313,9 +325,11 @@ class DefualtController extends Controller
             }
 
             $data['user'] = auth()->user();
+            $dob = $request->day . '-' . $request->month . '-' . $request->year;
+
             if ($request->file('id_document')) {
                 $doc = $request->file('id_document');
-                $docName = uniqid().time() . '_' . $doc->getClientOriginalName();
+                $docName = uniqid() . time() . '_' . $doc->getClientOriginalName();
                 $doc->storeAs('user_docs', $docName, 'public');
                 $docPath = 'user_docs/' . $docName;
             }
@@ -325,13 +339,13 @@ class DefualtController extends Controller
                 [
                     'name'       => ucwords($request->name),
                     'email'      => $request->email,
-                    'dob'        => $request->dob,
+                    'dob'        => $dob,
                     'role'       => $request->role ?? 'User',
                     'phone'      => $request->phone,
                     'address'    => $request->address,
                     'apartment'  => $request->apartment,
                     'gender'     => $request->gender,
-                    'id_document'=> $docPath ?? Null,
+                    'id_document' => $docPath ?? Null,
                     'zip_code'   => $request->zip_code,
                     'city'       => $request->city ?? '',
                     'state'      => $request->state ?? '',
@@ -340,7 +354,7 @@ class DefualtController extends Controller
                     'created_by' => 1,
                 ]
             );
-            
+
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 $user = auth()->user();
@@ -352,13 +366,78 @@ class DefualtController extends Controller
                 session()->forget('intended_url');
                 if ($intendedUrl) {
                     return redirect()->route('web.consultationForm');
-                }
-                else{
+                } else {
                     return  redirect('/admin');
                 }
-                
             }
-        }else{
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function forgot_password(Request $request)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return view('web.pages.forgot_password');
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function change_password(Request $request)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return view('web.pages.change_password');
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function send_otp(Request $request)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            $user = User::where('email', $request->email)->first();
+
+            if ($user) {
+                $otp = mt_rand(100000, 999999);
+                $user->otp = $otp;
+                $user->save();
+                Mail::to($request->email)->send(new OTPMail($otp));
+                return redirect()->route('changePassword')->with(['status' => 'success', 'message' => "Please check you'r mail for OTP", 'email' => $request->email]);
+            } else {
+                return redirect()->back()->withInput()->withErrors(['email' => 'The provided email is incorrect.']);
+            }
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function verify_otp(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required|digits:6',
+            'password' => 'required|min:8',
+        ]);
+
+        $user = auth()->user();
+        if (!$user) {
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                if ($user->otp == trim($request->otp)) {
+                    $user->password = Hash::make($request->password);
+                    $user->save();
+                    return redirect()->route('login')->with(['status' => 'success', 'message' => "Password updated successfully."]);
+                } else {
+                    return redirect()->back()->withInput()->withErrors(['otp' => 'The provided OTP is incorrect.']);
+                }
+            } else {
+                return redirect()->back()->withInput()->withErrors(['email' => 'The provided email is incorrect.']);
+            }
+        } else {
             return redirect()->back();
         }
     }

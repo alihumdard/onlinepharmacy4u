@@ -328,21 +328,30 @@
     </style>
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Orders Recieved</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Orders Received</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+        <div class="">
+            <form id="create_pdf_from" action="{{route('pdf.creator')}}" method="post">
+
+            </form>
+            <h1 class="w-100">
+                <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold ">
+                    <i class="bi bi-arrow-left"></i> Back</a> | Orders Recieved
+                <a href="{{route('admin.addOrder')}}" class="btn fs-5 py-1 mx-2 btn-secondary fw-semibold bg-dark" style="float:right;"> <i class="bi bi-plus"></i>Create Order</a>
+            </h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item">Pages</li>
+                    <li class="breadcrumb-item active">Orders Recieved</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- End Page Title -->
 
     <section class="section">
         <div class="row">
-            <div class="col-lg-12">
-
-                <div class="card">
+            <div class="col-12">
+                <div class="card w-100">
                     <div class="card-header mt-3 d-flex justify-content-between align-items-center">
                         <div id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
                         </div>
@@ -383,7 +392,7 @@
                                     <th>Total Orders</th>
                                     <th>Date-Time</th>
                                     <th>Customer Name</th>
-                                    <th>D.O.B</th>
+                                    <th>Order Type</th>
                                     @if($user->role == user_roles('1'))
                                     <th>Total Atm.</th>
                                     @endif
@@ -401,27 +410,23 @@
                                     </td>
                                     <td>{{ ++$key }}</td>
                                     <td>
-                                        <a  href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #00{{ $val['id'] }}
+                                        <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
+                                            #{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>
-                                        @foreach($order_history as $ind => $value)
-                                        @if($value['email'] == $val['email'])
-                                        <span class=" px-5 fw-bold">{{$value['total_orders'] ?? 0}} </span>
+                                        @if(isset($order_history[$val['email']]))
+                                        <span class=" px-5 fw-bold">{{ $order_history[$val['email']]['total_orders'] ?? 0}} </span>
                                         @endif
-                                        @endforeach
                                     </td>
-                                    <td>{{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}</td>
-                                    <td>{{ $val['user']['name'] ?? '' }}</td>
-                                    <td>{{ isset($val['user']['dob']) ? date('M d, Y', strtotime($val['user']['dob'])) : '' }}</td>
+                                    <td>{{ isset($val['created_at']) ? date('d,M Y H:i:s', strtotime($val['created_at'])) : '' }}</td>
+                                    <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
+                                    <td><span class="btn  fw-bold rounded-pill {{ ($val['order_for'] == 'despensory') ? 'btn-success':'btn-primary' }}">{{ ($val['order_for'] == 'despensory') ? 'P.Med' : 'POM' }}</span> </td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
-                                    <td>
-                                        {{$val['payment_status'] ?? ''}}
-                                    </td>
-                                    <td>{{$val['status'] ?? ''}}</td>
+                                    <td><span class="btn fw-bold rounded-pill btn-warning"> {{$val['payment_status'] ?? ''}}</span> </td>
+                                    <td><span class="btn  fw-bold btn-primary rounded-pill">{{$val['status'] ?? ''}}</span></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -443,7 +448,6 @@
 
 @pushOnce('scripts')
 <script>
-
     $(function() {
         $("#tbl_data").DataTable({
             "paging": true,

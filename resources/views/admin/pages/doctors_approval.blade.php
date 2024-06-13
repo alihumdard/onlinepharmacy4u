@@ -328,12 +328,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Medical Professionals Orders Status</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Medical Professionals Orders</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Medical Professionals Orders Status</li>
+                <li class="breadcrumb-item active">Medical Professionals Orders</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -383,15 +383,15 @@
                                     <th>Total Orders</th>
                                     <th>Date-Time</th>
                                     <th>Customer Name</th>
-                                    <th>Postal Code</th>
-                                    <th>Address1</th>
-                                    <th>Address2</th>
                                     @if($user->role == user_roles('1'))
                                     <th>Total Atm.</th>
                                     @endif
                                     <th>Payment Status</th>
                                     <th>Order Status</th>
+                                    <th>Marked By </th>
+                                    @if($user->role != user_roles('3'))
                                     <th> Shiped Order</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -405,37 +405,39 @@
                                     <td>{{ ++$key }}</td>
                                     <td>
                                         <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #00{{ $val['id'] }}
+                                            #{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>
-                                        @foreach($order_history as $ind => $value)
-                                        @if($value['user_id'] == $val['user_id'])
-                                        <span class=" px-5 fw-bold">{{$value['total_orders']}} </span>
+                                        @if(isset($order_history[$val['email']]))
+                                        <span class=" px-5 fw-bold">{{ $order_history[$val['email']]['total_orders'] ?? 0}} </span>
                                         @endif
-                                        @endforeach
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('m-d-y H:i:s', strtotime($val['created_at'])) : '' }}</td>
-                                    <td>{{ $val['user']['name'] ?? '' }}</td>
-                                    <td>453934</td>
-                                    <td>{{$val['user']['address'] ?? ''}}</td>
-                                    <td>address 2</td>
+                                    <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
                                     <td>
                                         {{$val['payment_status'] ?? ''}}
                                     </td>
+
                                     <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }}">{{ $val['status'] ?? '' }}</span></td>
                                     <td style="display: inline-block;">
+                                        @if($val['status'] != 'Received')
+                                        <span>{{ $val['approved_by']['name'] }} ({{ $val['approved_by']['email'] }} )</span>
+                                        @endif
+                                    </td>
+                                    @if($user->role != user_roles('3'))
+                                    <td style="display: inline-block;">
                                         @if($val['status'] == 'Approved')
-                                        <span class="btn  fw-bold btn-primary no-wrap">Ship Now</span>
+                                        <span data-order_id="{{$val['id']}}" class="btn  ship_now fw-bold btn-primary no-wrap">Ship Now</span>
                                         @endif
                                         @if($val['status'] == 'Shiped')
                                         <span class="btn  fw-bold btn-success no-wrap">Shiped</span>
                                         @endif
                                     </td>
-
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -452,6 +454,10 @@
 <form id="bulk_print" action="{{route('pdf.bulkPrint')}}" method="post">
     <input type="hidden" name="order_ids" value="" required>
     <input type="hidden" name="view_name" value="order_bulk_print" required>
+</form>
+<form id="form_shiping_now" action="{{route('admin.createShippingOrder')}}" method="POST">
+    @csrf
+    <input type="hidden" id="shiping_order" name="id" required value="">
 </form>
 @stop
 
@@ -512,6 +518,13 @@
             } else {
                 alert('Please select at least one order.');
             }
+        });
+
+        $(document).on('click', ".ship_now", function() {
+            let order_id = $(this).data('order_id');
+            alert(order_id);
+            $('#shiping_order').val(order_id);
+            $('#form_shiping_now').submit();
         });
     });
 </script>

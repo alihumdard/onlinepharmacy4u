@@ -2,26 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\UserBmi;
-use App\Models\Category;
-use App\Models\Question;
-use App\Models\Collection;
-use App\Models\SubCategory;
-use App\Models\Transaction;
+
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Mail\otpVerifcation;
 use Illuminate\Http\Request;
-use App\Models\ChildCategory;
-use App\Models\AssignQuestion;
-use App\Models\ProductVariant;
-use App\Models\QuestionMapping;
-use App\Models\PMedGeneralQuestion;
-use App\Models\PrescriptionMedGeneralQuestion;
 use Illuminate\Validation\Rule;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
@@ -34,23 +19,38 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-
+use SebastianBergmann\Type\NullType;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 // models ...
 use App\Models\Comment;
+use App\Models\Pharmacy4uGpLocation;
 use App\Models\shippedOrder;
 use App\Models\ProductAttribute;
 use App\Models\QuestionCategory;
-use App\Models\UserConsultation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\ConsultationQuestion;
 use App\Models\OrderDetail;
 use App\Models\ShipingDetail;
 use App\Models\Alert;
 use App\Models\FaqProduct;
-use SebastianBergmann\Type\NullType;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Question;
+use App\Models\Collection;
+use App\Models\SubCategory;
+use App\Models\ChildCategory;
+use App\Models\AssignQuestion;
+use App\Models\ProductVariant;
+use App\Models\QuestionMapping;
+use App\Models\PMedGeneralQuestion;
+use App\Models\PrescriptionMedGeneralQuestion;
+use App\Models\PaymentDetail;
 
 class SystemController extends Controller
 {
@@ -61,6 +61,37 @@ class SystemController extends Controller
     {
         $this->user = auth()->user();
         $this->status = config('constants.USER_STATUS');
+    }
+
+
+    private function getAccessToken()
+    {
+        try {
+            // Viva Wallet API credentials
+            $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
+            $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
+            $credentials = base64_encode($username . ':' . $password);
+
+            // Make an HTTP request to obtain an access token
+            $response = Http::asForm()->withHeaders([
+                'Authorization' => 'Basic ' . $credentials,
+            ])->post('https://accounts.vivapayments.com/connect/token', [
+                'grant_type' => 'client_credentials',
+            ]);
+
+            // Check if the request was successful (status code 2xx)
+            if ($response->successful()) {
+                return $response->json('access_token');
+            } else {
+                // Log the error response for further investigation
+                Log::error('Error response: ' . $response->body());
+                return null;
+            }
+        } catch (\Exception $e) {
+            // Log any exceptions that occurred during the request
+            Log::error('Exception: ' . $e->getMessage());
+            return null;
+        }
     }
 
     public function index()
@@ -639,10 +670,12 @@ class SystemController extends Controller
         $selection = $request->selection;
         if ($selection == 2) {
             $parents = Category::select('id', 'name')
+                ->where('status', 'Active')
                 ->pluck('name', 'id')
                 ->toArray();
         } elseif ($selection == 3) {
             $parents = SubCategory::select('id', 'name')
+                ->where('status', 'Active')
                 ->pluck('name', 'id')
                 ->toArray();
         }
@@ -653,6 +686,7 @@ class SystemController extends Controller
     {
         $category_id = $request->category_id;
         $categories = SubCategory::select('id', 'name')
+            ->where('status', 'Active')
             ->where('category_id', $category_id)
             ->pluck('name', 'id')
             ->toArray();
@@ -664,6 +698,7 @@ class SystemController extends Controller
     {
         $category_id = $request->category_id;
         $categories = ChildCategory::select('id', 'name')
+            ->where('status', 'Active')
             ->where('sub_category_id', $category_id)
             ->pluck('name', 'id')
             ->toArray();
@@ -953,6 +988,7 @@ class SystemController extends Controller
         }
         return view('admin.pages.questions.add_faq_question', $data);
     }
+
     public function store_question(Request $request)
     {
         $user = auth()->user();
@@ -1350,14 +1386,11 @@ class SystemController extends Controller
             $id = base64_decode($request->id);
             $order = Order::with('user', 'shipingdetails', 'orderdetails', 'orderdetails.product')->where(['id' => $id, 'payment_status' => 'Paid'])->first();
             if ($order) {
-                $data['userOrders'] = Order::select('id')
-                    ->where('email', $order->email)
-                    ->where('status', 'Paid')
-                    ->where('id', '!=', $order->id)
-                    ->get()
-                    ->toArray();
-                $data['userOrders']  = [];
+                $data['userOrders'] = Order::select('id')->where('email', $order->email)->where('payment_status', 'Paid')->where('id', '!=', $order->id)->get()->toArray() ?? [];
                 $data['order']  = $order->toArray() ?? [];
+                if ($order->approved_by) {
+                    $data['marked_by']  = User::findOrFail($order->approved_by) ?? [];
+                }
                 // dd($data);
                 return view('admin.pages.order_detail', $data);
             } else {
@@ -1424,7 +1457,7 @@ class SystemController extends Controller
                     }
                 }
                 $data['order_user_detail'] =  ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
-                $data['user_profile_details'] =  (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [] ;
+                $data['user_profile_details'] =  (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [];
                 $data['generic_consultation'] = $user_result;
                 $data['product_consultation'] = $prod_result ?? [];
                 return view('admin.pages.consultation_view', $data);
@@ -1443,20 +1476,28 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $emails = array_unique(Arr::pluck($orders, 'email'));
-            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
-                ->whereIn('email', $emails)
-                ->where('status', 'Paid')
-                ->groupBy('email')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);;
+            $data['orders'] = $orders;
+        }
+        return view('admin.pages.orders_recieved', $data);
+    }
+
+    public function orders_created()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'orders_created';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        if ($orders) {
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
 
-        return view('admin.pages.orders_recieved', $data);
+        return view('admin.pages.orders_created', $data);
     }
 
     public function orders_refunded()
@@ -1466,16 +1507,9 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Refund'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Refund'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $emails = array_unique(Arr::pluck($orders, 'email'));
-            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
-                ->whereIn('email', $emails)
-                ->where('status', 'Paid')
-                ->groupBy('email')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
 
@@ -1489,15 +1523,13 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        if (isset($data['user']->role) && $data['user']->role == user_roles('2')) {
+            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Approved', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        } else {
+            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        }
         if ($orders) {
-            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
-            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
-                ->whereIn('user_id', $userIds)
-                ->groupBy('user_id')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
         return view('admin.pages.doctors_approval', $data);
@@ -1510,16 +1542,10 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'order_for' => 'despensory'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
 
         if ($orders) {
-            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
-            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
-                ->whereIn('user_id', $userIds)
-                ->groupBy('user_id')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
         return view('admin.pages.despensory_approval', $data);
@@ -1532,16 +1558,9 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName'])->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $emails = array_unique(Arr::pluck($orders, 'email'));
-            $userOrdersData = Order::select('email', DB::raw('count(*) as total_orders'))
-                ->whereIn('email', $emails)
-                ->where('status', 'Paid')
-                ->groupBy('email')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
 
@@ -1578,6 +1597,63 @@ class SystemController extends Controller
         return view('admin.pages.orders_audit', $data);
     }
 
+    public function add_order(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'orders_created';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        $data['products'] = Product::with('variants')->where('status', $this->status['Active'])->latest('id')->get()->sortBy('title')->values()->keyBy('id')->toArray();
+        foreach ($data['products'] as $key => $product) {
+            if ($product['variants']) {
+                $data['variants'][$product['id']] = $product['variants'];
+            }
+        }
+        $data['users'] = User::where(['status' => $this->status['Active'], 'role' => user_roles('4')])->latest('id')->get()->sortBy('name')->keyBy('id')->toArray();
+        return view('admin.pages.add_order', $data);
+    }
+
+    public function store_order(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'orders_created';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'firstName'         => 'required',
+            'lastName'          => 'required',
+            'email'             => 'required',
+            'phone'             => 'required',
+            'address'           => 'required',
+            'city'              => 'required',
+            'zip_code'          => 'required',
+            'shiping_cost'      => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $order =  Order::create([
+            'user_id'        => $request->user_id ?? 'guest',
+            'email'          => $request->email,
+            'note'           => $request->note,
+            'shiping_cost'   => $request->shiping_cost,
+            'coupon_code'    => $request->coupon_code ?? Null,
+            'coupon_value'   => $request->coupon_value ?? Null,
+            'total_ammount'  => $request->total_ammount ?? Null,
+        ]);
+        // dd($order);
+        if ($order) {
+
+            $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            return redirect()->route('admin.questions')->with(['msg' => $message]);
+        }
+    }
+
     public function gpa_letters()
     {
         $data['user'] = auth()->user();
@@ -1585,19 +1661,14 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user')->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName,address'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
-            $userIds = array_unique(Arr::pluck($orders, 'user.id'));
-            $userOrdersData = Order::select('user_id', DB::raw('count(*) as total_orders'))
-                ->whereIn('user_id', $userIds)
-                ->groupBy('user_id')
-                ->get()
-                ->toArray();
-            $data['order_history'] = $userOrdersData;
+            $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $orders;
         }
         return view('admin.pages.gpa_letters', $data);
     }
+
     public function change_status(Request $request)
     {
         $data['user'] = auth()->user();
@@ -1613,12 +1684,63 @@ class SystemController extends Controller
 
         $order = Order::findOrFail($validatedData['id']);
         $order->status = $validatedData['status'];
-        $order->hcp_remarks = $validatedData['hcp_remarks'] ?? null;
+        $order->hcp_remarks = $request->hcp_remarks ?? null;
+        if ($request->approved_by) {
+            $order->approved_by = $request->approved_by;
+        }
         $update = $order->save();
         if ($update) {
-            $msg = 'Order is '.$validatedData['status'];
+            $msg = 'Order is ' . $validatedData['status'];
             $status = 'success';
             return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $status)->with('msg', $msg);
+        }
+        return redirect()->back();
+    }
+
+    public function refund_order(Request $request)
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'orders';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $validatedData = $request->validate([
+            'id' => 'required|exists:orders,id',
+            'status' => 'required',
+            'ammount' => 'required|numeric|gt:0',
+        ]);
+
+        $order = Order::with('paymentdetails')->findOrFail($validatedData['id']);
+        if ($order) {
+            $ammount = $request->ammount;
+            $transetion_id = $order->paymentdetails->transactionId;
+            $source_code = 1503;
+            $accessToken = $this->getAccessToken();
+            $url = "https://www.vivapayments.com/api/transactions/{$transetion_id}/";
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Content-Type' => 'application/json',
+            ])
+                ->delete($url, [
+                    'amount' => $ammount,
+                    'sourceCode' => $source_code
+                ]);
+
+            $responseData = json_decode($response->body(), true);
+            dd($responseData);
+            $update_payment = [
+                'statusId' => $responseData['statusId'],
+            ];
+            $payment =   PaymentDetail::where('id', $order->paymentdetails->id)->update($update_payment);
+
+            $order->status = $validatedData['status'];
+            $update = $order->save();
+            if ($update) {
+                $msg = 'Order is ' . $validatedData['status'];
+                $status = 'success';
+                return redirect()->route('admin.orderDetail', ['id' => base64_encode($validatedData['id'])])->with('status', $status)->with('msg', $msg);
+            }
         }
         return redirect()->back();
     }
@@ -1642,7 +1764,7 @@ class SystemController extends Controller
                 $order = $order->toArray() ?? [];
 
                 $weightSum = array_sum(array_column($order['orderdetails'], 'weight'));
-                $order['weight'] = $weightSum !== 0 ? $weightSum : 1;
+                $order['weight'] = $weightSum !== 0 ? floatval($weightSum) : 1;
                 $order['quantity'] = array_sum(array_column($order['orderdetails'], 'product_qty'));
                 $payload = $this->make_shiping_payload($order);
                 $apiKey = env('ROYAL_MAIL_API_KEY');
@@ -1659,7 +1781,6 @@ class SystemController extends Controller
                 $body = $response->getBody()->getContents();
                 if ($statusCode == 200) {
                     $response = json_decode($body, true);
-                    // dd($response);
                     $shipped = [];
                     if ($response['createdOrders']) {
                         foreach ($response['createdOrders'] as $key => $val) {
@@ -1768,7 +1889,7 @@ class SystemController extends Controller
                 "SKU" => null,
                 "quantity" => $val['product_qty'],
                 "unitValue" => $val['product_price'],
-                "unitWeightInGrams" => $val['weight'],
+                "unitWeightInGrams" => floatval($val['weight']),
                 "customsDescription" => 'it is medical product.',
                 "extendedCustomsDescription" => "",
                 "customsCode" => null,
@@ -1869,8 +1990,12 @@ class SystemController extends Controller
         ];
         return  $payload;
     }
-
-
+    private function get_prev_orders($orders)
+    {
+        $emails = array_unique(Arr::pluck($orders, 'email'));
+        $prev_orders = Order::select('email', DB::raw('count(*) as total_orders'))->whereIn('email', $emails)->where('payment_status', 'Paid')->groupBy('email')->get()->sortBy('email')->values()->keyBy('email')->toArray();
+        return $prev_orders;
+    }
     // comments
     public function comments(Request $request)
     {
@@ -1977,5 +2102,22 @@ class SystemController extends Controller
         }
 
         return redirect()->route('admin.orderDetail', ['id' => base64_encode($request->order_id)])->with(['msg' => $message]);
+    }
+
+    public function gp_locations()
+    {
+        $user = auth()->user();
+        $page_name = 'gp_locations';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['gp_locations'] = Pharmacy4uGpLocation::where('status', 'Active')->latest('id')->get()->toArray();
+        }
+
+        return view('admin.pages.questions.gp_locations', $data);
     }
 }

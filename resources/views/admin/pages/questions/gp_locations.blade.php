@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'FAQ Questions')
+@section('title', 'GP Locations')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -69,12 +69,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | FAQ Questions</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | GP Locations</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">FAQ Questions</li>
+                <li class="breadcrumb-item active">GP Locations</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -86,18 +86,9 @@
                 <div class="card">
                     <div class="card-header mt-3 " id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
                         <div class="row mb-3 px-4">
-                            <div class="col-md-4 d-block">
-                                <label for="category" class="form-label fw-bold">Filter by Product</label>
-                                <select id="category" class="form-select select2" data-placeholder="choose category name ..." required>
-                                    <option value="All">All</option>
-                                    @foreach ($products ?? [] as $key => $pro)
-                                    <option value="{{ $pro}}">{{ $pro}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
 
-                            <div class="col-md-4 text-center d-block">
-                                <label for="search" class="form-label fw-bold">Search </label>
+                            <div class="col-md-12 text-center d-block">
+                                <label for="search" class="form-label fw-bold">Search From Table </label>
                                 <input type="text" id="search" class="form-control py-2">
                             </div>
                         </div>
@@ -106,33 +97,14 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th style="vertical-align: middle; text-align: center;">#</th>
-                                        <th style="vertical-align: middle; text-align: center;">Order</th>
-                                        <th style="vertical-align: middle; text-align: center;">Title</th>
-                                        <th style="vertical-align: middle; text-align: center;">product title</th>
-                                        <th style="vertical-align: middle; text-align: center;">Status</th>
-                                        <th style="vertical-align: middle; text-align: center;">Action</th>
+                                        <th style="vertical-align: middle; text-align: center;">GP Locaction Address</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($questions as $key => $value)
+                                    @foreach($gp_locations as $key => $value)
                                     <tr>
                                         <td style="vertical-align: middle; text-align: center;"> {{ ++$key }} </td>
-                                        <td style="vertical-align: middle; text-align: center; "> {{ $value['order'] ?? '' }}</td>
-                                        <td style="vertical-align: middle; text-align: center; width:30% !important; "> {{ $value['title'] ?? '' }}</td>
-                                        <td style="vertical-align: middle; text-align: center; font-weight:700;"> {{$value['product_title']??''}}</td>
-                                        <td style="vertical-align: middle; text-align: center;">
-                                            <div class="form-check form-switch d-flex justify-content-center ">
-                                                <input class="form-check-input" style="width: 3.3rem; height: 1.3rem;" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
-                                            </div>
-                                        </td>
-                                        <td style="vertical-align: middle; text-align: center;">
-                                            <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                            <a class="delete" style="cursor: pointer;" title="Delete" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                        </td>
+                                        <td><strong>{{$value['b']}}</strong>,{{$value['e'] }}<br/>{{$value['f'] }},{{$value['g']}}<br/>{{$value['h']}} {{$value['i']}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

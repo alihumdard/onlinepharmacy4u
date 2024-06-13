@@ -46,10 +46,10 @@
     </style>
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |  {{ $title }}</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | {{ $title }}</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
                 <li class="breadcrumb-item active">{{ $title }}</li>
             </ol>
@@ -87,41 +87,37 @@
                                 {{-- @foreach($orders ?? [] as $key => $val)
                                 <tr>
                                     <td>{{ ++$key }}</td>
-                                    <td>
-                                        <a  href="{{ route('admin.orderDetail',['id'=> $val['id']]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #3434{{ $val['id'] }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @foreach($order_history as $ind => $value)
-                                        @if($value['user_id'] == $val['user_id'])
-                                        <a  href="{{ route('admin.orderDetail',['id'=> $value['id']]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex;">
-                                            #3434{{$value['id']}}
-                                        </a>
-                                        @endif
-                                        @endforeach
-                                    </td>
-                                    <td>{{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}</td>
-                                    <td>{{ $val['user']['name'] ?? '' }}</td>
-                                    <td>{{ isset($val['user']['dob']) ? date('M d, Y', strtotime($val['user']['dob'])) : '' }}</td>
-                                    <td>{{$val['user']['address'] ?? ''}}</td>
-                                    @if($user->role == user_roles('1'))
-                                    <td>£{{$val['total_ammount'] ?? ''}}</td>
+                                <td>
+                                    <a href="{{ route('admin.orderDetail',['id'=> $val['id']]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
+                                        #3434{{ $val['id'] }}
+                                    </a>
+                                </td>
+                                <td>
+                                    @if(isset($order_history[$val['email']]))
+                                    <span class=" px-5 fw-bold">{{ $order_history[$val['email']]['total_orders'] ?? 0}} </span>
                                     @endif
-                                    <td>
-                                        <button class="btn btn-primary rounded-pill">Donwload File</button>
-                                    </td>
-                                    <td>
-                                        {{$val['payment_status'] ?? ''}}
-                                    </td>
-                                    <td>{{$val['status'] ?? ''}}</td>
-                                    <td> <a class="edit" title="Edit" data-toggle="tooltip">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a class="delete" title="Delete" data-toggle="tooltip">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
-                                    </td>
+                                </td>
+                                <td>{{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}</td>
+                                <td>{{ $val['user']['name'] ?? '' }}</td>
+                                <td>{{ isset($val['user']['dob']) ? date('M d, Y', strtotime($val['user']['dob'])) : '' }}</td>
+                                <td>{{$val['user']['address'] ?? ''}}</td>
+                                @if($user->role == user_roles('1'))
+                                <td>£{{$val['total_ammount'] ?? ''}}</td>
+                                @endif
+                                <td>
+                                    <button class="btn btn-primary rounded-pill">Donwload File</button>
+                                </td>
+                                <td>
+                                    {{$val['payment_status'] ?? ''}}
+                                </td>
+                                <td>{{$val['status'] ?? ''}}</td>
+                                <td> <a class="edit" title="Edit" data-toggle="tooltip">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a class="delete" title="Delete" data-toggle="tooltip">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                </td>
                                 </tr>
                                 @endforeach --}}
                             </tbody>
@@ -149,25 +145,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
-            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            "buttons": [{
-                    extend: 'pdf',
-                    text: 'Donwload PDF ',
-                    className: 'btn-blue',
-                },
-                // {
-                //     extend: 'excel',
-                //     text: 'Donwload Excel ',
-                //     className: 'btn-blue', 
-                // },
-
-                {
-                    extend: 'print',
-                    text: 'Print Out',
-                    className: 'btn-blue',
-                }
-            ]
-        }).buttons().container().appendTo('#tbl_buttons');
+        });
     });
 </script>
 @endPushOnce

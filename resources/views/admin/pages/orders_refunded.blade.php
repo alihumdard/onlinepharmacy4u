@@ -331,7 +331,7 @@
         <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Refunded Orders</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
                 <li class="breadcrumb-item active">Refunded Orders</li>
             </ol>
@@ -400,7 +400,7 @@
                                     <td>{{ ++$key }}</td>
                                     <td>
                                         <a href="{{ route('admin.orderDetail',['id'=> base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #00{{ $val['id'] }}
+                                            #{{ $val['id'] }}
                                         </a>
                                     </td>
                                     <td>
@@ -411,11 +411,11 @@
                                         @endforeach
                                     </td>
                                     <td>{{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}</td>
-                                    <td>{{ $val['user']['name'] ?? '' }}</td>
+                                    <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>
                                     @endif
-                                    <td>{{$val['status'] ?? ''}}</td>
+                                    <td><span class="btn  fw-bold btn-primary rounded-pill">{{$val['status'] ?? ''}}</span> </td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -20,6 +20,19 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\DB;
+use Deyjandi\VivaWallet\Enums\RequestLang;
+use Deyjandi\VivaWallet\Enums\PaymentMethod;
+use Deyjandi\VivaWallet\Facades\VivaWallet;
+use Deyjandi\VivaWallet\Customer;
+use Deyjandi\VivaWallet\Payment;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use GuzzleHttp\Client;
+use Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
+use SebastianBergmann\Type\NullType;
+
+use App\Mail\OrderConfirmation;
 
 // models ...
 use App\Models\User;
@@ -39,28 +52,13 @@ use App\Models\QuestionMapping;
 use App\Models\QuestionCategory;
 use App\Models\PMedGeneralQuestion;
 use App\Models\PrescriptionMedGeneralQuestion;
+use App\Models\Pharmacy4uGpLocation;
 use App\Models\ShipingDetail;
 use App\Models\OrderDetail;
 use App\Models\Alert;
 use App\Models\FaqProduct;
-use Illuminate\Support\Facades\DB;
-use App\Mail\OrderConfirmation;
-
-use Deyjandi\VivaWallet\Enums\RequestLang;
-use Deyjandi\VivaWallet\Enums\PaymentMethod;
-use Deyjandi\VivaWallet\Facades\VivaWallet;
-use Deyjandi\VivaWallet\Customer;
-use Deyjandi\VivaWallet\Payment;
-
-
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
-
-use GuzzleHttp\Client;
-use Symfony\Component\CssSelector\Parser\Shortcut\ElementParser;
-
 use App\Models\ProductVariant;
-use SebastianBergmann\Type\NullType;
+use App\Models\PaymentDetail;
 
 class WebController extends Controller
 {
@@ -127,7 +125,7 @@ class WebController extends Controller
 
         switch ($level) {
             case 'main':
-                $products = Product::where(['status' => $this->status['Active'],'category_id' => $category_detail->id])->paginate(20);
+                $products = Product::where(['status' => $this->status['Active'], 'category_id' => $category_detail->id])->paginate(20);
                 break;
             case 'sub':
                 $products = Product::where(['status' => $this->status['Active'], 'sub_category' => $category_detail->id])->paginate(20);
@@ -196,22 +194,22 @@ class WebController extends Controller
             $level = 'main';
             $category_detail = Category::where('slug', $category)->where('status', 'Active')->first();
         }
-// return $level;
-        if($category_detail){
+        // return $level;
+        if ($category_detail) {
             switch ($level) {
                 case 'main':
-                    $products = Product::where(['status' => $this->status['Active'],'category_id' => $category_detail->id])->paginate(28);
+                    $products = Product::where(['status' => $this->status['Active'], 'category_id' => $category_detail->id])->paginate(28);
                     break;
                 case 'sub':
                     $products = Product::where(['status' => $this->status['Active'], 'sub_category' => $category_detail->id])->paginate(28);
                     break;
                 case 'child':
-                    $products = Product::where(['status' => $this->status['Active'],'child_category' => $category_detail->id])->paginate(28);
+                    $products = Product::where(['status' => $this->status['Active'], 'child_category' => $category_detail->id])->paginate(28);
                     break;
                 default:
-                $products = Product::where('status', $this->status['Active'])->paginate(28);
+                    $products = Product::where('status', $this->status['Active'])->paginate(28);
             }
-    
+
             $data['products'] = $products;
             $product_template_2_ids = [];
             foreach ($products as $item) {
@@ -224,10 +222,9 @@ class WebController extends Controller
                 ->latest('id')
                 ->get();
             $data['category_detail'] = $category_detail;
-    
+
             return view('web.pages.products_list', $data);
-        }
-        else{
+        } else {
             return view('web.pages.404');
         }
     }
@@ -316,6 +313,7 @@ class WebController extends Controller
                     }
 
                     $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+                    $data['gp_locations'] = Pharmacy4uGpLocation::where('status', 'Active')->latest('id')->get()->toArray();
                     return view('web.pages.premd_genral_question', $data);
                 } else {
                     session()->put('intended_url', 'fromConsultation');
@@ -577,7 +575,7 @@ class WebController extends Controller
             $category_id = Category::where(['slug' => $category, 'status' => 'Active'])->first();
         }
 
-        if($category_id || $sub_category_id || $child_category_id){
+        if ($category_id || $sub_category_id || $child_category_id) {
             $query = Product::query()->where('status', $this->status['Active']);
             switch ($level) {
                 case 'main':
@@ -585,6 +583,7 @@ class WebController extends Controller
                     $data['categories'] = SubCategory::where(['category_id' => $data['main_category']->id, 'status' => 'Active'])->get()->toArray();
                     $data['image'] = $data['main_category']['image'];
                     $data['category_name'] = $data['main_category']['name'];
+                    $data['category_desc'] = $data['main_category']['desc'];
                     $data['main_slug'] = $data['main_category']['slug'];
                     // $data['products'] = Product::where(['category_id' => $data['main_category']->id])->paginate(21);
                     $query->where(['category_id' => $data['main_category']->id]);
@@ -596,6 +595,7 @@ class WebController extends Controller
                     $data['categories'] = ChildCategory::where(['sub_category_id' => $data['sub_category']->id, 'status' => 'Active'])->get()->toArray();
                     $data['image'] = $data['sub_category']['image'];
                     $data['category_name'] = $data['sub_category']['name'];
+                    $data['category_desc'] = $data['sub_category']['desc'];
                     $data['main_slug'] = $data['main_category']['slug'];
                     $data['sub_slug'] = $data['sub_category']['slug'];
                     // $data['products'] = Product::where(['sub_category' => $data['sub_category']->id])->paginate(21);
@@ -607,7 +607,7 @@ class WebController extends Controller
                     $data['is_product'] = true;
                     break;
                 default:
-                $products = Product::where('status', $this->status['Active'])->paginate(21);
+                    $products = Product::where('status', $this->status['Active'])->paginate(21);
             }
 
             if ($request->has('sort')) {
@@ -622,8 +622,7 @@ class WebController extends Controller
             $data['products'] = $query->paginate(21);
 
             return view('web.pages.collections', $data);
-        }
-        else{
+        } else {
             return view('web.pages.404');
         }
     }
@@ -781,21 +780,16 @@ class WebController extends Controller
                 $shiping =  ShipingDetail::create($shipping_details);
                 if ($shiping) {
                     session()->put('order_id', $order->id);
-                    $productPrice = $request->total_ammount * 100;
+                    $payable_ammount = $request->total_ammount * 100;
                     $productName = 'Medical Products';
                     $productDescription = 'Medical Products';
                     $full_name = $request->firstName . ' ' . $request->lastName;
 
-                    // Viva Wallet API credentials
-                    $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
-                    $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
-                    $credentials = base64_encode($username . ':' . $password);
-
                     // Obtain Access Token
-                    $accessToken = $this->getAccessToken($credentials);
+                    $accessToken = $this->getAccessToken();
                     // Prepare POST fields for creating an order
                     $postFields = [
-                        'amount'              => $productPrice,
+                        'amount'              => $payable_ammount,
                         'customerTrns'        => $productDescription,
                         'customer'            => [
                             'email'       => $request->email,
@@ -828,18 +822,34 @@ class WebController extends Controller
                     $responseData = json_decode($response, true);
 
                     if (isset($responseData['orderCode'])) {
+
                         $orderCode = $responseData['orderCode'];
-                        $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
-                        return response()->json(['redirectUrl' => $redirectUrl]);
+                        $payment_detials = [
+                            'order_id' => $order->id,
+                            'orderCode' => $orderCode,
+                            'amount' => $request->total_ammount
+                        ];
+
+                        $payment_init =  PaymentDetail::create($payment_detials);
+                        Order::where('id', $order->id)->update(['payment_id' => $payment_init->id]);
+                        if ($payment_init) {
+                            $redirectUrl = "https://www.vivapayments.com/web/checkout?ref={$orderCode}";
+                            return response()->json(['redirectUrl' => $redirectUrl]);
+                        }
                     }
                 }
             }
         }
     }
 
-    private function getAccessToken($credentials)
+    private function getAccessToken()
     {
         try {
+            // Viva Wallet API credentials
+            $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
+            $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
+            $credentials = base64_encode($username . ':' . $password);
+
             // Make an HTTP request to obtain an access token
             $response = Http::asForm()->withHeaders([
                 'Authorization' => 'Basic ' . $credentials,
@@ -874,10 +884,38 @@ class WebController extends Controller
         return $response->body();
     }
 
+
+    // response example  url : https://onlinepharmacy-4u.co.uk/Completed-order?t=8cbe1c22-08bf-46f7-815a-b4edf9c76c22&s=7217646205950618&lang=en-GB&eventId=0&eci=1
     public function completed_order(Request $request)
     {
-        if (session('order_id')) {
-            $order = Order::with('shipingdetails')->where(['id' => session('order_id')])->latest('created_at')->first();
+
+        $transetion_id = $request->query('t');
+        $orderCode = $request->query('s');
+        $payment_detail = PaymentDetail::where('orderCode', $orderCode)->firstOrFail();
+        if ($payment_detail) {
+            $accessToken = $this->getAccessToken();
+            $url = "https://api.vivapayments.com/checkout/v2/transactions/{$transetion_id}";
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Content-Type'  => 'application/json',
+            ])->get($url);
+
+            $responseData = json_decode($response, true);
+            $update_payment = [
+                'transactionId' => $transetion_id,
+                'fullName' => $responseData['fullName'],
+                'email' => $responseData['email'],
+                'cardNumber' => $responseData['cardNumber'],
+                'statusId' => $responseData['statusId'],
+                'insDate' => $responseData['insDate'],
+                'amount' => $responseData['amount'],
+            ];
+            $payment =   PaymentDetail::where('id', $payment_detail->id)->update($update_payment);
+
+            $payment_detail = PaymentDetail::find($payment_detail->id);
+            $order = Order::where('id', $payment_detail->order_id)->latest('created_at')->first();
+
             if ($order) {
                 $order->update(['payment_status' => 'Paid']);
                 if (Auth::check()) {
@@ -889,30 +927,106 @@ class WebController extends Controller
                     Auth::logout();
                     Auth::login($user);
                     if (Auth()->user()) {
-                        $data['name'] = $order->shipingdetails->firstName;
-                        return view('web.pages.completed_order', $data);
+                        $name = $order->shipingdetails->firstName;
+                        echo "<script>
+                            if (window.self !== window.top) {
+                                window.top.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                            } else {
+                                window.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                            }
+                        </script>";
+                        exit;
                     } else {
                         dd('Authentication failed. Please try again.');
                     }
                 } else {
                     Mail::to($order->shipingdetails->email)->send(new OrderConfirmation($order));
                     Session::flush();
-                    return view('web.pages.completed_order');
+                    $name = $order->shipingdetails->firstName;
+                    echo "<script>
+                        if (window.self !== window.top) {
+                            window.top.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                        } else {
+                            window.location.href = '" . route('thankYou', ['n' => $name]) . "';
+                        }
+                    </script>";
+                    exit;
                 }
             } else {
-                return view('web.pages.completed_order');
-                dd('contact to developer');
+                dd('Order could not developer');
             }
         } else {
-            return view('web.pages.completed_order');
-            dd('contact to developer');
+            dd('No Payment details found.');
         }
     }
 
     public function unsuccessful_order(Request $request)
     {
-        $data['user'] = auth()->user() ?? [];
-        return view('web.pages.unsuccessful_order', $data);
+        $transetion_id = $request->query('t');
+        $orderCode = $request->query('s');
+        $payment_detail = PaymentDetail::where('orderCode', $orderCode)->firstOrFail();
+        if ($payment_detail) {
+            $accessToken = $this->getAccessToken();
+            $url = "https://api.vivapayments.com/checkout/v2/transactions/{$transetion_id}";
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $accessToken,
+                'Content-Type'  => 'application/json',
+            ])->get($url);
+
+            $responseData = json_decode($response, true);
+            $update_payment = [
+                'transactionId' => $transetion_id,
+                'fullName' => $responseData['fullName'],
+                'email' => $responseData['email'],
+                'cardNumber' => $responseData['cardNumber'],
+                'statusId' => $responseData['statusId'],
+                'insDate' => $responseData['insDate'],
+                'amount' => $responseData['amount'],
+                'status' => 'Fail',
+            ];
+            $payment =   PaymentDetail::where('id', $payment_detail->id)->update($update_payment);
+
+            $payment_detail = PaymentDetail::find($payment_detail->id);
+            $order = Order::where('id', $payment_detail->order_id)->latest('created_at')->first();
+
+            if ($order) {
+                if (Auth::check()) {
+                    $user = Auth()->user() ?? [];
+                    Session::flush();
+                    Auth::logout();
+                    Auth::login($user);
+                    if (Auth()->user()) {
+                        $name = $order->shipingdetails->firstName;
+                        echo "<script>
+                            if (window.self !== window.top) {
+                                window.top.location.href = '" . route('transetionFail', ['n' => $name]) . "';
+                            } else {
+                                window.location.href = '" . route('transetionFail', ['n' => $name]) . "';
+                            }
+                        </script>";
+                        exit;
+                    } else {
+                        dd('Authentication failed. Please try again.');
+                    }
+                } else {
+                    Session::flush();
+                    $name = $order->shipingdetails->firstName;
+                    echo "<script>
+                        if (window.self !== window.top) {
+                            window.top.location.href = '" . route('transetionFail', ['n' => $name]) . "';
+                        } else {
+                            window.location.href = '" . route('transetionFail', ['n' => $name]) . "';
+                        }
+                    </script>";
+                    exit;
+                }
+            } else {
+                dd('Order could not  found.');
+            }
+        } else {
+            dd('No Payment details found.');
+        }
     }
 
     public function get_related_products($product)
@@ -931,13 +1045,13 @@ class WebController extends Controller
 
         switch ($level) {
             case 'main':
-                $products = Product::where(['status' => $this->status['Active'],'category_id' => $category])->where('id', '!=', $product->id)->latest('id')->get();
+                $products = Product::where(['status' => $this->status['Active'], 'category_id' => $category])->where('id', '!=', $product->id)->latest('id')->get();
                 break;
             case 'sub':
-                $products = Product::where(['status' => $this->status['Active'],'sub_category' => $sub_category])->where('id', '!=',  $product->id)->latest('id')->get();
+                $products = Product::where(['status' => $this->status['Active'], 'sub_category' => $sub_category])->where('id', '!=',  $product->id)->latest('id')->get();
                 break;
             case 'child':
-                $products = Product::where(['status' => $this->status['Active'],'child_category' => $child_category])->where('id', '!=', $product->id)->latest('id')->get();
+                $products = Product::where(['status' => $this->status['Active'], 'child_category' => $child_category])->where('id', '!=', $product->id)->latest('id')->get();
                 break;
             default:
                 $products = Product::where(['status' => $this->status['Active']])->get();
@@ -1106,5 +1220,21 @@ class WebController extends Controller
     public function error_404()
     {
         return view('web.pages.404');
+    }
+
+    public function thank_you(Request $request)
+    {
+        $data['user'] = auth()->user() ?? [];
+        $name = $request->query('n');
+        $data['name'] = $name ?? 'Guest';
+        return view('web.pages.completed_order', $data);
+    }
+
+    public function transetion_fail(Request $request)
+    {
+        $data['user'] = auth()->user() ?? [];
+        $name = $request->query('n');
+        $data['name'] = $name ?? 'Guest';
+        return view('web.pages.unsuccessful_order', $data);
     }
 }

@@ -80,7 +80,7 @@ class DefualtController extends Controller
                 return view('admin.pages.profile_setting', $data);
             } else if (isset($user->role) && $user->role == user_roles('4')) {
                 // return redirect('/');
-                return view('admin.pages.profile_setting', $data);
+                return view('admin.pages.user_dashboard', $data);
             }
         } else {
             return redirect('/login');

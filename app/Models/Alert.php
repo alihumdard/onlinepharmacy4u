@@ -13,6 +13,7 @@ class Alert extends Model
         'body',
         'route',
         'slug',
+        'question',
         'question_id',
         'q_category_id',
         'user_id',

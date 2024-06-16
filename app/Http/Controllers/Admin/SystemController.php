@@ -56,8 +56,8 @@ class SystemController extends Controller
 {
     protected $status;
     protected $user;
-    private   $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
-    private   $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
+    private $username = 'dkwrul3i0r4pwsgkko3nr8c4vs0h5yn5tunio398ik403.apps.vivapayments.com'; //client id
+    private $password = 'BuLY8U1pEsXNPBgaqz98y54irE7OpL'; // secrit key
 
     public function __construct()
     {
@@ -75,8 +75,8 @@ class SystemController extends Controller
             $response = Http::asForm()->withHeaders([
                 'Authorization' => 'Basic ' . $credentials,
             ])->post('https://accounts.vivapayments.com/connect/token', [
-                'grant_type' => 'client_credentials',
-            ]);
+                        'grant_type' => 'client_credentials',
+                    ]);
 
             // Check if the request was successful (status code 2xx)
             if ($response->successful()) {
@@ -142,12 +142,12 @@ class SystemController extends Controller
         }
 
         $rules = [
-            'name'     => 'required',
-            'phone'    => 'required',
-            'address'  => 'required',
-            'gender'     => 'required',
-            'role'     => 'required',
-            'email'    => [
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'gender' => 'required',
+            'role' => 'required',
+            'email' => [
                 'required',
                 'email',
                 Rule::unique('users')->ignore($request->id),
@@ -165,16 +165,16 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
 
         $updateData = [
-            'name'       => ucwords($request->name),
-            'email'      => $request->email,
-            'role'       =>  $request->role,
-            'phone'      => $request->phone,
-            'address'    => $request->address,
-            'gender'      => $request->gender,
-            'zip_code'   => $request->zip_code,
-            'city'       => $request->city,
-            'state'      => $request->state,
-            'status'     => $this->status['Active'],
+            'name' => ucwords($request->name),
+            'email' => $request->email,
+            'role' => $request->role,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'zip_code' => $request->zip_code,
+            'city' => $request->city,
+            'state' => $request->state,
+            'status' => $this->status['Active'],
             'created_by' => $user->id,
         ];
         if ($request->password) {
@@ -233,12 +233,12 @@ class SystemController extends Controller
         }
 
         $rules = [
-            'name'       => 'required',
-            'phone'      => 'required',
-            'address'    => 'required',
-            'gender'     => 'required',
-            'role'       => 'required',
-            'email'      => [
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'gender' => 'required',
+            'role' => 'required',
+            'email' => [
                 'required',
                 'email',
                 Rule::unique('users')->ignore($request->id),
@@ -257,16 +257,16 @@ class SystemController extends Controller
         $data['user'] = auth()->user();
 
         $updateData = [
-            'name'       => ucwords($request->name),
-            'email'      => $request->email,
-            'role'       => $request->role,
-            'phone'      => $request->phone,
-            'gender'      => $request->gender,
-            'address'    => $request->address,
-            'short_bio'  => $request->short_bio,
-            'zip_code'   => $request->zip_code,
-            'city'       => $request->city,
-            'status'     => $this->status['Active'],
+            'name' => ucwords($request->name),
+            'email' => $request->email,
+            'role' => $request->role,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'short_bio' => $request->short_bio,
+            'zip_code' => $request->zip_code,
+            'city' => $request->city,
+            'status' => $this->status['Active'],
             'created_by' => $user->id,
         ];
         if ($request->password) {
@@ -389,8 +389,8 @@ class SystemController extends Controller
         if ($selection == 1) {
             if ($request->change_type == 2) {
                 $validator = Validator::make($request->all(), [
-                    'publish'   => 'required',
-                    'name'     => [
+                    'publish' => 'required',
+                    'name' => [
                         'required',
                         Rule::unique('categories')->where(function ($query) {
                             return $query->where('status', '!=', 'Deleted');
@@ -399,8 +399,8 @@ class SystemController extends Controller
                 ]);
             } else {
                 $validator = Validator::make($request->all(), [
-                    'publish'   => 'required',
-                    'name'     => [
+                    'publish' => 'required',
+                    'name' => [
                         'required',
                         Rule::unique('categories')->ignore($request->id),
                     ],
@@ -409,9 +409,9 @@ class SystemController extends Controller
         } elseif ($selection == 2) {
             if ($request->change_type == 2) {
                 $validator = Validator::make($request->all(), [
-                    'publish'   => 'required',
-                    'parent_id'   => 'required',
-                    'name'     => [
+                    'publish' => 'required',
+                    'parent_id' => 'required',
+                    'name' => [
                         'required',
                         Rule::unique('sub_categories')->where(function ($query) use ($request) {
                             return $query->where('status', '!=', 'Deleted')
@@ -421,9 +421,9 @@ class SystemController extends Controller
                 ]);
             } else {
                 $validator = Validator::make($request->all(), [
-                    'publish'   => 'required',
-                    'parent_id'   => 'required',
-                    'name'     => [
+                    'publish' => 'required',
+                    'parent_id' => 'required',
+                    'name' => [
                         'required',
                         Rule::unique('sub_categories')->where(function ($query) use ($request) {
                             return $query->where('category_id', $request->parent_id);
@@ -434,21 +434,22 @@ class SystemController extends Controller
         } elseif ($selection == 3) {
             if ($request->change_type == 2) {
                 $validator = Validator::make($request->all(), [
-                    'publish'   => 'required',
-                    'parent_id'   => 'required',
-                    'name'     => [
+                    'publish' => 'required',
+                    'parent_id' => 'required',
+                    'name' => [
                         'required',
                         Rule::unique('child_categories')->where(function ($query) use ($request) {
                             return $query->where('status', '!=', 'Deleted')
-                                ->where('sub_category_id', $request->parent_id);;
+                                ->where('sub_category_id', $request->parent_id);
+                            ;
                         }),
                     ],
                 ]);
             } else {
                 $validator = Validator::make($request->all(), [
-                    'publish'   => 'required',
-                    'parent_id'   => 'required',
-                    'name'     => [
+                    'publish' => 'required',
+                    'parent_id' => 'required',
+                    'name' => [
                         'required',
                         Rule::unique('child_categories')->where(function ($query) use ($request) {
                             return $query->where('sub_category_id', $request->parent_id);
@@ -567,11 +568,11 @@ class SystemController extends Controller
                 $response = $this->delete_old_category($request->old_id, $request->old_category_type);
                 $saved = Category::create(
                     [
-                        'name'       => ucwords($request->name),
-                        'slug'       => Str::slug($request->name),
-                        'desc'       => $request->desc,
-                        'publish'    => $request->publish,
-                        'image'      => $imagePath ?? $response['old_image_path'],
+                        'name' => ucwords($request->name),
+                        'slug' => Str::slug($request->name),
+                        'desc' => $request->desc,
+                        'publish' => $request->publish,
+                        'image' => $imagePath ?? $response['old_image_path'],
                         'created_by' => $user->id,
                     ]
                 );
@@ -580,11 +581,11 @@ class SystemController extends Controller
                 $saved = Category::updateOrCreate(
                     ['id' => $request->id ?? NULL],
                     [
-                        'name'       => ucwords($request->name),
-                        'slug'       => Str::slug($request->name),
-                        'desc'       => $request->desc,
-                        'publish'    => $request->publish,
-                        'image'      => $imagePath ?? Category::findOrFail($request->id)->image,
+                        'name' => ucwords($request->name),
+                        'slug' => Str::slug($request->name),
+                        'desc' => $request->desc,
+                        'publish' => $request->publish,
+                        'image' => $imagePath ?? Category::findOrFail($request->id)->image,
                         'created_by' => $user->id,
                     ]
                 );
@@ -599,12 +600,12 @@ class SystemController extends Controller
                 $response = $this->delete_old_category($request->old_id, $request->old_category_type);
                 $saved = SubCategory::create(
                     [
-                        'name'       => ucwords($request->name),
-                        'slug'       => Str::slug($request->name),
+                        'name' => ucwords($request->name),
+                        'slug' => Str::slug($request->name),
                         'category_id' => $request->parent_id,
-                        'desc'       => $request->desc,
-                        'publish'    => $request->publish,
-                        'image'      => $imagePath ?? $response['old_image_path'],
+                        'desc' => $request->desc,
+                        'publish' => $request->publish,
+                        'image' => $imagePath ?? $response['old_image_path'],
                         'created_by' => $user->id,
                     ]
                 );
@@ -613,12 +614,12 @@ class SystemController extends Controller
                 $saved = SubCategory::updateOrCreate(
                     ['id' => $request->id ?? NULL],
                     [
-                        'name'       => ucwords($request->name),
-                        'slug'       => Str::slug($request->name),
+                        'name' => ucwords($request->name),
+                        'slug' => Str::slug($request->name),
                         'category_id' => $request->parent_id,
-                        'desc'       => $request->desc,
-                        'publish'    => $request->publish,
-                        'image'      => $imagePath ?? SubCategory::findOrFail($request->id)->image,
+                        'desc' => $request->desc,
+                        'publish' => $request->publish,
+                        'image' => $imagePath ?? SubCategory::findOrFail($request->id)->image,
                         'created_by' => $user->id,
                     ]
                 );
@@ -633,12 +634,12 @@ class SystemController extends Controller
                 $response = $this->delete_old_category($request->old_id, $request->old_category_type);
                 $saved = ChildCategory::create(
                     [
-                        'name'       => ucwords($request->name),
-                        'slug'       => Str::slug($request->name),
+                        'name' => ucwords($request->name),
+                        'slug' => Str::slug($request->name),
                         'sub_category_id' => $request->parent_id,
-                        'desc'       => $request->desc,
-                        'publish'    => $request->publish,
-                        'image'      => $imagePath ?? $response['old_image_path'],
+                        'desc' => $request->desc,
+                        'publish' => $request->publish,
+                        'image' => $imagePath ?? $response['old_image_path'],
                         'created_by' => $user->id,
                     ]
                 );
@@ -647,12 +648,12 @@ class SystemController extends Controller
                 $saved = ChildCategory::updateOrCreate(
                     ['id' => $request->id ?? NULL],
                     [
-                        'name'       => ucwords($request->name),
-                        'slug'       => Str::slug($request->name),
+                        'name' => ucwords($request->name),
+                        'slug' => Str::slug($request->name),
                         'sub_category_id' => $request->parent_id,
-                        'desc'       => $request->desc,
-                        'publish'    => $request->publish,
-                        'image'      => $imagePath ?? ChildCategory::findOrFail($request->id)->image,
+                        'desc' => $request->desc,
+                        'publish' => $request->publish,
+                        'image' => $imagePath ?? ChildCategory::findOrFail($request->id)->image,
                         'created_by' => $user->id,
                     ]
                 );
@@ -714,9 +715,9 @@ class SystemController extends Controller
         }
 
         $rules = [
-            'id'  => 'required',
-            'cat_type'  => 'required',
-            'status'  => 'required',
+            'id' => 'required',
+            'cat_type' => 'required',
+            'status' => 'required',
         ];
 
         $status = 'Success';
@@ -817,8 +818,8 @@ class SystemController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'publish'   => 'required',
-            'name'     => [
+            'publish' => 'required',
+            'name' => [
                 'required',
                 Rule::unique('question_categories')->ignore($request->id),
             ],
@@ -833,9 +834,9 @@ class SystemController extends Controller
         $saved = QuestionCategory::updateOrCreate(
             ['id' => $request->id ?? NULL],
             [
-                'name'       => ucwords($request->name),
-                'desc'       => $request->desc,
-                'publish'    => $request->publish,
+                'name' => ucwords($request->name),
+                'desc' => $request->desc,
+                'publish' => $request->publish,
                 'created_by' => $user->id,
             ]
         );
@@ -939,7 +940,7 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+        $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->orderBy('order', 'asc')->get()->toArray();
 
         return view('admin.pages.questions.p_med_gq', $data);
     }
@@ -953,7 +954,7 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+        $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->orderBy('order', 'asc')->get()->toArray();
 
         return view('admin.pages.questions.prescription_med_gq', $data);
     }
@@ -1000,7 +1001,7 @@ class SystemController extends Controller
             'is_assigned' => 'required',
             'anwser_set' => 'required',
             'category_id' => 'required',
-            'title'   => 'required',
+            'title' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -1011,19 +1012,19 @@ class SystemController extends Controller
             ['id' => $request->id ?? NULL],
             [
                 'category_id' => $request->category_id,
-                'category_title'  => QuestionCategory::findOrFail($request->category_id)->name,
-                'title'       => ucwords($request->title),
-                'desc'        => $request->desc ?? NULL,
-                'is_assigned'  => $request->is_assigned,
-                'anwser_set'  => $request->anwser_set,
-                'type'        => $request->type,
-                'yes_lable'   => ucwords($request->yes_lable) ?? NULL,
-                'no_lable'    => ucwords($request->no_lable) ?? NULL,
-                'optA'        => ucwords($request->optA) ?? NULL,
-                'optB'        => ucwords($request->optB) ?? NULL,
-                'optC'        => ucwords($request->optC) ?? NULL,
-                'optD'        => ucwords($request->optD) ?? NULL,
-                'order'       => $request->order ?? null,
+                'category_title' => QuestionCategory::findOrFail($request->category_id)->name,
+                'title' => ucwords($request->title),
+                'desc' => $request->desc ?? NULL,
+                'is_assigned' => $request->is_assigned,
+                'anwser_set' => $request->anwser_set,
+                'type' => $request->type,
+                'yes_lable' => ucwords($request->yes_lable) ?? NULL,
+                'no_lable' => ucwords($request->no_lable) ?? NULL,
+                'optA' => ucwords($request->optA) ?? NULL,
+                'optB' => ucwords($request->optB) ?? NULL,
+                'optC' => ucwords($request->optC) ?? NULL,
+                'optD' => ucwords($request->optD) ?? NULL,
+                'order' => $request->order ?? null,
                 'is_dependent' => ($request->type == 'non_dependent') ? 'no' : 'yes',
                 'created_by' => $user->id,
             ]
@@ -1046,11 +1047,11 @@ class SystemController extends Controller
                             [
                                 'type' => $value['alert_type'],
                                 'body' => $value['alert_msg'],
-                                'route'         => 'web.productQuestion',
-                                'option'        => $option,
-                                'question_id'   => $question->id,
+                                'route' => 'web.productQuestion',
+                                'option' => $option,
+                                'question_id' => $question->id,
                                 'q_category_id' => $question->category_id,
-                                'created_by'    => $user->id
+                                'created_by' => $user->id
                             ]
                         );
                         if ($alert->id) {
@@ -1064,11 +1065,11 @@ class SystemController extends Controller
                                 [
                                     'question_id' => $question->id,
                                     'category_id' => $question->category_id,
-                                    'answer'      => $option,
-                                    'next_type'   => 'alert',
-                                    'selector'    => $alert->id,
-                                    'status'      => 1,
-                                    'created_by'  => $user->id
+                                    'answer' => $option,
+                                    'next_type' => 'alert',
+                                    'selector' => $alert->id,
+                                    'status' => 1,
+                                    'created_by' => $user->id
                                 ]
                             );
                         } else {
@@ -1085,11 +1086,11 @@ class SystemController extends Controller
                             [
                                 'question_id' => $question->id,
                                 'category_id' => $question->category_id,
-                                'answer'      => $option,
-                                'next_type'   => 'question',
-                                'selector'    => $selector,
-                                'status'      => 1,
-                                'created_by'  => $user->id
+                                'answer' => $option,
+                                'next_type' => 'question',
+                                'selector' => $selector,
+                                'status' => 1,
+                                'created_by' => $user->id
                             ]
                         );
                     } else if ($value['next_type'] == 'nothing') {
@@ -1102,11 +1103,11 @@ class SystemController extends Controller
                             [
                                 'question_id' => $question->id,
                                 'category_id' => $question->category_id,
-                                'answer'      => $option,
-                                'next_type'   => 'nothing',
-                                'selector'    => $selector,
-                                'status'      => 1,
-                                'created_by'  => $user->id
+                                'answer' => $option,
+                                'next_type' => 'nothing',
+                                'selector' => $selector,
+                                'status' => 1,
+                                'created_by' => $user->id
                             ]
                         );
                     }
@@ -1128,9 +1129,9 @@ class SystemController extends Controller
 
         $validator = Validator::make($request->all(), [
             'product_id' => 'required',
-            'title'      => 'required',
-            'order'      => 'required',
-            'desc'       => 'required',
+            'title' => 'required',
+            'order' => 'required',
+            'desc' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -1141,9 +1142,9 @@ class SystemController extends Controller
             [
                 'product_id' => $request->product_id,
                 'product_title' => Product::findOrFail($request->product_id)->title,
-                'order'      => $request->order,
-                'title'      => ucwords($request->title),
-                'desc'       => $request->desc ?? NULL,
+                'order' => $request->order,
+                'title' => ucwords($request->title),
+                'desc' => $request->desc ?? NULL,
                 'created_by' => $user->id,
             ]
         );
@@ -1162,9 +1163,9 @@ class SystemController extends Controller
         }
 
         $rules = [
-            'id'  => 'required',
-            'q_type'  => 'required',
-            'status'  => 'required',
+            'id' => 'required',
+            'q_type' => 'required',
+            'status' => 'required',
         ];
 
         $status = 'Success';
@@ -1243,7 +1244,7 @@ class SystemController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'category_id'   => 'required',
+            'category_id' => 'required',
             'question_id.*' => 'required',
         ]);
 
@@ -1261,10 +1262,10 @@ class SystemController extends Controller
             AssignQuestion::create([
                 'category_id' => $request->category_id,
                 'category_title' => Category::findOrFail($request->category_id)->name,
-                'question_id'    => $questionId,
+                'question_id' => $questionId,
                 'question_title' => Question::findOrFail($questionId)->title,
-                'status'      => $this->status['Active'],
-                'created_by'  => $user->id,
+                'status' => $this->status['Active'],
+                'created_by' => $user->id,
             ]);
         }
 
@@ -1284,7 +1285,7 @@ class SystemController extends Controller
         // }
 
         $validator = Validator::make($request->all(), [
-            'category_id'   => 'required',
+            'category_id' => 'required',
             'question_id.*' => 'required',
         ]);
 
@@ -1308,10 +1309,10 @@ class SystemController extends Controller
                     [
                         'category_id' => $request->category_id,
                         'question_id' => $request->question_id,
-                        'answer'      => $option,
+                        'answer' => $option,
                         'next_question' => $value,
-                        'status'      => 1,
-                        'created_by'  => $user->id
+                        'status' => 1,
+                        'created_by' => $user->id
                     ]
                 );
             }
@@ -1386,9 +1387,9 @@ class SystemController extends Controller
             $order = Order::with('user', 'shipingdetails', 'orderdetails', 'orderdetails.product')->where(['id' => $id, 'payment_status' => 'Paid'])->first();
             if ($order) {
                 $data['userOrders'] = Order::select('id')->where('email', $order->email)->where('payment_status', 'Paid')->where('id', '!=', $order->id)->get()->toArray() ?? [];
-                $data['order']  = $order->toArray() ?? [];
+                $data['order'] = $order->toArray() ?? [];
                 if ($order->approved_by) {
-                    $data['marked_by']  = User::findOrFail($order->approved_by) ?? [];
+                    $data['marked_by'] = User::findOrFail($order->approved_by) ?? [];
                 }
                 // dd($data);
                 return view('admin.pages.order_detail', $data);
@@ -1411,7 +1412,7 @@ class SystemController extends Controller
             $odd_id = base64_decode($request->odd_id);
             $user_result = [];
             $prod_result = [];
-            $consultaion  = OrderDetail::where(['id' => $odd_id, 'status' => '1'])->latest('created_at')->latest('id')->first();
+            $consultaion = OrderDetail::where(['id' => $odd_id, 'status' => '1'])->latest('created_at')->latest('id')->first();
             if ($consultaion) {
                 $consutl_quest_ans = json_decode($consultaion->generic_consultation, true);
                 $consult_quest_keys = array_keys(array_filter($consutl_quest_ans, function ($value) {
@@ -1455,8 +1456,8 @@ class SystemController extends Controller
                         ];
                     }
                 }
-                $data['order_user_detail'] =  ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
-                $data['user_profile_details'] =  (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [];
+                $data['order_user_detail'] = ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
+                $data['user_profile_details'] = (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [];
                 $data['generic_consultation'] = $user_result;
                 $data['product_consultation'] = $prod_result ?? [];
                 return view('admin.pages.consultation_view', $data);
@@ -1495,7 +1496,8 @@ class SystemController extends Controller
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
-            $data['orders'] = $this->assign_order_types($orders);;
+            $data['orders'] = $this->assign_order_types($orders);
+            ;
         }
 
         return view('admin.pages.orders_created', $data);
@@ -1575,7 +1577,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName,address','orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName,address', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Approved', 'Shipped'])->latest('created_at')->get()->toArray();
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $this->assign_order_types($orders);
@@ -1591,7 +1593,7 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with('user', 'shipingdetails','orderdetails:id,order_id,consultation_type')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
+        $orders = Order::with('user', 'shipingdetails', 'orderdetails:id,order_id,consultation_type')->where(['payment_status' => 'Paid', 'status' => 'Shipped'])->latest('created_at')->get()->toArray();
         $data['filters'] = [];
         if ($orders) {
             $combined = array_map(function ($order) {
@@ -1641,26 +1643,26 @@ class SystemController extends Controller
 
         dd($request->all());
         $validator = Validator::make($request->all(), [
-            'firstName'         => 'required',
-            'lastName'          => 'required',
-            'email'             => 'required',
-            'phone'             => 'required',
-            'address'           => 'required',
-            'city'              => 'required',
-            'zip_code'          => 'required',
-            'shiping_cost'      => 'required',
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'zip_code' => 'required',
+            'shiping_cost' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $order =  Order::create([
-            'user_id'        => $request->user_id ?? 'guest',
-            'email'          => $request->email,
-            'note'           => $request->note,
-            'shiping_cost'   => $request->shiping_cost,
-            'coupon_code'    => $request->coupon_code ?? Null,
-            'coupon_value'   => $request->coupon_value ?? Null,
-            'total_ammount'  => $request->total_ammount ?? Null,
+        $order = Order::create([
+            'user_id' => $request->user_id ?? 'guest',
+            'email' => $request->email,
+            'note' => $request->note,
+            'shiping_cost' => $request->shiping_cost,
+            'coupon_code' => $request->coupon_code ?? Null,
+            'coupon_value' => $request->coupon_value ?? Null,
+            'total_ammount' => $request->total_ammount ?? Null,
         ]);
         // dd($order);
         if ($order) {
@@ -1718,18 +1720,21 @@ class SystemController extends Controller
             $source_code = 1503;
             $credentials = base64_encode($this->username . ':' . $this->password);
             $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://www.vivapayments.com/api/transactions/{$transetion_id}/?amount={$ammount}&sourceCode={$source_code}",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'DELETE',
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Basic ' . $credentials
-                ),
-            ));
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => "https://www.vivapayments.com/api/transactions/{$transetion_id}/?amount={$ammount}&sourceCode={$source_code}",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'DELETE',
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Basic ' . $credentials
+                    ),
+                )
+            );
 
             $response = curl_exec($curl);
             curl_close($curl);
@@ -1819,7 +1824,7 @@ class SystemController extends Controller
                             $shipped[] = shippedOrder::create([
                                 'user_id' => $order['user']['id'] ?? 'Guest',
                                 'order_id' => $order['id'],
-                                'order_identifier' => $val['orderIdentifier']  ?? NULL,
+                                'order_identifier' => $val['orderIdentifier'] ?? NULL,
                                 'order_date' => $val['orderDate'] ?? NULL,
                                 'cost' => $order['shiping_cost'],
                                 'errors' => json_encode($val['errors'] ?? []),
@@ -1935,7 +1940,7 @@ class SystemController extends Controller
                             "countryCode" => "GB"
                         ],
                         "phoneNumber" => $order['shipingdetails']['phone'] ?? $order['user']['phone'],
-                        "emailAddress" => $order['shipingdetails']['email']  ?? $order['user']['email'],
+                        "emailAddress" => $order['shipingdetails']['email'] ?? $order['user']['email'],
                         "addressBookReference" => null
                     ],
                     "sender" => [
@@ -1956,7 +1961,7 @@ class SystemController extends Controller
                             "countryCode" => "GB"
                         ],
                         "phoneNumber" => $order['shipingdetails']['phone'] ?? $order['user']['phone'],
-                        "emailAddress" => $order['shipingdetails']['email']  ?? $order['user']['email']
+                        "emailAddress" => $order['shipingdetails']['email'] ?? $order['user']['email']
                     ],
                     "packages" => [
                         [
@@ -2005,7 +2010,7 @@ class SystemController extends Controller
                 ]
             ]
         ];
-        return  $payload;
+        return $payload;
     }
     private function get_prev_orders($orders)
     {
@@ -2053,13 +2058,14 @@ class SystemController extends Controller
         try {
 
             $comment = new Comment();
-            $comment->comment_for    = 'Orders';
+            $comment->comment_for = 'Orders';
             $comment->comment_for_id = $request->comment_for_id;
-            $comment->user_id        = Auth::user()->id;
-            $comment->user_name  = Auth::user()->name;
-            $comment->user_pic   = (Auth::user()->user_pic) ? asset('storage/' . Auth::user()->user_pic) : asset('assets/admin/img/profile-img1.png');
-            $comment->comment    = $request->comment;
-            $comment->created_by = Auth::id();;
+            $comment->user_id = Auth::user()->id;
+            $comment->user_name = Auth::user()->name;
+            $comment->user_pic = (Auth::user()->user_pic) ? asset('storage/' . Auth::user()->user_pic) : asset('assets/admin/img/profile-img1.png');
+            $comment->comment = $request->comment;
+            $comment->created_by = Auth::id();
+            ;
             $save = $comment->save();
 
             $message = 'Comment added successfully';
@@ -2088,7 +2094,7 @@ class SystemController extends Controller
         }
 
         $updateData = [
-            'note'       => $request->note,
+            'note' => $request->note,
             'updated_by' => $data['user']->id,
         ];
 
@@ -2152,5 +2158,319 @@ class SystemController extends Controller
         }
 
         return view('admin.pages.questions.gp_locations', $data);
+    }
+
+
+
+
+
+
+    //  added new functions for PMed questionssss
+
+    public function Add_PMedQuestion(request $request)
+    {
+
+
+        $user = auth()->user();
+        $page_name = 'add_question';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        if ($request->has('id')) {
+            $data['question'] = PMedGeneralQuestion::findOrFail($request->id)->toArray();
+        }
+        return view('admin.pages.questions.Create_p_med_question', $data);
+    }
+
+
+    public function get_PMeddp_questions(Request $request)
+    {
+
+        $result['dp_qstn'] = PMedGeneralQuestion::select('id', 'title')
+            ->where(['is_dependent' => 'yes', 'status' => 'Active'])
+            ->orderBy('id')
+            ->pluck('title', 'id')
+            ->toArray();
+        if ($result['dp_qstn']) {
+            return response()->json(['status' => 'success', 'result' => $result]);
+        } else {
+            return response()->json(['status' => 'empty', 'result' => []]);
+        }
+    }
+
+
+    public function create_PMedQuestion(Request $request)
+    {
+
+        $user = auth()->user();
+        $page_name = 'add_question';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $validator = Validator::make($request->all(), [
+            'is_assigned' => 'required',
+            'anwser_set' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data['user'] = auth()->user();
+        $question = PMedGeneralQuestion::updateOrCreate(
+            ['id' => $request->id ?? NULL],
+            [
+                'title' => ucwords($request->title),
+                'desc' => $request->desc ?? NULL,
+                'is_assigned' => $request->is_assigned,
+                'anwser_set' => $request->anwser_set,
+                'type' => $request->type,
+                'yes_lable' => ucwords($request->yes_lable) ?? NULL,
+                'no_lable' => ucwords($request->no_lable) ?? NULL,
+                'optA' => ucwords($request->optA) ?? NULL,
+                'optB' => ucwords($request->optB) ?? NULL,
+                'optC' => ucwords($request->optC) ?? NULL,
+                'optD' => ucwords($request->optD) ?? NULL,
+                'order' => $request->order ?? null,
+                'is_dependent' => ($request->type == 'non_dependent') ? 'no' : 'yes',
+                'created_by' => $user->id,
+            ]
+        );
+
+
+        if ($question->id) {
+
+            if ($question->is_assigned == 'yes') {
+                $options = ['optA', 'optB', 'optC', 'optD', 'optY', 'optN', 'openBox', 'file'];
+                // dd($request->next_quest);
+                foreach ($options as $option) {
+
+                    $value = $request->next_quest[$option];
+                    $selector = 'nothing';
+                    if ($value['next_type'] == 'alert') {
+                        $alert = Alert::updateOrCreate(
+                            [
+                                'type' => $value['alert_type'],
+                                'body' => $value['alert_msg'],
+                                'route' => 'web.productQuestion',
+                                'option' => $option,
+                                'question_id' => $question->id,
+                                'question' => 'PMedGeneralQuestion',
+                                'created_by' => $user->id
+                            ]
+                        );
+
+
+
+                        if ($alert->id) {
+
+                            $selector = $alert->id;
+
+
+                            $mapped = QuestionMapping::updateOrCreate(
+                                [
+
+                                    'question_id' => $question->id,
+                                    'category_id' => '0',
+                                    'answer' => $option,
+                                    'next_type' => 'alert',
+                                    'selector' => $alert->id,
+                                    'status' => 1,
+                                    'created_by' => $user->id
+                                ]
+                            );
+                        } else {
+                            dd('alert is not saved');
+                        }
+                    }
+
+                    if ($value['next_type'] == 'question') {
+                        $selector = $value['question'];
+                        $mapped = QuestionMapping::updateOrCreate(
+                            [
+                                'question_id' => $question->id,
+                                'category_id' => '0',
+                                'answer' => $option,
+                                'next_type' => 'question',
+                                'selector' => $selector,
+                                'status' => 1,
+                                'created_by' => $user->id
+                            ]
+                        );
+                    }
+
+
+                    if ($value['next_type'] == 'nothing') {
+                        $mapped = QuestionMapping::updateOrCreate(
+                            [
+                                'question_id' => $question->id,
+                                'category_id' => '0',
+                                'answer' => $option,
+                                'next_type' => 'nothing',
+                                'selector' => $selector,
+                                'status' => 1,
+                                'created_by' => $user->id
+                            ]
+                        );
+
+                        // dd($mapped);
+                    }
+                }
+            }
+
+            $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            return redirect()->route('admin.pMedGQ')->with(['msg' => $message]);
+        }
+
+
+        return redirect()->route('admin.pMedGQ');
+    }
+
+    public function updateOrder(Request $request)
+    {
+        $order = $request->input('order');
+        // dd( $order);
+
+        foreach ($order as $index => $id) {
+            $question = PMedGeneralQuestion::find($id);
+            if ($question) {
+                $question->order = $index + 1;
+                $question->save();
+            }
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+    public function deletePMedQuestion(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:p_med_general_questions,id',
+        ]);
+
+        // dd($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $question = PMedGeneralQuestion::find($request->id);
+
+        if (!$question) {
+            return redirect()->back()->with('error', 'Question not found');
+        }
+
+        $question->delete();
+
+        return redirect()->route('admin.pMedGQ')->with('success', 'Question deleted successfully');
+    }
+
+
+    public function Add_PrescriptionMedQuestion(Request $request)
+    {
+
+        $user = auth()->user();
+        $page_name = 'add_question';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        if ($request->has('id')) {
+            $data['question'] = PrescriptionMedGeneralQuestion::findOrFail($request->id)->toArray();
+        }
+
+        return view('admin.pages.questions.Create_prescription_med_question', $data);
+    }
+
+    public function get_PrescriptionMeddp_questions(Request $request)
+    {
+
+        $result['dp_qstn'] = PrescriptionMedGeneralQuestion::select('id', 'title')
+            ->where(['is_dependent' => 'yes', 'status' => 'Active'])
+            ->orderBy('id')
+            ->pluck('title', 'id')
+            ->toArray();
+        if ($result['dp_qstn']) {
+            return response()->json(['status' => 'success', 'result' => $result]);
+        } else {
+            return response()->json(['status' => 'empty', 'result' => []]);
+        }
+    }
+
+
+    public function create_PrescriptionMedQuestion(Request $request)
+    {
+
+        $user = auth()->user();
+        $page_name = 'add_question';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $validator = Validator::make($request->all(), [
+            'is_assigned' => 'required',
+            'anwser_set' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data['user'] = auth()->user();
+        $question = PrescriptionMedGeneralQuestion::updateOrCreate(
+            ['id' => $request->id ?? NULL],
+            [
+                'title' => ucwords($request->title),
+                'desc' => $request->desc ?? NULL,
+                'is_assigned' => $request->is_assigned,
+                'anwser_set' => $request->anwser_set,
+                'type' => $request->type,
+                'yes_lable' => ucwords($request->yes_lable) ?? NULL,
+                'no_lable' => ucwords($request->no_lable) ?? NULL,
+                'optA' => ucwords($request->optA) ?? NULL,
+                'optB' => ucwords($request->optB) ?? NULL,
+                'optC' => ucwords($request->optC) ?? NULL,
+                'optD' => ucwords($request->optD) ?? NULL,
+                'order' => $request->order ?? null,
+                'is_dependent' => ($request->type == 'non_dependent') ? 'no' : 'yes',
+                'created_by' => $user->id,
+            ]
+        );
+        return redirect()->route('admin.prescriptionMedGQ');
+    }
+
+    public function updatePrescriptionQuestionOrder(Request $request)
+    {
+        $order = $request->input('order');
+        // dd( $order);
+
+        foreach ($order as $index => $id) {
+            $question = PrescriptionMedGeneralQuestion::find($id);
+            if ($question) {
+                $question->order = $index + 1;
+                $question->save();
+            }
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+
+
+    public function deletePrescriptionMedQuestion(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:prescription_med_general_questions,id',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $question = PrescriptionMedGeneralQuestion::find($request->id);
+
+        if (!$question) {
+            return redirect()->back()->with('error', 'Question not found');
+        }
+
+        $question->delete();
+
+        return redirect()->route('admin.prescriptionMedGQ')->with('success', 'Question deleted successfully');
     }
 }

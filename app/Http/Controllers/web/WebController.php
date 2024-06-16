@@ -302,6 +302,9 @@ class WebController extends Controller
         $data['product_id'] = $request->product_id ?? session('product_id');
         if ($data['template'] == config('constants.PHARMACY_MEDECINE')) {
             $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+
+            // dd($data['questions']);
+            
             return view('web.pages.pmd_genral_question', $data);
         } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
             if (auth()->user()) {
@@ -316,6 +319,7 @@ class WebController extends Controller
                     }
 
                     $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+                    // dd($data['questions']);
                     $data['gp_locations'] = Pharmacy4uGpLocation::where('status', 'Active')->latest('id')->get()->toArray();
                     return view('web.pages.premd_genral_question', $data);
                 } else {

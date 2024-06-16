@@ -46,7 +46,7 @@
                                     <button type="button" class="btn btn-lg noButton">No</button>
                                 </div>
                                 <div class="d-flex flex-column align-items-center d-none shahroz">
-                                    <p class="m-2">Please enter the name of your GP practice.</p>
+                                    <p class="m-2">Please enter the name of your GP practice....</p>
                                     <textarea class="form-control" name="textarea" rows="5"></textarea>
                                     <p class="mt-2 mb-2">Can't find your GP practice? <button class="text-white p-2"
                                             style=" border-radius: 5px;">Enter address manually</button></p>

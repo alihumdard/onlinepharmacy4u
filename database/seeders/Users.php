@@ -56,7 +56,7 @@ class Users extends Seeder
             'created_by'   => '2'
         ]);
 
-        // Create a Doctor 
+        // Create a Doctor
         User::factory()->create([
             'name'         => 'Doctor',
             'email'        => 'doctor@gmail.com',

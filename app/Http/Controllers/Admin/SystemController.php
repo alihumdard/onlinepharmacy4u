@@ -98,7 +98,7 @@ class SystemController extends Controller
         // return view('admin.pages.dashboard');
     }
 
-    // system roles .... Super Admin, Dispensary, Doctor,User, 
+    // system roles .... Super Admin, Dispensary, Doctor,User,
     public function admins(Request $request)
     {
         $user = auth()->user();
@@ -1388,6 +1388,7 @@ class SystemController extends Controller
             if ($order) {
                 $data['userOrders'] = Order::select('id')->where('email', $order->email)->where('payment_status', 'Paid')->where('id', '!=', $order->id)->get()->toArray() ?? [];
                 $data['order'] = $order->toArray() ?? [];
+
                 if ($order->approved_by) {
                     $data['marked_by'] = User::findOrFail($order->approved_by) ?? [];
                 }
@@ -1479,6 +1480,10 @@ class SystemController extends Controller
             return redirect()->back();
         }
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        // $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])
+        // ->orwhere(['payment_status' => 'Unpaid', 'status' => 'Dublicate'])
+        // ->latest('created_at')->get()->toArray();
+
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $this->assign_order_types($orders);
@@ -1493,14 +1498,99 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Unpaid', 'status' => 'Created'])->latest('created_at')->get()->toArray();
+
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $this->assign_order_types($orders);
-            ;
+
         }
 
         return view('admin.pages.orders_created', $data);
+    }
+
+    public function duplicate_Order(Request $request)
+    {
+        $orderId = $request->input('order_id');
+
+        // Retrieve the existing order with its shipping details and order details
+        $existingOrder = Order::with(['shipingdetails', 'orderdetails'])->find($orderId);
+
+        if (!$existingOrder) {
+            return redirect()->back()->with(['error' => 'Order not found.']);
+        }
+
+        try {
+            // Create a new order record
+            $newOrder = Order::create([
+                'user_id' => $existingOrder->user_id,
+                'email' => $existingOrder->email,
+                'note' => $existingOrder->note,
+                'shiping_cost' => $existingOrder->shiping_cost,
+                'coupon_code' => $existingOrder->coupon_code,
+                'coupon_value' => $existingOrder->coupon_value,
+                'total_ammount' => $existingOrder->total_ammount,
+                'status' => 'Duplicate', // Update status as needed
+            ]);
+
+            if (!$newOrder) {
+                throw new \Exception('Failed to duplicate order.');
+            }
+
+            // Create new shipping details for the duplicated order
+            $newShippingDetail = ShipingDetail::create([
+                'order_id' => $newOrder->id,
+                'user_id' => $existingOrder->user_id,
+                'firstName' => $existingOrder->shipingdetails->firstName,
+                'lastName' => $existingOrder->shipingdetails->lastName,
+                'email' => $existingOrder->email,
+                'phone' => $existingOrder->shipingdetails->phone,
+                'address' => $existingOrder->shipingdetails->address,
+                'address2' => $existingOrder->shipingdetails->address2,
+                'city' => $existingOrder->shipingdetails->city,
+                'zip_code' => $existingOrder->shipingdetails->zip_code,
+                'method' => $existingOrder->shipingdetails->method,
+                'cost' => $existingOrder->shipingdetails->cost,
+                'state' => $existingOrder->shipingdetails->state,
+                'status' => 'Created', // Assuming status should be reset to Created
+                'created_by' => auth()->id(),
+                'updated_by' => auth()->id(),
+            ]);
+
+            if (!$newShippingDetail) {
+                throw new \Exception('Failed to duplicate shipping details.');
+            }
+
+            // Duplicate each order detail associated with the existing order
+            foreach ($existingOrder->orderdetails as $orderDetail) {
+                $newOrderDetail = OrderDetail::create([
+                    'order_id' => $newOrder->id,
+                    'product_id' => $orderDetail->product_id,
+                    'variant_id' => $orderDetail->variant_id,
+                    'weight' => $orderDetail->weight,
+                    'product_name' => $orderDetail->product_name,
+                    'variant_details' => $orderDetail->variant_details,
+                    'product_qty' => $orderDetail->product_qty,
+                    'product_price' => $orderDetail->product_price,
+                    'generic_consultation' => $orderDetail->generic_consultation,
+                    'product_consultation' => $orderDetail->product_consultation,
+                    'consultation_type' => $orderDetail->consultation_type,
+                    'status' => 'Duplicate', // Update status as needed
+                    'created_by' => auth()->id(),
+                ]);
+
+                if (!$newOrderDetail) {
+                    throw new \Exception('Failed to duplicate order detail.');
+                }
+            }
+
+            // Redirect back with success message
+            $message = "Order and Shipping Details Duplicated Successfully";
+            return redirect()->route('admin.ordersReceived')->with(['msg' => $message]);
+        } catch (\Exception $e) {
+            // Handle exceptions and errors
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     public function orders_refunded()
@@ -1618,7 +1708,10 @@ class SystemController extends Controller
 
     public function add_order(Request $request)
     {
+
         $data['user'] = auth()->user();
+
+        // dd($data['user'] );
         $page_name = 'orders_created';
         if (!view_permission($page_name)) {
             return redirect()->back();
@@ -1635,13 +1728,15 @@ class SystemController extends Controller
 
     public function store_order(Request $request)
     {
+
+        // dd($request->all());
         $user = auth()->user();
         $page_name = 'orders_created';
+
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
 
-        dd($request->all());
         $validator = Validator::make($request->all(), [
             'firstName' => 'required',
             'lastName' => 'required',
@@ -1652,25 +1747,66 @@ class SystemController extends Controller
             'zip_code' => 'required',
             'shiping_cost' => 'required',
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $shippingCost = $request->shiping_cost;
+
+        // Determine the shipping method based on the shipping cost
+        if ($shippingCost == 3.95) {
+            $shippingMethod = 'fast';
+        } elseif ($shippingCost == 4.95) {
+            $shippingMethod = 'express';
+        } else {
+            // Handle unexpected values or errors
+            $shippingMethod = 'Default Method'; // Example fallback
         }
         $order = Order::create([
             'user_id' => $request->user_id ?? 'guest',
             'email' => $request->email,
             'note' => $request->note,
-            'shiping_cost' => $request->shiping_cost,
-            'coupon_code' => $request->coupon_code ?? Null,
-            'coupon_value' => $request->coupon_value ?? Null,
-            'total_ammount' => $request->total_ammount ?? Null,
+            'shiping_cost' => $shippingMethod,
+            'coupon_code' => $request->coupon_code ?? null,
+            'coupon_value' => $request->coupon_value ?? null,
+            'total_ammount' => $request->total_amount ?? null,
+            'status' => 'Created',
         ]);
+
         // dd($order);
         if ($order) {
+            // Store shipping details
+            $shippingDetail = ShipingDetail::create([
+                'order_id' => $order->id,
+                'user_id' => $request->user_id ?? 'guest',
+                'firstName' => $request->firstName,
+                'lastName' => $request->lastName,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'address2' => $request->address2 ?? null,
+                'city' => $request->city,
+                'zip_code' => $request->zip_code,
+                'method' => $shippingMethod,
+                'cost' => $request->shiping_cost,
+                'state' => $request->state ?? null,
+                'status' => 'Created',
+                'created_by' => auth()->id(),
+                'updated_by' => auth()->id(),
+            ]);
 
-            $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
-            return redirect()->route('admin.questions')->with(['msg' => $message]);
+            // dd($shippingDetail);
+            if ($shippingDetail) {
+                $message = "Order and Shipping Details Saved Successfully";
+                return redirect()->route('admin.ordersCreated')->with(['msg' => $message]);
+            }
+
         }
+
+        // Handle error case
+        return redirect()->back()->with(['error' => 'Failed to save order and shipping details']);
     }
+
     public function change_status(Request $request)
     {
         $data['user'] = auth()->user();

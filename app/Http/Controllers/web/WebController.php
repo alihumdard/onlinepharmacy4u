@@ -302,6 +302,9 @@ class WebController extends Controller
         $data['product_id'] = $request->product_id ?? session('product_id');
         if ($data['template'] == config('constants.PHARMACY_MEDECINE')) {
             $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+
+            // dd($data['questions']);
+
             return view('web.pages.pmd_genral_question', $data);
         } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
             if (auth()->user()) {
@@ -316,6 +319,7 @@ class WebController extends Controller
                     }
 
                     $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
+                    // dd($data['questions']);
                     $data['gp_locations'] = Pharmacy4uGpLocation::where('status', 'Active')->latest('id')->get()->toArray();
                     return view('web.pages.premd_genral_question', $data);
                 } else {
@@ -784,8 +788,8 @@ class WebController extends Controller
                 if ($shiping) {
                     session()->put('order_id', $order->id);
                     $payable_ammount = $request->total_ammount * 100;
-                    $productName = 'Medical Products';
-                    $productDescription = 'Medical Products';
+                    $productName = 'Pharmacy 4U';
+                    $productDescription = 'Pharmacy 4U';
                     $full_name = $request->firstName . ' ' . $request->lastName;
 
                     // Obtain Access Token
@@ -901,12 +905,12 @@ class WebController extends Controller
             if($this->ENV == 'Live'){
                 $accessToken = $this->getAccessToken();
                 $url = "https://api.vivapayments.com/checkout/v2/transactions/{$transetion_id}";
-    
+
                 $response = Http::withHeaders([
                     'Authorization' => 'Bearer ' . $accessToken,
                     'Content-Type'  => 'application/json',
                 ])->get($url);
-    
+
                 $responseData = json_decode($response, true);
                 $update_payment = [
                     'transactionId' => $transetion_id,
@@ -916,7 +920,7 @@ class WebController extends Controller
                     'statusId' => $responseData['statusId'],
                     'insDate' => $responseData['insDate'],
                     'amount' => $responseData['amount'],
-                ]; 
+                ];
             }else{
                 $update_payment = [
                     'transactionId' => $transetion_id,

@@ -1,6 +1,13 @@
 @extends('admin.layouts.default')
 @section('title', 'Dashboard')
 @section('content')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    {{-- css added --}}
+    <link rel="stylesheet" href="{{ asset('/assets/admin/dist/css/dashstyle.css') }}">
+    <link href="{{ asset('/assets/admin/dist/css/bootstrap-extended.css') }}" rel="stylesheet">
     <style>
         .displaynone {
             display: none;
@@ -150,261 +157,17 @@
 @stop
 
 @pushOnce('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctxTotalSales = document.getElementById('totalSalesGraph').getContext('2d');
-        const ctxSalesByChannel = document.getElementById('salesByChannelGraph').getContext('2d');
-        const ctxTotalOrders = document.getElementById('totalOrdersGraph').getContext('2d');
-        const ctxAvgOrderValue = document.getElementById('avgOrderValueGraph').getContext('2d');
-
-        const dailyDataTotalSales = [10, 250, 50, 300, 150, 500, 305];
-        const weeklyDataTotalSales = [100, 350, 200, 150, 500, 250, 450];
-
-        const dailyDataPreviousTotalSales = [15, 150, 100, 250, 100, 400, 200];
-        const weeklyDataPreviousTotalSales = [90, 500, 250, 360, 650, 400, 630];
-
-
-        const dailyDataSalesByChannel = [50, 70, 90];
-        const weeklyDataSalesByChannel = [500, 300, 200];
-
-        const dailyDataTotalOrders = [150, 100, 250, 150, 250, 150, 250];
-        const weeklyDataTotalOrders = [350, 700, 450, 650, 500, 650, 750];
-
-        const dailyDataPreviousTotalOrders = [100, 300, 150, 350, 250, 400, 150];
-        const weeklyDataPreviousTotalOrders = [500, 700, 600, 400, 750, 450, 500];
-
-        const dailyDataAvgOrderValue = [200, 300, 250, 300, 250, 300, 250];
-        const weeklyDataAvgOrderValue = [500, 700, 600, 400, 750, 450, 500];
-
-
-        const dailyDataPreviousAvgOrderValue = [150, 250, 200, 250, 200, 250, 200];
-        const weeklyDataPreviousAvgOrderValue = [300, 900, 450, 300, 800, 250, 500];
-
-
-
-        const labelsDaily = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        const labelsWeekly = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'];
-
-
-        const totalSalesGraph = new Chart(ctxTotalSales, {
-            type: 'line',
-            data: {
-                labels: labelsDaily,
-                datasets: [{
-                    label: 'Sales',
-                    data: dailyDataTotalSales,
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0
-                }, {
-                    label: 'Previous Sales',
-                    data: dailyDataPreviousTotalSales,
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    borderDash: [5, 5],
-                    fill: false,
-                    pointRadius: 0
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value;
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const salesByChannelGraph = new Chart(ctxSalesByChannel, {
-            type: 'bar',
-            data: {
-                labels: ['Online', 'In-store', 'Mail-order'],
-                datasets: [{
-                    label: 'Sales by channel',
-                    data: dailyDataSalesByChannel,
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value;
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const totalOrdersGraph = new Chart(ctxTotalOrders, {
-            type: 'line',
-            data: {
-                labels: labelsDaily,
-                datasets: [{
-                    label: 'Total Orders',
-                    data: dailyDataTotalOrders,
-                    borderColor: 'green',
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0
-                }, {
-                    label: 'Previous Total Orders',
-                    data: dailyDataPreviousTotalOrders, // Assuming you have data for previous total orders
-                    borderColor: 'orange', // Adjust color as needed
-                    borderWidth: 1,
-                    borderDash: [5, 5], // Optional: Dashed line for previous data
-                    fill: false,
-                    pointRadius: 0
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value;
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const avgOrderValueGraph = new Chart(ctxAvgOrderValue, {
-            type: 'line',
-            data: {
-                labels: labelsDaily,
-                datasets: [{
-                        label: 'Average Order Value',
-                        data: dailyDataAvgOrderValue,
-                        borderColor: 'red',
-                        borderWidth: 1,
-                        fill: false,
-                        pointRadius: 0
-                    },
-                    {
-                        label: 'Previous Average Order Value',
-                        data: dailyDataPreviousAvgOrderValue, // Assuming you have data for previous average order value
-                        borderColor: 'orange', // Adjust color as needed
-                        borderWidth: 1,
-                        borderDash: [5, 5], // Optional: Dashed line for previous data
-                        fill: false,
-                        pointRadius: 0
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value;
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const dailyButton = document.getElementById('dailyButton');
-        const weeklyButton = document.getElementById('weeklyButton');
-
-        dailyButton.addEventListener('click', function() {
-            updateCharts(labelsDaily, dailyDataTotalSales, dailyDataSalesByChannel, dailyDataTotalOrders,
-                dailyDataAvgOrderValue, dailyDataPreviousTotalSales, dailyDataPreviousTotalSales, dailyDataPreviousAvgOrderValue);
-            setActiveButton(dailyButton);
-        });
-
-        weeklyButton.addEventListener('click', function() {
-            updateCharts(labelsWeekly, weeklyDataTotalSales, weeklyDataSalesByChannel, weeklyDataTotalOrders,
-                weeklyDataAvgOrderValue, weeklyDataPreviousTotalSales, weeklyDataPreviousTotalOrders, weeklyDataPreviousAvgOrderValue);
-            setActiveButton(weeklyButton);
-        });
-
-
-        function updateCharts(labels, dataTotalSales, dataSalesByChannel, dataTotalOrders, dataAvgOrderValue,
-            DataPreviousTotalSales, DataPreviousTotalOrders, DataPreviousAvgOrderValue) {
-            totalSalesGraph.data.labels = labels;
-            totalSalesGraph.data.datasets[0].data = dataTotalSales;
-            totalSalesGraph.data.datasets[1].data = DataPreviousTotalSales;
-            totalSalesGraph.update();
-
-            salesByChannelGraph.data.datasets[0].data = dataSalesByChannel;
-            salesByChannelGraph.update();
-
-            totalOrdersGraph.data.labels = labels;
-            totalOrdersGraph.data.datasets[0].data = dataTotalOrders;
-            totalOrdersGraph.data.datasets[1].data = DataPreviousTotalOrders;
-            totalOrdersGraph.update();
-
-            avgOrderValueGraph.data.labels = labels;
-            avgOrderValueGraph.data.datasets[0].data = dataAvgOrderValue;
-            avgOrderValueGraph.data.datasets[1].data = DataPreviousAvgOrderValue;
-            avgOrderValueGraph.update();
-        }
-
-        function setActiveButton(button) {
-            dailyButton.classList.remove('active');
-            weeklyButton.classList.remove('active');
-            button.classList.add('active');
-        }
+    <script src="{{ asset('assets/admin/plugins/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/chartjs/Chart.extension.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/chartjs/index.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/chartjs/jquery-jvectormap-2.0.2.min.js') }}"></script>7
+    <script src="{{ asset('assets/admin/plugins/chartjs/jquery-jvectormap-world-mill-en.js') }}"></script>7
+    <script src="{{ asset('assets/admin/plugins/chartjs/jquery.min.js') }}"></script>
 
 
 
 
-
-
-
-
+    {{-- <script>
 
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -549,5 +312,5 @@
                 }]
             });
         });
-    </script>
+    </script> --}}
 @endPushOnce

@@ -394,8 +394,9 @@
                                         <th>Marked By </th>
                                         @if ($user->role != user_roles('3'))
                                             <th> Shiped Order</th>
-                                            <th>Actions</th>
+
                                         @endif
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

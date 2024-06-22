@@ -400,7 +400,7 @@
                                         <th>Order Type</th>
                                         <th>Payment Status</th>
                                         <th>Order Status</th>
-                                        <th>Actions</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -466,9 +466,7 @@
                                             <td><span
                                                     class="btn  fw-bold btn-primary rounded-pill">{{ $val['status'] ?? '' }}</span>
                                             </td>
-                                            <td> <i class="bi bi-files duplicate-order"
-                                                    data-order-id="{{ $val['id'] }}"></i>
-                                            </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -490,26 +488,6 @@
 
 @pushOnce('scripts')
     <script>
-        $(document).ready(function() {
-            $(document).on('click', '.duplicate-order', function() {
-                var orderId = $(this).data('order-id');
-                $.ajax({
-                    url: '{{ route('admin.duplicateOrder') }}',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        order_id: orderId
-                    },
-                    success: function(response) {
-                        alert('Order duplicated successfully!');
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Error duplicating order.');
-                        console.error(error);
-                    }
-                });
-            });
-        });
 
 
         $(function() {

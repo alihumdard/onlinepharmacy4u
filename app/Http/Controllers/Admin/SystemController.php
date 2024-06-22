@@ -1498,7 +1498,9 @@ class SystemController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Unpaid', 'status' => 'Created'])->latest('created_at')->get()->toArray();
+        $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Unpaid', 'status' => 'Created'])
+        ->orWhere('status', 'Duplicate')
+        ->latest('created_at')->get()->toArray();
 
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
@@ -1619,7 +1621,9 @@ class SystemController extends Controller
         if (isset($data['user']->role) && $data['user']->role == user_roles('2')) {
             $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Approved', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         } else {
-            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
+            $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])
+            ->whereIn('status', ['Received', 'Approved', 'Not_Approved'])
+            ->latest('created_at')->get()->toArray();
         }
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);

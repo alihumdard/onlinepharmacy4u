@@ -204,7 +204,7 @@
                     // {
                     //     extend: 'excel',
                     //     text: 'Donwload Excel ',
-                    //     className: 'btn-blue', 
+                    //     className: 'btn-blue',
                     // },
 
                     {
@@ -237,7 +237,7 @@
                 var order = $(this).sortable('toArray', {
                     attribute: 'data-id'
                 });
-              
+
 
                 $.ajax({
                     url: '{{ route('Update.Question.Order') }}',
@@ -257,6 +257,6 @@
         }).disableSelection();
 
 
-        
+
     </script>
 @endPushOnce

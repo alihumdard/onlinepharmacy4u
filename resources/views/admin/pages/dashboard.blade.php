@@ -148,7 +148,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <!--end row-->
@@ -207,7 +206,6 @@
                                                     data-bs-toggle="dropdown"><i
                                                         class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                                                 </a>
-
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
@@ -414,13 +412,6 @@
 
 
     {{-- <script>
-
-
-
-
-
-
-
         document.addEventListener("DOMContentLoaded", () => {
             new ApexCharts(document.querySelector("#reportsChart"), {
                 series: [{

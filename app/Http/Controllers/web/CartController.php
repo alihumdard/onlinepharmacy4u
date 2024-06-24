@@ -128,7 +128,7 @@ class CartController extends Controller
             foreach ($vart_type as $key => $type) {
                 $var_info .= "<b>$type:</b> {$vart_value[$key]}";
                 if ($key < count($vart_type) - 1) {
-                    $var_info .= ', '; 
+                    $var_info .= ', ';
                 }
             }
             $variant['new_var_info'] = $var_info;
@@ -193,7 +193,11 @@ class CartController extends Controller
         if (Cart::count() == 0) {
             return redirect()->route('web.view.cart');
         } else {
-            return view('web.pages.checkout');
+
+            $ukCities = config('constants.ukCities');
+            $ukPostalcode = config('constants.ukPostalcode');
+
+            return view('web.pages.checkout', compact('ukCities','ukPostalcode'));
         }
     }
 

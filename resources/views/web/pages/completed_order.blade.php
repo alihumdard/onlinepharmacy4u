@@ -60,8 +60,8 @@
             </div>
             <h1>Success</h1>
             <p> Dear {{ isset($user->name) ? $user->name: ($name ?? '')}}, Thank you for your order, it is now being processed.</p>
-            <a href="{{ route('shop')}}" class="btn btn-primary rounded-pill px-5 mt-3">Buy More</a>
-            <a href="{{ route('admin.index')}}" class="btn btn-primary rounded-pill px-5 mt-3">Dashboard</a>
+            <a href="{{ route('shop')}}" class="btn btn-primary bg-primary rounded-pill px-5 mt-3">Buy More</a>
+            <a href="{{ route('admin.index')}}" class="btn btn-primary bg-primary rounded-pill px-5 mt-3">Dashboard</a>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

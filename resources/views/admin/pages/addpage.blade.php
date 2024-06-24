@@ -107,7 +107,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-primary  btn-block" value="Apply">
+                                        <input type="submit" class="btn btn-primary bg-primary btn-block" value="Apply">
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-primary  btn-block" value="Apply">
+                                        <input type="submit" class="btn btn-primary bg-primary btn-block" value="Apply">
                                     </div>
                                 </div>
                             </div>

@@ -9,65 +9,106 @@
     <link rel="stylesheet" href="{{ asset('/assets/admin/dist/css/dashstyle.css') }}">
     <link href="{{ asset('/assets/admin/dist/css/bootstrap-extended.css') }}" rel="stylesheet">
     <style>
+        .displaynone {
+            display: none;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .analytics-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .date-selection button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #d0d0d0;
+            cursor: pointer;
+        }
+
+        .date-selection button.active {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+
         .graphs {
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px;
+            justify-content: space-between;
+            margin-top: 20px;
         }
 
         .graph {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 48%;
             padding: 20px;
-            width: 45%;
-            min-width: 300px;
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
         .graph-header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
 
         .graph-header h2 {
-            font-size: 1.5em;
-            color: #333;
             margin: 0;
-            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .graph-header p {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
         }
 
         canvas {
-            display: block;
-            width: 100%;
-            height: 300px;
-        }
-
-
-        button.active {
-            background-color: #0056b3;
-        }
-
-        button:focus {
-            outline: none;
-        }
-
-        @media (max-width: 768px) {
-            .graph {
-                width: 100%;
-            }
+            width: 100% !important;
+            height: 300px !important;
         }
     </style>
     <!-- main stated -->
     <main id="main" class="main">
 
+        <div class="pagetitle">
+            <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i
+                        class="bi bi-arrow-left"></i> Back</a> | Dashboard</h1>
+            {{-- <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav> --}}
+        </div>
 
         <section class="section dashboard">
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="analytics-container ">
+
+
+                    <div class="analytics-container">
                         <div class="header">
                             <div class="date-selection">
                                 <button id="dailyButton" class="active">Daily</button>
@@ -148,6 +189,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                         <!--end row-->
@@ -163,31 +205,13 @@
                                     </div>
                                     <canvas id="totalSalesGraph"></canvas>
                                 </div>
-
-                                <div class="graph">
-                                    <div class="graph-header">
-                                        <h2>Total Orders</h2>
-                                    </div>
-                                    <canvas id="totalOrdersGraph"></canvas>
-                                </div>
-
-
+                                <canvas id="totalSalesGraph"></canvas>
                             </div>
-                            <div class="graphs">
-
-                                <div class="graph">
-                                    <div class="graph-header">
-                                        <h2>Average Order Value</h2>
-                                    </div>
-                                    <canvas id="avgOrderValueGraph"></canvas>
+                            <div class="graph">
+                                <div class="graph-header">
+                                    <h2>Sales by channel</h2>
                                 </div>
-
-                                <div class="graph">
-                                    <div class="graph-header">
-                                        <h2>Average Time Till Ship</h2>
-                                    </div>
-                                    <canvas id="avgTimeTillShipGraph"></canvas>
-                                </div>
+                                <canvas id="salesByChannelGraph"></canvas>
                             </div>
                         </div>
 
@@ -206,6 +230,7 @@
                                                     data-bs-toggle="dropdown"><i
                                                         class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                                                 </a>
+
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
@@ -220,175 +245,16 @@
                                     </div>
 
                                 </div>
+                                <canvas id="totalOrdersGraph"></canvas>
                             </div>
-                            <div class="col-12 col-lg-4">
-
-                                <div class="graph">
-                                    <div class=" graph-header">
-                                        <h2>Sales by channel</h2>
-                                    </div>
-                                    <canvas id="salesByChannelGraph"></canvas>
+                            <div class="graph">
+                                <div class="graph-header">
+                                    <h2>Average order value</h2>
                                 </div>
+                                <canvas id="avgOrderValueGraph"></canvas>
                             </div>
-
-
                         </div>
-                        <!--end row-->
-
-                        <div class="row">
-                            <div class="col-12 col-lg-8">
-                                <div class="card radius-10">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <h6 class=" mb-0">Most Item Sold</h6>
-                                            </div>
-                                            <div class="dropdown ms-auto">
-                                                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
-                                                    data-bs-toggle="dropdown"><i
-                                                        class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table align-middle mb-0">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th>Product</th>
-                                                        <th>Photo</th>
-                                                        <th>Product ID</th>
-                                                        <th>Revinue</th>
-                                                        <th>Orders</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Iphone 5</td>
-                                                        <td><img src="https://images.priceoye.pk/apple-iphone-13-pro-max-pakistan-priceoye-qgwvt.jpg"
-                                                                class="product-img-2" alt="product img"></td>
-                                                        <td>#9405822</td>
-
-                                                        <td>$1250.00</td>
-                                                        <td>750</td>
-
-
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>Earphone GL</td>
-                                                        <td><img src="https://images.priceoye.pk/apple-iphone-13-pro-max-pakistan-priceoye-qgwvt.jpg"
-                                                                class="product-img-2" alt="product img"></td>
-                                                        <td>#8304620</td>
-
-                                                        <td>$1500.00</td>
-                                                        <td>650</td>
-
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>HD Hand Camera</td>
-                                                        <td><img src="https://images.priceoye.pk/apple-iphone-13-pro-max-pakistan-priceoye-qgwvt.jpg"
-                                                                class="product-img-2" alt="product img"></td>
-                                                        <td>#4736890</td>
-
-                                                        <td>$1400.00</td>
-                                                        <td>550</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>HD Hand Camera</td>
-                                                        <td><img src="https://images.priceoye.pk/apple-iphone-13-pro-max-pakistan-priceoye-qgwvt.jpg"
-                                                                class="product-img-2" alt="product img"></td>
-                                                        <td>#4736890</td>
-
-                                                        <td>$1400.00</td>
-                                                        <td>450</td>
-
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>Clasic Shoes</td>
-                                                        <td><img src="https://images.priceoye.pk/apple-iphone-13-pro-max-pakistan-priceoye-qgwvt.jpg"
-                                                                class="product-img-2" alt="product img"></td>
-                                                        <td>#8543765</td>
-
-                                                        <td>$1200.00</td>
-                                                        <td>350</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Sitting Chair</td>
-                                                        <td><img src="https://images.priceoye.pk/apple-iphone-13-pro-max-pakistan-priceoye-qgwvt.jpg"
-                                                                class="product-img-2" alt="product img"></td>
-                                                        <td>#9629240</td>
-
-                                                        <td>$1500.00</td>
-                                                        <td>250</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Hand Watch</td>
-                                                        <td><img src="https://images.priceoye.pk/apple-iphone-13-pro-max-pakistan-priceoye-qgwvt.jpg"
-                                                                class="product-img-2" alt="product img"></td>
-                                                        <td>#8506790</td>
-
-                                                        <td>$1800.00</td>
-                                                        <td>150</td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-12 col-lg-4">
-                                <div class="card radius-10">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <h6 class="mb-0">Trending Categories</h6>
-                                            </div>
-                                            <div class="dropdown ms-auto">
-                                                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
-                                                    data-bs-toggle="dropdown"><i
-                                                        class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="chart-container-2 mt-4">
-                                            <canvas id="chart2"></canvas>
-                                        </div>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li
-                                            class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                            Jeans <span class="badge bg-success rounded-pill">25</span>
-                                        </li>
-                                        <li
-                                            class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                            T-Shirts <span class="badge bg-danger rounded-pill">10</span>
-                                        </li>
-                                        <li
-                                            class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                            Shoes <span class="badge bg-primary rounded-pill">65</span>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-
-
-                        </div>
-
                     </div>
-
-
-
-
 
                 </div>
             </div>
@@ -412,6 +278,13 @@
 
 
     {{-- <script>
+
+
+
+
+
+
+
         document.addEventListener("DOMContentLoaded", () => {
             new ApexCharts(document.querySelector("#reportsChart"), {
                 series: [{

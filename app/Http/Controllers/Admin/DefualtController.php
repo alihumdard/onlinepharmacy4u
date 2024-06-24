@@ -22,6 +22,8 @@ use App\Mail\OTPMail;
 
 // models ...
 use App\Models\User;
+use App\Models\ClientQuery;
+use App\Models\CompanyDetail;
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\AssignQuestion;
@@ -243,7 +245,19 @@ class DefualtController extends Controller
 
     public function contact()
     {
-        return view('admin.pages.contact');
+        $user = auth()->user();
+        $page_name = 'store_query';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['user'] = auth()->user();
+        if($user->role == user_roles(1)){
+            $data['queries'] = ClientQuery::get()->toArray();
+        }else{
+            $data['queries'] = ClientQuery::where('user_id', $user->id)->get()->toArray();
+        }
+        $data['contact_details'] = CompanyDetail::get()->keyBy('content_type')->toArray();
+        return view('admin.pages.contact', $data);
     }
 
     public function login(Request $request)
@@ -507,5 +521,91 @@ class DefualtController extends Controller
             // notify()->success('New order received. ⚡️');
         }
         return response()->json($unreadNotifications);
+    }
+
+    public function store_query(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'store_query';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        if ($request->all()) {
+            $rules = [
+                'name'      => 'required',
+                'subject'   => 'required',
+                'message'   => 'required',
+                'type'   => 'required',
+                'email'     => [
+                    'required',
+                    'email',
+                ],
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                notify()->error("Fill the Form correctly. ⚡️");
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data['user'] = auth()->user();
+            $query_data = [
+                'user_id'    => $user->id,
+                'name'       => ucwords($request->name),
+                'email'      => $request->email,
+                'subject'    => $request->subject,
+                'message'    => $request->message,
+                'type'       => $request->type,
+                'created_by' => $user->id,
+            ];
+            $saved = ClientQuery::create(
+                $query_data
+            );
+            $message = "Your Query " . ($request->id ? "Updated" : "Sent") . " Successfully. ⚡️";
+            if ($saved) {
+                notify()->success($message);
+                return redirect()->back()->with(['msg' => $message]);
+            }
+        } else {
+            notify()->error("Fill the Form correctly. ⚡️");
+            return redirect()->back();
+        }
+    }
+
+    public function store_company_details(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'company_details';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        if ($request->all()) {
+            $data['user'] = auth()->user();
+            $data = $request->all();
+            foreach ($data as $key => $value) {
+                if ($key !== '_token' && $key !== 'detail_type') {
+                    $query_data = [
+                        'detail_type'=> ucwords($request->detail_type),
+                        'content_type' => $key,
+                        'content'    => $value ?? null,
+                        'created_by' => $user->id,
+                        'updated_by' => $user->id,
+                    ];
+                    $saved = CompanyDetail::updateOrCreate(
+                        ['content_type' => $key ?? NULL],
+                        $query_data
+                    );
+                }
+            }
+
+            if ($saved) {
+                $message = "Your Details are Updated Successfully. ⚡️";
+                notify()->success($message);
+                return redirect()->back()->with(['msg' => $message]);
+            }
+        } else {
+            notify()->error("Fill the Form correctly. ⚡️");
+            return redirect()->back();
+        }
     }
 }

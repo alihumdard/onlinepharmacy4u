@@ -376,7 +376,7 @@
         function fetchDashbirdDetails() {
             var Userrole = $('#userrole').val();
             $.ajax({
-                url: '{{ route('dashboard.details') }}',
+                url: "{{route('dashboard.details')}}",
                 type: 'GET',
                 data: {
                     role: Userrole,

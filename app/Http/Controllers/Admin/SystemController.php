@@ -2343,6 +2343,7 @@ class SystemController extends Controller
     public function create_PMedQuestion(Request $request)
     {
 
+
         $user = auth()->user();
         $page_name = 'add_question';
         if (!view_permission($page_name)) {
@@ -2357,6 +2358,8 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
+
+        // dd($request->all());
         $question = PMedGeneralQuestion::updateOrCreate(
             ['id' => $request->id ?? NULL],
             [

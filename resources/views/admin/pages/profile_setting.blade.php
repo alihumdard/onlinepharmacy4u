@@ -27,14 +27,14 @@
         </div><!-- End Page Title -->
 
         <section class="section profile">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-8">
                 <div class="col">
                     <div class="card radius-10 border-start border-0 border-3 border-info">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary" style="font-size: 25px">Total Orders</p>
-                                    <h4 class="my-1 text-info" id="totalOrders" style="font-size: 35px">Loading...</h4>
+                                    <p class="mb-0 text-secondary" style="font-size: 60px">Total Orders :</p>
+                                    <h4 class="my-1 text-info" id="totalOrders" style="font-size: 50px">Loading...</h4>
 
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto">
@@ -44,14 +44,14 @@
                         </div>
                     </div>
                 </div>
-              
+
                 <div class="col">
                     <div class="card radius-10 border-start border-0 border-3 border-warning">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary" style="font-size: 25px" >Total Shipped</p>
-                                    <h4 class="my-1 text-info"  style="font-size: 35px" id="shippedOrders">Loading...</h4>
+                                    <p class="mb-0 text-secondary" style="font-size: 60px" >Total Shipped : </p>
+                                    <h4 class="my-1 text-info"  style="font-size: 50px" id="shippedOrders">Loading...</h4>
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
                                     <i class='bx bxs-group'></i>
@@ -60,13 +60,14 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col">
                     <div class="card radius-10 border-start border-0 border-3 border-success">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary"  style="font-size: 25px">Total Received</p>
-                                    <h4 class="my-1 text-info" id="receivedOrders" style="font-size: 35px">Loading...</h4>
+                                    <p class="mb-0 text-secondary"  style="font-size: 60px">Total Received :</p>
+                                    <h4 class="my-1 text-info" id="receivedOrders" style="font-size: 50px">Loading...</h4>
 
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
@@ -76,14 +77,14 @@
                         </div>
                     </div>
                 </div>
-             
+
                 <div class="col">
                     <div class="card radius-10 border-start border-0 border-3 border-success">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary" style="font-size: 25px" > Not Approved Orders</p>
-                                    <h4 class="my-1 text-info" id="NotApprovedOrder" style="font-size: 35px">Loading...</h4>
+                                    <p class="mb-0 text-secondary" style="font-size: 60px" > Not Approved Orders :</p>
+                                    <h4 class="my-1 text-info" id="NotApprovedOrder" style="font-size: 50px">Loading...</h4>
 
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
@@ -93,9 +94,10 @@
                         </div>
                     </div>
                 </div>
+
 
             </div>
-            <div class="row">
+            <div class="row" style="display: none" >
                 <div class="col-xl-4">
 
                     <div class="card">
@@ -115,7 +117,7 @@
 
                 </div>
 
-                <div class="col-xl-8">
+                <div class="col-xl-8" >
 
                     <div class="card">
                         <div class="card-body pt-3">

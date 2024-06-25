@@ -32,6 +32,8 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
         });
+
+
     }
 
     /**
@@ -44,3 +46,6 @@ return new class extends Migration
         Schema::dropIfExists('p_med_general_questions');
     }
 };
+
+
+

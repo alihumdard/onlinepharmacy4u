@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\ShipingDetail;
 
 class CartController extends Controller
 {
@@ -196,8 +199,9 @@ class CartController extends Controller
 
             $ukCities = config('constants.ukCities');
             $ukPostalcode = config('constants.ukPostalcode');
+            $ukAddress = Config('constants.ukAddress');
 
-            return view('web.pages.checkout', compact('ukCities','ukPostalcode'));
+            return view('web.pages.checkout', compact('ukCities','ukPostalcode', 'ukAddress'));
         }
     }
 
@@ -205,4 +209,22 @@ class CartController extends Controller
     {
         Cart::destroy();
     }
+
+    public function checkout_id($order_id)
+    {
+        // Fetch the order details with related models
+        $order = Order::with('orderDetails', 'shippingDetail')->find($order_id);
+
+         // Dump and die to inspect shipping details
+    // dd($order->orderDetails);
+        if (!$order) {
+            return redirect()->back()->withErrors(['error' => 'Order not found']);
+        }
+
+        $ukCities = config('constants.ukCities');
+        $ukPostalcode = config('constants.ukPostalcode');
+
+        return view('web.pages.checkoutid', compact('ukCities', 'ukPostalcode', 'order'));
+    }
+
 }

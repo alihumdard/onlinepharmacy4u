@@ -400,6 +400,7 @@
                                         <th>Order Type</th>
                                         <th>Payment Status</th>
                                         <th>Order Status</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -419,16 +420,15 @@
                                                     style="font-size: smaller; display:flex; ">
                                                     #{{ $val['id'] }}
                                                 </a>
+                                            </td> <td>
+
+                                                @php
+                                                    $totalOrderDetails = count($val['orderdetails']);
+                                                @endphp
+                                                <span class="px-5 fw-bold">{{ $totalOrderDetails }}</span>
                                             </td>
                                             <td>
-                                                @foreach ($order_history as $ind => $value)
-                                                    @if ($value['email'] == $val['email'])
-                                                        <span class=" px-5 fw-bold">{{ $value['total_orders'] ?? 0 }}
-                                                        </span>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td>{{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}
+                                                {{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}
                                             </td>
                                             <td>
                                                 {{-- {{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }} --}}
@@ -446,16 +446,34 @@
                                             @if ($user->role == user_roles('1'))
                                                 <td>£{{ $val['total_ammount'] ?? '' }}</td>
                                             @endif
-                                            <td><span
-                                                    class="btn  fw-bold rounded-pill {{ $val['order_type'] == 'premd' ? 'btn-primary' : ($val['order_type'] == 'pmd' ? 'btn-warning' : 'btn-success') }}">{{ $val['order_type'] == 'premd' ? 'POM' : ($val['order_type'] == 'pmd' ? 'P.Med' : 'O.T.C') }}</span>
+                                            <td>
+
+                                                <span
+                                                    class="btn  fw-bold rounded-pill {{ $val['order_type'] == 'premd' ? 'btn-primary' : ($val['order_type'] == 'pmd' ? 'btn-warning' : 'btn-success') }}">{{ $val['order_type'] == 'premd' ? 'POM' : ($val['order_type'] == 'pmd' ? 'P.Med' : 'O.T.C') }}
+                                                </span>
+
                                             </td>
                                             <td>
-                                                <span class="btn  fw-bold btn-success rounded-pill">
-                                                    {{ $val['payment_status'] ?? '' }}</span>
+                                                <span
+                                                    class="btn fw-bold rounded-pill
+                                                        {{ $val['payment_status'] == 'paid' ? 'btn-success' : ($val['payment_status'] == 'Unpaid' ? 'btn-warning' : '') }}">
+                                                    {{ $val['payment_status'] ?? '' }}
+                                                </span>
+
                                             </td>
                                             <td><span
                                                     class="btn  fw-bold btn-primary rounded-pill">{{ $val['status'] ?? '' }}</span>
                                             </td>
+                                            <td style="vertical-align: middle; text-align: center;">
+                                                <div style="display:flex; justify-content: space-around;">
+                                                    <!-- Add a small popup for displaying the ID -->
+                                                    <a href="#" class="copy-id" data-id="{{ $val['id'] }}"><i
+                                                            class="bi bi-clipboard"></i></a>
+                                                </div>
+                                            </td>
+
+
+
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -476,6 +494,28 @@
 @stop
 
 @pushOnce('scripts')
+    <script>
+        $(document).ready(function() {
+            // Click event handler for copy icon
+            $('.copy-id').on('click', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                var url = window.location.href.replace('admin/ordersCreated', 'checkout');
+                var textToCopy = url + '/' + id;
+                var tempInput = $('<input>');
+                $('body').append(tempInput);
+                tempInput.val(textToCopy).select();
+                document.execCommand('copy');
+                tempInput.remove();
+
+
+                alert('Copied URL with ID: ' + textToCopy);
+            });
+        });
+    </script>
+
+
+
     <script>
         $(function() {
             $("#tbl_data").DataTable({

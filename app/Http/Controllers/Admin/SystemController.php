@@ -1488,6 +1488,8 @@ class SystemController extends Controller
             $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $this->assign_order_types($orders);
         }
+
+        // dd(  $data['orders']);
         return view('admin.pages.orders_recieved', $data);
     }
 
@@ -1502,11 +1504,15 @@ class SystemController extends Controller
         ->orWhere('status', 'Duplicate')
         ->latest('created_at')->get()->toArray();
 
+
+
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $this->assign_order_types($orders);
 
         }
+
+        // dd(  $data['order_history'] );
 
         return view('admin.pages.orders_created', $data);
     }
@@ -1514,6 +1520,7 @@ class SystemController extends Controller
     public function duplicate_Order(Request $request)
     {
         $orderId = $request->input('order_id');
+
 
         // Retrieve the existing order with its shipping details and order details
         $existingOrder = Order::with(['shipingdetails', 'orderdetails'])->find($orderId);
@@ -1528,6 +1535,7 @@ class SystemController extends Controller
                 'user_id' => $existingOrder->user_id,
                 'email' => $existingOrder->email,
                 'note' => $existingOrder->note,
+                'payment_status' => 'Unpaid',
                 'shiping_cost' => $existingOrder->shiping_cost,
                 'coupon_code' => $existingOrder->coupon_code,
                 'coupon_value' => $existingOrder->coupon_value,
@@ -1563,7 +1571,8 @@ class SystemController extends Controller
                 throw new \Exception('Failed to duplicate shipping details.');
             }
 
-            // Duplicate each order detail associated with the existing order
+            // dd($existingOrder->orderdetails );
+
             foreach ($existingOrder->orderdetails as $orderDetail) {
                 $newOrderDetail = OrderDetail::create([
                     'order_id' => $newOrder->id,
@@ -1580,6 +1589,7 @@ class SystemController extends Controller
                     'status' => 'Duplicate', // Update status as needed
                     'created_by' => auth()->id(),
                 ]);
+
 
                 if (!$newOrderDetail) {
                     throw new \Exception('Failed to duplicate order detail.');
@@ -1624,6 +1634,8 @@ class SystemController extends Controller
             $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])
             ->whereIn('status', ['Received', 'Approved', 'Not_Approved'])
             ->latest('created_at')->get()->toArray();
+
+            // dd($orders);
         }
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
@@ -1721,6 +1733,7 @@ class SystemController extends Controller
             return redirect()->back();
         }
         $data['products'] = Product::with('variants')->where('status', $this->status['Active'])->latest('id')->get()->sortBy('title')->values()->keyBy('id')->toArray();
+
         foreach ($data['products'] as $key => $product) {
             if ($product['variants']) {
                 $data['variants'][$product['id']] = $product['variants'];
@@ -1799,7 +1812,81 @@ class SystemController extends Controller
                 'updated_by' => auth()->id(),
             ]);
 
-            // dd($shippingDetail);
+
+
+
+            $consultaiontype = 'one_over';
+            $productTemplate= 'null';
+
+            foreach ($request->all() as $key => $value) {
+                if (preg_match('/^pro_(\d+)_qty$/', $key, $matches)) {
+                    $productId = $matches[1];
+                    $product = Product::find($productId);
+
+                    if ($product) {
+                        // If any product has template 2, set consultation to POM and break
+                        if ($product->product_template == 2) {
+                            $productTemplate = $product->product_template;
+                            $consultaiontype = 'premd';
+                            break;
+                        }
+
+                        // If none have template 2 but have both 1 and 3, set consultation to P.Med
+                        if ($product->product_template == 1) {
+                            $productTemplate = $product->product_template;
+
+                            $hasTemplate1 = true;
+                        }
+
+                        if ($product->product_template == 3) {
+                            $productTemplate = $product->product_template;
+                            $hasTemplate3 = true;
+                        }
+                    }
+                }
+            }
+
+            // Determine the consultation type if not already set to POM
+            if (!isset($consultaiontype)) {
+                if (isset($hasTemplate1) && isset($hasTemplate3)) {
+                    $consultaiontype = 'pmd';
+                }
+            }
+
+
+
+            // dd($consultaiontype , $productTemplate);
+      // Loop through the products in the request and create order details
+      foreach ($request->all() as $key => $value) {
+        if (preg_match('/^pro_(\d+)_qty$/', $key, $matches)) {
+            $productId = $matches[1];
+            $quantity = $value;
+            $variantKey = "pro_{$productId}_vari";
+            $variantId = $request->input($variantKey, null);
+
+            $product = Product::find($productId);
+
+            $variant = ProductVariant::find($variantId);
+
+            $order_Detail=    OrderDetail::create([
+                'order_id' => $order->id,
+                'product_id' => $productId,
+                'variant_id' => $variantId,
+                'product_name' => $product ? $product->title : 'Unknown Product',
+                'variant_details' => $variant ? $variant->slug : 'No Variant',
+                'weight' => $product ? $product->weight : 0,
+                'product_qty' => $quantity,
+                'product_price' => $product ? $product->price : 0,
+                'status' => 'Created',
+                'consultation_type' => $consultaiontype,
+                'created_by' => auth()->id(),
+                'updated_by' => auth()->id(),
+            ]);
+        }
+
+    }
+
+            // dd( 'shippingDetail', $shippingDetail ,'order_Detail',$order_Detail);
             if ($shippingDetail) {
                 $message = "Order and Shipping Details Saved Successfully";
                 return redirect()->route('admin.ordersCreated')->with(['msg' => $message]);

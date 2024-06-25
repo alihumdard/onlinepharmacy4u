@@ -150,6 +150,17 @@
                     opacity: 0;
                 }
             }
+
+            #tbl_data_previous{
+                display: none;
+            }
+            #tbl_data_next{
+                display: none;
+            }
+             li.paginate_button.page-item.active{
+                display: none;
+            }
+
         </style>
 
         <div class="pagetitle">
@@ -299,7 +310,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        
+
                             <!-- Pagination Links -->
                             <div class="d-flex justify-content-between">
                                 <div>
@@ -310,7 +321,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- /.card-body -->
                     </div>
                 </div>

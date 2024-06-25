@@ -697,6 +697,8 @@ class WebController extends Controller
 
     public function payment(Request $request)
     {
+
+
         $user = auth()->user() ?? [];
         $order =  Order::create([
             'user_id'        => $user->id ?? 'guest',
@@ -707,6 +709,7 @@ class WebController extends Controller
             'coupon_value'   => $request->coupon_value ?? Null,
             'total_ammount'  => $request->total_ammount ?? Null,
         ]);
+
         if ($order) {
             $order_details = [];
             $index = 0;
@@ -719,6 +722,7 @@ class WebController extends Controller
                     $variant_id = NULL;
                 }
                 $consultaion_type = 'one_over';
+                
                 foreach (session('consultations') ?? [] as $key => $value) {
                     if ($key == $pro_id || strpos($key, ',') !== false && in_array($pro_id, explode(',', $key))) {
                         if (isset(session('consultations')[$key])) {

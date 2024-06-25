@@ -27,6 +27,8 @@
     <!-- WISHLIST AREA START -->
     <div class="ltn__checkout-area mb-105">
         <div class="container">
+
+
             <form id="checkoutForm" action="{{ route('payment') }}" method="post">
                 <div class="row">
                     <div class="col-lg-12">
@@ -37,18 +39,19 @@
 
                                 <div class="ltn__checkout-single-content-info">
                                     @csrf
-                                    @if (!empty(Cart::content()))
-                                        @foreach (Cart::content() as $item)
-                                            <input type="hidden" name="order_details[product_id][]"
-                                                value="{{ $item->id }}">
-                                            <input type="hidden" name="order_details[product_name][]"
-                                                value="{{ $item->name }}">
-                                            <input type="hidden" name="order_details[product_qty][]"
-                                                value="{{ $item->qty }}">
-                                            <input type="hidden" name="order_details[product_price][]"
-                                                value="{{ $item->price }}">
-                                        @endforeach
-                                    @endif
+                                    @foreach ($order->orderDetails as $orderDetail)
+                                        <input type="hidden" name="order_details[product_id][]"
+                                            value="{{ $orderDetail->product_id }}">
+                                        <input type="hidden" name="order_details[product_name][]"
+                                            value="{{ $orderDetail->product_name }}">
+                                        <input type="hidden" name="order_details[product_qty][]"
+                                            value="{{ $orderDetail->product_qty }}">
+                                        <input type="hidden" name="order_details[product_price][]"
+                                            value="{{ $orderDetail->product_price }}">
+                                    @endforeach
+
+
+
                                     <input type="hidden" id="total_ammount" name="total_ammount"
                                         value="{{ str_replace(',', '', Cart::subTotal()) + 4.95 }}">
                                     <input type="hidden" id="shiping_cost" name="shiping_cost" value="4.95">
@@ -58,7 +61,8 @@
                                             <div class="input-item input-item-name ltn__custom-icon">
                                                 <input type="text" name="firstName"
                                                     style="margin-top: 20px !important; margin-bottom:0px !important;"
-                                                    placeholder="First name" required>
+                                                    placeholder="First name" required
+                                                    value="{{ old('firstName', $order->shippingDetail->firstName) }}">
                                                 <div class="invalid-feedback">Please enter your first name.</div>
                                             </div>
                                         </div>
@@ -66,7 +70,8 @@
                                             <div class="input-item input-item-name ltn__custom-icon">
                                                 <input type="text" name="lastName"
                                                     style="margin-top: 20px !important; margin-bottom:0px !important;"
-                                                    placeholder="Last name" required>
+                                                    placeholder="Last name" required
+                                                    value="{{ old('lastName', $order->shippingDetail->lastName) }}">
                                                 <div class="invalid-feedback">Please enter your last name.</div>
                                             </div>
                                         </div>
@@ -74,7 +79,8 @@
                                             <div class="input-item input-item-email ltn__custom-icon">
                                                 <input type="email" name="email"
                                                     style="margin-top: 20px !important; margin-bottom:0px !important;"
-                                                    placeholder="email address" required>
+                                                    placeholder="Email address" required
+                                                    value="{{ old('email', $order->shippingDetail->email) }}">
                                                 <div class="invalid-feedback">Please enter your email.</div>
                                             </div>
                                         </div>
@@ -82,30 +88,31 @@
                                             <div class="input-item input-item-phone ltn__custom-icon">
                                                 <input type="text" name="phone"
                                                     style="margin-top: 20px !important; margin-bottom:0px !important;"
-                                                    placeholder="phone number" required>
-                                                <div class="invalid-feedback">Please enter your phone No.</div>
+                                                    placeholder="Phone number" required
+                                                    value="{{ old('phone', $order->shippingDetail->phone) }}">
+                                                <div class="invalid-feedback">Please enter your phone number.</div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12">
                                             <h6>Address</h6>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="input-item">
-                                                        {{-- <input type="text" id="addressInput" name="address" placeholder="House number and street name" required> --}}
-
-                                                        <input type="text" id="addressInput" name="address"
+                                                        <input type="text" name="address"
                                                             style="margin-top: 20px !important; margin-bottom:0px !important;"
-                                                            placeholder="House number and street name" required>
-
+                                                            placeholder="House number and street name" required
+                                                            value="{{ old('address', $order->shippingDetail->address) }}">
                                                         <div class="invalid-feedback">Please enter your address.</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="input-item">
                                                         <input type="text" name="address2"
-                                                            placeholder="Apartment, suite, unit etc. (optional)">
+                                                            placeholder="Apartment, suite, unit etc. (optional)"
+                                                            value="{{ old('address2', $order->shippingDetail->address2) }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -115,7 +122,8 @@
                                             <div class="input-item">
                                                 <input type="text" id="cityInput" name="city"
                                                     style="margin-top: 20px !important; margin-bottom:0px !important;"
-                                                    placeholder="City" required>
+                                                    placeholder="City" required
+                                                    value="{{ old('city', $order->shippingDetail->city) }}">
                                                 <div class="invalid-feedback">Please enter your city.</div>
                                             </div>
                                         </div>
@@ -124,11 +132,15 @@
                                             <div class="input-item">
                                                 <input type="text" name="zip_code" id="zip_code_input"
                                                     style="margin-top: 20px !important; margin-bottom:0px !important;"
-                                                    placeholder="Postal Code" required>
+                                                    placeholder="Postal Code" required
+                                                    value="{{ old('zip_code', $order->shippingDetail->zip_code) }}">
                                                 <div class="invalid-feedback">Please enter your postal code.</div>
                                             </div>
                                         </div>
                                     </div>
+
+
+
                                     <h6>Order Notes (optional)</h6>
                                     <div class="input-item input-item-textarea ltn__custom-icon">
                                         <textarea name="note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
@@ -136,6 +148,9 @@
 
 
                                 </div>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -147,12 +162,13 @@
                             <div class="form-check">
                                 <div class="custom-control" style="display: flex; align-items:center;">
                                     <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="express_delivery" value="express" checked data-ship="4.95" required>
-                                    <label class="form-check-label" for="express_delivery"><img
-                                            src="{{ url('img/24-hours.jpg') }}" alt=""
+                                        id="express_delivery" value="express"
+                                        {{ $order->shippingDetail->method === 'fast' ? '' : 'checked' }} data-ship="4.95"
+                                        required>
+                                    <label class="form-check-label" for="express_delivery">
+                                        <img src="{{ url('img/24-hours.jpg') }}" alt=""
                                             style="max-width:140px !important; margin-left:10px;">
                                     </label>
-
                                 </div>
                                 <span class="float-right">Royal Mail Tracked 24</span>
                                 <span class="float-right"> (£4.95)</span>
@@ -161,10 +177,13 @@
                             <div class="form-check">
                                 <div class="custom-control" style="display: flex; align-items:center;">
                                     <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="fast_delivery" value="fast" data-ship="3.95" required>
-                                    <label class="form-check-label" for="fast_delivery"><img
-                                            src="{{ url('img/48-hours.jpg') }}" alt=""
-                                            style="max-width:140px !important; margin-left:10px;"></label>
+                                        id="fast_delivery" value="fast"
+                                        {{ $order->shippingDetail->method === 'fast' ? 'checked' : '' }} data-ship="3.95"
+                                        required>
+                                    <label class="form-check-label" for="fast_delivery">
+                                        <img src="{{ url('img/48-hours.jpg') }}" alt=""
+                                            style="max-width:140px !important; margin-left:10px;">
+                                    </label>
                                 </div>
                                 <span class="float-right">Royal Mail Tracked 48</span>
                                 <span class="float-right"> (£3.95)</span>
@@ -172,33 +191,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    {{-- <div class="col-lg-6">
-                        <div class="ltn__checkout-payment-method mt-50">
-                            <h4 class="title-2">Shipping Method</h4>
-                            <div class="form-check">
-                                <div class="custom-control">
-                                    <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="express_delivery" value="express" checked data-ship="4.95" required>
-
-                                    <label class="form-check-label" for="express_delivery">Royal Mail Tracked 24</label>
-                                    <span class="float-right">£4.95</span>
-                                </div>
-                                <div class="ml-4 mb-2 small">(1-2 working days)</div>
-                            </div>
-                            <div class="form-check">
-                                <div class="custom-control">
-                                    <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="fast_delivery" value="fast" data-ship="3.95" required>
-                                    <label class="form-check-label" for="fast_delivery">Royal Mail Tracked 48</label>
-                                    <span class="float-right">£3.95</span>
-                                </div>
-                                <div class="ml-4 mb-2 small">(3-5 working days)</div>
-                            </div>
-                        </div>
-                    </div> --}}
-
 
 
 
@@ -209,34 +201,59 @@
                         <div class="shoping-cart-total mt-50">
                             <h4 class="title-2">Cart Totals</h4>
                             <table class="table">
-                                <tbody>
-                                    @if (!empty(Cart::content()))
-                                        @foreach (Cart::content() as $item)
-                                            <tr>
-                                                <td>{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!} <strong>×
-                                                        {{ $item->qty }}</strong></td>
-                                                <td>£{{ $item->subtotal }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
+                                <thead>
                                     <tr>
-                                        <td>Shipping and Handing</td>
-                                        <td class="shipping_cost" data-shipping="4.95">£4.95</td>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Subtotal</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $subtotal = 0;
+                                    @endphp
+                                    @foreach ($order->orderDetails as $orderDetail)
+                                        <tr>
+                                            <td>{{ $orderDetail->product_name }}</td>
+                                            <td>{{ $orderDetail->product_qty }}</td>
+                                            <td>£{{ number_format($orderDetail->product_qty * $orderDetail->product_price, 2) }}
+                                            </td>
+                                            @php
+                                                $subtotal += $orderDetail->product_qty * $orderDetail->product_price;
+                                            @endphp
+                                        </tr>
+                                    @endforeach
+
+                                    <!-- Shipping and Handling -->
+                                    <tr>
+                                        <td>Shipping and Handling</td>
+                                        <td></td>
+
+                                        <td class="shipping_cost" data-shipping="{{ $order->shippingDetail->cost }}">
+                                            £{{ number_format($order->shippingDetail->cost, 2) }}</td>
+                                    </tr>
+
+                                    <!-- Order Total -->
                                     <tr>
                                         <td><strong>Order Total</strong></td>
-                                        <td class="order_total">
-                                            <strong>{{ str_replace(',', '', Cart::subTotal()) + 4.95 }}</strong>
+                                        <td class="order_total" colspan="2">
+                                            <strong>£{{ number_format($subtotal + $order->shippingDetail->cost, 2) }}</strong>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
+
+
                 </div>
                 <button id="placeOrderBtn" class="btn theme-btn-1 btn-effect-1 text-uppercase" type="button">Procceed To
                     Pay</button>
             </form>
+
+
+
             <div id="iframeContainer" class="vh-100 w-100 "></div>
         </div>
     </div>
@@ -268,24 +285,31 @@
                 source: ukPostalcode
             });
 
-            var ukAddress = @json($ukAddress);
-
-            $("#addressInput").autocomplete({
-                source: ukAddress
-            });
 
         });
     </script>
     <script>
-        $('input[name="shipping_method"]').change(function() {
-            var shippingCost = parseFloat($('input[name="shipping_method"]:checked').data('ship')) || 0;
-            var subTotal = parseFloat(@json(strval(Cart::subTotal())).replace(',', '')) || 0;
-            var granTotal = (shippingCost + subTotal).toFixed(2);
-            $('.shipping_cost').text('£ ' + shippingCost.toFixed(2));
-            $('.order_total').text('£ ' + granTotal);
-            $('#total_ammount').val(granTotal);
-            $('#shiping_cost').val(shippingCost.toFixed(2));
+        $(document).ready(function() {
+            var updateTotals = function() {
+                var shippingCost = parseFloat($('input[name="shipping_method"]:checked').data('ship')) || 0;
+                var subTotal = parseFloat('{{ $subtotal }}') || 0;
+                var grandTotal = (shippingCost + subTotal).toFixed(2);
+
+                $('.shipping_cost').text('£' + shippingCost.toFixed(2));
+                $('.order_total strong').text('£' + grandTotal);
+                $('#total_ammount').val(grandTotal);
+                $('#shipping_cost').val(shippingCost.toFixed(2));
+            };
+
+            updateTotals();
+
+            $('input[name="shipping_method"]').change(function() {
+                updateTotals();
+            });
         });
+
+
+
         $(document).ready(function() {
             function validateForm() {
                 var isValid = true;

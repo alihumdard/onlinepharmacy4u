@@ -703,39 +703,41 @@ class WebController extends Controller
         $order_ids = $request->input('order_id.order_id', []);
         // dd($order_ids);
 
+
+
+
+
         if (!empty($order_ids)) {
+            $order = Order::whereIn('id', $order_ids)->get();
 
-            $order =  Order::whereIn('id', $order_ids)->update([
-                'user_id'        => $user->id ?? 'guest',
-                'email'          => $request->email,
-                'note'           => $request->note,
-                'shiping_cost'   => $request->shiping_cost,
-                'coupon_code'    => $request->coupon_code ?? Null,
-                'coupon_value'   => $request->coupon_value ?? Null,
-                'total_ammount'  => $request->total_ammount ?? Null,
-            ]);
+            foreach ($order as $order) {
+                $order->update([
+                    'user_id'       => $user->id ?? 'guest',
+                    'email'         => $request->email,
+                    'status' =>         'Received',
+                    'note'          => $request->note,
+                    'shiping_cost'  => $request->shiping_cost,
+                    'coupon_code'   => $request->coupon_code ?? null,
+                    'coupon_value'  => $request->coupon_value ?? null,
+                    'total_ammount' => $request->total_ammount ?? null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
 
+                ]);
+            }
 
+// dd($order);
             if ($order) {
-                $order = Order::whereIn('id', $order_ids)->first();
                 $order_details = [];
                 $index = 0;
                 $order_for = 'despensory';
-                    // dd($request->order_details['product_id']);
-                    $product_ids = []; // Initialize an array to store product_ids
-
-                    foreach ($request->order_details['product_id'] as $key => $ids) {
-                        if (strpos($ids, '_') !== false) {
-                            [$pro_id, $variant_id] = explode('_', $ids);
-                        } else {
-                            $pro_id = $ids;
-                            $variant_id = null;
-                        }
-
-                        // // Add $pro_id to the array
-                        // $product_ids[] = $pro_id;
-
-
+                foreach ($request->order_details['product_id'] as $key => $ids) {
+                    if (strpos($ids, '_') !== false) {
+                        [$pro_id, $variant_id] = explode('_', $ids);
+                    } else {
+                        $pro_id = $ids;
+                        $variant_id = NULL;
+                    }
                     $consultaion_type = 'one_over';
 
                     foreach (session('consultations') ?? [] as $key => $value) {
@@ -751,8 +753,6 @@ class WebController extends Controller
                             }
                         }
                     }
-
-                    // dd($variant_id);
                     if ($variant_id) {
                         $variant = ProductVariant::find($variant_id);
                         $vart_type = explode(';', $variant->title);
@@ -782,33 +782,28 @@ class WebController extends Controller
                         'updated_at' => now(),
                     ];
 
-
                     $index++;
                 }
+                // dd($order_details);
 
+                // Update or create OrderDetail records
+                foreach ($order_details as $detail) {
+                    $inserted =  OrderDetail::updateOrCreate(
+                        [ 'order_id' => $detail['order_id']],
+                        $detail
+                    );
+                }
+// dd($order_detail_update);
 
-
-                    // Update or create OrderDetail records
-                    foreach ($order_details as $detail) {
-                    $inserted = OrderDetail::updateOrCreate(
-                            ['product_id' => $detail['product_id'], 'order_id' => $detail['order_id']],
-                            $detail
-                        );
-                    }
-
-
-
-                      Order::where(['id' => $order->id])->latest('created_at')->first()
+                Order::where(['id' => $order->id])->latest('created_at')->first()
                     ->update(['order_for' => $order_for]);
 
 
+                // $inserted =  OrderDetail::insert($order_details);
 
-
-
-
-
+                // dd($request->all());
                 if ($inserted) {
-                    $shipping_details = [
+                    $shipping_details [] = [
                         'order_id' => $order->id,
                         'user_id' => $user->id ?? '',
                         'cost' => $request->shiping_cost,
@@ -824,13 +819,14 @@ class WebController extends Controller
                         'state' => $request->state,
                         'zip_code' => $request->zip_code,
                     ];
-                    // $shiping =  ShipingDetail::where('order_id', $order->id)->update($shipping_details);
-                    $shiping = ShipingDetail::where('order_id', $order->id)->first();
-                    if ($shiping) {
-                        $shiping->update($shipping_details);
+                    // $shiping =  ShipingDetail::create($shipping_details);
+                    foreach ($shipping_details as $detail) {
+                        $shiping =  ShipingDetail::updateOrCreate(
+                            [ 'order_id' => $detail['order_id']],
+                            $detail
+                        );
                     }
-
-                    // dd($shiping);
+// dd($shiping);
                     if ($shiping) {
                         session()->put('order_id', $order->id);
                         $payable_ammount = $request->total_ammount * 100;
@@ -897,9 +893,9 @@ class WebController extends Controller
             }
         }
 
-
-
         if (empty($order_ids)) {
+
+            // dd($request->all());
             $order =  Order::create([
                 'user_id'        => $user->id ?? 'guest',
                 'email'          => $request->email,

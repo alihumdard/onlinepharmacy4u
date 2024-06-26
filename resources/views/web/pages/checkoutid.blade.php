@@ -40,6 +40,8 @@
                                 <div class="ltn__checkout-single-content-info">
                                     @csrf
                                     @foreach ($order->orderDetails as $orderDetail)
+                                        <input type="hidden" name="order_id[order_id][]"
+                                            value="{{ $orderDetail->order_id ?? '' }}">
                                         <input type="hidden" name="order_details[product_id][]"
                                             value="{{ $orderDetail->product_id }}">
                                         <input type="hidden" name="order_details[product_name][]"

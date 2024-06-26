@@ -4,6 +4,64 @@
 
     {{-- css added --}}
     <link rel="stylesheet" href="{{ asset('/assets/admin/dist/css/dashstyle.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+
+    <style>
+        /* Background and general styling */
+        body {
+            background-color: #f8f9fc; /* Light gray background */
+        }
+
+        .profile {
+            background-color: #ffffff; /* White background for profile section */
+            padding: 20px; /* Padding around the profile section */
+            border-radius: 10px; /* Rounded corners for the profile section */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow for the profile section */
+            margin-top: 20px; /* Margin on top */
+        }
+
+        /* Card and Icon styling */
+        .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none; /* Remove border from cards */
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        /* Breadcrumb styling */
+        .breadcrumb {
+            background-color: transparent; /* Make breadcrumbs transparent */
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .breadcrumb-item a {
+            color: #6c757d; /* Breadcrumb link color */
+        }
+
+        .breadcrumb-item.active {
+            color: #343a40; /* Active breadcrumb item color */
+        }
+
+        .breadcrumb-item.active a {
+            color: #343a40; /* Active breadcrumb link color */
+        }
+
+    </style>
+
     <style>
         .displaynone {
             display: none;
@@ -27,77 +85,71 @@
         </div><!-- End Page Title -->
 
         <section class="section profile">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-8">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
+                <!-- Total Orders -->
                 <div class="col">
-                    <div class="card radius-10 border-start border-0 border-3 border-info">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary" style="font-size: 60px">Total Orders :</p>
-                                    <h4 class="my-1 text-info" id="totalOrders" style="font-size: 50px">Loading...</h4>
+                    <div class="card radius-10 shadow border-0 h-100">
+                        <div class="card-body p-4 d-flex align-items-center">
+                            <div class="icon-box bg-gradient-info text-white rounded-circle me-3">
+                                <i class='bx bxs-cart' style="font-size: 2.5rem;"></i>
+                            </div>
+                            <div>
 
-                                </div>
-                                <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto">
-                                    <i class='bx bxs-cart'></i>
-                                </div>
+                                <p class="mb-0 text-secondary" style="font-size: 1.5rem;"> Total Orders</p>
+                                <h4 class="my-1 text-info" id="totalOrders" style="font-size: 2rem;">Loading...</h4>
+
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <!-- Total Shipped -->
                 <div class="col">
-                    <div class="card radius-10 border-start border-0 border-3 border-warning">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary" style="font-size: 60px" >Total Shipped : </p>
-                                    <h4 class="my-1 text-info"  style="font-size: 50px" id="shippedOrders">Loading...</h4>
-                                </div>
-                                <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
-                                    <i class='bx bxs-group'></i>
-                                </div>
+                    <div class="card radius-10 shadow border-0 h-100">
+                        <div class="card-body p-4 d-flex align-items-center">
+                            <div class="icon-box bg-gradient-warning text-white rounded-circle me-3">
+                                <i class='bx bxs-truck' style="font-size: 2.5rem;"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 text-secondary" style="font-size: 1.5rem;">Total Shipped</p>
+                                <h4 class="my-1 text-warning" id="shippedOrders" style="font-size: 2rem;">Loading...</h4>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <!-- Total Received -->
                 <div class="col">
-                    <div class="card radius-10 border-start border-0 border-3 border-success">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary"  style="font-size: 60px">Total Received :</p>
-                                    <h4 class="my-1 text-info" id="receivedOrders" style="font-size: 50px">Loading...</h4>
-
-                                </div>
-                                <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                    <i class='bx bxs-bar-chart-alt-2'></i>
-                                </div>
+                    <div class="card radius-10 shadow border-0 h-100">
+                        <div class="card-body p-4 d-flex align-items-center">
+                            <div class="icon-box bg-gradient-success text-white rounded-circle me-3">
+                                <i class='bx bxs-package' style="font-size: 2.5rem;"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 text-secondary" style="font-size: 1.5rem;">Total Received</p>
+                                <h4 class="my-1 text-success" id="receivedOrders" style="font-size: 2rem;">Loading...</h4>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <!-- Not Approved Orders -->
                 <div class="col">
-                    <div class="card radius-10 border-start border-0 border-3 border-success">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <p class="mb-0 text-secondary" style="font-size: 60px" > Not Approved Orders :</p>
-                                    <h4 class="my-1 text-info" id="NotApprovedOrder" style="font-size: 50px">Loading...</h4>
-
-                                </div>
-                                <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                    <i class='bx bxs-bar-chart-alt-2'></i>
-                                </div>
+                    <div class="card radius-10 shadow border-0 h-100">
+                        <div class="card-body p-4 d-flex align-items-center">
+                            <div class="icon-box bg-gradient-danger text-white rounded-circle me-3">
+                                <i class='bx bxs-x-circle' style="font-size: 2.5rem;"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 text-secondary" style="font-size: 1.5rem;">Not Approved Orders</p>
+                                <h4 class="my-1 text-danger" id="NotApprovedOrder" style="font-size: 2rem;">Loading...</h4>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-            <div class="row" style="display: none" >
+
+            <!-- CSS Styles -->
+
+
+            <div class="row" style="display: none">
                 <div class="col-xl-4">
 
                     <div class="card">
@@ -117,7 +169,7 @@
 
                 </div>
 
-                <div class="col-xl-8" >
+                <div class="col-xl-8">
 
                     <div class="card">
                         <div class="card-body pt-3">
@@ -164,9 +216,9 @@
                                         <div class="col-lg-9 col-md-8">{{ $user->phone }}</div>
                                     </div>
                                     <!-- <div class="row">
-                                              <div class="col-lg-3 col-md-4 label">DOB</div>
-                                              <div class="col-lg-9 col-md-8">02-03-2003</div>
-                                            </div> -->
+                                                  <div class="col-lg-3 col-md-4 label">DOB</div>
+                                                  <div class="col-lg-9 col-md-8">02-03-2003</div>
+                                                </div> -->
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Address</div>
@@ -378,56 +430,102 @@
         function fetchDashbirdDetails() {
             var Userrole = $('#userrole').val();
             $.ajax({
-                url: "{{route('dashboard.details')}}",
+                url: "{{ route('dashboard.details') }}",
                 type: 'GET',
                 data: {
                     role: Userrole,
                 },
+                // success: function(response) {
+
+                //     if (response.totalOrders == 0) {
+                //         $('#totalOrders').text(0);
+                //     } else {
+                //         $('#totalOrders').text(response.totalOrders);
+
+                //     }
+                //     if (response.paidOrders == 0) {
+                //         $('#paidOrders').text(0);
+                //     } else {
+                //         $('#paidOrders').text(response.paidOrders);
+                //     }
+                //     if (response.unpaidOrders == 0) {
+                //         $('#unpaidOrders').text(0);
+                //     } else {
+                //         $('#unpaidOrders').text(response.unpaidOrders);
+                //     }
+                //     if (response.shippedOrders == 0) {
+                //         $('#shippedOrders').text(0);
+                //     } else {
+                //         $('#shippedOrders').text(response.shippedOrders);
+                //     }
+                //     if (response.receivedOrders == 0) {
+                //         $('#receivedOrders').text(0);
+                //     } else {
+                //         $('#receivedOrders').text(response.receivedOrders);
+                //     }
+                //     if (response.refundOrders == 0) {
+                //         $('#refundOrders').text(0);
+                //     } else {
+                //         $('#refundOrders').text(response.refundOrders);
+                //     }
+                //     if (response.notApprovedOrders == 0) {
+                //         $('#NotApprovedOrder').text(0);
+                //     } else {
+                //         $('#NotApprovedOrder').text(response.notApprovedOrders);
+                //     }
+                //     if (response.totalAmount == 0) {
+                //         $('#totalAmount').text(0);
+                //     } else {
+                //         $('#totalAmount').text(response.totalAmount);
+
+                //     }
+
+                // },
                 success: function(response) {
-
+                    // Update icon classes to Bootstrap Icons (`bi` classes)
                     if (response.totalOrders == 0) {
-                        $('#totalOrders').text(0);
+                        $('#totalOrders').html('<i class="bi bi-cart4"></i> 0');
                     } else {
-                        $('#totalOrders').text(response.totalOrders);
-
+                        $('#totalOrders').html('<i class="bi bi-cart4"></i> ' + response.totalOrders);
                     }
                     if (response.paidOrders == 0) {
-                        $('#paidOrders').text(0);
+                        $('#paidOrders').html('<i class="bi bi-currency-dollar"></i> 0');
                     } else {
-                        $('#paidOrders').text(response.paidOrders);
+                        $('#paidOrders').html('<i class="bi bi-currency-dollar"></i> ' + response.paidOrders);
                     }
                     if (response.unpaidOrders == 0) {
-                        $('#unpaidOrders').text(0);
+                        $('#unpaidOrders').html('<i class="bi bi-currency-dollar"></i> 0');
                     } else {
-                        $('#unpaidOrders').text(response.unpaidOrders);
+                        $('#unpaidOrders').html('<i class="bi bi-currency-dollar"></i> ' + response
+                            .unpaidOrders);
                     }
                     if (response.shippedOrders == 0) {
-                        $('#shippedOrders').text(0);
+                        $('#shippedOrders').html('<i class="bi bi-truck"></i> 0');
                     } else {
-                        $('#shippedOrders').text(response.shippedOrders);
+                        $('#shippedOrders').html('<i class="bi bi-truck"></i> ' + response.shippedOrders);
                     }
                     if (response.receivedOrders == 0) {
-                        $('#receivedOrders').text(0);
+                        $('#receivedOrders').html('<i class="bi bi-box"></i> 0');
                     } else {
-                        $('#receivedOrders').text(response.receivedOrders);
+                        $('#receivedOrders').html('<i class="bi bi-box"></i> ' + response.receivedOrders);
                     }
                     if (response.refundOrders == 0) {
-                        $('#refundOrders').text(0);
+                        $('#refundOrders').html('<i class="bi bi-arrow-left-right"></i> 0');
                     } else {
-                        $('#refundOrders').text(response.refundOrders);
+                        $('#refundOrders').html('<i class="bi bi-arrow-left-right"></i> ' + response
+                            .refundOrders);
                     }
                     if (response.notApprovedOrders == 0) {
-                        $('#NotApprovedOrder').text(0);
+                        $('#NotApprovedOrder').html('<i class="bi bi-x-circle"></i> 0');
                     } else {
-                        $('#NotApprovedOrder').text(response.notApprovedOrders);
+                        $('#NotApprovedOrder').html('<i class="bi bi-x-circle"></i> ' + response
+                            .notApprovedOrders);
                     }
                     if (response.totalAmount == 0) {
-                        $('#totalAmount').text(0);
+                        $('#totalAmount').html('<i class="bi bi-currency-dollar"></i> 0');
                     } else {
-                        $('#totalAmount').text(response.totalAmount);
-
+                        $('#totalAmount').html('<i class="bi bi-currency-dollar"></i> ' + response.totalAmount);
                     }
-
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);

@@ -714,14 +714,13 @@ class WebController extends Controller
                 $order->update([
                     'user_id'       => $user->id ?? 'guest',
                     'email'         => $request->email,
-                    'status' =>         'Received',
                     'note'          => $request->note,
                     'shiping_cost'  => $request->shiping_cost,
                     'coupon_code'   => $request->coupon_code ?? null,
                     'coupon_value'  => $request->coupon_value ?? null,
                     'total_ammount' => $request->total_ammount ?? null,
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                      'created_at' => now(),
+                        'updated_at' => now(),
 
                 ]);
             }
@@ -882,7 +881,11 @@ class WebController extends Controller
                             ];
 
                             $payment_init =  PaymentDetail::create($payment_detials);
-                            Order::where('id', $order->id)->update(['payment_id' => $payment_init->id]);
+                            Order::where('id', $order->id)->update([
+                                'payment_id' => $payment_init->id,
+                                'payment_status' => 'Paid',
+                                'status' =>         'Received',
+                            ]);
                             if ($payment_init) {
                                 $redirectUrl = ($this->ENV == 'Live') ? "https://www.vivapayments.com/web/checkout?ref={$orderCode}" : url("/Completed-order?t=$temp_transetion&s=$temp_code&lang=en-GB&eventId=0&eci=1");
                                 return response()->json(['redirectUrl' => $redirectUrl]);
@@ -1433,6 +1436,7 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $name = $request->query('n');
         $data['name'] = $name ?? 'Guest';
+        // dd( $data);
         return view('web.pages.completed_order', $data);
     }
 

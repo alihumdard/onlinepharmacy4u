@@ -85,7 +85,7 @@
         </div><!-- End Page Title -->
 
         <section class="section profile">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-8 g-4">
                 <!-- Total Orders -->
                 <div class="col">
                     <div class="card radius-10 shadow border-0 h-100">

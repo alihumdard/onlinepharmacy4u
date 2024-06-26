@@ -212,13 +212,20 @@ class CartController extends Controller
 
     public function checkout_id($order_id)
     {
+
+        $decoded_order_id = base64_decode($order_id);
+
         // Fetch the order details with related models
-        $order = Order::with('orderDetails', 'shippingDetail')->find($order_id);
+        $order = Order::with('orderDetails', 'shippingDetail')->find($decoded_order_id);
 
          // Dump and die to inspect shipping details
-    // dd($order->orderDetails);
+    // dd($order->payment_status);
         if (!$order) {
             return redirect()->back()->withErrors(['error' => 'Order not found']);
+        }
+
+        if ($order->payment_status == 'Paid') { // Replace 'desired_status' with the actual status you want to check for
+            return redirect()->back()->withErrors(['error' => 'Order status is not valid']);
         }
 
         $ukCities = config('constants.ukCities');

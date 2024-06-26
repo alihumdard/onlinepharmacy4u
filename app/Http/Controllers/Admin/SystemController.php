@@ -1480,6 +1480,8 @@ class SystemController extends Controller
             return redirect()->back();
         }
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
+
+        // dd($orders);
         // $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])
         // ->orwhere(['payment_status' => 'Unpaid', 'status' => 'Dublicate'])
         // ->latest('created_at')->get()->toArray();

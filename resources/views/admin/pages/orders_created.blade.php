@@ -467,8 +467,9 @@
                                             <td style="vertical-align: middle; text-align: center;">
                                                 <div style="display:flex; justify-content: space-around;">
                                                     <!-- Add a small popup for displaying the ID -->
-                                                    <a href="#" class="copy-id" data-id="{{ $val['id'] }}"><i
-                                                            class="bi bi-clipboard"></i></a>
+                                                    <a href="#" class="copy-id" data-id="{{ base64_encode($val['id']) }}"
+                                                   >
+                                                        <i class="bi bi-clipboard"></i></a>
                                                 </div>
                                             </td>
 
@@ -494,7 +495,7 @@
 @stop
 
 @pushOnce('scripts')
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             // Click event handler for copy icon
             $('.copy-id').on('click', function(e) {
@@ -512,9 +513,25 @@
                 alert('Copied URL with ID: ' + textToCopy);
             });
         });
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            // Click event handler for copy icon
+            $('.copy-id').on('click', function(e) {
+                e.preventDefault();
+                var encodedId = $(this).data('id');  // Get the base64 encoded ID from the button
+                var url = window.location.origin + '/checkout/' + encodedId;  // Construct the URL
+                var tempInput = $('<input>');
+                $('body').append(tempInput);
+                tempInput.val(url).select();
+                document.execCommand('copy');
+                tempInput.remove();
+
+                alert('Copied URL with ID: ' + url);
+            });
+        });
     </script>
-
-
 
     <script>
         $(function() {

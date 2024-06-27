@@ -697,15 +697,11 @@ class WebController extends Controller
 
     public function payment(Request $request)
     {
-// dd($request->all());
+        // dd($request->all());
         $user = auth()->user() ?? [];
         $data = $request->all();
         $order_ids = $request->input('order_id.order_id', []);
         // dd($order_ids);
-
-
-
-
 
         if (!empty($order_ids)) {
             $order = Order::whereIn('id', $order_ids)->get();
@@ -725,7 +721,7 @@ class WebController extends Controller
                 ]);
             }
 
-// dd($order);
+                // dd($order);
             if ($order) {
                 $order_details = [];
                 $index = 0;
@@ -792,7 +788,7 @@ class WebController extends Controller
                         $detail
                     );
                 }
-// dd($order_detail_update);
+            // dd ($order_detail_update);
 
                 Order::where(['id' => $order->id])->latest('created_at')->first()
                     ->update(['order_for' => $order_for]);
@@ -825,7 +821,7 @@ class WebController extends Controller
                             $detail
                         );
                     }
-// dd($shiping);
+                // dd($shiping);
                     if ($shiping) {
                         session()->put('order_id', $order->id);
                         $payable_ammount = $request->total_ammount * 100;

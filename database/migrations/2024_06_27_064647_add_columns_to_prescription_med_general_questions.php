@@ -25,6 +25,7 @@ return new class extends Migration
             // $table->integer('order')->nullable();
             $table->string('is_dependent')->default('no');
             $table->string('is_assigned')->default('no');
+
         });
     }
 

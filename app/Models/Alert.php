@@ -18,7 +18,9 @@ class Alert extends Model
         'q_category_id',
         'user_id',
         'status',
+        'question_type',
         'created_by',
         'updated_by',
     ];
+
 }

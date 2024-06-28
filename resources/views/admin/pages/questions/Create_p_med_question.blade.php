@@ -47,7 +47,7 @@
                         <form class="row g-3 mt-3 needs-validation" method="post" action="{{ route('admin.storePMedQuestion') }}" novalidate>
                             @csrf
                             <input type="hidden" name="id" id="question_id" value="{{ $question['id'] ?? ''}}">
-                     
+
                             <div class="col-md-12">
                                 <label for="name" class="form-label fw-bold">Title</label>
                                 <input type="text" name="title" value="{{  $question['title'] ?? old('title') }}" class="form-control" id="title" required>
@@ -571,7 +571,7 @@
             let assigned = $('#is_assigned').val();
             if (assigned === 'yes') {
                 let cate_id = $('#category_id').val();
-                
+
                     let anwser_set = $('#anwser_set').val();
                     if (anwser_set) {
                         $('.next-questions').slideDown('slow', function() {
@@ -582,7 +582,7 @@
                     } else {
                         alert('please Select answer select');
                     }
-                
+
             } else {
                 $('.next-questions').slideUp('slow');
                 $('.next-questions').addClass('hide');
@@ -592,7 +592,7 @@
         function get_dp_question(categoryId, rp_option) {
             var reply_option = rp_option;
             // Make AJAX request
-          
+
                 if (reply_option) {
                     $.ajax({
                         url: '{{ route("admin.getPMedDp_questions") }}',
@@ -602,6 +602,8 @@
                         },
                         success: function(response) {
                             let dp_qeusionts = response.result.dp_qstn;
+
+                            console.log(dp_qeusionts);
                             $('#optionA').empty();
                             $('#optionB').empty();
                             $('#optionC').empty();
@@ -705,7 +707,7 @@
                     alert('please select answer Set first');
                 }
 
-            
+
         }
 
         function get_question_detail(questionId, category_Id) {

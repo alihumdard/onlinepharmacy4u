@@ -301,12 +301,78 @@ class WebController extends Controller
         $data['template'] = $request->template ?? session('template');
         $data['product_id'] = $request->product_id ?? session('product_id');
         if ($data['template'] == config('constants.PHARMACY_MEDECINE')) {
-            $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
 
-            // dd($data['questions']);
+            $data['questions'] = [];
+            $data['dependent_questions'] = [];
+
+
+            $questions = PMedGeneralQuestion::where(['status' => 'Active'])
+            ->orderBy('id')
+            ->get()
+            ->toArray();
+
+            $question_map_cat  = QuestionMapping::where('question_type', 'PMedGeneralQuestion')->get()->toArray();
+            $data['alerts']  =  Alert::where('question_type', 'PMedGeneralQuestion')->get()->toArray();
+
+            foreach ($questions as $key => $quest) {
+                $q_id = $quest['id'];
+                $quest['selector'] = [];
+                $quest['next_type'] = [];
+                if ($quest['anwser_set'] == "mt_choice") {
+                    foreach ($question_map_cat as $key => $val1) {
+                        if ($val1['question_id'] == $q_id && $val1['answer'] == 'optA') {
+                            $quest['selector']['optA'] = $val1['selector'];
+                            $quest['next_type']['optA'] = $val1['next_type'];
+                        } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optB') {
+                            $quest['selector']['optC'] = $val1['selector'];
+                            $quest['next_type']['optB'] = $val1['next_type'];
+                        } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optC') {
+                            $quest['selector']['optC'] = $val1['selector'];
+                            $quest['next_type']['optC'] = $val1['next_type'];
+                        } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optD') {
+                            $quest['selector']['optD'] = $val1['selector'];
+                            $quest['next_type']['optD'] = $val1['next_type'];
+                        }
+                    }
+                }
+
+                else if ($quest['anwser_set'] == "yes_no") {
+                    foreach ($question_map_cat as $key => $val2) {
+                        if ($val2['question_id'] == $q_id && $val2['answer'] == 'optY') {
+                            $quest['selector']['yes_lable'] = $val2['selector'];
+                            $quest['next_type']['yes_lable'] = $val2['next_type'];
+                        } elseif ($val2['question_id'] == $q_id && $val2['answer'] == 'optN') {
+                            $quest['selector']['no_lable']  = $val2['selector'];
+                            $quest['next_type']['no_lable'] = $val2['next_type'];
+                        }
+                    }
+
+                }
+                else if ($quest['anwser_set'] == "file") {
+                    foreach ($question_map_cat as $key => $val3) {
+                        if ($val3['question_id'] == $q_id && $val3['answer'] == 'file') {
+                            $quest['selector']['file'] = $val3['selector'];
+                            $quest['next_type']['file'] = $val3['next_type'];
+                        }
+                    }
+                } else if ($quest['anwser_set'] == "openbox") {
+                    foreach ($question_map_cat as $key => $val4) {
+                        if ($val4['question_id'] == $q_id && $val4['answer'] == 'openBox') {
+                            $quest['selector']['openbox'] = $val4['selector'];
+                            $quest['next_type']['openbox'] = $val4['next_type'];
+                        }
+                    }
+                }
+                if ($quest['is_dependent'] == 'yes') {
+                    $data['dependent_questions'][$q_id] = $quest;
+                } else {
+                    $data['questions'][] = $quest;
+                }
+            }
 
             return view('web.pages.pmd_genral_question', $data);
-        } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
+        }
+        else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
             if (auth()->user()) {
                 if ($data['user']->id_document ?? Null) {
                     foreach (session('consultations') ?? [] as $key => $value) {
@@ -318,8 +384,78 @@ class WebController extends Controller
                         }
                     }
 
-                    $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
-                    // dd($data['questions']);
+                    $data['questions'] = [];
+                    $data['dependent_questions'] = [];
+
+
+                    $questions = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])
+                    ->orderBy('id')
+                    ->get()
+                    ->toArray();
+
+                    $question_map_cat  = QuestionMapping::where('question_type', 'PrescriptionMedGeneralQuestion')->get()->toArray();
+                    $data['alerts']  =  Alert::where('question_type', 'PrescriptionMedGeneralQuestion')->get()->toArray();
+
+                    foreach ($questions as $key => $quest) {
+                        $q_id = $quest['id'];
+                        $quest['selector'] = [];
+                        $quest['next_type'] = [];
+                        if ($quest['anwser_set'] == "mt_choice") {
+                            foreach ($question_map_cat as $key => $val1) {
+                                if ($val1['question_id'] == $q_id && $val1['answer'] == 'optA') {
+                                    $quest['selector']['optA'] = $val1['selector'];
+                                    $quest['next_type']['optA'] = $val1['next_type'];
+                                } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optB') {
+                                    $quest['selector']['optC'] = $val1['selector'];
+                                    $quest['next_type']['optB'] = $val1['next_type'];
+                                } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optC') {
+                                    $quest['selector']['optC'] = $val1['selector'];
+                                    $quest['next_type']['optC'] = $val1['next_type'];
+                                } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optD') {
+                                    $quest['selector']['optD'] = $val1['selector'];
+                                    $quest['next_type']['optD'] = $val1['next_type'];
+                                }
+                            }
+                        }
+
+                        else if ($quest['anwser_set'] == "yes_no") {
+                            foreach ($question_map_cat as $key => $val2) {
+                                if ($val2['question_id'] == $q_id && $val2['answer'] == 'optY') {
+                                    $quest['selector']['yes_lable'] = $val2['selector'];
+                                    $quest['next_type']['yes_lable'] = $val2['next_type'];
+                                } elseif ($val2['question_id'] == $q_id && $val2['answer'] == 'optN') {
+                                    $quest['selector']['no_lable']  = $val2['selector'];
+                                    $quest['next_type']['no_lable'] = $val2['next_type'];
+                                }
+                            }
+
+                        }
+                        else if ($quest['anwser_set'] == "file") {
+                            foreach ($question_map_cat as $key => $val3) {
+                                if ($val3['question_id'] == $q_id && $val3['answer'] == 'file') {
+                                    $quest['selector']['file'] = $val3['selector'];
+                                    $quest['next_type']['file'] = $val3['next_type'];
+                                }
+                            }
+                        } else if ($quest['anwser_set'] == "openbox") {
+                            foreach ($question_map_cat as $key => $val4) {
+                                if ($val4['question_id'] == $q_id && $val4['answer'] == 'openBox') {
+                                    $quest['selector']['openbox'] = $val4['selector'];
+                                    $quest['next_type']['openbox'] = $val4['next_type'];
+                                }
+                            }
+                        }
+                        if ($quest['is_dependent'] == 'yes') {
+                            $data['dependent_questions'][$q_id] = $quest;
+                        } else {
+                            $data['questions'][] = $quest;
+                        }
+                    }
+
+
+
+
+
                     $data['gp_locations'] = Pharmacy4uGpLocation::where('status', 'Active')->latest('id')->get()->toArray();
                     return view('web.pages.premd_genral_question', $data);
                 } else {
@@ -373,6 +509,8 @@ class WebController extends Controller
 
     public function consultation_store(Request $request)
     {
+
+        // dd($request->all());
         $consultations = Session::get('consultations', []);
         $questionAnswers = [];
         foreach ($request->all() as $key => $value) {
@@ -1433,8 +1571,7 @@ class WebController extends Controller
         $name = $request->query('n');
         $data['name'] = $name ?? 'Guest';
         // dd( $data);
-        return view('web.pages.completed_order', $data);
-    }
+ }
 
     public function transetion_fail(Request $request)
     {

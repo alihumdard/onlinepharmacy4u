@@ -2407,6 +2407,7 @@ class SystemController extends Controller
         if ($request->has('id')) {
             $data['question'] = PMedGeneralQuestion::findOrFail($request->id)->toArray();
         }
+        // dd($data['question']);
         return view('admin.pages.questions.Create_p_med_question', $data);
     }
 
@@ -2420,6 +2421,8 @@ class SystemController extends Controller
             ->pluck('title', 'id')
             ->toArray();
         if ($result['dp_qstn']) {
+
+            // dd($result['dp_qstn']);
             return response()->json(['status' => 'success', 'result' => $result]);
         } else {
             return response()->json(['status' => 'empty', 'result' => []]);
@@ -2461,7 +2464,7 @@ class SystemController extends Controller
                 'optB' => ucwords($request->optB) ?? NULL,
                 'optC' => ucwords($request->optC) ?? NULL,
                 'optD' => ucwords($request->optD) ?? NULL,
-                'order' => $request->order ?? null,
+                'order' => $request->order ?? 0,
                 'is_dependent' => ($request->type == 'non_dependent') ? 'no' : 'yes',
                 'created_by' => $user->id,
             ]
@@ -2485,7 +2488,7 @@ class SystemController extends Controller
                                 'route' => 'web.productQuestion',
                                 'option' => $option,
                                 'question_id' => $question->id,
-                                'question' => 'PMedGeneralQuestion',
+                                'question_type' => 'PMedGeneralQuestion',
                                 'created_by' => $user->id
                             ]
                         );
@@ -2506,6 +2509,7 @@ class SystemController extends Controller
                                     'next_type' => 'alert',
                                     'selector' => $alert->id,
                                     'status' => 1,
+                                    'question_type' => 'PMedGeneralQuestion',
                                     'created_by' => $user->id
                                 ]
                             );
@@ -2524,6 +2528,7 @@ class SystemController extends Controller
                                 'next_type' => 'question',
                                 'selector' => $selector,
                                 'status' => 1,
+                                'question_type' => 'PMedGeneralQuestion',
                                 'created_by' => $user->id
                             ]
                         );
@@ -2539,6 +2544,7 @@ class SystemController extends Controller
                                 'next_type' => 'nothing',
                                 'selector' => $selector,
                                 'status' => 1,
+                                'question_type' => 'PMedGeneralQuestion',
                                 'created_by' => $user->id
                             ]
                         );
@@ -2658,7 +2664,7 @@ class SystemController extends Controller
                 'optB' => ucwords($request->optB) ?? NULL,
                 'optC' => ucwords($request->optC) ?? NULL,
                 'optD' => ucwords($request->optD) ?? NULL,
-                'order' => $request->order ?? null,
+                'order' => $request->order ?? 0,
                 'is_dependent' => ($request->type == 'non_dependent') ? 'no' : 'yes',
                 'created_by' => $user->id,
             ]

@@ -3,40 +3,6 @@
 @section('content')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    {{--
-    <style>
-        .styled-radio {
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            border: 2px solid #0dcaf0;
-            border-radius: 50%;
-            outline: none;
-        }
-
-        .styled-radio:hover {
-            outline: auto;
-        }
-
-        .styled-radio:checked {
-            background-color: #0dcaf0;
-            border: 2px solid #0dcaf0;
-            box-shadow: none;
-            outline: none;
-        }
-
-        .bnt-checkout:hover {
-            background-color: #03c4a5;
-            border-radius: 10px !important;
-        }
-
-        .bnt-checkout {
-            border-radius: 10px !important;
-        }
-    </style> --}}
-
-
 
     <style>
         .styled-radio {

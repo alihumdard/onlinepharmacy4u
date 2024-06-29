@@ -100,7 +100,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Order For Doctor <span>|  This Month</span></h5>
+                                    <h5 class="card-title">Order For Doctor <span>| This Month</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -137,7 +137,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Order For Dispensary <span>|  This Month</span></h5>
+                                    <h5 class="card-title">Order For Dispensary <span>| This Month</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -614,7 +614,8 @@
                             </script>
 
                         </div>
-                    </div><!-- End Budget Report -->
+                    </div>
+                    <!-- End Budget Report -->
 
                     <!-- Website Traffic -->
                     <div class="card">
@@ -693,11 +694,13 @@
                             </script>
 
                         </div>
-                    </div><!-- End Website Traffic -->
+                    </div>
+                    <!-- End Website Traffic -->
 
 
 
-                </div><!-- End Right side columns -->
+                </div>
+                <!-- End Right side columns -->
 
             </div>
         </section>

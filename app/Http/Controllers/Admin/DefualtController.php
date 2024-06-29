@@ -95,6 +95,34 @@ class DefualtController extends Controller
         }
     }
 
+
+    public function admin_dashboard_detail(Request $request)
+    {
+
+
+        $totalOrders = Order::count();
+        $notApprovedOrders = Order::where('status', 'Not_Approved')->count();
+        $paidOrders = Order::where('payment_status', 'paid')->count();
+        $UnpaidOrders = Order::where('payment_status', 'Unpaid')->count();
+        $totalSales = Order::where('status', 'paid')->sum('total_ammount');
+        $totalSales = Order::where('payment_status', 'paid')->sum('total_ammount');
+        $doctorOrders = Order::where('order_for', 'doctor')->count();
+        $despensoryOrders = Order::where('order_for', 'despensory')->count();
+
+
+        // Return the total orders as a JSON response
+        return response()->json([
+            'totalOrders' => $totalOrders,
+            'notApprovedOrders' => $notApprovedOrders,
+            'paidOrders' => $paidOrders,
+            'UnpaidOrders' => $UnpaidOrders,
+            'totalSales' => $totalSales,
+            'doctorOrders' => $doctorOrders,
+            'despensoryOrders' => $despensoryOrders
+        ]);
+
+    }
+
     public function dashboard_details(Request $request)
     {
         // Retrieve the role value from the request

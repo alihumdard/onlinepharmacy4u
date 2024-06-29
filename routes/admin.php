@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\OrderController;
 Route::get('/admin', [DefualtController::class, 'index'])->name('admin.index');
 
 Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
+    Route::get('/dashboard', [DefualtController::class, 'admin_dashboard_detail'])->name('admin.dashboard.detail');
     Route::match(['get', 'post'], '/setting', [DefualtController::class, 'profile_setting'])->name('admin.profileSetting');
     Route::match(['get', 'post'], '/storeQuery', [DefualtController::class, 'store_query'])->name('admin.storeQuery');
     Route::match(['get', 'post'], '/storeCompanyDetails', [DefualtController::class, 'store_company_details'])->name('admin.storeCompanyDetails');

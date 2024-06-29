@@ -44,45 +44,7 @@
                 <div class="col-lg-12">
                     <div class="row">
 
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
-
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Sales <span>| Today</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-cart"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>145</h6>
-                                            <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                                class="text-muted small pt-2 ps-1">increase</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Sales Card -->
-
-                        <!-- Revenue Card -->
+                        <!-- Total Revenue Card -->
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card revenue-card">
 
@@ -109,20 +71,18 @@
                                             <i class="bi bi-currency-dollar"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>$3,264</h6>
+                                            <h6 id="total-revenue">Loading...</h6>
                                             <span class="text-success small pt-1 fw-bold">8%</span> <span
                                                 class="text-muted small pt-2 ps-1">increase</span>
-
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div><!-- End Revenue Card -->
+                        </div><!-- End Total Revenue Card -->
 
-                        <!-- Customers Card -->
+                        <!-- Orders for Doctors Card -->
                         <div class="col-xxl-4 col-xl-12">
-
                             <div class="card info-card customers-card">
 
                                 <div class="filter">
@@ -140,7 +100,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Customers <span>| This Year</span></h5>
+                                    <h5 class="card-title">Order For Doctor <span>| This Month</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -148,26 +108,62 @@
                                             <i class="bi bi-people"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>1244</h6>
+                                            <h6 id="orders-doctors">Loading...</h6>
                                             <span class="text-danger small pt-1 fw-bold">12%</span> <span
                                                 class="text-muted small pt-2 ps-1">decrease</span>
-
                                         </div>
                                     </div>
-
                                 </div>
+
                             </div>
+                        </div><!-- End Orders for Doctors Card -->
 
-                        </div>
+                        <!-- Orders for Dispensaries Card -->
+                        <div class="col-xxl-4 col-xl-12">
+                            <div class="card info-card customers-card">
 
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
 
-                    </div>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Order For Dispensary <span>| This Month</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-people"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="orders-dispensaries">Loading...</h6>
+                                            <span class="text-danger small pt-1 fw-bold">12%</span> <span
+                                                class="text-muted small pt-2 ps-1">decrease</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- End Orders for Dispensaries Card -->
+
+                    </div><!-- End Row -->
+
                 </div>
                 <!-- End Left side columns -->
 
                 <!-- Left side columns -->
                 <div class="col-lg-8">
                     <div class="row">
+
 
                         <!-- Total Orders Card -->
                         <div class="col-xxl-4 col-md-6">
@@ -188,7 +184,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Total Orders <span>| Today</span></h5>
+                                    <h5 class="card-title">Total Orders <span>| This Month</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -196,7 +192,7 @@
                                             <i class="bi bi-bag-check"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>145</h6>
+                                            <h6 id="total-orders">Loading...</h6>
                                             <span class="text-success small pt-1 fw-bold">12%</span> <span
                                                 class="text-muted small pt-2 ps-1">increase</span>
                                         </div>
@@ -233,7 +229,7 @@
                                             <i class="bi bi-hourglass-split"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>30</h6>
+                                            <h6 id="pending-orders">Loading...</h6>
                                             <span class="text-danger small pt-1 fw-bold">5%</span> <span
                                                 class="text-muted small pt-2 ps-1">decrease</span>
                                         </div>
@@ -243,10 +239,9 @@
                             </div>
                         </div><!-- End Pending Orders Card -->
 
-                        <!-- Conversion Rate Card -->
-                        <div class="col-xxl-4 col-xl-12">
-
-                            <div class="card info-card conversion-rate-card">
+                        <!-- Paid Orders Card -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card paid-orders-card">
 
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -263,25 +258,23 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Conversion Rate <span>| This Year</span></h5>
+                                    <h5 class="card-title">Paid Orders <span>| This Month</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-graph-up"></i>
+                                            <i class="bi bi-currency-dollar"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>3.4%</h6>
-                                            <span class="text-success small pt-1 fw-bold">1.2%</span> <span
+                                            <h6 id="paid-orders">Loading...</h6>
+                                            <span class="text-success small pt-1 fw-bold">8%</span> <span
                                                 class="text-muted small pt-2 ps-1">increase</span>
                                         </div>
                                     </div>
-
                                 </div>
+
                             </div>
-
-                        </div><!-- End Conversion Rate Card -->
-
+                        </div><!-- End Paid Orders Card -->
 
                         <!-- Reports -->
                         <div class="col-12">
@@ -621,7 +614,8 @@
                             </script>
 
                         </div>
-                    </div><!-- End Budget Report -->
+                    </div>
+                    <!-- End Budget Report -->
 
                     <!-- Website Traffic -->
                     <div class="card">
@@ -700,11 +694,13 @@
                             </script>
 
                         </div>
-                    </div><!-- End Website Traffic -->
+                    </div>
+                    <!-- End Website Traffic -->
 
 
 
-                </div><!-- End Right side columns -->
+                </div>
+                <!-- End Right side columns -->
 
             </div>
         </section>
@@ -725,4 +721,30 @@
 
         <!-- Template Main JS File -->
         <script src="{{ asset('assets/admin/assets/js/main.js') }}"></script>
+
+
+        <script>
+            $(document).ready(function() {
+                dashboard();
+            });
+
+            function dashboard() {
+                $.ajax({
+                    url: "{{ route('admin.dashboard.detail') }}",
+                    type: "GET",
+                    success: function(data) {
+                        console.log(data);
+                        $('#total-revenue').text('$' + data.totalSales.toFixed(2));
+                        $('#orders-doctors').text(data.doctorOrders);
+                        $('#orders-dispensaries').text(data.despensoryOrders);
+                        $('#total-orders').text(data.totalOrders);
+                        $('#pending-orders').text(data.notApprovedOrders);
+                        $('#paid-orders').text(data.paidOrders);
+                    },
+                    error: function(error) {
+                        console.error("There was an error fetching the dashboard details:", error);
+                    }
+                });
+            }
+        </script>
     @endPushOnce

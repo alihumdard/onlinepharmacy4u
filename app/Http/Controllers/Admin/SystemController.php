@@ -1886,18 +1886,18 @@ class SystemController extends Controller
             ]);
         }
 
-    }
-
-            // dd( 'shippingDetail', $shippingDetail ,'order_Detail',$order_Detail);
-            if ($shippingDetail) {
-                $message = "Order and Shipping Details Saved Successfully";
-                return redirect()->route('admin.ordersCreated')->with(['msg' => $message]);
-            }
-
         }
 
-        // Handle error case
-        return redirect()->back()->with(['error' => 'Failed to save order and shipping details']);
+                // dd( 'shippingDetail', $shippingDetail ,'order_Detail',$order_Detail);
+                if ($shippingDetail) {
+                    $message = "Order and Shipping Details Saved Successfully";
+                    return redirect()->route('admin.ordersCreated')->with(['msg' => $message]);
+                }
+
+            }
+
+            // Handle error case
+            return redirect()->back()->with(['error' => 'Failed to save order and shipping details']);
     }
 
     public function change_status(Request $request)
@@ -2671,7 +2671,90 @@ class SystemController extends Controller
                 'created_by' => $user->id,
             ]
         );
-        return redirect()->route('admin.prescriptionMedGQ');
+
+
+        if ($question->id) {
+
+            if ($question->is_assigned == 'yes') {
+                $options = ['optA', 'optB', 'optC', 'optD', 'optY', 'optN', 'openBox', 'file'];
+                // dd($request->next_quest);
+                foreach ($options as $option) {
+
+                    $value = $request->next_quest[$option];
+                    $selector = 'nothing';
+                    if ($value['next_type'] == 'alert') {
+                        $alert = Alert::updateOrCreate(
+                            [
+                                'type' => $value['alert_type'],
+                                'body' => $value['alert_msg'],
+                                'route' => 'web.productQuestion',
+                                'option' => $option,
+                                'question_id' => $question->id,
+                                'question_type' => 'PrescriptionMedGeneralQuestion',
+                                'created_by' => $user->id
+                            ]
+                        );
+
+
+                        if ($alert->id) {
+                            $selector = $alert->id;
+                            $mapped = QuestionMapping::updateOrCreate(
+                                [
+
+                                    'question_id' => $question->id,
+                                    'category_id' => '0',
+                                    'answer' => $option,
+                                    'next_type' => 'alert',
+                                    'selector' => $alert->id,
+                                    'status' => 1,
+                                    'question_type' => 'PrescriptionMedGeneralQuestion',
+                                    'created_by' => $user->id
+                                ]
+                            );
+                        } else {
+                            dd('alert is not saved');
+                        }
+                    }
+
+                    if ($value['next_type'] == 'question') {
+                        $selector = $value['question'];
+                        $mapped = QuestionMapping::updateOrCreate(
+                            [
+                                'question_id' => $question->id,
+                                'category_id' => '0',
+                                'answer' => $option,
+                                'next_type' => 'question',
+                                'selector' => $selector,
+                                'status' => 1,
+                                'question_type' => 'PrescriptionMedGeneralQuestion',
+                                'created_by' => $user->id
+                            ]
+                        );
+                    }
+
+                    if ($value['next_type'] == 'nothing') {
+                        $mapped = QuestionMapping::updateOrCreate(
+                            [
+                                'question_id' => $question->id,
+                                'category_id' => '0',
+                                'answer' => $option,
+                                'next_type' => 'nothing',
+                                'selector' => $selector,
+                                'status' => 1,
+                                'question_type' => 'PrescriptionMedGeneralQuestion',
+                                'created_by' => $user->id
+                            ]
+                        );
+
+                        // dd($mapped);
+                    }
+                }
+            }
+
+            $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            return redirect()->route('admin.prescriptionMedGQ')->with(['msg' => $message]);
+        }
+
     }
 
     public function updatePrescriptionQuestionOrder(Request $request)

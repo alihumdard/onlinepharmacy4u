@@ -133,7 +133,7 @@
                             is suitable or not.</p>
                     </div>
                     {{-- <form id="pmed_generic_question" action="{{ route('web.consultationStore') }}" method="post"> --}}
-                    <form id="product_consultation_from" action="{{ route('web.transactionStore') }}" method="post"
+                    <form id="product_consultation_from" action="{{ route('web.consultationStore') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="template" required value="{{ $template }}">

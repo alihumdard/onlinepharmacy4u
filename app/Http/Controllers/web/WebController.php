@@ -307,9 +307,10 @@ class WebController extends Controller
 
 
             $questions = PMedGeneralQuestion::where(['status' => 'Active'])
-            ->orderBy('id')
+            ->orderBy('order')
             ->get()
             ->toArray();
+            // dd($questions);
 
             $question_map_cat  = QuestionMapping::where('question_type', 'PMedGeneralQuestion')->get()->toArray();
             $data['alerts']  =  Alert::where('question_type', 'PMedGeneralQuestion')->get()->toArray();
@@ -389,7 +390,7 @@ class WebController extends Controller
 
 
                     $questions = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])
-                    ->orderBy('id')
+                    ->orderBy('order')
                     ->get()
                     ->toArray();
 

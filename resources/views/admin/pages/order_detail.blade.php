@@ -241,7 +241,7 @@
                                                 <p class="text-muted mb-0 small"><b>Quantity: </b> {{$val['product_qty']}}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                <p class="text-muted mb-0 small"><b>Barcode: </b> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</p>
+                                                <p class="text-muted mb-0 small"><b>SKU: </b> {{$val['variant']['SKU'] ?? $val['product']['SKU']}}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                                                 @if((isset($user->role) && $user->role == user_roles('1')))
@@ -254,7 +254,8 @@
                                         <div class="row d-flex ">
                                             <div class="col-lg-12 text-center ">
                                                 <a href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
-                                                    See Consultations
+                                                    {{-- See Consultations --}}
+                                                    Approved / View Consultation
                                                 </a>
                                             </div>
                                         </div>
@@ -590,3 +591,4 @@
     });
 </script>
 @endPushOnce
+

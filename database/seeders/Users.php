@@ -43,7 +43,7 @@ class Users extends Seeder
             'created_by' => '1',
         ]);
 
-        // Create a Dispensary
+        // Create a Dispensaryz
         User::factory()->create([
             'name'         => 'Dispensary',
             'email'        => 'dispensary@gmail.com',
@@ -56,7 +56,7 @@ class Users extends Seeder
             'created_by'   => '2'
         ]);
 
-        // Create a Doctor 
+        // Create a Doctor
         User::factory()->create([
             'name'         => 'Doctor',
             'email'        => 'doctor@gmail.com',

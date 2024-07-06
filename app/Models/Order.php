@@ -49,4 +49,11 @@ class Order extends Model
     {
         return strtolower($value);
     }
+
+
+    public function shippingDetail()
+    {
+        return $this->hasOne(ShipingDetail::class , 'order_id');
+    }
+
 }

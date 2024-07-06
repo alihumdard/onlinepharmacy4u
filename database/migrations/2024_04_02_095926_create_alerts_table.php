@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('body');
             $table->string('route');
             $table->string('slug')->nullable();
+            $table->string('question')->nullable();
             $table->unsignedBigInteger('question_id')->nullable();
             $table->unsignedBigInteger('option')->nullable();
             $table->unsignedBigInteger('q_category_id')->nullable();

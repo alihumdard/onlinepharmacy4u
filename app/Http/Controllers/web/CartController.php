@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\ShipingDetail;
 
 class CartController extends Controller
 {
@@ -128,7 +131,7 @@ class CartController extends Controller
             foreach ($vart_type as $key => $type) {
                 $var_info .= "<b>$type:</b> {$vart_value[$key]}";
                 if ($key < count($vart_type) - 1) {
-                    $var_info .= ', '; 
+                    $var_info .= ', ';
                 }
             }
             $variant['new_var_info'] = $var_info;
@@ -193,7 +196,12 @@ class CartController extends Controller
         if (Cart::count() == 0) {
             return redirect()->route('web.view.cart');
         } else {
-            return view('web.pages.checkout');
+
+            $ukCities = config('constants.ukCities');
+            $ukPostalcode = config('constants.ukPostalcode');
+            $ukAddress = Config('constants.ukAddress');
+
+            return view('web.pages.checkout', compact('ukCities','ukPostalcode', 'ukAddress'));
         }
     }
 
@@ -201,4 +209,29 @@ class CartController extends Controller
     {
         Cart::destroy();
     }
+
+    public function checkout_id($order_id)
+    {
+
+        $decoded_order_id = base64_decode($order_id);
+
+        // Fetch the order details with related models
+        $order = Order::with('orderDetails', 'shippingDetail')->find($decoded_order_id);
+
+         // Dump and die to inspect shipping details
+    // dd($order->payment_status);
+        if (!$order) {
+            return redirect()->back()->withErrors(['error' => 'Order not found']);
+        }
+
+        if ($order->payment_status == 'Paid') { // Replace 'desired_status' with the actual status you want to check for
+            return redirect()->back()->withErrors(['error' => 'Order status is not valid']);
+        }
+
+        $ukCities = config('constants.ukCities');
+        $ukPostalcode = config('constants.ukPostalcode');
+
+        return view('web.pages.checkoutid', compact('ukCities', 'ukPostalcode', 'order'));
+    }
+
 }

@@ -17,6 +17,7 @@ class QuestionMapping extends Model
         'next_type',
         'selector',
         'status',
+        'question_type',
         'created_by',
     ];
 

@@ -9209,6 +9209,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/flare-client-php/issues",
+
                 "source": "https://github.com/spatie/flare-client-php/tree/1.7.0"
             },
             "funding": [

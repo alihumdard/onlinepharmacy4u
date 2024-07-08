@@ -28,6 +28,7 @@ use App\Models\Category;
 use App\Models\Question;
 use App\Models\AssignQuestion;
 use App\Models\Product;
+use App\Models\Order;
 use App\Models\ProductAttribute;
 
 use Illuminate\Support\Facades\URL;
@@ -39,18 +40,25 @@ class DefualtController extends Controller
     protected $user;
     private $menu_categories;
 
+
+
+
     public function __construct()
     {
         $this->user = auth()->user();
         $this->status = config('constants.USER_STATUS');
 
         $this->menu_categories = Category::where('status', 'Active')
-            ->with(['subcategory' => function ($query) {
-                $query->where('status', 'Active')
-                    ->with(['childCategories' => function ($query) {
-                        $query->where('status', 'Active');
-                    }]);
-            }])
+            ->with([
+                'subcategory' => function ($query) {
+                    $query->where('status', 'Active')
+                        ->with([
+                            'childCategories' => function ($query) {
+                                $query->where('status', 'Active');
+                            }
+                        ]);
+                }
+            ])
             ->where('publish', 'Publish')
             ->latest('id')
             ->get()
@@ -69,7 +77,7 @@ class DefualtController extends Controller
                 return redirect()->back();
             }
             session(['user_details' => $user]);
-            $data['user']       = $user;
+            $data['user'] = $user;
             $data['role'] = user_role_no($user->role);
             // User roles: 1 for Super Admin, 2 for Despensory, 3 for Doctor, 4 User
             if (isset($user->role) && $user->role == user_roles('1')) {
@@ -87,6 +95,78 @@ class DefualtController extends Controller
         }
     }
 
+
+    public function admin_dashboard_detail(Request $request)
+    {
+
+
+        $totalOrders = Order::count();
+        $notApprovedOrders = Order::where('status', 'Not_Approved')->count();
+        $paidOrders = Order::where('payment_status', 'paid')->count();
+        $UnpaidOrders = Order::where('payment_status', 'Unpaid')->count();
+        $totalSales = Order::where('status', 'paid')->sum('total_ammount');
+        $totalSales = Order::where('payment_status', 'paid')->sum('total_ammount');
+        $doctorOrders = Order::where('order_for', 'doctor')->count();
+        $despensoryOrders = Order::where('order_for', 'despensory')->count();
+
+
+        // Return the total orders as a JSON response
+        return response()->json([
+            'totalOrders' => $totalOrders,
+            'notApprovedOrders' => $notApprovedOrders,
+            'paidOrders' => $paidOrders,
+            'UnpaidOrders' => $UnpaidOrders,
+            'totalSales' => $totalSales,
+            'doctorOrders' => $doctorOrders,
+            'despensoryOrders' => $despensoryOrders
+        ]);
+
+    }
+
+    public function dashboard_details(Request $request)
+    {
+        // Retrieve the role value from the request
+        // User roles: 1 for Super Admin, 2 for Despensory, 3 for Doctor, 4 User
+        $role = $request->input('role');
+
+        // Initialize $user variable
+        $user = '';
+
+        // Set $user based on role
+        if ($role == '2') {
+            $user = 'Despensory';
+        } elseif ($role == '3') {
+            $user = 'Doctor';
+        }
+
+        // Retrieve order details based on $user
+        $totalOrders = Order::where('order_for', $user)->count();
+        $paidOrders = Order::where('payment_status', 'paid')->where('order_for', $user)->count();
+        $unpaidOrders = Order::where('payment_status', 'Unpaid')->where('order_for', $user)->count();
+        $shippedOrders = Order::where('status', 'Shipped')->where('order_for', $user)->count();
+        $receivedOrders = Order::where('status', 'Received')->where('order_for', $user)->count();
+        $refundOrders = Order::where('status', 'Refund')->where('order_for', $user)->count();
+        $notApprovedOrders = Order::where('status', 'Not_Approved')->where('order_for', $user)->count();
+        // $totalAmount = Order::where('order_for', $user)->sum('total_ammount');
+        $totalAmount = number_format(Order::where('order_for', $user)->sum('total_ammount'), 2);
+
+        // dd($totalAmount, $user, $totalOrders, $paidOrders, $unpaidOrders, $shippedOrders, $receivedOrders, $refundOrders, $notApprovedOrders);
+
+        // Return JSON response with order details
+        return response()->json([
+            'totalOrders' => $totalOrders,
+            'paidOrders' => $paidOrders,
+            'unpaidOrders' => $unpaidOrders,
+            'shippedOrders' => $shippedOrders,
+            'receivedOrders' => $receivedOrders,
+            'refundOrders' => $refundOrders,
+            'notApprovedOrders' => $notApprovedOrders,
+            'totalAmount' => $totalAmount
+        ]);
+    }
+
+
+
     public function profile_setting(Request $request)
     {
         $user = auth()->user();
@@ -96,10 +176,10 @@ class DefualtController extends Controller
         }
         if ($request->all()) {
             $rules = [
-                'name'      => 'required',
-                'phone'     => 'required|digits:11',
-                'address'   => 'required',
-                'email'     => [
+                'name' => 'required',
+                'phone' => 'required|digits:11',
+                'address' => 'required',
+                'email' => [
                     'required',
                     'email',
                     Rule::unique('users')->ignore($user->id),
@@ -120,13 +200,13 @@ class DefualtController extends Controller
                 $ImagePath = 'user_images/' . $imageName;
             }
             $updateData = [
-                'name'       => ucwords($request->name),
-                'email'      => $request->email,
-                'phone'      => $request->phone,
-                'user_pic'   => $ImagePath ?? $user->user_pic,
-                'address'    => $request->address,
-                'short_bio'  => $request->short_bio,
-                'status'     => $this->status['Active'],
+                'name' => ucwords($request->name),
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'user_pic' => $ImagePath ?? $user->user_pic,
+                'address' => $request->address,
+                'short_bio' => $request->short_bio,
+                'status' => $this->status['Active'],
                 'created_by' => $user->id,
             ];
             $saved = User::updateOrCreate(
@@ -214,7 +294,7 @@ class DefualtController extends Controller
         if (!$user) {
             if ($request->all()) {
                 $validator = Validator::make($request->all(), [
-                    'email'    => [
+                    'email' => [
                         'required',
                         'email',
                     ],
@@ -236,18 +316,18 @@ class DefualtController extends Controller
                         if (Auth::attempt($credentials)) {
                             $token = $user->createToken('MyApp')->plainTextToken;
                             if (isset($user->role) && $user->role == user_roles('1')) {
-                                return  redirect('/admin');
+                                return redirect('/admin');
                             } else if (isset($user->role) && $user->role == user_roles('2')) {
-                                return  redirect('/admin');
+                                return redirect('/admin');
                             } else if (isset($user->role) && $user->role == user_roles('3')) {
-                                return  redirect('/admin');
+                                return redirect('/admin');
                             } else if (isset($user->role) && $user->role == user_roles('4')) {
                                 $intendedUrl = session('intended_url');
                                 session()->forget('intended_url');
                                 if ($intendedUrl) {
                                     return redirect()->route('web.consultationForm');
                                 } else {
-                                    return  redirect('/admin');
+                                    return redirect('/admin');
                                 }
                             }
                             // return redirect()->back()->with(['status' => 'success', 'message' => 'User successfully logged in', 'token' => $token]);
@@ -267,13 +347,13 @@ class DefualtController extends Controller
             }
         } else {
             if (isset($user->role) && $user->role == user_roles('1')) {
-                return  redirect('/admin');
+                return redirect('/admin');
             } else if (isset($user->role) && $user->role == user_roles('2')) {
-                return  redirect('/admin');
+                return redirect('/admin');
             } else if (isset($user->role) && $user->role == user_roles('3')) {
-                return  redirect('/admin');
+                return redirect('/admin');
             } else if (isset($user->role) && $user->role == user_roles('4')) {
-                return  redirect('/');
+                return redirect('/');
             }
         }
         return view('web.pages.login');
@@ -313,16 +393,16 @@ class DefualtController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'name'     => 'required',
-                    'phone'    => 'required|digits:11',
-                    'address'  => 'required',
-                    'gender'   => 'required',
-                    'id_document'   => 'required',
-                    'day'     => 'required',
-                    'month'     => 'required',
-                    'year'     => 'required',
-                    'zip_code'     => 'required',
-                    'email'    => [
+                    'name' => 'required',
+                    'phone' => 'required|digits:11',
+                    'address' => 'required',
+                    'gender' => 'required',
+                    'id_document' => 'required',
+                    'day' => 'required',
+                    'month' => 'required',
+                    'year' => 'required',
+                    'zip_code' => 'required',
+                    'email' => [
                         'required',
                         'email',
                         Rule::unique('users')->ignore($request->id),
@@ -351,20 +431,20 @@ class DefualtController extends Controller
             $saved = User::updateOrCreate(
                 ['id' => $request->id ?? NULL],
                 [
-                    'name'       => ucwords($request->name),
-                    'email'      => $request->email,
-                    'dob'        => $dob,
-                    'role'       => $request->role ?? 'User',
-                    'phone'      => $request->phone,
-                    'address'    => $request->address,
-                    'apartment'  => $request->apartment,
-                    'gender'     => $request->gender,
+                    'name' => ucwords($request->name),
+                    'email' => $request->email,
+                    'dob' => $dob,
+                    'role' => $request->role ?? 'User',
+                    'phone' => $request->phone,
+                    'address' => $request->address,
+                    'apartment' => $request->apartment,
+                    'gender' => $request->gender,
                     'id_document' => $docPath ?? Null,
-                    'zip_code'   => $request->zip_code,
-                    'city'       => $request->city ?? '',
-                    'state'      => $request->state ?? '',
-                    'password'   => Hash::make($request->password),
-                    'status'     => $this->status['Active'],
+                    'zip_code' => $request->zip_code,
+                    'city' => $request->city ?? '',
+                    'state' => $request->state ?? '',
+                    'password' => Hash::make($request->password),
+                    'status' => $this->status['Active'],
                     'created_by' => 1,
                 ]
             );
@@ -381,7 +461,7 @@ class DefualtController extends Controller
                 if ($intendedUrl) {
                     return redirect()->route('web.consultationForm');
                 } else {
-                    return  redirect('/admin');
+                    return redirect('/admin');
                 }
             }
         } else {

@@ -49,6 +49,7 @@ Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('web.car
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('web.cart.update');
 Route::post('/delete-item', [CartController::class, 'deleteItem'])->name('web.cart.delete');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('web.checkout');
+Route::get('/checkout/{id}', [CartController::class, 'checkout_id'])->name('web.checkout.id');
 
 Route::get('/aboutUs', [HomeController::class, 'about_us'])->name('web.aboutUs');
 Route::match(['get', 'post'], '/wishlist', [WebController::class, 'wishlist'])->name('web.wishlist');
@@ -128,6 +129,10 @@ Route::match(['get', 'post'], '/forgotPassword', [DefualtController::class, 'for
 Route::match(['get', 'post'], '/sendOtp', [DefualtController::class, 'send_otp'])->name('sendOtp');
 Route::match(['get', 'post'], '/verifyOtp', [DefualtController::class, 'verify_otp'])->name('verifyOtp');
 Route::match(['get', 'post'], '/changePassword', [DefualtController::class, 'change_password'])->name('changePassword');
+
+
+Route::get('/dashboard/details', [DefualtController::class, 'dashboard_details'])->name('dashboard.details');
+
 
 Route::fallback([WebController::class, 'error_404']);
 include __DIR__ . '/admin.php';

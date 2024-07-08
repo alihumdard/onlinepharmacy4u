@@ -39,3 +39,9 @@
 <!-- Filterizr-->
 <script src="{{asset('assets/js/custom.js')}}"></script>
 <script src="{{asset('/assets/admin/dist/js/main.js')}}"></script>
+
+{{-- charts script added here --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+
+
+

@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text('optA')->nullable();
             $table->text('optB')->nullable();
             $table->text('optC')->nullable();
-            $table->text('optD')->nullable();
+            $table->text('optD')->nullable(); 
             $table->integer('order')->nullable();
             $table->string('is_dependent')->default('no');
             $table->string('is_assigned')->default('no');

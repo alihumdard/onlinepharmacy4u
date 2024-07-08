@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+
         Schema::create('prescription_med_general_questions', function (Blueprint $table) {
             $table->id();
             $table->text('title')->unique();
@@ -22,6 +23,9 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
         });
+
+
+
     }
 
     /**

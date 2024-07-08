@@ -75,7 +75,7 @@
                             @error('phone')
                             <div class="alert-danger text-danger ">{{ $message }}</div>
                             @enderror
-                            <select name="gender" id="gender" class="form-select mt-4" required>
+                            <select name="gender" id="gender" class="form-select" required>
                                 <option value=""> Select Gender</option>
                                 <option {{ old('gender') == 'male' ? 'selected' : ''}} value="male"> Male</option>
                                 <option {{ old('gender') == 'female' ? 'selected' : ''}} value="female"> Female</option>
@@ -104,7 +104,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-4">
-                                    <select name="month" required>
+                                    <select name="month" class="form-select" required>
                                         <option value="" disabled selected>Month</option>
                                         @for ($i = 1; $i <= 12; $i++) <option value="{{ $i }}" {{ old('month') == $i ? 'selected' : '' }}>{{ date('F', mktime(0, 0, 0, $i, 1)) }}</option>
                                             @endfor
@@ -115,7 +115,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-4">
-                                    <select name="year" required>
+                                    <select name="year" class="form-select" required>
                                         <option value="" disabled selected>Year</option>
                                         @for ($i = 2006; $i >= 1900; $i--)
                                         <option value="{{ $i }}" {{ old('year') == $i ? 'selected' : '' }}>{{ $i }}</option>

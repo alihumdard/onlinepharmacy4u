@@ -134,6 +134,20 @@
                 <table id="tbl_shiping">
                     <tr>
                         <td style="border: none !important;">
+                        <div class="col-6">
+                            <div class="ship">
+                                <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                    <strong>Store</strong></br>
+                                    <small> <span style="font-weight: 500;" >Pharmacy4u</span> </small></br>
+                                    <small><span style="font-weight: 500;" >Address: </span> Unit 2, Mansfield Station Gateway, Signal Way,</small></br>
+                                    <small><span style="font-weight: 500;" >City: </span> Nottingham ,</small></br>
+                                    <small><span style="font-weight: 500;" >Postal Code: </span>  NG19 9QH, </small></br>
+                                    <small><span style="font-weight: 500;" >Phone: </span> 01623 572757 </small></br>
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                        <td style="border: none !important;">
                             <div class="col-6">
                                 <div class="ship">
                                     <p style=" margin:0 !important; padding:0 !important; text-align:left; ">

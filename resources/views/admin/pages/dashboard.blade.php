@@ -1,553 +1,750 @@
 @extends('admin.layouts.default')
 @section('title', 'Dashboard')
 @section('content')
-    <style>
-        .displaynone {
-            display: none;
-        }
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-        }
+    <head>
 
-        .analytics-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
-        }
 
-        .date-selection button {
-            padding: 10px 20px;
-            margin-right: 10px;
-            background-color: #f1f1f1;
-            border: 1px solid #d0d0d0;
-            cursor: pointer;
-        }
+        <!-- Google Fonts -->
+        <link href="https://fonts.gstatic.com'" rel="preconnect">
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i'"
+            rel="stylesheet">
 
-        .date-selection button.active {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-        }
+        <!-- Vendor CSS Files -->
+        <link href="{{ asset('assets/admin/dashboard/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/admin/dashboard/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/admin/dashboard/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/admin/dashboard/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/admin/dashboard/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/admin/dashboard/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/admin/dashboard/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
-        .graphs {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
+        <!-- Template Main CSS File -->
+        <link href="{{ 'assets/admin/dashboard/css/style.css' }}" rel="stylesheet">
+    </head>
 
-        .graph {
-            width: 48%;
-            padding: 20px;
-            background-color: #fafafa;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .graph-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .graph-header h2 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .graph-header p {
-            margin: 0;
-            font-size: 16px;
-            color: #333;
-        }
-
-        canvas {
-            width: 100% !important;
-            height: 300px !important;
-        }
-    </style>
-    <!-- main stated -->
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i
-                        class="bi bi-arrow-left"></i> Back</a> | Dashboard</h1>
-            {{-- <nav>
+            <h1>Dashboard</h1>
+            <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
-            </nav> --}}
-        </div>
+            </nav>
+        </div><!-- End Page Title -->
 
         <section class="section dashboard">
-
             <div class="row">
+
+                <!-- Left side columns -->
                 <div class="col-lg-12">
+                    <div class="row">
 
+                        <!-- Total Revenue Card -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card revenue-card">
 
-                    <div class="analytics-container">
-                        <div class="header">
-                            <div class="date-selection">
-                                <button id="dailyButton" class="active">Daily</button>
-                                <button id="weeklyButton">Weekly</button>
-                            </div>
-                        </div>
-                        <div class="graphs">
-                            <div class="graph">
-                                <div class="graph-header">
-                                    <h2>Total sales</h2>
-                                    <p>$ 950.00</p>
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
                                 </div>
-                                <canvas id="totalSalesGraph"></canvas>
-                            </div>
-                            <div class="graph">
-                                <div class="graph-header">
-                                    <h2>Sales by channel</h2>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Revenue <span>| This Month</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-currency-dollar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="total-revenue">Loading...</h6>
+                                            <span class="text-success small pt-1 fw-bold">8%</span> <span
+                                                class="text-muted small pt-2 ps-1">increase</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <canvas id="salesByChannelGraph"></canvas>
+
                             </div>
-                        </div>
-                        <div class="graphs">
-                            <div class="graph">
-                                <div class="graph-header">
-                                    <h2>Total orders</h2>
+                        </div><!-- End Total Revenue Card -->
+
+                        <!-- Orders for Doctors Card -->
+                        <div class="col-xxl-4 col-xl-12">
+                            <div class="card info-card customers-card">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
                                 </div>
-                                <canvas id="totalOrdersGraph"></canvas>
-                            </div>
-                            <div class="graph">
-                                <div class="graph-header">
-                                    <h2>Average order value</h2>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Order For Doctor <span>| This Month</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-people"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="orders-doctors">Loading...</h6>
+                                            <span class="text-danger small pt-1 fw-bold">12%</span> <span
+                                                class="text-muted small pt-2 ps-1">decrease</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <canvas id="avgOrderValueGraph"></canvas>
+
                             </div>
-                        </div>
-                    </div>
+                        </div><!-- End Orders for Doctors Card -->
+
+                        <!-- Orders for Dispensaries Card -->
+                        <div class="col-xxl-4 col-xl-12">
+                            <div class="card info-card customers-card">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Order For Dispensary <span>| This Month</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-people"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="orders-dispensaries">Loading...</h6>
+                                            <span class="text-danger small pt-1 fw-bold">12%</span> <span
+                                                class="text-muted small pt-2 ps-1">decrease</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- End Orders for Dispensaries Card -->
+
+                    </div><!-- End Row -->
 
                 </div>
+                <!-- End Left side columns -->
+
+                <!-- Left side columns -->
+                <div class="col-lg-8">
+                    <div class="row">
+
+
+                        <!-- Total Orders Card -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card total-orders-card">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Orders <span>| This Month</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-bag-check"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="total-orders">Loading...</h6>
+                                            <span class="text-success small pt-1 fw-bold">12%</span> <span
+                                                class="text-muted small pt-2 ps-1">increase</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- End Total Orders Card -->
+
+                        <!-- Pending Orders Card -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card pending-orders-card">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Pending Orders <span>| This Month</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-hourglass-split"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="pending-orders">Loading...</h6>
+                                            <span class="text-danger small pt-1 fw-bold">5%</span> <span
+                                                class="text-muted small pt-2 ps-1">decrease</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- End Pending Orders Card -->
+
+                        <!-- Paid Orders Card -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card paid-orders-card">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Paid Orders <span>| This Month</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-currency-dollar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6 id="paid-orders">Loading...</h6>
+                                            <span class="text-success small pt-1 fw-bold">8%</span> <span
+                                                class="text-muted small pt-2 ps-1">increase</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- End Paid Orders Card -->
+
+                        <!-- Reports -->
+                        <div class="col-12">
+                            <div class="card">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Reports <span>/Today</span></h5>
+
+                                    <!-- Line Chart -->
+                                    <div id="reportsChart"></div>
+
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", () => {
+                                            new ApexCharts(document.querySelector("#reportsChart"), {
+                                                series: [{
+                                                    name: 'Sales',
+                                                    data: [31, 40, 28, 51, 42, 82, 56],
+                                                }, {
+                                                    name: 'Revenue',
+                                                    data: [11, 32, 45, 32, 34, 52, 41]
+                                                }, {
+                                                    name: 'Customers',
+                                                    data: [15, 11, 32, 18, 9, 24, 11]
+                                                }],
+                                                chart: {
+                                                    height: 350,
+                                                    type: 'area',
+                                                    toolbar: {
+                                                        show: false
+                                                    },
+                                                },
+                                                markers: {
+                                                    size: 4
+                                                },
+                                                colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                                fill: {
+                                                    type: "gradient",
+                                                    gradient: {
+                                                        shadeIntensity: 1,
+                                                        opacityFrom: 0.3,
+                                                        opacityTo: 0.4,
+                                                        stops: [0, 90, 100]
+                                                    }
+                                                },
+                                                dataLabels: {
+                                                    enabled: false
+                                                },
+                                                stroke: {
+                                                    curve: 'smooth',
+                                                    width: 2
+                                                },
+                                                xaxis: {
+                                                    type: 'datetime',
+                                                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z",
+                                                        "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z",
+                                                        "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
+                                                        "2018-09-19T06:30:00.000Z"
+                                                    ]
+                                                },
+                                                tooltip: {
+                                                    x: {
+                                                        format: 'dd/MM/yy HH:mm'
+                                                    },
+                                                }
+                                            }).render();
+                                        });
+                                    </script>
+                                    <!-- End Line Chart -->
+
+                                </div>
+
+                            </div>
+                        </div><!-- End Reports -->
+
+                        <!-- Recent Sales -->
+                        <div class="col-12">
+                            <div class="card recent-sales overflow-auto">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+
+                                    <table class="table table-borderless datatable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Customer</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row"><a href="#">#2457</a></th>
+                                                <td>Brandon Jacob</td>
+                                                <td><a href="#" class="text-primary">At praesentium minu</a></td>
+                                                <td>$64</td>
+                                                <td><span class="badge bg-success">Approved</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><a href="#">#2147</a></th>
+                                                <td>Bridie Kessler</td>
+                                                <td><a href="#" class="text-primary">Blanditiis dolor omnis
+                                                        similique</a></td>
+                                                <td>$47</td>
+                                                <td><span class="badge bg-warning">Pending</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><a href="#">#2049</a></th>
+                                                <td>Ashleigh Langosh</td>
+                                                <td><a href="#" class="text-primary">At recusandae consectetur</a>
+                                                </td>
+                                                <td>$147</td>
+                                                <td><span class="badge bg-success">Approved</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><a href="#">#2644</a></th>
+                                                <td>Angus Grady</td>
+                                                <td><a href="#" class="text-primar">Ut voluptatem id earum et</a>
+                                                </td>
+                                                <td>$67</td>
+                                                <td><span class="badge bg-danger">Rejected</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><a href="#">#2644</a></th>
+                                                <td>Raheem Lehner</td>
+                                                <td><a href="#" class="text-primary">Sunt similique distinctio</a>
+                                                </td>
+                                                <td>$165</td>
+                                                <td><span class="badge bg-success">Approved</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div><!-- End Recent Sales -->
+
+                        <!-- Top Selling -->
+                        <div class="col-12">
+                            <div class="card top-selling overflow-auto">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body pb-0">
+                                    <h5 class="card-title">Top Selling <span>| Today</span></h5>
+
+                                    <table class="table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Preview</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Sold</th>
+                                                <th scope="col">Revenue</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row"><a href="#"><img
+                                                            src="{{ asset('assets/admin/dashboard/img/product-1.jpg') }}"
+                                                            alt=""></a></th>
+                                                <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa
+                                                        voluptas nulla</a></td>
+                                                <td>$64</td>
+                                                <td class="fw-bold">124</td>
+                                                <td>$5,828</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><a href="#"><img
+                                                            src="{{ asset('assets/admin/dashboard/img/product-2.jpg') }}"
+                                                            alt=""></a></th>
+                                                <td><a href="#" class="text-primary fw-bold">Exercitationem
+                                                        similique doloremque</a></td>
+                                                <td>$46</td>
+                                                <td class="fw-bold">98</td>
+                                                <td>$4,508</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><a href="#"><img
+                                                            src="{{ asset('assets/admin/dashboard/img/product-3.jpg') }}"
+                                                            alt=""></a></th>
+                                                <td><a href="#" class="text-primary fw-bold">Doloribus nisi
+                                                        exercitationem</a></td>
+                                                <td>$59</td>
+                                                <td class="fw-bold">74</td>
+                                                <td>$4,366</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><a href="#"><img
+                                                            src="{{ asset('assets/admin/dashboard/img/product-4.jpg') }}"
+                                                            alt=""></a></th>
+                                                <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint
+                                                        rerum error</a></td>
+                                                <td>$32</td>
+                                                <td class="fw-bold">63</td>
+                                                <td>$2,016</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><a href="#"><img
+                                                            src="{{ asset('assets/admin/dashboard/img/product-5.jpg') }}"
+                                                            alt=""></a></th>
+                                                <td><a href="#" class="text-primary fw-bold">Sit unde debitis
+                                                        delectus repellendus</a></td>
+                                                <td>$79</td>
+                                                <td class="fw-bold">41</td>
+                                                <td>$3,239</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div><!-- End Top Selling -->
+
+                    </div>
+                </div>
+                <!-- End Left side columns -->
+
+                <!-- Right side columns -->
+                <div class="col-lg-4">
+
+                    <!-- Recent Activity -->
+
+                    <!-- Budget Report -->
+                    <div class="card">
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                    class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body pb-0">
+                            <h5 class="card-title">Budget Report <span>| This Month</span></h5>
+
+                            <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                                        legend: {
+                                            data: ['Allocated Budget', 'Actual Spending']
+                                        },
+                                        radar: {
+                                            // shape: 'circle',
+                                            indicator: [{
+                                                    name: 'Sales',
+                                                    max: 6500
+                                                },
+                                                {
+                                                    name: 'Administration',
+                                                    max: 16000
+                                                },
+                                                {
+                                                    name: 'Information Technology',
+                                                    max: 30000
+                                                },
+                                                {
+                                                    name: 'Customer Support',
+                                                    max: 38000
+                                                },
+                                                {
+                                                    name: 'Development',
+                                                    max: 52000
+                                                },
+                                                {
+                                                    name: 'Marketing',
+                                                    max: 25000
+                                                }
+                                            ]
+                                        },
+                                        series: [{
+                                            name: 'Budget vs spending',
+                                            type: 'radar',
+                                            data: [{
+                                                    value: [4200, 3000, 20000, 35000, 50000, 18000],
+                                                    name: 'Allocated Budget'
+                                                },
+                                                {
+                                                    value: [5000, 14000, 28000, 26000, 42000, 21000],
+                                                    name: 'Actual Spending'
+                                                }
+                                            ]
+                                        }]
+                                    });
+                                });
+                            </script>
+
+                        </div>
+                    </div>
+                    <!-- End Budget Report -->
+
+                    <!-- Website Traffic -->
+                    <div class="card">
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                    class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body pb-0">
+                            <h5 class="card-title">Website Traffic <span>| Today</span></h5>
+
+                            <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    echarts.init(document.querySelector("#trafficChart")).setOption({
+                                        tooltip: {
+                                            trigger: 'item'
+                                        },
+                                        legend: {
+                                            top: '5%',
+                                            left: 'center'
+                                        },
+                                        series: [{
+                                            name: 'Access From',
+                                            type: 'pie',
+                                            radius: ['40%', '70%'],
+                                            avoidLabelOverlap: false,
+                                            label: {
+                                                show: false,
+                                                position: 'center'
+                                            },
+                                            emphasis: {
+                                                label: {
+                                                    show: true,
+                                                    fontSize: '18',
+                                                    fontWeight: 'bold'
+                                                }
+                                            },
+                                            labelLine: {
+                                                show: false
+                                            },
+                                            data: [{
+                                                    value: 1048,
+                                                    name: 'Search Engine'
+                                                },
+                                                {
+                                                    value: 735,
+                                                    name: 'Direct'
+                                                },
+                                                {
+                                                    value: 580,
+                                                    name: 'Email'
+                                                },
+                                                {
+                                                    value: 484,
+                                                    name: 'Union Ads'
+                                                },
+                                                {
+                                                    value: 300,
+                                                    name: 'Video Ads'
+                                                }
+                                            ]
+                                        }]
+                                    });
+                                });
+                            </script>
+
+                        </div>
+                    </div>
+                    <!-- End Website Traffic -->
+
+
+
+                </div>
+                <!-- End Right side columns -->
+
             </div>
         </section>
 
-    </main>
-    <!-- End #main -->
+    </main><!-- End #main -->
 
 
-@stop
+    @pushOnce('scripts')
+        <!-- Vendor JS Files -->
+        <script src="{{ asset('assets/admin/vendor/apexcharts/apexcharts.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/chart.js/chart.umd.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/echarts/echarts.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/quill/quill.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/simple-datatables/simple-datatables.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/tinymce/tinymce.min.js') }}"></script>
+        <script src="{{ asset('assets/admin/vendor/php-email-form/validate.js') }}"></script>
 
-@pushOnce('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctxTotalSales = document.getElementById('totalSalesGraph').getContext('2d');
-        const ctxSalesByChannel = document.getElementById('salesByChannelGraph').getContext('2d');
-        const ctxTotalOrders = document.getElementById('totalOrdersGraph').getContext('2d');
-        const ctxAvgOrderValue = document.getElementById('avgOrderValueGraph').getContext('2d');
-
-        const dailyDataTotalSales = [10, 250, 50, 300, 150, 500, 305];
-        const weeklyDataTotalSales = [100, 350, 200, 150, 500, 250, 450];
-
-        const dailyDataPreviousTotalSales = [15, 150, 100, 250, 100, 400, 200];
-        const weeklyDataPreviousTotalSales = [90, 500, 250, 360, 650, 400, 630];
+        <!-- Template Main JS File -->
+        <script src="{{ asset('assets/admin/assets/js/main.js') }}"></script>
 
 
-        const dailyDataSalesByChannel = [50, 70, 90];
-        const weeklyDataSalesByChannel = [500, 300, 200];
-
-        const dailyDataTotalOrders = [150, 100, 250, 150, 250, 150, 250];
-        const weeklyDataTotalOrders = [350, 700, 450, 650, 500, 650, 750];
-
-        const dailyDataPreviousTotalOrders = [100, 300, 150, 350, 250, 400, 150];
-        const weeklyDataPreviousTotalOrders = [500, 700, 600, 400, 750, 450, 500];
-
-        const dailyDataAvgOrderValue = [200, 300, 250, 300, 250, 300, 250];
-        const weeklyDataAvgOrderValue = [500, 700, 600, 400, 750, 450, 500];
-
-
-        const dailyDataPreviousAvgOrderValue = [150, 250, 200, 250, 200, 250, 200];
-        const weeklyDataPreviousAvgOrderValue = [300, 900, 450, 300, 800, 250, 500];
-
-
-
-        const labelsDaily = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        const labelsWeekly = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7'];
-
-
-        const totalSalesGraph = new Chart(ctxTotalSales, {
-            type: 'line',
-            data: {
-                labels: labelsDaily,
-                datasets: [{
-                    label: 'Sales',
-                    data: dailyDataTotalSales,
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0
-                }, {
-                    label: 'Previous Sales',
-                    data: dailyDataPreviousTotalSales,
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    borderDash: [5, 5],
-                    fill: false,
-                    pointRadius: 0
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value;
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const salesByChannelGraph = new Chart(ctxSalesByChannel, {
-            type: 'bar',
-            data: {
-                labels: ['Online', 'In-store', 'Mail-order'],
-                datasets: [{
-                    label: 'Sales by channel',
-                    data: dailyDataSalesByChannel,
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value;
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const totalOrdersGraph = new Chart(ctxTotalOrders, {
-            type: 'line',
-            data: {
-                labels: labelsDaily,
-                datasets: [{
-                    label: 'Total Orders',
-                    data: dailyDataTotalOrders,
-                    borderColor: 'green',
-                    borderWidth: 1,
-                    fill: false,
-                    pointRadius: 0
-                }, {
-                    label: 'Previous Total Orders',
-                    data: dailyDataPreviousTotalOrders, // Assuming you have data for previous total orders
-                    borderColor: 'orange', // Adjust color as needed
-                    borderWidth: 1,
-                    borderDash: [5, 5], // Optional: Dashed line for previous data
-                    fill: false,
-                    pointRadius: 0
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value;
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const avgOrderValueGraph = new Chart(ctxAvgOrderValue, {
-            type: 'line',
-            data: {
-                labels: labelsDaily,
-                datasets: [{
-                        label: 'Average Order Value',
-                        data: dailyDataAvgOrderValue,
-                        borderColor: 'red',
-                        borderWidth: 1,
-                        fill: false,
-                        pointRadius: 0
-                    },
-                    {
-                        label: 'Previous Average Order Value',
-                        data: dailyDataPreviousAvgOrderValue, // Assuming you have data for previous average order value
-                        borderColor: 'orange', // Adjust color as needed
-                        borderWidth: 1,
-                        borderDash: [5, 5], // Optional: Dashed line for previous data
-                        fill: false,
-                        pointRadius: 0
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value;
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const dailyButton = document.getElementById('dailyButton');
-        const weeklyButton = document.getElementById('weeklyButton');
-
-        dailyButton.addEventListener('click', function() {
-            updateCharts(labelsDaily, dailyDataTotalSales, dailyDataSalesByChannel, dailyDataTotalOrders,
-                dailyDataAvgOrderValue, dailyDataPreviousTotalSales, dailyDataPreviousTotalSales, dailyDataPreviousAvgOrderValue);
-            setActiveButton(dailyButton);
-        });
-
-        weeklyButton.addEventListener('click', function() {
-            updateCharts(labelsWeekly, weeklyDataTotalSales, weeklyDataSalesByChannel, weeklyDataTotalOrders,
-                weeklyDataAvgOrderValue, weeklyDataPreviousTotalSales, weeklyDataPreviousTotalOrders, weeklyDataPreviousAvgOrderValue);
-            setActiveButton(weeklyButton);
-        });
-
-
-        function updateCharts(labels, dataTotalSales, dataSalesByChannel, dataTotalOrders, dataAvgOrderValue,
-            DataPreviousTotalSales, DataPreviousTotalOrders, DataPreviousAvgOrderValue) {
-            totalSalesGraph.data.labels = labels;
-            totalSalesGraph.data.datasets[0].data = dataTotalSales;
-            totalSalesGraph.data.datasets[1].data = DataPreviousTotalSales;
-            totalSalesGraph.update();
-
-            salesByChannelGraph.data.datasets[0].data = dataSalesByChannel;
-            salesByChannelGraph.update();
-
-            totalOrdersGraph.data.labels = labels;
-            totalOrdersGraph.data.datasets[0].data = dataTotalOrders;
-            totalOrdersGraph.data.datasets[1].data = DataPreviousTotalOrders;
-            totalOrdersGraph.update();
-
-            avgOrderValueGraph.data.labels = labels;
-            avgOrderValueGraph.data.datasets[0].data = dataAvgOrderValue;
-            avgOrderValueGraph.data.datasets[1].data = DataPreviousAvgOrderValue;
-            avgOrderValueGraph.update();
-        }
-
-        function setActiveButton(button) {
-            dailyButton.classList.remove('active');
-            weeklyButton.classList.remove('active');
-            button.classList.add('active');
-        }
-
-
-
-
-
-
-
-
-
-
-        document.addEventListener("DOMContentLoaded", () => {
-            new ApexCharts(document.querySelector("#reportsChart"), {
-                series: [{
-                    name: 'BMI',
-                    data: [42, 52, 56],
-                }],
-                chart: {
-                    height: 350,
-                    type: 'area',
-                    toolbar: {
-                        show: false
-                    },
-                },
-                markers: {
-                    size: 4
-                },
-                colors: ['#2eca6a'],
-                fill: {
-                    type: "gradient",
-                    gradient: {
-                        shadeIntensity: 1,
-                        opacityFrom: 0.3,
-                        opacityTo: 0.4,
-                        stops: [0, 90, 100]
-                    }
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'smooth',
-                    width: 2
-                },
-                xaxis: {
-                    type: 'datetime',
-                    categories: ["2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
-                        "2018-09-19T06:30:00.000Z"
-                    ]
-                },
-                tooltip: {
-                    x: {
-                        format: 'dd/MM/yy HH:mm'
-                    },
-                }
-            }).render();
-        });
-        document.addEventListener("DOMContentLoaded", () => {
-            echarts.init(document.querySelector("#trafficChart")).setOption({
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    top: '5%',
-                    left: 'center'
-                },
-                series: [{
-                    name: 'Access From',
-                    type: 'pie',
-                    radius: ['40%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            fontSize: '18',
-                            fontWeight: 'bold'
-                        }
-                    },
-                    labelLine: {
-                        show: false
-                    },
-                    data: [{
-                            value: 18,
-                            name: 'Under Weight'
-                        },
-                        {
-                            value: 25,
-                            name: 'Normal'
-                        },
-                        {
-                            value: 30,
-                            name: 'Pre-Obesity'
-                        },
-                        {
-                            value: 100,
-                            name: 'Obese'
-                        },
-                    ]
-                }]
+        <script>
+            $(document).ready(function() {
+                dashboard();
             });
-        });
-        document.addEventListener("DOMContentLoaded", () => {
-            var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
-                legend: {
-                    data: ['Allocated Budget', 'Actual Spending']
-                },
-                radar: {
-                    // shape: 'circle',
-                    indicator: [{
-                            name: 'Sales',
-                            max: 6500
-                        },
-                        {
-                            name: 'Administration',
-                            max: 16000
-                        },
-                        {
-                            name: 'Information Technology',
-                            max: 30000
-                        },
-                        {
-                            name: 'Customer Support',
-                            max: 38000
-                        },
-                        {
-                            name: 'Development',
-                            max: 52000
-                        },
-                        {
-                            name: 'Marketing',
-                            max: 25000
-                        }
-                    ]
-                },
-                series: [{
-                    name: 'Budget vs spending',
-                    type: 'radar',
-                    data: [{
-                            value: [4200, 3000, 20000, 35000, 50000, 18000],
-                            name: 'Allocated Budget'
-                        },
-                        {
-                            value: [5000, 14000, 28000, 26000, 42000, 21000],
-                            name: 'Actual Spending'
-                        }
-                    ]
-                }]
-            });
-        });
-    </script>
-@endPushOnce
+
+            function dashboard() {
+                $.ajax({
+                    url: "{{ route('admin.dashboard.detail') }}",
+                    type: "GET",
+                    success: function(data) {
+                        console.log(data);
+                        $('#total-revenue').text('$' + data.totalSales.toFixed(2));
+                        $('#orders-doctors').text(data.doctorOrders);
+                        $('#orders-dispensaries').text(data.despensoryOrders);
+                        $('#total-orders').text(data.totalOrders);
+                        $('#pending-orders').text(data.notApprovedOrders);
+                        $('#paid-orders').text(data.paidOrders);
+                    },
+                    error: function(error) {
+                        console.error("There was an error fetching the dashboard details:", error);
+                    }
+                });
+            }
+        </script>
+    @endPushOnce

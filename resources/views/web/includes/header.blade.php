@@ -450,45 +450,129 @@
         </div>
         <!-- MOBILE MENU END -->
 
-        <!-- header-bottom-area start -->
-        <div class="header-bottom-area ltn__border-top--- ltn__header-sticky  ltn__sticky-bg-white ltn__primary-bg---- menu-color-white---- d-none--- d-lg-block">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="col--- header-menu-column justify-content-center---">
-                            <div class="header-menu header-menu-2 text-start">
-                                <nav>
-                                    <div class="ltn__main-menu text-center">
-                                        <ul>
-                                            <li><a style="background: none !important;" href="/" class="poppins-thin">Home</a></li>
-                                            @foreach ($menu_categories as $key => $val)
-                                            <li class=""><a style="background: none !important;" href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
-                                                <ul class="mega-menu">
-                                                    @foreach($val['subcategory'] as $key1 => $val1)
-                                                    <li><a class="poppins-thin cat-head-main" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
-                                                        <ul>
-                                                            @foreach($val1['child_categories'] as $key2 => $val2)
-                                                            <li><a style="font-size:12px; background-color:#b8c9ce8f;" class="poppins-thin sub-back" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                            </li>
-                                            @endforeach
-                                            <li><a style="background: none !important;" href="/work" class="poppins-thin">How it work's</a></li>
-                                            <li><a style="background: none !important;" href="/help" class="poppins-thin">Help</a></li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </div>
+       <!-- header-bottom-area start -->
+       <div class="header-bottom-area ltn__border-top--- ltn__header-sticky  ltn__sticky-bg-white ltn__primary-bg---- menu-color-white---- d-none--- d-lg-block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col--- header-menu-column justify-content-center---">
+                        <div class="header-menu header-menu-2 text-start">
+                            <nav>
+                                <div class="ltn__main-menu text-center">
+                                    <ul>
+                                        <li><a style="background: none !important;" href="/" class="poppins-thin">Home</a></li>
+                                        @foreach ($menu_categories as $key => $val)
+                                        <li class=""><a style="background: none !important;" href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
+                                            <ul class="mega-menu">
+                                                @foreach($val['subcategory'] as $key1 => $val1)
+                                                <li><a class="poppins-thin cat-head-main" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">{{ $val1['name'] }}</a>
+                                                    <ul>
+                                                        @foreach($val1['child_categories'] as $key2 => $val2)
+                                                        <li><a style="font-size:12px; background-color:#b8c9ce8f;" class="poppins-thin sub-back" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                        @endforeach
+                                        <li><a style="background: none !important;" href="/work" class="poppins-thin">How it work's</a></li>
+                                        <li><a style="background: none !important;" href="/help" class="poppins-thin">Help</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
                         </div>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header-bottom-area end -->
+
+    <div class="ltn__header-bottom-area border-bottom top-area-color-white---  d-none">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ltn__top-bar-menu">
+                        <ul>
+                            <li><a href="#" class="text-white font-weight-400"><i class="fas fa-plus"></i><strong class="font-bold">Regulated</strong> Pharmacy </a></li>
+                            <li><a href="#" class="text-white"><i class="fas fa-box"></i><span class="text-black"><strong class="font-bold">Discreet</strong> Packaging </span></a></li>
+                            <li><a href="#" class="text-white"><i class="fas fa-truck"></i><span class="text-black"> <strong class="font-bold">Free Delivery</strong> on orders over £40* </span></a></li>
+                            <li><a href="#" class="text-white">Excellent<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i><strong>4.4</strong> based on <strong>1,421</strong> reviews</a></li>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- header-bottom-area end -->
+    </div>
+</header>
+<!-- HEADER AREA END -->
+
+<!-- Utilize Cart Menu Start -->
+<div id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
+    <div class="ltn__utilize-menu-inner ltn__scrollbar">
+        <div class="ltn__utilize-menu-head">
+            <span class="ltn__utilize-menu-title">Cart</span>
+            <button class="ltn__utilize-close">×</button>
+        </div>
+        <div class="mini-cart-product-area ltn__scrollbar">
+            @if(!empty(Cart::content()))
+            @foreach(Cart::content() as $item)
+            <div class="mini-cart-item clearfix">
+                <div class="mini-cart-img">
+                    <a href="#"><img src="{{ asset('storage/'.$item->options->productImage)}}" alt="Image"></a>
+                    <span class="mini-cart-item-delete"><a href="javascript:void(0)" onclick="deleteItem('{{$item->rowId}}', true);"><i class="icon-cancel"></i></a></span>
+                </div>
+                <div class="mini-cart-info">
+                    <h6><a href="#">{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!} </a></h6>
+                    <span class="mini-cart-quantity">{{ $item->qty }} x {{ $item->price}}</span>
+                </div>
+            </div>
+            @endforeach
+            @endif
+        </div>
+        <div class="mini-cart-footer">
+            <div class="mini-cart-sub-total">
+                <h5>Subtotal: <span class="mini-cart-subtotal">£{{ Cart::subTotal() }}</span></h5>
+            </div>
+            <div class="btn-wrapper">
+                <a href="/cart" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+                <a href="/checkout" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+            </div>
+            {{-- <p>Free Shipping on All Orders Over $100!</p> --}}
+        </div>
+
+    </div>
+</div>
+<!-- Utilize Cart Menu End -->
+
+
+<script>
+    function toggleMenu() {
+        document.getElementById("myMenu").classList.toggle("show");
+    }
+
+    function toggleSubMenu(submenuNumber) {
+        var submenuId = "mySubMenu" + submenuNumber;
+        var allSubmenus = document.getElementsByClassName("submenu");
+        console.log(allSubmenus);
+        for (var i = 0; i < allSubmenus.length; i++) {
+            if (allSubmenus[i].id === submenuId) {
+                allSubmenus[i].classList.toggle("show");
+
+            } else {
+                allSubmenus[i].classList.remove("show");
+
+            }
+        }
+    }
+
+    function toggleSubChild(submenuNumber, subchildNumber) {
+        var subchildId = "subChild" + submenuNumber + "_" + subchildNumber;
+        var subchild = document.getElementById(subchildId);
+        subchild.classList.toggle("show");
+    }
+</script>
 
         <div class="ltn__header-bottom-area border-bottom top-area-color-white---  d-none">
             <div class="container">
@@ -573,3 +657,4 @@
             subchild.classList.toggle("show");
         }
     </script>
+

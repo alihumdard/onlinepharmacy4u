@@ -392,6 +392,8 @@
                                     <th>Marked By </th>
                                     @if($user->role != user_roles('3'))
                                     <th> Shiped Order</th>
+                                    <th> Action</th>
+
                                     @endif
                                 </tr>
                             </thead>
@@ -450,6 +452,9 @@
                                         @endif
                                     </td>
                                     @endif
+                                    <td> <i class="bi bi-files duplicate-order"
+                                        data-order-id="{{ $val['id'] }}"></i>
+                                </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -475,6 +480,31 @@
 
 @pushOnce('scripts')
 <script>
+
+$(document).ready(function() {
+            $(document).on('click', '.duplicate-order', function() {
+                var orderId = $(this).data('order-id');
+                $.ajax({
+                    url: '{{ route('admin.duplicateOrder') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        order_id: orderId
+                    },
+                    success: function(response) {
+                        alert('Order duplicated successfully!');
+                        window.location.href = '{{ route('admin.ordersCreated') }}';
+
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error duplicating order.');
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+
     $(function() {
         $("#tbl_data").DataTable({
             "paging": true,

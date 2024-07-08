@@ -40,21 +40,25 @@ class ProductController extends Controller
         }
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')->whereIn('status', [$this->status['Active']])->latest('id')->get()->toArray();
+            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
+                ->whereIn('status', [$this->status['Active']])
+                ->latest('id')
+                ->paginate(50); // Paginate the results
             $data['filters'] = [];
             if ($products) {
-                $data['filters']['titles'] = array_unique(array_column($products, 'title'));
-                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();
-                $data['filters']['sub_cat'] =  collect($products)->pluck('sub_cat.name')->unique()->values()->all();
-                $data['filters']['child_cat'] =  collect($products)->pluck('child_cat.name')->unique()->values()->all();
-                $data['filters']['templates'] = array_unique(array_column($products, 'product_template'));
+                $data['filters']['titles'] = array_unique(array_column($products->items(), 'title'));
+                $data['filters']['categories'] = collect($products->items())->pluck('category.name')->unique()->values()->all();
+                $data['filters']['sub_cat'] = collect($products->items())->pluck('sub_cat.name')->unique()->values()->all();
+                $data['filters']['child_cat'] = collect($products->items())->pluck('child_cat.name')->unique()->values()->all();
+                $data['filters']['templates'] = array_unique(array_column($products->items(), 'product_template'));
                 $data['products'] = $products;
             }
         }
 
         return view('admin.pages.products.prodcuts', $data);
     }
-    
+
+
     public function product_trash(Request $request)
     {
         $user = auth()->user();

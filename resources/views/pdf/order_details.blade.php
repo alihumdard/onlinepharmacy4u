@@ -132,8 +132,22 @@
                         <div class="col-6">
                             <div class="ship">
                                 <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
-                                    <strong>Ship to</strong></br> 
-                                    <small> <span style="font-weight: 500;" >Costumer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
+                                    <strong>Store</strong></br>
+                                    <small> <span style="font-weight: 500;" >Pharmacy4u</span> </small></br>
+                                    <small><span style="font-weight: 500;" >Address: </span> Unit 2, Mansfield Station Gateway, Signal Way,</small></br>
+                                    <small><span style="font-weight: 500;" >City: </span> Nottingham ,</small></br>
+                                    <small><span style="font-weight: 500;" >Postal Code: </span>  NG19 9QH, </small></br>
+                                    <small><span style="font-weight: 500;" >Phone: </span> 01623 572757 </small></br>
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td style="border: none !important;">
+                        <div class="col-6">
+                            <div class="ship">
+                                <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                    <strong>Ship to</strong></br>
                                     <small> <span style="font-weight: 500;" >Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
                                     <small><span style="font-weight: 500;" >Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
                                     <small><span style="font-weight: 500;" >City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
@@ -147,8 +161,7 @@
                         <div class="col-6">
                             <div class="ship">
                                 <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
-                                    <strong>Bill to</strong></br> 
-                                    <small> <span style="font-weight: 500;" >Costumer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
+                                    <strong>Bill to</strong></br>
                                     <small> <span style="font-weight: 500;" >Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
                                     <small><span style="font-weight: 500;" >Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
                                     <small><span style="font-weight: 500;" >City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
@@ -194,7 +207,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                            
+
                         </tbody>
                     </table>
                 </div>

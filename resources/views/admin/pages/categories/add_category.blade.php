@@ -41,7 +41,7 @@
                                     $path = asset('storage/'.$category['image']);
                                 }
                             @endphp
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <label for="selection" class="form-label">Selection</label>
                                 <select id="selection" name="selection" class="form-select" required>
                                     <option {{ (isset($selection) && $selection == '') ? 'selected' : '' }} value="">Select</option>
@@ -70,7 +70,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-4 parent-div" @if(isset($selection) && $selection == 1) style="display: none" @endif;>
+                            <div class="col-md-12 parent-div" @if(isset($selection) && $selection == 1) style="display: none" @endif;>
                                 <label for="publish" class="form-label">Select Parent</label>
                                 <select id="parent_id" name="parent_id" class="form-select" @if(isset($selection) && $selection != 1) required @endif>
                                     <option value="">Select</option>
@@ -83,7 +83,7 @@
                             </div>
 
                             {{-- @if (isset($category))
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <label for="publish" class="form-label">Change Type</label>
                                     <select id="publish" name="change_type" class="form-select" required>
                                         <option selected value="">Select Option</option>
@@ -93,10 +93,23 @@
                                 </div>
                             @endif --}}
 
-                            <div class="col-12 mt-2 image">
+                            <div class="col-6 mt-2 image">
                                 <label for="image" class="form-label">Upload Image</label>
                                 <div class="d-flex align-items-center" style="gap: 20px; justify-content: space-between;">
                                     <input type="file" class="form-control w-100" id="image" name="image" value="{{ ($category['image'] ?? NULL) ? 'required' : '' }}" {{ (isset($category) && $category['image']) ? '' : 'required' }} onchange="previewMainImage(this)">
+                                    <label for="image" class=" d-block ">
+                                        <img id="image_preview" src="{{  $path ?? '' }}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px;  cursor:pointer;   object-fit: cover;">
+                                    </label>
+                                    <div class="invalid-feedback">* Upload Image!</div>
+                                    @error('image')
+                                    <div class="alert-danger text-danger ">{{ $message }}</div>
+                                @enderror
+                                </div>
+                            </div>
+                            <div class="col-6 mt-2 image">
+                                <label for="image" class="form-label">Upload Icon</label>
+                                <div class="d-flex align-items-center" style="gap: 20px; justify-content: space-between;">
+                                    <input type="file" class="form-control w-100" id="image" name="icon" value="{{ ($category['image'] ?? NULL) ? 'required' : '' }}" {{ (isset($category) && $category['image']) ? '' : 'required' }} onchange="previewMainImage(this)">
                                     <label for="image" class=" d-block ">
                                         <img id="image_preview" src="{{  $path ?? '' }}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px;  cursor:pointer;   object-fit: cover;">
                                     </label>

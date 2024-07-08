@@ -802,7 +802,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="footer-branding-section">
-                    <h1 class="text-center">Helping you feel better for less</h1>
+                    <h1 class="text-center">Access to healthcare made Easy, Fast & Affordable!</h1>
                     <p class="text-center">Everyone deserves access to health and wellness in the simplest, most convenient and affordable way.</p>
                 </div>
             </div>

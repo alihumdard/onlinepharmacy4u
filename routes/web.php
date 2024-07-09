@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\DefualtController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
+Route::get('/form', [HomeController::class, 'form'])->name('web.form');
 Route::match(['get', 'post'], '/account', [WebController::class, 'account'])->name('web.account');
 Route::match(['get', 'post'], '/login', [DefualtController::class, 'login'])->name('login');
 Route::match(['get', 'post'], '/register', [DefualtController::class, 'registration_form'])->name('register');

@@ -60,6 +60,12 @@ class HomeController extends Controller
         $data['products'] = Product::where(['status' => $this->status['Active']])->latest()->take(6)->get();
         return view('web.pages.home', $data);
     }
+    public function form(Request $request)
+    {
+        $data['user'] = auth()->user() ?? [];
+        $data['products'] = Product::where(['status' => $this->status['Active']])->latest()->take(6)->get();
+        return view('web.pages.form', $data);
+    }
     public function questions_preview(Request $request)
     {
         $data['user'] = auth()->user() ?? [];

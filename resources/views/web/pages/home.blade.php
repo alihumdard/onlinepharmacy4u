@@ -187,7 +187,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
-                <a href="/skincare"><img src="img/product/skincare_1.webp" class="card-img-top card-radius" alt="..." style="
+                <a href="/skincare"><img src="img/product/one1.webp" class="card-img-top card-radius" alt="..." style="
     border-radius: 0px;
 "></a>
                     <div class="card-body" style="text-align: center;">
@@ -199,7 +199,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
-                <a href="/sleep"><img src="img/product/sleep.png" class="card-img-top card-radius" alt="..." style="
+                <a href="/sleep"><img src="img/product/two2.webp" class="card-img-top card-radius" alt="..." style="
     border-radius: 0px;
 "></a>
                     <div class="card-body" style="text-align: center;">
@@ -211,7 +211,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
-                <a href="/diabetes"><img src="img/product/Diabetes.png" class="card-img-top card-radius" alt="..." style="
+                <a href="/diabetes"><img src="img/product/three3.webp" class="card-img-top card-radius" alt="..." style="
     border-radius: 0px;
 "></a>
                     <div class="card-body" style="text-align: center;">

@@ -5,6 +5,16 @@
     .contact-form-box {
         padding: 40px 50px 40px 40px !important;
     }
+    #myFile {
+        border:2px dotted #2d91d5;
+        padding:30px;
+    }
+    @media (max-width: 786px) {
+        #myFile {
+            border: none;
+            padding:0;
+        }
+    }
 </style>
 <div class="ltn__contact-message-area mb-120 mt-120">
     <div class="container">
@@ -24,6 +34,16 @@
                                     <input type="email" name="email" placeholder="Enter subject">
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="input-item input-item-subject">
+                                    <input type="text" name="subject" placeholder="Name of Animal - For Vet Orders only">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-item input-item-phone">
+                                    <input type="text" name="phone" placeholder="Enter phone number">
+                                </div>
+                            </div>
                             <div class="input-item mb-25">
                         <textarea id="summernote" name="content"></textarea>
 </div>
@@ -37,16 +57,13 @@
                                 <option>Other</option>
                             </select>
                         </div>
-                            <div class="col-md-6">
-                                <div class="input-item input-item-subject">
-                                    <input type="text" name="subject" placeholder="Name of Animal - For Vet Orders only">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-item input-item-phone">
-                                    <input type="text" name="phone" placeholder="Enter phone number">
-                                </div>
-                            </div>
+<div class="input-item" style="
+    text-align: center;
+    margin-bottom: 30px;
+">
+<input type="file" id="myFile" name="filename" />
+                        </div>
+                          
                         </div>
                         <div class="input-item input-item-textarea">
                             <textarea name="message" placeholder="Human Prescription Item(s) required and quantity - For Vet Orders only"></textarea>

@@ -191,8 +191,8 @@
     border-radius: 0px;
 "></a>
                     <div class="card-body" style="text-align: center;">
-                        <h5 class="card-title poppins-medium">Skincare</h5>
-                        <p class="card-text  oppins-extralight">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine.</p>
+                        <!-- <h5 class="card-title poppins-medium">Skincare</h5> -->
+                        <p class="card-text  oppins-extralight" style="font-size: 12px;">Enjoy a cruelty-free, vegan-friendly formula that helps prolong your tan and provides healing benefits.</p>
                         <!-- <a href="/skincare" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
@@ -203,8 +203,8 @@
     border-radius: 0px;
 "></a>
                     <div class="card-body" style="text-align: center;">
-                        <h5 class="card-title">Sleep</h5>
-                        <p class="card-text">Treat insomnia with our range of medications to help you fall asleep faster and to reduce the chances of you waking up in the middle of the night.</p>
+                        <!-- <h5 class="card-title">Sleep</h5> -->
+                        <p class="card-text" style="font-size: 12px;">Complement your healthy diet and physical activity to effectively manage your weight loss goals.</p>
                         <!-- <a href="/sleep" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
@@ -215,8 +215,8 @@
     border-radius: 0px;
 "></a>
                     <div class="card-body" style="text-align: center;">
-                        <h5 class="card-title">Diabetes</h5>
-                        <p class="card-text">Living with diabetes can be difficult - that’s why we’re here to provide you with the very best equipment to help you easily manage your condition. </p>
+                        <!-- <h5 class="card-title">Diabetes</h5> -->
+                        <p class="card-text" style="font-size: 12px;">Your essential, DEET-free protection against biting insects, now in a robust 75ml pump spray.</p>
                         <!-- <a href="/diabetes" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>

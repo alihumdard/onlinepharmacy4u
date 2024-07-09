@@ -113,6 +113,20 @@ class ProductController extends Controller
         // dd($data['products']);
         return view('admin.pages.products.prodcuts_limits', $data);
     }
+    public function featured_products(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'featured_products';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['products'] = Product::with('category:id,name')->latest('id')->get()->toArray();
+        }
+        // dd($data['products']);
+        return view('admin.pages.products.featured_products', $data);
+    }
 
     public function import_products()
     {

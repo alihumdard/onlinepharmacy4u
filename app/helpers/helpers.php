@@ -103,6 +103,7 @@ function view_permission($page_name)
                 case 'contact':
                 case 'setting':
                 case 'faq':
+                case 'featured_products':
                 case 'question_categories':
                 case 'add_question_category':
                 case 'p_med_gq':

@@ -42,6 +42,7 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/products', [ProductController::class, 'products'])->name('admin.prodcuts');
     Route::match(['get', 'post'], '/proTrash', [ProductController::class, 'product_trash'])->name('admin.proTrash');
     Route::match(['get', 'post'], '/productsLimits', [ProductController::class, 'products_limits'])->name('admin.prodcutsLimits');
+    Route::match(['get', 'post'], '/featuredProducts', [ProductController::class, 'featured_products'])->name('admin.featuredProducts');
     Route::match(['get', 'post'], '/importedProducts', [ProductController::class, 'imported_products'])->name('admin.importedProdcuts');
     Route::get('/importProducts', [ProductController::class, 'import_products'])->name('admin.importProducts');
     Route::post('/importProducts', [ProductController::class, 'store_import_products'])->name('admin.importProducts');

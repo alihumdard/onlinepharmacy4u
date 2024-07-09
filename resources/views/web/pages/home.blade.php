@@ -186,32 +186,38 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div class="card card-radius">
-                <a href="/skincare"><img src="img/product/skincare_1.webp" class="card-img-top card-radius" alt="..."></a>
-                    <div class="card-body">
+                <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
+                <a href="/skincare"><img src="img/product/skincare_1.webp" class="card-img-top card-radius" alt="..." style="
+    border-radius: 0px;
+"></a>
+                    <div class="card-body" style="text-align: center;">
                         <h5 class="card-title poppins-medium">Skincare</h5>
                         <p class="card-text  oppins-extralight">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine.</p>
-                        <a href="/skincare" class="btn btn-primary theme-btn-1">Buy Now</a>
+                        <!-- <a href="/skincare" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-radius">
-                <a href="/sleep"><img src="img/product/sleep.png" class="card-img-top card-radius" alt="..."></a>
-                    <div class="card-body">
+                <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
+                <a href="/sleep"><img src="img/product/sleep.png" class="card-img-top card-radius" alt="..." style="
+    border-radius: 0px;
+"></a>
+                    <div class="card-body" style="text-align: center;">
                         <h5 class="card-title">Sleep</h5>
                         <p class="card-text">Treat insomnia with our range of medications to help you fall asleep faster and to reduce the chances of you waking up in the middle of the night.</p>
-                        <a href="/sleep" class="btn btn-primary theme-btn-1">Buy Now</a>
+                        <!-- <a href="/sleep" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-radius">
-                <a href="/diabetes"><img src="img/product/Diabetes.png" class="card-img-top card-radius" alt="..."></a>
-                    <div class="card-body">
+                <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
+                <a href="/diabetes"><img src="img/product/Diabetes.png" class="card-img-top card-radius" alt="..." style="
+    border-radius: 0px;
+"></a>
+                    <div class="card-body" style="text-align: center;">
                         <h5 class="card-title">Diabetes</h5>
                         <p class="card-text">Living with diabetes can be difficult - that’s why we’re here to provide you with the very best equipment to help you easily manage your condition. </p>
-                        <a href="/diabetes" class="btn btn-primary theme-btn-1">Buy Now</a>
+                        <!-- <a href="/diabetes" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
             </div>

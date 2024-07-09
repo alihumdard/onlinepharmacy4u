@@ -119,7 +119,7 @@
             <a class="nav-link {{ (request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts','admin.proTrash'])) ? '' : 'collapsed'}} " data-bs-target="#forms-nav" data-bs-toggle="collapse">
                 <i class="bi bi-journal-text"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content {{(request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts','admin.proTrash'])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content {{(request()->routeIs(['admin.prodcuts','admin.prodcutsLimits','admin.addProduct','admin.importedProdcuts','admin.importProducts','admin.proTrash','admin.featuredProducts'])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
                 <li>
                     <a class="{{(request()->routeIs(['admin.prodcuts'])) ? 'nav-link ' : ''}} " href="{{route('admin.prodcuts')}}">
                         <i class="bi bi-circle"></i><span>All Products</span>
@@ -133,6 +133,11 @@
                 <li>
                     <a class="{{(request()->routeIs(['admin.prodcutsLimits'])) ? 'nav-link ' : ''}} " href="{{route('admin.prodcutsLimits')}}">
                         <i class="bi bi-circle"></i><span>Products Limits</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.featuredProducts'])) ? 'nav-link ' : ''}} " href="{{route('admin.featuredProducts')}}">
+                        <i class="bi bi-circle"></i><span>Featured Products</span>
                     </a>
                 </li>
                 <li>

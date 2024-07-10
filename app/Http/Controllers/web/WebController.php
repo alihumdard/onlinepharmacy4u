@@ -1431,7 +1431,7 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $name = $request->query('n');
         $data['name'] = $name ?? 'Guest';
-        // dd( $data);
+        return view('web.pages.completed_order', $data);
     }
 
     public function transetion_fail(Request $request)

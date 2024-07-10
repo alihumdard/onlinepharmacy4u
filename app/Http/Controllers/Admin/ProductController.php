@@ -39,22 +39,28 @@ class ProductController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-
+    
+        $data = [];
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')->whereIn('status', [$this->status['Active']])->latest('id')->get()->toArray();
+            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
+                ->whereIn('status', [$this->status['Active']])
+                ->latest('id')
+                ->paginate(50); // Set pagination to 50 items per page
+    
             $data['filters'] = [];
-            if ($products) {
-                $data['filters']['titles'] = array_unique(array_column($products, 'title'));
-                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();
-                $data['filters']['sub_cat'] =  collect($products)->pluck('sub_cat.name')->unique()->values()->all();
-                $data['filters']['child_cat'] =  collect($products)->pluck('child_cat.name')->unique()->values()->all();
-                $data['filters']['templates'] = array_unique(array_column($products, 'product_template'));
-                $data['products'] = $products;
+            if ($products->isNotEmpty()) {
+                $data['filters']['titles'] = array_unique($products->pluck('title')->toArray());
+                $data['filters']['categories'] = $products->pluck('category.name')->unique()->values()->all();
+                $data['filters']['sub_cat'] = $products->pluck('sub_cat.name')->unique()->values()->all();
+                $data['filters']['child_cat'] = $products->pluck('child_cat.name')->unique()->values()->all();
+                $data['filters']['templates'] = array_unique($products->pluck('product_template')->toArray());
             }
+            $data['products'] = $products; // Pass paginated products to the view
         }
-
+    
         return view('admin.pages.products.prodcuts', $data);
     }
+    
 
     public function product_trash(Request $request)
     {

@@ -6,11 +6,11 @@ use App\Imports\importProduct;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\Product;
+use App\Models\User;
 use App\Models\ImportedPorduct;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
-use App\Models\User;
 use App\Models\QuestionCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -41,24 +41,20 @@ class ProductController extends Controller
         }
 
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
-                ->whereIn('status', [$this->status['Active']])
-                ->latest('id')
-                ->paginate(50); // Paginate the results
+            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')->whereIn('status', [$this->status['Active']])->latest('id')->get()->toArray();
             $data['filters'] = [];
             if ($products) {
-                $data['filters']['titles'] = array_unique(array_column($products->items(), 'title'));
-                $data['filters']['categories'] = collect($products->items())->pluck('category.name')->unique()->values()->all();
-                $data['filters']['sub_cat'] = collect($products->items())->pluck('sub_cat.name')->unique()->values()->all();
-                $data['filters']['child_cat'] = collect($products->items())->pluck('child_cat.name')->unique()->values()->all();
-                $data['filters']['templates'] = array_unique(array_column($products->items(), 'product_template'));
+                $data['filters']['titles'] = array_unique(array_column($products, 'title'));
+                $data['filters']['categories'] =  collect($products)->pluck('category.name')->unique()->values()->all();
+                $data['filters']['sub_cat'] =  collect($products)->pluck('sub_cat.name')->unique()->values()->all();
+                $data['filters']['child_cat'] =  collect($products)->pluck('child_cat.name')->unique()->values()->all();
+                $data['filters']['templates'] = array_unique(array_column($products, 'product_template'));
                 $data['products'] = $products;
             }
         }
 
         return view('admin.pages.products.prodcuts', $data);
     }
-
 
     public function product_trash(Request $request)
     {
@@ -84,7 +80,6 @@ class ProductController extends Controller
         return view('admin.pages.products.prodcut_trash', $data);
     }
 
-
     public function imported_products(Request $request)
     {
         $user = auth()->user();
@@ -98,7 +93,6 @@ class ProductController extends Controller
         }
         return view('admin.pages.products.imported_prodcuts', $data);
     }
-
 
     public function products_limits(Request $request)
     {
@@ -114,9 +108,21 @@ class ProductController extends Controller
         // dd($data['products']);
         return view('admin.pages.products.prodcuts_limits', $data);
     }
+
+    public function import_products()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'prodcuts';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.products.import_products', $data);
+    }
+
     public function featured_products(Request $request)
     {
-       
+
         $data['user'] = auth()->user();
 
         $page_name = 'featured_products';
@@ -131,19 +137,8 @@ class ProductController extends Controller
             }
         }
         $data['users'] = User::where(['status' => $this->status['Active'], 'role' => user_roles('4')])->latest('id')->get()->sortBy('name')->keyBy('id')->toArray();
-   
+
         return view('admin.pages.products.featured_products', $data);
-    }
-
-    public function import_products()
-    {
-        $data['user'] = auth()->user();
-        $page_name = 'prodcuts';
-        if (!view_permission($page_name)) {
-            return redirect()->back();
-        }
-
-        return view('admin.pages.products.import_products', $data);
     }
 
     public function store_import_products(Request $request)

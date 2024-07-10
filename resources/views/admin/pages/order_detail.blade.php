@@ -254,7 +254,6 @@
                                         <div class="row d-flex ">
                                             <div class="col-lg-12 text-center ">
                                                 <a href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
-                                                    {{-- See Consultations --}}
                                                     Approved / View Consultation
                                                 </a>
                                             </div>
@@ -295,16 +294,18 @@
                                     @endif
                                 </div>
                                 @endif
+
                                 @if($order['status'] != 'Received')
-                                <div class="d-flex justify-content-between pt-2">
-                                    <p class="fw-bold mb-0 ">Marked By:</p>
-                                    <p class="mb-0">{{$marked_by['name'] ?? '' }} ({{$marked_by['email'] ?? ''}}) </p>
+                                <div class="d-flex justify-content-arround pt-2">
+                                    <p class="fw-bold mb-0 ">Approved By: </p>
+                                    <p class="ps-2 mb-0">{{$marked_by['name'] ?? '' }} ({{$marked_by['email'] ?? ''}}) </p>
                                 </div>
-                                <div class="d-flex justify-content-between pt-2">
+                                <div class="d-flex justify-content-arround pt-2">
                                     <p class="fw-bold mb-0 ">Health Care Professional Remarks:</p>
-                                    <p class="mb-0">{{$order['hcp_remarks']}} </p>
+                                    <p class="ps-2 mb-0">{{$order['hcp_remarks']}} </p>
                                 </div>
                                 @endif
+
                                 @if((isset($user->role) && $user->role == user_roles('1')))
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0">Subtotal: </p>
@@ -591,4 +592,3 @@
     });
 </script>
 @endPushOnce
-

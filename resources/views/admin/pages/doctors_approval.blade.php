@@ -436,7 +436,7 @@
                                     @endif
                                     <td><span class="btn  fw-bold rounded-pill {{ ($val['order_type'] == 'premd') ? 'btn-primary': (($val['order_type'] == 'pmd') ? 'btn-warning' : 'btn-success') }}">{{ ($val['order_type'] == 'premd') ? 'POM': (($val['order_type'] == 'pmd') ? 'P.Med' : 'O.T.C') }}</span> </td>
                                     <td><span class="btn fw-bold rounded-pill btn-success"> {{$val['payment_status'] ?? ''}}</span> </td>
-                                    <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }}">{{ $val['status'] ?? '' }}</span></td>
+                                    <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved'  || $val['status'] == 'ShippingFail' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }}">{{ $val['status'] ?? '' }}</span></td>
                                     <td style="display: inline-block;">
                                         @if($val['status'] != 'Received')
                                         <span>{{ $val['approved_by']['name'] }} ({{ $val['approved_by']['email'] }} )</span>
@@ -444,7 +444,7 @@
                                     </td>
                                     @if($user->role != user_roles('3'))
                                     <td style="display: inline-block;">
-                                        @if($val['status'] == 'Approved')
+                                        @if($val['status'] == 'Approved' || $val['status'] == 'ShippingFail' )
                                         <span data-order_id="{{$val['id']}}" class="btn  ship_now fw-bold btn-primary no-wrap">Ship Now</span>
                                         @endif
                                         @if($val['status'] == 'Shiped')
@@ -452,9 +452,8 @@
                                         @endif
                                     </td>
                                     @endif
-                                    <td> <i class="bi bi-files duplicate-order"
-                                        data-order-id="{{ $val['id'] }}"></i>
-                                </td>
+                                    <td> <i class="bi bi-files duplicate-order" data-order-id="{{ $val['id'] }}"></i>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -480,29 +479,30 @@
 
 @pushOnce('scripts')
 <script>
+    $(document).ready(function() {
+        $(document).on('click', '.duplicate-order', function() {
+            var orderId = $(this).data('order-id');
+            $.ajax({
+                url: '{{ route('
+                admin.duplicateOrder ') }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    order_id: orderId
+                },
+                success: function(response) {
+                    alert('Order duplicated successfully!');
+                    window.location.href = '{{ route('
+                    admin.ordersCreated ') }}';
 
-$(document).ready(function() {
-            $(document).on('click', '.duplicate-order', function() {
-                var orderId = $(this).data('order-id');
-                $.ajax({
-                    url: '{{ route('admin.duplicateOrder') }}',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        order_id: orderId
-                    },
-                    success: function(response) {
-                        alert('Order duplicated successfully!');
-                        window.location.href = '{{ route('admin.ordersCreated') }}';
-
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Error duplicating order.');
-                        console.error(error);
-                    }
-                });
+                },
+                error: function(xhr, status, error) {
+                    alert('Error duplicating order.');
+                    console.error(error);
+                }
             });
         });
+    });
 
 
     $(function() {

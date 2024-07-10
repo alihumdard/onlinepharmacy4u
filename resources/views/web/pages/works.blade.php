@@ -68,7 +68,7 @@
                     <div class="section-title-area ltn__section-title-2--- mb-20">
                         <h6 class="section-subtitle section-subtitle-2--- ltn__secondary-color d-none">N95 Facial Covering Mask</h6>
                         <h1 class="section-title">Select Your Treatment</h1>
-                        <p>All of our experienced UK Independent prescribers are registered with the General Pharmaceuticals Council (GPhC) they will review your consultation immediately. Once approved Online Pharmacy 4U medical team will then recommend a treatment and issue a FREE* prescription.</p>
+                        <p>All of our experienced UK Independent prescribers are registered with the General Pharmaceutical Council (GPhC) & Nursing and Midwifery Council  (NMC) they will review your consultation immediately. Once approved Online Pharmacy 4U medical team will then recommend a treatment and issue a FREE* prescription.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
                             <li><h4 class="mb-0 pb-0"><i class="fas fa-check-circle"></i>Genuine Treatments</h4></li>

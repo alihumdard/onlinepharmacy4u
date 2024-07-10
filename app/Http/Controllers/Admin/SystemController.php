@@ -940,7 +940,7 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->orderBy('order', 'asc')->get()->toArray();
+        $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
 
         return view('admin.pages.questions.p_med_gq', $data);
     }
@@ -954,7 +954,7 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->orderBy('order', 'asc')->get()->toArray();
+        $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
 
         return view('admin.pages.questions.prescription_med_gq', $data);
     }
@@ -1503,15 +1503,14 @@ class SystemController extends Controller
             return redirect()->back();
         }
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Unpaid', 'status' => 'Created'])
-        ->orWhere('status', 'Duplicate')
-        ->latest('created_at')->get()->toArray();
+            ->orWhere('status', 'Duplicate')
+            ->latest('created_at')->get()->toArray();
 
 
 
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $this->assign_order_types($orders);
-
         }
 
         // dd(  $data['order_history'] );
@@ -1634,8 +1633,8 @@ class SystemController extends Controller
             $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Approved', 'order_for' => 'doctor'])->whereIn('status', ['Received', 'Approved', 'Not_Approved'])->latest('created_at')->get()->toArray();
         } else {
             $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])
-            ->whereIn('status', ['Received', 'Approved', 'Not_Approved'])
-            ->latest('created_at')->get()->toArray();
+                ->whereIn('status', ['Received', 'Approved', 'Not_Approved'])
+                ->latest('created_at')->get()->toArray();
 
             // dd($orders);
         }
@@ -1818,7 +1817,7 @@ class SystemController extends Controller
 
 
             $consultaiontype = 'one_over';
-            $productTemplate= 'null';
+            $productTemplate = 'null';
 
             foreach ($request->all() as $key => $value) {
                 if (preg_match('/^pro_(\d+)_qty$/', $key, $matches)) {
@@ -1858,46 +1857,44 @@ class SystemController extends Controller
 
 
             // dd($consultaiontype , $productTemplate);
-      // Loop through the products in the request and create order details
-      foreach ($request->all() as $key => $value) {
-        if (preg_match('/^pro_(\d+)_qty$/', $key, $matches)) {
-            $productId = $matches[1];
-            $quantity = $value;
-            $variantKey = "pro_{$productId}_vari";
-            $variantId = $request->input($variantKey, null);
+            // Loop through the products in the request and create order details
+            foreach ($request->all() as $key => $value) {
+                if (preg_match('/^pro_(\d+)_qty$/', $key, $matches)) {
+                    $productId = $matches[1];
+                    $quantity = $value;
+                    $variantKey = "pro_{$productId}_vari";
+                    $variantId = $request->input($variantKey, null);
 
-            $product = Product::find($productId);
+                    $product = Product::find($productId);
 
-            $variant = ProductVariant::find($variantId);
+                    $variant = ProductVariant::find($variantId);
 
-            $order_Detail=    OrderDetail::create([
-                'order_id' => $order->id,
-                'product_id' => $productId,
-                'variant_id' => $variantId,
-                'product_name' => $product ? $product->title : 'Unknown Product',
-                'variant_details' => $variant ? $variant->slug : 'No Variant',
-                'weight' => $product ? $product->weight : 0,
-                'product_qty' => $quantity,
-                'product_price' => $product ? $product->price : 0,
-                'status' => 'Created',
-                'consultation_type' => $consultaiontype,
-                'created_by' => auth()->id(),
-                'updated_by' => auth()->id(),
-            ]);
-        }
-
-        }
-
-                // dd( 'shippingDetail', $shippingDetail ,'order_Detail',$order_Detail);
-                if ($shippingDetail) {
-                    $message = "Order and Shipping Details Saved Successfully";
-                    return redirect()->route('admin.ordersCreated')->with(['msg' => $message]);
+                    $order_Detail =    OrderDetail::create([
+                        'order_id' => $order->id,
+                        'product_id' => $productId,
+                        'variant_id' => $variantId,
+                        'product_name' => $product ? $product->title : 'Unknown Product',
+                        'variant_details' => $variant ? $variant->slug : 'No Variant',
+                        'weight' => $product ? $product->weight : 0,
+                        'product_qty' => $quantity,
+                        'product_price' => $product ? $product->price : 0,
+                        'status' => 'Created',
+                        'consultation_type' => $consultaiontype,
+                        'created_by' => auth()->id(),
+                        'updated_by' => auth()->id(),
+                    ]);
                 }
-
             }
 
-            // Handle error case
-            return redirect()->back()->with(['error' => 'Failed to save order and shipping details']);
+            // dd( 'shippingDetail', $shippingDetail ,'order_Detail',$order_Detail);
+            if ($shippingDetail) {
+                $message = "Order and Shipping Details Saved Successfully";
+                return redirect()->route('admin.ordersCreated')->with(['msg' => $message]);
+            }
+        }
+
+        // Handle error case
+        return redirect()->back()->with(['error' => 'Failed to save order and shipping details']);
     }
 
     public function change_status(Request $request)
@@ -2293,8 +2290,7 @@ class SystemController extends Controller
             $comment->user_name = Auth::user()->name;
             $comment->user_pic = (Auth::user()->user_pic) ? asset('storage/' . Auth::user()->user_pic) : asset('assets/admin/img/profile-img1.png');
             $comment->comment = $request->comment;
-            $comment->created_by = Auth::id();
-            ;
+            $comment->created_by = Auth::id();;
             $save = $comment->save();
 
             $message = 'Comment added successfully';
@@ -2754,7 +2750,6 @@ class SystemController extends Controller
             $message = "Question " . ($request->id ? "Updated" : "Saved") . " Successfully";
             return redirect()->route('admin.prescriptionMedGQ')->with(['msg' => $message]);
         }
-
     }
 
     public function updatePrescriptionQuestionOrder(Request $request)

@@ -1,317 +1,429 @@
 @extends('admin.layouts.default')
 @section('title', 'Featured Products')
 @section('content')
-<!-- main stated -->
-<main id="main" class="main">
-
     <style>
-        .edit i {
-            color: #4154F1;
-            font-size: 20px;
-            margin-right: 10px;
-            margin-left: 10px;
+        .select2-selection__rendered {
+            line-height: 35px !important;
         }
 
-        .delete i {
-            color: #E34724;
-            font-size: 20px;
-            margin-left: 10px;
+        .select2-container .select2-selection--single {
+            height: 40px !important;
         }
 
-        .card-body table tr {
-            background-color: #E34724 !important;
+        .select2-selection__arrow {
+            height: 40px !important;
         }
 
-        /* Custom CSS for DataTables buttons */
-        .btn-blue {
-            background-color: blue !important;
-            color: white !important;
-            border: none !important;
-            border-radius: 5px !important;
-            margin-right: 5px;
-            font-weight: bold;
+        .btn_theme {
+            background: #03bd8d;
+            border: #03bd8d 1px solid;
         }
-
-        .btn-blue:hover {
-            background-color: darkblue !important;
-        }
-
-        .table-stripe tbody tr:nth-child(odd) {
-            background-color: lightblue;
-        }
-
-        .table-stripe tbody tr:nth-child(even) {
-            background-color: deepskyblue;
-        }
-
-        /* Custom checkbox styles */
-        .custom-checkbox {
-            position: relative;
-            display: inline-block;
-            width: 26px;
-            height: 29px;
-            background-color: #fff;
-            border: 2px solid #6c757d;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .custom-checkbox::after {
-            background-color: #03c4a5 !important;
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 12px;
-            height: 12px;
-            border-bottom: 2px solid #000;
-            /* Changed border color to black */
-            border-right: 2px solid #000;
-            /* Changed border color to black */
-            transform-origin: bottom right;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        /* Checkbox checked state */
-        .custom-checkbox input:checked+.custom-checkbox::after {
-            opacity: 1;
-        }
-
-        /* Change background color to green when checked */
-        .custom-checkbox input:checked+.custom-checkbox {
-            background-color: #03c4a5 !important;
-            /* Green background color */
-        }
-
-        /* Hide the default checkbox */
-        .custom-checkbox input[type="checkbox"] {
-            opacity: 0;
-            width: 0;
-            height: 0;
-            background-color: #03c4a5 !important;
-        }
-
-        .form-control-sm {
-            min-height: calc(1.5em + .5rem + calc(var(--bs-border-width)* 2)) !important;
-            padding: .5rem 1rem !important;
-            font-size: 1rem !important;
-            border-radius: var(--bs-border-radius-sm) !important;
-            margin: 1rem 5px !important;
-            width: 100% !important;
-        }
-
-        .dataTables_filter {
-            text-align: center !important;
-            font-weight: bolder !important;
-            font-size: larger !important;
-        }
-
-        #snackbar {
-            visibility: hidden;
-            /* Hidden by default. Visible on click */
-            min-width: 250px;
-            /* Set a default minimum width */
-            margin-left: -125px;
-            /* Divide value of min-width by 2 */
-            background-color: #03c4a5;
-            /* Black background color */
-            color: #fff;
-            /* White text color */
-            text-align: center;
-            /* Centered text */
-            border-radius: 2px;
-            /* Rounded borders */
-            padding: 16px;
-            /* Padding */
-            position: fixed;
-            /* Sit on top of the screen */
-            z-index: 1;
-            /* Add a z-index if needed */
-            left: 70%;
-            /* Center the snackbar */
-            bottom: 50%;
-            /* 30px from the bottom */
-        }
-
-        /* Show the snackbar when clicking on a button (class added with JavaScript) */
-        #snackbar.show {
-            visibility: visible;
-            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        /* Animations to fade the snackbar in and out */
-        @-webkit-keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-
-            to {
-                bottom: 50%;
-                opacity: 1;
-            }
-        }
-        @keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-
-            to {
-                bottom: 50%;
-                opacity: 1;
-            }
-        }
-        @-webkit-keyframes fadeout {
-            from {
-                bottom: 50%;
-                opacity: 1;
-            }
-
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-        @keyframes fadeout {
-            from {
-                bottom: 50%;
-                opacity: 1;
-            }
-
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
+ 
+        .hide {
+            display: none;
         }
     </style>
+    <!-- main stated -->
+    <main id="main" class="main">
 
-    <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Products</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Products Limits</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+        <div class="pagetitle">
+            <h1<a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i
+                    class="bi bi-arrow-left"></i> Back</a> | Create Order</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item">Pages</li>
+                        <li class="breadcrumb-item active">Create Order</li>
+                    </ol>
+                </nav>
+        </div><!-- End Page Title -->
 
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-12">
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
 
-                <div class="card">
-                    <div class="card-header mt-3" id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;">
-                    </div>
-                    <div class="card-body">
-                        <table id="tbl_data" class="table table-bordered table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Details</th>
-                                    <th>Add In Feature</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($products as $key => $value)
-                                <tr>
-                                    <th style="vertical-align: middle; text-align: center;">{{ ++$key ?? ''}}</th>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="{{ asset('storage/'.$value['main_image'])}}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
-                                            <div class="ms-3">
-                                                <p class="fw-bold mb-1">{{ $value['title'] ?? ''}}</p>
-                                            </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Multi Columns Form -->
+                            <form class="row g-3 mt-3 needs-validation" method="post"
+                                action="{{ route('admin.storeOder') }}" novalidate>
+                                @csrf
+                                <input type="hidden" name="id" id="order_id" value="{{ $order['id'] ?? '' }}">
+                                <label for="product_id" class="form-label fw-bold">Select Product: </label>
+                                <div class="row">
+                                    <div class="col-11  d-block">
+                                        <select id="product_id" name="product_id" class="form-select select2"
+                                            data-placeholder="choose product ...">
+                                            <option value=""></option>
+                                            @foreach ($products ?? [] as $key => $product)
+                                                <option
+                                                    {{ isset($order['product_id']) && $product['id'] == $order['product_id'] ? 'selected' : '' }}
+                                                    {{ $product['id'] == old('product_id') ? 'selected' : '' }}
+                                                    value="{{ $product['id'] }}"
+                                                    data-img="{{ asset('storage/' . $product['main_image']) }}">
+                                                    {{ $product['title'] ?? '' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">Please select product!</div>
+                                        @error('product_id')
+                                            <div class="alert-danger text-danger ">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-1 d-block text-center">
+                                        <button type="button" id="add_product" class="btn btn-success  fw-semibold" style="
+    background-color: green;
+">
+                                            + Add
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- varainats dynamic -->
+                                <div class="col-md-12 variants d-block"></div>
+
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header text-center " style="background:#88888870;">
+                                            <label class=" fw-bold text-dark m-0">Products Details</label>
                                         </div>
+                                        <div class="card-body p-0 ">
+                                            <table id="tbl_data" class="table table-bordered table-striped mb-0">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th style="vertical-align: middle; text-align: center;">#</th>
+                                                        <th style="vertical-align: middle; padding:10px 20px;">Details</th>
+                                                        <th style="vertical-align: middle; text-align: center;">Price</th>
+                                                        <th style="vertical-align: middle; text-align: center;">Quantity
+                                                        </th>
+                                                        <th style="vertical-align: middle; text-align: center;">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                    </td>
-                                
-                                    <td style="vertical-align: middle; text-align: center;">
-                                        <input type="checkbox" {{($value['comb_variants'] == 'yes') ? 'checked' : '' }} class="custom-checkbox" id="comb_variants_{{$value['id']}}" name="comb_variants[{{$value['id']}}]">
-                                    </td>
-                                    <td style="vertical-align: middle; text-align: center;">
-                                        <a class="btn btn-primary update" style="cursor: pointer;" title="Edit" data-id="{{$value['id']}}" data-toggle="tooltip">
-                                            <i class="bi bi-arrow-clockwise"></i> Update
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
+                                                </tbody>
 
-                        </table>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                         
+                            </form><!-- End Multi Columns Form -->
+
+                        </div>
                     </div>
-                    <!-- /.card-body -->
+
                 </div>
             </div>
-        </div>
-    </section>
-    <div id="snackbar" class="fw-bold">Limit updated Successfully.</div>
-</main>
+        </section>
 
-
+    </main>
+    <!-- End #main -->
 @stop
 
 @pushOnce('scripts')
-<script>
-    $(function() {
-        $("#tbl_data").DataTable({
-            "paging": true,
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#tbl_buttons');
-    });
+    <script>
+        $(document).ready(function() {
+            var $products = @json($products);
+            var $variants = @json($variants);
+            var $users = @json($users);
+            var total_items = 0;
+            var total_price = 0;
+            $(document).on('click', '#add_product', function() {
+                var productHtml = '';
+                var variHtml = 'No';
+                var proId = $('#product_id').val();
+                if (proId) {
+                    if ($products[proId]) {
 
-    function showtoaster() {
-        var x = document.getElementById("snackbar");
-        x.className = "show";
-        setTimeout(function() {
-            x.className = x.className.replace("show", "");
-        }, 2000);
-    }
-    $(document).ready(function() {
-        $(document).on('click','.update',function() {
-            var id = $(this).data('id');
-            let min_buy = $('#min_buy_' + id).val();
-            let max_buy = $('#max_buy_' + id).val();
-            let comb_variants = $('#comb_variants_' + id).prop('checked') ? 'yes' : 'no';
-            // Get CSRF token from meta tag
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-            var formData = new FormData();
-            formData.append('_token', csrfToken); // Append CSRF token
-            formData.append('id', id);
-            formData.append('min_buy', min_buy);
-            formData.append('max_buy', max_buy);
-            formData.append('comb_variants', comb_variants);
-
-            $.ajax({
-                url: "{{route('admin.updateBuyLimits')}}",
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.status === 'success') {
-                        showtoaster();
-                    } else if (response.status === 'error') {
-                        alert('Contact To Developer');
+                        let product = $products[proId];
+                        let imageUrl = "{{ asset('storage') }}/" + product.main_image;
+                        if ($variants[proId]) {
+                            $.each($variants[proId], function(index, variant) {
+                                if (variant.id == $('#variant_id').val()) {
+                                    variHtml = variant.slug +
+                                        `<input type="hidden" name="pro_${product.id}_vari" value="${variant.id}" />`;
+                                }
+                            });
+                        }
+                        productHtml = `
+                                <tr>
+                                    <th style="vertical-align: middle; text-align: center;">${product.id}</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="${imageUrl}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
+                                            <div class="ms-3">
+                                                <label class="fw-semibold mb-1">${product.title}</label>
+                                                <p class="text-muted mb-0"><b>Variant:</b> ${variHtml} </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <span class="fw-normal mb-1" id="price_id_${product.id}">${product.price} </span>£
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <div style="display: inline-block; width: 100%;">
+                                            <input type="number" name="pro_${product.id}_qty" value="1" data-price_id="${product.id}"  data-price_qty="1" class="form-control py-2 text-center w-50 fw-semibold product_qty" id="product_qty_${product.id}" required style="margin: 0 auto;">
+                                            <div class="invalid-feedback">Please enter Quantity!</div>
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-row_id="${product.id}" data-toggle="tooltip">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>`;
+                        $('#tbl_data tbody').prepend(productHtml);
+                        $('#product_id').val(null).trigger('change');
+                        $('.variants').html('');
+                        total_items++;
+                        calculate_payment(product.price);
+                    } else {
+                        alert('Selected Product does not exist.')
                     }
-                },
-                error: function(error) {
-                    alert('Contact To Developer');
+                } else {
+                    alert('Please Select Product first.')
                 }
             });
+
+            $(document).on('click', '.delete', function() {
+                var row_id = $(this).data('row_id');
+                $(this).closest('tr').fadeOut('slow', function() {
+                    var product_qty = parseFloat($('#product_qty_' + row_id).val());
+                    if (product_qty) {
+                        let product_price = $('#price_id_' + row_id).text();
+                        total_price -= parseFloat(product_price) * product_qty;
+                        let price = 0;
+                        total_items--;
+                        calculate_payment(price);
+                    }
+                    $(this).remove();
+                });
+            });
+
+            $(document).on('change', '#product_id', function() {
+                var productId = $(this).val();
+                if ($products[productId]) {
+                    if ($variants[productId]) {
+                        var variantHtml =
+                            '<label for="variant_id" class="form-label fw-bold">Choose Variant</label>' +
+                            '<select id="variant_id" name="variant_id" class="form-select select2" required>';
+
+                        $.each($variants[productId], function(index, variant) {
+                            var img_src = $('#product_id option:selected').data('img');
+                            if (variant.image) {
+                                img_src = "{{ asset('storage') }}/" + variant.image;
+                            }
+                            variantHtml += '<option value="' + variant.id + '" data-img="' +
+                                img_src + '">' + variant.slug + '</option>';
+                        });
+
+                        variantHtml += '</select>' +
+                            '<div class="invalid-feedback">Please enter variant!</div>';
+                        $('.variants').html(variantHtml);
+
+                        // Initialize Select2 with custom template
+                        $('#variant_id').select2({
+                            templateResult: imageState,
+                            templateSelection: imageState,
+                            width: '100%'
+                        });
+                    } else {
+                        $('.variants').html('');
+                    }
+                }
+            });
+
+            $(document).on('change', '#user_id', function() {
+                var userId = $(this).val();
+                if ($users[userId]) {
+                    let user = $users[userId];
+                    $('#firstName').val(user.name);
+                    $('#email').val(user.email);
+                    $('#phone').val(user.phone);
+                    $('#address').val(user.address);
+                    $('#address2').val(user.apartment);
+                    $('#city').val(user.city);
+                    $('#zip_code').val(user.zip_code);
+                } else {
+                    alert('technical error');
+                }
+            });
+
+
+            $('#discount_percent').on('input', function() {
+                var discountPercent = parseFloat($(this).val());
+                if (discountPercent < 0) {
+                    $(this).val('0.01');
+                } else if (discountPercent > 100) {
+                    $(this).val('100');
+                }
+                $(this).removeClass('is-invalid');
+                update_d_payment();
+            });
+
+            $(document).on('input', '.product_qty', function() {
+                var product_qty = parseFloat($(this).val());
+                if (product_qty) {
+                    let row_id = $(this).data('price_id');
+                    let price_qty = $(this).data('price_qty');
+                    let product_price = $('#price_id_' + row_id).text();
+                    total_price -= parseFloat(product_price) * price_qty;
+                    let price = parseFloat(product_price) * product_qty;
+                    calculate_payment(price);
+                    $(this).data('price_qty', product_qty);
+                }
+            });
+
+            $(document).on('blur', '.product_qty', function() {
+                var product_qty = parseFloat($(this).val());
+                if (isNaN(product_qty) || product_qty <= 0) {
+                    $(this).val(1).trigger('input');
+                }
+            });
+
+            const update_d_payment = () => {
+                let price = $('#total_price').text();
+                var d_amount = 0.00;
+                if (typeof price === 'string') {
+                    price = parseFloat(price);
+                }
+                // Default price to 0 if it's not a valid number
+                if (typeof price !== 'number' || isNaN(price)) {
+                    price = 0;
+                }
+
+                total_price = price;
+
+                let shippingCost = $('input[name="shiping_cost"]:checked').val();
+                var total_amount = parseFloat(total_price) + parseFloat(shippingCost);
+                var discountPercent = $('#discount_percent').val();
+                if (discountPercent) {
+                    discountPercent = (typeof discountPercent === 'undefined' || isNaN(discountPercent)) ? 0 :
+                        parseFloat(discountPercent);
+                    let discountDecimal = discountPercent / 100;
+                    let discountAmount = parseFloat(total_price) * discountDecimal;
+                    total_amount = total_amount - parseFloat(discountAmount);
+                    d_amount = discountAmount.toFixed(2);
+                }
+                var t_price = total_price.toFixed(2);
+                var t_amount = total_amount.toFixed(2);
+
+                $('#total_items').text(total_items);
+                $('#total_price').text(t_price);
+                $('#shiping_cost').text(shippingCost);
+                $('#discount_amount').text(d_amount);
+                $('#total_amount').text(t_amount);
+
+            }
+
+            function imageState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var imgSrc = $(state.element).data('img');
+                if (imgSrc) {
+                    var $state = $(
+                        '<span><img src="' + imgSrc +
+                        '" class="rounded-circle" style="width: 35px; height: 35px; margin-right: 8px;" />' +
+                        state.text + '</span>'
+                    );
+                    return $state;
+                } else {
+                    return state.text;
+                }
+            }
+
+            const calculate_payment = (price) => {
+                var d_amount = 0.00;
+                if (typeof price === 'string') {
+                    price = parseFloat(price);
+                }
+                // Default price to 0 if it's not a valid number
+                if (typeof price !== 'number' || isNaN(price)) {
+                    price = 0;
+                }
+                total_price += price;
+
+                let shippingCost = $('input[name="shiping_cost"]:checked').val();
+                var total_amount = parseFloat(total_price) + parseFloat(shippingCost);
+                var discountPercent = $('#discount_percent').val();
+                if (discountPercent) {
+                    discountPercent = (typeof discountPercent === 'undefined' || isNaN(discountPercent)) ? 0 :
+                        parseFloat(discountPercent);
+                    let discountDecimal = discountPercent / 100;
+                    let discountAmount = parseFloat(total_price) * discountDecimal;
+                    total_amount = total_amount - parseFloat(discountAmount);
+                    d_amount = discountAmount.toFixed(2);
+                }
+                var t_price = total_price.toFixed(2);
+                var t_amount = total_amount.toFixed(2);
+
+                $('#total_items').text(total_items);
+                $('#total_price').text(t_price);
+                $('#shiping_cost').text(shippingCost);
+                $('#discount_amount').text(d_amount);
+                $('#total_amount').text(t_amount);
+            document.getElementById('total_amount_input').value = t_amount;
+
+            }
+            // Assuming you have JavaScript that calculates total_amount dynamically
+
+
+            // $.ajax({
+            //     url: $(this).attr('action'),
+            //     type: $(this).attr('method'),
+            //     data: formData,
+            //     processData: false,
+            //     contentType: false,
+            //     success: function(response) {
+            //         if (response.status === 'success') {
+            //             window.location.href = "{{ route('admin.prodcuts') }}";
+            //         } else if (response.status === 'error') {
+
+            //             console.log(response.message);
+            //             $('.error-label').remove();
+
+            //             $.each(response.message, function(field, errorMessages) {
+            //                 var inputField = $('input[name="' + field + '"]');
+
+            //                 $.each(errorMessages, function(index, errorMessage) {
+            //                     var errorLabel = $('<label class="error-label text-danger">* ' + errorMessage + '</label>');
+            //                     inputField.addClass('error');
+            //                     inputField.after(errorLabel);
+            //                 });
+            //             });
+            //         }
+
+            //     },
+            //     error: function(error) {
+            //         alert('technical error occur')
+            //     }
+            // });
         });
-    });
-</script>
+
+        function formatState(state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var imgSrc = $(state.element).data('img');
+            if (imgSrc) {
+                var $state = $(
+                    '<span><img src="' + imgSrc +
+                    '" class="rounded-circle" style="width: 35px; height: 35px; margin-right: 8px;" />' + state.text +
+                    '</span>'
+                );
+                return $state;
+            } else {
+                return state.text;
+            }
+        }
+
+        $('#product_id').select2({
+            templateResult: formatState,
+            templateSelection: formatState,
+            width: '100%'
+        });
+    </script>
 @endPushOnce

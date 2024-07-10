@@ -186,9 +186,10 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
-                <a href="/skincare"><img src="img/product/one1.webp" class="card-img-top card-radius" alt="..." style="
-    border-radius: 0px;
+                <div class="card card-radius">
+                <a href="/skincare"><img src="img/product/calypso.webp" class="card-img-top card-radius" alt="..." style="
+   border-bottom-left-radius: 0px; 
+        border-bottom-right-radius: 0px; 
 "></a>
                     <div class="card-body" style="text-align: center;">
                         <!-- <h5 class="card-title poppins-medium">Skincare</h5> -->
@@ -198,9 +199,10 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
-                <a href="/sleep"><img src="img/product/two2.webp" class="card-img-top card-radius" alt="..." style="
-    border-radius: 0px;
+                <div class="card card-radius" >
+                <a href="/sleep"><img src="img/product/mounjaro.webp" class="card-img-top card-radius" alt="..." style="
+   border-bottom-left-radius: 0px; 
+        border-bottom-right-radius: 0px; 
 "></a>
                     <div class="card-body" style="text-align: center;">
                         <!-- <h5 class="card-title">Sleep</h5> -->
@@ -210,13 +212,14 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-radius" style="border-radius: 0 0 10px 10px;">
-                <a href="/diabetes"><img src="img/product/three3.webp" class="card-img-top card-radius" alt="..." style="
-    border-radius: 0px;
+                <div class="card card-radius" >
+                <a href="/diabetes"><img src="img/product/jungle formula.webp" class="card-img-top card-radius" alt="..." style="
+   border-bottom-left-radius: 0px; 
+        border-bottom-right-radius: 0px; 
 "></a>
                     <div class="card-body" style="text-align: center;">
                         <!-- <h5 class="card-title">Diabetes</h5> -->
-                        <p class="card-text" style="font-size: 12px;">Your essential, DEET-free protection against biting insects, now in a robust 75ml pump spray.</p>
+                        <p class="card-text" style="font-size: 12px;">Choose the right protection with IRF, offering up to 9 hours of defense against biting insects.</p>
                         <!-- <a href="/diabetes" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>

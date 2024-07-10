@@ -10,6 +10,7 @@ use App\Models\ImportedPorduct;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\ChildCategory;
+use App\Models\User;
 use App\Models\QuestionCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -115,16 +116,22 @@ class ProductController extends Controller
     }
     public function featured_products(Request $request)
     {
-        $user = auth()->user();
+       
+        $data['user'] = auth()->user();
+
         $page_name = 'featured_products';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
+        $data['products'] = Product::with('variants')->where('status', $this->status['Active'])->latest('id')->get()->sortBy('title')->values()->keyBy('id')->toArray();
 
-        if (isset($user->role) && $user->role == user_roles('1')) {
-            $data['products'] = Product::with('category:id,name')->latest('id')->get()->toArray();
+        foreach ($data['products'] as $key => $product) {
+            if ($product['variants']) {
+                $data['variants'][$product['id']] = $product['variants'];
+            }
         }
-        // dd($data['products']);
+        $data['users'] = User::where(['status' => $this->status['Active'], 'role' => user_roles('4')])->latest('id')->get()->sortBy('name')->keyBy('id')->toArray();
+   
         return view('admin.pages.products.featured_products', $data);
     }
 

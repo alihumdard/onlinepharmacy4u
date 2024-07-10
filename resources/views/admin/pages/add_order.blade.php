@@ -18,7 +18,7 @@
             background: #03bd8d;
             border: #03bd8d 1px solid;
         }
-
+ 
         .hide {
             display: none;
         }
@@ -72,7 +72,9 @@
                                     </div>
 
                                     <div class="col-1 d-block text-center">
-                                        <button type="button" id="add_product" class="btn btn-success  fw-semibold">
+                                        <button type="button" id="add_product" class="btn btn-success  fw-semibold" style="
+    background-color: green;
+">
                                             + Add
                                         </button>
                                     </div>

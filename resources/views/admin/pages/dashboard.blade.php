@@ -45,7 +45,7 @@
                     <div class="row">
 
                         <!-- Total Revenue Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        <div class="col-xl-4">
                             <div class="card info-card revenue-card">
 
                                 <div class="filter">
@@ -82,7 +82,7 @@
                         </div><!-- End Total Revenue Card -->
 
                         <!-- Orders for Doctors Card -->
-                        <div class="col-xxl-4 col-xl-12">
+                        <div class="col-xl-4">
                             <div class="card info-card customers-card">
 
                                 <div class="filter">
@@ -119,7 +119,7 @@
                         </div><!-- End Orders for Doctors Card -->
 
                         <!-- Orders for Dispensaries Card -->
-                        <div class="col-xxl-4 col-xl-12">
+                        <div class="col-xl-4">
                             <div class="card info-card customers-card">
 
                                 <div class="filter">
@@ -166,7 +166,7 @@
 
 
                         <!-- Total Orders Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        <div class="col-xl-4 col-md-6">
                             <div class="card info-card total-orders-card">
 
                                 <div class="filter">
@@ -203,7 +203,7 @@
                         </div><!-- End Total Orders Card -->
 
                         <!-- Pending Orders Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        <div class="col-xl-4 col-md-6">
                             <div class="card info-card pending-orders-card">
 
                                 <div class="filter">
@@ -240,7 +240,7 @@
                         </div><!-- End Pending Orders Card -->
 
                         <!-- Paid Orders Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        <div class="col-xl-4 col-md-6">
                             <div class="card info-card paid-orders-card">
 
                                 <div class="filter">

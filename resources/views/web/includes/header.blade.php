@@ -370,6 +370,46 @@
                     display: none;
                 }
             }
+            .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0; /* Adjust padding as needed */
+}
+
+.menu-item img {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.menu-item a {
+    background: none !important;
+    font-weight: 600;
+    text-align: left;
+    text-decoration: none;
+}
+
+.menu-item a.child-link {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.mega-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mega-menu > li {
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+.mega-menu > li > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px; /* Adjust margin as needed */
+}
+
         </style>
 
         <!-- MOBILE MENU START -->
@@ -472,27 +512,30 @@
                                     <ul>
                                         <li><a style="background: none !important;" href="/" class="poppins-thin">Home</a></li>
                                         @foreach ($menu_categories as $key => $val)
-                                        <li class="">
-                                            <a style="background: none !important;" href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
-                                            <ul class="mega-menu">
-                                                @foreach($val['subcategory'] as $key1 => $val1)
-                                                <li>
-                                                <div class="link-container">
-                                                    <a class="custom-link" style="text-align: left;color: #5C727D !important;
-    background: none !important;font-weight: 600;" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
-                                                    <img src="{{ asset('img/online-pharmacy.png') }}" height="27" width="27" style="margin-right: 10px;">{{ $val1['name'] }}
-                                                </a>
-                                                </div>
-                                                    <ul>
-                                                        @foreach($val1['child_categories'] as $key2 => $val2)
-                                                        <li><img src="{{ asset('img/drug.png') }}" height="27" width="27" style="margin-right: 10px;"><a style="font-size:12px;font-weight: 500;" class="custom-link" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
-                                                        @endforeach
-                                                    </ul>
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                        @endforeach
+    <li class="menu-item">
+        <a href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
+        <ul class="mega-menu">
+            @foreach($val['subcategory'] as $key1 => $val1)
+                <li>
+                    <div class="link-container">
+                        <a class="custom-link" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
+                            <img src="{{ asset('img/online-pharmacy.png') }}" height="27" width="27">{{ $val1['name'] }}
+                        </a>
+                    </div>
+                    <ul>
+                        @foreach($val1['child_categories'] as $key2 => $val2)
+                            <li class="menu-item">
+                                <img src="{{ asset('img/drug.png') }}" height="27" width="27">
+                                <a class="custom-link child-link" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
+        </ul>
+    </li>
+@endforeach
+
                                         <li><a style="background: none !important;" href="/work" class="poppins-thin">How it work's</a></li>
                                         <li><a style="background: none !important;" href="/help" class="poppins-thin">Help</a></li>
                                     </ul>

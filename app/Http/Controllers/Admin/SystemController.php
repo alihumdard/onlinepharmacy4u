@@ -567,7 +567,7 @@ class SystemController extends Controller
         }
 
 
-        
+
         if ($request->hasFile('icon') || !$request->id) {
 
             $rules['icon'] = [
@@ -586,7 +586,6 @@ class SystemController extends Controller
                 $icon->storeAs('category_images/', $iconName, 'public');
                 $iconPath = 'category_images/' . $iconName;
             }
-
         }
 
         // if change type is 1 than updation will occur in same category
@@ -1448,7 +1447,7 @@ class SystemController extends Controller
             $odd_id = base64_decode($request->odd_id);
             $user_result = [];
             $prod_result = [];
-            $consultaion = OrderDetail::where(['id' => $odd_id, 'status' => '1'])->latest('created_at')->latest('id')->first();
+            $consultaion  = OrderDetail::where(['id' => $odd_id, 'status' => '1'])->latest('created_at')->latest('id')->first();
             if ($consultaion) {
                 $consutl_quest_ans = json_decode($consultaion->generic_consultation, true);
                 $consult_quest_keys = array_keys(array_filter($consutl_quest_ans, function ($value) {
@@ -1492,8 +1491,10 @@ class SystemController extends Controller
                         ];
                     }
                 }
-                $data['order_user_detail'] = ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
-                $data['user_profile_details'] = (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [];
+
+                $data['order'] = Order::where(['id' => $consultaion->order_id])->first();
+                $data['order_user_detail'] =  ShipingDetail::where(['order_id' => $consultaion->order_id, 'status' => 'Active'])->latest('created_at')->latest('id')->first();
+                $data['user_profile_details'] =  (isset($data['order_user_detail']['user_id']) && $consultaion->consultation_type != 'pmd') ? User::findOrFail($data['order_user_detail']['user_id']) : [];
                 $data['generic_consultation'] = $user_result;
                 $data['product_consultation'] = $prod_result ?? [];
                 return view('admin.pages.consultation_view', $data);
@@ -1950,6 +1951,7 @@ class SystemController extends Controller
         $order->hcp_remarks = $request->hcp_remarks ?? null;
         if ($request->approved_by) {
             $order->approved_by = $request->approved_by;
+            $order->approved_at = now();
         }
         $update = $order->save();
         if ($update) {

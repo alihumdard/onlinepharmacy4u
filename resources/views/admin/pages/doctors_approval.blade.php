@@ -483,17 +483,15 @@
         $(document).on('click', '.duplicate-order', function() {
             var orderId = $(this).data('order-id');
             $.ajax({
-                url: '{{ route('
-                admin.duplicateOrder ') }}',
+                url: "{{route('admin.duplicateOrder')}}",
                 type: 'POST',
                 data: {
-                    _token: '{{ csrf_token() }}',
+                    _token: "{{csrf_token()}}",
                     order_id: orderId
                 },
                 success: function(response) {
                     alert('Order duplicated successfully!');
-                    window.location.href = '{{ route('
-                    admin.ordersCreated ') }}';
+                    window.location.href = "{{route('admin.ordersCreated')}}";
 
                 },
                 error: function(xhr, status, error) {

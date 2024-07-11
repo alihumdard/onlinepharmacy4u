@@ -373,6 +373,46 @@
                     display: none;
                 }
             }
+            .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0; /* Adjust padding as needed */
+}
+
+.menu-item img {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.menu-item a {
+    background: none !important;
+    font-weight: 600;
+    text-align: left;
+    text-decoration: none;
+}
+
+.menu-item a.child-link {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.mega-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mega-menu > li {
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+.mega-menu > li > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px; /* Adjust margin as needed */
+}
+
         </style>
 
         <!-- MOBILE MENU START -->
@@ -462,57 +502,60 @@
 
         </div>
         <!-- MOBILE MENU END -->
-
-        <!-- header-bottom-area start -->
-        <div class="header-bottom-area ltn__border-top--- ltn__header-sticky  ltn__sticky-bg-white ltn__primary-bg---- menu-color-white---- d-none--- d-lg-block">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="col--- header-menu-column justify-content-center---">
-                            <div class="header-menu header-menu-2 text-start">
-                                <nav>
-                                    <div class="ltn__main-menu text-center">
-                                        <ul>
-                                            <li><a style="background: none !important;" href="/" class="poppins-thin">Home</a></li>
-                                            @foreach ($menu_categories as $key => $val)
-                                            <li class="">
-                                                <a style="background: none !important;" href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
-                                                <ul class="mega-menu">
-                                                    @foreach($val['subcategory'] as $key1 => $val1)
-                                                    @php
+       <!-- header-bottom-area start -->
+       <div class="header-bottom-area ltn__border-top--- ltn__header-sticky  ltn__sticky-bg-white ltn__primary-bg---- menu-color-white---- d-none--- d-lg-block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col--- header-menu-column justify-content-center---">
+                        <div class="header-menu header-menu-2 text-start">
+                            <nav>
+                                <div class="ltn__main-menu text-center">
+                                    <ul>
+                                        <li><a style="background: none !important;" href="/" class="poppins-thin">Home</a></li>
+                                        @foreach ($menu_categories as $key => $val)
+                                                                                      
+    <li class="menu-item">
+        <a href="{{ route('web.collections', ['main_category' => $val['slug']]) }}">{{ $val['name'] }}</a>
+        <ul class="mega-menu">
+            @foreach($val['subcategory'] as $key1 => $val1)
+                                                                @php
                                                     $path_sub_icon = asset('img/online-pharmacy.png');
                                                     if($val1['icon'] ?? NULL){
                                                     $path_sub_icon = asset('storage/'.$val1['icon']);
                                                     }
                                                     @endphp
-                                                    <li>
-                                                        <div class="link-container">
-                                                            <a class="custom-link" style="text-align: left;color: #5C727D !important; background: none !important;font-weight: 600;" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
-                                                                <img src="{{ $path_sub_icon }}" height="27" width="27" style="margin-right: 10px;">{{ $val1['name'] }}
-                                                            </a>
-                                                        </div>
-                                                        <ul>
-                                                            @foreach($val1['child_categories'] as $key2 => $val2)
-                                                            @php
+                <li>
+                    <div class="link-container">
+                        <a class="custom-link" href="{{ route('web.collections', ['main_category' => $val['slug'],'sub_category' => $val1['slug']]) }}">
+                            <img src="{{ $path_sub_icon }}" height="27" width="27">{{ $val1['name'] }}
+                        </a>
+                    </div>
+                    <ul>
+                        @foreach($val1['child_categories'] as $key2 => $val2)
+                                                                                    @php
                                                             $path_child_icon = asset('img/drug.png');
                                                             if($val2['icon'] ?? NULL){
                                                             $path_child_icon = asset('storage/'.$val2['icon']);
                                                             }
                                                             @endphp
-                                                            <li><img src="{{ $path_child_icon }}" height="27" width="27" style="margin-right: 10px;"><a style="font-size:12px;font-weight: 500;" class="custom-link" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a></li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                    @endforeach
-                                                </ul>
-                                            </li>
-                                            @endforeach
-                                            <li><a style="background: none !important;" href="/work" class="poppins-thin">How it work's</a></li>
-                                            <li><a style="background: none !important;" href="/help" class="poppins-thin">Help</a></li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </div>
+                            <li class="menu-item">
+                                <img src="{{ $path_child_icon }}" height="27" width="27">
+                                <a class="custom-link child-link" href="{{ route('category.products', ['main_category' => $val['slug'],'sub_category' => $val1['slug'], 'child_category' => $val2['slug']]) }}">{{ $val2['name'] }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
+        </ul>
+    </li>
+@endforeach
+
+                                        <li><a style="background: none !important;" href="/work" class="poppins-thin">How it work's</a></li>
+                                        <li><a style="background: none !important;" href="/help" class="poppins-thin">Help</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
                         </div>
 
                     </div>

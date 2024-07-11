@@ -17,6 +17,7 @@ class ChildCategory extends Model
         'publish',
         'status',
         'image',
+        'icon',
         'created_by',
     ];
 

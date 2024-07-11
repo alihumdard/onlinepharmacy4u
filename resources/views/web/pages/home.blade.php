@@ -6,7 +6,7 @@
 <div class="ltn__slider-area ltn__slider-3 desktop-slider  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/home-ban-1.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/oner.webp">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container d-none">
                     <div class="row">
@@ -32,7 +32,7 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/home-ban-2.png">
+        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/twoo.webp">
             <div class="ltn__slide-item-inner text-left">
                 <div class="container d-none">
                     <div class="row">
@@ -60,7 +60,7 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/home-ban-3.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/home-ban-1.webp">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container d-none">
                     <div class="row">
@@ -90,7 +90,7 @@
 <div class="ltn__slider-area ltn__slider-3 mobile-slider  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/mobile-1.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/mob1.webp">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container d-none">
                     <div class="row">
@@ -116,7 +116,7 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/mobile-2.png">
+        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/nomore.webp">
             <div class="ltn__slide-item-inner text-left">
                 <div class="container d-none">
                     <div class="row">
@@ -144,7 +144,7 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/mobile-3.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/mob3.webp">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container d-none">
                     <div class="row">

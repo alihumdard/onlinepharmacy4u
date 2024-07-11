@@ -301,6 +301,10 @@
                                     <p class="ps-2 mb-0">{{$marked_by['name'] ?? '' }} ({{$marked_by['email'] ?? ''}}) </p>
                                 </div>
                                 <div class="d-flex justify-content-arround pt-2">
+                                    <p class="fw-bold mb-0 ">Approved At: </p>
+                                    <p class="ps-2 mb-0">{{ $order['approved_at'] ? \Carbon\Carbon::parse($order['approved_at'])->format('d-m-Y H:i:s') : '' }} </p>
+                                </div>
+                                <div class="d-flex justify-content-arround pt-2">
                                     <p class="fw-bold mb-0 ">Health Care Professional Remarks:</p>
                                     <p class="ps-2 mb-0">{{$order['hcp_remarks']}} </p>
                                 </div>

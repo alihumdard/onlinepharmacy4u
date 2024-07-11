@@ -75,8 +75,8 @@ class SystemController extends Controller
             $response = Http::asForm()->withHeaders([
                 'Authorization' => 'Basic ' . $credentials,
             ])->post('https://accounts.vivapayments.com/connect/token', [
-                        'grant_type' => 'client_credentials',
-                    ]);
+                'grant_type' => 'client_credentials',
+            ]);
 
             // Check if the request was successful (status code 2xx)
             if ($response->successful()) {
@@ -440,8 +440,7 @@ class SystemController extends Controller
                         'required',
                         Rule::unique('child_categories')->where(function ($query) use ($request) {
                             return $query->where('status', '!=', 'Deleted')
-                                ->where('sub_category_id', $request->parent_id);
-                            ;
+                                ->where('sub_category_id', $request->parent_id);;
                         }),
                     ],
                 ]);
@@ -558,6 +557,36 @@ class SystemController extends Controller
             $imageName = time() . '_' . uniqid('', true) . '.' . $image->getClientOriginalExtension();
             $image->storeAs('category_images/', $imageName, 'public');
             $imagePath = 'category_images/' . $imageName;
+
+            $icon = $request->file('icon') ?? Null;
+            if ($icon) {
+                $iconName = time() . '_' . uniqid('', true) . '.' . $icon->getClientOriginalExtension();
+                $icon->storeAs('category_images/', $iconName, 'public');
+                $iconPath = 'category_images/' . $iconName;
+            }
+        }
+
+
+        
+        if ($request->hasFile('icon') || !$request->id) {
+
+            $rules['icon'] = [
+                'image',
+                'mimes:jpeg,png,jpg,gif,webm,svg,webp',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+
+            $icon = $request->file('icon') ?? Null;
+            if ($icon) {
+                $iconName = time() . '_' . uniqid('', true) . '.' . $icon->getClientOriginalExtension();
+                $icon->storeAs('category_images/', $iconName, 'public');
+                $iconPath = 'category_images/' . $iconName;
+            }
+
         }
 
         // if change type is 1 than updation will occur in same category
@@ -573,6 +602,7 @@ class SystemController extends Controller
                         'desc' => $request->desc,
                         'publish' => $request->publish,
                         'image' => $imagePath ?? $response['old_image_path'],
+                        'icon' => $iconPath ?? $response['icon'],
                         'created_by' => $user->id,
                     ]
                 );
@@ -586,6 +616,7 @@ class SystemController extends Controller
                         'desc' => $request->desc,
                         'publish' => $request->publish,
                         'image' => $imagePath ?? Category::findOrFail($request->id)->image,
+                        'icon' => $iconPath ?? Category::findOrFail($request->id)->icon,
                         'created_by' => $user->id,
                     ]
                 );
@@ -606,6 +637,7 @@ class SystemController extends Controller
                         'desc' => $request->desc,
                         'publish' => $request->publish,
                         'image' => $imagePath ?? $response['old_image_path'],
+                        'icon' => $iconPath ?? '',
                         'created_by' => $user->id,
                     ]
                 );
@@ -620,6 +652,7 @@ class SystemController extends Controller
                         'desc' => $request->desc,
                         'publish' => $request->publish,
                         'image' => $imagePath ?? SubCategory::findOrFail($request->id)->image,
+                        'icon' => $iconPath ?? SubCategory::findOrFail($request->id)->icon,
                         'created_by' => $user->id,
                     ]
                 );
@@ -640,6 +673,7 @@ class SystemController extends Controller
                         'desc' => $request->desc,
                         'publish' => $request->publish,
                         'image' => $imagePath ?? $response['old_image_path'],
+                        'icon' => $imagePath ?? '',
                         'created_by' => $user->id,
                     ]
                 );
@@ -654,6 +688,7 @@ class SystemController extends Controller
                         'desc' => $request->desc,
                         'publish' => $request->publish,
                         'image' => $imagePath ?? ChildCategory::findOrFail($request->id)->image,
+                        'icon' => $iconPath ?? ChildCategory::findOrFail($request->id)->icon,
                         'created_by' => $user->id,
                     ]
                 );

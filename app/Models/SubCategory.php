@@ -17,6 +17,7 @@ class SubCategory extends Model
         'publish',
         'status',
         'image',
+        'icon',
         'created_by',
     ];
 

@@ -250,9 +250,10 @@ class WebController extends Controller
 
     public function product_detail(Request $request, $slug)
     {
+
         $data['user'] = auth()->user() ?? [];
         // $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
-        $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->where('slug', $slug)->where('status', $this->status['Active'])->firstOrFail();
+        $data['product'] = Product::with('productAttributes:id,product_id,image','category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->where('slug', $slug)->where('status', $this->status['Active'])->firstOrFail();
         $variants = $data['product']['variants']->toArray() ?? [];
         if ($variants) {
             $variants_tags = [];

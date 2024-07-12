@@ -2001,7 +2001,6 @@ class SystemController extends Controller
                 'statusId' => $responseData['StatusId'],
             ];
             $payment =   PaymentDetail::where('id', $order->paymentdetails->id)->update($update_payment);
-
             $order->status = $validatedData['status'];
             $update = $order->save();
             if ($update) {

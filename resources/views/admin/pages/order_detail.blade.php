@@ -540,14 +540,14 @@
 
                         $('.comment_data').html(comment_html);
                     } else {
-                        alert('contact to developer');
+                        // alert('contact to developer');
                         console.log(response.message);
                     }
                 },
                 error: function(xhr, status, error) {
-                    alert('contact to developer');
+                    // alert('contact to developer');
                     console.log(status);
-                    showAlert("Error", 'Request Can not Proceed', 'Cannot proceed further');
+                    // showAlert("Error", 'Request Can not Proceed', 'Cannot proceed further');
                 }
             });
         }
@@ -578,12 +578,12 @@
                             $('#spinner_coment').addClass('d-none');
                             $('#coment_btn').removeClass('d-none').prop('disabled', false);
                         } else if (response.status === 'error') {
-                            alert('contact to developer');
+                            // alert('contact to developer');
                             console.log(response.message);
                         }
                     },
                     error: function(xhr, status, error) {
-                        alert('contact to developer');
+                        // alert('contact to developer');
                         console.log(status);
                         $('#spinner_coment').addClass('d-none');
                         $('#coment_btn').removeClass('d-none').prop('disabled', false);

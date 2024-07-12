@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ProductAttribute extends Model
 {
     use HasFactory;
-    protected $fillable = ['product_id', 'image','status','created_by','updated_by'];
+    protected $fillable = ['product_id', 'image', 'status', 'created_by', 'updated_by'];
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -78,7 +78,6 @@
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item">Users</li>
                     <li class="breadcrumb-item active">Profile</li>
-                    <li><input type="hidden" id="userrole" value="{{ $role }}"></li>
 
                 </ol>
             </nav>

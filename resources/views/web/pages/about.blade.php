@@ -41,9 +41,10 @@
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-30">
                         <h3 class="section-subtitle section-subtitle-2 ltn__secondary-color">Our Team</h3>
-                        <p>Online Pharmacy 4U, located at the heart of England within the East Midlands region. We also now offer same day delivery within the North Nottinghamshire Region. Operating under United Healthcare, company number: 13991146
-                            Our GPhC registered pharmacist team are all experienced and regulated to carry out the tasks efficiently.</p>
-                        <p>Here at Online Pharmacy 4U, our main focus is to care about your health and wellbeing. Whilst carrying out our daily duties to ensure we maintain extremely high level of customer service and support at all times as our main objective.</p> <br>
+                        <p>Online Pharmacy 4U, located at the heart of England within the East Midlands region. We also now offer same day delivery within the North Nottinghamshire Region. Operating under United Healthcare, company number: 13991146</p>
+                        <p>Our GPhC registered pharmacist team are all experienced and regulated to carry out the tasks efficiently.</p><p>
+                        Here at Online Pharmacy 4U, our main focus is to care about your health and wellbeing. Whilst carrying out our daily duties to ensure we maintain extremely high level of customer service and support at all times as our main objective.
+                        </p> <br>
                     </div>
                 </div>
             </div>
@@ -67,7 +68,7 @@
                     <ul class="ltn__list-item-half clearfix">
                         <li>
                             <i class="fa fa-heart"></i>
-                            <p><strong>Trust:</strong> Here at Online Pharmacy 4U, you can rest assured that all medications you order via our website all have the correct credentials and can all be cross-checked with the MHRA or the General Pharmaceuticals Council for your peace of mind </p>
+                            <p><strong>Trust:</strong> Here at Online Pharmacy 4U, you can rest assured that all medications you order via our website all have the correct credentials and can all be cross-checked with the MHRA or the General Pharmaceuticals Council for your peace of mind.</p>
                         </li>
                         <li>
                             <i class="fas fa-certificate"></i>
@@ -118,10 +119,10 @@
                         <li class="w-100">
                             <i class="fas fa-globe-europe"></i>
                             <p><strong>Registered Office Address:</strong><br>
-                             United Healthcare - Online Pharmacy 4U<br>
-                                20-22 Wenlock Road,<br>
-                                London, N1 7GU,<br>
-                                United Kingdom</p>
+                            United Healthcare - Online Pharmacy 4U<br>
+                            20-22 Wenlock Road,<br>
+                            London, N1 7GU,<br>
+                            United Kingdom</p>
                         </li>
                     </ul>
                 </div>

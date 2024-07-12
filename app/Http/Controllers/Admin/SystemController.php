@@ -2295,7 +2295,7 @@ class SystemController extends Controller
     public function comment_store(Request $request): JsonResponse
     {
         $data['user'] = auth()->user();
-        $page_name = 'orders_recieved';
+        $page_name = 'comment_store';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }

@@ -68,6 +68,7 @@ function view_permission($page_name)
         case 'Super Admin':
             switch ($page_name) {
                 case 'dashboard':
+                case 'comment_store':
                 case 'faq_questions':
                 case 'gp_locations':
                 case 'categories':
@@ -117,6 +118,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'gpa_letters':
+                case 'comment_store':
                 case 'gp_locations':
                 case 'orders':
                 case 'store_query':
@@ -135,6 +137,7 @@ function view_permission($page_name)
         case 'Doctor':
             switch ($page_name) {
                 case 'dashboard':
+                case 'comment_store':    
                 case 'store_query':
                 case 'orders':
                 case 'gp_locations':

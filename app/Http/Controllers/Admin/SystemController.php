@@ -302,6 +302,10 @@ class SystemController extends Controller
     }
 
     // categories managment ...
+    public function sopsdata()
+    {
+        return view('admin.pages.sops.sops');
+    }
     public function categories()
     {
         $user = auth()->user();
@@ -382,6 +386,36 @@ class SystemController extends Controller
         }
 
         return view('admin.pages.categories.add_category', $data);
+    }
+    public function add_sop(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'add_category';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+        $data['title'] = 'Add Category';
+        if ($request->has('id')) {
+            $data['title'] = 'Edit Category';
+            if ($request->selection == 1) {
+                $data['category'] = Category::findOrFail($request->id)->toArray();
+                $data['selection'] = 1;
+            } elseif ($request->selection == 2) {
+                $data['category'] = SubCategory::findOrFail($request->id)->toArray();
+                $data['selection'] = 2;
+                $data['parents'] = Category::all()->toArray();
+                $data['catName'] = 'category_id';
+            } elseif ($request->selection == 3) {
+                $data['category'] = ChildCategory::findOrFail($request->id)->toArray();
+                $data['selection'] = 3;
+                $data['parents'] = SubCategory::all()->toArray();
+                $data['catName'] = 'sub_category_id';
+            }
+        }
+
+        return view('admin.pages.sops.add_sop', $data);
     }
 
     public function category_validation($request, $selection)

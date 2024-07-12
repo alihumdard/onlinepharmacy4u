@@ -350,6 +350,26 @@
             </a>
         </li>
         @endif
+
+        <!-------------------------- SOP tabs work start ------------------------------->
+        <li class="nav-item">
+            <a class="nav-link {{(request()->routeIs(['admin.sopsdata','admin.addSOP'])) ? '' : 'collapsed'}} " data-bs-target="#siderbar-users" data-bs-toggle="collapse">
+                <i class="bi bi-person"></i><span>SOP's</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="siderbar-users" class="nav-content {{(request()->routeIs(['admin.sopsdata','admin.addSOP'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a class="{{(request()->routeIs(['admin.addSOP'])) ? 'nav-link ' : ''}} " href="{{route('admin.addSOP')}}">
+                        <i class="bi bi-circle"></i><span>Add SOP</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="{{(request()->routeIs(['admin.sopsdata'])) ? 'nav-link ' : ''}} " href="{{route('admin.sopsdata')}}">
+                        <i class="bi bi-circle"></i><span>SOP's</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-------------------------- SOP tabs work end ------------------------------------>
     </ul>
 </aside>
 <!-- End Sidebar-->

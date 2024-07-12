@@ -333,7 +333,7 @@
                                 </div>
 
                                 <div class="text-center mt-4 mb-3 d-flex justify-content-center ">
-                                    <button type="reset" class="btn btn-secondary px-5 py-2 mx-2 fw-bold">Reset</button>
+                                    <button type="reset" class="btn btn-secondary bg-secondary px-5 py-2 mx-2 fw-bold">Reset</button>
                                     <button type="submit" class="btn btn-success px-5 py-2 btn_theme fw-bold">Generate
                                         Payement Link</button>
                                 </div>

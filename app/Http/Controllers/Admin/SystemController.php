@@ -1971,10 +1971,12 @@ class SystemController extends Controller
 
         $order = Order::with('paymentdetails')->findOrFail($validatedData['id']);
         if ($order->paymentdetails) {
-            $ammount = $request->ammount;
-            $transetion_id = $order->paymentdetails->transactionId;
+            $ammount = 2; //$request->ammount;
+            $transetion_id = '0c610634-43fb-44fa-966e-091af4f84b58';//$order->paymentdetails->transactionId;
             $source_code = 1503;
-            $credentials = base64_encode($this->username . ':' . $this->password);
+            $username = '4ccbbd8e-7d30-4ca4-a78a-ecb5bfeee370';
+            $password = 'R9T8bWuH0UX50xpGV5wS0bF6639q0E';
+            $credentials = base64_encode($username . ':' . $password);
             $curl = curl_init();
             curl_setopt_array(
                 $curl,
@@ -1993,24 +1995,12 @@ class SystemController extends Controller
             );
 
             $response = curl_exec($curl);
+            $responseData = json_decode($response, true);
             curl_close($curl);
-            dd($response);
-
-
-            // $url = "https://www.vivapayments.com/api/transactions/{$transetion_id}/";
-            // $response = Http::asForm()->withHeaders([
-            //     'Authorization' => 'Basic ' . $credentials,
-            // ])->delete($url, [
-            //     'amount' => $ammount,
-            //     'sourceCode' => $source_code
-            // ]);
-
-            // $responseData = json_decode($response->body(), true);
-            // dd($responseData);
-            // $update_payment = [
-            //     'statusId' => $responseData['statusId'],
-            // ];
-            // $payment =   PaymentDetail::where('id', $order->paymentdetails->id)->update($update_payment);
+            $update_payment = [
+                'statusId' => $responseData['StatusId'],
+            ];
+            $payment =   PaymentDetail::where('id', $order->paymentdetails->id)->update($update_payment);
 
             $order->status = $validatedData['status'];
             $update = $order->save();

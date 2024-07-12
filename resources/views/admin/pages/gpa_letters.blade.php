@@ -100,9 +100,10 @@
                                     <th>Date-Time</th>
                                     <th>Customer Name</th>
                                     <th>Shipping Email</th>
-                                    <th>Address</th>
+                                    <!-- <th>Address</th> -->
+                                    <th>GPA Email</th>
                                     <th>Order Type</th>
-                                    <th>Order Status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,11 +117,23 @@
                                     <td>{{ isset($val['created_at']) ? date('Y-m-d h:i A', strtotime($val['created_at'])) : '' }}</td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     <td>{{ $val['email'] ?? '' }}</td>
-                                    <td>{{$val['shipingdetails']['address'] ?? ''}}</td>
+                                    <!-- <td>{{$val['shipingdetails']['address'] ?? ''}}</td> -->
+                                    <td style="vertical-align: middle; text-align: center;">
+                                        <input class="form-control" type="email" id="gpa_email_{{$val['id']}}" value="">
+                                    </td>
                                     <td><span class="btn  fw-bold rounded-pill {{ ($val['order_type'] == 'premd') ? 'btn-primary': (($val['order_type'] == 'pmd') ? 'btn-warning' : 'btn-success') }}">{{ ($val['order_type'] == 'premd') ? 'POM': (($val['order_type'] == 'pmd') ? 'P.Med' : 'O.T.C') }}</span> </td>
                                     <th>
-                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-success bg-success rounded-pill text-center download_gpa"> Download Letter</button>
+                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-small  bg-secondary  rounded-pill text-center update_gpa">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-small  bg-success rounded-pill text-center send_gpa">
+                                            <i class="bi bi-send"></i>
+                                        </button>
+                                        <button type="button" data-id="{{$val['id']}}" class="btn btn-small bg-primary  rounded-pill text-center download_gpa">
+                                            <i class="bi bi-download"></i>
+                                        </button>
                                     </th>
+
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -136,6 +149,12 @@
 <!-- End #main -->
 <form id="download_form" action="{{route('pdf.createGpaLetters')}}" method="post">
     <input id="pdf_form_id_input" type="hidden" value="" name="id">
+    <input type="hidden" name="view_name" value="gpa_letters" required>
+</form>
+
+<form id="send_form" action="{{route('pdf.sendGpaLetters')}}" method="post">
+    <input id="send_pdf_form_id_input" type="hidden" value="" name="id">
+    <input id="send_pdf_form_email_input" type="hidden" value="" name="email">
     <input type="hidden" name="view_name" value="gpa_letters" required>
 </form>
 
@@ -183,6 +202,14 @@
             var id = $(this).data('id');
             $('#pdf_form_id_input').val(id);
             $('#download_form').submit();
+        });
+
+        $(document).on('click', '.send_gpa', function() {
+            var id = $(this).data('id');
+            var $email = $('#gpa_email_'+id).val();
+            $('#send_pdf_form_id_input').val(id);
+            $('#send_pdf_form_email_input').val($email);
+            $('#send_form').submit();
         });
     });
 </script>

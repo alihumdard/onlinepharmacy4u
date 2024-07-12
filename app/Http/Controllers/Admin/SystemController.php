@@ -557,13 +557,6 @@ class SystemController extends Controller
             $imageName = time() . '_' . uniqid('', true) . '.' . $image->getClientOriginalExtension();
             $image->storeAs('category_images/', $imageName, 'public');
             $imagePath = 'category_images/' . $imageName;
-
-            $icon = $request->file('icon') ?? Null;
-            if ($icon) {
-                $iconName = time() . '_' . uniqid('', true) . '.' . $icon->getClientOriginalExtension();
-                $icon->storeAs('category_images/', $iconName, 'public');
-                $iconPath = 'category_images/' . $iconName;
-            }
         }
 
 
@@ -583,8 +576,8 @@ class SystemController extends Controller
             $icon = $request->file('icon') ?? Null;
             if ($icon) {
                 $iconName = time() . '_' . uniqid('', true) . '.' . $icon->getClientOriginalExtension();
-                $icon->storeAs('category_images/', $iconName, 'public');
-                $iconPath = 'category_images/' . $iconName;
+                $icon->storeAs('category_icon/', $iconName, 'public');
+                $iconPath = 'category_icon/' . $iconName;
             }
         }
 

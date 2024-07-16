@@ -24,11 +24,12 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/addDoctor',   [SystemController::class, 'add_doctor'])->name('admin.addDoctor');
     Route::match(['get', 'post'], '/storeDoctor', [SystemController::class, 'store_doctor'])->name('admin.storeDoctor');
     Route::get('/categories', [SystemController::class, 'categories'])->name('admin.categories');
-    Route::get('/sopsdata', [SystemController::class, 'sopsdata'])->name('admin.sopsdata');
     Route::match(['get', 'post'], '/addCategory', [SystemController::class, 'add_category'])->name('admin.addCategory');
+
+
     Route::match(['get', 'post'], '/addSOP', [SystemController::class, 'add_sop'])->name('admin.addSOP');
-
-
+    Route::match(['get', 'post'], '/storeSOP', [SystemController::class, 'store_sop'])->name('admin.storeSOP');
+    Route::get('/sops', [SystemController::class, 'sops'])->name('admin.sops');
 
     Route::match(['get', 'post'], '/storeCategory', [SystemController::class, 'store_category'])->name('admin.storeCategory');
     Route::get('/subCategories', [SystemController::class, 'sub_categories'])->name('admin.subCategories');

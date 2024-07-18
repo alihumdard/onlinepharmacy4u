@@ -84,7 +84,7 @@
 </style>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/banner/about-us.png" style="padding-top: 115px;padding-bottom: 115px;">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/bg/14.jpg" style="padding-top: 115px;padding-bottom: 115px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12" style="text-align: center;">

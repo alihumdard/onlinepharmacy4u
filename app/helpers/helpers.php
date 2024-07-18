@@ -69,6 +69,9 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'comment_store':
+                case 'sops':
+                case 'add_sop':
+                case 'store_sop':
                 case 'faq_questions':
                 case 'gp_locations':
                 case 'categories':
@@ -121,6 +124,7 @@ function view_permission($page_name)
                 case 'comment_store':
                 case 'gp_locations':
                 case 'orders':
+                case 'sops':
                 case 'store_query':
                 case 'dispensary_approval':
                 case 'doctors_approval':
@@ -138,6 +142,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'comment_store':    
+                case 'sops':    
                 case 'store_query':
                 case 'orders':
                 case 'gp_locations':

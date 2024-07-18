@@ -51,6 +51,7 @@ use App\Models\QuestionMapping;
 use App\Models\PMedGeneralQuestion;
 use App\Models\PrescriptionMedGeneralQuestion;
 use App\Models\PaymentDetail;
+use App\Models\SOP;
 
 class SystemController extends Controller
 {
@@ -302,10 +303,6 @@ class SystemController extends Controller
     }
 
     // categories managment ...
-    public function sopsdata()
-    {
-        return view('admin.pages.sops.sops');
-    }
     public function categories()
     {
         $user = auth()->user();
@@ -387,35 +384,85 @@ class SystemController extends Controller
 
         return view('admin.pages.categories.add_category', $data);
     }
-    public function add_sop(Request $request)
+    //sop management
+    public function sops()
     {
         $user = auth()->user();
-        $page_name = 'add_category';
+        $page_name = 'sops';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
 
         $data['user'] = auth()->user();
-        $data['title'] = 'Add Category';
+        $data['title'] = "SOP's";
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $data['sops'] = SOP::get()->toArray();
+        }
+        elseif (isset($user->role) && $user->role == user_roles('2')) {
+            $data['sops'] = SOP::where('file_for','dispensory')->get()->toArray();
+        }
+        elseif (isset($user->role) && $user->role == user_roles('3')) {
+            $data['sops'] = SOP::where('file_for','doctor')->get()->toArray();
+        }
+
+        return view('admin.pages.sops.sops',$data);
+    }
+
+    public function add_sop(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'add_sop';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['user'] = auth()->user();
+        $data['title'] = 'Add SOP';
         if ($request->has('id')) {
             $data['title'] = 'Edit Category';
-            if ($request->selection == 1) {
-                $data['category'] = Category::findOrFail($request->id)->toArray();
-                $data['selection'] = 1;
-            } elseif ($request->selection == 2) {
-                $data['category'] = SubCategory::findOrFail($request->id)->toArray();
-                $data['selection'] = 2;
-                $data['parents'] = Category::all()->toArray();
-                $data['catName'] = 'category_id';
-            } elseif ($request->selection == 3) {
-                $data['category'] = ChildCategory::findOrFail($request->id)->toArray();
-                $data['selection'] = 3;
-                $data['parents'] = SubCategory::all()->toArray();
-                $data['catName'] = 'sub_category_id';
-            }
+            $data['sop'] = SOP::findOrFail($request->id)->toArray();
         }
 
         return view('admin.pages.sops.add_sop', $data);
+    }
+
+    public function store_sop(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'store_sop';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'file' => 'required',
+            'file_for' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $data['user'] = auth()->user();
+
+        if ($request->hasFile('file')) {
+            $sopFile = $request->file('file');
+            $sopFileName = time() . '_' . uniqid('', true) . '.' . $sopFile->getClientOriginalExtension();
+            $sopFile->storeAs('sop_file/', $sopFileName, 'public');
+            $sopFilePath = 'sop_file/' . $sopFileName;
+        }
+        $question = SOP::updateOrCreate(
+            ['id' => $request->id ?? NULL],
+            [
+                'name' => ucwords($request->name),
+                'file' => $sopFilePath,
+                'file_for' => $request->file_for,
+                'created_by' => $user->id,
+            ]
+        );
+        if ($question->id) {
+            $message = "SOP File " . ($request->id ? "Updated" : "Saved") . " Successfully";
+            return redirect()->route('admin.sops')->with(['msg' => $message]);
+        }
     }
 
     public function category_validation($request, $selection)
@@ -2006,7 +2053,7 @@ class SystemController extends Controller
         $order = Order::with('paymentdetails')->findOrFail($validatedData['id']);
         if ($order->paymentdetails) {
             $ammount = 2; //$request->ammount;
-            $transetion_id = '0c610634-43fb-44fa-966e-091af4f84b58';//$order->paymentdetails->transactionId;
+            $transetion_id = '0c610634-43fb-44fa-966e-091af4f84b58'; //$order->paymentdetails->transactionId;
             $source_code = 1503;
             $username = '4ccbbd8e-7d30-4ca4-a78a-ecb5bfeee370';
             $password = 'R9T8bWuH0UX50xpGV5wS0bF6639q0E';

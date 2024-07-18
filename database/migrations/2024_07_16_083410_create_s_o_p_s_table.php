@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('status')->default('Active');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

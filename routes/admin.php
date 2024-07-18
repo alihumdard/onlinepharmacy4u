@@ -27,7 +27,8 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/addCategory', [SystemController::class, 'add_category'])->name('admin.addCategory');
 
 
-    Route::match(['get', 'post'], '/addSOP', [SystemController::class, 'add_sop'])->name('admin.addSOP');
+    Route::match(['get', 'post'], '/deleteSOP/{id}', [SystemController::class, 'delete_sop'])->name('admin.deleteSOP');
+    Route::match(['get', 'post'], '/addSOP/{id?}', [SystemController::class, 'add_sop'])->name('admin.addSOP');
     Route::match(['get', 'post'], '/storeSOP', [SystemController::class, 'store_sop'])->name('admin.storeSOP');
     Route::get('/sops', [SystemController::class, 'sops'])->name('admin.sops');
 

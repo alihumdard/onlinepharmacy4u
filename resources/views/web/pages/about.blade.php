@@ -44,6 +44,10 @@
   #one {
     padding-top: 45px;
   }
+  #img12 {
+    margin-top: -100px;
+    margin-right: 15px;
+  }
 }
 .company-value .col-md-4 {
     border-top: #c8d2e7 1px solid;
@@ -80,7 +84,7 @@
 </style>
 
 <!-- BREADCRUMB AREA START -->
-<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/banner/about-us.png" style="padding-top: 40px;padding-bottom: 40px;">
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/banner/about-us.png" style="padding-top: 115px;padding-bottom: 115px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12" style="text-align: center;">
@@ -264,7 +268,7 @@
                     </div>
                     <ul class="ltn__list-item-half clearfix w-100">
                         <li class="w-100">
-                            <i class="fas fa-globe-europe"></i>
+                        <img src="https://online-pharmacy4u.co.uk/cdn/shop/files/address-c_d0487ed7-7478-4d5d-8703-a4f35fb3b90a.png?v=1623676960" loading="lazy" id="img12">
                             <p><strong>Registered Office Address:</strong><br>
                             United Healthcare - Online Pharmacy 4U<br>
                             20-22 Wenlock Road,<br>

@@ -397,18 +397,16 @@ class SystemController extends Controller
         $data['title'] = "SOP's";
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['sops'] = SOP::get()->toArray();
-        }
-        elseif (isset($user->role) && $user->role == user_roles('2')) {
-            $data['sops'] = SOP::where('file_for','dispensory')->get()->toArray();
-        }
-        elseif (isset($user->role) && $user->role == user_roles('3')) {
-            $data['sops'] = SOP::where('file_for','doctor')->get()->toArray();
+        } elseif (isset($user->role) && $user->role == user_roles('2')) {
+            $data['sops'] = SOP::where('file_for', 'dispensory')->get()->toArray();
+        } elseif (isset($user->role) && $user->role == user_roles('3')) {
+            $data['sops'] = SOP::where('file_for', 'doctor')->get()->toArray();
         }
 
-        return view('admin.pages.sops.sops',$data);
+        return view('admin.pages.sops.sops', $data);
     }
 
-    public function add_sop(Request $request)
+    public function add_sop(Request $request, $id = null)
     {
         $user = auth()->user();
         $page_name = 'add_sop';
@@ -417,10 +415,11 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-        $data['title'] = 'Add SOP';
-        if ($request->has('id')) {
+        $data['title'] = 'Add SOP';;
+        if ($id ?? null) {
             $data['title'] = 'Edit Category';
-            $data['sop'] = SOP::findOrFail($request->id)->toArray();
+            $id = base64_decode($id);
+            $data['sop'] = SOP::findOrFail($id)->toArray() ?? [];
         }
 
         return view('admin.pages.sops.add_sop', $data);
@@ -436,7 +435,6 @@ class SystemController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'file' => 'required',
             'file_for' => 'required',
         ]);
         if ($validator->fails()) {
@@ -444,7 +442,15 @@ class SystemController extends Controller
         }
         $data['user'] = auth()->user();
 
-        if ($request->hasFile('file')) {
+        if ($request->hasFile('file') || !$request->id) {
+            $rules['file'] = [
+                'required'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
             $sopFile = $request->file('file');
             $sopFileName = time() . '_' . uniqid('', true) . '.' . $sopFile->getClientOriginalExtension();
             $sopFile->storeAs('sop_file/', $sopFileName, 'public');
@@ -454,7 +460,7 @@ class SystemController extends Controller
             ['id' => $request->id ?? NULL],
             [
                 'name' => ucwords($request->name),
-                'file' => $sopFilePath,
+                'file' => $sopFilePath ?? $request->sopFilePath_old,
                 'file_for' => $request->file_for,
                 'created_by' => $user->id,
             ]
@@ -463,6 +469,15 @@ class SystemController extends Controller
             $message = "SOP File " . ($request->id ? "Updated" : "Saved") . " Successfully";
             return redirect()->route('admin.sops')->with(['msg' => $message]);
         }
+    }
+
+    public function delete_sop($id)
+    {
+        $decodedId = base64_decode($id);
+        $sop = SOP::findOrFail($decodedId);
+        $sop->delete();
+
+        return redirect()->back()->with('success', 'SOP deleted successfully.');
     }
 
     public function category_validation($request, $selection)

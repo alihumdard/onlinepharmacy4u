@@ -147,7 +147,7 @@
                             <div class="form-check">
                                 <div class="custom-control" style="display: flex; align-items:center;">
                                     <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="express_delivery" value="express" checked data-ship="4.95" required>
+                                        id="express_delivery" value="express"  data-ship="4.95" required>
                                     <label class="form-check-label" for="express_delivery"><img
                                             src="{{ url('img/24-hours.jpg') }}" alt=""
                                             style="max-width:140px !important; margin-left:10px;">
@@ -161,7 +161,7 @@
                             <div class="form-check">
                                 <div class="custom-control" style="display: flex; align-items:center;">
                                     <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="fast_delivery" value="fast" data-ship="3.95" required>
+                                        id="fast_delivery" value="fast" data-ship="3.95" checked required>
                                     <label class="form-check-label" for="fast_delivery"><img
                                             src="{{ url('img/48-hours.jpg') }}" alt=""
                                             style="max-width:140px !important; margin-left:10px;"></label>
@@ -172,38 +172,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    {{-- <div class="col-lg-6">
-                        <div class="ltn__checkout-payment-method mt-50">
-                            <h4 class="title-2">Shipping Method</h4>
-                            <div class="form-check">
-                                <div class="custom-control">
-                                    <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="express_delivery" value="express" checked data-ship="4.95" required>
-
-                                    <label class="form-check-label" for="express_delivery">Royal Mail Tracked 24</label>
-                                    <span class="float-right">£4.95</span>
-                                </div>
-                                <div class="ml-4 mb-2 small">(1-2 working days)</div>
-                            </div>
-                            <div class="form-check">
-                                <div class="custom-control">
-                                    <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="fast_delivery" value="fast" data-ship="3.95" required>
-                                    <label class="form-check-label" for="fast_delivery">Royal Mail Tracked 48</label>
-                                    <span class="float-right">£3.95</span>
-                                </div>
-                                <div class="ml-4 mb-2 small">(3-5 working days)</div>
-                            </div>
-                        </div>
-                    </div> --}}
-
-
-
-
-
-
 
                     <div class="col-lg-6">
                         <div class="shoping-cart-total mt-50">

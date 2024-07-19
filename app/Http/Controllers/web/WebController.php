@@ -61,6 +61,7 @@ use App\Models\Alert;
 use App\Models\FaqProduct;
 use App\Models\ProductVariant;
 use App\Models\PaymentDetail;
+use App\Models\HumanRequestForm;
 
 class WebController extends Controller
 {
@@ -1449,4 +1450,50 @@ class WebController extends Controller
         $data['name'] = $name ?? 'Guest';
         return view('web.pages.unsuccessful_order', $data);
     }
+
+    public function store_human_form(Request $request)
+    {
+        $user = auth()->user();
+        
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'phone' => 'required',
+            'subject' => 'required',
+            'title' => 'required',
+            'message' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $data = $request->all();
+        $data['user_id'] = $user->id ?? Null;
+    
+        if ($request->hasFile('file')) {
+            $fileValidator = Validator::make($request->all(), [
+                'file' => 'required|file|mimes:pdf,doc,docx,jpg,png|max:2048',
+            ]);
+    
+            if ($fileValidator->fails()) {
+                return redirect()->back()->withErrors($fileValidator)->withInput();
+            }
+    
+            $HumanRequestFormFile = $request->file('file');
+            $HumanRequestFormFileName = time() . '_' . uniqid('', true) . '.' . $HumanRequestFormFile->getClientOriginalExtension();
+            $HumanRequestFormFile->storeAs('human_request_file/', $HumanRequestFormFileName, 'public');
+            $data['file'] = 'human_request_file/' . $HumanRequestFormFileName;
+        }
+    
+        $question = HumanRequestForm::updateOrCreate(
+            ['id' => $request->id ?? null],
+            $data
+        );
+    
+        if ($question->id) {
+            $message = "Query is submitted successfully";
+            return redirect()->back()->with(['msg' => $message]);
+        }
+    }
+    
 }

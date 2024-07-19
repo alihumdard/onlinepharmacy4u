@@ -156,10 +156,10 @@
 
         @if(view_permission('orders'))
         <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval', 'admin.ordersAudit', 'admin.gpaLeters','admin.ordersRefunded', 'admin.ordersCreated','admin.gpLocations'])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
+            <a class="nav-link {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval', 'admin.ordersAudit', 'admin.gpaLeters','admin.ordersRefunded', 'admin.ordersCreated','admin.gpLocations','admin.VetPrescriptions'])) ? '' : 'collapsed'}} " data-bs-target="#charts-nav" data-bs-toggle="collapse">
                 <i class="bi bi-bar-chart"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit', 'admin.gpaLeters','admin.ordersRefunded', 'admin.ordersCreated', 'admin.gpLocations' ])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
+            <ul id="charts-nav" class="nav-content {{ (request()->routeIs(['admin.consultationView','admin.orderDetail','admin.ordersRecieved','admin.doctorsApproval','admin.ordersConfrimed','admin.ordersShiped' ,'admin.dispensaryApproval' ,'admin.ordersAudit', 'admin.gpaLeters','admin.ordersRefunded', 'admin.ordersCreated', 'admin.gpLocations','admin.VetPrescriptions' ])) ? '' : 'collapse'}}  " data-bs-parent="#sidebar-nav">
                 @if(view_permission('orders_recieved'))
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersRecieved'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersRecieved')}}">
@@ -228,6 +228,13 @@
                 <li>
                     <a class="{{(request()->routeIs(['admin.ordersAudit'])) ? 'nav-link ' : ''}}" href="{{route('admin.ordersAudit')}}">
                         <i class="bi bi-circle"></i><span>Audit Orders</span>
+                    </a>
+                </li>
+                @endif
+                @if(view_permission('vet_prescription'))
+                <li>
+                    <a class="{{(request()->routeIs(['admin.VetPrescriptions'])) ? 'nav-link ' : ''}}" href="{{route('admin.VetPrescriptions')}}">
+                        <i class="bi bi-circle"></i><span>Vet Prescription</span>
                     </a>
                 </li>
                 @endif

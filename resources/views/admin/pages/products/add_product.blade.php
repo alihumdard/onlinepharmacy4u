@@ -223,14 +223,14 @@
                             $src = ($val1['image']) ? $val1['image'] : '';
                             @endphp
                             @if($src)
-                            <div class="col-sm-2">
+                            <div class="col-sm-2" id="attribute-{{ $val1['id'] }}">
                                 <div class="flip-card">
                                     <div class="flip-card-inner">
                                         <div class="flip-card-front">
                                             <img src="{{ asset('storage/'.$src)}}" alt="Avatar" style="width:100px;height:100px;">
                                         </div>
                                         <div class="flip-card-back">
-                                            <a href="#">
+                                            <a href="#" class="delete-attribute" data-id="{{ $val1['id'] }}">
                                                 <i class="fa fa-trash-o" style="font-size:48px;color:red"></i>
                                             </a>
                                         </div>
@@ -845,6 +845,33 @@
     $(document).on('click', '.remove_row', function() {
         $(this).closest('.row').fadeOut('slow', function() {
             $(this).remove();
+        });
+    });
+
+    $(document).on('click', '.delete-attribute', function(e) {
+        e.preventDefault();
+        var attributeId = $(this).data('id');
+
+        $.ajax({
+            url: "{{ route('admin.deleteProductAttribute') }}",
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: attributeId
+            },
+            success: function(response) {
+                if (response.status == 'success') {
+                    $('#attribute-' + attributeId).fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                    // alert('image is deleted.')
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(xhr) {
+                alert('An error occurred while trying to delete the attribute.');
+            }
         });
     });
 </script>

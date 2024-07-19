@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductVariant;
 use App\Models\FeaturedProduct;
+use App\Models\ProductAttribute;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductController extends Controller
@@ -210,7 +211,7 @@ class ProductController extends Controller
                 $data['product'] = ImportedPorduct::findOrFail($request->id)->toArray();
                 $data['product']['id'] = Null;
             } else {
-                $data['product'] = Product::with('productAttributes:id,product_id,image','variants')->findOrFail($request->id)->toArray();
+                $data['product'] = Product::with('productAttributes:id,product_id,image', 'variants')->findOrFail($request->id)->toArray();
                 $data['sub_category'] = SubCategory::select('id', 'name')
                     ->where(['category_id' => $data['product']['category_id'], 'status' => 'Active'])
                     ->pluck('name', 'id')
@@ -224,7 +225,7 @@ class ProductController extends Controller
                 $data['prod_question'] = explode(',', $data['product']['question_category']);
             }
         }
-// dd($data['product']);
+        // dd($data['product']);
         return view('admin.pages.products.add_product', $data);
     }
 
@@ -542,5 +543,18 @@ class ProductController extends Controller
         } else {
             return response()->json(['status' => 'error', 'message' => 'Product not found']);
         }
+    }
+
+    public function delete_product_attribute(Request $request)
+    {
+        $productAttributeId = $request->input('id');
+        $productAttribute = ProductAttribute::find($productAttributeId);
+
+        if ($productAttribute) {
+            $productAttribute->delete();
+            return response()->json(['status' => 'success', 'message' => 'Product attribute deleted successfully']);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Product attribute not found']);
     }
 }

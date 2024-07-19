@@ -26,6 +26,31 @@
   background-image: url('/img/banner/home-ban-1.webp');
   background-size: 100% 100%;
 }
+
+</style>
+
+
+<style>
+    .ltn__product-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-img {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Adjust height as necessary */
+}
+
+.product-info {
+    flex: 0 0 auto;
+    padding: 10px; /* Add padding if needed */
+    text-align: left;
+}
+
 </style>
 <!-- SLIDER AREA START (slider-3) -->
 <div class="ltn__slider-area ltn__slider-3 desktop-slider  section-bg-1 ">
@@ -411,7 +436,7 @@
                     <!-- ltn__product-item -->
                     @if($products)
                     @foreach ($products as $key => $val)
-                    <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
+                    <div class="col-lg-3--- col-md-4 col-sm-6 col-6" style="margin-bottom: 50px;">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
                                 {{-- <a href="product-details.html">

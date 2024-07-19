@@ -158,10 +158,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-radius" >
-                <a href="/sleep"><img src="img/product/mounjaro.webp" class="card-img-top card-radius" alt="..." style="
-   border-bottom-left-radius: 0px; 
-        border-bottom-right-radius: 0px; 
-"></a>
+                <a href="/sleep"><img src="img/product/mounjaro.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
                     <div class="card-body tabPadding" style="text-align: center;">
                         <!-- <h5 class="card-title">Sleep</h5> -->
                         <p class="card-text" style="font-size: 12px;">Complement your healthy diet and physical activity to effectively manage your weight loss goals.</p>
@@ -171,10 +168,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-radius" >
-                <a href="/diabetes"><img src="img/product/jungle formula.webp" class="card-img-top card-radius" alt="..." style="
-   border-bottom-left-radius: 0px; 
-        border-bottom-right-radius: 0px; 
-"></a>
+                <a href="/diabetes"><img src="img/product/jungle formula.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
                     <div class="card-body tabPadding" style="text-align: center;">
                         <!-- <h5 class="card-title">Diabetes</h5> -->
                         <p class="card-text" style="font-size: 12px;">Choose the right protection with IRF, offering up to 9 hours of defense against biting insects.</p>

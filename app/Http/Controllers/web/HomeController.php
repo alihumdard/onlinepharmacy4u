@@ -27,6 +27,7 @@ use App\Models\ChildCategory;
 use App\Models\Question;
 use App\Models\AssignQuestion;
 use App\Models\Product;
+use App\Models\FeaturedProduct;
 use App\Models\ProductAttribute;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -57,7 +58,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
-        $data['products'] = Product::where(['status' => $this->status['Active']])->latest()->take(6)->get();
+        $featuredProducts = FeaturedProduct::with('product')->latest('id')->take(8)->get();
+
+        $products = [];
+        foreach ($featuredProducts as $featuredProduct) {
+            $products[] = $featuredProduct->product;
+        }
+    
+        $data['products'] = $products;
         return view('web.pages.home', $data);
     }
     public function human_request_form(Request $request)

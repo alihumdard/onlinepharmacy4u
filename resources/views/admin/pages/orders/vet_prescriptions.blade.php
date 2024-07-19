@@ -377,9 +377,11 @@
                                 <tr>
                                     <th style="align-items: center !important;" >
                                         <a href="{{ route('admin.orderDetail', ['id' => base64_encode($val['id'])]) }}" class="text-primary mb-0 font-weight-semibold fw-bold" style="font-size: smaller; display:flex; ">
-                                            #{{ $val['id'] }}
+                                            <Text style="flex:1; text-align:center;    font-weight: 700;
+    font-size: 20px;">#{{ $val['id'] }}</Text>
                                         </a>
                                     </th>
+                                    
                                     @php
                                     $isNewOrder = null;
                                     if ($val['status'] == 'Active'):

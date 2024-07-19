@@ -18,7 +18,6 @@ use App\Http\Controllers\Admin\DefualtController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('web.index');
-Route::match(['get', 'post'],'/humanRequestForm', [HomeController::class, 'human_request_form'])->name('web.humanRequestForm');
 Route::match(['get', 'post'], '/account', [WebController::class, 'account'])->name('web.account');
 Route::match(['get', 'post'], '/login', [DefualtController::class, 'login'])->name('login');
 Route::match(['get', 'post'], '/register', [DefualtController::class, 'registration_form'])->name('register');
@@ -134,6 +133,7 @@ Route::match(['get', 'post'], '/changePassword', [DefualtController::class, 'cha
 
 Route::get('/dashboard/details', [DefualtController::class, 'dashboard_details'])->name('dashboard.details');
 Route::match(['get', 'post'], '/storeHumanForm', [WebController::class, 'store_human_form'])->name('storeHumanForm');
+Route::match(['get', 'post'],'/humanRequestForm', [HomeController::class, 'human_request_form'])->name('web.humanRequestForm');
 
 
 Route::fallback([WebController::class, 'error_404']);

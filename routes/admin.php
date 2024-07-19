@@ -113,21 +113,20 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/updateShippingAddress', [SystemController::class, 'update_shipping_address'])->name('admin.updateShippingAddress');
     Route::delete('/deleteVariant', [ProductController::class, 'delete_variant'])->name('admin.deleteVariant');
 
-
     Route::match(['get', 'post'], '/AddPMedQuestion', [SystemController::class, 'Add_PMedQuestion'])->name('Add.P.Med.Questions');
     Route::match(['get', 'post'], '/createPMedQuestion', [SystemController::class, 'create_PMedQuestion'])->name('admin.storePMedQuestion');
     Route::get('/getPMedDp_questions', [SystemController::class, 'get_PMeddp_questions'])->name('admin.getPMedDp_questions');
     Route::post('/update-question-order', [SystemController::class, 'updateOrder'])->name('Update.Question.Order');
     Route::post('/delete-question', [SystemController::class, 'deletePMedQuestion'])->name('Delete.P.Med.Question');
 
-
-
-
-
     Route::match(['get', 'post'], '/AddPrescriptionMedQuestion', [SystemController::class, 'Add_PrescriptionMedQuestion'])->name('Add.Prescription.Med.Questions');
     Route::match(['get', 'post'], '/createPrescriptionMedQuestion', [SystemController::class, 'create_PrescriptionMedQuestion'])->name('admin.storePrescriptionMedQuestion');
     Route::get('/getPrescription_MedDp_questions', [SystemController::class, 'get_PrescriptionMeddp_questions'])->name('admin.getPrescriptionMedDpQuestions');
     Route::post('/update-prescription-question-order', [SystemController::class, 'updatePrescriptionQuestionOrder'])->name('Update.PrescriptionQuestion.Order');
     Route::post('/delete-prescription-question', [SystemController::class, 'deletePrescriptionMedQuestion'])->name('Delete.Prescription.Med.Question');
+
+    Route::match(['get', 'post'], '/VetPrescriptions', [SystemController::class, 'vet_prescriptions'])->name('admin.VetPrescriptions');
+    Route::match(['get', 'post'], '/deleteHumanForm', [SystemController::class, 'delete_human_form'])->name('admin.deleteHumanForm');
+
 
 });

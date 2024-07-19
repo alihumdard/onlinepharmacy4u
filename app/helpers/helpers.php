@@ -80,6 +80,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'comment_store':
+                case 'vet_prescription':
                 case 'sops':
                 case 'add_sop':
                 case 'store_sop':

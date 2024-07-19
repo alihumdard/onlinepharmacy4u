@@ -52,6 +52,7 @@ use App\Models\PMedGeneralQuestion;
 use App\Models\PrescriptionMedGeneralQuestion;
 use App\Models\PaymentDetail;
 use App\Models\SOP;
+use App\Models\HumanRequestForm;
 
 class SystemController extends Controller
 {
@@ -1817,6 +1818,27 @@ class SystemController extends Controller
         return view('admin.pages.gpa_letters', $data);
     }
 
+
+    public function vet_prescriptions()
+    {
+        $data['user'] = auth()->user();
+        $page_name = 'vet_prescription';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+        $data['queries'] = HumanRequestForm::latest('created_at')->get()->toArray();
+
+        return view('admin.pages.orders.vet_prescriptions', $data);
+    }
+
+    public function delete_human_form($id)
+    {
+        $decodedId = base64_decode($id);
+        $sop = SOP::findOrFail($decodedId);
+        $sop->delete();
+
+        return redirect()->back()->with('success', 'SOP deleted successfully.');
+    }
 
     public function orders_audit()
     {

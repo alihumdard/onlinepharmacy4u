@@ -114,7 +114,8 @@
                                             #{{ $val['id'] }}
                                         </a>
                                     </td>
-                                    <td>{{ isset($val['created_at']) ? date('Y-m-d h:i A', strtotime($val['created_at'])) : '' }}</td>
+                                    <td>{{date_time_uk($val['created_at'])}}
+                                    </td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     <td>{{ $val['email'] ?? '' }}</td>
                                     <!-- <td>{{$val['shipingdetails']['address'] ?? ''}}</td> -->

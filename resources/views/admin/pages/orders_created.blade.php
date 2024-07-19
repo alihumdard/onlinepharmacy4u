@@ -428,7 +428,7 @@
                                                 <span class="px-5 fw-bold">{{ $totalOrderDetails }}</span>
                                             </td>
                                             <td>
-                                                {{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}
+                                                {{date_time_uk($val['created_at'])}}
                                             </td>
                                             <td>
                                                 {{-- {{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }} --}}

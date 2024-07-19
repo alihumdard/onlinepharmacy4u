@@ -1,7 +1,14 @@
 @extends('web.layouts.default', ['menu_categories' => $menu_categories])
 @section('title', 'Home')
 @section('content')
-
+<style>
+    @media (min-width: 600px) and (max-width: 991px) {
+    .tabPadding {
+        text-align: center;
+        padding-bottom: 46px;
+    }
+}
+</style>
 <!-- SLIDER AREA START (slider-3) -->
 <div class="ltn__slider-area ltn__slider-3 desktop-slider  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
@@ -204,7 +211,7 @@
    border-bottom-left-radius: 0px; 
         border-bottom-right-radius: 0px; 
 "></a>
-                    <div class="card-body" style="text-align: center;">
+                    <div class="card-body tabPadding" style="text-align: center;">
                         <!-- <h5 class="card-title">Sleep</h5> -->
                         <p class="card-text" style="font-size: 12px;">Complement your healthy diet and physical activity to effectively manage your weight loss goals.</p>
                         <!-- <a href="/sleep" class="btn btn-primary theme-btn-1">Buy Now</a> -->
@@ -217,7 +224,7 @@
    border-bottom-left-radius: 0px; 
         border-bottom-right-radius: 0px; 
 "></a>
-                    <div class="card-body" style="text-align: center;">
+                    <div class="card-body tabPadding" style="text-align: center;">
                         <!-- <h5 class="card-title">Diabetes</h5> -->
                         <p class="card-text" style="font-size: 12px;">Choose the right protection with IRF, offering up to 9 hours of defense against biting insects.</p>
                         <!-- <a href="/diabetes" class="btn btn-primary theme-btn-1">Buy Now</a> -->

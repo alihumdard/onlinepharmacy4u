@@ -249,28 +249,28 @@
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('storage/'.$value['main_image'])}}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
                         <div class="ms-3">
-                            <p class="fw-bold mb-1">{{ $value['title'] }}</p>
-                            <p class="text-muted mb-0">{{ $value['barcode'] }}</p>
+                            <p class="fw-bold mb-1">{{ $value['title'] ?? ''}}</p>
+                            <p class="text-muted mb-0">{{ $value['barcode']  ?? ''}}</p>
                         </div>
                     </div>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['price'] }} - {{ $value['ext_tax'] }}</p>
+                    <p class="fw-normal mb-1">{{ $value['price'] }} - {{ $value['ext_tax']  ?? '' }}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="text-muted mb-0">{{ $value['stock'] }}</p>
+                    <p class="text-muted mb-0">{{ $value['stock']  ?? '' }}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['category']['name'] }}</p>
+                    <p class="fw-normal mb-1">{{ $value['category']['name']  ?? ''}}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['sub_cat']['name'] }}</p>
+                    <p class="fw-normal mb-1">{{ $value['sub_cat']['name']  ?? '' }}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
                      <p>helo</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ config('constants.PRODUCT_TEMPLATES')[$value['product_template']] }}</p>
+                    <p class="fw-normal mb-1">{{ config('constants.PRODUCT_TEMPLATES')[$value['product_template']]  ?? '' }}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
                     <span class="badge {{ $value['status'] == 1 ? 'bg-success' : 'bg-danger' }} rounded-pill d-inline">{{ $value['status'] == 1 ? 'Active' : 'Deactive' }}</span>

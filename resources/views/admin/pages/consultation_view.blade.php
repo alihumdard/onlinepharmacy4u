@@ -263,7 +263,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary bg-secondary" data-bs-dismiss="modal">Close</button>
                 <button form="form_hcp_remarks" type="submit" class="btn text-white fw-bold" style="background: #20B2AA;">Save changes</button>
             </div>
         </div>

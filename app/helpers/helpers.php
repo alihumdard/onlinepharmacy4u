@@ -8,6 +8,17 @@ function table_date($datetime)
         return 'Invalid datetime';
     }
 }
+function date_time_uk($datetime)
+{
+
+    $date= isset($datetime) ? date('d-m-y H:i:s', strtotime($datetime)) : '';
+ 
+    if ($date) {
+        return $date;
+    } else {
+        return 'Invalid datetime';
+    }
+}
 
 function end_url()
 {

@@ -285,7 +285,7 @@ class DefualtController extends Controller
             $data['queries'] = ClientQuery::where('user_id', $user->id)->get()->toArray();
         }
         $data['contact_details'] = CompanyDetail::get()->keyBy('content_type')->toArray();
-        return view('admin.pages.contact', $data);
+        return view('admin.pages.cwontact', $data);
     }
 
     public function login(Request $request)

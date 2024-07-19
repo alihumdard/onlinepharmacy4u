@@ -1,9 +1,10 @@
 @extends('admin.layouts.default')
 @section('title', 'Add Product')
 @section('content')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css" />
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+
 <style>
     html * {
         box-sizing: border-box;
@@ -127,6 +128,59 @@
         display: none !important;
     }
 </style>
+<style>
+    .flip-card {
+        background-color: transparent;
+        width: 100px;
+        height: 100px;
+        perspective: 1000px;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .flip-card-front {
+        background-color: #bbb;
+        color: black;
+    }
+
+    .flip-card-back {
+        background-color: #2980b9;
+        color: white;
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-back {
+        background-color: #2980b9;
+        color: white;
+        transform: rotateY(180deg);
+        display: flex;
+        justify-content: center;
+        /* Center horizontally */
+        align-items: center;
+        /* Center vertically */
+    }
+</style>
 
 <!-- main stated -->
 <main id="main" class="main">
@@ -150,6 +204,7 @@
             <div class="row gy-4">
                 <div class=" col-md-6 extra-images">
                     <label class="form-label">Extra Images</label>
+                    <!-- below containerrrrrrrrrrrrrrrrrrrrrrrr -->
                     <div class="upload__box">
                         <div class="upload__btn-box">
                             <div class="upload__img-wrap">
@@ -160,6 +215,34 @@
                             </div>
                         </div>
                     </div>
+                    <!-- below containerrrrrrrrrrrrrrrrrrrrrrrr -->
+                    <div style="margin-top: 10px;margin-bottom:5px">
+                        <div class="row" style="padding-right: 12px;">
+                            @foreach($product['product_attributes'] ?? [] as $key => $val1)
+                            @php
+                            $src = ($val1['image']) ? $val1['image'] : '';
+                            @endphp
+                            @if($src)
+                            <div class="col-sm-2">
+                                <div class="flip-card">
+                                    <div class="flip-card-inner">
+                                        <div class="flip-card-front">
+                                            <img src="{{ asset('storage/'.$src)}}" alt="Avatar" style="width:100px;height:100px;">
+                                        </div>
+                                        <div class="flip-card-back">
+                                            <a href="#">
+                                                <i class="fa fa-trash-o" style="font-size:48px;color:red"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @endforeach
+
+                        </div>
+                    </div>
+
                     <div class="invalid-feedback">Please select product image!</div>
                     @error('images')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -248,7 +331,7 @@
                 @endphp
                 <div class="col-md-6 question_category-div {{$display}}">
                     <label for="question_category" class="col-form-label"> Select Question Category <span class="question-category"></span></label>
-                    <select id="question_category" name="question_category[]" class="form-select select2 py-1" data-placeholder="choose categories ..." >
+                    <select id="question_category" name="question_category[]" class="form-select select2 py-1" data-placeholder="choose categories ...">
                         <option value="choose">choose</option>
                         @foreach ($question_category as $key => $value)
                         <option value="{{ $value['id'] ?? '' }}" {{ (isset($prod_question) && in_array($value['id'], $prod_question)) ? 'selected' : '' }}>{{ $value['name'] ?? '' }}</option>
@@ -302,7 +385,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="weight" class="form-label">Weight (gm)</label>
-                    <input type="text" name="weight" id="weight" value="{{  $product['weight'] ?? old('weight') }}" class="form-control"  >
+                    <input type="text" name="weight" id="weight" value="{{  $product['weight'] ?? old('weight') }}" class="form-control">
                     <div class="invalid-feedback">Enter product weight!</div>
                     @error('weight')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
@@ -329,7 +412,7 @@
                     @enderror
                 </div>
             </div>
-{{-- Variant Section --}}
+            {{-- Variant Section --}}
             <div class="container-fluid m-0 ">
                 <div class="d-flex justify-content-between col-md-12 align-items-center">
                     <div class="variants-div">
@@ -345,83 +428,83 @@
                 <div id="variant_row_existing">
                     @if(isset($product['variants']))
                     @foreach ($product['variants'] as $variant)
-                        <div class="row bg-white rounded-3  mb-4 py-2" id="variant_{{ $variant['id'] }}">
-                            <input type="hidden" value="{{$variant['id']}}" name="exist_vari_id[]">
-                            <div class="col-12">
-                                <hr class="">
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="p-2">
-                                    <label for="" class="form-label">Variant Price <span class="vari-price">(Price in UK Pound)</span></label>
-                                    <input type="text" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
-                                    <div class="invalid-feedback">Enter variant price!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="p-2">
-                                    <label for="" class="form-label">Variant Cut Price <span class="vari-cut-price">(Price in UK Pound)</span></label>
-                                    <input type="text" class="form-control" name="exist_vari_cut_price[]" id="" value="{{ $variant['cut_price']}}">
-                                    <div class="invalid-feedback">Enter variant cut price!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="p-2">
-                                    <label for="" class="form-label">Variant Name <span class="extra-text"></span></label>
-                                    <input type="text" class="form-control" name="exist_vari_name[]" id="" value="{{ $variant['title']}}" required>
-                                    <div class="invalid-feedback">Enter variant title!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12 product-md">
-                                <div class="p-2">
-                                    <label for="" class="form-label">Variant Value <span class="extra-text"></span></label>
-                                    <input type="text" class="form-control" name="exist_vari_value[]" id="" value="{{ $variant['value']}}" required>
-                                    <div class="invalid-feedback">Enter variant value!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12 ">
-                                <div class="p-2">
-                                    <label for="" class="form-label">Inventory <span class="extra-text">(Available Stock)</span></label>
-                                    <input type="number" class="form-control" name="exist_vari_inventory[]" id="" value="{{ $variant['inventory']}}" required>
-                                    <div class="invalid-feedback">Enter variant stock!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12 ">
-                                <div class="p-2">
-                                    <label for="" class="form-label">weight <span class="extra-text">(gm)</span></label>
-                                    <input type="text" class="form-control" name="exist_vari_weight[]" id="" value="{{ $variant['weight'] }}" >
-                                    <div class="invalid-feedback">Enter variant weight!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="p-2">
-                                    <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
-                                    <input type="text" class="form-control" name="exist_vari_barcode[]" id="" value="{{ $variant['barcode']}}">
-                                    <div class="invalid-feedback">Enter variant barcode!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="p-2">
-                                    <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
-                                    <input type="text" class="form-control" name="exist_vari_sku[]" id="" value="{{ $variant['sku']}}">
-                                    <div class="invalid-feedback">Enter variant stock!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-12 ">
-                                <div class="p-2">
-                                    <label class="form-label">Select Image</label>
-                                    <input class="form-control variant-image-exist" name="exist_vari_attr_image[]" type="file" id="">
-                                    <div class="invalid-feedback">Enter variant image!</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 d-flex justify-content-end col-sm-12 mt-4 ">
-                                <div class="p-2 ">
-                                    <button type="button" class="btn delete-variant btn-danger bg-danger" data-id="{{ $variant['id'] }}" data-token="{{ csrf_token() }}"><i class="fa fa-minus"></i> Remove</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <hr class="">
+                    <div class="row bg-white rounded-3  mb-4 py-2" id="variant_{{ $variant['id'] }}">
+                        <input type="hidden" value="{{$variant['id']}}" name="exist_vari_id[]">
+                        <div class="col-12">
+                            <hr class="">
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Price <span class="vari-price">(Price in UK Pound)</span></label>
+                                <input type="text" class="form-control" name="exist_vari_price[]" id="" value="{{ $variant['price']}}" required>
+                                <div class="invalid-feedback">Enter variant price!</div>
                             </div>
                         </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Cut Price <span class="vari-cut-price">(Price in UK Pound)</span></label>
+                                <input type="text" class="form-control" name="exist_vari_cut_price[]" id="" value="{{ $variant['cut_price']}}">
+                                <div class="invalid-feedback">Enter variant cut price!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Name <span class="extra-text"></span></label>
+                                <input type="text" class="form-control" name="exist_vari_name[]" id="" value="{{ $variant['title']}}" required>
+                                <div class="invalid-feedback">Enter variant title!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 product-md">
+                            <div class="p-2">
+                                <label for="" class="form-label">Variant Value <span class="extra-text"></span></label>
+                                <input type="text" class="form-control" name="exist_vari_value[]" id="" value="{{ $variant['value']}}" required>
+                                <div class="invalid-feedback">Enter variant value!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 ">
+                            <div class="p-2">
+                                <label for="" class="form-label">Inventory <span class="extra-text">(Available Stock)</span></label>
+                                <input type="number" class="form-control" name="exist_vari_inventory[]" id="" value="{{ $variant['inventory']}}" required>
+                                <div class="invalid-feedback">Enter variant stock!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 ">
+                            <div class="p-2">
+                                <label for="" class="form-label">weight <span class="extra-text">(gm)</span></label>
+                                <input type="text" class="form-control" name="exist_vari_weight[]" id="" value="{{ $variant['weight'] }}">
+                                <div class="invalid-feedback">Enter variant weight!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">Barcode <span class="extra-text">(ISBN, UPC, GTIN, etc.)</span></label>
+                                <input type="text" class="form-control" name="exist_vari_barcode[]" id="" value="{{ $variant['barcode']}}">
+                                <div class="invalid-feedback">Enter variant barcode!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="p-2">
+                                <label for="" class="form-label">SKU <span class="extra-text">(Stock Keeping Unit)</span></label>
+                                <input type="text" class="form-control" name="exist_vari_sku[]" id="" value="{{ $variant['sku']}}">
+                                <div class="invalid-feedback">Enter variant stock!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 ">
+                            <div class="p-2">
+                                <label class="form-label">Select Image</label>
+                                <input class="form-control variant-image-exist" name="exist_vari_attr_image[]" type="file" id="">
+                                <div class="invalid-feedback">Enter variant image!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-end col-sm-12 mt-4 ">
+                            <div class="p-2 ">
+                                <button type="button" class="btn delete-variant btn-danger bg-danger" data-id="{{ $variant['id'] }}" data-token="{{ csrf_token() }}"><i class="fa fa-minus"></i> Remove</button>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <hr class="">
+                        </div>
+                    </div>
                     @endforeach
                     @endif
                 </div>
@@ -528,25 +611,24 @@
         $('.delete-variant').on('click', function() {
             var id = $(this).data("id");
             var token = $(this).data("token");
-        
+
             var confirmDelete = confirm("Are you sure you want to delete this variant?");
             if (!confirmDelete) {
-                return false; 
+                return false;
             }
 
             $.ajax({
-                url: '{{ route('admin.deleteVariant') }}',
+                url: "{{route('admin.deleteVariant')}}",
                 type: 'DELETE',
                 dataType: "JSON",
                 data: {
                     "id": id,
                     "_token": token,
                 },
-                success: function (response)
-                {
-                    if(response.status == 'success'){
+                success: function(response) {
+                    if (response.status == 'success') {
                         alert(response.message);
-                        $('#variant_'+id).remove();
+                        $('#variant_' + id).remove();
                     }
                 }
             });

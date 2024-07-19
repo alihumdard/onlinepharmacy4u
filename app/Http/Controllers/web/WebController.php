@@ -1472,7 +1472,7 @@ class WebController extends Controller
     
         if ($request->hasFile('file')) {
             $fileValidator = Validator::make($request->all(), [
-                'file' => 'required|file|mimes:pdf,doc,docx,jpg,png|max:2048',
+                'file' => 'required',
             ]);
     
             if ($fileValidator->fails()) {

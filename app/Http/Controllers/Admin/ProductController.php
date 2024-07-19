@@ -210,7 +210,7 @@ class ProductController extends Controller
                 $data['product'] = ImportedPorduct::findOrFail($request->id)->toArray();
                 $data['product']['id'] = Null;
             } else {
-                $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
+                $data['product'] = Product::with('productAttributes:id,product_id,image','variants')->findOrFail($request->id)->toArray();
                 $data['sub_category'] = SubCategory::select('id', 'name')
                     ->where(['category_id' => $data['product']['category_id'], 'status' => 'Active'])
                     ->pluck('name', 'id')
@@ -224,7 +224,7 @@ class ProductController extends Controller
                 $data['prod_question'] = explode(',', $data['product']['question_category']);
             }
         }
-
+// dd($data['product']);
         return view('admin.pages.products.add_product', $data);
     }
 

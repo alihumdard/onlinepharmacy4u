@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductVariant;
+use App\Models\FeaturedProduct;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductController extends Controller
@@ -39,14 +40,14 @@ class ProductController extends Controller
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
-    
+
         $data = [];
         if (isset($user->role) && $user->role == user_roles('1')) {
             $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
                 ->whereIn('status', [$this->status['Active']])
                 ->latest('id')
                 ->paginate(50); // Set pagination to 50 items per page
-    
+
             $data['filters'] = [];
             if ($products->isNotEmpty()) {
                 $data['filters']['titles'] = array_unique($products->pluck('title')->toArray());
@@ -57,10 +58,9 @@ class ProductController extends Controller
             }
             $data['products'] = $products; // Pass paginated products to the view
         }
-    
+
         return view('admin.pages.products.prodcuts', $data);
     }
-    
 
     public function product_trash(Request $request)
     {
@@ -128,23 +128,47 @@ class ProductController extends Controller
 
     public function featured_products(Request $request)
     {
-
         $data['user'] = auth()->user();
 
         $page_name = 'featured_products';
         if (!view_permission($page_name)) {
             return redirect()->back();
         }
+
         $data['products'] = Product::with('variants')->where('status', $this->status['Active'])->latest('id')->get()->sortBy('title')->values()->keyBy('id')->toArray();
 
-        foreach ($data['products'] as $key => $product) {
-            if ($product['variants']) {
-                $data['variants'][$product['id']] = $product['variants'];
-            }
-        }
-        $data['users'] = User::where(['status' => $this->status['Active'], 'role' => user_roles('4')])->latest('id')->get()->sortBy('name')->keyBy('id')->toArray();
 
+        $data['f_products'] = FeaturedProduct::with('product')
+            ->orderBy('id', 'desc')
+            ->take(6)
+            ->get()->toArray();
         return view('admin.pages.products.featured_products', $data);
+    }
+
+    public function store_featured_products(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'add_product';
+        if (!view_permission($page_name)) {
+            return response()->json(['status' => 'error', 'message' => 'Permission Denied']);
+        }
+
+        $rules = ['product_id' => 'required|exists:products,id'];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+
+        $featuredProduct = FeaturedProduct::updateOrCreate(
+            ['id' => $request->id ?? Null],
+            [
+                'product_id' => $request->product_id,
+                'created_by' => $user->id,
+            ]
+        );
+
+        $message = "Featured Product " . ($request->id ? "Updated" : "Saved") . " Successfully";
+        return response()->json(['status' => 'success', 'message' => $message]);
     }
 
     public function store_import_products(Request $request)
@@ -500,5 +524,23 @@ class ProductController extends Controller
 
         $message = "Product status " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return response()->json(['status' => 'success', 'message' => $message, 'data' => []]);
+    }
+
+    public function delete_featured_products(Request $request)
+    {
+        $product_id = $request->input('product_id');
+
+        if (!$product_id) {
+            return response()->json(['status' => 'error', 'message' => 'Product ID is required']);
+        }
+
+        $featuredProduct = FeaturedProduct::where('product_id', $product_id)->first();
+
+        if ($featuredProduct) {
+            $featuredProduct->delete();
+            return response()->json(['status' => 'success', 'message' => 'Product deleted successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Product not found']);
+        }
     }
 }

@@ -25,13 +25,13 @@
     <!-- BREADCRUMB AREA END -->
 
     <!-- WISHLIST AREA START -->
-    <div class="ltn__checkout-area mb-105">
+    <div class="ltn__checkout-area mb-150">
         <div class="container">
             <form id="checkoutForm" action="{{ route('payment') }}" method="post">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ltn__checkout-inner">
-                            <div class="ltn__checkout-single-content mt-50">
+                            <div class="ltn__checkout-single-content">
                                 <h4 class="title-2">Billing Details</h4>
                                 <!-- <p><label class="input-info-save mb-0"><input type="checkbox" name="agree"> use different billing address?</label></p> -->
 
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12">
-                                            <h6>Address</h6>
+                                            <h6 style="margin-top: 30px;">Address</h6>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="input-item">
@@ -105,12 +105,13 @@
                                                 <div class="col-md-6">
                                                     <div class="input-item">
                                                         <input type="text" name="address2"
+                                                        style="margin-top: 20px !important;"
                                                             placeholder="Apartment, suite, unit etc. (optional)">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
+                                        <div class="col-lg-6 col-md-6">
                                             <h6>City</h6>
                                             <div class="input-item">
                                                 <input type="text" id="cityInput" name="city"
@@ -119,7 +120,7 @@
                                                 <div class="invalid-feedback">Please enter your city.</div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
+                                        <div class="col-lg-6 col-md-6">
                                             <h6>Postal Code</h6>
                                             <div class="input-item">
                                                 <input type="text" name="zip_code" id="zip_code_input"
@@ -129,7 +130,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h6>Order Notes (optional)</h6>
+                                    <h6 style="margin-top: 30px;">Order Notes (optional)</h6>
                                     <div class="input-item input-item-textarea ltn__custom-icon">
                                         <textarea name="note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                     </div>
@@ -144,6 +145,22 @@
                     <div class="col-lg-6">
                         <div class="ltn__checkout-payment-method mt-50">
                             <h4 class="title-2">Shipping Method</h4>
+                            <div class="row">
+                            <div class="col-md-6">
+                            <div class="form-check">
+                                <div class="custom-control" style="display: flex; align-items:center;">
+                                    <input class="form-check-input" type="radio" name="shipping_method"
+                                        id="fast_delivery" value="fast" data-ship="3.95" checked required>
+                                    <label class="form-check-label" for="fast_delivery"><img
+                                            src="{{ url('img/48-hours.jpg') }}" alt=""
+                                            style="max-width:140px !important; margin-left:10px;"></label>
+                                </div>
+                                <span class="float-right">Royal Mail Tracked 48</span>
+                                <span class="float-right"> (£3.95)</span>
+                                <div class="ml-4 mb-2 small">(3-5 working days)</div>
+                            </div>
+                            </div>
+                                <div class="col-md-6">
                             <div class="form-check">
                                 <div class="custom-control" style="display: flex; align-items:center;">
                                     <input class="form-check-input" type="radio" name="shipping_method"
@@ -158,17 +175,8 @@
                                 <span class="float-right"> (£4.95)</span>
                                 <div class="ml-4 mb-2 small">(1-2 working days)</div>
                             </div>
-                            <div class="form-check">
-                                <div class="custom-control" style="display: flex; align-items:center;">
-                                    <input class="form-check-input" type="radio" name="shipping_method"
-                                        id="fast_delivery" value="fast" data-ship="3.95" checked required>
-                                    <label class="form-check-label" for="fast_delivery"><img
-                                            src="{{ url('img/48-hours.jpg') }}" alt=""
-                                            style="max-width:140px !important; margin-left:10px;"></label>
-                                </div>
-                                <span class="float-right">Royal Mail Tracked 48</span>
-                                <span class="float-right"> (£3.95)</span>
-                                <div class="ml-4 mb-2 small">(3-5 working days)</div>
+                            </div>
+                     
                             </div>
                         </div>
                     </div>
@@ -202,10 +210,16 @@
                         </div>
                     </div>
                 </div>
-                <button id="placeOrderBtn" class="btn theme-btn-1 btn-effect-1 text-uppercase" type="button">Procceed To
+                <div style="
+    float: right;
+">
+                <button id="placeOrderBtn" class="btn theme-btn-1 btn-effect-1 text-uppercase" type="button" style="
+    margin-top: 30px;
+">Procceed To
                     Pay</button>
+                </div>
             </form>
-            <div id="iframeContainer" class="vh-100 w-100 "></div>
+            <!-- <div id="iframeContainer" class="vh-100 w-100 "></div> -->
         </div>
     </div>
     <!-- WISHLIST AREA START -->

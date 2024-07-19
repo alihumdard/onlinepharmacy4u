@@ -412,7 +412,14 @@
     margin: 0;
     margin-left: 20px; /* Adjust margin as needed */
 }
-
+@media (max-width: 991px) and (min-width: 501px) {
+    .header-search-column, .header-menu-column {
+        display: block;
+    }
+}
+body {
+    overflow-x: hidden;
+}
         </style>
 
         <!-- MOBILE MENU START -->

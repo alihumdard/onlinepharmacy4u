@@ -215,13 +215,18 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3 text-center mt-2 d-block">
+                        <div class="col-md-4 text-center mt-2 d-block">
                             <label for="endDate" class="form-label fw-bold">Trash</label>
                             <a href="{{route('admin.proTrash')}}" class="form-control btn btn-success py-2 fw-bold">Go to Trash</a>
                         </div>
-                        <div class="col-md-12 mt-3 text-center d-block">
+                        <div class="col-md-8 mt-3 text-center d-block">
                             <label for="search" class="form-label fw-bold">Search From Table </label>
                             <input type="text" id="search" placeholder="Search here..." class="form-control py-2">
+                           
+                        </div>
+                        <div class="col-md-4 mt-4 text-center d-block">
+                        <label for="search" class="form-label fw-bold"></label>
+                        <a href="#" class="form-control btn btn-success py-2 fw-bold">Search</a>
                         </div>
                     </div>
 

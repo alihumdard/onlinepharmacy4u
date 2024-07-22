@@ -153,7 +153,8 @@ function view_permission($page_name)
         case 'Doctor':
             switch ($page_name) {
                 case 'dashboard':
-                case 'comment_store':    
+                case 'comment_store':
+                case 'orders_shipped':    
                 case 'sops':    
                 case 'store_query':
                 case 'orders':

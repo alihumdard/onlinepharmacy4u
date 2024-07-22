@@ -98,13 +98,22 @@
                                     <tr>
                                         <th style="vertical-align: middle; text-align: center;">#</th>
                                         <th style="vertical-align: middle; text-align: center;">GP Locaction Address</th>
+                                        <th style="vertical-align: middle; text-align: center;">GP Locaction Email</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($gp_locations as $key => $value)
                                     <tr>
                                         <td style="vertical-align: middle; text-align: center;"> {{ ++$key }} </td>
-                                        <td><strong>{{$value['b']}}</strong>,{{$value['e'] }}<br/>{{$value['f'] }},{{$value['g']}}<br/>{{$value['h']}} {{$value['i']}}</td>
+                                        <td><strong>{{$value['b']}}</strong>,{{$value['e'] }}<br />{{$value['f'] }},{{$value['g']}}<br />{{$value['h']}} {{$value['i']}}</td>
+                                        <td style="vertical-align: middle; text-align: center;">
+                                            <input class="form-control" type="email" id="gpa_email_{{$value['id']}}" value="">
+                                        </td>
+                                        <th style="vertical-align: middle; text-align: center;">
+                                            <button type="button" data-id="{{$value['id']}}" class="btn btn-small bg-primary  rounded-pill text-center download_gpa">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </button>
+                                        </th>
                                     </tr>
                                     @endforeach
                                 </tbody>

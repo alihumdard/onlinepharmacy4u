@@ -2522,11 +2522,6 @@ class SystemController extends Controller
         return view('admin.pages.questions.gp_locations', $data);
     }
 
-
-
-
-
-
     //  added new functions for PMed questionssss
 
     public function Add_PMedQuestion(request $request)

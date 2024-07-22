@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Medical Professionals Orders Status')
+@section('title', 'POM Orders')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -328,12 +328,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Medical Professionals Orders</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | POM Orders</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Medical Professionals Orders</li>
+                <li class="breadcrumb-item active">POM Orders</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -392,8 +392,7 @@
                                     <th>Marked By </th>
                                     @if($user->role != user_roles('3'))
                                     <th> Shiped Order</th>
-                                    <th> Action</th>
-
+                                    <th> Repeat</th>
                                     @endif
                                 </tr>
                             </thead>

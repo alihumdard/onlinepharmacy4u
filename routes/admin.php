@@ -23,9 +23,15 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::get('/doctors', [SystemController::class, 'doctors'])->name('admin.doctors');
     Route::match(['get', 'post'], '/addDoctor',   [SystemController::class, 'add_doctor'])->name('admin.addDoctor');
     Route::match(['get', 'post'], '/storeDoctor', [SystemController::class, 'store_doctor'])->name('admin.storeDoctor');
-
     Route::get('/categories', [SystemController::class, 'categories'])->name('admin.categories');
     Route::match(['get', 'post'], '/addCategory', [SystemController::class, 'add_category'])->name('admin.addCategory');
+
+
+    Route::match(['get', 'post'], '/deleteSOP/{id}', [SystemController::class, 'delete_sop'])->name('admin.deleteSOP');
+    Route::match(['get', 'post'], '/addSOP/{id?}', [SystemController::class, 'add_sop'])->name('admin.addSOP');
+    Route::match(['get', 'post'], '/storeSOP', [SystemController::class, 'store_sop'])->name('admin.storeSOP');
+    Route::get('/sops', [SystemController::class, 'sops'])->name('admin.sops');
+
     Route::match(['get', 'post'], '/storeCategory', [SystemController::class, 'store_category'])->name('admin.storeCategory');
     Route::get('/subCategories', [SystemController::class, 'sub_categories'])->name('admin.subCategories');
     Route::get('/childCategories', [SystemController::class, 'child_categories'])->name('admin.childCategories');
@@ -42,11 +48,15 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/products', [ProductController::class, 'products'])->name('admin.prodcuts');
     Route::match(['get', 'post'], '/proTrash', [ProductController::class, 'product_trash'])->name('admin.proTrash');
     Route::match(['get', 'post'], '/productsLimits', [ProductController::class, 'products_limits'])->name('admin.prodcutsLimits');
+    Route::match(['get', 'post'], '/featuredProducts', [ProductController::class, 'featured_products'])->name('admin.featuredProducts');
+    Route::match(['get', 'post'], '/storeFeaturedProducts', [ProductController::class, 'store_featured_products'])->name('admin.storeFeaturedProducts');
+    Route::match(['get', 'post'], '/deleteFeaturedProducts', [ProductController::class, 'delete_featured_products'])->name('admin.deleteFeaturedProducts');
     Route::match(['get', 'post'], '/importedProducts', [ProductController::class, 'imported_products'])->name('admin.importedProdcuts');
     Route::get('/importProducts', [ProductController::class, 'import_products'])->name('admin.importProducts');
     Route::post('/importProducts', [ProductController::class, 'store_import_products'])->name('admin.importProducts');
     Route::match(['get', 'post'], '/addProduct', [ProductController::class, 'add_product'])->name('admin.addProduct');
     Route::match(['get', 'post'], '/storeProduct', [ProductController::class, 'store_product'])->name('admin.storeProduct');
+    Route::match(['get', 'post'], '/deleteProductAttribute', [ProductController::class, 'delete_product_attribute'])->name('admin.deleteProductAttribute');
     Route::match(['get', 'post'], '/updateBuyLimits', [ProductController::class, 'update_buy_limits'])->name('admin.updateBuyLimits');
     Route::match(['get', 'post'], '/updateStatus', [ProductController::class, 'update_status'])->name('admin.updateStatus');
 
@@ -106,21 +116,20 @@ Route::prefix('admin')->middleware(['check.userAuthCheck'])->group(function () {
     Route::match(['get', 'post'], '/updateShippingAddress', [SystemController::class, 'update_shipping_address'])->name('admin.updateShippingAddress');
     Route::delete('/deleteVariant', [ProductController::class, 'delete_variant'])->name('admin.deleteVariant');
 
-
     Route::match(['get', 'post'], '/AddPMedQuestion', [SystemController::class, 'Add_PMedQuestion'])->name('Add.P.Med.Questions');
     Route::match(['get', 'post'], '/createPMedQuestion', [SystemController::class, 'create_PMedQuestion'])->name('admin.storePMedQuestion');
     Route::get('/getPMedDp_questions', [SystemController::class, 'get_PMeddp_questions'])->name('admin.getPMedDp_questions');
     Route::post('/update-question-order', [SystemController::class, 'updateOrder'])->name('Update.Question.Order');
     Route::post('/delete-question', [SystemController::class, 'deletePMedQuestion'])->name('Delete.P.Med.Question');
 
-
-
-
-
     Route::match(['get', 'post'], '/AddPrescriptionMedQuestion', [SystemController::class, 'Add_PrescriptionMedQuestion'])->name('Add.Prescription.Med.Questions');
     Route::match(['get', 'post'], '/createPrescriptionMedQuestion', [SystemController::class, 'create_PrescriptionMedQuestion'])->name('admin.storePrescriptionMedQuestion');
     Route::get('/getPrescription_MedDp_questions', [SystemController::class, 'get_PrescriptionMeddp_questions'])->name('admin.getPrescriptionMedDpQuestions');
     Route::post('/update-prescription-question-order', [SystemController::class, 'updatePrescriptionQuestionOrder'])->name('Update.PrescriptionQuestion.Order');
     Route::post('/delete-prescription-question', [SystemController::class, 'deletePrescriptionMedQuestion'])->name('Delete.Prescription.Med.Question');
+
+    Route::match(['get', 'post'], '/VetPrescriptions', [SystemController::class, 'vet_prescriptions'])->name('admin.VetPrescriptions');
+    Route::match(['get', 'post'], '/deleteHumanForm', [SystemController::class, 'delete_human_form'])->name('admin.deleteHumanForm');
+
 
 });

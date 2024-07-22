@@ -254,7 +254,6 @@
                                         <div class="row d-flex ">
                                             <div class="col-lg-12 text-center ">
                                                 <a href="{{ route('admin.consultationView', ['odd_id' => base64_encode($val['id'])]) }}" class="btn btn-link fw-bold large">
-                                                    {{-- See Consultations --}}
                                                     Approved / View Consultation
                                                 </a>
                                             </div>
@@ -295,16 +294,22 @@
                                     @endif
                                 </div>
                                 @endif
+
                                 @if($order['status'] != 'Received')
-                                <div class="d-flex justify-content-between pt-2">
-                                    <p class="fw-bold mb-0 ">Marked By:</p>
-                                    <p class="mb-0">{{$marked_by['name'] ?? '' }} ({{$marked_by['email'] ?? ''}}) </p>
+                                <div class="d-flex justify-content-arround pt-2">
+                                    <p class="fw-bold mb-0 ">Approved By: </p>
+                                    <p class="ps-2 mb-0">{{$marked_by['name'] ?? '' }} ({{$marked_by['email'] ?? ''}}) </p>
                                 </div>
-                                <div class="d-flex justify-content-between pt-2">
+                                <div class="d-flex justify-content-arround pt-2">
+                                    <p class="fw-bold mb-0 ">Approved At: </p>
+                                    <p class="ps-2 mb-0">{{ $order['approved_at'] ? \Carbon\Carbon::parse($order['approved_at'])->format('d-m-Y H:i:s') : '' }} </p>
+                                </div>
+                                <div class="d-flex justify-content-arround pt-2">
                                     <p class="fw-bold mb-0 ">Health Care Professional Remarks:</p>
-                                    <p class="mb-0">{{$order['hcp_remarks']}} </p>
+                                    <p class="ps-2 mb-0">{{$order['hcp_remarks']}} </p>
                                 </div>
                                 @endif
+
                                 @if((isset($user->role) && $user->role == user_roles('1')))
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0">Subtotal: </p>
@@ -458,7 +463,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary bg-secondary" data-bs-dismiss="modal">Close</button>
                 <button form="form_refund" type="submit" class="btn text-white fw-bold" style="background: #20B2AA;">Save changes</button>
             </div>
         </div>
@@ -535,14 +540,14 @@
 
                         $('.comment_data').html(comment_html);
                     } else {
-                        alert('contact to developer');
+                        // alert('contact to developer');
                         console.log(response.message);
                     }
                 },
                 error: function(xhr, status, error) {
-                    alert('contact to developer');
+                    // alert('contact to developer');
                     console.log(status);
-                    showAlert("Error", 'Request Can not Proceed', 'Cannot proceed further');
+                    // showAlert("Error", 'Request Can not Proceed', 'Cannot proceed further');
                 }
             });
         }
@@ -573,12 +578,12 @@
                             $('#spinner_coment').addClass('d-none');
                             $('#coment_btn').removeClass('d-none').prop('disabled', false);
                         } else if (response.status === 'error') {
-                            alert('contact to developer');
+                            // alert('contact to developer');
                             console.log(response.message);
                         }
                     },
                     error: function(xhr, status, error) {
-                        alert('contact to developer');
+                        // alert('contact to developer');
                         console.log(status);
                         $('#spinner_coment').addClass('d-none');
                         $('#coment_btn').removeClass('d-none').prop('disabled', false);
@@ -591,4 +596,3 @@
     });
 </script>
 @endPushOnce
-

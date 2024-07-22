@@ -5,7 +5,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |  {{ $title }}</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | {{ $title }}</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -20,8 +20,8 @@
             <div class="col-lg-12">
 
                 @if (isset($category))
-                    <h6 class="text-danger fw-bold">Reminder: Changing the category type will also update all associated products to the new category.</h6>
-                    <h6 class="text-danger fw-bold">Important: Once changed, there is no way to revert back.</h6>
+                <h6 class="text-danger fw-bold">Reminder: Changing the category type will also update all associated products to the new category.</h6>
+                <h6 class="text-danger fw-bold">Important: Once changed, there is no way to revert back.</h6>
                 @endif
 
                 <div class="card vh-100">
@@ -36,18 +36,23 @@
                             <input type="hidden" name="change_type" id="change_type" value="1">
 
                             @php
-                                $path = url('assets/admin/img/upload_btn.png');
-                                if($category['image'] ?? NULL){
-                                    $path = asset('storage/'.$category['image']);
-                                }
+                            $path = url('assets/admin/img/upload_btn.png');
+                            if($category['image'] ?? NULL){
+                            $path = asset('storage/'.$category['image']);
+                            }
+
+                            $path_icon = url('assets/admin/img/upload_btn.png');
+                            if($category['icon'] ?? NULL){
+                                $path_icon = asset('storage/'.$category['icon']);
+                            }
                             @endphp
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <label for="selection" class="form-label">Selection</label>
                                 <select id="selection" name="selection" class="form-select" required>
                                     <option {{ (isset($selection) && $selection == '') ? 'selected' : '' }} value="">Select</option>
-                                    <option {{ (isset($selection) && $selection == 1) ? 'selected' : '' }} value="1" >Main Category</option>
-                                    <option {{ (isset($selection) && $selection == 2) ? 'selected' : '' }} value="2" >Sub Category</option>
-                                    <option {{ (isset($selection) && $selection == 3) ? 'selected' : '' }} value="3" >Child Category</option>
+                                    <option {{ (isset($selection) && $selection == 1) ? 'selected' : '' }} value="1">Main Category</option>
+                                    <option {{ (isset($selection) && $selection == 2) ? 'selected' : '' }} value="2">Sub Category</option>
+                                    <option {{ (isset($selection) && $selection == 3) ? 'selected' : '' }} value="3">Child Category</option>
                                 </select>
                                 <div class="invalid-feedback">Please make selection!</div>
                             </div>
@@ -65,25 +70,25 @@
                             <div class="col-md-4">
                                 <label for="publish" class="form-label">Status</label>
                                 <select id="publish" name="publish" class="form-select">
-                                    <option {{ (isset($category['publish']) && $category['publish'] == 'Publish') ? 'selected' : '' }} value="Publish" >Publish</option>
-                                    <option {{ (isset($category['publish']) && $category['publish'] == 'Draft') ? 'selected' : '' }} value="Draft" >Draft</option>
+                                    <option {{ (isset($category['publish']) && $category['publish'] == 'Publish') ? 'selected' : '' }} value="Publish">Publish</option>
+                                    <option {{ (isset($category['publish']) && $category['publish'] == 'Draft') ? 'selected' : '' }} value="Draft">Draft</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-4 parent-div" @if(isset($selection) && $selection == 1) style="display: none" @endif;>
+                            <div class="col-md-12 parent-div" @if(isset($selection) && $selection==1) style="display: none" @endif;>
                                 <label for="publish" class="form-label">Select Parent</label>
-                                <select id="parent_id" name="parent_id" class="form-select" @if(isset($selection) && $selection != 1) required @endif>
+                                <select id="parent_id" name="parent_id" class="form-select" @if(isset($selection) && $selection !=1) required @endif>
                                     <option value="">Select</option>
-                                        @if(@isset($parents))
-                                            @foreach ($parents as $key => $value)
-                                                <option value="{{ $value['id'] }}" @if ($value['id'] == $category[$catName]) selected @endif>{{ $value['name'] }}</option>
-                                            @endforeach
-                                        @endif
+                                    @if(@isset($parents))
+                                    @foreach ($parents as $key => $value)
+                                    <option value="{{ $value['id'] }}" @if ($value['id']==$category[$catName]) selected @endif>{{ $value['name'] }}</option>
+                                    @endforeach
+                                    @endif
                                 </select>
                             </div>
 
                             {{-- @if (isset($category))
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <label for="publish" class="form-label">Change Type</label>
                                     <select id="publish" name="change_type" class="form-select" required>
                                         <option selected value="">Select Option</option>
@@ -93,7 +98,7 @@
                                 </div>
                             @endif --}}
 
-                            <div class="col-12 mt-2 image">
+                            <div class="col-6 mt-2 image">
                                 <label for="image" class="form-label">Upload Image</label>
                                 <div class="d-flex align-items-center" style="gap: 20px; justify-content: space-between;">
                                     <input type="file" class="form-control w-100" id="image" name="image" value="{{ ($category['image'] ?? NULL) ? 'required' : '' }}" {{ (isset($category) && $category['image']) ? '' : 'required' }} onchange="previewMainImage(this)">
@@ -103,12 +108,25 @@
                                     <div class="invalid-feedback">* Upload Image!</div>
                                     @error('image')
                                     <div class="alert-danger text-danger ">{{ $message }}</div>
-                                @enderror
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-6 mt-2 image">
+                                <label for="image" class="form-label">Upload Icon</label>
+                                <div class="d-flex align-items-center" style="gap: 20px; justify-content: space-between;">
+                                    <input type="file" class="form-control w-100" id="icon" name="icon" value="{{ ($category['icon'] ?? NULL) ? 'required' : '' }}" {{ (isset($category) && $category['icon']) ? '' : 'required' }} onchange="previewIconImage(this)">
+                                    <label for="icon" class=" d-block ">
+                                        <img id="image_icon_preview" src="{{  $path_icon ?? '' }}" class="rounded-circle" alt="no icon" style="width: 45px; height: 45px;  cursor:pointer;   object-fit: cover;">
+                                    </label>
+                                    <div class="invalid-feedback">* Upload Icon!</div>
+                                    @error('icon')
+                                    <div class="alert-danger text-danger ">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-12">
                                 <label for="desc" class="form-label">Short Description</label>
-                                <textarea rows="4" name="desc" class="form-control" id="desc" placeholder="write short bio"> {{  $category['desc'] ?? old('name') }} </textarea>
+                                <textarea rows="4" name="desc" class="form-control" id="desc" placeholder="write short bio"> {{ $category['desc'] ?? old('name') }} </textarea>
                             </div>
 
                             <div class="text-center">
@@ -147,11 +165,10 @@
                 fetchParentCategories(selectedOption);
             }
 
-            if(is_edit){
-                if(old_cat_type == selectedOption){
+            if (is_edit) {
+                if (old_cat_type == selectedOption) {
                     $('#change_type').val(1);
-                }
-                else{
+                } else {
                     $('#change_type').val(2);
                 }
             }
@@ -159,7 +176,7 @@
 
         function fetchParentCategories(selectedOption) {
             console.log(selectedOption);
-            if(selectedOption == 2 || selectedOption == 3){
+            if (selectedOption == 2 || selectedOption == 3) {
                 $.ajax({
                     url: '{{ route("admin.getParentCategory") }}',
                     type: 'GET',
@@ -178,11 +195,10 @@
                             $('#parent_id').prepend($('<option>', {
                                 value: '',
                                 text: 'Select Parent',
-                                selected: true, 
+                                selected: true,
                                 disabled: true
                             }));
-                        }
-                        else{
+                        } else {
                             console.error('Error:', response.message);
                         }
                     },
@@ -192,8 +208,37 @@
                 });
             }
         }
+
+
+        function previewMainImage(input) {
+            var preview = $('#image_preview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.attr('src', e.target.result);
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        
+        function previewIconImage(input) {
+            var preview = $('#image_icon_preview');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.attr('src', e.target.result);
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
     });
-
-
 </script>
 @endPushOnce

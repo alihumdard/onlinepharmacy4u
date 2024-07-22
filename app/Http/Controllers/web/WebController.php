@@ -61,6 +61,7 @@ use App\Models\Alert;
 use App\Models\FaqProduct;
 use App\Models\ProductVariant;
 use App\Models\PaymentDetail;
+use App\Models\HumanRequestForm;
 
 class WebController extends Controller
 {
@@ -250,9 +251,10 @@ class WebController extends Controller
 
     public function product_detail(Request $request, $slug)
     {
+
         $data['user'] = auth()->user() ?? [];
         // $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->findOrFail($request->id);
-        $data['product'] = Product::with('category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->where('slug', $slug)->where('status', $this->status['Active'])->firstOrFail();
+        $data['product'] = Product::with('productAttributes:id,product_id,image', 'category:id,name,slug', 'sub_cat:id,name,slug', 'child_cat:id,name,slug', 'variants')->where('slug', $slug)->where('status', $this->status['Active'])->firstOrFail();
         $variants = $data['product']['variants']->toArray() ?? [];
         if ($variants) {
             $variants_tags = [];
@@ -295,85 +297,16 @@ class WebController extends Controller
         }
     }
 
+
     public function consultation_form(Request $request)
     {
         $data['user'] = auth()->user() ?? [];
         $data['template'] = $request->template ?? session('template');
         $data['product_id'] = $request->product_id ?? session('product_id');
         if ($data['template'] == config('constants.PHARMACY_MEDECINE')) {
-
-            $data['questions'] = [];
-            $data['dependent_questions'] = [];
-
-
-            $questions = PMedGeneralQuestion::where(['status' => 'Active'])
-            ->orderBy('order')
-            ->get()
-            ->toArray();
-            // dd($questions);
-
-            $question_map_cat  = QuestionMapping::where('question_type', 'PMedGeneralQuestion')->get()->toArray();
-            $data['alerts']  =  Alert::where('question_type', 'PMedGeneralQuestion')->get()->toArray();
-
-            foreach ($questions as $key => $quest) {
-                $q_id = $quest['id'];
-                $quest['selector'] = [];
-                $quest['next_type'] = [];
-                if ($quest['anwser_set'] == "mt_choice") {
-                    foreach ($question_map_cat as $key => $val1) {
-                        if ($val1['question_id'] == $q_id && $val1['answer'] == 'optA') {
-                            $quest['selector']['optA'] = $val1['selector'];
-                            $quest['next_type']['optA'] = $val1['next_type'];
-                        } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optB') {
-                            $quest['selector']['optC'] = $val1['selector'];
-                            $quest['next_type']['optB'] = $val1['next_type'];
-                        } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optC') {
-                            $quest['selector']['optC'] = $val1['selector'];
-                            $quest['next_type']['optC'] = $val1['next_type'];
-                        } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optD') {
-                            $quest['selector']['optD'] = $val1['selector'];
-                            $quest['next_type']['optD'] = $val1['next_type'];
-                        }
-                    }
-                }
-
-                else if ($quest['anwser_set'] == "yes_no") {
-                    foreach ($question_map_cat as $key => $val2) {
-                        if ($val2['question_id'] == $q_id && $val2['answer'] == 'optY') {
-                            $quest['selector']['yes_lable'] = $val2['selector'];
-                            $quest['next_type']['yes_lable'] = $val2['next_type'];
-                        } elseif ($val2['question_id'] == $q_id && $val2['answer'] == 'optN') {
-                            $quest['selector']['no_lable']  = $val2['selector'];
-                            $quest['next_type']['no_lable'] = $val2['next_type'];
-                        }
-                    }
-
-                }
-                else if ($quest['anwser_set'] == "file") {
-                    foreach ($question_map_cat as $key => $val3) {
-                        if ($val3['question_id'] == $q_id && $val3['answer'] == 'file') {
-                            $quest['selector']['file'] = $val3['selector'];
-                            $quest['next_type']['file'] = $val3['next_type'];
-                        }
-                    }
-                } else if ($quest['anwser_set'] == "openbox") {
-                    foreach ($question_map_cat as $key => $val4) {
-                        if ($val4['question_id'] == $q_id && $val4['answer'] == 'openBox') {
-                            $quest['selector']['openbox'] = $val4['selector'];
-                            $quest['next_type']['openbox'] = $val4['next_type'];
-                        }
-                    }
-                }
-                if ($quest['is_dependent'] == 'yes') {
-                    $data['dependent_questions'][$q_id] = $quest;
-                } else {
-                    $data['questions'][] = $quest;
-                }
-            }
-
+            $data['questions'] = PMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
             return view('web.pages.pmd_genral_question', $data);
-        }
-        else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
+        } else if ($data['template'] == config('constants.PRESCRIPTION_MEDICINE')) {
             if (auth()->user()) {
                 if ($data['user']->id_document ?? Null) {
                     foreach (session('consultations') ?? [] as $key => $value) {
@@ -385,78 +318,7 @@ class WebController extends Controller
                         }
                     }
 
-                    $data['questions'] = [];
-                    $data['dependent_questions'] = [];
-
-
-                    $questions = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])
-                    ->orderBy('order')
-                    ->get()
-                    ->toArray();
-
-                    $question_map_cat  = QuestionMapping::where('question_type', 'PrescriptionMedGeneralQuestion')->get()->toArray();
-                    $data['alerts']  =  Alert::where('question_type', 'PrescriptionMedGeneralQuestion')->get()->toArray();
-
-                    foreach ($questions as $key => $quest) {
-                        $q_id = $quest['id'];
-                        $quest['selector'] = [];
-                        $quest['next_type'] = [];
-                        if ($quest['anwser_set'] == "mt_choice") {
-                            foreach ($question_map_cat as $key => $val1) {
-                                if ($val1['question_id'] == $q_id && $val1['answer'] == 'optA') {
-                                    $quest['selector']['optA'] = $val1['selector'];
-                                    $quest['next_type']['optA'] = $val1['next_type'];
-                                } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optB') {
-                                    $quest['selector']['optC'] = $val1['selector'];
-                                    $quest['next_type']['optB'] = $val1['next_type'];
-                                } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optC') {
-                                    $quest['selector']['optC'] = $val1['selector'];
-                                    $quest['next_type']['optC'] = $val1['next_type'];
-                                } elseif ($val1['question_id'] == $q_id && $val1['answer'] == 'optD') {
-                                    $quest['selector']['optD'] = $val1['selector'];
-                                    $quest['next_type']['optD'] = $val1['next_type'];
-                                }
-                            }
-                        }
-
-                        else if ($quest['anwser_set'] == "yes_no") {
-                            foreach ($question_map_cat as $key => $val2) {
-                                if ($val2['question_id'] == $q_id && $val2['answer'] == 'optY') {
-                                    $quest['selector']['yes_lable'] = $val2['selector'];
-                                    $quest['next_type']['yes_lable'] = $val2['next_type'];
-                                } elseif ($val2['question_id'] == $q_id && $val2['answer'] == 'optN') {
-                                    $quest['selector']['no_lable']  = $val2['selector'];
-                                    $quest['next_type']['no_lable'] = $val2['next_type'];
-                                }
-                            }
-
-                        }
-                        else if ($quest['anwser_set'] == "file") {
-                            foreach ($question_map_cat as $key => $val3) {
-                                if ($val3['question_id'] == $q_id && $val3['answer'] == 'file') {
-                                    $quest['selector']['file'] = $val3['selector'];
-                                    $quest['next_type']['file'] = $val3['next_type'];
-                                }
-                            }
-                        } else if ($quest['anwser_set'] == "openbox") {
-                            foreach ($question_map_cat as $key => $val4) {
-                                if ($val4['question_id'] == $q_id && $val4['answer'] == 'openBox') {
-                                    $quest['selector']['openbox'] = $val4['selector'];
-                                    $quest['next_type']['openbox'] = $val4['next_type'];
-                                }
-                            }
-                        }
-                        if ($quest['is_dependent'] == 'yes') {
-                            $data['dependent_questions'][$q_id] = $quest;
-                        } else {
-                            $data['questions'][] = $quest;
-                        }
-                    }
-
-
-
-
-
+                    $data['questions'] = PrescriptionMedGeneralQuestion::where(['status' => 'Active'])->get()->toArray();
                     $data['gp_locations'] = Pharmacy4uGpLocation::where('status', 'Active')->latest('id')->get()->toArray();
                     return view('web.pages.premd_genral_question', $data);
                 } else {
@@ -854,13 +716,13 @@ class WebController extends Controller
                     'coupon_code'   => $request->coupon_code ?? null,
                     'coupon_value'  => $request->coupon_value ?? null,
                     'total_ammount' => $request->total_ammount ?? null,
-                      'created_at' => now(),
-                        'updated_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
 
                 ]);
             }
 
-                // dd($order);
+            // dd($order);
             if ($order) {
                 $order_details = [];
                 $index = 0;
@@ -923,11 +785,11 @@ class WebController extends Controller
                 // Update or create OrderDetail records
                 foreach ($order_details as $detail) {
                     $inserted =  OrderDetail::updateOrCreate(
-                        [ 'order_id' => $detail['order_id']],
+                        ['order_id' => $detail['order_id']],
                         $detail
                     );
                 }
-            // dd ($order_detail_update);
+                // dd ($order_detail_update);
 
                 Order::where(['id' => $order->id])->latest('created_at')->first()
                     ->update(['order_for' => $order_for]);
@@ -937,7 +799,7 @@ class WebController extends Controller
 
                 // dd($request->all());
                 if ($inserted) {
-                    $shipping_details [] = [
+                    $shipping_details[] = [
                         'order_id' => $order->id,
                         'user_id' => $user->id ?? '',
                         'cost' => $request->shiping_cost,
@@ -956,11 +818,11 @@ class WebController extends Controller
                     // $shiping =  ShipingDetail::create($shipping_details);
                     foreach ($shipping_details as $detail) {
                         $shiping =  ShipingDetail::updateOrCreate(
-                            [ 'order_id' => $detail['order_id']],
+                            ['order_id' => $detail['order_id']],
                             $detail
                         );
                     }
-                // dd($shiping);
+                    // dd($shiping);
                     if ($shiping) {
                         session()->put('order_id', $order->id);
                         $payable_ammount = $request->total_ammount * 100;
@@ -1007,11 +869,11 @@ class WebController extends Controller
                         if (isset($responseData['orderCode'])) {
 
                             $orderCode = $responseData['orderCode'];
-                            $temp_code = random_int(00000,99999); //tesitng ..
+                            $temp_code = random_int(00000, 99999); //tesitng ..
                             $temp_transetion = 'testing'; // testing purspose
                             $payment_detials = [
                                 'order_id' => $order->id,
-                                'orderCode' => ($this->ENV == 'Live') ?  $orderCode: $temp_code,
+                                'orderCode' => ($this->ENV == 'Live') ?  $orderCode : $temp_code,
                                 'amount' => $request->total_ammount
                             ];
 
@@ -1169,11 +1031,11 @@ class WebController extends Controller
                         if (isset($responseData['orderCode'])) {
 
                             $orderCode = $responseData['orderCode'];
-                            $temp_code = random_int(00000,99999); //tesitng ..
+                            $temp_code = random_int(00000, 99999); //tesitng ..
                             $temp_transetion = 'testing'; // testing purspose
                             $payment_detials = [
                                 'order_id' => $order->id,
-                                'orderCode' => ($this->ENV == 'Live') ?  $orderCode: $temp_code,
+                                'orderCode' => ($this->ENV == 'Live') ?  $orderCode : $temp_code,
                                 'amount' => $request->total_ammount
                             ];
 
@@ -1241,7 +1103,7 @@ class WebController extends Controller
         $orderCode = $request->query('s');
         $payment_detail = PaymentDetail::where('orderCode', $orderCode)->firstOrFail();
         if ($payment_detail) {
-            if($this->ENV == 'Live'){
+            if ($this->ENV == 'Live') {
                 $accessToken = $this->getAccessToken();
                 $url = "https://api.vivapayments.com/checkout/v2/transactions/{$transetion_id}";
 
@@ -1260,7 +1122,7 @@ class WebController extends Controller
                     'insDate' => $responseData['insDate'],
                     'amount' => $responseData['amount'],
                 ];
-            }else{
+            } else {
                 $update_payment = [
                     'transactionId' => $transetion_id,
                     'fullName' => 'test',
@@ -1273,13 +1135,13 @@ class WebController extends Controller
             $payment =   PaymentDetail::where('id', $payment_detail->id)->update($update_payment);
 
             $payment_detail = PaymentDetail::find($payment_detail->id);
-            $order = Order::with('orderdetails','orderdetails.product')->where('id', $payment_detail->order_id)->latest('created_at')->first();
+            $order = Order::with('orderdetails', 'orderdetails.product')->where('id', $payment_detail->order_id)->latest('created_at')->first();
 
             if ($order) {
                 $user = auth()->user() ?? [];
                 $order->update(['payment_status' => 'Paid']);
                 $name = $order->shipingdetails->firstName;
-                $order_for = [user_roles('1'),($order->order_for == 'doctor') ? user_roles('3'): user_roles('2')] ;
+                $order_for = [user_roles('1'), ($order->order_for == 'doctor') ? user_roles('3') : user_roles('2')];
                 $users = User::where('status', 1)->WhereIn('role', $order_for)->get();
                 Notification::send($users, new UserOrderNotification($order));
                 Mail::to($order->shipingdetails->email)->send(new OrderConfirmation($order));
@@ -1495,11 +1357,14 @@ class WebController extends Controller
 
         $letters = $request->t ? $ranges[$request->t] : $ranges['a-e'];
 
-        $categories  = Category::select('name', 'slug', 'image', 'slug AS url')->where(function ($query) use ($letters) {
-            foreach ($letters as $letter) {
-                $query->orWhere('name', 'like', $letter . '%');
-            }
-        });
+        $categories = Category::select('name', 'slug', 'image', 'slug AS url')
+            ->where('status', 'Active')
+            ->where(function ($query) use ($letters) {
+                foreach ($letters as $letter) {
+                    $query->orWhere('name', 'like', $letter . '%');
+                }
+            })
+            ->whereHas('products');
 
         $subCategories = SubCategory::select(
             'sub_categories.name',
@@ -1508,26 +1373,30 @@ class WebController extends Controller
             DB::raw("CONCAT(categories.slug, '/', sub_categories.slug) AS url")
         )
             ->leftJoin('categories', 'sub_categories.category_id', '=', 'categories.id')
+            ->where('sub_categories.status', 'Active')
             ->where(function ($query) use ($letters) {
                 foreach ($letters as $letter) {
                     $query->orWhere('sub_categories.name', 'like', $letter . '%');
                 }
             })
+            ->whereHas('products')
             ->with('category');
 
         $childCategories = ChildCategory::select(
             'child_categories.name',
             'child_categories.slug',
             'child_categories.image',
-            DB::raw("CONCAT(categories.slug, '/', sub_categories.slug, '/', child_categories.slug) AS url") // URL for child categories
+            DB::raw("CONCAT(categories.slug, '/', sub_categories.slug, '/', child_categories.slug) AS url")
         )
             ->leftJoin('sub_categories', 'child_categories.sub_category_id', '=', 'sub_categories.id')
             ->leftJoin('categories', 'sub_categories.category_id', '=', 'categories.id')
+            ->where('child_categories.status', 'Active')
             ->where(function ($query) use ($letters) {
                 foreach ($letters as $letter) {
                     $query->orWhere('child_categories.name', 'like', $letter . '%');
                 }
-            });
+            })
+            ->whereHas('products');
 
         $data['conditions'] = $categories->union($subCategories)->union($childCategories)->orderBy('name')->get();
         $data['range'] = $request->t ?? 'a-e';
@@ -1571,8 +1440,8 @@ class WebController extends Controller
         $data['user'] = auth()->user() ?? [];
         $name = $request->query('n');
         $data['name'] = $name ?? 'Guest';
-        // dd( $data);
- }
+        return view('web.pages.completed_order', $data);
+    }
 
     public function transetion_fail(Request $request)
     {
@@ -1581,4 +1450,50 @@ class WebController extends Controller
         $data['name'] = $name ?? 'Guest';
         return view('web.pages.unsuccessful_order', $data);
     }
+
+    public function store_human_form(Request $request)
+    {
+        $user = auth()->user();
+        
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'phone' => 'required',
+            'subject' => 'required',
+            'title' => 'required',
+            'message' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $data = $request->all();
+        $data['user_id'] = $user->id ?? Null;
+    
+        if ($request->hasFile('file')) {
+            $fileValidator = Validator::make($request->all(), [
+                'file' => 'required',
+            ]);
+    
+            if ($fileValidator->fails()) {
+                return redirect()->back()->withErrors($fileValidator)->withInput();
+            }
+    
+            $HumanRequestFormFile = $request->file('file');
+            $HumanRequestFormFileName = time() . '_' . uniqid('', true) . '.' . $HumanRequestFormFile->getClientOriginalExtension();
+            $HumanRequestFormFile->storeAs('human_request_file/', $HumanRequestFormFileName, 'public');
+            $data['file'] = 'human_request_file/' . $HumanRequestFormFileName;
+        }
+    
+        $question = HumanRequestForm::updateOrCreate(
+            ['id' => $request->id ?? null],
+            $data
+        );
+    
+        if ($question->id) {
+            $message = "Query is submitted successfully";
+            return redirect()->back()->with(['msg' => $message]);
+        }
+    }
+    
 }

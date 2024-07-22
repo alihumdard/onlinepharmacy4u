@@ -45,7 +45,7 @@
                     <div class="row">
 
                         <!-- Total Revenue Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        <div class="col-xl-4">
                             <div class="card info-card revenue-card">
 
                                 <div class="filter">
@@ -68,7 +68,7 @@
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-currency-dollar"></i>
+                                            <i class="bi bi-currency-pound"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6 id="total-revenue">Loading...</h6>
@@ -82,7 +82,7 @@
                         </div><!-- End Total Revenue Card -->
 
                         <!-- Orders for Doctors Card -->
-                        <div class="col-xxl-4 col-xl-12">
+                        <div class="col-xl-4">
                             <div class="card info-card customers-card">
 
                                 <div class="filter">
@@ -119,7 +119,7 @@
                         </div><!-- End Orders for Doctors Card -->
 
                         <!-- Orders for Dispensaries Card -->
-                        <div class="col-xxl-4 col-xl-12">
+                        <div class="col-xl-4">
                             <div class="card info-card customers-card">
 
                                 <div class="filter">
@@ -166,7 +166,7 @@
 
 
                         <!-- Total Orders Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        <div class="col-xl-4 col-md-6">
                             <div class="card info-card total-orders-card">
 
                                 <div class="filter">
@@ -203,7 +203,7 @@
                         </div><!-- End Total Orders Card -->
 
                         <!-- Pending Orders Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        <div class="col-xl-4 col-md-6">
                             <div class="card info-card pending-orders-card">
 
                                 <div class="filter">
@@ -240,7 +240,7 @@
                         </div><!-- End Pending Orders Card -->
 
                         <!-- Paid Orders Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        <div class="col-xl-4 col-md-6">
                             <div class="card info-card paid-orders-card">
 
                                 <div class="filter">
@@ -263,7 +263,7 @@
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-currency-dollar"></i>
+                                            <i class="bi bi-currency-pound"></i>
                                         </div>
                                         <div class="ps-3">
                                             <h6 id="paid-orders">Loading...</h6>
@@ -374,7 +374,6 @@
                                         <li class="dropdown-header text-start">
                                             <h6>Filter</h6>
                                         </li>
-
                                         <li><a class="dropdown-item" href="#">Today</a></li>
                                         <li><a class="dropdown-item" href="#">This Month</a></li>
                                         <li><a class="dropdown-item" href="#">This Year</a></li>
@@ -399,7 +398,7 @@
                                                 <th scope="row"><a href="#">#2457</a></th>
                                                 <td>Brandon Jacob</td>
                                                 <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                                                <td>$64</td>
+                                                <td><i class="bi bi-currency-pound"></i>64</td>
                                                 <td><span class="badge bg-success">Approved</span></td>
                                             </tr>
                                             <tr>
@@ -407,7 +406,7 @@
                                                 <td>Bridie Kessler</td>
                                                 <td><a href="#" class="text-primary">Blanditiis dolor omnis
                                                         similique</a></td>
-                                                <td>$47</td>
+                                                <td><i class="bi bi-currency-pound"></i>47</td>
                                                 <td><span class="badge bg-warning">Pending</span></td>
                                             </tr>
                                             <tr>
@@ -415,7 +414,7 @@
                                                 <td>Ashleigh Langosh</td>
                                                 <td><a href="#" class="text-primary">At recusandae consectetur</a>
                                                 </td>
-                                                <td>$147</td>
+                                                <td><i class="bi bi-currency-pound"></i>147</td>
                                                 <td><span class="badge bg-success">Approved</span></td>
                                             </tr>
                                             <tr>
@@ -423,7 +422,7 @@
                                                 <td>Angus Grady</td>
                                                 <td><a href="#" class="text-primar">Ut voluptatem id earum et</a>
                                                 </td>
-                                                <td>$67</td>
+                                                <td><i class="bi bi-currency-pound"></i>67</td>
                                                 <td><span class="badge bg-danger">Rejected</span></td>
                                             </tr>
                                             <tr>
@@ -431,7 +430,7 @@
                                                 <td>Raheem Lehner</td>
                                                 <td><a href="#" class="text-primary">Sunt similique distinctio</a>
                                                 </td>
-                                                <td>$165</td>
+                                                <td><i class="bi bi-currency-pound"></i>165</td>
                                                 <td><span class="badge bg-success">Approved</span></td>
                                             </tr>
                                         </tbody>
@@ -480,9 +479,9 @@
                                                             alt=""></a></th>
                                                 <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa
                                                         voluptas nulla</a></td>
-                                                <td>$64</td>
+                                                <td><i class="bi bi-currency-pound"></i>64</td>
                                                 <td class="fw-bold">124</td>
-                                                <td>$5,828</td>
+                                                <td><i class="bi bi-currency-pound"></i>5,828</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"><a href="#"><img
@@ -490,9 +489,9 @@
                                                             alt=""></a></th>
                                                 <td><a href="#" class="text-primary fw-bold">Exercitationem
                                                         similique doloremque</a></td>
-                                                <td>$46</td>
+                                                <td><i class="bi bi-currency-pound"></i>46</td>
                                                 <td class="fw-bold">98</td>
-                                                <td>$4,508</td>
+                                                <td><i class="bi bi-currency-pound"></i>4,508</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"><a href="#"><img
@@ -500,9 +499,9 @@
                                                             alt=""></a></th>
                                                 <td><a href="#" class="text-primary fw-bold">Doloribus nisi
                                                         exercitationem</a></td>
-                                                <td>$59</td>
+                                                <td><i class="bi bi-currency-pound"></i>59</td>
                                                 <td class="fw-bold">74</td>
-                                                <td>$4,366</td>
+                                                <td><i class="bi bi-currency-pound"></i>4,366</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"><a href="#"><img
@@ -510,9 +509,9 @@
                                                             alt=""></a></th>
                                                 <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint
                                                         rerum error</a></td>
-                                                <td>$32</td>
+                                                <td><i class="bi bi-currency-pound"></i>32</td>
                                                 <td class="fw-bold">63</td>
-                                                <td>$2,016</td>
+                                                <td><i class="bi bi-currency-pound"></i>2,016</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"><a href="#"><img
@@ -520,9 +519,9 @@
                                                             alt=""></a></th>
                                                 <td><a href="#" class="text-primary fw-bold">Sit unde debitis
                                                         delectus repellendus</a></td>
-                                                <td>$79</td>
+                                                <td><i class="bi bi-currency-pound"></i>79</td>
                                                 <td class="fw-bold">41</td>
-                                                <td>$3,239</td>
+                                                <td><i class="bi bi-currency-pound"></i>3,239</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -724,22 +723,22 @@
 
 
         <script>
-            $(document).ready(function() {
+            <i class="bi bi-currency-pound"></i>(document).ready(function() {
                 dashboard();
             });
 
             function dashboard() {
-                $.ajax({
+                <i class="bi bi-currency-pound"></i>.ajax({
                     url: "{{ route('admin.dashboard.detail') }}",
                     type: "GET",
                     success: function(data) {
                         console.log(data);
-                        $('#total-revenue').text('$' + data.totalSales.toFixed(2));
-                        $('#orders-doctors').text(data.doctorOrders);
-                        $('#orders-dispensaries').text(data.despensoryOrders);
-                        $('#total-orders').text(data.totalOrders);
-                        $('#pending-orders').text(data.notApprovedOrders);
-                        $('#paid-orders').text(data.paidOrders);
+                        <i class="bi bi-currency-pound"></i>('#total-revenue').text('<i class="bi bi-currency-pound"></i>' + data.totalSales.toFixed(2));
+                        <i class="bi bi-currency-pound"></i>('#orders-doctors').text(data.doctorOrders);
+                        <i class="bi bi-currency-pound"></i>('#orders-dispensaries').text(data.despensoryOrders);
+                        <i class="bi bi-currency-pound"></i>('#total-orders').text(data.totalOrders);
+                        <i class="bi bi-currency-pound"></i>('#pending-orders').text(data.notApprovedOrders);
+                        <i class="bi bi-currency-pound"></i>('#paid-orders').text(data.paidOrders);
                     },
                     error: function(error) {
                         console.error("There was an error fetching the dashboard details:", error);

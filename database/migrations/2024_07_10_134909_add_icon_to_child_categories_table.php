@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('question_mapping', function (Blueprint $table) {
-            $table->string('question_type')->nullable();
+        Schema::table('child_categories', function (Blueprint $table) {
+            $table->text('icon')->nullable()->after('image');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('question_mapping', function (Blueprint $table) {
-            //
+        Schema::table('child_categories', function (Blueprint $table) {
+            $table->dropColumn('icon');
         });
     }
 };

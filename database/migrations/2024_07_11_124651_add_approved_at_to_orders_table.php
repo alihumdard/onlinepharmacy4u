@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('alerts', function (Blueprint $table) {
-            $table->string('question_type')->nullable();
+        Schema::table('orders', function (Blueprint $table) {
+            $table->timestamp('approved_at')->nullable()->default(null)->after('approved_by');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('alerts', function (Blueprint $table) {
-            //
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('approved_at');
         });
     }
 };

@@ -78,7 +78,6 @@
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item">Users</li>
                     <li class="breadcrumb-item active">Profile</li>
-                    <li><input type="hidden" id="userrole" value="{{ $role }}"></li>
 
                 </ol>
             </nav>
@@ -489,14 +488,14 @@
                         $('#totalOrders').html('<i class="bi bi-cart4"></i> ' + response.totalOrders);
                     }
                     if (response.paidOrders == 0) {
-                        $('#paidOrders').html('<i class="bi bi-currency-dollar"></i> 0');
+                        $('#paidOrders').html('<i class="bi bi-currency-pound"></i> 0');
                     } else {
-                        $('#paidOrders').html('<i class="bi bi-currency-dollar"></i> ' + response.paidOrders);
+                        $('#paidOrders').html('<i class="bi bi-currency-pound"></i> ' + response.paidOrders);
                     }
                     if (response.unpaidOrders == 0) {
-                        $('#unpaidOrders').html('<i class="bi bi-currency-dollar"></i> 0');
+                        $('#unpaidOrders').html('<i class="bi bi-currency-pound"></i> 0');
                     } else {
-                        $('#unpaidOrders').html('<i class="bi bi-currency-dollar"></i> ' + response
+                        $('#unpaidOrders').html('<i class="bi bi-currency-pound"></i> ' + response
                             .unpaidOrders);
                     }
                     if (response.shippedOrders == 0) {
@@ -522,9 +521,9 @@
                             .notApprovedOrders);
                     }
                     if (response.totalAmount == 0) {
-                        $('#totalAmount').html('<i class="bi bi-currency-dollar"></i> 0');
+                        $('#totalAmount').html('<i class="bi bi-currency-pound"></i> 0');
                     } else {
-                        $('#totalAmount').html('<i class="bi bi-currency-dollar"></i> ' + response.totalAmount);
+                        $('#totalAmount').html('<i class="bi bi-currency-pound"></i> ' + response.totalAmount);
                     }
                 },
                 error: function(xhr, status, error) {

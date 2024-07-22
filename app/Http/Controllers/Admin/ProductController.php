@@ -6,6 +6,7 @@ use App\Imports\importProduct;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\Product;
+use App\Models\User;
 use App\Models\ImportedPorduct;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -18,6 +19,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductVariant;
+use App\Models\FeaturedProduct;
+use App\Models\ProductAttribute;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductController extends Controller
@@ -39,25 +42,26 @@ class ProductController extends Controller
             return redirect()->back();
         }
 
+        $data = [];
         if (isset($user->role) && $user->role == user_roles('1')) {
             $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
                 ->whereIn('status', [$this->status['Active']])
                 ->latest('id')
-                ->paginate(50); // Paginate the results
+                ->paginate(50); // Set pagination to 50 items per page
+
             $data['filters'] = [];
-            if ($products) {
-                $data['filters']['titles'] = array_unique(array_column($products->items(), 'title'));
-                $data['filters']['categories'] = collect($products->items())->pluck('category.name')->unique()->values()->all();
-                $data['filters']['sub_cat'] = collect($products->items())->pluck('sub_cat.name')->unique()->values()->all();
-                $data['filters']['child_cat'] = collect($products->items())->pluck('child_cat.name')->unique()->values()->all();
-                $data['filters']['templates'] = array_unique(array_column($products->items(), 'product_template'));
-                $data['products'] = $products;
+            if ($products->isNotEmpty()) {
+                $data['filters']['titles'] = array_unique($products->pluck('title')->toArray());
+                $data['filters']['categories'] = $products->pluck('category.name')->unique()->values()->all();
+                $data['filters']['sub_cat'] = $products->pluck('sub_cat.name')->unique()->values()->all();
+                $data['filters']['child_cat'] = $products->pluck('child_cat.name')->unique()->values()->all();
+                $data['filters']['templates'] = array_unique($products->pluck('product_template')->toArray());
             }
+            $data['products'] = $products; // Pass paginated products to the view
         }
 
         return view('admin.pages.products.prodcuts', $data);
     }
-
 
     public function product_trash(Request $request)
     {
@@ -83,7 +87,6 @@ class ProductController extends Controller
         return view('admin.pages.products.prodcut_trash', $data);
     }
 
-
     public function imported_products(Request $request)
     {
         $user = auth()->user();
@@ -97,7 +100,6 @@ class ProductController extends Controller
         }
         return view('admin.pages.products.imported_prodcuts', $data);
     }
-
 
     public function products_limits(Request $request)
     {
@@ -123,6 +125,51 @@ class ProductController extends Controller
         }
 
         return view('admin.pages.products.import_products', $data);
+    }
+
+    public function featured_products(Request $request)
+    {
+        $data['user'] = auth()->user();
+
+        $page_name = 'featured_products';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data['products'] = Product::with('variants')->where('status', $this->status['Active'])->latest('id')->get()->sortBy('title')->values()->keyBy('id')->toArray();
+
+
+        $data['f_products'] = FeaturedProduct::with('product')
+            ->orderBy('id', 'desc')
+            ->take(6)
+            ->get()->toArray();
+        return view('admin.pages.products.featured_products', $data);
+    }
+
+    public function store_featured_products(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'add_product';
+        if (!view_permission($page_name)) {
+            return response()->json(['status' => 'error', 'message' => 'Permission Denied']);
+        }
+
+        $rules = ['product_id' => 'required|exists:products,id'];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->first()]);
+        }
+
+        $featuredProduct = FeaturedProduct::updateOrCreate(
+            ['id' => $request->id ?? Null],
+            [
+                'product_id' => $request->product_id,
+                'created_by' => $user->id,
+            ]
+        );
+
+        $message = "Featured Product " . ($request->id ? "Updated" : "Saved") . " Successfully";
+        return response()->json(['status' => 'success', 'message' => $message]);
     }
 
     public function store_import_products(Request $request)
@@ -164,7 +211,7 @@ class ProductController extends Controller
                 $data['product'] = ImportedPorduct::findOrFail($request->id)->toArray();
                 $data['product']['id'] = Null;
             } else {
-                $data['product'] = Product::with('variants')->findOrFail($request->id)->toArray();
+                $data['product'] = Product::with('productAttributes:id,product_id,image', 'variants')->findOrFail($request->id)->toArray();
                 $data['sub_category'] = SubCategory::select('id', 'name')
                     ->where(['category_id' => $data['product']['category_id'], 'status' => 'Active'])
                     ->pluck('name', 'id')
@@ -178,7 +225,7 @@ class ProductController extends Controller
                 $data['prod_question'] = explode(',', $data['product']['question_category']);
             }
         }
-
+        // dd($data['product']);
         return view('admin.pages.products.add_product', $data);
     }
 
@@ -478,5 +525,36 @@ class ProductController extends Controller
 
         $message = "Product status " . ($request->id ? "Updated" : "Saved") . " Successfully";
         return response()->json(['status' => 'success', 'message' => $message, 'data' => []]);
+    }
+
+    public function delete_featured_products(Request $request)
+    {
+        $product_id = $request->input('product_id');
+
+        if (!$product_id) {
+            return response()->json(['status' => 'error', 'message' => 'Product ID is required']);
+        }
+
+        $featuredProduct = FeaturedProduct::where('product_id', $product_id)->first();
+
+        if ($featuredProduct) {
+            $featuredProduct->delete();
+            return response()->json(['status' => 'success', 'message' => 'Product deleted successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Product not found']);
+        }
+    }
+
+    public function delete_product_attribute(Request $request)
+    {
+        $productAttributeId = $request->input('id');
+        $productAttribute = ProductAttribute::find($productAttributeId);
+
+        if ($productAttribute) {
+            $productAttribute->delete();
+            return response()->json(['status' => 'success', 'message' => 'Product attribute deleted successfully']);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Product attribute not found']);
     }
 }

@@ -8,6 +8,17 @@ function table_date($datetime)
         return 'Invalid datetime';
     }
 }
+function date_time_uk($datetime)
+{
+
+    $date= isset($datetime) ? date('d-m-y H:i:s', strtotime($datetime)) : '';
+ 
+    if ($date) {
+        return $date;
+    } else {
+        return 'Invalid datetime';
+    }
+}
 
 function end_url()
 {
@@ -68,6 +79,11 @@ function view_permission($page_name)
         case 'Super Admin':
             switch ($page_name) {
                 case 'dashboard':
+                case 'comment_store':
+                case 'vet_prescription':
+                case 'sops':
+                case 'add_sop':
+                case 'store_sop':
                 case 'faq_questions':
                 case 'gp_locations':
                 case 'categories':
@@ -103,6 +119,7 @@ function view_permission($page_name)
                 case 'contact':
                 case 'setting':
                 case 'faq':
+                case 'featured_products':
                 case 'question_categories':
                 case 'add_question_category':
                 case 'p_med_gq':
@@ -116,8 +133,10 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'dashboard':
                 case 'gpa_letters':
+                case 'comment_store':
                 case 'gp_locations':
                 case 'orders':
+                case 'sops':
                 case 'store_query':
                 case 'dispensary_approval':
                 case 'doctors_approval':
@@ -134,6 +153,9 @@ function view_permission($page_name)
         case 'Doctor':
             switch ($page_name) {
                 case 'dashboard':
+                case 'comment_store':
+                case 'orders_shipped':    
+                case 'sops':    
                 case 'store_query':
                 case 'orders':
                 case 'gp_locations':

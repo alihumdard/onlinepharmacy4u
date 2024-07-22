@@ -18,7 +18,7 @@
             background: #03bd8d;
             border: #03bd8d 1px solid;
         }
-
+ 
         .hide {
             display: none;
         }
@@ -72,7 +72,9 @@
                                     </div>
 
                                     <div class="col-1 d-block text-center">
-                                        <button type="button" id="add_product" class="btn btn-success  fw-semibold">
+                                        <button type="button" id="add_product" class="btn btn-success  fw-semibold" style="
+    background-color: green;
+">
                                             + Add
                                         </button>
                                     </div>
@@ -331,7 +333,7 @@
                                 </div>
 
                                 <div class="text-center mt-4 mb-3 d-flex justify-content-center ">
-                                    <button type="reset" class="btn btn-secondary px-5 py-2 mx-2 fw-bold">Reset</button>
+                                    <button type="reset" class="btn btn-secondary bg-secondary px-5 py-2 mx-2 fw-bold">Reset</button>
                                     <button type="submit" class="btn btn-success px-5 py-2 btn_theme fw-bold">Generate
                                         Payement Link</button>
                                 </div>

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Orders Received')
+@section('title', 'Orders Shipped')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -328,12 +328,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Orders Recieved</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Orders Shipped</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Orders Received</li>
+                <li class="breadcrumb-item active">Orders Shipped</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -412,7 +412,8 @@
                                         @endif
                                         @endforeach
                                     </td>
-                                    <td>{{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}</td>
+                                    <td>{{date_time_uk($val['created_at'])}}
+                                    </td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     @if($user->role == user_roles('1'))
                                     <td>£{{$val['total_ammount'] ?? ''}}</td>

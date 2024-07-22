@@ -65,18 +65,31 @@
                                         </a>
                                     </div>
                                 </div>
-                                @if(!$product['variants']->isEmpty())
+
                                 <div class="ltn__shop-details-small-img slick-arrow-2">
                                     @foreach($product->variants ?? [] as $key => $val)
                                     <div class="single-small-img variant_img_{{$val->id}}" style="height: 145px !important; width: 145px !important;">
                                         @php
-                                        $src = ($val->image) ? $val->image : $product->main_image;
+                                        $src = ($val->image) ? $val->image : '';
                                         @endphp
+                                        @if($src)
                                         <img class="img-fluid  variant_no_{{$val->id}}" src="{{ asset('storage/'.$src)}}" alt="Image" data-variant_id="{{$val->id ?? ''}}" data-variant_data="{{ json_encode($val) }}" data-main_image="{{ $product->main_image }}">
+                                        @endif
                                     </div>
                                     @endforeach
+                                    @foreach($product->productAttributes ?? [] as $key => $val1)
+                                    <div class="single-small-img }" style="height: 145px !important; width: 145px !important;">
+                                        @php
+                                        $src = ($val1->image) ? $val1->image : '';
+                                        @endphp
+                                        @if($src)
+                                        <img class="img-fluid  " src="{{ asset('storage/'.$src)}}" alt="Image" >
+                                        @endif
+                                    </div>
+                                    @endforeach
+
+
                                 </div>
-                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">

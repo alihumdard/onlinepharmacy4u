@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('desc')->nullable();
             $table->string('publish');
             $table->text('image')->nullable();
+            $table->text('icon')->nullable();
             $table->string('status')->default('Active');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();

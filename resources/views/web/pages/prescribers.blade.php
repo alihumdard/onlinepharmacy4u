@@ -26,9 +26,10 @@
 <!-- BREADCRUMB AREA END -->
 
 <div class="container text-center pt-0 mt-0">
-    <p>Prescriber - Mohammed Ahmed GPhC No. 207577</p>
     <p>PRESCRIBER: Rebekah Parker. 02I1881S</p>
-    <p>You can verify the registration status by clicking on the prescriber's registration number.</p>
+    <p style="
+    margin-bottom: 120px !important;
+">You can verify the registration status by clicking on the prescriber's registration number.</p>
 </div>
 
 

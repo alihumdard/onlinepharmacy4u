@@ -233,7 +233,7 @@
                             @if($isNewQuery)
                             <span class="badge bg-primary">New Query</span> <br>
                             @endif
-                            {{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}
+                            {{date_time_uk($val['created_at'])}}
                           </td>
                           <td>
                             <span class="  fw-bold">{{ $val['type'] ?? ''}} </span>

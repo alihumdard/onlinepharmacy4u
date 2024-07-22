@@ -1,5 +1,5 @@
 @extends('admin.layouts.default')
-@section('title', 'Medical Professionals Orders Status')
+@section('title', 'POM Orders')
 @section('content')
 <!-- main stated -->
 <main id="main" class="main">
@@ -328,12 +328,12 @@
     </style>
 
     <div class="pagetitle">
-        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | Medical Professionals Orders</h1>
+        <h1><a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> | POM Orders</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Medical Professionals Orders</li>
+                <li class="breadcrumb-item active">POM Orders</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -392,8 +392,7 @@
                                     <th>Marked By </th>
                                     @if($user->role != user_roles('3'))
                                     <th> Shiped Order</th>
-                                    <th> Action</th>
-
+                                    <th> Repeat</th>
                                     @endif
                                 </tr>
                             </thead>
@@ -427,7 +426,7 @@
                                         @if($isNewOrder)
                                         <span class="badge bg-primary">New Order</span> <br>
                                         @endif
-                                        {{ isset($val['created_at']) ? date('Y-m-d H:i:s', strtotime($val['created_at'])) : '' }}
+                                        {{date_time_uk($val['created_at'])}}
                                     </td>
 
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
@@ -436,7 +435,7 @@
                                     @endif
                                     <td><span class="btn  fw-bold rounded-pill {{ ($val['order_type'] == 'premd') ? 'btn-primary': (($val['order_type'] == 'pmd') ? 'btn-warning' : 'btn-success') }}">{{ ($val['order_type'] == 'premd') ? 'POM': (($val['order_type'] == 'pmd') ? 'P.Med' : 'O.T.C') }}</span> </td>
                                     <td><span class="btn fw-bold rounded-pill btn-success"> {{$val['payment_status'] ?? ''}}</span> </td>
-                                    <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }}">{{ $val['status'] ?? '' }}</span></td>
+                                    <td><span class="btn  fw-bold {{ $val['status'] == 'Not_Approved'  || $val['status'] == 'ShippingFail' ?  'btn-danger' :'' }} {{ $val['status'] == 'Approved' ?  'btn-success' :'' }} {{ $val['status'] == 'Received' ?  'btn-primary' :'' }} {{ $val['status'] == 'Not_Approved' ?  'btn-danger' :'' }}">{{ $val['status'] ?? '' }}</span></td>
                                     <td style="display: inline-block;">
                                         @if($val['status'] != 'Received')
                                         <span>{{ $val['approved_by']['name'] }} ({{ $val['approved_by']['email'] }} )</span>
@@ -444,7 +443,7 @@
                                     </td>
                                     @if($user->role != user_roles('3'))
                                     <td style="display: inline-block;">
-                                        @if($val['status'] == 'Approved')
+                                        @if($val['status'] == 'Approved' || $val['status'] == 'ShippingFail' )
                                         <span data-order_id="{{$val['id']}}" class="btn  ship_now fw-bold btn-primary no-wrap">Ship Now</span>
                                         @endif
                                         @if($val['status'] == 'Shiped')
@@ -452,9 +451,8 @@
                                         @endif
                                     </td>
                                     @endif
-                                    <td> <i class="bi bi-files duplicate-order"
-                                        data-order-id="{{ $val['id'] }}"></i>
-                                </td>
+                                    <td> <i class="bi bi-files duplicate-order" data-order-id="{{ $val['id'] }}"></i>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -480,29 +478,28 @@
 
 @pushOnce('scripts')
 <script>
+    $(document).ready(function() {
+        $(document).on('click', '.duplicate-order', function() {
+            var orderId = $(this).data('order-id');
+            $.ajax({
+                url: "{{route('admin.duplicateOrder')}}",
+                type: 'POST',
+                data: {
+                    _token: "{{csrf_token()}}",
+                    order_id: orderId
+                },
+                success: function(response) {
+                    alert('Order duplicated successfully!');
+                    window.location.href = "{{route('admin.ordersCreated')}}";
 
-$(document).ready(function() {
-            $(document).on('click', '.duplicate-order', function() {
-                var orderId = $(this).data('order-id');
-                $.ajax({
-                    url: '{{ route('admin.duplicateOrder') }}',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        order_id: orderId
-                    },
-                    success: function(response) {
-                        alert('Order duplicated successfully!');
-                        window.location.href = '{{ route('admin.ordersCreated') }}';
-
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Error duplicating order.');
-                        console.error(error);
-                    }
-                });
+                },
+                error: function(xhr, status, error) {
+                    alert('Error duplicating order.');
+                    console.error(error);
+                }
             });
         });
+    });
 
 
     $(function() {

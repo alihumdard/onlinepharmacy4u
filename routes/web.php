@@ -132,6 +132,8 @@ Route::match(['get', 'post'], '/changePassword', [DefualtController::class, 'cha
 
 
 Route::get('/dashboard/details', [DefualtController::class, 'dashboard_details'])->name('dashboard.details');
+Route::match(['get', 'post'], '/storeHumanForm', [WebController::class, 'store_human_form'])->name('storeHumanForm');
+Route::match(['get', 'post'],'/humanRequestForm', [HomeController::class, 'human_request_form'])->name('web.humanRequestForm');
 
 
 Route::fallback([WebController::class, 'error_404']);

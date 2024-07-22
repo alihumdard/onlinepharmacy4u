@@ -1,86 +1,69 @@
 @extends('web.layouts.default', ['menu_categories' => $menu_categories])
 @section('title', 'Home')
 @section('content')
+<style>
+    @media (min-width: 600px) and (max-width: 991px) {
+    .tabPadding {
+        text-align: center;
+        padding-bottom: 46px;
+    }
+}
+#div {
+  width: 100%;
+  height: 450px;
+  background-image: url('/img/banner/oner.webp');
+  background-size: 100% 100%;
+}
+#div1 {
+  width: 100%;
+  height: 450px;
+  background-image: url('/img/banner/twoo.webp');
+  background-size: 100% 100%;
+}
+#div2 {
+  width: 100%;
+  height: 450px;
+  background-image: url('/img/banner/home-ban-1.webp');
+  background-size: 100% 100%;
+}
 
+</style>
+
+
+<style>
+    .ltn__product-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-img {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px; /* Adjust height as necessary */
+}
+
+.product-info {
+    flex: 0 0 auto;
+    padding: 10px; /* Add padding if needed */
+    text-align: left;
+}
+
+</style>
 <!-- SLIDER AREA START (slider-3) -->
 <div class="ltn__slider-area ltn__slider-3 desktop-slider  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/home-ban-1.png">
-            <div class="ltn__slide-item-inner  text-left">
-                <div class="container d-none">
-                    <div class="row">
-                        <div class="col-lg-12 align-self-center">
-                            <div class="slide-item-info">
-                                <div class="slide-item-info-inner ltn__slide-animation">
-                                    
-                                    <h5 class="slide-title animated text-black poppins-medium">Repeat Prescriptions,<br> Made Simple.</h5>
-                                    <div class="slide-brief animated">
-                                        <p class=" text-black oppins-extralight">Order with ease and get your NHS repeat prescriptions delivered directly to your door </br>with Online Pharmacy 4U
-                                        Sign-up in seconds<br>
-                                            ✓ Free delivery to your home or workplace<br>
-                                            ✓Discreet packaging</p>
-                                    </div>
-                                    <div class="btn-wrapper animated">
-                                        <a href="https://healthera.co.uk/app" target="blank" class="theme-btn-1 btn oppins-extralight">Register Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="">
+            <div id="div"></div>
         </div>
-        <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/home-ban-2.png">
-            <div class="ltn__slide-item-inner text-left">
-                <div class="container d-none">
-                    <div class="row">
-                        <div class="col-lg-12 align-self-center">
-                            <div class="slide-item-info">
-                                <div class="slide-item-info-inner ltn__slide-animation">
-                                    <div class="slide-video mb-50 d-none">
-                                        <a class="ltn__video-icon-2 ltn__video-icon-2-border" href="https://www.youtube.com/embed/tlThdr3O5Qo" data-rel="lightcase:myCollection">
-                                            <i class="fa fa-play"></i>
-                                        </a>
-                                    </div>
-                                    <!-- <h6 class="slide-sub-title white-color--- animated text-black"><span><i class="fas fa-syringe"></i></span> Regulated UK Pharmacist</h6> -->
-                                    <h5 class="slide-title animated text-black poppins-medium">Rediscover Passion & Reignite That Spark</h5>
-                                    <div class="slide-brief animated">
-                                        <p class="text-black oppins-extralight">Don't Let ED Put A Wedge Between You And Your Partner. Shop Our Range Of ED Medications!</p>
-                                    </div>
-                                    <div class="btn-wrapper animated">
-                                        <a href="/shop" class="theme-btn-1 btn ">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="">
+            <div id="div1"></div>
         </div>
-        <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/home-ban-3.png">
-            <div class="ltn__slide-item-inner  text-left">
-                <div class="container d-none">
-                    <div class="row">
-                        <div class="col-lg-12 align-self-center">
-                            <div class="slide-item-info">
-                                <div class="slide-item-info-inner ltn__slide-animation">
-                                    <!-- <h6 class="slide-sub-title white-color--- animated  text-black"><span><i class="fas fa-syringe"></i></span> Regulated UK Pharmacist</h6> -->
-                                    <h5 class="slide-title animated  text-black poppins-medium">Beat Travel Sickness And See The World</h5>
-                                    <div class="slide-brief animated">
-                                        <p class="text-black  oppins-extralight">Convenient And Easy To Take Tablets-Great For On The Go Clinically Proven To Provide Relief From Nausea Reliefs Feelings Of Motion Sickness Quickly And Effectively Take As Need For All-Day Relief And Comfort</p>
-                                    </div>
-                                    <div class="btn-wrapper animated">
-                                        <a href="/shop" class="theme-btn-1 btn ">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="">
+            <div id="div2"></div>
         </div>
         <!--  -->
     </div>
@@ -90,7 +73,7 @@
 <div class="ltn__slider-area ltn__slider-3 mobile-slider  section-bg-1 ">
     <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/mobile-1.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image " br data-bs-bg="img/banner/mob1.webp">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container d-none">
                     <div class="row">
@@ -116,7 +99,7 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/mobile-2.png">
+        <div class="ltn__slide-item ltn__slide-item-2 ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image" data-bs-bg="img/banner/nomore.webp">
             <div class="ltn__slide-item-inner text-left">
                 <div class="container d-none">
                     <div class="row">
@@ -144,7 +127,7 @@
             </div>
         </div>
         <!-- ltn__slide-item -->
-        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/mobile-3.png">
+        <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3  bg-image" data-bs-bg="img/banner/mob3.webp">
             <div class="ltn__slide-item-inner  text-left">
                 <div class="container d-none">
                     <div class="row">
@@ -187,31 +170,34 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-radius">
-                <a href="/skincare"><img src="img/product/skincare_1.webp" class="card-img-top card-radius" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title poppins-medium">Skincare</h5>
-                        <p class="card-text  oppins-extralight">Whether you’ve got a skin condition that needs treating or you’re just looking for that perfect new skincare product to add to your beauty routine.</p>
-                        <a href="/skincare" class="btn btn-primary theme-btn-1">Buy Now</a>
+                <a href="/skincare"><img src="img/product/calypso.webp" class="card-img-top card-radius" alt="..." style="
+   border-bottom-left-radius: 0px; 
+        border-bottom-right-radius: 0px; 
+"></a>
+                    <div class="card-body" style="text-align: center;">
+                        <!-- <h5 class="card-title poppins-medium">Skincare</h5> -->
+                        <p class="card-text  oppins-extralight" style="font-size: 12px;">Enjoy a cruelty-free, vegan-friendly formula that helps prolong your tan and provides healing benefits.</p>
+                        <!-- <a href="/skincare" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-radius">
-                <a href="/sleep"><img src="img/product/sleep.png" class="card-img-top card-radius" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Sleep</h5>
-                        <p class="card-text">Treat insomnia with our range of medications to help you fall asleep faster and to reduce the chances of you waking up in the middle of the night.</p>
-                        <a href="/sleep" class="btn btn-primary theme-btn-1">Buy Now</a>
+                <div class="card card-radius" >
+                <a href="/sleep"><img src="img/product/mounjaro.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
+                    <div class="card-body tabPadding" style="text-align: center;">
+                        <!-- <h5 class="card-title">Sleep</h5> -->
+                        <p class="card-text" style="font-size: 12px;">Complement your healthy diet and physical activity to effectively manage your weight loss goals.</p>
+                        <!-- <a href="/sleep" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-radius">
-                <a href="/diabetes"><img src="img/product/Diabetes.png" class="card-img-top card-radius" alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title">Diabetes</h5>
-                        <p class="card-text">Living with diabetes can be difficult - that’s why we’re here to provide you with the very best equipment to help you easily manage your condition. </p>
-                        <a href="/diabetes" class="btn btn-primary theme-btn-1">Buy Now</a>
+                <div class="card card-radius" >
+                <a href="/diabetes"><img src="img/product/jungle formula.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
+                    <div class="card-body tabPadding" style="text-align: center;">
+                        <!-- <h5 class="card-title">Diabetes</h5> -->
+                        <p class="card-text" style="font-size: 12px;">Choose the right protection with IRF, offering up to 9 hours of defense against biting insects.</p>
+                        <!-- <a href="/diabetes" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
             </div>
@@ -450,7 +436,7 @@
                     <!-- ltn__product-item -->
                     @if($products)
                     @foreach ($products as $key => $val)
-                    <div class="col-lg-3--- col-md-4 col-sm-6 col-6">
+                    <div class="col-lg-3--- col-md-4 col-sm-6 col-6" style="margin-bottom: 50px;">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
                                 {{-- <a href="product-details.html">
@@ -802,7 +788,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="footer-branding-section">
-                    <h1 class="text-center">Helping you feel better for less</h1>
+                    <h1 class="text-center">Access to healthcare made Easy, Fast & Affordable!</h1>
                     <p class="text-center">Everyone deserves access to health and wellness in the simplest, most convenient and affordable way.</p>
                 </div>
             </div>

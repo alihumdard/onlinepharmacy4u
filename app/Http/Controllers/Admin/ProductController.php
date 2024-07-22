@@ -557,4 +557,24 @@ class ProductController extends Controller
 
         return response()->json(['status' => 'error', 'message' => 'Product attribute not found']);
     }
+
+    public function search_products(Request $request)
+    {
+        $user = auth()->user();
+        $page_name = 'prodcuts';
+        if (!view_permission($page_name)) {
+            return redirect()->back();
+        }
+
+        $data = [];
+        if (isset($user->role) && $user->role == user_roles('1')) {
+            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
+                ->where('title', 'like', '%'.$request->string.'%')
+                ->whereIn('status', [$this->status['Active']])
+                ->latest('id')
+                ->paginate(50); // Set pagination to 50 items per page
+            
+            return response()->json(['status' => 'success', 'data' => $products]);
+        }
+    }
 }

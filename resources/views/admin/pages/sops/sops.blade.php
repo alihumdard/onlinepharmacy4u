@@ -90,6 +90,8 @@
                                         <a href="{{ asset('storage/'.$sop['file']) }}" target="_blank" class="preview" style="cursor: pointer; font-size:larger;" title="Preview" data-id="2752" data-toggle="tooltip">
                                             <i class="bi bi-eye"></i>
                                         </a>
+
+                                        @if(isset($user->role) && $user->role == user_roles('1'))
                                         <a class="fw-bold btn-link mx-2" href="{{ asset('storage/'.$sop['file']) }}" download>
                                             <i class="bi bi-cloud-download"></i>
                                         </a>
@@ -99,6 +101,7 @@
                                         <a href="{{ route('admin.deleteSOP', ['id' => base64_encode($sop['id'])]) }}" class="delete" style="cursor: pointer;" title="Delete" data-id="{{ base64_encode($sop['id']) }}" data-toggle="tooltip">
                                             <i class="bi bi-trash-fill"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

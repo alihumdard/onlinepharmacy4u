@@ -399,9 +399,9 @@ class SystemController extends Controller
         if (isset($user->role) && $user->role == user_roles('1')) {
             $data['sops'] = SOP::get()->toArray();
         } elseif (isset($user->role) && $user->role == user_roles('2')) {
-            $data['sops'] = SOP::where('file_for', 'dispensory')->get()->toArray();
+            $data['sops'] = SOP::whereIn('file_for', ['dispensory', 'both'])->get()->toArray();
         } elseif (isset($user->role) && $user->role == user_roles('3')) {
-            $data['sops'] = SOP::where('file_for', 'doctor')->get()->toArray();
+            $data['sops'] = SOP::whereIn('file_for', ['doctor', 'both'])->get()->toArray();
         }
 
         return view('admin.pages.sops.sops', $data);

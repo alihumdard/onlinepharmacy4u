@@ -2089,8 +2089,8 @@ class SystemController extends Controller
 
         $order = Order::with('paymentdetails')->findOrFail($validatedData['id']);
         if ($order->paymentdetails) {
-            $ammount = 2; //$request->ammount;
-            $transetion_id = '0c610634-43fb-44fa-966e-091af4f84b58'; //$order->paymentdetails->transactionId;
+            $ammount = $request->ammount;
+            $transetion_id = $order->paymentdetails->transactionId;
             $source_code = 1503;
             $username = '4ccbbd8e-7d30-4ca4-a78a-ecb5bfeee370';
             $password = 'R9T8bWuH0UX50xpGV5wS0bF6639q0E';

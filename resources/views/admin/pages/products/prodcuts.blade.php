@@ -255,22 +255,22 @@
                     </div>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['price'] }} - {{ $value['ext_tax']  ?? '' }}</p>
+                    <p class="fw-normal mb-1">{{ $value['price'] }} - {{ $value['ext_tax']  ?? 'N/A' }}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="text-muted mb-0">{{ $value['stock']  ?? '' }}</p>
+                    <p class="text-muted mb-0">{{ $value['stock']  ?? 'N/A' }}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['category']['name']  ?? ''}}</p>
+                    <p class="fw-normal mb-1">{{ $value['category']['name']  ?? 'N/A'}}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['sub_cat']['name']  ?? '' }}</p>
+                    <p class="fw-normal mb-1">{{ $value['sub_cat']['name']  ?? 'N/A' }}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                     <p>helo</p>
+                     <p>{{ $value['child_cat']['name'] ?? 'N/A'}}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ config('constants.PRODUCT_TEMPLATES')[$value['product_template']]  ?? '' }}</p>
+                    <p class="fw-normal mb-1">{{ config('constants.PRODUCT_TEMPLATES')[$value['product_template']]  ?? 'N/A' }}</p>
                 </td>
                 <td style="vertical-align: middle; text-align: center;">
                     <span class="badge {{ $value['status'] == 1 ? 'bg-success' : 'bg-danger' }} rounded-pill d-inline">{{ $value['status'] == 1 ? 'Active' : 'Deactive' }}</span>

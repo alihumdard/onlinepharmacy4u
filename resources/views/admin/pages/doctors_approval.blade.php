@@ -392,7 +392,7 @@
                                     <th>Marked By </th>
                                     @if($user->role != user_roles('3'))
                                     <th> Shiped Order</th>
-                                    <th> Repeat</th>
+                                    <th> Duplicate Order</th>
                                     @endif
                                 </tr>
                             </thead>
@@ -451,7 +451,7 @@
                                         @endif
                                     </td>
                                     @endif
-                                    <td> <i class="bi bi-files duplicate-order" data-order-id="{{ $val['id'] }}"></i>
+                                    <td> <i class="bi bi-files duplicate-order" data-order-id="{{ $val['id'] }}" style="cursor: pointer;"></i>
                                     </td>
                                 </tr>
                                 @endforeach

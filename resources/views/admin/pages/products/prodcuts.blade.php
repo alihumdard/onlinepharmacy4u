@@ -221,12 +221,16 @@
                         </div>
                         <div class="col-md-8 mt-3 text-center d-block">
                             <label for="search" class="form-label fw-bold">Search From Table </label>
-                            <input type="text" id="search" placeholder="Search here..." class="form-control py-2">
+                            <input type="text" id="search" placeholder="Search here..." class="form-control py-2 search_text">
                            
                         </div>
-                        <div class="col-md-4 mt-4 text-center d-block">
+                        <div class="col-md-2 mt-4 text-center d-block">
                         <label for="search" class="form-label fw-bold"></label>
-                        <a href="#" class="form-control btn btn-success py-2 fw-bold">Search</a>
+                        <button class="form-control btn btn-success py-2 fw-bold search_btn">Search</button>
+                        </div>
+                        <div class="col-md-2 mt-4 text-center d-block">
+                            <label for="search" class="form-label fw-bold"></label>
+                            <button class="form-control btn btn-success py-2 fw-bold clear_btn">Clear</button>
                         </div>
                     </div>
 
@@ -416,14 +420,14 @@
             }
         });
 
-        $('#search').on('input', function() {
-            let text = $(this).val();
-            if (text === '') {
-                tableApi.search('').draw();
-            } else {
-                tableApi.search(text).draw();
-            }
-        });
+        // $('#search').on('input', function() {
+        //     let text = $(this).val();
+        //     if (text === '') {
+        //         tableApi.search('').draw();
+        //     } else {
+        //         tableApi.search(text).draw();
+        //     }
+        // });
 
         $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
@@ -476,6 +480,88 @@
                     alert('Contact To Developer');
                 }
             });
+        });
+
+        $(document).on('click', '.search_btn', function(e) {
+            var queryString = $('.search_text').val();
+
+            $.ajax({
+                url: "{{ route('admin.searchProducts') }}",
+                type: 'GET',
+                data: {
+                    string: queryString
+                },
+                success: function(response) {
+                    var tableBody = $('#tbl_data tbody');
+                    tableBody.empty(); // Clear previous data
+
+                    $.each(response.data.data, function(index, product) {
+                        console.log(product)
+                        var row = '<tr>' +
+                            '<th style="vertical-align: middle; text-align: center;">' + (index + 1) + '</th>' +
+                            '<td>' +
+                                '<div class="d-flex align-items-center">' +
+                                    '<img src="' + (product.main_image ? '{{ asset("storage/") }}' + product.main_image : 'no-image.jpg') + '" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />' +
+                                    '<div class="ms-3">' +
+                                        '<p class="fw-bold mb-1">' + (product.title ? product.title : '') + '</p>' +
+                                        '<p class="text-muted mb-0">' + (product.barcode ? product.barcode : '') + '</p>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td style="vertical-align: middle; text-align: center;">' +
+                                '<p class="fw-normal mb-1">' + (product.price ? product.price : '') + ' - ' + (product.ext_tax ? product.ext_tax : '') + '</p>' +
+                            '</td>' +
+                            '<td style="vertical-align: middle; text-align: center;">' +
+                                '<p class="text-muted mb-0">' + (product.stock ? product.stock : '') + '</p>' +
+                            '</td>' +
+                            '<td style="vertical-align: middle; text-align: center;">' +
+                                '<p class="fw-normal mb-1">' + (product.category && product.category.name ? product.category.name : '') + '</p>' +
+                            '</td>' +
+                            '<td style="vertical-align: middle; text-align: center;">' +
+                                '<p class="fw-normal mb-1">' + (product.sub_cat && product.sub_cat.name ? product.sub_cat.name : '') + '</p>' +
+                            '</td>' +
+                            '<td style="vertical-align: middle; text-align: center;">' +
+                                '<p>helo</p>' +
+                            '</td>' +
+                            '<td style="vertical-align: middle; text-align: center;">' +
+                                '<p class="fw-normal mb-1">' + (product.product_template ? product.product_template : '') + '</p>' +
+                            '</td>' +
+                            '<td style="vertical-align: middle; text-align: center;">' +
+                                '<span class="badge ' + (product.status == 1 ? 'bg-success' : 'bg-danger') + ' rounded-pill d-inline">' + (product.status == 1 ? 'Active' : 'Deactive') + '</span>' +
+                            '</td>' +
+                            '<td style="vertical-align: middle; text-align: center;">' +
+                                '<div style="display:flex; justify-content: space-around;">' +
+                                    '<div>' +
+                                        '<a class="edit" style="cursor: pointer;" title="Edit" data-id="' + product.id + '" data-toggle="tooltip">' +
+                                            '<i class="bi bi-pencil-square"></i>' +
+                                        '</a>' +
+                                        '<a target="_blank" href="{{ route("web.product", ["id" => ":slug"]) }}".replace(":slug", product.slug ? product.slug : "") class="preview" style="cursor: pointer; font-size:larger;" title="Preview" data-id="' + product.id + '" data-toggle="tooltip">' +
+                                            '<i class="bi bi-eye"></i>' +
+                                        '</a>' +
+                                    '</div>' +
+                                    '<div>' +
+                                        '<a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="' + product.id + '" data-toggle="tooltip">' +
+                                            '<i class="bi bi-copy"></i>' +
+                                        '</a>' +
+                                        '<a class="delete" style="cursor: pointer;" title="Delete" data-status="Deactive" data-id="' + product.id + '" data-toggle="tooltip">' +
+                                            '<i class="bi bi-trash-fill"></i>' +
+                                        '</a>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</td>' +
+                        '</tr>';
+
+                        tableBody.append(row);
+                    });
+                },
+                error: function(error) {
+                    alert('Contact To Developer');
+                }
+            });
+        });
+
+        $('.clear_btn').click(function() {
+            location.reload();
         });
 
 

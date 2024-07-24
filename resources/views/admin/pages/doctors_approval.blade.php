@@ -451,8 +451,11 @@
                                         @endif
                                     </td>
                                     @endif
-                                    <td> <i class="bi bi-files duplicate-order" data-order-id="{{ $val['id'] }}" style="cursor: pointer;"></i>
-                                    </td>
+                                    <th style="vertical-align: middle; text-align: center;">
+                                        <button type="button" data-order-id="{{ $val['id'] }}" class="btn btn-small bg-primary  rounded-pill text-center duplicate-order">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                    </th>
                                 </tr>
                                 @endforeach
                             </tbody>

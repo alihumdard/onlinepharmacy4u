@@ -22,6 +22,7 @@ use App\Models\ProductVariant;
 use App\Models\FeaturedProduct;
 use App\Models\ProductAttribute;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
@@ -44,20 +45,87 @@ class ProductController extends Controller
 
         $data = [];
         if (isset($user->role) && $user->role == user_roles('1')) {
-            $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
-                ->whereIn('status', [$this->status['Active']])
-                ->latest('id')
-                ->paginate(50); // Set pagination to 50 items per page
+            if ($request->ajax()) {
+                $query = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
+                    ->whereIn('status', [$this->status['Active']]);
 
-            $data['filters'] = [];
-            if ($products->isNotEmpty()) {
-                $data['filters']['titles'] = array_unique($products->pluck('title')->toArray());
-                $data['filters']['categories'] = $products->pluck('category.name')->unique()->values()->all();
-                $data['filters']['sub_cat'] = $products->pluck('sub_cat.name')->unique()->values()->all();
-                $data['filters']['child_cat'] = $products->pluck('child_cat.name')->unique()->values()->all();
-                $data['filters']['templates'] = array_unique($products->pluck('product_template')->toArray());
+                return DataTables::of($query)
+                    ->filter(function ($query) use ($request) {
+                        if ($request->filled('title')) {
+                            $query->where('title', 'like', "%{$request->title}%");
+                        }
+
+                        if ($request->filled('category_id')) {
+                            $query->where('category_id', $request->category_id);
+                        }
+
+                        if ($request->filled('sub_cat_id')) {
+                            $query->where('sub_cat_id', $request->sub_cat_id);
+                        }
+
+                        if ($request->filled('child_cat_id')) {
+                            $query->where('child_cat_id', $request->child_cat_id);
+                        }
+                    })
+                    ->addColumn('details', function ($product) {
+                        $imageUrl = asset('storage/' . $product->main_image);
+                        $title = $product->title ?? '';
+                        $barcode = $product->barcode ?? '';
+            
+                        return '<div class="d-flex align-items-center">
+                                    <img src="' . $imageUrl . '" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
+                                    <div class="ms-3">
+                                        <p class="fw-bold mb-1">' . $title . '</p>
+                                        <p class="text-muted mb-0">' . $barcode . '</p>
+                                    </div>
+                                </div>';
+                    })
+                    ->addColumn('actions', function ($product) {
+                        $previewUrl = route('web.product', ['id' => $product->slug]);
+                        
+                        return '<div style="display:flex; justify-content: space-around;">
+                                    <div>
+                                        <a class="edit" style="cursor: pointer;" title="Edit" data-id="' . $product->id . '" data-toggle="tooltip">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a target="_blank" href="' . $previewUrl . '" class="preview" style="cursor: pointer; font-size:larger;" title="Preview" data-id="' . $product->id . '" data-toggle="tooltip">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="' . $product->id . '" data-toggle="tooltip">
+                                            <i class="bi bi-copy"></i>
+                                        </a>
+                                        <a class="delete" style="cursor: pointer;" title="Delete" data-status="' . config('constants.STATUS')['Deactive'] . '" data-id="' . $product->id . '" data-toggle="tooltip">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </div>
+                                </div>';
+                    })
+                    ->editColumn('product_template', function ($product) {
+                        $templates = config('constants.PRODUCT_TEMPLATES');
+                        return $templates[$product->product_template] ?? 'Unknown'; // Handle missing keys
+                    })
+                    ->editColumn('status', function ($product) {
+                        return '<span class="badge ' . ($product->status == 1 ? 'bg-success' : 'bg-danger') . ' rounded-pill d-inline">'
+                            . ($product->status == 1 ? 'Active' : 'Deactive') . '</span>';
+                    })
+                    ->rawColumns(['details', 'status', 'actions'])
+                    ->addIndexColumn() // Add index column if needed
+                    ->make(true);
             }
-            $data['products'] = $products; // Pass paginated products to the view
+
+            $productsFilter = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
+                ->whereIn('status', [$this->status['Active']])
+                ->latest('id')->get();
+            $data['filters'] = [];
+            if ($productsFilter->isNotEmpty()) {
+                $data['filters']['titles'] = array_unique($productsFilter->pluck('title')->toArray());
+                $data['filters']['categories'] = $productsFilter->pluck('category.name')->unique()->values()->all();
+                $data['filters']['sub_cat'] = $productsFilter->pluck('sub_cat.name')->unique()->values()->all();
+                $data['filters']['child_cat'] = $productsFilter->pluck('child_cat.name')->unique()->values()->all();
+                $data['filters']['templates'] = array_unique($productsFilter->pluck('product_template')->toArray());
+            }
         }
 
         return view('admin.pages.products.prodcuts', $data);

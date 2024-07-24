@@ -27,9 +27,12 @@
 
 <div class="container text-center pt-0 mt-0">
     <p>PRESCRIBER: Rebekah Parker. 02I1881S</p>
-    <p style="
+    <p>You can verify the registration status by clicking on the prescriber's registration number.</p>
+<p style="
     margin-bottom: 120px !important;
-">You can verify the registration status by clicking on the prescriber's registration number.</p>
+">
+Nursing and Midwifery Council
+</p>
 </div>
 
 

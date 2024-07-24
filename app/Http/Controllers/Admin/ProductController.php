@@ -45,6 +45,7 @@ class ProductController extends Controller
 
         $data = [];
         if (isset($user->role) && $user->role == user_roles('1')) {
+
             if ($request->ajax()) {
                 $query = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
                     ->whereIn('status', [$this->status['Active']]);

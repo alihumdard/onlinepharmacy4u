@@ -364,11 +364,13 @@
                 <i class="bi bi-person"></i><span>SOP's</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="siderbar-users" class="nav-content {{(request()->routeIs(['admin.sops','admin.addSOP'])) ? '' : 'collapse'}} " data-bs-parent="#sidebar-nav">
-                <li>
+            @if(isset($user->role) && $user->role == user_roles('1'))   
+            <li>
                     <a class="{{(request()->routeIs(['admin.addSOP'])) ? 'nav-link ' : ''}} " href="{{route('admin.addSOP')}}">
                         <i class="bi bi-circle"></i><span>Add SOP</span>
                     </a>
                 </li>
+                @endif
                 <li>
                     <a class="{{(request()->routeIs(['admin.sops'])) ? 'nav-link ' : ''}} " href="{{route('admin.sops')}}">
                         <i class="bi bi-circle"></i><span>SOP's</span>

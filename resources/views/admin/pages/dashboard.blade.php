@@ -1,11 +1,7 @@
 @extends('admin.layouts.default')
 @section('title', 'Dashboard')
 @section('content')
-
     <head>
-
-
-
         <!-- Google Fonts -->
         <link href="https://fonts.gstatic.com'" rel="preconnect">
         <link
@@ -364,7 +360,7 @@
                         </div><!-- End Reports -->
 
                         <!-- Recent Sales -->
-                        <div class="col-12">
+                        <div class="col-12 d-none">
                             <div class="card recent-sales overflow-auto">
 
                                 <div class="filter">
@@ -439,10 +435,11 @@
                                 </div>
 
                             </div>
-                        </div><!-- End Recent Sales -->
+                        </div>
+                        <!-- End Recent Sales -->
 
                         <!-- Top Selling -->
-                        <div class="col-12">
+                        <div class="col-12 d-none">
                             <div class="card top-selling overflow-auto">
 
                                 <div class="filter">
@@ -529,7 +526,8 @@
                                 </div>
 
                             </div>
-                        </div><!-- End Top Selling -->
+                        </div>
+                        <!-- End Top Selling -->
 
                     </div>
                 </div>
@@ -617,7 +615,7 @@
                     <!-- End Budget Report -->
 
                     <!-- Website Traffic -->
-                    <div class="card">
+                    <div class="card d-none">
                         <div class="filter">
                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                     class="bi bi-three-dots"></i></a>

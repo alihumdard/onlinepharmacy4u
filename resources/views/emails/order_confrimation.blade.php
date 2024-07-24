@@ -126,8 +126,8 @@
             <p class="order">Order #{{$order->id }}</p>
 
             <div class="your-order">
-                <h2>Your order is on the way</h2>
-                <p>Your order is on the way. Track your shipment to see the delivery status</p>
+                <h2>Your order placed successfully</h2>
+                <p>Great news, your order is currently being reviewed by our prescribing team we’ll send you tracking notifications once it’s been approved dispensed & shipped!</p>
                 <div class="button-container">
                     <a href="{{url('/admin')}}" style="text-decoration: none;" class="button">Visit your order</a><span>or</span>
                     <a href="{{url('/')}}" style="text-decoration: none;">Visit our store</a>

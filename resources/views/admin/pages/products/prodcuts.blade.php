@@ -166,7 +166,6 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="card">
                     <div class="card-header mt-3" id="tbl_buttons" style="border: 0 !important; border-color: transparent !important;"></div>
                     <div class="row mb-3 px-4">
@@ -221,104 +220,47 @@
                         </div>
                         <div class="col-md-8 mt-3 text-center d-block">
                             <label for="search" class="form-label fw-bold">Search From Table </label>
-                            <input type="text" id="search" placeholder="Search here..." class="form-control py-2 search_text">
+                            <input type="text" id="search_text" placeholder="Search here..." class="form-control py-2 search_text">
                            
                         </div>
-                        <div class="col-md-2 mt-4 text-center d-block">
+                        <div class="col-md-4 mt-4 text-center d-block">
                         <label for="search" class="form-label fw-bold"></label>
-                        <button class="form-control btn btn-success py-2 fw-bold search_btn">Search</button>
+                        <button id="search_btn" class="form-control btn btn-success py-2 fw-bold search_btn">Search</button>
                         </div>
-                        <div class="col-md-2 mt-4 text-center d-block">
+                        {{-- <div class="col-md-2 mt-4 text-center d-block">
                             <label for="search" class="form-label fw-bold"></label>
                             <button class="form-control btn btn-success py-2 fw-bold clear_btn">Clear</button>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="card-body">
-    <table id="tbl_data" class="table table-bordered table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th>#</th>
-                <th>Details</th>
-                <th>Price - Ext_Tax</th>
-                <th>Inventory <span class="extra-text">(Available Stock)</span></th>
-                <th>Category</th>
-                <th>Sub Category</th>
-                <th>Child Category</th>
-                <th>Template</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($products as $key => $value)
-            <tr>
-                <th style="vertical-align: middle; text-align: center;">{{ $key + 1 }}</th>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img src="{{ asset('storage/'.$value['main_image'])}}" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1">{{ $value['title'] ?? ''}}</p>
-                            <p class="text-muted mb-0">{{ $value['barcode']  ?? ''}}</p>
+                        <table id="example" class="table table-bordered table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Details</th>
+                                    <th>Price - Ext_Tax</th>
+                                    <th>Inventory <span class="extra-text">(Available Stock)</span></th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Child Category</th>
+                                    <th>Template</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                {{-- <p>Total Entries: {{ $products->total() }}</p> --}}
+                            </div>
+                            <div>
+                                {{-- {{ $products->links() }} --}}
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['price'] }} - {{ $value['ext_tax']  ?? '' }}</p>
-                </td>
-                <td style="vertical-align: middle; text-align: center;">
-                    <p class="text-muted mb-0">{{ $value['stock']  ?? '' }}</p>
-                </td>
-                <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['category']['name']  ?? ''}}</p>
-                </td>
-                <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ $value['sub_cat']['name']  ?? '' }}</p>
-                </td>
-                <td style="vertical-align: middle; text-align: center;">
-                     <p>helo</p>
-                </td>
-                <td style="vertical-align: middle; text-align: center;">
-                    <p class="fw-normal mb-1">{{ config('constants.PRODUCT_TEMPLATES')[$value['product_template']]  ?? '' }}</p>
-                </td>
-                <td style="vertical-align: middle; text-align: center;">
-                    <span class="badge {{ $value['status'] == 1 ? 'bg-success' : 'bg-danger' }} rounded-pill d-inline">{{ $value['status'] == 1 ? 'Active' : 'Deactive' }}</span>
-                </td>
-                <td style="vertical-align: middle; text-align: center;">
-                    <div style="display:flex; justify-content: space-around;">
-                        <div>
-                            <a class="edit" style="cursor: pointer;" title="Edit" data-id="{{ $value['id'] }}" data-toggle="tooltip">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a target="_blank" href="{{ route('web.product', ['id' => $value['slug']]) }}" class="preview" style="cursor: pointer; font-size:larger;" title="Preview" data-id="{{ $value['id'] }}" data-toggle="tooltip">
-                                <i class="bi bi-eye"></i>
-                            </a>
-                        </div>
-                        <div>
-                            <a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="{{ $value['id'] }}" data-toggle="tooltip">
-                                <i class="bi bi-copy"></i>
-                            </a>
-                            <a class="delete" style="cursor: pointer;" title="Delete" data-status="{{ config('constants.STATUS')['Deactive'] }}" data-id="{{ $value['id'] }}" data-toggle="tooltip">
-                                <i class="bi bi-trash-fill"></i>
-                            </a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <div class="d-flex justify-content-between">
-        <div>
-            <p>Total Entries: {{ $products->total() }}</p>
-        </div>
-        <div>
-            {{ $products->links() }}
-        </div>
-    </div>
-</div>
-
-                    <!-- /.card-body -->
+                    </div><!-- /.card-body -->
                 </div>
             </div>
         </div>
@@ -338,87 +280,93 @@
 
 @pushOnce('scripts')
 <script>
-    $(function() {
-        $("#tbl_data").DataTable({
-            "paging": false,
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "searching": true,
-            "ordering": true,
-            "info": false,
-            "pageLength": 50,
-            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            "buttons": [{
-                    extend: 'pdf',
-                    text: 'PDF ',
-                    className: 'btn-blue',
-                },
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.prodcuts') }}",
+                data: function(d) {
+                    d.title = $('#search_text').val();
+                    // d.category_id = $('#category').val();
+                    // d.sub_cat_id = $('#sub_cat').val();
+                    // d.child_cat_id = $('#child_cat').val();
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                { data: 'details', name: 'details', orderable: false, searchable: false },
+                { data: 'price', name: 'price' },
+                { data: 'stock', name: 'stock' },
+                { data: 'category.name', name: 'category.name' },
+                { data: 'sub_cat.name', name: 'sub_cat.name' },
+                { data: 'child_cat.name', name: 'child_cat.name' },
+                { data: 'product_template', name: 'product_template' },
+                { data: 'status', name: 'status' },
+                { data: 'actions', name: 'actions' },
+                
+            ],
+            columnDefs: [
                 {
-                    extend: 'excel',
-                    text: 'Excel ',
-                    className: 'btn-blue',
-                },
-                {
-                    extend: 'print',
-                    text: 'Print',
-                    className: 'btn-blue',
+                    targets: 6, // Adjust based on the column index
+                    render: function(data, type, row) {
+                        return data ? data : ''; // Handle null values
+                    }
                 }
             ],
-            "columnDefs": [{
-                "targets": [3, 8,9],
-                "searchable": false
-            }]
-
-        }).buttons().container().appendTo('#tbl_buttons');
-    });
-
-    $(document).ready(function() {
-        var tableApi = $('#tbl_data').DataTable();
-        $('#title').on('change', function() {
-            var category = $(this).val();
-            if (category == 'All') {
-                tableApi.column(1).search('').draw();
-            } else {
-                tableApi.column(1).search(category).draw();
-            }
+            pageLength: 50, // Change this value to set default page length
+            searching: true
         });
 
-        $('#category').on('change', function() {
-            let type = $(this).val();
-            if (type == 'All') {
-                tableApi.column(4).search('').draw();
-            } else {
-                tableApi.column(4).search(type).draw();
-            }
+        $('.search_btn').on('click', function() {
+            table.draw();  // Redraw the DataTable with the new search parameters
         });
 
-        $('#sub_category').on('change', function() {
-            let type = $(this).val();
-            if (type == 'All') {
-                tableApi.column(5).search('').draw();
-            } else {
-                tableApi.column(5).search(type).draw();
-            }
-        });
+        // var tableApi = $('#tbl_data').DataTable();
+        // $('#title').on('change', function() {
+        //     var category = $(this).val();
+        //     if (category == 'All') {
+        //         tableApi.column(1).search('').draw();
+        //     } else {
+        //         tableApi.column(1).search(category).draw();
+        //     }
+        // });
 
-        $('#child_category').on('change', function() {
-            let type = $(this).val();
-            if (type == 'All') {
-                tableApi.column(6).search('').draw();
-            } else {
-                tableApi.column(6).search(type).draw();
-            }
-        });
+        // $('#category').on('change', function() {
+        //     let type = $(this).val();
+        //     if (type == 'All') {
+        //         tableApi.column(4).search('').draw();
+        //     } else {
+        //         tableApi.column(4).search(type).draw();
+        //     }
+        // });
 
-        $('#template').on('change', function() {
-            let type = $(this).val();
-            if (type == 'All') {
-                tableApi.column(7).search('').draw();
-            } else {
-                tableApi.column(7).search(type).draw();
-            }
-        });
+        // $('#sub_category').on('change', function() {
+        //     let type = $(this).val();
+        //     if (type == 'All') {
+        //         tableApi.column(5).search('').draw();
+        //     } else {
+        //         tableApi.column(5).search(type).draw();
+        //     }
+        // });
+
+        // $('#child_category').on('change', function() {
+        //     let type = $(this).val();
+        //     if (type == 'All') {
+        //         tableApi.column(6).search('').draw();
+        //     } else {
+        //         tableApi.column(6).search(type).draw();
+        //     }
+        // });
+
+        // $('#template').on('change', function() {
+        //     let type = $(this).val();
+        //     if (type == 'All') {
+        //         tableApi.column(7).search('').draw();
+        //     } else {
+        //         tableApi.column(7).search(type).draw();
+        //     }
+        // });
 
         // $('#search').on('input', function() {
         //     let text = $(this).val();
@@ -449,6 +397,7 @@
                 x.className = x.className.replace("show", "");
             }, 2000);
         }
+
         $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
             var status = $(this).data('status');
@@ -481,90 +430,6 @@
                 }
             });
         });
-
-        $(document).on('click', '.search_btn', function(e) {
-            var queryString = $('.search_text').val();
-
-            $.ajax({
-                url: "{{ route('admin.searchProducts') }}",
-                type: 'GET',
-                data: {
-                    string: queryString
-                },
-                success: function(response) {
-                    var tableBody = $('#tbl_data tbody');
-                    tableBody.empty(); // Clear previous data
-
-                    $.each(response.data.data, function(index, product) {
-                        console.log(product)
-                        var row = '<tr>' +
-                            '<th style="vertical-align: middle; text-align: center;">' + (index + 1) + '</th>' +
-                            '<td>' +
-                                '<div class="d-flex align-items-center">' +
-                                    '<img src="' + (product.main_image ? '{{ asset("storage/") }}' + product.main_image : 'no-image.jpg') + '" class="rounded-circle" alt="no image" style="width: 45px; height: 45px" />' +
-                                    '<div class="ms-3">' +
-                                        '<p class="fw-bold mb-1">' + (product.title ? product.title : '') + '</p>' +
-                                        '<p class="text-muted mb-0">' + (product.barcode ? product.barcode : '') + '</p>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</td>' +
-                            '<td style="vertical-align: middle; text-align: center;">' +
-                                '<p class="fw-normal mb-1">' + (product.price ? product.price : '') + ' - ' + (product.ext_tax ? product.ext_tax : '') + '</p>' +
-                            '</td>' +
-                            '<td style="vertical-align: middle; text-align: center;">' +
-                                '<p class="text-muted mb-0">' + (product.stock ? product.stock : '') + '</p>' +
-                            '</td>' +
-                            '<td style="vertical-align: middle; text-align: center;">' +
-                                '<p class="fw-normal mb-1">' + (product.category && product.category.name ? product.category.name : '') + '</p>' +
-                            '</td>' +
-                            '<td style="vertical-align: middle; text-align: center;">' +
-                                '<p class="fw-normal mb-1">' + (product.sub_cat && product.sub_cat.name ? product.sub_cat.name : '') + '</p>' +
-                            '</td>' +
-                            '<td style="vertical-align: middle; text-align: center;">' +
-                                '<p>helo</p>' +
-                            '</td>' +
-                            '<td style="vertical-align: middle; text-align: center;">' +
-                                '<p class="fw-normal mb-1">' + (product.product_template ? product.product_template : '') + '</p>' +
-                            '</td>' +
-                            '<td style="vertical-align: middle; text-align: center;">' +
-                                '<span class="badge ' + (product.status == 1 ? 'bg-success' : 'bg-danger') + ' rounded-pill d-inline">' + (product.status == 1 ? 'Active' : 'Deactive') + '</span>' +
-                            '</td>' +
-                            '<td style="vertical-align: middle; text-align: center;">' +
-                                '<div style="display:flex; justify-content: space-around;">' +
-                                    '<div>' +
-                                        '<a class="edit" style="cursor: pointer;" title="Edit" data-id="' + product.id + '" data-toggle="tooltip">' +
-                                            '<i class="bi bi-pencil-square"></i>' +
-                                        '</a>' +
-                                        '<a target="_blank" href="{{ route("web.product", ["id" => ":slug"]) }}".replace(":slug", product.slug ? product.slug : "") class="preview" style="cursor: pointer; font-size:larger;" title="Preview" data-id="' + product.id + '" data-toggle="tooltip">' +
-                                            '<i class="bi bi-eye"></i>' +
-                                        '</a>' +
-                                    '</div>' +
-                                    '<div>' +
-                                        '<a class="duplicate" style="cursor: pointer;" title="Duplicate Product" data-id="' + product.id + '" data-toggle="tooltip">' +
-                                            '<i class="bi bi-copy"></i>' +
-                                        '</a>' +
-                                        '<a class="delete" style="cursor: pointer;" title="Delete" data-status="Deactive" data-id="' + product.id + '" data-toggle="tooltip">' +
-                                            '<i class="bi bi-trash-fill"></i>' +
-                                        '</a>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</td>' +
-                        '</tr>';
-
-                        tableBody.append(row);
-                    });
-                },
-                error: function(error) {
-                    alert('Contact To Developer');
-                }
-            });
-        });
-
-        $('.clear_btn').click(function() {
-            location.reload();
-        });
-
-
     });
 </script>
 @endPushOnce

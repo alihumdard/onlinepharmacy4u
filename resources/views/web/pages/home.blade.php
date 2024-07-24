@@ -3,54 +3,54 @@
 @section('content')
 <style>
     @media (min-width: 600px) and (max-width: 991px) {
-    .tabPadding {
-        text-align: center;
-        padding-bottom: 46px;
+        .tabPadding {
+            text-align: center;
+            padding-bottom: 46px;
+        }
     }
-}
-#div {
-  width: 100%;
-  height: 450px;
-  background-image: url('/img/banner/oner.webp');
-  background-size: 100% 100%;
-}
-#div1 {
-  width: 100%;
-  height: 450px;
-  background-image: url('/img/banner/twoo.webp');
-  background-size: 100% 100%;
-}
-#div2 {
-  width: 100%;
-  height: 450px;
-  background-image: url('/img/banner/home-ban-1.webp');
-  background-size: 100% 100%;
-}
 
-</style>
+    #div {
+        width: 100%;
+        height: 450px;
+        background-image: url('/img/banner/oner.webp');
+        background-size: 100% 100%;
+    }
 
+    #div1 {
+        width: 100%;
+        height: 450px;
+        background-image: url('/img/banner/twoo.webp');
+        background-size: 100% 100%;
+    }
 
-<style>
+    #div2 {
+        width: 100%;
+        height: 450px;
+        background-image: url('/img/banner/home-ban-1.webp');
+        background-size: 100% 100%;
+    }
+
     .ltn__product-item {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
 
-.product-img {
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px; /* Adjust height as necessary */
-}
+    .product-img {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 200px;
+        /* Adjust height as necessary */
+    }
 
-.product-info {
-    flex: 0 0 auto;
-    padding: 10px; /* Add padding if needed */
-    text-align: left;
-}
-
+    .product-info {
+        flex: 0 0 auto;
+        padding: 10px;
+        /* Add padding if needed */
+        text-align: left;
+    }
 </style>
 <!-- SLIDER AREA START (slider-3) -->
 <div class="ltn__slider-area ltn__slider-3 desktop-slider  section-bg-1 ">
@@ -80,11 +80,11 @@
                         <div class="col-lg-12 align-self-center">
                             <div class="slide-item-info">
                                 <div class="slide-item-info-inner ltn__slide-animation">
-                                    
+
                                     <h5 class="slide-title animated text-black poppins-medium">Repeat Prescriptions,<br> Made Simple.</h5>
                                     <div class="slide-brief animated">
                                         <p class=" text-black oppins-extralight">Order with ease and get your NHS repeat prescriptions delivered directly to your door </br>with Online Pharmacy 4U
-                                        Sign-up in seconds<br>
+                                            Sign-up in seconds<br>
                                             ✓ Free delivery to your home or workplace<br>
                                             ✓Discreet packaging</p>
                                     </div>
@@ -170,10 +170,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-radius">
-                <a href="/skincare"><img src="img/product/calypso.webp" class="card-img-top card-radius" alt="..." style="
-   border-bottom-left-radius: 0px; 
-        border-bottom-right-radius: 0px; 
-"></a>
+                    <a href="/skincare"><img src="img/product/calypso.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
                     <div class="card-body" style="text-align: center;">
                         <!-- <h5 class="card-title poppins-medium">Skincare</h5> -->
                         <p class="card-text  oppins-extralight" style="font-size: 12px;">Enjoy a cruelty-free, vegan-friendly formula that helps prolong your tan and provides healing benefits.</p>
@@ -182,8 +179,8 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-radius" >
-                <a href="/sleep"><img src="img/product/mounjaro.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
+                <div class="card card-radius">
+                    <a href="{{ url('/category/online-clinic/wellbeing-health/weight-loss') }}"><img src="img/product/mounjaro.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
                     <div class="card-body tabPadding" style="text-align: center;">
                         <!-- <h5 class="card-title">Sleep</h5> -->
                         <p class="card-text" style="font-size: 12px;">Complement your healthy diet and physical activity to effectively manage your weight loss goals.</p>
@@ -192,8 +189,8 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-radius" >
-                <a href="/diabetes"><img src="img/product/jungle formula.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
+                <div class="card card-radius">
+                    <a href="{{ url('/collections/pharmacy-shop') }}"><img src="img/product/jungle formula.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
                     <div class="card-body tabPadding" style="text-align: center;">
                         <!-- <h5 class="card-title">Diabetes</h5> -->
                         <p class="card-text" style="font-size: 12px;">Choose the right protection with IRF, offering up to 9 hours of defense against biting insects.</p>
@@ -274,7 +271,7 @@
             <div class="col-12">
                 <div class="ltn__category-item ltn__category-item-6 text-center">
                     <div class="ltn__category-item-img">
-                        <a >
+                        <a>
                             <i class="fas fa-microscope"></i>
                         </a>
                     </div>
@@ -349,7 +346,7 @@
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-30">
                         <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                        <h1 class="section-title"> Healthcare Professionals  <br>  at Online Pharmacy 4U</h1>
+                        <h1 class="section-title"> Healthcare Professionals <br> at Online Pharmacy 4U</h1>
                         <p>Our Healthcare Professionals here at Online Pharmacy 4U get asked hundreds of questions regards symptoms and treatments daily, visit our A to Z Conditions & Treatments finder to find what you are looking for.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
@@ -373,7 +370,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a ><img src="img/banner/new_banner2_1.webp" alt="Banner Image" class="image-radius"></a>
+                        <a><img src="img/banner/new_banner2_1.webp" alt="Banner Image" class="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Select your medication</h4>
@@ -382,7 +379,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a ><img src="img/banner/new_banner3_1.webp" alt="Banner Image" class="image-radius"></a>
+                        <a><img src="img/banner/new_banner3_1.webp" alt="Banner Image" class="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Quick 60 secs FREE consultation</h4>
@@ -391,7 +388,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
-                        <a ><img src="img/banner/new_banner4_1.webp" alt="Banner Image" calss="image-radius"></a>
+                        <a><img src="img/banner/new_banner4_1.webp" alt="Banner Image" calss="image-radius"></a>
                     </div>
                 </div>
                 <h4 class="text-center">Receive your Express delivery</h4>
@@ -624,20 +621,20 @@
             <div class="col-lg-12">
                 <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a ><img src="img/blog/blog-one.png" alt="#"></a>
+                        <a><img src="img/blog/blog-one.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a ><i class="far fa-user"></i>by: Admin</a>
+                                    <a><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a ><i class="fas fa-tags"></i>Sports</a>
+                                    <a><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h5 class=""><a >Path to Athletic Excellence through Sports Performance</a></h5>
+                        <h5 class=""><a>Path to Athletic Excellence through Sports Performance</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
@@ -645,7 +642,7 @@
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a >Read more</a>
+                                <a>Read more</a>
                             </div>
                         </div>
                     </div>
@@ -653,22 +650,22 @@
             </div>
             <!-- Blog Item 2-->
             <div class="col-lg-12">
-            <div class="ltn__blog-item ltn__blog-item-3 ">
+                <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a ><img src="img/blog/blog-2.png" alt="#"></a>
+                        <a><img src="img/blog/blog-2.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a ><i class="far fa-user"></i>by: Admin</a>
+                                    <a><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a ><i class="fas fa-tags"></i>Sports</a>
+                                    <a><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h5 class=""><a >Sports Performance Tests Redefine the Game</a></h5>
+                        <h5 class=""><a>Sports Performance Tests Redefine the Game</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
@@ -676,7 +673,7 @@
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a >Read more</a>
+                                <a>Read more</a>
                             </div>
                         </div>
                     </div>
@@ -684,22 +681,22 @@
             </div>
             <!-- Blog Item 3-->
             <div class="col-lg-12 ">
-            <div class="ltn__blog-item ltn__blog-item-3 ">
+                <div class="ltn__blog-item ltn__blog-item-3 ">
                     <div class="ltn__blog-img">
-                        <a ><img src="img/blog/blog-3.png" alt="#"></a>
+                        <a><img src="img/blog/blog-3.png" alt="#"></a>
                     </div>
                     <div class="ltn__blog-brief">
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a ><i class="far fa-user"></i>by: Admin</a>
+                                    <a><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a ><i class="fas fa-tags"></i>Sports</a>
+                                    <a><i class="fas fa-tags"></i>Sports</a>
                                 </li>
                             </ul>
                         </div>
-                        <h5 class=""><a >Transforming Your Athletic Journey with Performance Tests</a></h5>
+                        <h5 class=""><a>Transforming Your Athletic Journey with Performance Tests</a></h5>
                         <div class="ltn__blog-meta-btn">
                             <div class="ltn__blog-meta">
                                 <ul>
@@ -707,7 +704,7 @@
                                 </ul>
                             </div>
                             <div class="ltn__blog-btn">
-                                <a >Read more</a>
+                                <a>Read more</a>
                             </div>
                         </div>
                     </div>
@@ -723,10 +720,10 @@
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a ><i class="far fa-user"></i>by: Admin</a>
+                                    <a><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a ><i class="fas fa-tags"></i>Room</a>
+                                    <a><i class="fas fa-tags"></i>Room</a>
                                 </li>
                             </ul>
                         </div>
@@ -754,10 +751,10 @@
                         <div class="ltn__blog-meta">
                             <ul>
                                 <li class="ltn__blog-author">
-                                    <a ><i class="far fa-user"></i>by: Admin</a>
+                                    <a><i class="far fa-user"></i>by: Admin</a>
                                 </li>
                                 <li class="ltn__blog-tags">
-                                    <a ><i class="fas fa-tags"></i>Trends</a>
+                                    <a><i class="fas fa-tags"></i>Trends</a>
                                 </li>
                             </ul>
                         </div>
@@ -891,12 +888,12 @@
                                     <div class="modal-product-info">
                                         <div class="product-ratting">
                                             <ul>
-                                                <li><a ><i class="fas fa-star"></i></a></li>
-                                                <li><a ><i class="fas fa-star"></i></a></li>
-                                                <li><a ><i class="fas fa-star"></i></a></li>
-                                                <li><a ><i class="fas fa-star-half-alt"></i></a></li>
-                                                <li><a ><i class="far fa-star"></i></a></li>
-                                                <li class="review-total"> <a > ( 95 Reviews )</a></li>
+                                                <li><a><i class="fas fa-star"></i></a></li>
+                                                <li><a><i class="fas fa-star"></i></a></li>
+                                                <li><a><i class="fas fa-star"></i></a></li>
+                                                <li><a><i class="fas fa-star-half-alt"></i></a></li>
+                                                <li><a><i class="far fa-star"></i></a></li>
+                                                <li class="review-total"> <a> ( 95 Reviews )</a></li>
                                             </ul>
                                         </div>
                                         <h3><a href="product-details.html">Digital Stethoscope</a></h3>
@@ -912,13 +909,13 @@
                                         <div class="ltn__product-details-menu-3">
                                             <ul>
                                                 <li>
-                                                    <a  class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
+                                                    <a class="" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">
                                                         <i class="far fa-heart"></i>
                                                         <span>Add to Wishlist</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a  class="" title="Compare" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
+                                                    <a class="" title="Compare" data-bs-toggle="modal" data-bs-target="#quick_view_modal">
                                                         <i class="fas fa-exchange-alt"></i>
                                                         <span>Compare</span>
                                                     </a>
@@ -929,10 +926,10 @@
                                         <div class="ltn__social-media">
                                             <ul>
                                                 <li>Share:</li>
-                                                <li><a  title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a  title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a  title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                                                <li><a  title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                                                <li><a title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                                <li><a title="Instagram"><i class="fab fa-instagram"></i></a></li>
 
                                             </ul>
                                         </div>

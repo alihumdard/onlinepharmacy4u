@@ -83,9 +83,9 @@ class DefualtController extends Controller
             if (isset($user->role) && $user->role == user_roles('1')) {
                 return view('admin.pages.dashboard', $data);
             } else if (isset($user->role) && $user->role == user_roles('2')) {
-                return view('admin.pages.profile_setting', $data);
+                return view('admin.pages.despensory_dashboard', $data);
             } else if (isset($user->role) && $user->role == user_roles('3')) {
-                return view('admin.pages.profile_setting', $data);
+                return view('admin.pages.doctor_dashboard', $data);
             } else if (isset($user->role) && $user->role == user_roles('4')) {
                 // return redirect('/');
                 return view('admin.pages.profile_setting', $data);
@@ -164,8 +164,6 @@ class DefualtController extends Controller
             'totalAmount' => $totalAmount
         ]);
     }
-
-
 
     public function profile_setting(Request $request)
     {
@@ -376,6 +374,7 @@ class DefualtController extends Controller
             return redirect('/');
         }
     }
+
     public function registration_form(Request $request)
     {
         $data['user'] = auth()->user() ?? [];

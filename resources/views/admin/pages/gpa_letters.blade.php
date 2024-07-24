@@ -101,7 +101,7 @@
                                     <th>Customer Name</th>
                                     <th>Shipping Email</th>
                                     <!-- <th>Address</th> -->
-                                    <th>GPA Email</th>
+                                    <th>GP Email</th>
                                     <th>Order Type</th>
                                     <th>Actions</th>
                                 </tr>

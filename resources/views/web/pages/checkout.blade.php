@@ -210,16 +210,11 @@
                         </div>
                     </div>
                 </div>
-                <div style="
-    float: right;
-">
-                <button id="placeOrderBtn" class="btn theme-btn-1 btn-effect-1 text-uppercase" type="button" style="
-    margin-top: 30px;
-">Procceed To
-                    Pay</button>
+                <div style="float: right;">
+                <button id="placeOrderBtn" class="btn theme-btn-1 btn-effect-1 text-uppercase" type="button" style="margin-top: 30px;">Procceed To Pay</button>
                 </div>
             </form>
-            <!-- <div id="iframeContainer" class="vh-100 w-100 "></div> -->
+            <div id="iframeContainer" class="vh-100 w-100 "></div>
         </div>
     </div>
     <!-- WISHLIST AREA START -->

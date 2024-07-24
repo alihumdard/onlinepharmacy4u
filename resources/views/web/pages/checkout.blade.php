@@ -202,7 +202,7 @@
                                     <tr>
                                         <td><strong>Order Total</strong></td>
                                         <td class="order_total">
-                                            <strong>{{ str_replace(',', '', Cart::subTotal()) + 4.95 }}</strong>
+                                            <strong>{{ str_replace(',', '', Cart::subTotal()) + 3.95 }} £</strong>
                                         </td>
                                     </tr>
                                 </tbody>

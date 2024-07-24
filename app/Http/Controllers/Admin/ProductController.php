@@ -46,7 +46,7 @@ class ProductController extends Controller
         if (isset($user->role) && $user->role == user_roles('1')) {
             $products = Product::with('category:id,name', 'sub_cat:id,name', 'child_cat:id,name')
                 ->whereIn('status', [$this->status['Active']])
-                ->latest('id')
+                ->latest('id') 
                 ->paginate(50); // Set pagination to 50 items per page
 
             $data['filters'] = [];

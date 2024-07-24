@@ -222,7 +222,6 @@ class ProductController extends Controller
         if (!view_permission($page_name)) {
             return response()->json(['status' => 'error', 'message' => 'Permission Denied']);
         }
-
         $rules = ['product_id' => 'required|exists:products,id'];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -311,6 +310,7 @@ class ProductController extends Controller
             'category_id'       => 'required',
             'product_template'  => 'required',
             'stock'             => 'required',
+            'stock_status'      => 'required',
             'cut_price'         => 'nullable|regex:/^\d+(\.\d{1,2})?$/',
             'desc'              => 'required',
             'title'             => [
@@ -376,6 +376,7 @@ class ProductController extends Controller
                 'SKU'        => $request->SKU,
                 'weight'     => $request->weight ?? 0,
                 'stock'      => $request->stock,
+                'stock_status' => $request->stock_status,
                 'price'      => $request->price,
                 'status'     => $this->status['Active'],
                 'created_by' => $user->id,

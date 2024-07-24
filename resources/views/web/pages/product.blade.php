@@ -27,6 +27,18 @@
         background-color: #0ab9ad;
         color: #fff;
     }
+
+    .btn.out-of-stock {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #ffffff;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    .btn.out-of-stock i {
+        margin-right: 5px;
+    }
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- BREADCRUMB AREA START -->
@@ -83,7 +95,7 @@
                                         $src = ($val1->image) ? $val1->image : '';
                                         @endphp
                                         @if($src)
-                                        <img class="img-fluid  " src="{{ asset('storage/'.$src)}}" alt="Image" >
+                                        <img class="img-fluid  " src="{{ asset('storage/'.$src)}}" alt="Image">
                                         @endif
                                     </div>
                                     @endforeach
@@ -134,6 +146,7 @@
                                             </div>
                                         </li>
                                         <li>
+                                            @if($product->stock_status == 'IN')
                                             @if($product->product_template == config('constants.PRESCRIPTION_MEDICINE') && $pre_add_to_cart == 'yes')
                                             <a href="javascript:void(0)" onclick="addToCart(@json($product->id));" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                 <i class="fas fa-shopping-cart"></i>
@@ -166,6 +179,12 @@
                                             <a href="javascript:void(0)" onclick="addToCart({{ $product->id }});" class="theme-btn-1 btn btn-effect-1" title="Add to Cart">
                                                 <i class="fas fa-shopping-cart"></i>
                                                 <span>ADD TO CART</span>
+                                            </a>
+                                            @endif
+                                            @else
+                                            <a class="btn btn-secondary disabled" title="Out of Stock" aria-disabled="true">
+                                                <i class="fas fa-exclamation-circle"></i>
+                                                <span> Out of Stock</span>
                                             </a>
                                             @endif
                                         </li>

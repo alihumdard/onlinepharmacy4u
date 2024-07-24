@@ -447,6 +447,7 @@
                                 </div>
                                 <div class="product-hover-action">
                                     <ul>
+                                        @if($val->stock_status == 'IN')
                                         @if($val['product_template'] == config('constants.COUNTER_MEDICINE'))
                                         <li>
                                             <a href="{{ route('web.product', ['id' => $val['slug']]) }}">
@@ -464,6 +465,11 @@
                                                 <i class="fas fa-plus"></i>
                                             </a>
                                         </li> -->
+                                        @endif
+                                        @else
+                                        <a class="btn btn-secondary disabled" title="Out of Stock" aria-disabled="true">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                        </a>
                                         @endif
                                     </ul>
                                 </div>

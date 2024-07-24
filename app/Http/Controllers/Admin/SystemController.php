@@ -2308,8 +2308,8 @@ class SystemController extends Controller
                     ],
                     "sender" => [
                         "tradingName" => null,
-                        "phoneNumber" => '01623572757',
-                        "emailAddress" => 'info@online-pharmacy4u.co.uk'
+                        "phoneNumber" => Null,
+                        "emailAddress" => Null
                     ],
                     "billing" => [
                         "address" => [

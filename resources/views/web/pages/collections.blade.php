@@ -38,7 +38,7 @@
 <!-- Categories AREA START -->
 <div class="ltn__team-area pt-110--- pb-90">
     <div class="container">
-        <div  class="row justify-content-center">
+        <div class="row justify-content-center">
             @foreach ($categories as $key => $val)
             <div class="col-lg-4 col-sm-6 mt-5">
                 <div class="ltn__team-item ltn__team-item-3---">
@@ -63,7 +63,7 @@
 @if (isset($products) && $products)
 <!-- PRODUCT DETAILS AREA START -->
 <div id="products_list" class="ltn__product-area ltn__product-gutter mb-120">
-    <div class="container" >
+    <div class="container">
         <div class="row">
             <div class="col-lg-8 order-lg-2 mb-120">
                 <div class="ltn__shop-options">
@@ -99,18 +99,19 @@
                         </li>
                     </ul>
                 </div>
-                <div class="tab-content" >
+                <div class="tab-content">
                     <div class="tab-pane fade active show" id="liton_product_grid">
                         <div class="ltn__product-tab-content-inner ltn__product-grid-view">
                             <div class="row">
                                 <!-- ltn__product-item -->
                                 @foreach($products as $key => $val)
-                                <div  class="col-xl-4 col-sm-6 col-6">
+                                <div class="col-xl-4 col-sm-6 col-6">
                                     <div class="ltn__product-item ltn__product-item-3 text-center">
                                         <div class="product-img">
                                             <a href="{{ route('web.product', ['id' => $val->slug]) }}"><img src="{{ asset('storage/'.$val->main_image)}}" alt="product image"></a>
                                             <div class="product-hover-action">
                                                 <ul>
+                                                    @if($val->stock_status == 'IN')
                                                     @if($val->product_template == config('constants.COUNTER_MEDICINE'))
                                                     <li>
                                                         <a href="{{ route('web.product', ['id' => $val->slug]) }}">
@@ -128,6 +129,11 @@
                                                             <i class="fas fa-plus"></i>
                                                         </a>
                                                     </li>
+                                                    @endif
+                                                    @else
+                                                    <a class="btn btn-secondary disabled" title="Out of Stock" aria-disabled="true">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                    </a>
                                                     @endif
                                                     {{-- <li>
                                                             <a href="#" title="Wishlist" data-bs-toggle="modal" data-bs-target="#liton_wishlist_modal">

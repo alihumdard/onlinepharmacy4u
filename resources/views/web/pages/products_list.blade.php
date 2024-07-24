@@ -54,6 +54,7 @@
                             <span>£{{ $val->price }}</span>
                             <del>{{ $val->cut_price ? '£'.$val->cut_price : NULL }}</del>
                         </div>
+                        @if($val->stock_status == 'IN')
                         @if($val->product_template == config('constants.COUNTER_MEDICINE'))
                         <a href="javascript:void(0)" onclick="addToCart(@json($val->id));" title="Add to Cart" class="btn btn-outline-danger w-100">Add To Cart</a>
                         @else
@@ -64,6 +65,12 @@
                         @else
                         <a href="{{ route('web.product', ['id' => $val->slug]) }}" class="btn btn-outline-danger w-100">Learn More</a>
                         @endif
+                        @endif
+                        @else
+                        <a class="btn btn-secondary disabled" title="Out of Stock" aria-disabled="true">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span> Out of Stock</span>
+                        </a>
                         @endif
                     </div>
                 </div>

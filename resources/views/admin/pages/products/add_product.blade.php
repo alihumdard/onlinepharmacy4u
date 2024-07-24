@@ -375,7 +375,7 @@
                     <div class="alert-danger text-danger ">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mt-2">
                     <label for="barcode" class="form-label">Barcode (ISBN, UPC, GTIN, etc.)</label>
                     <input type="text" name="barcode" id="barcode" value="{{  $product['barcode'] ?? old('barcode') }}" class="form-control">
                     <div class="invalid-feedback">Enter GTIN number!</div>
@@ -383,11 +383,23 @@
                     <div class="alert-danger text-danger ">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mt-2">
                     <label for="weight" class="form-label">Weight (gm)</label>
                     <input type="text" name="weight" id="weight" value="{{  $product['weight'] ?? old('weight') }}" class="form-control">
                     <div class="invalid-feedback">Enter product weight!</div>
                     @error('weight')
+                    <div class="alert-danger text-danger ">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-4">
+                    <label for="stock_status" class="col-form-label"> Stock Status </label>
+                    <select id="stock_status" name="stock_status" class="form-select" required>
+                        <option value="IN" {{ (isset($product['stock_status']) && $product['stock_status'] == 'IN') ? 'selected' : '' }}>IN</option>
+                        <option value="OUT" {{ (isset($product['stock_status']) && $product['stock_status'] == 'OUT') ? 'selected' : '' }}>OUT</option>
+                    </select>
+                    <div class="invalid-feedback">Select Stock Status!</div>
+                    @error('stock_status')
                     <div class="alert-danger text-danger ">{{ $message }}</div>
                     @enderror
                 </div>

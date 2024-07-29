@@ -180,10 +180,10 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-radius">
-                    <a href="{{ url('/category/online-clinic/wellbeing-health/weight-loss') }}"><img src="img/product/chan.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
+                    <a href="{{ url('/collections/chronic-conditions/diabetes-medication') }}"><img src="img/product/chan.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
                     <div class="card-body tabPadding" style="text-align: center;">
                         <!-- <h5 class="card-title">Sleep</h5> -->
-                        <p class="card-text" style="font-size: 12px;">Easily monitor your blood sugar levels with the Freestyle Libre 2 Sensor – no finger pricks needed, just a quick scan on the back of your arm.</p>
+                        <p class="card-text" style="font-size: 12px;">Easily monitor your blood sugar levels with the Freestyle Libre 2 Sensor – no finger pricks needed.</p>
                         <!-- <a href="/sleep" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
@@ -521,7 +521,7 @@
                 <a href="{{url('collections/pharmacy-shop/weight-loss') }}" class="theme-btn-1 btn mt-2">Click to Buy Now</a>
             </div>
             <div class="col-lg-6">
-                <img src="img/banner/ing.webp" alt="">
+                <img src="img/banner/ing.png" alt="">
             </div>
         </div>
     </div>

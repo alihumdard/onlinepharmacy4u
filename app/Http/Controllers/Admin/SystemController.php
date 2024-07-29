@@ -2308,8 +2308,8 @@ class SystemController extends Controller
                     ],
                     "sender" => [
                         "tradingName" => null,
-                        "phoneNumber" => '01623572757',
-                        "emailAddress" => 'info@online-pharmacy4u.co.uk'
+                        "phoneNumber" => Null,
+                        "emailAddress" => Null
                     ],
                     "billing" => [
                         "address" => [
@@ -2349,10 +2349,10 @@ class SystemController extends Controller
                     "total" => $order['total_ammount'],
                     "currencyCode" => "GBP",
                     "postageDetails" => [
-                        "sendNotificationsTo" => "sender",
+                        "sendNotificationsTo" => "recipient",
                         "consequentialLoss" => 0,
-                        "receiveEmailNotification" => null,
-                        "receiveSmsNotification" => null,
+                        "receiveEmailNotification" => false,
+                        "receiveSmsNotification" => false,
                         "guaranteedSaturdayDelivery" => null,
                         "requestSignatureUponDelivery" => null,
                         "isLocalCollect" => null,

@@ -180,10 +180,10 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-radius">
-                    <a href="{{ url('/category/online-clinic/wellbeing-health/weight-loss') }}"><img src="img/product/mounjaro.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
+                    <a href="{{ url('/category/online-clinic/wellbeing-health/weight-loss') }}"><img src="img/product/chan.webp" class="card-img-top card-radius" alt="..." style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"></a>
                     <div class="card-body tabPadding" style="text-align: center;">
                         <!-- <h5 class="card-title">Sleep</h5> -->
-                        <p class="card-text" style="font-size: 12px;">Complement your healthy diet and physical activity to effectively manage your weight loss goals.</p>
+                        <p class="card-text" style="font-size: 12px;">Easily monitor your blood sugar levels with the Freestyle Libre 2 Sensor – no finger pricks needed, just a quick scan on the back of your arm.</p>
                         <!-- <a href="/sleep" class="btn btn-primary theme-btn-1">Buy Now</a> -->
                     </div>
                 </div>
@@ -447,6 +447,7 @@
                                 </div>
                                 <div class="product-hover-action">
                                     <ul>
+                                        @if($val->stock_status == 'IN')
                                         @if($val['product_template'] == config('constants.COUNTER_MEDICINE'))
                                         <li>
                                             <a href="{{ route('web.product', ['id' => $val['slug']]) }}">
@@ -464,6 +465,11 @@
                                                 <i class="fas fa-plus"></i>
                                             </a>
                                         </li> -->
+                                        @endif
+                                        @else
+                                        <a class="btn btn-secondary disabled" title="Out of Stock" aria-disabled="true">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                        </a>
                                         @endif
                                     </ul>
                                 </div>
@@ -501,16 +507,18 @@
         <div class="row py-5">
             <div class="col-lg-6">
                 <div class="conunt-heading">
-                    <h2 class="pt-4">Once weekly weight loss injection</h2>
-                    <p>We’re proud to offer fast and discreet delivery for all our medicines & treatments. So you can get your order delivered quickly, and only you’ll know what's inside.</p>
+                    <h2 class="pt-4">Hay Fever & Allergy Symptom Relief</h2>
+                    <p>Offering fast and discreet delivery for all our medicines & treatments. Get your order delivered quickly, with complete privacy.</p>
+                    <br>
+                    <p>Get quick relief from</p>
                     <ul>
-                        <li>No logos</li>
-                        <li>No mention of pharmacy</li>
-                        <li>No description of the contents</li>
+                        <li>Sneezing</li>
+                        <li>Runny & Itchy Nose</li>
+                        <li>Eye Irritation</li>
                     </ul>
-                    <p><strong>We respect that many of our products are of a sensitive nature - this is why we take every step to keep your purchases private.</strong></p>
+                    <!-- <p><strong>We respect that many of our products are of a sensitive nature - this is why we take every step to keep your purchases private.</strong></p> -->
                 </div>
-                <a href="{{url('collections/pharmacy-shop/weight-loss') }}" class="theme-btn-1 btn mt-2">Once weekly weight loss injection</a>
+                <a href="{{url('collections/pharmacy-shop/weight-loss') }}" class="theme-btn-1 btn mt-2">Click to Buy Now</a>
             </div>
             <div class="col-lg-6">
                 <img src="img/banner/inject.png" alt="">

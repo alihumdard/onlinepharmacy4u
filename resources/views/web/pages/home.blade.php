@@ -521,7 +521,7 @@
                 <a href="{{url('collections/pharmacy-shop/weight-loss') }}" class="theme-btn-1 btn mt-2">Click to Buy Now</a>
             </div>
             <div class="col-lg-6">
-                <img src="img/banner/inject.png" alt="">
+                <img src="img/banner/ing.webp" alt="">
             </div>
         </div>
     </div>

@@ -1496,4 +1496,9 @@ class WebController extends Controller
         }
     }
     
+
+    public function successfully_refunded(Request $request)
+    {
+        return 'ammount is refunded';
+    }
 }

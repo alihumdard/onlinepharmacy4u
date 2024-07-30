@@ -518,7 +518,7 @@
                     </ul>
                     <!-- <p><strong>We respect that many of our products are of a sensitive nature - this is why we take every step to keep your purchases private.</strong></p> -->
                 </div>
-                <a href="{{url('collections/pharmacy-shop/weight-loss') }}" class="theme-btn-1 btn mt-2">Click to Buy Now</a>
+                <a href="{{url('/category/online-clinic/wellbeing-health/weight-loss') }}" class="theme-btn-1 btn mt-2">Click to Buy Now</a>
             </div>
             <div class="col-lg-6">
                 <img src="img/banner/ing.png" alt="">

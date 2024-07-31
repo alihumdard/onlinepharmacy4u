@@ -152,7 +152,7 @@
                                 <div class="ship">
                                     <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
                                         <strong>Ship to</strong></br>
-                                        <small> <span style="font-weight: 500;">Costumer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
+                                        <small> <span style="font-weight: 500;">Customer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
                                         <small> <span style="font-weight: 500;">Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
                                         <small><span style="font-weight: 500;">Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
                                         <small><span style="font-weight: 500;">City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
@@ -167,7 +167,7 @@
                                 <div class="ship">
                                     <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
                                         <strong>Bill to</strong></br>
-                                        <small> <span style="font-weight: 500;">Costumer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
+                                        <small> <span style="font-weight: 500;">Customer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
                                         <small> <span style="font-weight: 500;">Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
                                         <small><span style="font-weight: 500;">Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
                                         <small><span style="font-weight: 500;">City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>

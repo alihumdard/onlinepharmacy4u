@@ -1,6 +1,7 @@
 @extends('web.layouts.default')
 @section('title', 'How It Works')
 @section('content')
+    <meta name="How It Works: Simple Steps to Use Our Online Pharmacy" content="Learn how our online pharmacy works. From ordering to delivery, discover the easy steps to get your health products quickly and efficiently. Find out more!">
 
 
     <!-- BREADCRUMB AREA START -->

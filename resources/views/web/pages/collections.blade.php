@@ -12,6 +12,10 @@
         line-height: 1.4em;
     }
 </style>
+
+
+    <meta name="{{$title ?? ''}}" content="{{$description ?? ''}}">
+
 <!-- BREADCRUMB AREA START -->
 <section class="clinic-main">
     <div class="container py-5">

@@ -1,6 +1,7 @@
 @extends('web.layouts.default', ['menu_categories' => $menu_categories])
 @section('title', 'Home')
 @section('content')
+    <meta name="UK's Top Online Pharmacy4u Healthcare Services & Medicine" content="Order medicines online from Online Pharmacy 4U. Fast delivery, free NHS prescriptions. No GP needed. Buy direct and save! Convenient, affordable healthcare.">
 <style>
     @media (min-width: 600px) and (max-width: 991px) {
         .tabPadding {
@@ -346,7 +347,7 @@
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-30">
                         <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">About Us</h6>
-                        <h1 class="section-title"> Healthcare Professionals <br> at Online Pharmacy 4U</h1>
+                        <h2 class="section-title"> Healthcare Professionals <br> at Online Pharmacy 4U</h2>
                         <p>Our Healthcare Professionals here at Online Pharmacy 4U get asked hundreds of questions regards symptoms and treatments daily, visit our A to Z Conditions & Treatments finder to find what you are looking for.</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
@@ -405,7 +406,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title-area ltn__section-title-2 text-center">
-                    <h1 class="section-title">Featured Products</h1>
+                    <h2 class="section-title">Featured Products</h2>
                 </div>
             </div>
         </div>
@@ -543,8 +544,8 @@
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-20">
                         <h6 class="section-subtitle section-subtitle-2--- ltn__secondary-color">N95 Facial Covering Mask</h6>
-                        <h1 class="section-title">Grade A Safety Masks
-                            For Sale. Haurry Up!</h1>
+                        <h2 class="section-title">Grade A Safety Masks
+                            For Sale. Haurry Up!</h2>
                         <p>Over 39,000 people work for us in more than 70 countries all over the
                             This breadth of global coverage, combined with specialist services</p>
                     </div>
@@ -620,7 +621,7 @@
             <div class="col-lg-12">
                 <div class="section-title-area ltn__section-title-2--- text-center">
                     <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color d-none">News & Blogs</h6>
-                    <h1 class="section-title">Leatest Blogs</h1>
+                    <h2 class="section-title">Latest Blogs</h2>
                 </div>
             </div>
         </div>
@@ -793,7 +794,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="footer-branding-section">
-                    <h1 class="text-center">Access to healthcare made Easy, Fast & Affordable!</h1>
+                    <h2 class="text-center">Access to healthcare made Easy, Fast & Affordable!</h2>
                     <p class="text-center">Everyone deserves access to health and wellness in the simplest, most convenient and affordable way.</p>
                 </div>
             </div>

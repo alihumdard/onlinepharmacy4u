@@ -67,7 +67,6 @@ class SystemController extends Controller
         $this->status = config('constants.USER_STATUS');
     }
 
-
     private function getAccessToken()
     {
         try {
@@ -210,6 +209,7 @@ class SystemController extends Controller
 
         return view('admin.pages.doctors', $data);
     }
+
     public function add_doctor(Request $request)
     {
         $user = auth()->user();
@@ -872,6 +872,7 @@ class SystemController extends Controller
 
         return response()->json(['status' => $status, 'message' => $message, 'data' => ['class' => $class]]);
     }
+
     public function trash_categories(Request $request)
     {
         $user = auth()->user();
@@ -1607,11 +1608,6 @@ class SystemController extends Controller
         }
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])->latest('created_at')->get()->toArray();
 
-        // dd($orders);
-        // $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'status' => 'Received'])
-        // ->orwhere(['payment_status' => 'Unpaid', 'status' => 'Dublicate'])
-        // ->latest('created_at')->get()->toArray();
-
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $this->assign_order_types($orders);
@@ -1631,25 +1627,16 @@ class SystemController extends Controller
         $orders = Order::with(['user', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Unpaid', 'status' => 'Created'])
             ->orWhere('status', 'Duplicate')
             ->latest('created_at')->get()->toArray();
-
-
-
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
             $data['orders'] = $this->assign_order_types($orders);
         }
-
-        // dd(  $data['order_history'] );
-
         return view('admin.pages.orders_created', $data);
     }
 
     public function duplicate_Order(Request $request)
     {
         $orderId = $request->input('order_id');
-
-
-        // Retrieve the existing order with its shipping details and order details
         $existingOrder = Order::with(['shipingdetails', 'orderdetails'])->find($orderId);
 
         if (!$existingOrder) {
@@ -1761,8 +1748,6 @@ class SystemController extends Controller
             $orders = Order::with(['user', 'approved_by:id,name,email', 'shipingdetails:id,order_id,firstName,lastName', 'orderdetails:id,order_id,consultation_type'])->where(['payment_status' => 'Paid', 'order_for' => 'doctor'])
                 ->whereIn('status', ['Received', 'Approved', 'Not_Approved'])
                 ->latest('created_at')->get()->toArray();
-
-            // dd($orders);
         }
         if ($orders) {
             $data['order_history'] = $this->get_prev_orders($orders);
@@ -1817,7 +1802,6 @@ class SystemController extends Controller
         }
         return view('admin.pages.gpa_letters', $data);
     }
-
 
     public function vet_prescriptions()
     {
@@ -1874,8 +1858,6 @@ class SystemController extends Controller
     {
 
         $data['user'] = auth()->user();
-
-        // dd($data['user'] );
         $page_name = 'orders_created';
         if (!view_permission($page_name)) {
             return redirect()->back();
@@ -1893,8 +1875,6 @@ class SystemController extends Controller
 
     public function store_order(Request $request)
     {
-
-        // dd($request->all());
         $user = auth()->user();
         $page_name = 'orders_created';
 
@@ -2375,6 +2355,7 @@ class SystemController extends Controller
         ];
         return $payload;
     }
+
     private function get_prev_orders($orders)
     {
         $emails = array_unique(Arr::pluck($orders, 'email'));
@@ -2397,6 +2378,7 @@ class SystemController extends Controller
         }
         return $orders;
     }
+
     // comments
     public function comments(Request $request)
     {
@@ -2439,7 +2421,6 @@ class SystemController extends Controller
 
     public function update_additional_note(Request $request)
     {
-        // update additional notes by admin which enter by user at order received screen
         $data['user'] = auth()->user();
         $page_name = 'orders_recieved';
         if (!view_permission($page_name)) {
@@ -2470,7 +2451,6 @@ class SystemController extends Controller
 
     public function update_shipping_address(Request $request)
     {
-        // update shipping address by admin if enter wrong by user at order received screen
         $data['user'] = auth()->user();
         $page_name = 'orders_recieved';
         if (!view_permission($page_name)) {
@@ -2522,11 +2502,8 @@ class SystemController extends Controller
         return view('admin.pages.questions.gp_locations', $data);
     }
 
-    //  added new functions for PMed questionssss
-
     public function Add_PMedQuestion(request $request)
     {
-
 
         $user = auth()->user();
         $page_name = 'add_question';
@@ -2537,10 +2514,8 @@ class SystemController extends Controller
         if ($request->has('id')) {
             $data['question'] = PMedGeneralQuestion::findOrFail($request->id)->toArray();
         }
-        // dd($data['question']);
         return view('admin.pages.questions.Create_p_med_question', $data);
     }
-
 
     public function get_PMeddp_questions(Request $request)
     {
@@ -2551,18 +2526,14 @@ class SystemController extends Controller
             ->pluck('title', 'id')
             ->toArray();
         if ($result['dp_qstn']) {
-
-            // dd($result['dp_qstn']);
             return response()->json(['status' => 'success', 'result' => $result]);
         } else {
             return response()->json(['status' => 'empty', 'result' => []]);
         }
     }
 
-
     public function create_PMedQuestion(Request $request)
     {
-
 
         $user = auth()->user();
         $page_name = 'add_question';
@@ -2578,8 +2549,6 @@ class SystemController extends Controller
         }
 
         $data['user'] = auth()->user();
-
-        // dd($request->all());
         $question = PMedGeneralQuestion::updateOrCreate(
             ['id' => $request->id ?? NULL],
             [
@@ -2695,8 +2664,6 @@ class SystemController extends Controller
     public function updateOrder(Request $request)
     {
         $order = $request->input('order');
-        // dd( $order);
-
         foreach ($order as $index => $id) {
             $question = PMedGeneralQuestion::find($id);
             if ($question) {
@@ -2707,13 +2674,12 @@ class SystemController extends Controller
 
         return response()->json(['status' => 'success']);
     }
+
     public function deletePMedQuestion(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|exists:p_med_general_questions,id',
         ]);
-
-        // dd($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -2729,7 +2695,6 @@ class SystemController extends Controller
 
         return redirect()->route('admin.pMedGQ')->with('success', 'Question deleted successfully');
     }
-
 
     public function Add_PrescriptionMedQuestion(Request $request)
     {
@@ -2749,7 +2714,6 @@ class SystemController extends Controller
 
     public function get_PrescriptionMeddp_questions(Request $request)
     {
-
         $result['dp_qstn'] = PrescriptionMedGeneralQuestion::select('id', 'title')
             ->where(['is_dependent' => 'yes', 'status' => 'Active'])
             ->orderBy('id')
@@ -2761,7 +2725,6 @@ class SystemController extends Controller
             return response()->json(['status' => 'empty', 'result' => []]);
         }
     }
-
 
     public function create_PrescriptionMedQuestion(Request $request)
     {
@@ -2887,8 +2850,6 @@ class SystemController extends Controller
     public function updatePrescriptionQuestionOrder(Request $request)
     {
         $order = $request->input('order');
-        // dd( $order);
-
         foreach ($order as $index => $id) {
             $question = PrescriptionMedGeneralQuestion::find($id);
             if ($question) {
@@ -2899,7 +2860,6 @@ class SystemController extends Controller
 
         return response()->json(['status' => 'success']);
     }
-
 
     public function deletePrescriptionMedQuestion(Request $request)
     {

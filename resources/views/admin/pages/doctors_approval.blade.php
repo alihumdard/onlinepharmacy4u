@@ -392,6 +392,8 @@
                                     <th>Marked By </th>
                                     @if($user->role != user_roles('3'))
                                     <th> Shiped Order</th>
+                                    @endif
+                                    @if($user->role == user_roles('1'))
                                     <th> Duplicate Order</th>
                                     @endif
                                 </tr>
@@ -451,11 +453,13 @@
                                         @endif
                                     </td>
                                     @endif
+                                    @if($user->role == user_roles('1'))
                                     <th style="vertical-align: middle; text-align: center;">
                                         <button type="button" data-order-id="{{ $val['id'] }}" class="btn btn-small bg-primary  rounded-pill text-center duplicate-order">
                                             <i class="bi bi-arrow-repeat"></i>
                                         </button>
                                     </th>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>

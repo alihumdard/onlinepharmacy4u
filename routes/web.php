@@ -103,6 +103,7 @@ Route::get('/returns', [HomeController::class, 'returns'])->name('web.returns');
 Route::get('/complaints', [HomeController::class, 'complaints'])->name('web.complaints');
 Route::get('/complaints', [HomeController::class, 'complaints'])->name('web.complaints');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('web.blogs');
+Route::get('/blog-details', [HomeController::class, 'blog_details'])->name('web.blog-details');
 Route::get('/policy', [HomeController::class, 'policy'])->name('web.policy');
 Route::get('/prescribers', [HomeController::class, 'prescribers'])->name('web.prescribers');
 Route::get('/about', [HomeController::class, 'about'])->name('web.about');

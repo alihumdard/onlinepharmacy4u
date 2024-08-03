@@ -158,6 +158,7 @@
                             </div>
                         </div>
                     </td>
+
                     <td style="border: none !important;">
                         <div class="col-6">
                             <div class="ship">
@@ -186,6 +187,7 @@
                                 <th>Image</th>
                                 <th>Product</th>
                                 <th>Quantity</th>
+                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -201,12 +203,17 @@
                                     <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
                                         <small><strong>Product Name:</strong> {{$val['product_name'] ?? $val['product']['title']}}</small></br>
                                         <small><strong>Variant:</strong> {!! $val['variant_details'] ?? '' !!}</small></br>
-                                        <small><strong>SKU:</strong> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</small>
+                                        <small><strong>SKU:</strong> {{$val['variant']['sku'] ?? $val['product']['SKU']}}</small>
                                     </p>
                                 </td>
                                 <td>
                                     <p style=" margin:0 !important; padding:0 !important;">{{$val['product_qty']}}</p>
                                 </td>
+                                @if((isset($user->role) && $user->role == user_roles('1') || $user->role == user_roles('2')))
+                                <td>
+                                    <p style=" margin:0 !important; padding:0 !important;">£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
+                                </td>
+                                @endif
                             </tr>
                             @endforeach
 

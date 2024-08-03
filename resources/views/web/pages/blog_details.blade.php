@@ -1,8 +1,6 @@
 @extends('web.layouts.default')
 @section('title', 'Blogs Details')
 @section('content')
-
-<!-- href="{{ route('web.blog-details') }}" -->
 <!-- BREADCRUMB AREA START -->
 <div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image " data-bs-bg="img/bg/14.jpg">
     <div class="container">
@@ -37,8 +35,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <h2 class="ltn__blog-title">Lorem Ipsum has been the industry's
-                            standard dummy text ever since
+                        <h2 class="ltn__blog-title">What must you do if poor health affects your driving?
                         </h2>
                         <div class="ltn__blog-meta">
                             <ul>
@@ -53,49 +50,44 @@
                                 </li>
                             </ul>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
-                        <img src="img/blog/35.jpg" alt="Image">
-                        <h2>A cleansing hot shower or bath</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia. </p>
+                        <p>An important aspect of modern living, driving provides ease, independence, and autonomy. But being able to drive safely depends on several things, our health is one of the most important. Driving abilities can be severely impacted by poor health, which puts other drivers and the driver themselves in danger.</p>
+                        <p>To ensure safety and responsibility on the road, we will discuss in this blog what actions people should take if their health starts to interfere with their ability to drive.</p>
+                        <img src="img/blog/2.png" alt="Image">
+                        <h2>Understanding the Impact of Poor Health on Driving:</h2>
+                        <p>Health issues can manifest in various forms, each potentially impairing different aspects of driving ability. Physical conditions such as chronic pain, mobility limitations, or deteriorating vision can directly hinder a driver's capability to operate a vehicle safely.<br>Likewise, mental health issues like anxiety, depression, or cognitive decline can impair focus, reaction time, and decision-making while driving. It's crucial to recognize these impacts and take appropriate measures to address them.</p>
                         <hr>
-                        <h2>Setting the mood with incense</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia. </p>
+                        <h2>Recognizing the Signs:</h2>
+                        <p>The first step in addressing health-related driving issues is recognizing the signs of impairment. These may include difficulty concentrating, slower reaction times, increased fatigue, or physical discomfort while driving. Additionally, friends, family members, or healthcare professionals may express concerns about your driving behaviour. It's essential to take these warnings seriously and assess your driving abilities objectively.</p>
                         <hr>
-                        <h2>Setting the mood with incense</h2>
-                        <div class="list-item-with-icon-2">
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</li>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</li>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</li>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</li>
-                                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</li>
-                            </ul>
-                        </div>
-                        <blockquote>
-                            <h6 class="ltn__secondary-color mt-0">BY HETMAYAR</h6>
-                            Viral dreamcatcher keytar typewriter, aest hetic offal umami. Aesthetic polaroid pug pitchfork post-ironic.
-                        </blockquote>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium. </p>
-
-                        <img class="alignleft" src="img/blog/blog-details/1.jpg" alt="Image">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem. </p>
-
-
-                        <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur expedita velit laboriosam est sint laborum eos assumenda, quam voluptatem adipisci, reprehenderit ut nobis blanditiis perspiciatis!</p>
+                        <h2>Consulting Healthcare Professionals:</h2>
+                        <p>If you suspect that poor health is affecting your driving, consulting with healthcare professionals is paramount. Schedule appointments with your primary care physician, specialists relevant to your condition (such as an ophthalmologist for vision problems or a neurologist for cognitive issues), and mental health professionals if necessary.<br>Be open and honest about your concerns regarding driving safety, as they can provide valuable insights, assessments, and recommendations tailored to your specific health needs.</p>
+                        <hr>
+                        <h2>Exploring Treatment Options:</h2>
+                        <p>Depending on the nature of your health issues, various treatment options may be available to improve your driving capabilities. This could range from medical interventions such as medication, physical therapy, or surgical procedures to lifestyle modifications like exercise, diet changes, or stress management techniques. Adhering to prescribed treatments and therapies can not only enhance your overall health but also mitigate the impact of your condition on driving ability.</p>
+                        <hr>
+                        <h2>Adaptive Driving Solutions:</h2>
+                        <p>In cases where health issues significantly impair driving ability, exploring adaptive driving solutions can be beneficial. These solutions encompass a range of modifications and technologies designed to accommodate individuals with physical or cognitive impairments.<br>Examples include hand controls for individuals with limited lower body mobility, pedal extensions, steering wheel modifications, and assistive devices for individuals with visual or cognitive impairments. Occupational therapists specialising in driving rehabilitation can assess your needs and recommend appropriate adaptations.</p>
+                        <hr>
+                        <h2>Regular Monitoring and Self-Assessment:</h2>
+                        <p>Maintaining awareness of your health status and its impact on driving is an ongoing process. Regularly monitor changes in your health condition, medication side effects, or any new symptoms that may affect your driving abilities.<br>Additionally, conduct periodic self-assessments of your driving skills, focusing on areas such as reaction time, situational awareness, and physical comfort while driving. If you notice any deterioration in your driving abilities, take immediate action to address the underlying health issues.</p>
+                        <hr>
+                        <h2>Exploring Alternative Transportation Options:</h2>
+                        <p>In some cases, despite efforts to mitigate health-related driving challenges, it may be necessary to explore alternative transportation options. This could involve utilising public transportation, arranging rides with family or friends, or utilising ride-sharing services. While relinquishing driving independence may initially seem daunting, prioritising safety for yourself and others on the road is paramount.</p>
+                        <hr>
+                        <h2>Having Difficult Conversations:</h2>
+                        <p>Addressing driving concerns due to poor health often involves having difficult conversations with loved ones. Family members may express worries about your safety or raise concerns about your driving abilities.</p>
                         <div class="row">
                             <div class="col-lg-6">
-                                <img src="img/service/31.jpg" alt="Image">
+                                <img src="img/blog/2.png" alt="Image">
                                 <label>Image Caption Here</label>
                             </div>
                             <div class="col-lg-6">
-                                <img src="img/service/32.jpg" alt="Image">
+                                <img src="img/blog/3.png" alt="Image">
                             </div>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, amet, fuga omnis eligendi sed cupiditate molestias enim autem animi est tempore ipsa corporis. Recusandae, quia.</p>
-
+                        <p>Approach these conversations with empathy, understanding, and a willingness to explore alternative solutions together. Emphasise that your primary goal is to ensure safety for yourself and others, and reassure them that you are actively taking steps to address the situation.</p>
+                        <h2>All Summed Up!</h2>
+                        <p>Poor health can pose significant challenges to safe driving, necessitating proactive measures to address the issue. By recognizing the signs of impairment, consulting healthcare professionals, exploring treatment options, considering adaptive driving solutions, and being open to alternative transportation options, individuals can prioritise safety on the road while managing health-related driving challenges. Remember, safety should always be the top priority when it comes to navigating the roadways.</p>
                     </div>
                     <!-- blog-tags-social-media -->
                     <div class="ltn__blog-tags-social-media mt-80 row">
@@ -145,7 +137,7 @@
                                 <!-- Blog Item -->
                                 <div class="ltn__blog-item ltn__blog-item-6">
                                     <div class="ltn__blog-img">
-                                        <a href="blog-details.html"><img src="img/blog/blog-details/11.jpg" alt="Image"></a>
+                                        <a href="blog-details.html"><img src="img/blog/2.png" alt="Image"></a>
                                     </div>
                                     <div class="ltn__blog-brief">
                                         <div class="ltn__blog-meta">
@@ -165,7 +157,7 @@
                                 <!-- Blog Item -->
                                 <div class="ltn__blog-item ltn__blog-item-6">
                                     <div class="ltn__blog-img">
-                                        <a href="blog-details.html"><img src="img/blog/blog-details/12.jpg" alt="Image"></a>
+                                        <a href="blog-details.html"><img src="img/blog/3.png" alt="Image"></a>
                                     </div>
                                     <div class="ltn__blog-brief">
                                         <div class="ltn__blog-meta">
@@ -187,7 +179,7 @@
                     <div class="ltn__comment-area mb-50">
                         <div class="ltn-author-introducing clearfix">
                             <div class="author-img">
-                                <img src="img/blog/author.jpg" alt="Author Image">
+                                <img src="img/blog/3.png" alt="Author Image">
                             </div>
                             <div class="author-info">
                                 <h6>Written by</h6>
@@ -201,7 +193,7 @@
                                 <li>
                                     <div class="ltn__comment-item clearfix">
                                         <div class="ltn__commenter-img">
-                                            <img src="img/testimonial/1.jpg" alt="Image">
+                                            <img src="img/blog/3.png" alt="Image">
                                         </div>
                                         <div class="ltn__commenter-comment">
                                             <h6><a href="#">Adam Smit</a></h6>
@@ -214,7 +206,7 @@
                                         <li>
                                             <div class="ltn__comment-item clearfix">
                                                 <div class="ltn__commenter-img">
-                                                    <img src="img/testimonial/3.jpg" alt="Image">
+                                                    <img src="img/blog/3.png" alt="Image">
                                                 </div>
                                                 <div class="ltn__commenter-comment">
                                                     <h6><a href="#">Adam Smit</a></h6>
@@ -229,7 +221,7 @@
                                 <li>
                                     <div class="ltn__comment-item clearfix">
                                         <div class="ltn__commenter-img">
-                                            <img src="img/testimonial/4.jpg" alt="Image">
+                                            <img src="img/blog/3.png" alt="Image">
                                         </div>
                                         <div class="ltn__commenter-comment">
                                             <h6><a href="#">Adam Smit</a></h6>
@@ -272,7 +264,7 @@
                     <!-- Author Widget -->
                     <div class="widget ltn__author-widget">
                         <div class="ltn__author-widget-inner text-center">
-                            <img src="img/team/4.jpg" alt="Image">
+                            <img src="img/blog/3.png" alt="Image">
                             <h5>Rosalina D. Willaimson</h5>
                             <small>Traveller/Photographer</small>
                             <div class="product-ratting">
@@ -345,7 +337,7 @@
                             <li>
                                 <div class="top-rated-product-item clearfix">
                                     <div class="top-rated-product-img">
-                                        <a href="product-details.html"><img src="img/product/2.png" alt="#"></a>
+                                        <a href="product-details.html"><img src="img/product/1.png" alt="#"></a>
                                     </div>
                                     <div class="top-rated-product-info">
                                         <div class="product-ratting">
@@ -368,7 +360,7 @@
                             <li>
                                 <div class="top-rated-product-item clearfix">
                                     <div class="top-rated-product-img">
-                                        <a href="product-details.html"><img src="img/product/3.png" alt="#"></a>
+                                        <a href="product-details.html"><img src="img/product/1.png" alt="#"></a>
                                     </div>
                                     <div class="top-rated-product-info">
                                         <div class="product-ratting">
@@ -408,7 +400,7 @@
                             <li>
                                 <div class="popular-post-widget-item clearfix">
                                     <div class="popular-post-widget-img">
-                                        <a href="blog-details.html"><img src="img/team/5.jpg" alt="#"></a>
+                                        <a href="blog-details.html"><img src="img/blog/2.png" alt="#"></a>
                                     </div>
                                     <div class="popular-post-widget-brief">
                                         <h6><a href="blog-details.html">Lorem ipsum dolor sit
@@ -426,7 +418,7 @@
                             <li>
                                 <div class="popular-post-widget-item clearfix">
                                     <div class="popular-post-widget-img">
-                                        <a href="blog-details.html"><img src="img/team/6.jpg" alt="#"></a>
+                                        <a href="blog-details.html"><img src="img/blog/2.png" alt="#"></a>
                                     </div>
                                     <div class="popular-post-widget-brief">
                                         <h6><a href="blog-details.html">Lorem ipsum dolor sit
@@ -444,7 +436,7 @@
                             <li>
                                 <div class="popular-post-widget-item clearfix">
                                     <div class="popular-post-widget-img">
-                                        <a href="blog-details.html"><img src="img/team/7.jpg" alt="#"></a>
+                                        <a href="blog-details.html"><img src="img/blog/2.png" alt="#"></a>
                                     </div>
                                     <div class="popular-post-widget-brief">
                                         <h6><a href="blog-details.html">Lorem ipsum dolor sit
@@ -462,7 +454,7 @@
                             <li>
                                 <div class="popular-post-widget-item clearfix">
                                     <div class="popular-post-widget-img">
-                                        <a href="blog-details.html"><img src="img/team/8.jpg" alt="#"></a>
+                                        <a href="blog-details.html"><img src="img/blog/2.png" alt="#"></a>
                                     </div>
                                     <div class="popular-post-widget-brief">
                                         <h6><a href="blog-details.html">Lorem ipsum dolor sit
@@ -593,7 +585,6 @@
                         <h4 class="ltn__widget-title ltn__widget-title-border">Instagram Feeds</h4>
                         <div class="ltn__instafeed ltn__instafeed-grid insta-grid-gutter"></div>
                     </div>
-
                 </aside>
             </div>
         </div>

@@ -372,7 +372,7 @@
 @pushOnce('scripts')
 <script>
     $(document).ready(function() {
-        $(document).on('click', '.variants', function() {
+        function updateVariant() {
             var variantData = @json($variants ?? []);
             var variant_selector = $(this).data('selector');
             $('.' + variant_selector).removeClass('variant_tag_active').addClass('variant_tag');
@@ -408,7 +408,15 @@
             } else {
                 $('#product_cut_price').text('');
             }
-        });
+        }
+
+        $(document).on('click', '.variants', updateVariant);
+
+        // Call the function on page load
+        var activeVariant = $('.variants.variant_tag_active').first();
+        if (activeVariant.length) {
+            updateVariant.call(activeVariant);
+        }
     });
 
     function updateUrlParameter(url, key, value) {

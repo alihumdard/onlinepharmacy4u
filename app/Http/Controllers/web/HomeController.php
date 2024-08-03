@@ -85,6 +85,12 @@ class HomeController extends Controller
         return view('web.pages.blogs');
     }
 
+    
+    public function blog_details(Request $request)
+    {
+        return view('web.pages.blog_details');
+    }
+
     public function contact_us(Request $request)
     {
         return view('web.pages.contact');

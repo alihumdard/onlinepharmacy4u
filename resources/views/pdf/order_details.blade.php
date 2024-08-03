@@ -209,7 +209,7 @@
                                 <td>
                                     <p style=" margin:0 !important; padding:0 !important;">{{$val['product_qty']}}</p>
                                 </td>
-                                @if((isset($user->role) && $user->role == user_roles('1') || $user->role == user_roles('2')))
+                                @if((isset($role) && $role == user_roles('1') || $role == user_roles('2')))
                                 <td>
                                     <p style=" margin:0 !important; padding:0 !important;">£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
                                 </td>

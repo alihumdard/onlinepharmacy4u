@@ -52,6 +52,16 @@
         /* Add padding if needed */
         text-align: left;
     }
+
+    @media (max-width: 768px) {
+    .ltn__product-item {
+        height:75%; 
+        }
+       .remove-margin-mobile {
+            margin-bottom: -50px !important;  
+        }
+    }
+
 </style>
 <!-- SLIDER AREA START (slider-3) -->
 <div class="ltn__slider-area ltn__slider-3 desktop-slider  section-bg-1 ">
@@ -434,7 +444,7 @@
                     <!-- ltn__product-item -->
                     @if($products)
                     @foreach ($products as $key => $val)
-                    <div class="col-lg-3--- col-md-4 col-sm-6 col-6" style="margin-bottom: 50px;">
+                    <div class="col-lg-3--- col-md-4 col-sm-6 col-6 remove-margin-mobile" style="margin-bottom: 50px;">
                         <div class="ltn__product-item ltn__product-item-2 text-left">
                             <div class="product-img">
                                 {{-- <a href="product-details.html">

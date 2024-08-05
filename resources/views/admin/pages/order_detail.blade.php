@@ -424,7 +424,7 @@
                             <input type="hidden" id="comment_for_id" name="comment_for_id" value="{{$order['id']}}">
                             <input type="hidden" id="comment_for" name="comment_for" value="Orders">
                             <div class="form-group px-3 mb-2">
-                                <textarea class="form-control" rows="4" id="comment" name="comment" placeholder="Type your message" required></textarea>
+                                <textarea class="form-control tinymce-editor" rows="4" id="comment" name="comment" placeholder="Type your message" required></textarea>
                             </div>
                             <div class="form-group  mb-4 d-flex flex-row justify-content-end px-3">
                                 <button type="submit" id="btn_comment" class="btn btn-primary bg-primary fw-bold">

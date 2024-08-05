@@ -229,8 +229,8 @@
         var subTotalString = @json(strval(Cart::subTotal())).replace(',', '');
         var subTotal  = parseFloat(subTotalString) || 0;
         var granTotal = parseFloat((shippingCost + subTotal).toFixed(2));
-        $('.shipping_cost').text('£ ' + shippingCost.toFixed(2));
-        $('.order_total').text('£ ' + granTotal.toFixed(2));
+        $('.shipping_cost').text('£'+shippingCost.toFixed(2));
+        $('.order_total').text('£'+granTotal.toFixed(2));
         $('#total_ammount').val(granTotal);
         $('#shiping_cost').val(shippingCost);
     });

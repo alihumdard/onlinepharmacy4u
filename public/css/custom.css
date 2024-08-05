@@ -1030,3 +1030,77 @@ margin-bottom: 20px !important;
     display: flex !important;
     justify-content: center !important;
 } */
+
+/*
+Category links on homepage
+*/
+.category-link{
+    display: flex;
+    justify-content: center; /* Center the list horizontally */
+    align-items: center; /* Center the list vertically if needed */
+}
+ul.custom-list {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 0; /* Remove default padding */
+    justify-content: center; /* Center the list horizontally */
+    align-items: center; /* Center the list vertically */
+}
+ul.custom-list li {
+    position: relative;
+    padding-left: 30px; /* Space for the icon */
+    margin-bottom: 10px; /* Space between list items */
+}
+ul.custom-list li::before {
+    content: "\f058"; /* Font Awesome check-circle icon */
+    font-family: "Font Awesome 5 Free"; /* Use Font Awesome font */
+    font-weight: 900; /* Font Awesome icons require this weight */
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: rgb(4, 163, 184); /* Icon color */
+    font-size: 20px; /* Icon size */
+}
+
+.ltn__banner-img {
+    position: relative; /* Ensure this is applied to all banner images */
+}
+
+.container-icon {
+    position: absolute;
+    bottom: 200px; /* Adjust as needed to position the icon */
+    right: 10px;  /* Adjust as needed to position the icon */
+    background-color: transparent; /* Ensure visibility */
+}
+
+.plus-circle-icon {
+    width: 42px; /* Make sure the size is consistent */
+    height: 42px;
+    fill: #007bff; /* Blue color for the icon */
+    position: absolute; /* Absolutely position the icon */
+    bottom: 0; /* Adjust as needed to align properly */
+    right: 0;  /* Adjust as needed to align properly */
+    background-color: white; /* Optional, but might help with visibility */
+    border-radius: 50%; /* Rounded icon for aesthetic */
+    transition: fill 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+}
+
+.plus-circle-icon:hover {
+    fill: #00a8b4; /* Darker blue on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+
+
+/*
+Customer Review on Home page
+*/
+
+.user-content p{
+    margin-top:5px;
+    font-size:12px;
+}
+
+
+.ratings i{
+    color:blue;
+}

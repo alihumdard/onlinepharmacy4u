@@ -128,7 +128,7 @@
                             <div class="col-md-6">
                                 <div class="form-check">
                                     <div class="custom-control" style="display: flex; align-items:center;">
-                                        <input class="form-check-input" type="radio" name="shipping_method" id="fast_delivery" value="fast" data-ship="3.95" required checked>
+                                        <input class="form-check-input" type="radio" name="shipping_method" id="fast_delivery" value="fast" data-ship="3.95" required >
                                         <label class="form-check-label" for="fast_delivery"><img src="{{ url('img/48-hours.jpg') }}" alt="" style="max-width:140px !important; margin-left:10px;"></label>
                                     </div>
                                     <span class="float-right">Royal Mail Tracked 48</span>
@@ -139,7 +139,7 @@
                             <div class="col-md-6">
                                 <div class="form-check">
                                     <div class="custom-control" style="display: flex; align-items:center;">
-                                        <input class="form-check-input" type="radio" name="shipping_method" id="express_delivery" value="express" data-ship="4.95" required>
+                                        <input class="form-check-input" type="radio" name="shipping_method" id="express_delivery" value="express" data-ship="4.95" required checked>
                                         <label class="form-check-label" for="express_delivery"><img src="{{ url('img/24-hours.jpg') }}" alt="" style="max-width:140px !important; margin-left:10px;"></label>
                                     </div>
                                     <span class="float-right">Royal Mail Tracked 24</span>
@@ -161,18 +161,18 @@
                                 <tr>
                                     <td>{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!} <strong>×
                                             {{ $item->qty }}</strong></td>
-                                    <td>£{{ $item->subtotal }}</td>
+                                    <td>£{{number_format($item->subtotal, 2)}}</td>
                                 </tr>
                                 @endforeach
                                 @endif
                                 <tr>
                                     <td>Shipping and Handing</td>
-                                    <td class="shipping_cost" data-shipping="4.95">£4.95</td>
+                                    <td class="shipping_cost" data-shipping="3.95">£3.95</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Order Total</strong></td>
                                     <td class="order_total">
-                                        <strong>£{{str_replace(',', '', Cart::subTotal()) + 3.95}}</strong>
+                                        <strong>£{{number_format(str_replace(',', '', Cart::subTotal()) + 3.95, 2)}}</strong>
                                     </td>
                                 </tr>
                             </tbody>

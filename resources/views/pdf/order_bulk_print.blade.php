@@ -206,7 +206,7 @@
                                         <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
                                             <small><strong>Product Name:</strong> {{$val['product_name'] ?? $val['product']['title']}}</small></br>
                                             <small><strong>Variant:</strong> {!! $val['variant_details'] ?? '' !!}</small></br>
-                                            <small><strong>SKU:</strong> {{$val['variant']['barcode'] ?? $val['product']['barcode']}}</small>
+                                            <small><strong>SKU:</strong> {{$val['variant']['sku'] ?? $val['product']['SKU']}}</small>
                                         </p>
                                     </td>
                                     <td>

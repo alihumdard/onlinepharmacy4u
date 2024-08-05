@@ -392,6 +392,8 @@
                                     <th>Marked By </th>
                                     @if($user->role != user_roles('3'))
                                     <th> Shiped Order</th>
+                                    @endif
+                                    @if($user->role == user_roles('1'))
                                     <th> Duplicate Order</th>
                                     @endif
                                 </tr>
@@ -451,11 +453,13 @@
                                         @endif
                                     </td>
                                     @endif
+                                    @if($user->role == user_roles('1'))
                                     <th style="vertical-align: middle; text-align: center;">
                                         <button type="button" data-order-id="{{ $val['id'] }}" class="btn btn-small bg-primary  rounded-pill text-center duplicate-order">
                                             <i class="bi bi-arrow-repeat"></i>
                                         </button>
                                     </th>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -471,6 +475,7 @@
 <!-- End #main -->
 <form id="bulk_print" action="{{route('pdf.bulkPrint')}}" method="post">
     <input type="hidden" name="order_ids" value="" required>
+    <input type="hidden" name="role" value="{{ $user->role ?? ''}}" required>
     <input type="hidden" name="view_name" value="order_bulk_print" required>
 </form>
 <form id="form_shiping_now" action="{{route('admin.createShippingOrder')}}" method="POST">

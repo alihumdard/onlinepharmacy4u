@@ -62,6 +62,7 @@ Route::get('/clinic', [HomeController::class, 'clinic'])->name('web.clinic');
 Route::match(['get', 'post'], '/payment', [WebController::class, 'payment'])->name('payment');
 Route::match(['get', 'post'], '/Completed-order', [WebController::class, 'completed_order']);
 Route::match(['get', 'post'], '/thankYou', [WebController::class, 'thank_you'])->name('thankYou');
+Route::match(['get', 'post'], '/successfullyRefunded', [WebController::class, 'successfully_refunded'])->name('admin.successfullyRefunded');
 Route::match(['get', 'post'], '/transetionFail', [WebController::class, 'transetion_fail'])->name('transetionFail');
 Route::match(['get', 'post'], '/Unsuccessful-order', [WebController::class, 'unsuccessful_order']);
 
@@ -102,6 +103,7 @@ Route::get('/returns', [HomeController::class, 'returns'])->name('web.returns');
 Route::get('/complaints', [HomeController::class, 'complaints'])->name('web.complaints');
 Route::get('/complaints', [HomeController::class, 'complaints'])->name('web.complaints');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('web.blogs');
+Route::get('/blog-details', [HomeController::class, 'blog_details'])->name('web.blog-details');
 Route::get('/policy', [HomeController::class, 'policy'])->name('web.policy');
 Route::get('/prescribers', [HomeController::class, 'prescribers'])->name('web.prescribers');
 Route::get('/about', [HomeController::class, 'about'])->name('web.about');

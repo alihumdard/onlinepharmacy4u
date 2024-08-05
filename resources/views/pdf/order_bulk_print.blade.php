@@ -134,25 +134,25 @@
                 <table id="tbl_shiping">
                     <tr>
                         <td style="border: none !important;">
-                        <div class="col-6">
-                            <div class="ship">
-                                <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
-                                    <strong>Store</strong></br>
-                                    <small> <span style="font-weight: 500;" >Pharmacy4u</span> </small></br>
-                                    <small><span style="font-weight: 500;" >Address: </span> Unit 2, Mansfield Station Gateway, Signal Way,</small></br>
-                                    <small><span style="font-weight: 500;" >City: </span> Nottingham ,</small></br>
-                                    <small><span style="font-weight: 500;" >Postal Code: </span>  NG19 9QH, </small></br>
-                                    <small><span style="font-weight: 500;" >Phone: </span> 01623 572757 </small></br>
-                                </p>
+                            <div class="col-6">
+                                <div class="ship">
+                                    <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
+                                        <strong>Store</strong></br>
+                                        <small> <span style="font-weight: 500;">Pharmacy4u</span> </small></br>
+                                        <small><span style="font-weight: 500;">Address: </span> Unit 2, Mansfield Station Gateway, Signal Way,</small></br>
+                                        <small><span style="font-weight: 500;">City: </span> Nottingham ,</small></br>
+                                        <small><span style="font-weight: 500;">Postal Code: </span> NG19 9QH, </small></br>
+                                        <small><span style="font-weight: 500;">Phone: </span> 01623 572757 </small></br>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </td>
+                        </td>
                         <td style="border: none !important;">
                             <div class="col-6">
                                 <div class="ship">
                                     <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
                                         <strong>Ship to</strong></br>
-                                        <small> <span style="font-weight: 500;">Costumer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
+                                        <small> <span style="font-weight: 500;">Customer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
                                         <small> <span style="font-weight: 500;">Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
                                         <small><span style="font-weight: 500;">Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
                                         <small><span style="font-weight: 500;">City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
@@ -167,7 +167,7 @@
                                 <div class="ship">
                                     <p style=" margin:0 !important; padding:0 !important; text-align:left; ">
                                         <strong>Bill to</strong></br>
-                                        <small> <span style="font-weight: 500;">Costumer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
+                                        <small> <span style="font-weight: 500;">Customer Name: </span> {{$order['shipingdetails']['firstName'].' '.$order['shipingdetails']['lastName'] ?? ''}}</small></br>
                                         <small> <span style="font-weight: 500;">Home Name/No: </span> {{$order['shipingdetails']['address2'] ?? ''}}</small></br>
                                         <small><span style="font-weight: 500;">Address: </span> {{$order['shipingdetails']['address'] ?? ''}}</small></br>
                                         <small><span style="font-weight: 500;">City: </span> {{$order['shipingdetails']['city'] ?? ''}}</small></br>
@@ -190,6 +190,7 @@
                                     <th>Image</th>
                                     <th>Product</th>
                                     <th>Quantity</th>
+                                    <th>Price</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -211,6 +212,11 @@
                                     <td>
                                         <p style=" margin:0 !important; padding:0 !important;">{{$val['product_qty']}}</p>
                                     </td>
+                                    @if((isset($role) && $role == user_roles('1') || $role == user_roles('2')))
+                                    <td>
+                                        <p style=" margin:0 !important; padding:0 !important;">£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
+                                    </td>
+                                    @endif
                                 </tr>
                                 @endforeach
 

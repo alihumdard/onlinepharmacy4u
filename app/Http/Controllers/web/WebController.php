@@ -569,12 +569,12 @@ class WebController extends Controller
 
     public function show_categories(Request $request, $category = null, $sub_category = null, $child_category = null)
     {
-        // use with route collections
+        // Use with route collections
         $level = '';
         $category_id = $sub_category_id = $child_category_id = null;
         if ($category && $sub_category && $child_category) {
             $level = 'child';
-            $child_category_id = ChildCategory::where(['slug' => $child_category, 'status' => 'Active'])->where('status', 'Active')->first();
+            $child_category_id = ChildCategory::where(['slug' => $child_category, 'status' => 'Active'])->first();
         } else if ($category && $sub_category && !$child_category) {
             $level = 'sub';
             $sub_category_id = SubCategory::where(['slug' => $sub_category, 'status' => 'Active'])->first();
@@ -585,6 +585,12 @@ class WebController extends Controller
 
         if ($category_id || $sub_category_id || $child_category_id) {
             $query = Product::query()->where('status', $this->status['Active']);
+    
+            $data = [
+                'title' => 'Default Title',
+                'description' => 'Default Description',
+            ];
+    
             switch ($level) {
                 case 'main':
                     $data['main_category'] = Category::where(['slug' => $category, 'status' => 'Active'])->first();
@@ -593,7 +599,6 @@ class WebController extends Controller
                     $data['category_name'] = $data['main_category']['name'];
                     $data['category_desc'] = $data['main_category']['desc'];
                     $data['main_slug'] = $data['main_category']['slug'];
-                    // $data['products'] = Product::where(['category_id' => $data['main_category']->id])->paginate(21);
                     $query->where(['category_id' => $data['main_category']->id]);
                     $data['is_product'] = false;
                     break;
@@ -606,7 +611,6 @@ class WebController extends Controller
                     $data['category_desc'] = $data['sub_category']['desc'];
                     $data['main_slug'] = $data['main_category']['slug'];
                     $data['sub_slug'] = $data['sub_category']['slug'];
-                    // $data['products'] = Product::where(['sub_category' => $data['sub_category']->id])->paginate(21);
                     $query->where(['sub_category' => $data['sub_category']->id]);
                     $data['is_product'] = true;
                     break;
@@ -617,7 +621,27 @@ class WebController extends Controller
                 default:
                     $products = Product::where('status', $this->status['Active'])->paginate(21);
             }
-
+    
+            if ($category === 'general-health') {
+                $data['title'] = 'General Health Products: Boost Wellness & Vitality';
+                $data['description'] = 'Discover a variety of general health products to support your well-being. Find vitamins, supplements, and more to enhance your overall health. Shop now!';
+            } elseif ($category === 'chronic-conditions') {
+                $data['title'] = 'Manage Chronic Conditions: Essential Products & Remedies';
+                $data['description'] = 'Find trusted products for managing chronic conditions. Explore our range of treatments and remedies tailored to your needs. Shop now for better health!';
+            } elseif ($category === 'pharmacy-shop') {
+                $data['title'] = 'Pharmacy Shop: Essential Medications & Supplies';
+                $data['description'] = 'Browse our pharmacy shop for essential medicines and health supplies. From over-the-counter remedies to prescription essentials, find what you need here!';
+            } elseif ($category === 'sexual-health') {
+                $data['title'] = 'Sexual Health: Products & Advice for Well-being';
+                $data['description'] = 'Find a range of sexual health products and expert advice. Enhance your well-being with our trusted solutions and resources. Shop now for better health!';
+            } elseif ($category === 'online-clinic') {
+                $data['title'] = 'Online Clinic: Consult Experts & Get Health Advice';
+                $data['description'] = 'Access professional health consultations online. Connect with experts, get advice, and manage your health conveniently from home. Explore our online clinic!';
+            } elseif ($category === 'health-test-kits') {
+                $data['title'] = 'Health Test Kits: Easy & Accurate Home Testing Solutions';
+                $data['description'] = 'Explore our range of health test kits for quick and reliable results. Monitor your health from home with our easy-to-use testing solutions. Shop now!';
+            }
+    
             if ($request->has('sort')) {
                 if ($request->sort === 'price_low_high') {
                     $query->orderBy('price');

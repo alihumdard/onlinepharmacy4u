@@ -1,6 +1,7 @@
 @extends('web.layouts.default')
 @section('title', 'Help')
 @section('content')
+    <meta name="How Can We Help? Support & Assistance at Your Service" content="Get the help you need with our online pharmacy support. Explore our resources for assistance, FAQs, and customer service to address your concerns.">
 
     
 <div class="ltn__utilize-overlay"></div>

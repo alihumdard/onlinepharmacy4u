@@ -25,7 +25,7 @@
     <!-- BREADCRUMB AREA END -->
 
     <!-- ABOUT US AREA START -->
-    <div class="ltn__about-us-area pt-25--- pb-120 ">
+    <div class="ltn__about-us-area pt-25--- pb-25 ">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 align-self-center">
@@ -60,7 +60,7 @@
     <!-- ABOUT US AREA END -->
 
     <!-- ABOUT US AREA for basic consultation START -->
-<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-115 pb-110" >
+<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-10 pb-10" >
     <div class="container">
         <div class="row">
             
@@ -92,7 +92,7 @@
 <!-- ABOUT US AREA END for basic consultation -->
 
 <!-- ABOUT US AREA product consultation START -->
-<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-90 pb-110" >
+<div class="ltn__about-us-area bg-overlay-white-90--- bg-image pt-60 pb-110" >
     <div class="container">
         <div class="row">
             <div class="col-lg-6 align-self-center">

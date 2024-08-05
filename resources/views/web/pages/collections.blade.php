@@ -28,7 +28,7 @@
 
             <div class="col-md-6">
                 <div class="erectile-content">
-                    <h2>{{ $category_name}}</h2>
+                    <h1>{{ $category_name}}</h1>
                     <p class="{{($category_desc == '') ? 'my-5' : 'mb-2' }}">{{$category_desc ?? ''}}</p>
                     <a href="#products_list" class="btn btn-outline-danger view-btn">View Treatments </a>
                 </div>

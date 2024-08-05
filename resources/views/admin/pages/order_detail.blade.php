@@ -84,6 +84,7 @@
             <form id="create_pdf_from" action="{{route('pdf.creator')}}" method="post">
                 <input type="hidden" name="content" value="{{json_encode($order)}}" required>
                 <input type="hidden" name="view_name" value="order_details" required>
+                <input type="hidden" name="role" value="{{ $user->role ?? ''}}" required>
             </form>
             <h1 class="w-100">
                 <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-primary-outline fw-bold "><i class="bi bi-arrow-left"></i> Back</a> |
@@ -244,7 +245,7 @@
                                                 <p class="text-muted mb-0 small"><b>SKU: </b> {{$val['variant']['SKU'] ?? $val['product']['SKU']}}</p>
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                @if((isset($user->role) && $user->role == user_roles('1')))
+                                                @if((isset($user->role) && $user->role == user_roles('1') || $user->role == user_roles('2')))
                                                 <p class="text-muted mb-0 small"><b>Price: </b>£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
                                                 @endif
                                             </div>
@@ -310,7 +311,7 @@
                                 </div>
                                 @endif
 
-                                @if((isset($user->role) && $user->role == user_roles('1')))
+                                @if((isset($user->role) && $user->role == user_roles('1') || $user->role == user_roles('2')))
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0">Subtotal: </p>
                                     <p class="text-muted mb-0">£ {{$order['total_ammount'] - $order['shiping_cost']}}</p>

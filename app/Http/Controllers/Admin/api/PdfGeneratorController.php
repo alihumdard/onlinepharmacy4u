@@ -7,24 +7,29 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendGpaLetter;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class PdfGeneratorController extends Controller
 {
+    public function __construct()
+    {
+
+    }
+
     public function index(Request $request)
     {
+
         $data = $request->all();
         $data['order'] = json_decode($data['content'], true);
         $order = Order::findOrFail($data['order']['id']);
         $order->print = 'Printed';
         $update = $order->save();
-
-        // dd( $order);
         $file_name = $data['order']['id'] . '_order_details_' . $data['order']['shipingdetails']['firstName'] . '.pdf';
         $view_name = 'pdf.' . $data['view_name'];
         unset($data['content']);
         unset($data['view_name']);
-        // dd($data);
+
         // return view($view_name,$data);
         $pdf = PDF::loadView($view_name, $data);
         $pdf->setPaper('a4', 'portrait');
@@ -93,9 +98,11 @@ class PdfGeneratorController extends Controller
             return redirect()->back()->with('error', 'Order ID is required.');
         }
     }
+
     public function order_bulk_print(Request $request)
     {
         if ($request->order_ids) {
+            $data['role'] = $request->role ?? '';
             $orderIds = explode(',', $request->order_ids);
             $orders = Order::with('user', 'shipingdetails', 'orderdetails', 'orderdetails.product')
                 ->whereIn('id', $orderIds)

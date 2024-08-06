@@ -246,7 +246,7 @@
                                             </div>
                                             <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                                                 @if((isset($user->role) && $user->role == user_roles('1') || $user->role == user_roles('2')))
-                                                <p class="text-muted mb-0 small"><b>Price: </b>£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
+                                                <p class="text-muted mb-0 small"><b>Price: </b>£{{number_format((float)str_replace(',', '', $val['product_price'] ?? $val['product']['price']), 2)}}</p>
                                                 @endif
                                             </div>
                                         </div>

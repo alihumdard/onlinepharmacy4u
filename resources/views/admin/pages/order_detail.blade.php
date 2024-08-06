@@ -314,20 +314,20 @@
                                 @if((isset($user->role) && $user->role == user_roles('1') || $user->role == user_roles('2')))
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0">Subtotal: </p>
-                                    <p class="text-muted mb-0">£ {{$order['total_ammount'] - $order['shiping_cost']}}</p>
+                                    <p class="text-muted mb-0"> £{{number_format(str_replace(',', '', $order['total_ammount'] - $order['shiping_cost'], 2))}}</p>
                                 </div>
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold  mb-0">Shipping Charges: </p>
-                                    <p class="text-muted mb-0"> £ {{$order['shiping_cost']}}</p>
+                                    <p class="text-muted mb-0"> £{{number_format(str_replace(',', '', $order['shiping_cost'], 2))}}</p>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between">
                                     <p class="fw-bold  mb-0">Total: </p>
-                                    <p class="text-muted mb-0">£ {{$order['total_ammount']}}</p>
+                                    <p class="text-muted mb-0">£{{number_format(str_replace(',', '', $order['total_ammount'], 2))}}</p>
                                 </div>
                                 <div class="card-footer border-0 px-4 ">
                                     <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-                                        paid: <span class="h2 mb-0 ms-2">£ {{$order['total_ammount']}}</span></h5>
+                                        paid: <span class="h2 mb-0 ms-2">£{{number_format(str_replace(',', '', $order['total_ammount'], 2))}}</span></h5>
                                 </div>
                                 @endif
                                 @if($order['status'] != 'Shipped')

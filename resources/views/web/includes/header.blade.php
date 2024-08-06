@@ -132,16 +132,27 @@
             }
 
             .navbar {
-                /* background-color: #333; */
                 overflow: hidden;
-                border: 1px solid #b8acac;
                 max-width: 90%;
                 margin: 0 auto;
-                border-radius: 50px;
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-end; /* Aligns items to the right */
                 padding: 0 !important;
+                white-space: nowrap; /* Prevents text wrapping */
+                align-items: center; /* Vertically centers items within the navbar */
+                flex-wrap: nowrap; /* Prevents items from wrapping to the next line */
+                border: 1px solid; /* You can specify the border color and width as needed */
+                border-radius: 50px; /* Applies a 50% border radius */
             }
+
+            .navbar > * {
+                flex: 0 1 auto; /* Prevents flex items from growing or shrinking */
+                overflow: hidden; /* Ensures any overflow is hidden */
+                text-overflow: ellipsis; /* Adds ellipsis if text overflows */
+                white-space: nowrap; /* Prevents text wrapping for individual items */
+            }
+
+
 
             .search-container {
                 position: relative;
@@ -175,7 +186,7 @@
             .navbar a {
                 float: left;
                 display: block;
-                color: gray;
+                color: black;
                 text-align: center;
                 padding: 14px 20px;
                 text-decoration: none;
@@ -420,19 +431,20 @@
 body {
     overflow-x: hidden;
 }
+
         </style>
 
         <!-- MOBILE MENU START -->
         <div class="mobile-res-secton" style="background: #b2e0eb !important; padding: 10px;">
             <div class="mobile-bav-here">
                 <div class="navbar" id="myNavbar">
-                    <a href="#" class="active">Home</a>
-                    <a href="#" class="mobile">About</a>
-                    <a href="#" class="mobile">Services</a>
-                    <a href="#" class="mobile">Contact</a>
-                    <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
-                        <i class="fa fa-bars"></i>
-                    </a>
+                <a href="javascript:void(0);" class="icon" onclick="toggleMenu()"
+                style="position: absolute; left: 0; margin-left: 10px !important;">
+                    <i class="fa fa-bars"></i>
+                </a>
+
+                    <a style="background: none !important; padding-left: 25px !important;" href="/work" class="poppins-thin"><strong>How it work's</strong></a>
+                    <a style="background: none !important;" href="/help" class="poppins-thin"><strong>Help</strong></a>
                 </div>
             </div>
 

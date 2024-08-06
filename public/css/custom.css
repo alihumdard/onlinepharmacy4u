@@ -1034,32 +1034,36 @@ margin-bottom: 20px !important;
 /*
 Category links on homepage
 */
-.category-link{
+.category-link {
     display: flex;
     justify-content: center; /* Center the list horizontally */
     align-items: center; /* Center the list vertically if needed */
 }
+
 ul.custom-list {
     list-style-type: none; /* Remove default bullets */
     padding-left: 0; /* Remove default padding */
-    justify-content: center; /* Center the list horizontally */
-    align-items: center; /* Center the list vertically */
 }
+
 ul.custom-list li {
     position: relative;
+    display: flex; /* Ensure icon and text are in a row */
+    align-items: center; /* Align icon and text vertically */
     padding-left: 30px; /* Space for the icon */
-    margin-bottom: 10px; /* Space between list items */
+    margin-bottom: 0px; /* Space between list items */
 }
+
 ul.custom-list li::before {
     content: "\f058"; /* Font Awesome check-circle icon */
     font-family: "Font Awesome 5 Free"; /* Use Font Awesome font */
     font-weight: 900; /* Font Awesome icons require this weight */
     position: absolute;
     left: 0;
-    top: 0;
     color: rgb(4, 163, 184); /* Icon color */
     font-size: 20px; /* Icon size */
+    padding-bottom: 3px; /* Adjust space below the icon */
 }
+
 
 .ltn__banner-img {
     position: relative; /* Ensure this is applied to all banner images */

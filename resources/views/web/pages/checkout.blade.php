@@ -139,7 +139,7 @@
                             <div class="col-md-6">
                                 <div class="form-check">
                                     <div class="custom-control" style="display: flex; align-items:center;">
-                                        <input class="form-check-input" type="radio" name="shipping_method" id="express_delivery" value="express" data-ship="4.95" required >
+                                        <input class="form-check-input" type="radio" name="shipping_method" id="express_delivery" value="express" data-ship="4.95" required>
                                         <label class="form-check-label" for="express_delivery"><img src="{{ url('img/24-hours.jpg') }}" alt="" style="max-width:140px !important; margin-left:10px;"></label>
                                     </div>
                                     <span class="float-right">Royal Mail Tracked 24</span>
@@ -225,14 +225,16 @@
 </script>
 <script>
     $('input[name="shipping_method"]').change(function() {
-        var shippingCost = parseFloat($('input[name="shipping_method"]:checked').data('ship')) || 0;
-        var subTotal = parseFloat(@json(strval(Cart::subTotal())).replace(',', '')) || 0;
-        var granTotal = (shippingCost + subTotal).toFixed(2);
-        $('.shipping_cost').text('£ ' + shippingCost.toFixed(2));
-        $('.order_total').text('£ ' + granTotal.toFixed(2));
-        $('#total_ammount').val(granTotal.toFixed(2));
-        $('#shiping_cost').val(shippingCost.toFixed(2));
+        var shippingCost   = parseFloat($('input[name="shipping_method"]:checked').data('ship')) || 0;
+        var subTotalString = @json(strval(Cart::subTotal())).replace(',', '');
+        var subTotal  = parseFloat(subTotalString) || 0;
+        var granTotal = parseFloat((shippingCost + subTotal).toFixed(2));
+        $('.shipping_cost').text('£'+shippingCost.toFixed(2));
+        $('.order_total').text('£'+granTotal.toFixed(2));
+        $('#total_ammount').val(granTotal);
+        $('#shiping_cost').val(shippingCost);
     });
+
     $(document).ready(function() {
 
         $('#fast_delivery').prop('checked', true);

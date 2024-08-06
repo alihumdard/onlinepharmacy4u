@@ -314,7 +314,7 @@
                                 @if((isset($user->role) && $user->role == user_roles('1') || $user->role == user_roles('2')))
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold mb-0">Subtotal: </p>
-                                    <p class="text-muted mb-0"> £{{number_format(str_replace(',', '', $order['total_ammount'] - $order['shiping_cost'], 2))}}</p>
+                                    <p class="text-muted mb-0"> £{{ number_format(str_replace(',', '', $order['total_ammount']) - str_replace(',', '', $order['shiping_cost']), 2) }}</p>
                                 </div>
                                 <div class="d-flex justify-content-between pt-2">
                                     <p class="fw-bold  mb-0">Shipping Charges: </p>

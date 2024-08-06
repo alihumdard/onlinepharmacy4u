@@ -163,6 +163,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "pageLength": 50,
             "columnDefs": [{
                 "targets": [0, 5, 6, 7],
                 "searchable": false

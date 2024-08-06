@@ -544,6 +544,7 @@
                 "searching": true,
                 "ordering": true,
                 "info": true,
+                "pageLength": 50,
                 "buttons": [{
                         extend: 'pdf',
                         text: 'Download PDF ',

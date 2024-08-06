@@ -102,7 +102,7 @@
                                 <td>{{ isset($val['user']['dob']) ? date('M d, Y', strtotime($val['user']['dob'])) : '' }}</td>
                                 <td>{{$val['user']['address'] ?? ''}}</td>
                                 @if($user->role == user_roles('1'))
-                                <td>£{{ number_format((float)str_replace(',', '', $order['total_ammount']), 2) }}</td>
+                                <td>£{{ number_format((float)str_replace(',', '', $val['total_ammount']), 2) }}</td>
                                 @endif
                                 <td>
                                     <button class="btn btn-primary rounded-pill">Donwload File</button>

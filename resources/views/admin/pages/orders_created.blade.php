@@ -444,7 +444,7 @@
 
                                             </td>
                                             @if ($user->role == user_roles('1'))
-                                                <td>£{{ $val['total_ammount'] ?? '' }}</td>
+                                                <td>£{{ number_format((float)str_replace(',', '', $order['total_ammount']), 2) }}</td>
                                             @endif
                                             <td>
 

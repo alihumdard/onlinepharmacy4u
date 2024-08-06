@@ -211,7 +211,7 @@
                                 </td>
                                 @if((isset($role) && $role == user_roles('1') || $role == user_roles('2')))
                                 <td>
-                                    <p style=" margin:0 !important; padding:0 !important;">£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
+                                    <p style=" margin:0 !important; padding:0 !important;">£{{number_format((float)str_replace(',', '', $val['product_price'] ?? $val['product']['price']), 2)}}</p>
                                 </td>
                                 @endif
                             </tr>

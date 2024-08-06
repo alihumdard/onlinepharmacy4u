@@ -161,18 +161,18 @@
                                 <tr>
                                     <td>{!! $item->name !!} {!! $item->options->variant_info ? $item->options->variant_info->new_var_info : '' !!} <strong>×
                                             {{ $item->qty }}</strong></td>
-                                    <td>£{{ $item->subtotal }}</td>
+                                    <td>£{{number_format($item->subtotal, 2)}}</td>
                                 </tr>
                                 @endforeach
                                 @endif
                                 <tr>
                                     <td>Shipping and Handing</td>
-                                    <td class="shipping_cost" data-shipping="4.95">£4.95</td>
+                                    <td class="shipping_cost" data-shipping="3.95">£3.95</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Order Total</strong></td>
                                     <td class="order_total">
-                                        <strong>£{{str_replace(',', '', Cart::subTotal()) + 3.95}}</strong>
+                                        <strong>£{{number_format(str_replace(',', '', Cart::subTotal()) + 3.95, 2)}}</strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -225,17 +225,19 @@
 </script>
 <script>
     $('input[name="shipping_method"]').change(function() {
-        var shippingCost = parseFloat($('input[name="shipping_method"]:checked').data('ship')) || 0;
-        var subTotal = parseFloat(@json(strval(Cart::subTotal())).replace(',', '')) || 0;
-        var granTotal = (shippingCost + subTotal).toFixed(2);
-        $('.shipping_cost').text('£ ' + shippingCost.toFixed(2));
-        $('.order_total').text('£ ' + granTotal.toFixed(2));
-        $('#total_ammount').val(granTotal.toFixed(2));
-        $('#shiping_cost').val(shippingCost.toFixed(2));
+        var shippingCost   = parseFloat($('input[name="shipping_method"]:checked').data('ship')) || 0;
+        var subTotalString = @json(strval(Cart::subTotal())).replace(',', '');
+        var subTotal  = parseFloat(subTotalString) || 0;
+        var granTotal = parseFloat((shippingCost + subTotal).toFixed(2));
+        $('.shipping_cost').text('£'+shippingCost.toFixed(2));
+        $('.order_total').text('£'+granTotal.toFixed(2));
+        $('#total_ammount').val(granTotal);
+        $('#shiping_cost').val(shippingCost);
     });
+
     $(document).ready(function() {
 
-        $('#express_delivery').prop('checked', true);
+        $('#fast_delivery').prop('checked', true);
 
         function validateForm() {
             var isValid = true;

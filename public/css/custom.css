@@ -1098,13 +1098,50 @@ ul.custom-list li::before {
 /*
 Customer Review on Home page
 */
-
 .user-content p{
     margin-top:5px;
     font-size:12px;
 }
 
-
 .ratings i{
     color:blue;
+}
+
+.container-customer {
+    overflow: hidden;
+}
+
+.slider-customer {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider-inner {
+    display: flex;
+    animation: slide 15s infinite;
+}
+
+.card-customer {
+    min-width: 100%;
+    transition: transform 0.5s ease;
+}
+
+@media (min-width: 768px) {
+    .card-customer {
+        min-width: 33.3333%;
+    }
+}
+
+
+/*
+Blog section bottom padding 
+*/
+.ltn__blog-area {
+    padding-bottom: 0px; /* Adjust this value as needed */
+}
+
+.ltn__blog-slider-one-active {
+    padding-bottom: 0px; /* Adjust this value as needed */
 }

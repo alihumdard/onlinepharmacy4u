@@ -840,67 +840,86 @@
 <!-- BLOG AREA END -->
 
 <!-- CUSTOMERS REVIEW AREA START -->
-<div class="container mt-5 mb-5">
-    
-    <div class="row g-2">
-        <div class="col-md-4">
-            <div class="card p-3 text-center px-4">                
-                <div class="user-image">                    
-            <img src="img/blog/2.png" class="rounded-circle" width="80">                    
-                </div>                
-                <div class="user-content">                    
+<div class="container-customer mt-5 mb-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="section-title-area ltn__section-title-2--- text-center">
+                <h2 class="section-title">Best Seller</h2>
+            </div>
+        </div>
+    </div>
+    <div class="slider-customer">
+        <div class="slider-inner">
+            <div class="card-customer p-3 text-center px-4">
+                <div class="user-image">
+                    <img src="img/blog/2.png" class="rounded-circle" width="80">
+                </div>
+                <div class="user-content">
                     <h5 class="mb-0">Bruce Hardy</h5>
                     <span>Customer</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>                    
-                </div>                
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
                 <div class="ratings">
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>                    
-                </div>                
+                    <i class="fa fa-star"></i>
+                </div>
             </div>
-        </div>        
-        <div class="col-md-4">            
-            <div class="card p-3 text-center px-4">               
-                <div class="user-image">                   
-            <img src="img/blog/2.png" class="rounded-circle" width="80">                    
-                </div>                
-                <div class="user-content">                    
+            <div class="card-customer p-3 text-center px-4">
+                <div class="user-image">
+                    <img src="img/blog/2.png" class="rounded-circle" width="80">
+                </div>
+                <div class="user-content">
                     <h5 class="mb-0">Mark Smith</h5>
                     <span>Customer</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>                    
-                </div>                
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
                 <div class="ratings">
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>                    
-                </div>               
-            </div>            
-        </div>        
-        <div class="col-md-4">            
-            <div class="card p-3 text-center px-4">               
-                <div class="user-image">                    
-            <img src="img/blog/2.png" class="rounded-circle" width="80">                    
-                </div>               
-                <div class="user-content">                  
-                    <h5 class="mb-0">Veera  Duncan</h5>
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+            <div class="card-customer p-3 text-center px-4">
+                <div class="user-image">
+                    <img src="img/blog/2.png" class="rounded-circle" width="80">
+                </div>
+                <div class="user-content">
+                    <h5 class="mb-0">Veera Duncan</h5>
                     <span>Customer</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>                 
-                </div>           
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
                 <div class="ratings">
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>                
-                </div>            
-            </div>         
-        </div>            
-    </div>  
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+            <div class="card-customer p-3 text-center px-4">
+                <div class="user-image">
+                    <img src="img/blog/2.png" class="rounded-circle" width="80">
+                </div>
+                <div class="user-content">
+                    <h5 class="mb-0">Veera Duncan</h5>
+                    <span>Customer</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="ratings">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- CUSTOMERS REVIEW AREA END -->
+
 
 <!-- BRAND LOGO AREA START -->
 <div class="container-fluid p-0 m-0 home-page-last-section">

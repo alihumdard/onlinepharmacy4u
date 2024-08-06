@@ -145,6 +145,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "pageLength": 50,
         });
     });
 </script>

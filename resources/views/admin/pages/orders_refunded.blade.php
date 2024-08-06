@@ -416,7 +416,7 @@
                                     </td>
                                     <td>{{ $val['shipingdetails']['firstName'] .' '. $val['shipingdetails']['lastName']  ?? $val['user']['name']  }}</td>
                                     @if($user->role == user_roles('1'))
-                                    <td>£{{$val['total_ammount'] ?? ''}}</td>
+                                    <td>£{{ number_format((float)str_replace(',', '', $val['total_ammount']), 2) }}</td>
                                     @endif
                                     <td><span class="btn  fw-bold rounded-pill {{ ($val['order_type'] == 'premd') ? 'btn-primary': (($val['order_type'] == 'pmd') ? 'btn-warning' : 'btn-success') }}">{{ ($val['order_type'] == 'premd') ? 'POM': (($val['order_type'] == 'pmd') ? 'P.Med' : 'O.T.C') }}</span> </td>
                                     <td><span class="btn  fw-bold btn-primary rounded-pill">{{$val['status'] ?? ''}}</span> </td>
@@ -451,6 +451,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "pageLength": 50,
             "buttons": [{
                     extend: 'pdf',
                     text: 'Download PDF ',

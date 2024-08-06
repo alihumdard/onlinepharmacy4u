@@ -214,12 +214,27 @@
                                     </td>
                                     @if((isset($role) && $role == user_roles('1') || $role == user_roles('2')))
                                     <td>
-                                        <p style=" margin:0 !important; padding:0 !important;">£ {{$val['product_price'] ?? $val['product']['price'] }}</p>
+                                        <p style=" margin:0 !important; padding:0 !important;">£{{number_format((float)str_replace(',', '', $val['product_price'] ?? $val['product']['price']), 2)}}</p>
                                     </td>
                                     @endif
                                 </tr>
                                 @endforeach
-
+                                @if((isset($role) && $role == user_roles('1') || $role == user_roles('2')))
+                                <tr>
+                                    <td>
+                                    <p style=" margin:0 !important; padding:0 !important; text-align:left; "> <strong>Shipping Charges:</strong></p>
+                                    </td>
+                                    <td>
+                                    <p style=" margin:0 !important; padding:0 !important; text-align:left; ">£{{ number_format((float)str_replace(',', '', $order['shiping_cost']), 2) }}</p>
+                                    </td>
+                                    <td>
+                                    <p style=" margin:0 !important; padding:0 !important; text-align:left; "> <strong>Total Amount:</strong></p>
+                                    </td>
+                                    <td>
+                                        <p style=" margin:0 !important; padding:0 !important;">£{{ number_format((float)str_replace(',', '', $order['total_ammount']), 2) }}</p>
+                                    </td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>

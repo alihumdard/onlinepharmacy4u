@@ -323,6 +323,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "pageLength": 50,
             "pageLength": 100,
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             "buttons": [{

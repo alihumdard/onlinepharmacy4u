@@ -135,6 +135,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "pageLength": 50,
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             "buttons": [{
                     extend: 'pdf',

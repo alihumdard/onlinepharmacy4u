@@ -2265,7 +2265,7 @@ class SystemController extends Controller
             ];
         }
 
-        $order_ref = '#00' . $order['id'];
+        $order_ref = $order['id'];
         $payload = [
             "items" => [
                 [

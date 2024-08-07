@@ -2255,7 +2255,7 @@ class SystemController extends Controller
                 "quantity" => $val['product_qty'],
                 "unitValue" => $val['product_price'],
                 "unitWeightInGrams" => floatval($val['weight']),
-                "customsDescription" => 'it is medical product.',
+                "customsDescription" => 'it is a medical product.',
                 "extendedCustomsDescription" => "",
                 "customsCode" => null,
                 "originCountryCode" => "GB",
@@ -2287,9 +2287,9 @@ class SystemController extends Controller
                         "addressBookReference" => null
                     ],
                     "sender" => [
-                        "tradingName" => null,
-                        "phoneNumber" => Null,
-                        "emailAddress" => Null
+                        "tradingName" => 'onlinepharmacy-4u',
+                        "phoneNumber" => '01623572757',
+                        "emailAddress" => 'info@online-pharmacy4u.co.uk'
                     ],
                     "billing" => [
                         "address" => [
@@ -2329,18 +2329,18 @@ class SystemController extends Controller
                     "total" => $order['total_ammount'],
                     "currencyCode" => "GBP",
                     "postageDetails" => [
-                        "sendNotificationsTo" => "recipient",
+                        "sendNotificationsTo" => "sender",
                         "consequentialLoss" => 0,
-                        "receiveEmailNotification" => false,
+                        "receiveEmailNotification" => true,
                         "receiveSmsNotification" => false,
                         "guaranteedSaturdayDelivery" => null,
-                        "requestSignatureUponDelivery" => null,
+                        "requestSignatureUponDelivery" => true,
                         "isLocalCollect" => null,
                         "safePlace" => null,
                         "department" => null,
                         "AIRNumber" => null,
                         "IOSSNumber" => null,
-                        "requiresExportLicense" => null,
+                        "requiresExportLicense" => true,
                         "commercialInvoiceNumber" => null,
                         "commercialInvoiceDate" => null
                     ],

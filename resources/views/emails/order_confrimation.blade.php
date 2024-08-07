@@ -4,12 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confimations</title>
+    <title>Order Confirmations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
         .container {
             width: 90%;
-            margin: auto;
+            margin: 40px auto;
             max-width: 1100px;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 10px;
         }
 
         .main-content {
@@ -19,56 +32,92 @@
 
         .order {
             float: right;
+            font-weight: bold;
+            color: #666;
         }
 
         .button-container {
             display: flex;
             align-items: center;
-            margin: 30px 0;
+            justify-content: center;
+            margin: 40px 0;
         }
 
         table {
-            font-family: arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             border-collapse: collapse;
             width: 100%;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        td,
-        th {
+        th, td {
             border: none;
-            border-bottom: 1px solid #dddddd !important;
+            border-bottom: 1px solid #e0e0e0;
             text-align: left;
-            padding: 8px;
+            padding: 12px 15px;
         }
 
         td ul {
-            padding-left: 0px !important;
+            padding-left: 0;
         }
 
         td ul li {
             list-style: none;
         }
 
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
         .button-container .button {
-            padding: 16px;
+            padding: 14px 28px;
             background-color: #2D90D5;
             color: #ffffff;
             border: none;
-            font-size: 20px;
+            border-radius: 15px;
+            font-size: 18px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .button-container .button:hover {
+            background-color: #1a5f8a;
+            transform: translateY(-2px);
         }
 
         .button-container span {
             margin: 0 20px;
+            color: #666;
         }
 
         .button-container a {
-            color: #000 !important;
-            font-size: 20px;
+            color: #2D90D5;
+            font-size: 18px;
             cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .button-container a:hover {
+            color: #1a2232;
         }
 
         .your-order {
             margin-top: 60px;
+            text-align: center;
+        }
+
+        .your-order h2 {
+            color: #2D90D5;
+        }
+
+        .your-order p {
+            color: #555;
         }
 
         @media (max-width: 500px) {
@@ -89,7 +138,7 @@
                 align-items: center;
             }
 
-            .button-container button {
+            .button-container .button {
                 font-size: 16px;
                 padding: 10px;
                 margin-bottom: 10px;
@@ -122,17 +171,17 @@
 <body>
     <div class="container">
         <div class="main-content">
-            <h2>{{ $order->shipingdetails->firstName }}</h2>
-            <p class="order">Order #{{$order->id }}</p>
+        <h2>Dear {{ $order->shipingdetails->firstName ?? ''}}</h2>
+        <p class="order">Order #{{$order->id ?? '' }}</p>
 
             <div class="your-order">
-                <h2>Your order placed successfully</h2>
-                <p>Great news, your order is currently being reviewed by our prescribing team we’ll send you tracking notifications once it’s been approved dispensed & shipped!</p>
+                <h2>Your order has been successfully placed!</h2>
+                <p>Great news, your order is currently being reviewed by our dispensary & prescribing team. We’ll send you tracking notifications once it’s been approved, dispensed & shipped!</p>
                 <div class="button-container">
-                    <a href="{{url('/admin')}}" style="text-decoration: none;" class="button">Visit your order</a><span>or</span>
-                    <a href="{{url('/')}}" style="text-decoration: none;">Visit our store</a>
+                    <a href="{{url('/admin')}}" class="button">Visit your order</a>
+                    <span style="font-size: 20px; padding-top: 13px;">or</span>
+                    <a style="padding-top: 15px;" href="{{url('/')}}">Visit our store</a>
                 </div>
-                <!-- <p>Royal mail tracking number <strong>QPOOYYDHB90</strong></p> -->
             </div>
 
             <h2 style="margin-top: 40px;">Items in this shipment</h2>

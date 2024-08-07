@@ -137,6 +137,9 @@ Route::get('/dashboard/details', [DefualtController::class, 'dashboard_details']
 Route::match(['get', 'post'], '/storeHumanForm', [WebController::class, 'store_human_form'])->name('storeHumanForm');
 Route::match(['get', 'post'],'/humanRequestForm', [HomeController::class, 'human_request_form'])->name('web.humanRequestForm');
 
+Route::get('/email-template',function(){
+return view('emails.order_confrimation');
+});
 
 Route::fallback([WebController::class, 'error_404']);
 include __DIR__ . '/admin.php';

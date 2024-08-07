@@ -597,7 +597,21 @@
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
                         <a href="{{url('collections/online-clinic/mens-health') }}"><img src="img/banner/Men_s_Health_400x.webp" alt="Banner Image"></a>
+                        <div class="container-icon">
+                            <a href="collections/online-clinic/mens-health">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill plus-circle-icon" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                                </svg>
+                            </a>
+                        </div>
                         <h4 class="text-center mt-3">Men Health</h4>
+                        <div class="category-link">
+                        <ul class="custom-list">
+                            <li><a href="category/online-clinic/mens-health/erectile-dysfunction">Erectile Dysfunction</a></li>
+                            <li><a href="category/online-clinic/mens-health/premature-ejaculation">Premature Ejaculation</a></li>
+                            <li><a href="category/online-clinic/mens-health/thrush">Thrush</a></li>
+                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -605,7 +619,21 @@
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
                         <a href="{{url('collections/online-clinic/womens-health') }}"><img src="img/banner/Women_s_Health_400x.webp" alt="Banner Image"></a>
+                        <div class="container-icon">
+                            <a href="collections/online-clinic/womens-health">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill plus-circle-icon" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                                </svg>
+                            </a>
+                        </div>
                         <h4 class="text-center  mt-3">Women Health</h4>
+                        <div class="category-link">
+                    <ul class="custom-list">
+                        <li><a href="category/online-clinic/womens-health/period-delay">Period Delay</a></li>
+                        <li><a href="category/online-clinic/womens-health/cystitis-treatments">Cystitis</a></li>
+                        <li><a href="category/online-clinic/womens-health/period-pain">Period Pain</a></li>
+                    </ul>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -613,7 +641,21 @@
                 <div class="ltn__banner-item">
                     <div class="ltn__banner-img">
                         <a href="{{url('collections/general-health') }}"><img src="img/banner/General_Health_400x.webp" alt="Banner Image"></a>
+                        <div class="container-icon">
+                            <a href="collections/general-health">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill plus-circle-icon" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                                </svg>
+                            </a>
+                        </div>
                         <h4 class="text-center mt-3">General Health</h4>
+                        <div class="category-link">
+                    <ul class="custom-list">
+                        <li><a href="collections/general-health/acid-reflux-heartburn">Acid Reflux</a></li>
+                        <li><a href="collections/general-health/skincare">Skincare</a></li>
+                        <li><a href="collections/general-health/diarrhoea-constipation">Constipation</a></li>
+                    </ul>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -625,7 +667,7 @@
 
 
 <!-- BLOG AREA START (blog-3) -->
-<div class="ltn__blog-area pt-115 pb-45">
+<div class="ltn__blog-area pt-45 pb-45">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -796,6 +838,88 @@
     </div>
 </div>
 <!-- BLOG AREA END -->
+
+<!-- CUSTOMERS REVIEW AREA START -->
+<div class="container-customer mt-5 mb-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="section-title-area ltn__section-title-2--- text-center">
+                <h2 class="section-title">Best Seller</h2>
+            </div>
+        </div>
+    </div>
+    <div class="slider-customer">
+        <div class="slider-inner">
+            <div class="card-customer p-3 text-center px-4">
+                <div class="user-image">
+                    <img src="img/blog/2.png" class="rounded-circle" width="80">
+                </div>
+                <div class="user-content">
+                    <h5 class="mb-0">Bruce Hardy</h5>
+                    <span>Customer</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="ratings">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+            <div class="card-customer p-3 text-center px-4">
+                <div class="user-image">
+                    <img src="img/blog/2.png" class="rounded-circle" width="80">
+                </div>
+                <div class="user-content">
+                    <h5 class="mb-0">Mark Smith</h5>
+                    <span>Customer</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="ratings">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+            <div class="card-customer p-3 text-center px-4">
+                <div class="user-image">
+                    <img src="img/blog/2.png" class="rounded-circle" width="80">
+                </div>
+                <div class="user-content">
+                    <h5 class="mb-0">Veera Duncan</h5>
+                    <span>Customer</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="ratings">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+            <div class="card-customer p-3 text-center px-4">
+                <div class="user-image">
+                    <img src="img/blog/2.png" class="rounded-circle" width="80">
+                </div>
+                <div class="user-content">
+                    <h5 class="mb-0">Veera Duncan</h5>
+                    <span>Customer</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="ratings">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CUSTOMERS REVIEW AREA END -->
+
 
 <!-- BRAND LOGO AREA START -->
 <div class="container-fluid p-0 m-0 home-page-last-section">

@@ -1030,3 +1030,118 @@ margin-bottom: 20px !important;
     display: flex !important;
     justify-content: center !important;
 } */
+
+/*
+Category links on homepage
+*/
+.category-link {
+    display: flex;
+    justify-content: center; /* Center the list horizontally */
+    align-items: center; /* Center the list vertically if needed */
+}
+
+ul.custom-list {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 0; /* Remove default padding */
+}
+
+ul.custom-list li {
+    position: relative;
+    display: flex; /* Ensure icon and text are in a row */
+    align-items: center; /* Align icon and text vertically */
+    padding-left: 30px; /* Space for the icon */
+    margin-bottom: 0px; /* Space between list items */
+}
+
+ul.custom-list li::before {
+    content: "\f058"; /* Font Awesome check-circle icon */
+    font-family: "Font Awesome 5 Free"; /* Use Font Awesome font */
+    font-weight: 900; /* Font Awesome icons require this weight */
+    position: absolute;
+    left: 0;
+    color: rgb(4, 163, 184); /* Icon color */
+    font-size: 20px; /* Icon size */
+    padding-bottom: 3px; /* Adjust space below the icon */
+}
+
+
+.ltn__banner-img {
+    position: relative; /* Ensure this is applied to all banner images */
+}
+
+.container-icon {
+    position: absolute;
+    bottom: 200px; /* Adjust as needed to position the icon */
+    right: 10px;  /* Adjust as needed to position the icon */
+    background-color: transparent; /* Ensure visibility */
+}
+
+.plus-circle-icon {
+    width: 42px; /* Make sure the size is consistent */
+    height: 42px;
+    fill: #007bff; /* Blue color for the icon */
+    position: absolute; /* Absolutely position the icon */
+    bottom: 0; /* Adjust as needed to align properly */
+    right: 0;  /* Adjust as needed to align properly */
+    background-color: white; /* Optional, but might help with visibility */
+    border-radius: 50%; /* Rounded icon for aesthetic */
+    transition: fill 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+}
+
+.plus-circle-icon:hover {
+    fill: #00a8b4; /* Darker blue on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+
+
+/*
+Customer Review on Home page
+*/
+.user-content p{
+    margin-top:5px;
+    font-size:12px;
+}
+
+.ratings i{
+    color:blue;
+}
+
+.container-customer {
+    overflow: hidden;
+}
+
+.slider-customer {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider-inner {
+    display: flex;
+    animation: slide 15s infinite;
+}
+
+.card-customer {
+    min-width: 100%;
+    transition: transform 0.5s ease;
+}
+
+@media (min-width: 768px) {
+    .card-customer {
+        min-width: 33.3333%;
+    }
+}
+
+
+/*
+Blog section bottom padding 
+*/
+.ltn__blog-area {
+    padding-bottom: 0px; /* Adjust this value as needed */
+}
+
+.ltn__blog-slider-one-active {
+    padding-bottom: 0px; /* Adjust this value as needed */
+}

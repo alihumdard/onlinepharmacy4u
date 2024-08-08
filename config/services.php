@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'superpayment' => [
+        'api_key' => env('SUPERPAYMENT_API_KEY'),
+        'base_url' => env('SUPERPAYMENT_BASE_URL'),
+        'brand_id' => env('BRAND_ID'),
+    ],
+
 ];

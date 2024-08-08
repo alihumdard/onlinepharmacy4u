@@ -59,7 +59,7 @@ Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
 Route::get('/contact', [HomeController::class, 'contact_us'])->name('web.contact');
 Route::get('/clinic', [HomeController::class, 'clinic'])->name('web.clinic');
 
-Route::match(['get', 'post'], '/payment', [WebController::class, 'payment'])->name('payment');
+Route::match(['get', 'post'], '/payment', [WebController::class, 'payments'])->name('payments');
 Route::match(['get', 'post'], '/Completed-order', [WebController::class, 'completed_order']);
 Route::match(['get', 'post'], '/thankYou', [WebController::class, 'thank_you'])->name('thankYou');
 Route::match(['get', 'post'], '/successfullyRefunded', [WebController::class, 'successfully_refunded'])->name('admin.successfullyRefunded');
@@ -136,6 +136,7 @@ Route::match(['get', 'post'], '/changePassword', [DefualtController::class, 'cha
 Route::get('/dashboard/details', [DefualtController::class, 'dashboard_details'])->name('dashboard.details');
 Route::match(['get', 'post'], '/storeHumanForm', [WebController::class, 'store_human_form'])->name('storeHumanForm');
 Route::match(['get', 'post'],'/humanRequestForm', [HomeController::class, 'human_request_form'])->name('web.humanRequestForm');
+Route::match(['get', 'post'], '/payment', [WebController::class, 'payment'])->name('payment');
 
 Route::get('/email-template',function(){
 return view('emails.order_confrimation');
